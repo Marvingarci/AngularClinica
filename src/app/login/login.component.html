@@ -1,0 +1,25 @@
+
+  
+<div id="intro" class="view">
+        <div class="full-bg-img">
+        
+          <div id="formstyle">
+              <div>
+                  <div class="form-group">
+                    <label class="label">Número de Cuenta</label>
+                    <p><input [(ngModel)]="usuario.cuentaUsuario" type="number" class="form-control" id="cuenta"  placeholder="ingrese su numero de cuenta"></p>
+                     </div>
+                  <div class="form-group">
+        
+                    <label class="label">Contraseña</label>
+                    <p><input  [(ngModel)]="usuario.contrasenia" type="password" class="form-control" id="name" placeholder="ingrese su contraseña"></p>
+                  </div>
+                  <div class="form-group form-check">
+                   
+                  </div>
+                  <button (click)="saveLogin()" class="btn btn-primary">guardar</button>
+                </div>
+        </div>
+        
+        </div>
+          </div>
