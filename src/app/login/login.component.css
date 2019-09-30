@@ -1,0 +1,37 @@
+html,
+body,
+header,
+#intro{
+height: 650px;
+width:1350px;
+margin:0px 0px 0px 0px;
+}
+
+#intro{
+    background: url('https://i.pinimg.com/originals/61/cc/b4/61ccb4842c843263bfbb13e3b77bfdab.jpg')no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#formstyle{
+
+    background-color: #3354FF  ;
+    position: absolute;
+    /*nos posicionamos en el centro del navegador*/
+    top:50%;
+    left:50%;
+    /*determinamos una anchura*/
+    width:200px;
+    /*indicamos que el margen izquierdo, es la mitad de la anchura*/
+    margin-left:-200px;
+    /*determinamos una altura*/
+    height:300px;
+    /*indicamos que el margen superior, es la mitad de la altura*/
+    margin-top:-150px;
+    border:1px solid #FFCD33 ;
+    padding:10px;
+    text-align: center;
+  color: aliceblue;
+}
