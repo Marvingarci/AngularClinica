@@ -9,14 +9,15 @@ import { RouterModule, Route} from '@angular/router';
 import { LoginComponent } from './login/login.component';
 
 const routes: Route[] = [
-  {path: '/formulario', component: FormularioComponent},
   {path: '', component: LoginComponent},
+  {path: 'formulario', component: FormularioComponent},
+]; 
 
-]
 @NgModule({
   declarations: [
     AppComponent,
     FormularioComponent,
+    LoginComponent
     
   ],
   imports: [
