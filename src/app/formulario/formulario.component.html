@@ -1,519 +1,414 @@
 <form>
-    <div class="wrapper fadeInDown">
-      <div id="formContent">
-        <div class="container">
-         <h2>Datos Generales</h2>   
-          <div class="row">
-            <div class="col">
-              <input type="text" class="form-control" id="apellido1" placeholder="PRIMER APELLIDO">
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <div class="container">
+        <h2>Datos Generales</h2>   
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" name="apellido1" id="apellido1" placeholder="PRIMER APELLIDO">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="apellido2" id="apellido2" placeholder="SEGUNDO APELLIDO">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="apellido3" id="nombre" placeholder="NOMBRE(S)">
+          </div>
+        </div>
+                  
+        <br/>
+                  
+        <div class="row">
+          <div class="col">
+            <input type="number" class="form-control" name="cuenta" id="cuenta" placeholder="N° CUENTA">
+          </div>
+          <div class="col">
+            <input type="number" class="form-control" name="identidad" id="identidad" placeholder="N° IDENTIDAD">
+          </div>
+        </div>
+                  
+        <br/>
+                  
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" name="lugar" id="lugar" placeholder="LUGAR DE PROCEDENCIA">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="carrera" id="carrera" placeholder="CARRERA">
+          </div>
+        </div>
+                  
+        <br/>
+                  
+        <div class="row">
+          <div class="col">
+            <input type="date" min="1920-01-01" class="form-control" name="nacimiento" id="nacimiento" placeholder="FECHA DE NACIMIENTOS">
+          </div>
+          <div class="col"> 
+            <p>SEXO:</p> 
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rdbHombre" id="rdbHombre" value="option1" checked>Hombre             
             </div>
-            <div class="col">
-              <input type="text" class="form-control" id="apellido2" placeholder="SEGUNDO APELLIDO">
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" id="nombre" placeholder="NOMBRE(S)">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rdbMujer" id="rdbMujer" value="option2">Mujer
             </div>
           </div>
-                  
-          <br/>
-                  
-          <div class="row">
-            <div class="col">
-              <input type="number" class="form-control" id="cuenta" placeholder="N° CUENTA">
+          <div class="col"> 
+            <p>ESTADO CIVIL:</p> 
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rdbSoltero" id="rdbSoltero" value="option1" checked>Soltero
             </div>
-            <div class="col">
-              <input type="number" class="form-control" id="identidad" placeholder="N° IDENTIDAD">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rdbUnion" id="rdbUnion" value="option2">Union Libre
             </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rdbCasado" id="rdbCasado" value="option2">Casado
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rdbDivorciado" id="rdbDivorciado" value="option2">Divorciado
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="rdbViudo" id="rdbViudo" value="option2">Viudo
+            </div>  
           </div>
+        </div>
                   
-          <br/>
-                  
-          <div class="row">
-            <div class="col">
-              <input type="text" class="form-control" id="lugar" placeholder="LUGAR DE PROCEDENCIA">
-            </div>
-            <div class="col">
-              <input type="text" class="form-control" id="carrera" placeholder="CARRERA">
-            </div>
+        <br/>
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" name="telefono" id="telefono" placeholder="N° TELEFONO">
           </div>
-                  
-          <br/>
-                  
-          <div class="row">
-            <div class="col">
-              <input type="date" min="1920-01-01" class="form-control" id="nacimiento" placeholder="FECHA DE NACIMIENTOS">
-            </div>
-            <div class="col"> 
-              <p>SEXO:</p> 
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="rdbHombre" value="option1" checked>Hombre             
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="rdbMujer" value="option2">Mujer
-              </div>
-                  </div>
-                  <div class="col"> 
-                      <p>ESRADO CIVIL:</p> 
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="soltero" value="option1" checked>Soltero
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="union" value="option2">Union Libre
-                      </div>
-                      <div class="form-check">
-                          <input class="form-check-input" type="radio" name="exampleRadios" id="casado" value="option2">Casado
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="divorciado" value="option2">Divorciado
-                          </div>
-                          <div class="form-check">
-                              <input class="form-check-input" type="radio" name="exampleRadios" id="viudo" value="option2">Viudo
-                            </div>  
-                    </div>
-                </div>
-                  
-                  <br/>
-                <div class="row">
-                  <div class="col">
-                    <input type="text" class="form-control" id="telefono" placeholder="N° TELEFONO">
-                  </div>
-                  <div class="col">
-                    <input type="text" class="form-control" id="llamar" placeholder="EN CASO DE EMERGENCIA LLAMAR A:">
-                  </div>
-                </div>     
+          <div class="col">
+            <input type="text" class="form-control" name="llamar" id="llamar" placeholder="EN CASO DE EMERGENCIA LLAMAR A:">
+          </div>
+        </div>     
+      </div> 
+    </div>
+  </div>
+  
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <div class="container">
+        <h2>Antecedente familiares:</h2>
+        <div class="form-group">
+          <label>1.Diabetes</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="diabetes1" id="diabetes1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="diabetes2" id="diabetes2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="diabetes3" id="diabetes3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label>2.T.B Plumonar</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pulmonar1" id="pulmonar1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pulmonar2" id="pulmonar2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="pulmonar3" id="pulmonar3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">3.Desnutricion</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="desnutri1" id="desnutri1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="desnutri2" id="desnutri2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="desnutri3" id="desnutri3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label>4.Enf.Mentales</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="mentales1" id="mentales1" value="option2">si  
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="mentales2" id="mentales2" value="option2">No        
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="mentales3" id="mentales3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label>5.Convulsiones</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="convulsiones1" id="convulsiones1" value="option2">Si            
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="convulsiones2" id="convulsiones2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="convulsiones3" id="convulsiones3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
         </div> 
+        <div class="form-group">
+          <label>6.Alcoholismo o sustancias psicoactiva</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="sustancia1" id="sustancia1" value="option2">Si                  
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="sustancia2" id="sustancia2" value="option2">No                 
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="sustancia3" id="sustancia3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label>7.Alergias</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="alergia1" id="alergia1" value="option2">Si                 
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="alergia2" id="alergia2" value="option2">No                       
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="alergia3" id="alergia3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">8.Cancer</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="cancer1" id="cancer1" value="option2">Si                    
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="cancer2" id="cancer2" value="option2">No                          
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="cancer3" id="cancer3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">9.Otros</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ot1" id="ot1" value="option2">Si                         
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="ot2" id="ot2" value="option2">No                            
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="ot3" id="ot3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+
+      </div>
+    </div>   
+  </div>
+  
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <div class="container">
+        <h2>Antecedente Personales:</h2>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">1.Diabetes</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pDiabete1" id="pDiabete1" value="option2">Si           
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pDiabete2" id="pDiabete2" value="option2">No           
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="pDiabete3" id="pDiabete3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">2.T.B Plumonar</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pPulmona1" id="pPulmona1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pPulmona2" id="pPulmona2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="pPulmona3" id="pPulmona3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">3.ITS</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="its1" id="its1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="its2" id="its2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="its3" id="its3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">4.Desnutricion</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pDesnutri1" id="pDesnutri1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pDesnutri2" id="pDesnutri2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="pDesnutri3" id="pDesnutri3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">5.Enf.Mentales</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pMentale1" id="pMentale1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pMentale2" id="pMentale2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="pMentale3" id="pMentale3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div> 
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">6.Convulsiones</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pConvul1" id="pConvul1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pConvul2" id="pConvul2" value="option2">NO
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="pConvul3" id="pConvul3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">7.Alergias</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pAlergi1" id="pAlergi1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pAlergi2" id="pAlergi2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name=pAlergi3 id="pAlergi3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">8.Cancer</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pCancer1" id="pCancer1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pCancer2" id="pCancer2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="pCancer3" id="pCancer3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">9.Hospitalarias y Quirurgicas</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pHospital1" id="pHospital1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pHospital2" id="pHospital2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="pHospital3" id="pHospital3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div> 
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">10.Traumaticos</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pTraumati1" id="pTraumati1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pTraumati2" id="pTraumati2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="pTraumati3" id="pTraumati3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div> 
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">11.Otros</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pOtro1" id="pOtro1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="pOtro2" id="pOtro2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="pOtro3" id="pOtro3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+        </div>                                                         
       </div>
     </div>
+  </div>
   
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-            <div class="container">
-                <h2>Antecedente familiares:</h2>
-                <div class="form-group">
-                    <label>1.Diabetes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="diabetes1" value="option2">Si
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="exampleRadios" id="diabetes2" value="option2">No
-                    </div>
-                  <div class="form-group">
-                      <textarea class="form-control" id="diabetes3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                  </div>
-                  <div class="form-group">
-                      <label>2.T.B Plumonar</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="exampleRadios" id="pulmonar1" value="option2">Si
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="pulmonar2" value="option2">No
-                      </div>
-                    <div class="form-group">
-                        <textarea class="form-control" id="pulmonar3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">3.Desnutricion</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="desnutri1" value="option2">Si
-                      </div>
-                      <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="exampleRadios" id="diabetes2" value="option2">No
-                        </div>
-                      <div class="form-group">
-                          <textarea class="form-control" id="desnutri3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                      </div>
-                      <div class="form-group">
-                          <label>4.Enf.Mentales</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="exampleRadios" id="mentales1" value="option2">si
-                        
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="mentales2" value="option2">No
-                            
-                          </div>
-                        <div class="form-group">
-                            <textarea class="form-control" id="mentales3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>5.Convulsiones</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="convulsiones1" value="option2">Si
-                            
-                          </div>
-                          <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="exampleRadios" id="convulsiones2" value="option2">No
-                            </div>
-                          <div class="form-group">
-                              <textarea class="form-control" id="convulsiones3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                          </div> 
-                          <div class="form-group">
-                              <label>6.Alcoholismo o sustancias psicoactiva</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="exampleRadios" id="sustancia1" value="option2">Si
-                              
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="sustancia2" value="option2">No
-                                
-                              </div>
-                            <div class="form-group">
-                                <textarea class="form-control" id="sustancia3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>7.Alergias</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="alergia1" value="option2">Si
-                           
-                              </div>
-                              <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="exampleRadios" id="alergia2" value="option2">No
-                                  
-                                </div>
-                              <div class="form-group">
-                                  <textarea class="form-control" id="alergia3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                              </div>
-                              <div class="form-group">
-                                  <label for="exampleFormControlTextarea1">8.Cancer</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="exampleRadios" id="cancer1" value="option2">Si
-                                  
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="cancer2" value="option2">No
-                                    
-                                  </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" id="cancer3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlTextarea1">9.Otros</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="ot1" value="option2">Si
-                                    
-                                  </div>
-                                  <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="ot2" value="option2">No
-                                      
-                                    </div>
-                                  <div class="form-group">
-                                      <textarea class="form-control" id="ot3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                                  </div>                                                       
-            </div>
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <div class="container">
+        <h2>Habitos Toxicologicos Personales:</h2>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">1.Alcohol</label>
         </div>
-       
-    </div>
-  
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-            <div class="container">
-                <h2>Antecedente Personales:</h2>
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">1.Diabetes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="pDiabete1" value="option2">Si
-                    
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="exampleRadios" id="pDiabete2" value="option2">No
-                      
-                    </div>
-                  <div class="form-group">
-                      <textarea class="form-control" id="pDiabete3" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                  </div>
-                  <div class="form-group">
-                      <label for="exampleFormControlTextarea1">2.T.B Plumonar</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                      <label class="form-check-label" for="exampleRadios2">
-                      SI
-                      </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                        <label class="form-check-label" for="exampleRadios2">
-                        NO
-                        </label>
-                      </div>
-                    <div class="form-group">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">3.ITS</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                        <label class="form-check-label" for="exampleRadios2">
-                        SI
-                        </label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                          <label class="form-check-label" for="exampleRadios2">
-                          NO
-                          </label>
-                        </div>
-                      <div class="form-group">
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                      </div>
-                      <div class="form-group">
-                          <label for="exampleFormControlTextarea1">4.Desnutricion</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                          <label class="form-check-label" for="exampleRadios2">
-                          SI
-                          </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                            <label class="form-check-label" for="exampleRadios2">
-                            NO
-                            </label>
-                          </div>
-                        <div class="form-group">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">5.Enf.Mentales</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                            <label class="form-check-label" for="exampleRadios2">
-                            SI
-                            </label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                              <label class="form-check-label" for="exampleRadios2">
-                              NO
-                              </label>
-                            </div>
-                          <div class="form-group">
-                              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                          </div> 
-                          <div class="form-group">
-                              <label for="exampleFormControlTextarea1">6.Convulsiones</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                              <label class="form-check-label" for="exampleRadios2">
-                              SI
-                              </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                <label class="form-check-label" for="exampleRadios2">
-                                NO
-                                </label>
-                              </div>
-                            <div class="form-group">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">7.Alergias</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                <label class="form-check-label" for="exampleRadios2">
-                                SI
-                                </label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                  <label class="form-check-label" for="exampleRadios2">
-                                  NO
-                                  </label>
-                                </div>
-                              <div class="form-group">
-                                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                              </div>
-                              <div class="form-group">
-                                  <label for="exampleFormControlTextarea1">8.Cancer</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                  <label class="form-check-label" for="exampleRadios2">
-                                  SI
-                                  </label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                    <label class="form-check-label" for="exampleRadios2">
-                                    NO
-                                    </label>
-                                  </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlTextarea1">9.Hospitalarias y Quirurgicas</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                    <label class="form-check-label" for="exampleRadios2">
-                                    SI
-                                    </label>
-                                  </div>
-                                  <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                      <label class="form-check-label" for="exampleRadios2">
-                                      NO
-                                      </label>
-                                    </div>
-                                  <div class="form-group">
-                                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                                  </div> 
-                                  <div class="form-group">
-                                      <label for="exampleFormControlTextarea1">9.Traumaticos</label>
-                                  </div>
-                                  <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                      <label class="form-check-label" for="exampleRadios2">
-                                      SI
-                                      </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        <label class="form-check-label" for="exampleRadios2">
-                                        NO
-                                        </label>
-                                      </div>
-                                    <div class="form-group">
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                                    </div> 
-                                    <div class="form-group">
-                                        <label for="exampleFormControlTextarea1">9.Otros</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                        <label class="form-check-label" for="exampleRadios2">
-                                        SI
-                                        </label>
-                                      </div>
-                                      <div class="form-check form-check-inline">
-                                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                                          <label class="form-check-label" for="exampleRadios2">
-                                          NO
-                                          </label>
-                                        </div>
-                                      <div class="form-group">
-                                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-                                      </div>                                                         
-            </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="hAlcohol1" id="hAlcohol1" value="option2">Si
         </div>
-       
-    </div>
-  
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-            <div class="container">
-                <h2>Habitos Toxicologicos Personales:</h2>
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">1.Alcohol</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                    <label class="form-check-label" for="exampleRadios2">
-                    SI
-                    </label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                      <label class="form-check-label" for="exampleRadios2">
-                      NO
-                      </label>
-                    </div>
-                  <div class="form-group">
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
-                  </div>
-                  <div class="form-group">
-                      <label for="exampleFormControlTextarea1">2.Tabaquismo</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                      <label class="form-check-label" for="exampleRadios2">
-                      SI
-                      </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                        <label class="form-check-label" for="exampleRadios2">
-                        NO
-                        </label>
-                      </div>
-                    <div class="form-group">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">3.Marihuana</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                        <label class="form-check-label" for="exampleRadios2">
-                        SI
-                        </label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                          <label class="form-check-label" for="exampleRadios2">
-                          NO
-                          </label>
-                        </div>
-                      <div class="form-group">
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
-                      </div>
-                      <div class="form-group">
-                          <label for="exampleFormControlTextarea1">4.Cocaina</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                          <label class="form-check-label" for="exampleRadios2">
-                          SI
-                          </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                            <label class="form-check-label" for="exampleRadios2">
-                            NO
-                            </label>
-                          </div>
-                        <div class="form-group">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">5.Otros</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                            <label class="form-check-label" for="exampleRadios2">
-                            SI
-                            </label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                              <label class="form-check-label" for="exampleRadios2">
-                              NO
-                              </label>
-                            </div>
-                          <div class="form-group">
-                              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
-                          </div>                                                     
-            </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="hAlcohol2" id="hAlcohol2" value="option2">No
         </div>
-       
-    </div>
+        <div class="form-group">
+          <textarea class="form-control" name="hAlcohol3" id="hAlcohol3" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">2.Tabaquismo</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="hTaba1" id="hTaba1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="hTaba2" id="hTaba2" value="option2">No                
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="hTaba3" id="hTaba3" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">3.Marihuana</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="hMari1" id="hMari1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="hMari2" id="hMari2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="hMari3" id="hMari3" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">4.Cocaina</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="hCoca1" id="hCoca1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="hCoca2" id="hCoca2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="hCoca3" id="hCoca3" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">5.Otros</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="hOtro1" id="hOtro1" value="option2">Si
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="hOtro2" id="hOtro2" value="option2">No
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" name="hOtro3" id="hOtro3" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
+        </div>                                                     
+      </div>
+    </div>     
+  </div>
   
     <div class="wrapper fadeInDown">
         <div id="formContent">
