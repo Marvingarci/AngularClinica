@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../interfaces/usuario';
 import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
     cuentaUsuario:null,
     contrasenia: null
   };
-  constructor(private loginService: LoginService){
+  constructor(private loginService: LoginService,private router: Router){
   }
 
 
@@ -34,8 +35,10 @@ export class LoginComponent implements OnInit {
     alert('pelicula guardada');   
   },  (error)=>{
     console.log(error);
-    alert('ocurrio un error');
+    alert('ocurrio un error');  
+  this.router.navigate(['formulario']);
   });
+
    
   } 
 
