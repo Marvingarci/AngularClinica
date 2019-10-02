@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Login } from '../interfaces/login';
+import { Usuario } from '../interfaces/usuario';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -13,10 +13,11 @@ import { LoginService } from '../services/login.service';
 
 export class LoginComponent implements OnInit {
 
+
   passwordType: string= 'password';
   passwordShown: boolean = false;
 
-  usuario:Login  = {
+    usuario: Usuario  = {
     cuentaUsuario:null,
     contrasenia: null
   };
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  saveLogin(){this.loginService.save(this.usuario).subscribe( (data)=>{
+  saveLogin(){this.loginService.save(this.usuario).subscribe( (data) =>{
    console.log(data);
     alert('pelicula guardada');   
   },  (error)=>{
