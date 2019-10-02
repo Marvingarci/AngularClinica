@@ -6,12 +6,18 @@ import { LoginService } from '../services/login.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
+  
 })
 
 
 
 export class LoginComponent implements OnInit {
-  usuario: Usuario  = {
+
+
+  passwordType: string= 'password';
+  passwordShown: boolean = false;
+
+    usuario: Usuario  = {
     cuentaUsuario:null,
     contrasenia: null
   };
@@ -19,18 +25,18 @@ export class LoginComponent implements OnInit {
   }
 
 
+
   ngOnInit() {
   }
 
   saveLogin(){this.loginService.save(this.usuario).subscribe( (data) =>{
    console.log(data);
-   alert('Usuario guardado');
-    
-  },  (error) =>{
+    alert('pelicula guardada');   
+  },  (error)=>{
     console.log(error);
     alert('ocurrio un error');
   });
    
-  }
+  } 
 
 }

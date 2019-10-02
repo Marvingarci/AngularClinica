@@ -4,34 +4,93 @@ header,
 #intro{
 height: 650px;
 width:1350px;
-margin:0px 0px 0px 0px;
+margin:0px;
 }
 
 #intro{
-    background: url('https://i.pinimg.com/originals/61/cc/b4/61ccb4842c843263bfbb13e3b77bfdab.jpg')no-repeat center center fixed;
+    background: url('https://scontent-mia3-2.xx.fbcdn.net/v/t1.0-9/70343950_3025882257482069_8498522724275060736_n.jpg?_nc_cat=107&_nc_oc=AQlf-iyKsdfqsnNe8YD8ZCHT6TMH1k_miSuX7I4lOKo7cPMxJ50j6BnArCkXtk9JKVI&_nc_ht=scontent-mia3-2.xx&oh=53c59444e7ac8cd752fdb44d74f90b36&oe=5E256A52')no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
 
-#formstyle{
+#imagenpuma{
+  height: 100px;
+  width:100px;
+  margin:0px;
+  background: url('src\imagenes\pumitafinal.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+  border-radius: 50px;
+  margin-left: 70px;
+  border: 3px solid #fff;
+  margin-bottom: 25px;
+  
+}
 
+.label{
+  margin-top: 5px;
+}
+
+#formstyle{  
+  -webkit-box-shadow: 0 30px 60px 0 rgba(228, 38, 38, 0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  
+  padding-bottom: 50px; 
+  margin-top: 50px;
     background-color: #3354FF  ;
     position: absolute;
     /*nos posicionamos en el centro del navegador*/
     top:50%;
     left:50%;
     /*determinamos una anchura*/
-    width:200px;
+    width:280px;
     /*indicamos que el margen izquierdo, es la mitad de la anchura*/
-    margin-left:-200px;
+    margin-left:-150px;
     /*determinamos una altura*/
-    height:300px;
+    height:360px;
     /*indicamos que el margen superior, es la mitad de la altura*/
     margin-top:-150px;
-    border:1px solid #FFCD33 ;
+    border:5px solid #FFCD33 ;
     padding:10px;
     text-align: center;
-  color: aliceblue;
+  color: aliceblue;	/*IE*/
+	filter: alpha(opacity=70);
+	/*FireFox Opera*/
+  opacity: .8;
+  border-radius: 30px;
 }
+
+#txtPassword{
+  
+  border-radius: 20px;
+  text-align: center;
+  width:250px;
+  color: #00f;
+  background-color:  #FFCD33;
+}
+#show_password{
+  background-color:   #00f;
+  margin-left:-43px; 
+  border-radius: 20px;
+  opacity: .3;
+}
+.boton{
+  width:80px;
+  height:30px;
+  background-color:#11119F ;
+  color: #fff;
+  margin: 5px;
+  padding:-3px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  font-size:11px;
+  line-height:10px;
+  text-transform: uppercase;
+  text-align: center;
+  ;
+  }
