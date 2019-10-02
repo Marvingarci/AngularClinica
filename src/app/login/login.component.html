@@ -1,25 +1,96 @@
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   
 <div id="intro" class="view">
         <div class="full-bg-img">
         
           <div id="formstyle">
               <div>
+                            <div class="view" id="imagenpuma">
+
+                            </div>
                   <div class="form-group">
                     <label class="label">Número de Cuenta</label>
-                    <p><input [(ngModel)]="usuario.cuentaUsuario" type="number" class="form-control" id="cuenta"  placeholder="ingrese su numero de cuenta"></p>
+                    <p><input [(ngModel)]="usuario.cuentaUsuario" type="text" class="form-control" ID="txtPassword" 
+                       placeholder="ingrese su numero de cuenta"   minlength="11" maxlength="11" required></p>
                      </div>
+
+
                   <div class="form-group">
         
                     <label class="label">Contraseña</label>
-                    <p><input  [(ngModel)]="usuario.contrasenia" type="password" class="form-control" id="name" placeholder="ingrese su contraseña"></p>
-                  </div>
-                  <div class="form-group form-check">
-                   
-                  </div>
-                  <button (click)="saveLogin()" class="btn btn-primary">guardar</button>
-                </div>
-        </div>
-        
-        </div>
+                    
+                    <div class="input-group">
+                    
+                    
+                    <div class="input-group-append">
+                           <input [(ngModel)]="usuario.contrasenia" ID="txtPassword" type="Password" 
+                               Class="form-control" name="password" placeholder="ingrese su contraseña" >
+                          <button id="show_password" class="btn btn-primary" type="button"
+                           (click)="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> 
+                          </button>
+                         </div>        
+                  
+                  </div> 
+
+
+                  
+                  
+                  <button  (click)="saveLogin()"   class="boton" >guardar</button>
+                  
+               </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
+               </div>
           </div>
+
+
+
+
+
+
+
+
+
+
+          <script type="text/javascript">
+            function mostrarPassword(){
+                var cambio = document.getElementById("txtPassword");
+                if(cambio.type == "password"){
+                  cambio.type = "text";
+                  $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+                }else{
+                  cambio.type = "password";
+                  $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+                }
+              } 
+
+            </script>
