@@ -20,7 +20,8 @@ const routes: Route[] = [
   declarations: [
     AppComponent,
     FormularioComponent,
-    LoginComponent
+    LoginComponent,
+    PrincipalComponent
     
   ],
   imports: [
