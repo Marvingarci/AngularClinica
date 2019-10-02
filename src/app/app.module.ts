@@ -7,18 +7,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule} from '@angular/forms';
 import { RouterModule, Route} from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { PrincipalComponent } from './principal/principal.component';
 
 const routes: Route[] = [
   {path: '', component: LoginComponent},
   {path: 'formulario', component: FormularioComponent},
+  {path: 'principal', component: PrincipalComponent}
+
 ]; 
 
 @NgModule({
   declarations: [
     AppComponent,
     FormularioComponent,
-    LoginComponent
-    
+    LoginComponent,
+    PrincipalComponent
   ],
   imports: [
     BrowserModule,

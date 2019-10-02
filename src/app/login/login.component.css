@@ -2,8 +2,10 @@ html,
 body,
 header,
 #intro{
-height: 650px;
-width:1350px;
+height: 100%;
+width:100%;
+position: absolute;
+background-size: cover;
 margin:0px;
 }
 
