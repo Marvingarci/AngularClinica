@@ -8,11 +8,13 @@ import { FormsModule} from '@angular/forms';
 import { RouterModule, Route} from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { PrincipalComponent } from './principal/principal.component';
+import { At1Component } from './at1/at1.component';
 
 const routes: Route[] = [
   {path: '', component: LoginComponent},
   {path: 'formulario', component: FormularioComponent},
-  {path: 'principal', component: PrincipalComponent}
+  {path: 'principal', component: PrincipalComponent},
+  {path: 'at1', component: At1Component}
 
 ]; 
 
@@ -21,7 +23,8 @@ const routes: Route[] = [
     AppComponent,
     FormularioComponent,
     LoginComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    At1Component
     
   ],
   imports: [
