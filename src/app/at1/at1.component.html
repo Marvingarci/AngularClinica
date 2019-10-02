@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pagina Principal</title>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+ <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+ <script src="../node_modules/pooper.js/dist/js/pooper.min.js"></script>
+</head>
+<body>
+
+<div class="page-wrapper chiller-theme toggled">
+    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+      <i class="fas fa-bars"></i>
+    </a>
+    <nav id="sidebar" class="sidebar-wrapper">
+      <div class="sidebar-content">
+        
+        <div >
+          <div >
+            <img class="img-responsive img-rounded" src="https://www.unah.edu.hn/themes/portalunah/assets/images/logo-unah-blanco.png"
+              alt="User picture">
+              <div class="sidebar-brand">
+                    <a style="text-align: center; color:aliceblue" routerLink="/principal" ><h5>Clinica UNAH Tec Danli</h5></a>
+                    <div id="close-sidebar">
+                      <i class="fas fa-times"></i>
+                    </div>
+                  </div>
+          </div>
+          
+        </div>
+        <!-- sidebar-header  -->
+        
+        <!-- sidebar-search  -->
+        <div class="sidebar-menu">
+                <div class="col-12">
+                        <div class="list-group" id="list-tab" role="tablist">
+                          <a [routerLink]="['/at1']" class="list-group-item list-group-item-action active" id="list-home-list" role="tab" aria-controls="home">Home</a>
+                          <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+                          <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+                          <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+                        </div>
+                          <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Dropdown button
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="#">Action</a>
+                                  <a class="dropdown-item" href="#">Another action</a>
+                                  <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                              </div>
+                        
+                      </div>
+        </div>
+        <!-- sidebar-menu  -->
+      </div>
+      <!-- sidebar-content  -->
+      <div class="sidebar-footer">
+            <a href="#">Ayuda?
+              <i class="fa fa-bell"></i>
+              
+            </a>       
+          </div>
+    </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content" style="margin-top: 0px">
+    <nav class="navbar" style="background: #003399">
+                    <a class="navbar-brand" style="color: aliceblue">Pagina principal</a>
+                    <form class="form-inline">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Paciente" aria-label="Search">
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                    </form>
+                  </nav>
+
+                  <br>
+                  <div>
+                      
+                        <table class="table table-sm">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Handle</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">3</th>
+                                    <td colspan="2">Larry the Bird</td>
+                                    <td>@twitter</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                  </div>
+
+    
+  
+    </main>
+    
+    <!-- page-content" -->
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js"></script>
+  <!-- page-wrapper -->
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
