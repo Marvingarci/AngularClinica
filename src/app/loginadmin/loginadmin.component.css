@@ -1,0 +1,99 @@
+html,
+body,
+header,
+#intro{
+height: 100%;
+width:100%;
+position: absolute;
+margin:0px;
+}
+
+#intro{
+    background: url('https://cmplima.org.pe/wp-content/uploads/2018/04/medico-paciente-manos.jpg')no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#imagenpuma{
+  height: 100px;
+  width:100px;
+  background: url('src\imagenes\pumitafinal.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+  border-radius: 50px;
+  display: block;margin:auto;
+  border: 3px solid #00f;
+  margin-bottom: 10px;  
+}
+
+.label{
+  font-size: 10dp;
+  color: #00f;
+}
+
+#formstyle{     
+    background-color: #FFCD33 ;
+    position: absolute;
+    /*nos posicionamos en el centro del navegador*/
+    top:25%;
+    left:45%;
+    /*determinamos una anchura*/
+    width:420px;
+    /*indicamos que el margen izquierdo, es la mitad de la anchura*/
+    margin-left:-130px;
+    /*determinamos una altura*/
+    height:630px;
+    /*indicamos que el margen superior, es la mitad de la altura*/
+    margin-top:-150px;
+    border:5px solid #00f;
+    padding:10px;
+    text-align: center;
+  color: aliceblue;	/*IE*/
+	filter: alpha(opacity=70);
+	/*FireFox Opera*/
+  opacity: .8;
+  border-radius: 30px;
+}
+
+
+input:focus {
+  border:5px solid #fff;
+  
+  }
+
+#input{
+  background: #00f;
+  border-color: rgb(0, 255, 255);
+  border-radius: 20px;
+  text-align: center;
+  width:380px;
+  color: #fff;  
+}::placeholder { color: rgb(52, 201, 201); }
+
+#select{
+  background: #00f;
+  border-color: #FFCD33;
+  border-radius: 20px;
+  text-align: center;
+  width:380px;
+  color: #fff; 
+}
+
+.boton{
+  width:80px;
+  height:30px;
+  background-color:#11119F ;
+  color: #fff;
+  padding:-3px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  font-size:11px;
+  line-height:10px;
+  text-transform: uppercase;
+  text-align: center;
+  }
