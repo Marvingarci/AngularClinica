@@ -59,10 +59,6 @@
     transition: all 0.3s ease;
   }
   
-  #imagenlogo{
-    background: url('UNAH_logo.jpg');
-    
-  }
   /*----------------page-wrapper----------------*/
   
   .page-wrapper {
