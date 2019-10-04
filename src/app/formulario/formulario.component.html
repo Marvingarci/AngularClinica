@@ -6,24 +6,16 @@
         <h2>Datos Generales</h2>   
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" name="apellido1" id="apellido1" placeholder="PRIMER APELLIDO">
+            <input [(ngModel)]="paciente.primer_apellido" type="text" class="form-control" name="primer_apellido" id="" placeholder="Primer Apellido">
           </div>
           <div class="col">
-            <input type="text" class="form-control" name="apellido2" id="apellido2" placeholder="SEGUNDO APELLIDO">
+            <input [(ngModel)]="paciente.segundo_apellido" type="text" class="form-control" name="segundo_apellido" id="" placeholder="Segundo Apellido">
           </div>
           <div class="col">
-            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="NOMBRE(S)">
-          </div>
-        </div>
-                  
-        <br/>
-                  
-        <div class="row">
-          <div class="col">
-            <input type="number" class="form-control" name="cuenta" id="cuenta" placeholder="N° CUENTA">
+            <input [(ngModel)]="paciente.primer_nombre" type="text" class="form-control" name="primer_nombre" id="" placeholder="Primer Nombre">
           </div>
           <div class="col">
-            <input type="number" class="form-control" name="identidad" id="identidad" placeholder="N° IDENTIDAD">
+            <input [(ngModel)]="paciente.segundo_nombre" type="text" class="form-control" name="segundo_nombre" id="" placeholder="Segundo Nombre">
           </div>
         </div>
                   
@@ -31,10 +23,24 @@
                   
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" name="lugar" id="lugar" placeholder="LUGAR DE PROCEDENCIA">
+            <input [(ngModel)]="paciente.numero_cuenta" type="number" class="form-control" name="numero_cuenta" id="" placeholder="N° Cuenta">
           </div>
           <div class="col">
-            <input type="text" class="form-control" name="carrera" id="carrera" placeholder="CARRERA">
+            <input [(ngModel)]="paciente.numero_identidad" type="number" class="form-control" name="numero_identidad" id="" placeholder="N° Identidad">
+          </div>
+        </div>
+                  
+        <br/>
+                  
+        <div class="row">
+          <div class="col">
+            <input [(ngModel)]="paciente.lugar_procedencia" type="text" class="form-control" name="lugar_procedencia" id="" placeholder="Lugar de Procedencia">
+          </div>
+          <div class="col">
+            <input [(ngModel)]="paciente.carrera" type="text" class="form-control" name="carrera" id="" placeholder="Carrera">
+          </div>
+          <div class="col">
+            <input [(ngModel)]="paciente.direccion" type="text" class="form-control" name="direccion" id="" placeholder="Direccion">
           </div>
         </div>
                   
@@ -43,7 +49,7 @@
         <div class="row">
           <div class="col">
             <label>Fecha Nacimiento:</label>
-            <input type="date" min="1920-01-01" class="form-control" name="nacimiento" id="nacimiento" placeholder="FECHA DE NACIMIENTOS">
+            <input [(ngModel)]="paciente.fecha_nacimiento" type="date" min="1920-01-01" class="form-control" name="fecha_nacimiento" id="nacimiento" placeholder="Fecha de Nacimiento">
           </div>
         </div>
 
@@ -53,48 +59,42 @@
           <div class="col"> 
             <p>Sexo:</p> 
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbSexo" id="rdbHombre" value="sexo">Hombre             
+              <input [(ngModel)]="paciente.sexo" class="form-check-input" type="radio" name="sexo" id="" value="Hombre">Hombre             
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbSexo" id="rdbMujer" value="sexo">Mujer
+              <input [(ngModel)]="paciente.sexo" class="form-check-input" type="radio" name="sexo" id="" value="Mujer">Mujer
             </div>
           </div>
 
           <div class="col-md-4"> 
             <p>¿Tiene seguro medico?</p> 
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbSeguroMedico" id="" value="option1" >Soltero
+              <input [(ngModel)]="paciente.seguro_medico" class="form-check-input" type="radio" name="seguro_medico" id="" value="Privado" >Privado
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbSeguroMedico" id="" value="option2">Union Libre
+              <input [(ngModel)]="paciente.seguro_medico" class="form-check-input" type="radio" name="seguro_medico" id="" value="IHSS">IHSS
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbSeguroMedico" id="" value="option2">Casado
+              <input [(ngModel)]="paciente.seguro_medico" class="form-check-input" type="radio" name="seguro_medico" id="" value="No">No
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbSeguroMedico" id="" value="option2">Divorciado
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbSeguroMedico" id="" value="option2">Viudo
-            </div>  
           </div>
 
           <div class="col-md-4"> 
             <p>Estado civil:</p> 
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbEstadoCivil" id="rdbSoltero" value="option1" checked>Soltero
+              <input [(ngModel)]="paciente.estado_civil" class="form-check-input" type="radio" name="estado_civil" id="" value="Soltero">Soltero
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbEstadoCivil" id="rdbUnion" value="option2">Union Libre
+              <input [(ngModel)]="paciente.estado_civil" class="form-check-input" type="radio" name="estado_civil" id="" value="Unio Libre">Union Libre
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbEstadoCivil" id="rdbCasado" value="option2">Casado
+              <input [(ngModel)]="paciente.estado_civil" class="form-check-input" type="radio" name="estado_civil" id="" value="Casado">Casado
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbEstadoCivil" id="rdbDivorciado" value="option2">Divorciado
+              <input [(ngModel)]="paciente.estado_civil" class="form-check-input" type="radio" name="estado_civil" id="rdbDivorciado" value="Divorciado">Divorciado
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbEstadoCivil" id="rdbViudo" value="option2">Viudo
+              <input [(ngModel)]="paciente.estado_civil" class="form-check-input" type="radio" name="estado_civil" id="rdbViudo" value="Viudo">Viudo
             </div>  
           </div>
         </div>
@@ -102,10 +102,10 @@
         <br/>
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" name="telefono" id="telefono" placeholder="N° TELEFONO">
+            <input [(ngModel)]="paciente.numero_telefono" type="number" class="form-control" name="numero_telefono" id="telefono" placeholder="N° Telefono">
           </div>
           <div class="col">
-            <input type="text" class="form-control" name="llamar" id="llamar" placeholder="EN CASO DE EMERGENCIA LLAMAR A:">
+            <input [(ngModel)]="paciente.emergencia_telefono" type="number" class="form-control" name="emergencia_telefono" id="" placeholder="En caso de emergencia llamar a:">
           </div>
         </div>     
       </div> 
@@ -120,104 +120,104 @@
           <label>1. Diabetes</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbDiabetes" id="diabetes1" value="option2">Si
+          <input [(ngModel)]="antecedente_familiar.diabetes" class="form-check-input" type="radio" name="diabetes_familiar" id="diabetes1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbDiabetes" id="diabetes2" value="option2">No
+          <input [(ngModel)]="antecedente_familiar.diabetes" class="form-check-input" type="radio" name="diabetes_familiar" id="diabetes2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="diabetes3" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+          <textarea [(ngModel)]="antecedente_familiar.observacion_diabetes" class="form-control" name="observacion_diabetes_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
         </div>
         <div class="form-group">
           <label>2. T.B Plumonar</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbPulmonar" id="pulmonar1" value="option2">Si
+          <input [(ngModel)]="antecedente_familiar.tb_pulmonar" class="form-check-input" type="radio" name="tb_pulmonar_familiar" id="pulmonar1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbPulmonar" id="pulmonar2" value="option2">No
+          <input [(ngModel)]="antecedente_familiar.tb_pulmonar" class="form-check-input" type="radio" name="tb_pulmonar_familiar" id="pulmonar2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="pulmonar3" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+          <textarea [(ngModel)]="antecedente_familiar.observacion_tb_pulmonar" class="form-control" name="observacion_tb_pulmonar_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">3. Desnutricion</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbDesnutricion" id="desnutri1" value="option2">Si
+          <input [(ngModel)]="antecedente_familiar.desnutricion" class="form-check-input" type="radio" name="desnutricion_famliar" id="desnutri1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbDesnutricion" id="desnutri2" value="option2">No
+          <input [(ngModel)]="antecedente_familiar.desnutricion" class="form-check-input" type="radio" name="desnutricion_familiar" id="desnutri2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="desnutri3" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+          <textarea [(ngModel)]="antecedente_familiar.observacion_desnutricion" class="form-control" name="observacion_desnutricion_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
         </div>
         <div class="form-group">
           <label>4. Enf. Mentales</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbMentales" id="mentales1" value="option2">si  
+          <input [(ngModel)]="antecedente_familiar.enfermedades_mentales" class="form-check-input" type="radio" name="enfermedades_mentales_familiar" id="mentales1" value="Si">si  
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbMentales" id="mentales2" value="option2">No        
+          <input [(ngModel)]="antecedente_familiar.enfermedades_mentales" class="form-check-input" type="radio" name="enfermedades_mentales_familiar" id="mentales2" value="No">No        
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="mentales3" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+          <textarea [(ngModel)]="antecedente_familiar.observacion_enfermedades_mentales" class="form-control" name="observacion_enfermedades_mentales_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
         </div>
         <div class="form-group">
           <label>5. Convulsiones</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbConvulsiones" id="convulsiones1" value="option2">Si            
+          <input [(ngModel)]="antecedente_familiar.convulciones" class="form-check-input" type="radio" name="convulciones_familiar" id="convulsiones1" value="Si">Si            
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbConvulsiones" id="convulsiones2" value="option2">No
+          <input [(ngModel)]="antecedente_familiar.convulciones" class="form-check-input" type="radio" name="convulciones_familiar" id="convulsiones2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="convulsiones3" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+          <textarea [(ngModel)]="antecedente_familiar.observacion_convulciones" class="form-control" name="observacion_convulciones_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
         </div> 
         <div class="form-group">
           <label>6. Alcoholismo o sustancias psicoactiva</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbAlcoholismo" id="sustancia1" value="option2">Si                  
+          <input [(ngModel)]="antecedente_familiar.alcoholismo_sustancias_psicoactivas" class="form-check-input" type="radio" name="alcoholismo_sustancias_psicoactivas_familiar" id="sustancia1" value="Si">Si                  
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbAlcoholismo" id="sustancia2" value="option2">No                 
+          <input [(ngModel)]="antecedente_familiar.alcoholismo_sustancias_psicoactivas" class="form-check-input" type="radio" name="alcoholismo_sustancias_psicoactivas_familiar" id="sustancia2" value="No">No                 
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="sustancia3" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+          <textarea [(ngModel)]="antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas" class="form-control" name="observacion_alcoholismo_sustancias_psicoactivas_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
         </div>
         <div class="form-group">
           <label>7. Alergias</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbAlergias" id="alergia1" value="option2">Si                 
+          <input [(ngModel)]="antecedente_familiar.alergias" class="form-check-input" type="radio" name="alergias_familiar" id="alergia1" value="Si">Si                 
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbAlergias" id="alergia2" value="option2">No                       
+          <input [(ngModel)]="antecedente_familiar.alergias" class="form-check-input" type="radio" name="alergias_familiar" id="alergia2" value="No">No                       
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="alergia3" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+          <textarea [(ngModel)]="antecedente_familiar.observacion_alergias" class="form-control" name="observacion_alergias_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">8. Cancer</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbCancer" id="cancer1" value="option2">Si                    
+          <input [(ngModel)]="antecedente_familiar.cancer" class="form-check-input" type="radio" name="cancer_familiar" id="cancer1" value="Si">Si                    
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbCancer" id="cancer2" value="option2">No                          
+          <input [(ngModel)]="antecedente_familiar.cancer" class="form-check-input" type="radio" name="cancer_familiar" id="cancer2" value="No">No                          
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="cancer3" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+          <textarea [(ngModel)]="antecedente_familiar.observacion_cancer" class="form-control" name="observacion_cancer_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">9. Otros</label>
-          <input class="form-control" type="text" style="width: 20%;">
+          <input [(ngModel)]="antecedente_familiar.otros" name="otros_familiar" class="form-control" type="text" style="width: 20%;">
         </div>    
         <div class="form-group">
-          <textarea class="form-control" name="ot3" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
+          <textarea [(ngModel)]="antecedente_familiar.observacion_otros" name="observacion_otros_familiar" class="form-control" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
         </div>
 
       </div>
@@ -232,128 +232,128 @@
           <label for="exampleFormControlTextarea1">1. Diabetes</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbDiabetes" id="pDiabete1" value="option2">Si           
+          <input [(ngModel)]="antecedente_personal.diabetes" class="form-check-input" type="radio" name="diabetes" id="pDiabete1" value="Si">Si           
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbDiabetes" id="pDiabete2" value="option2">No           
+          <input [(ngModel)]="antecedente_personal.diabetes" class="form-check-input" type="radio" name="diabetes" id="pDiabete2" value="No">No           
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="pDiabete3" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
+          <textarea [(ngModel)]="antecedente_personal.observacion_diabetes" class="form-control" name="observacion_diabetes" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">2. T.B Plumonar</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbPlumonar" id="pPulmona1" value="option2">Si
+          <input [(ngModel)]="antecedente_personal.tb_pulmonar" class="form-check-input" type="radio" name="tb_pulmonar" id="pPulmona1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbPlumonar" id="pPulmona2" value="option2">No
+          <input [(ngModel)]="antecedente_personal.tb_pulmonar" class="form-check-input" type="radio" name="tb_pulmonar" id="pPulmona2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="pPulmona3" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
+          <textarea [(ngModel)]="antecedente_personal.observacion_tb_pulmonar" class="form-control" name="observacion_tb_pulmonar" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">3. ITS</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbITS" id="its1" value="option2">Si
+          <input [(ngModel)]="antecedente_personal.its" class="form-check-input" type="radio" name="its" id="its1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbITS" id="its2" value="option2">No
+          <input [(ngModel)]="antecedente_personal.its" class="form-check-input" type="radio" name="its" id="its2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="its3" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
+          <textarea [(ngModel)]="antecedente_personal.observacion_its" class="form-control" name="observacion_its" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">4. Desnutricion</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbDesnutricion" id="pDesnutri1" value="option2">Si
+          <input [(ngModel)]="antecedente_personal.desnutricion" class="form-check-input" type="radio" name="desnutricion" id="pDesnutri1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbDesnutricion" id="pDesnutri2" value="option2">No
+          <input [(ngModel)]="antecedente_personal.desnutricion" class="form-check-input" type="radio" name="desnutricion" id="pDesnutri2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="pDesnutri3" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
+          <textarea [(ngModel)]="antecedente_personal.observacion_desnutricion" class="form-control" name="observacion_desnutricion" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">5. Enf. Mentales</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbMentales" id="pMentale1" value="option2">Si
+          <input [(ngModel)]="antecedente_personal.enfermedades_mentales" class="form-check-input" type="radio" name="enfermedades_mentales" id="pMentale1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbMentales" id="pMentale2" value="option2">No
+          <input [(ngModel)]="antecedente_personal.enfermedades_mentales" class="form-check-input" type="radio" name="enfermedades_mentales" id="pMentale2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="pMentale3" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
+          <textarea [(ngModel)]="antecedente_personal.observacion_enfermedades_mentales" class="form-control" name="observacion_enfermedades_mentales" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
         </div> 
         <div class="form-group">
           <label for="exampleFormControlTextarea1">6. Convulsiones</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbConvulsiones" id="pConvul1" value="option2">Si
+          <input [(ngModel)]="antecedente_personal.convulciones" class="form-check-input" type="radio" name="convulciones" id="pConvul1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbConvulsiones" id="pConvul2" value="option2">NO
+          <input [(ngModel)]="antecedente_personal.convulciones" class="form-check-input" type="radio" name="convulciones" id="pConvul2" value="No">NO
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="pConvul3" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
+          <textarea [(ngModel)]="antecedente_personal.observacion_convulciones" class="form-control" name="observacion_convulciones" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">7. Alergias</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbAlergias" id="pAlergi1" value="option2">Si
+          <input [(ngModel)]="antecedente_personal.alergias" class="form-check-input" type="radio" name="alergias" id="pAlergi1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbAlergias" id="pAlergi2" value="option2">No
+          <input [(ngModel)]="antecedente_personal.alergias" class="form-check-input" type="radio" name="alergias" id="pAlergi2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name=pAlergi3 id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
+          <textarea [(ngModel)]="antecedente_personal.observacion_alergias" class="form-control" name=observacion_alergias id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">8. Cancer</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbCancer" id="pCancer1" value="option2">Si
+          <input [(ngModel)]="antecedente_personal.cancer" class="form-check-input" type="radio" name="cancer" id="pCancer1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbCancer" id="pCancer2" value="option2">No
+          <input [(ngModel)]="antecedente_personal.cancer" class="form-check-input" type="radio" name="cancer" id="pCancer2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="pCancer3" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
+          <textarea [(ngModel)]="antecedente_personal.observacion_cancer" class="form-control" name="observacion_cancer" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">9. Hospitalarias y Quirurgicas</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbHyQ" id="pHospital1" value="option2">Si
+          <input [(ngModel)]="antecedente_personal.hospitalarias_quirurgicas" class="form-check-input" type="radio" name="hospitalarias_quirurgicas" id="pHospital1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbHyQ" id="pHospital2" value="option2">No
+          <input [(ngModel)]="antecedente_personal.hospitalarias_quirurgicas" class="form-check-input" type="radio" name="hospitalarias_quirurgicas" id="pHospital2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="pHospital3" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
+          <textarea [(ngModel)]="antecedente_personal.observacion_hospitalarias_quirurgicas" class="form-control" name="observacion_hospitalarias_quirurgicas" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
         </div> 
         <div class="form-group">
           <label for="exampleFormControlTextarea1">10. Traumaticos</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbTraumaticos" id="pTraumati1" value="option2">Si
+          <input [(ngModel)]="antecedente_personal.traumaticos" class="form-check-input" type="radio" name="traumaticos" id="pTraumati1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbTraumaticos" id="pTraumati2" value="option2">No
+          <input [(ngModel)]="antecedente_personal.traumaticos" class="form-check-input" type="radio" name="traumaticos" id="pTraumati2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="pTraumati3" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
+          <textarea [(ngModel)]="antecedente_personal.observacion_traumaticos" class="form-control" name="observacion_traumaticos" id="" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
         </div> 
         <div class="form-group">
           <label for="exampleFormControlTextarea1">11. Otros</label>
-          <input class="form-control" type="text" style="width: 20%;">
+          <input [(ngModel)]="antecedente_personal.otros" name="otros" class="form-control" type="text" style="width: 20%;">
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="pOtro3" id="pOtro3" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
+          <textarea [(ngModel)]="antecedente_personal.observacion_otros" class="form-control" name="observacion_otros" id="pOtro3" rows="3" placeholder="En caso de positivo detallar inicio de la enfermedad y tratamiento"></textarea>
         </div>                                                         
       </div>
     </div>
@@ -367,56 +367,56 @@
           <label for="exampleFormControlTextarea1">1. Alcohol</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbAlcohol" id="hAlcohol1" value="option2">Si
+          <input [(ngModel)]="habito_toxicologico_personal.alcohol" class="form-check-input" type="radio" name="alcohol" id="hAlcohol1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbAlcohol" id="hAlcohol2" value="option2">No
+          <input [(ngModel)]="habito_toxicologico_personal.alcohol" class="form-check-input" type="radio" name="alcohol" id="hAlcohol2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="hAlcohol3" id="" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
+          <textarea [(ngModel)]="habito_toxicologico_personal.observacion_alcohol" class="form-control" name="observacion_alcohol" id="" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">2. Tabaquismo</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbTabaquismo" id="hTaba1" value="option2">Si
+          <input [(ngModel)]="habito_toxicologico_personal.tabaquismo" class="form-check-input" type="radio" name="tabaquismo" id="hTaba1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbTabaquismo" id="hTaba2" value="option2">No                
+          <input [(ngModel)]="habito_toxicologico_personal.tabaquismo" class="form-check-input" type="radio" name="tabaquismo" id="hTaba2" value="No">No                
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="hTaba3" id="" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
+          <textarea [(ngModel)]="habito_toxicologico_personal.observacion_tabaquismo" class="form-control" name="observacion_tabaquismo" id="" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">3. Marihuana</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbMarihuana" id="hMari1" value="option2">Si
+          <input [(ngModel)]="habito_toxicologico_personal.marihuana" class="form-check-input" type="radio" name="marihuana" id="hMari1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbMarihuana" id="hMari2" value="option2">No
+          <input [(ngModel)]="habito_toxicologico_personal.marihuana" class="form-check-input" type="radio" name="marihuana" id="hMari2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="hMari3" id="" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
+          <textarea [(ngModel)]="habito_toxicologico_personal.observacion_marihuana" class="form-control" name="observacion_marihuana" id="" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">4. Cocaina</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbCocaina" id="hCoca1" value="option2">Si
+          <input [(ngModel)]="habito_toxicologico_personal.cocaina" class="form-check-input" type="radio" name="cocaina" id="hCoca1" value="Si">Si
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbCocaina" id="hCoca2" value="option2">No
+          <input [(ngModel)]="habito_toxicologico_personal.cocaina" class="form-check-input" type="radio" name="cocaina" id="hCoca2" value="No">No
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="hCoca3" id="" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
+          <textarea [(ngModel)]="habito_toxicologico_personal.observacion_cocaina" class="form-control" name="observacion_cocaina" id="" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">5. Otros</label>
-          <input class="form-control" type="text" style="width: 20%;">
+          <input [(ngModel)]="habito_toxicologico_personal.otros" name="otros" class="form-control" type="text" style="width: 20%;">
         </div>
         <div class="form-group">
-          <textarea class="form-control" name="hOtro3" id="hOtro3" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
+          <textarea [(ngModel)]="habito_toxicologico_personal.observacion_otros" class="form-control" name="observacion_otros" id="hOtro3" rows="3" placeholder="En caso de positivo detallar el tiempo de uso, frecuencia y tipo"></textarea>
         </div>                                                     
       </div>
     </div>     
@@ -432,10 +432,10 @@
               <label for="exampleFormControlTextarea1">Actividad Sexual</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rdbAS" id="rdbActividaSex" value="option2">SI 
+              <input [(ngModel)]="actividad_sexual.actividad_sexual" name="actividad_sexual" class="form-check-input" type="radio" id="rdbActividaSex" value="Si">SI 
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="rdbAS" id="rdbActividaSex1" value="option2">NO
+              <input [(ngModel)]="actividad_sexual.actividad_sexual" name="actividad_sexual" class="form-check-input" type="radio" id="rdbActividaSex1" value="No">NO
             </div>
           </div>
         </div>  
@@ -443,13 +443,13 @@
         <hr>
         <div class="row">
           <div class="col-md-4">
-            <input type="text" class="form-control" name="iptEdadInicioVidaSexual" id="iptEdadInicioVidaSexual" placeholder="Edad de inicio de vidad sexual">
+            <input [(ngModel)]="actividad_sexual.edad_inicio_sexual" type="number" class="form-control" name="edad_inicio_sexual" id="iptEdadInicioVidaSexual" placeholder="Edad de inicio de vidad sexual">
           </div>
           <div class="col-md-4">
-            <input type="number" class="form-control" name="iptParejasSexuales" id="iptParejasSexuales" placeholder="N° de parejas sexuales">
+            <input [(ngModel)]="actividad_sexual.numero_parejas_sexuales" type="number" class="form-control" name="numero_parejas_sexuales" id="iptParejasSexuales" placeholder="N° de parejas sexuales">
           </div>
           <div class="col-md-4">
-            <input type="text" class="form-control" name="iptDescribirParejasSexuales" id="iptDescribirParejasSexuales" placeholder="Describir practicas sexuales">
+            <input [(ngModel)]="actividad_sexual.practicas_sexuales_riesgo" type="text" class="form-control" name="practicas_sexuales_riesgo" id="iptDescribirParejasSexuales" placeholder="Describir practicas sexuales de Riesgo">
           </div>     
         </div>
       </div>
@@ -459,13 +459,13 @@
   <div class="wrapper fadeInDown">
     <div id="formContent">
       <div class="container">
-        <h2>Antecedente Ginecologicos</h2>
+        <h2>Antecedentes Ginecologicos</h2>
         <div class="form-group">  
-          <textarea class="form-control" name="menarquia" id="menarquia" rows="3" placeholder="Menarquia a:"></textarea>
+          <textarea [(ngModel)]="antecedente_ginecologico.menarquia_a" class="form-control" name="menarquia_a" id="menarquia" rows="3" placeholder="Menarquia a:"></textarea>
         </div>
         <div class="form-group">
           <label>FUM</label>
-          <input type="date"  class="form-control" name="fum" id="fum" placeholder="FUM" style="width: 95%;">
+          <input [(ngModel)]="antecedente_ginecologico.fum" type="date"  class="form-control" name="fum" id="fum" placeholder="FUM" style="width: 95%;">
         </div>
         
         <br/>
@@ -474,20 +474,20 @@
           <label for="exampleFormControlTextarea1">Citologias</label>
         </div>
         <div class="form-check form-check-inline">
-           <input class="form-check-input" type="radio" name="rdbCitologias" id="rdbCitologias1" value="option2">SI, Fecha:
+           <input [(ngModel)]="antecedente_ginecologico.citologia" class="form-check-input" type="radio" name="citologia" id="rdbCitologias1" value="Si">SI, Fecha:
         </div>
         <div class="col">
-          <input type="date" name="Citologia" id="Citologia" style="border: 0; border-bottom: solid gray; margin-left: 5px;" >
+          <input [(ngModel)]="antecedente_ginecologico.fecha_citologia" type="date" name="fecha_citologia" id="Citologia" style="border: 0; border-bottom: solid gray; margin-left: 5px;" >
         </div>  
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="rdbCitologias" id="rdbCitologias2" value="option2">NO
+          <input [(ngModel)]="antecedente_ginecologico.citologia" class="form-check-input" type="radio" name="citologia" id="rdbCitologias2" value="No">NO
         </div>
 
         <br>
         <br>
 
         <div class="form-group">
-          <textarea class="form-control" name="citResultado" id="" rows="3" placeholder="Resultado"></textarea>
+          <textarea [(ngModel)]="antecedente_ginecologico.resultado_citologia" class="form-control" name="resultado_citologia" id="" rows="3" placeholder="Resultado"></textarea>
         </div>
 
         <hr>
@@ -497,13 +497,13 @@
         </div>
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" name="iptDuracion" id="iptDuracion" placeholder="Duracion">
+            <input [(ngModel)]="antecedente_ginecologico.duracion_ciclo_menstrual" type="text" class="form-control" name="duracion_ciclo_menstrual" id="iptDuracion" placeholder="Duracion">
           </div>
           <div class="col">
-            <input type="text"  class="form-control" name="iptPeriocidad" id="iptPeriocidad" placeholder="Periocidad">  
+            <input [(ngModel)]="antecedente_ginecologico.periocidad_ciclo_menstrual" type="text"  class="form-control" name="periocidad_ciclo_menstrual" id="iptPeriocidad" placeholder="Periocidad">  
           </div>
           <div class="col">
-            <input type="text"  class="form-control" name="iptCaracteristicas" id="iptCaracteristicas" placeholder="Caracteristicas">  
+            <input [(ngModel)]="antecedente_ginecologico.caracteristicas_ciclo_menstrual" type="text"  class="form-control" name="caracteristicas_ciclo_menstrual" id="iptCaracteristicas" placeholder="Caracteristicas">  
           </div>
         </div>                 
       </div>
@@ -517,42 +517,42 @@
         <div class="row">
           <div class="col">
             <div class="form-check ">
-              <input class="form-check-input" type="radio" name="rdbPFA" id="rdbPFA1" value="option2">Si
+              <input [(ngModel)]="planificacion_familiar.planificacion_familiar" class="form-check-input" type="radio" name="planificacion_familiar" id="rdbPFA1" value="Si">Si
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbPFA" id="rdbPFA2" value="option2">No
+              <input [(ngModel)]="planificacion_familiar.planificacion_familiar" class="form-check-input" type="radio" name="planificacion_familiar" id="rdbPFA2" value="No">No
             </div>
           </div>
           <div class="col">
             <div class="form-check ">
-              <input class="form-check-input" type="radio" name="rdbAnticonceptivos" id="rdbAnticonceptivos1" value="option2">Diu
+              <input [(ngModel)]="planificacion_familiar.metodo_planificacion" class="form-check-input" type="radio" name="metodo_planificacion" id="rdbAnticonceptivos1" value="DIU">DIU
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbAnticonceptivos" id="rdbAnticonceptivos2" value="option2">Condon
+              <input [(ngModel)]="planificacion_familiar.metodo_planificacion" class="form-check-input" type="radio" name="metodo_planificacion" id="rdbAnticonceptivos2" value="Condón">Condón
             </div>
           </div>
           <div class="col">
             <div class="form-check ">
-              <input class="form-check-input" type="radio" name="rdbAnticonceptivos" id="rdbAnticonceptivos3" value="option2">Pastilla
+              <input [(ngModel)]="planificacion_familiar.metodo_planificacion" class="form-check-input" type="radio" name="metodo_planificacion" id="rdbAnticonceptivos3" value="Pastilla">Pastilla
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbAnticonceptivos" id="rdbAnticonceptivos4" value="option2">Implante
+              <input [(ngModel)]="planificacion_familiar.metodo_planificacion" class="form-check-input" type="radio" name="metodo_planificacion" id="rdbAnticonceptivos4" value="Implante">Implante
             </div>
           </div>
           <div class="col">
             <div class="form-check ">
-              <input class="form-check-input" type="radio" name="rdbAnticonceptivos" id="rdbAnticonceptivos5" value="option2">Inyeccion trimestral
+              <input [(ngModel)]="planificacion_familiar.metodo_planificacion" class="form-check-input" type="radio" name="metodo_planificacion" id="rdbAnticonceptivos5" value="Inyección trimestral">Inyección trimestral
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbAnticonceptivos" id="rdbAnticonceptivos6" value="option2">Inyeccion Mensual
+              <input [(ngModel)]="planificacion_familiar.metodo_planificacion" class="form-check-input" type="radio" name="metodo_planificacion" id="rdbAnticonceptivos6" value="Inyección mensual">Inyección mensual
             </div>
           </div>
           <div class="col">
             <div class="form-check ">
-              <input class="form-check-input" type="radio" name="rdbAnticonceptivos" id="rdbAnticonceptivos7" value="option2">Ritmo
+              <input [(ngModel)]="planificacion_familiar.metodo_planificacion" class="form-check-input" type="radio" name="metodo_planificacion" id="rdbAnticonceptivos7" value="Ritmo">Ritmo
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="rdbAnticonceptivos" id="rdbAnticonceptivos8" value="option2">Esterilizacion
+              <input [(ngModel)]="planificacion_familiar.metodo_planificacion" class="form-check-input" type="radio" name="metodo_planificacion" id="rdbAnticonceptivos8" value="Esterilización">Esterilización
             </div>
           </div>                                
         </div>
@@ -560,7 +560,7 @@
         <br>
         
         <div class="form-group">
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Observaciones"></textarea>
+          <textarea [(ngModel)]="planificacion_familiar.observacion_planificacion" name="observacion_planificacion" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Observaciones"></textarea>
         </div>
       </div>
     </div>
@@ -595,17 +595,17 @@
             <div class="col">
               <br/>
               <label>Fecha Termino Ult.Embarazo:</label>
-              <input type="date" min="1920-01-01" class="form-control" name="nacimiento" id="nacimiento" placeholder="Fecha Termino Ult.Embarazo">
+              <input [(ngModel)]="antecedente_obstetrico.fecha_termino_ult_embarazo" type="date" min="1920-01-01" class="form-control" name="fecha_termino_ult_embarazo" id="" placeholder="Fecha Termino Ult.Embarazo">
             </div>
             <div class="col">
               <br/>
               <br/>
-              <input type="text" class="form-control" name="" id="" placeholder="Como termino Ultimo Embarazo">
+              <input [(ngModel)]="antecedente_obstetrico.descripcion_termino_ult_embarazo" type="text" class="form-control" name="descripcion_termino_ult_embarazo" id="" placeholder="Como termino Ultimo Embarazo">
             </div> 
           </div>
         <br/>
           <div class="form-group">
-            <textarea class="form-control" name="" id="" rows="3" placeholder="Observaciones"></textarea>
+            <textarea [(ngModel)]="antecedente_obstetrico.observaciones" class="form-control" name="observaciones" id="" rows="3" placeholder="Observaciones"></textarea>
           </div>
       </div>
     </div>
@@ -614,6 +614,6 @@
   </form>
   <button type="button" class="btn btn-outline-primary float-right" (click)="enviarDatos()" style="margin-right: 20px;">Enviar</button>
   
-  <br/>
-  <br/>
+  <br>
+  <br>
   
