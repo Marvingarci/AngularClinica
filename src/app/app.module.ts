@@ -11,11 +11,14 @@ import { PrincipalComponent } from './principal/principal.component';
 import { LoginadminComponent } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
+import { DatoPacienteComponent } from './dato-paciente/dato-paciente.component';
 
 const routes: Route[] = [
   {path: '', component: LoginComponent},
   {path: 'formulario', component: FormularioComponent},
   {path: 'principal', component: PrincipalComponent},
+  {path: 'at1', component: At1Component},
+  {path: 'datoPaciente', component: DatoPacienteComponent},
 
   {path: 'loginadmin', component: LoginadminComponent},
 
@@ -29,6 +32,8 @@ const routes: Route[] = [
     FormularioComponent,
     LoginComponent,
     PrincipalComponent,
+    At1Component,
+    DatoPacienteComponent,
     LoginadminComponent,
     At1Component ,
     

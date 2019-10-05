@@ -1,0 +1,26 @@
+#formContent {
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: #FFF;
+    padding: 30px;
+    width: 90%;
+    position: relative;
+    padding: 0px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    text-align: left;
+    opacity: .6;
+  }
+
+  
+.wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    padding: 20px;
+    /* background-image: url("https://campusvirtual.unah.edu.hn/theme/image.php/bootstrapcampus/theme/1568312409/frontpage-bg"); */
+    /* background-size: cover; */
+  }
