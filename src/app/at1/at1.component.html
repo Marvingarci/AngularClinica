@@ -37,10 +37,10 @@
         <div class="sidebar-menu">
                 <div class="col-12">
                         <div class="list-group" id="list-tab" role="tablist">
-                          <a [routerLink]="['/at1']" class="list-group-item list-group-item-action active" id="list-home-list" role="tab" aria-controls="home">At1</a>
-                          <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Pacientes</a>
-                          <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Inventario</a>
-                          <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Consolidado Diario</a>
+                          <a [routerLink]="['/at1']" class="list-group-item list-group-item-action active" id="list-home-list" role="tab" aria-controls="home">Home</a>
+                          <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+                          <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+                          <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
                         </div>
                           <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -67,7 +67,6 @@
     </nav>
     <!-- sidebar-wrapper  -->
     <main class="page-content" style="margin-top: 0px">
-      
     <nav class="navbar" style="background: #003399">
                     <a class="navbar-brand" style="color: aliceblue">Pagina principal</a>
                     <form class="form-inline">
@@ -77,58 +76,37 @@
                   </nav>
 
                   <br>
-
                   <div>
-
-
-                  <div class="container">
-                    <div style="text-align: center">
-                    <h6>Universidad Nacional de Honduras</h6>
-                    <h6>Vicerrectoria de Orientacion y Asuntos Estudiantiles</h6>
-                    <h6>Dr:_____________________________ Fecha____________</h6>
-                  </div>
-                </div>
-
-
-                      <hr>
-                      <div class="table-responsive">
-
+                      
                         <table class="table table-sm">
-                              
+                                <thead>
                                   <tr>
-                                    <th rowspan="2">No.</th>
-                                    <th scope="col">No. Cuenta</th>
-                                    <th scope="col">Carrera</th>
-                                    <th scope="col">Sexo</th>
-                                    <th scope="col">Edad</th>
-                                    <th scope="col">Paciente</th>
-                                    <th scope="col">Diagnostico 1</th>
-                                    <th scope="col">N/S</th>
-                                    <th scope="col">Diagnostico 2</th>
-                                    <th scope="col">N/S</th>
-                                    <th scope="col">Observacion</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Handle</th>
                                   </tr>
-
-                                  
-                                
+                                </thead>
                                 <tbody>
                                   <tr>
                                     <th scope="row">1</th>
-                                    <td >Marvin Alejandro Garcia</td>
-                                    <td>Informatica Administrativa</td>
-                                    <td>M</td>
-                                    <td>22</td>
-                                    <td>NUevo</td>
-                                    <td>Calentura</td>
-                                    <td>N</td>
-                                    <td>Gripe</td>
-                                    <td>S</td>
-                                    <td>Cita y examen </td>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
                                   </tr>
-                                  
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">3</th>
+                                    <td colspan="2">Larry the Bird</td>
+                                    <td>@twitter</td>
+                                  </tr>
                                 </tbody>
                               </table>
-                              </div>
                   </div>
 
     

@@ -1,46 +1,31 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
 <div id="intro" class="view">
-        <div class="full-bg-img">
+  <div class="full-bg-img">
         
-          <div id="formstyle">
-              <div>
-                            <div class="view" id="imagenpuma">
+    <div id="formstyle">
+      <div>
+           <div class="view" id="imagenpuma"></div>
 
-                            </div>
-                  <div class="form-group">
-                    <label class="label">Número de Cuenta</label>
-                    <p><input [(ngModel)]="usuario.cuentaUsuario" type="text" class="form-control" ID="txtPassword" 
-                       placeholder="ingrese su numero de cuenta"   minlength="11" maxlength="11" required></p>
-                     </div>
-
-
-                  <div class="form-group">
-        
-                    <label class="label">Contraseña</label>
-                    
-                    <div class="input-group">
-                    
-                    
-                    <div class="input-group-append">
-                           <input [(ngModel)]="usuario.contrasenia" ID="txtPassword" type="Password" 
-                               Class="form-control" name="password" placeholder="ingrese su contraseña" >
-                          <button id="show_password" class="btn btn-primary" type="button"
-                           (click)="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> 
-                          </button>
-                         </div>        
+              <div >
+              <label class="label">Número de Cuenta</label>
+               <p><input [(ngModel)]="usuario.cuentaUsuario" type="text" class="form-control" ID="txtPassword" 
+               placeholder="Ingrese su número de cuenta"   minlength="11" maxlength="11" required></p>
+              </div>
                   
-                  </div> 
+                 
 
 
-                  
-                  
-                  <button  (click)="saveLogin()"   class="boton" >guardar</button>
-                  
-               </div>               
-               </div>
-          </div>
-        
+            <div>
+              <label class="label">Contraseña</label>
+              <div class="input-group-append">
+                  <div class="field">
+                    <input [(ngModel)]="usuario.contrasenia" ID="txtPassword" type="password"  Class="form-control"
+                           name="password" placeholder="Ingrese su contraseña" ngModel passwordToggle required >
+                  </div>                           
+              </div>      
+            </div> 
+<br>
+        </div>               
+        <button  (click)="saveLogin()"   class="boton" >guardar</button>                               
+        </div>
+  </div>
+</div>   

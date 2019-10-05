@@ -8,6 +8,8 @@ import { FormsModule} from '@angular/forms';
 import { RouterModule, Route} from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { PrincipalComponent } from './principal/principal.component';
+import { LoginadminComponent } from './loginadmin/loginadmin.component';
+import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
 import { DatoPacienteComponent } from './dato-paciente/dato-paciente.component';
 
@@ -16,7 +18,11 @@ const routes: Route[] = [
   {path: 'formulario', component: FormularioComponent},
   {path: 'principal', component: PrincipalComponent},
   {path: 'at1', component: At1Component},
-  {path: 'datoPaciente', component: DatoPacienteComponent}
+  {path: 'datoPaciente', component: DatoPacienteComponent},
+
+  {path: 'loginadmin', component: LoginadminComponent},
+
+  {path: 'at1', component: At1Component}
 
 ]; 
 
@@ -27,7 +33,9 @@ const routes: Route[] = [
     LoginComponent,
     PrincipalComponent,
     At1Component,
-    DatoPacienteComponent
+    DatoPacienteComponent,
+    LoginadminComponent,
+    At1Component ,
     
   ],
   imports: [
@@ -36,6 +44,7 @@ const routes: Route[] = [
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes),
+    NgxPasswordToggleModule
     
   ],
   providers: [],
