@@ -8,7 +8,7 @@
                 <div >
                 <label class="label">Usuario</label>
                  <p><input  type="text" class="form-control" ID="input" 
-                 placeholder="Ingrese el nuevo usuario"   minlength="11" maxlength="11" required></p>
+                 placeholder="Ingrese el nuevo usuario"   maxlength="40" required></p>
                 </div>
                     
                    
@@ -39,8 +39,10 @@
               
                       <div >
                       <label class="label">Número de Identidad</label>
-                      <p><input  type="text" class="form-control" ID="input" 
-                       placeholder="ingrese el número de identidad"   minlength="11" maxlength="11" required></p>
+                      <p><input   class="form-control" ID="input"  type="number" 
+                        maxlength="13" minlength="13"  oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                        
+                       placeholder="ingrese el número de identidad"  required></p>
                       </div>
 
                       <div >
