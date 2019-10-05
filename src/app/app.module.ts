@@ -9,12 +9,14 @@ import { RouterModule, Route} from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { At1Component } from './at1/at1.component';
+import { DatoPacienteComponent } from './dato-paciente/dato-paciente.component';
 
 const routes: Route[] = [
   {path: '', component: LoginComponent},
   {path: 'formulario', component: FormularioComponent},
   {path: 'principal', component: PrincipalComponent},
-  {path: 'at1', component: At1Component}
+  {path: 'at1', component: At1Component},
+  {path: 'datoPaciente', component: DatoPacienteComponent}
 
 ]; 
 
@@ -24,7 +26,8 @@ const routes: Route[] = [
     FormularioComponent,
     LoginComponent,
     PrincipalComponent,
-    At1Component
+    At1Component,
+    DatoPacienteComponent
     
   ],
   imports: [
