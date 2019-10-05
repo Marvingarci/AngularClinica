@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../interfaces/usuario';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 
@@ -12,16 +11,29 @@ import { Router } from '@angular/router';
 
 
 export class LoginComponent implements OnInit {
+<<<<<<< HEAD
+
+
+  passwordType: string= 'password';
+  passwordShown: boolean = false;
+
+    
+=======
     usuario: Usuario  = {
     cuentaUsuario:null,
     contrasenia: null
   };
+>>>>>>> 23fcc0400b31fa97a4276d070d8d3b7334910747
   constructor(private loginService: LoginService,private router: Router){
   }
   
   ngOnInit() {
   }
 
+<<<<<<< HEAD
+   
+  
+=======
   saveLogin(){
     this.router.navigate(['formulario']);
   }
@@ -35,5 +47,6 @@ export class LoginComponent implements OnInit {
   });   
   } */
    
+>>>>>>> 23fcc0400b31fa97a4276d070d8d3b7334910747
 
 }
