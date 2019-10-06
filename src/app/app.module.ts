@@ -14,6 +14,9 @@ import { At1Component } from './at1/at1.component';
 import { DatoPacienteComponent } from './dato-paciente/dato-paciente.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { ListadoEstudiantesComponent } from './listado-estudiantes/listado-estudiantes.component';
+import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
+import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
+import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
 
 const routes: Route[] = [
   {path: '', component: LoginComponent},
@@ -27,7 +30,10 @@ const routes: Route[] = [
   {path: 'at1', component: At1Component},
   
   {path: 'registroPaciente', component: PacienteComponent},
-  {path: 'listadoEstudiantes', component: ListadoEstudiantesComponent}
+  {path: 'listadoEstudiantes', component: ListadoEstudiantesComponent},
+  {path: 'listadotrabajadores', component: ListadoTrabajadoresComponent},
+  {path: 'listadoVisitantes', component: ListadoVisitantesComponent},
+  {path: 'listadoProsene', component: ListadoProseneComponent}
  
   
 
@@ -44,7 +50,10 @@ const routes: Route[] = [
     LoginadminComponent,
     At1Component,
     PacienteComponent,
-    ListadoEstudiantesComponent ,
+    ListadoEstudiantesComponent,
+    ListadoTrabajadoresComponent,
+    ListadoVisitantesComponent,
+    ListadoProseneComponent ,
     
   ],
   imports: [
