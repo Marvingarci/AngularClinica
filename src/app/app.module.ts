@@ -12,6 +12,11 @@ import { LoginadminComponent } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
 import { DatoPacienteComponent } from './dato-paciente/dato-paciente.component';
+import { PacienteComponent } from './paciente/paciente.component';
+import { ListadoEstudiantesComponent } from './listado-estudiantes/listado-estudiantes.component';
+import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
+import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
+import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
 
 const routes: Route[] = [
   {path: '', component: LoginComponent},
@@ -22,7 +27,15 @@ const routes: Route[] = [
 
   {path: 'loginadmin', component: LoginadminComponent},
 
-  {path: 'at1', component: At1Component}
+  {path: 'at1', component: At1Component},
+  
+  {path: 'registroPaciente', component: PacienteComponent},
+  {path: 'listadoEstudiantes', component: ListadoEstudiantesComponent},
+  {path: 'listadotrabajadores', component: ListadoTrabajadoresComponent},
+  {path: 'listadoVisitantes', component: ListadoVisitantesComponent},
+  {path: 'listadoProsene', component: ListadoProseneComponent}
+ 
+  
 
 ]; 
 
@@ -35,7 +48,12 @@ const routes: Route[] = [
     At1Component,
     DatoPacienteComponent,
     LoginadminComponent,
-    At1Component ,
+    At1Component,
+    PacienteComponent,
+    ListadoEstudiantesComponent,
+    ListadoTrabajadoresComponent,
+    ListadoVisitantesComponent,
+    ListadoProseneComponent ,
     
   ],
   imports: [

@@ -36,12 +36,12 @@
         <!-- sidebar-search  -->
         <div class="sidebar-menu">
                 <div class="col-12">
-                    <div class="list-group" id="list-tab" role="tablist">
-                        <a [routerLink]="['/at1']" class="list-group-item list-group-item-action" id="list-home-list" role="tab" aria-controls="home">At1</a>
-                        <a [routerLink]="['/registroPaciente']" class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"  role="tab" aria-controls="profile">Pacientes</a>
-                        <a [routerLink]="['/inventario']" class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Inventario</a>
-                        <a [routerLink]="['/Consolidado']" class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Consolidado Diario</a>
-                      </div>
+                        <div class="list-group" id="list-tab" role="tablist">
+                                <a [routerLink]="['/at1']" class="list-group-item list-group-item-action" id="list-home-list" role="tab" aria-controls="home">At1</a>
+                                <a [routerLink]="['/registroPaciente']" class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"  role="tab" aria-controls="profile">Pacientes</a>
+                                <a [routerLink]="['/inventario']" class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Inventario</a>
+                                <a [routerLink]="['/Consolidado']" class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Consolidado Diario</a>
+                              </div>
                           
                         
                       </div>
@@ -67,15 +67,35 @@
                   </nav>
 
                   <br>
-                  <div>
+
+                      <!-- Contenido individual  -->
                       
-                        <table class="table table-sm">
-                                <thead>
+                  <div>
+                        <ul class="nav nav-tabs ">
+                                <li class="nav-item">
+                                        <a class="nav-link" style="font-size: 18px" [routerLink]="['/registroPaciente']" routerLinkActive="router-link-active" >Estudiantes</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link" style="font-size: 18px" [routerLink]="['/listadotrabajadores']" >Trabajadores</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link active" style="font-size: 18px" [routerLink]="['/listadoVisitantes']" >Visitantes</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link " style="font-size: 18px" [routerLink]="['/listadoProsene']" tabindex="-1" aria-disabled="true">Prosene</a>
+                                      </li>
+                        </ul>
+                            
+                        <h5 style="text-align: center">Listado de Pacientes Visitantes</h5>
+                        <table class="table">
+                                <thead class="thead-dark">
                                   <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">No de Identidad</th>
+                                    <th scope="col">Edad</th>
+                                    <th scope="col">telefono</th>
+                                    <th scope="col">Lugar de procedencia</th>
+                                    <th scope="col"></th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -84,6 +104,8 @@
                                     <td>Mark</td>
                                     <td>Otto</td>
                                     <td>@mdo</td>
+                                    <td></td>
+                                    <td><a href="">ver</a></td>
                                   </tr>
                                   <tr>
                                     <th scope="row">2</th>
@@ -93,12 +115,34 @@
                                   </tr>
                                   <tr>
                                     <th scope="row">3</th>
-                                    <td colspan="2">Larry the Bird</td>
+                                    <td>Larry</td>
+                                    <td>the Bird</td>
                                     <td>@twitter</td>
                                   </tr>
                                 </tbody>
                               </table>
+
+
+                              <div style="position: absolute;
+                              margin-bottom: 40px;
+                              right: 40px;
+                              bottom: 0;
+                              background-color: aqua
+                              ">
+                                <a [routerLink]="['/formulario']" routerLinkActive="router-link-active">
+                                    <button class="btn btn-info" style="font-size: 20px">Crear Nuevo Paciente Visitante</button>
+                                  
+                                </a>       
+                              </div>
+                              
+                              
+
+
+                      
+                      
+                   <!-- hasta aqui--> 
                   </div>
+
 
     
   
