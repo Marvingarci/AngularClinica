@@ -23,18 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  saveLogin(){
-    this.router.navigate(['formulario']);
-  }
-  /*saveLogin(){this.loginService.save(this.usuario).subscribe( (data) =>{
-   console.log(data);
-    alert('pelicula guardada');   
-  },  (error)=>{
-    console.log(error);
-    alert('ocurrio un error');  
-  this.router.navigate(['formulario']);
-  });   
-  } */
    
+  
 
 }
