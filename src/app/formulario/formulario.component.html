@@ -595,38 +595,21 @@
             <div class="col">
               <br/>
               <label>Fecha Termino Ult.Embarazo:</label>
-
-              <input type="date" min="1920-01-01" class="form-control" name="nacimiento" id="nacimiento" placeholder="Fecha Termino Ult.Embarazo">
-
               <input [(ngModel)]="antecedente_obstetrico.fecha_termino_ult_embarazo" type="date" min="1920-01-01" class="form-control" name="fecha_termino_ult_embarazo" id="" placeholder="Fecha Termino Ult.Embarazo">
-
             </div>
             <div class="col">
               <br/>
               <br/>
-
-              <input type="text" class="form-control" name="" id="" placeholder="Como termino Ultimo Embarazo">
-
               <input [(ngModel)]="antecedente_obstetrico.descripcion_termino_ult_embarazo" type="text" class="form-control" name="descripcion_termino_ult_embarazo" id="" placeholder="Como termino Ultimo Embarazo">
-
             </div> 
           </div>
         <br/>
           <div class="form-group">
-
-            <textarea class="form-control" name="" id="" rows="3" placeholder="Observaciones"></textarea>
-          </div>
-      </div>
-    </div>
-  </div>  
-
             <textarea [(ngModel)]="antecedente_obstetrico.observaciones" class="form-control" name="observaciones" id="" rows="3" placeholder="Observaciones"></textarea>
           </div>
       </div>
     </div>
   </div>
-
- 
   
   </form>
   <button type="button" class="btn btn-outline-primary float-right" (click)="enviarDatos()" style="margin-right: 20px;">Enviar</button>
