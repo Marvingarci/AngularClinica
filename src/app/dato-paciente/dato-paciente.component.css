@@ -26,3 +26,20 @@
     /* background-image: url("https://campusvirtual.unah.edu.hn/theme/image.php/bootstrapcampus/theme/1568312409/frontpage-bg"); */
     /* background-size: cover; */
   }
+
+
+  #dato{
+    height: 100%;
+    width:100%;
+    position: absolute;
+    margin:0px;
+    }
+
+
+  #dato{
+    background: url('https://image.freepik.com/foto-gratis/informe-examen-medico-estetoscopio-blanco-escritorio_1387-344.jpg')no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
