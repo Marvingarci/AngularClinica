@@ -13,11 +13,14 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
 
-  passwordType: string= 'password';
-  passwordShown: boolean = false;
+  
 
     
   constructor(private loginService: LoginService,private router: Router){
+  }
+
+  saveLogin(){
+    this.router.navigate(['formulario']);
   }
   
   ngOnInit() {

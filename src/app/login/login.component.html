@@ -7,8 +7,10 @@
 
               <div >
               <label class="label">Número de Cuenta</label>
-               <p><input [(ngModel)]="usuario.cuentaUsuario" type="text" class="form-control" ID="txtPassword" 
-               placeholder="Ingrese su número de cuenta"   minlength="11" maxlength="11" required></p>
+               <p><input type="number" 
+                maxlength="11"  oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                class="form-control" ID="txtPassword" 
+               placeholder="Ingrese su número de cuenta"   required></p>
               </div>
                   
               
@@ -19,14 +21,14 @@
               <label class="label">Contraseña</label>
               <div class="input-group-append">
                   <div class="field">
-                    <input [(ngModel)]="usuario.contrasenia" ID="txtPassword" type="password"  Class="form-control"
-                           name="password" placeholder="Ingrese su contraseña" ngModel passwordToggle required >
+                   <p><input  ID="txtPassword" type="password"  Class="form-control"
+                           name="password" placeholder="Ingrese su contraseña" ngModel passwordToggle required ></p> 
                   </div>                           
               </div>      
             </div> 
 <br>
         </div>               
-        <button  (click)="saveLogin()"   class="boton" >guardar</button>                               
+        <button  (click)="saveLogin()"   class="boton" >ingresar</button>                               
         </div>
   </div>
 </div>   

@@ -29,5 +29,4 @@ export interface Paciente {
     prosene?: boolean;
     created_at?:string;
     update_at?:string;
-
 }
