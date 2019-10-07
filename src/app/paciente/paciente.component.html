@@ -91,31 +91,29 @@
                                   <tr>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">No de cuenta</th>
-                                    <th scope="col">Carrera</th>
+                                    <th scope="col">Fecha Nacimiento</th>
                                     <th scope="col">telefono</th>
-                                    <th scope="col">Lugar de procedencia</th>
+                                    <th scope="col">Numero de identidad</th>
                                     <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
+                                  <tr *ngFor="let paciente of pacientes">
+                                    <th scope="row">{{paciente.primer_nombre }} {{paciente.segundo_nombre}} {{paciente.primer_apellido }} {{paciente.segundo_apellido}}</th>
+                                    <td>{{paciente.numero_cuenta }}</td>
+                                    <td>{{paciente.fecha_nacimiento }}</td>
+                                    <td>{{paciente.numero_telefono }}</td>
+                                    <td>{{paciente.numero_identidad }}</td>
+                                    <td>
+                                      <a href="">ver</a>
+                                    </td>
+                                    <td>
+                                      <a href="">Editar</a>
+                                    </td>
                                   </tr>
-                                  <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">3</th>
-                                    <td>Larry</td>
-                                    <td>the Bird</td>
-                                    <td>@twitter</td>
-                                  </tr>
+                                  
                                 </tbody>
                               </table>
                               
