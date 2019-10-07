@@ -23,6 +23,10 @@ export class FormularioService {
     return this.httpClient.post(this.API_ENDPOINT + 'pacientes', paciente, {headers: headers});
   };
 
+  get(){
+    return this.httpClient.get(this.API_ENDPOINT+'pacientes');
+  }
+
   guardarAntecedentesFamiliares(antecedente_familiar: AntecedentesFamiliares){
     const headers = new HttpHeaders({'Content-Type':'application/json'});
     return this.httpClient.post(this.API_ENDPOINT + 'antecedentes_familiares', antecedente_familiar, {headers: headers});
