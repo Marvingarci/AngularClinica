@@ -12,9 +12,20 @@ import { FormularioService } from '../services/formulario.service';
 export class PacienteComponent implements OnInit {
 
   API_ENDPOINT = 'http://apiclinicaunah.test/api/';
-  paciente: Paciente[];
+  pacientes: Paciente[];
 
-  constructor() { }
+  constructor( private pacienteService: FormularioService, private httpClient: HttpClient ) { 
+    this.getPacientes();
+  }
+  
+  getPacientes(){
+    this.pacienteService.get().subscribe((data: Paciente[]) =>{
+      this.pacientes = data;
+    },(error)=>{
+      console.log(error);
+      alert('Ocurrio un error');
+    });
+  }
 
   ngOnInit() {
   }
