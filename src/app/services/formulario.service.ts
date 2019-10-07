@@ -23,7 +23,7 @@ export class FormularioService {
     return this.httpClient.post(this.API_ENDPOINT + 'pacientes', paciente, {headers: headers});
   };
 
-  getPacientes(paciente: Paciente){
+  get(){
     return this.httpClient.get(this.API_ENDPOINT+'pacientes');
   }
 
