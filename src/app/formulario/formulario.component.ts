@@ -10,10 +10,32 @@ import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologi
 import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familiares';
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
 
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+
+export interface Sexo {
+  value: string;
+  viewValue: string;
+}
+
+export interface seguro_medico {
+  value: string;
+  viewValue: string;
+}
+
+export interface estado_civil {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
-  styleUrls: ['./formulario.component.css']
+  styleUrls: ['./formulario.component.css'],
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  }]
 })
 export class FormularioComponent implements OnInit {
 
@@ -136,12 +158,54 @@ export class FormularioComponent implements OnInit {
   
   };
 
-
   error: boolean = false;
 
-  constructor(private formularioService: FormularioService, private router: Router) { }
+  minDate = new Date(2000, 0, 1);
+  maxDate = new Date(2020, 0, 1);
+
+
+  sexoSeleccionado: string;
+  seguroMedicoSeleccionado: string;
+  estadoCivilSeleccionado: string;
+
+  sexos: Sexo[] = [
+    {value: 'hombre', viewValue: 'Hombre'},
+    {value: 'mujer', viewValue: 'Mujer'},
+    {value: 'otro', viewValue: 'Otro'}
+  ];
+
+  seguros_medicos: seguro_medico[] = [
+    {value: 'Privado', viewValue: 'Privado'},
+    {value: 'IHSS', viewValue: 'IHSS'},
+    {value: 'otro', viewValue: 'No'}
+  ];
+
+  estados_civiles: estado_civil[] = [
+    {value: 'Soltero', viewValue: 'Soltero'},
+    {value: 'Union Libre', viewValue: 'Union Libre'},
+    {value: 'Divorciado', viewValue: 'Divorciado'},
+    {value: 'Viudo', viewValue: 'Viudo'}
+   
+  ];
+
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+
+
+  constructor(private formularioService: FormularioService, 
+    private router: Router,
+    private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+    
   }
 
   enviarDatos(){
