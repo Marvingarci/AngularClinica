@@ -9,7 +9,7 @@ margin:0px;
 }
 
 #intro{
-    background: url('https://scontent-mia3-2.xx.fbcdn.net/v/t1.0-9/70343950_3025882257482069_8498522724275060736_n.jpg?_nc_cat=107&_nc_oc=AQlf-iyKsdfqsnNe8YD8ZCHT6TMH1k_miSuX7I4lOKo7cPMxJ50j6BnArCkXtk9JKVI&_nc_ht=scontent-mia3-2.xx&oh=53c59444e7ac8cd752fdb44d74f90b36&oe=5E256A52')no-repeat center center fixed;
+    background: url('src\imagenes\imagenlogin.jpg')no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -72,7 +72,7 @@ input:focus {
   
   }
 
-#txtPassword{
+.input{
   background: #FFCD33;
   border-radius: 20px;
   text-align: center;
