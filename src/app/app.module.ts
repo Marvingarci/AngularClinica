@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormularioComponent } from './formulario/formulario.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Route} from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { PrincipalComponent } from './principal/principal.component';
@@ -17,6 +17,19 @@ import { ListadoEstudiantesComponent } from './listado-estudiantes/listado-estud
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
+
+//material angular
+import { MatSliderModule } from '@angular/material/slider';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule, MatLabel} from '@angular/material/form-field'
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { WizardComponent} from './wizard/wizard.component';
+import { MatNativeDateModule, MatOption } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 
 const routes: Route[] = [
   {path: '', component: LoginComponent},
@@ -62,10 +75,23 @@ const routes: Route[] = [
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    NgxPasswordToggleModule
+    NgxPasswordToggleModule,
+
+    MatSliderModule,
+    MatTabsModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatStepperModule,
+    ReactiveFormsModule,
     
   ],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
