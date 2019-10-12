@@ -17,6 +17,7 @@ import { ListadoEstudiantesComponent } from './listado-estudiantes/listado-estud
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Route[] = [
   {path: '', component: LoginComponent},
@@ -62,7 +63,8 @@ const routes: Route[] = [
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    NgxPasswordToggleModule
+    NgxPasswordToggleModule,
+    BrowserAnimationsModule
     
   ],
   providers: [],
