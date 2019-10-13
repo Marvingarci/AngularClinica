@@ -5,30 +5,28 @@
       <div>
            <div class="view" id="imagenpuma"></div>
 
-              <div >
-              <label class="label">Número de Cuenta</label>
-               <p><input ID="cuentalogin" type="number" name="cuentalogin"
-                maxlength="11"  oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                class="input" 
-               placeholder="Ingrese su número de cuenta"   required></p>
-              </div>
-                  
               
-                 
 
+              <div class="col">
+                  <mat-form-field class="example-full-width">
+                          <input ID="cuentalogin" type="number" name="cuentalogin"
+                          maxlength="11"  oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                          class="input"  matInput placeholder="Ingrese su número de cuenta" required>
+                  </mat-form-field>
+                </div>
+                  
+           <div class="col">
+              <mat-form-field class="example-full-width">
+                      <input ID="inputPassword" type="password"  Class="input"
+                      name="contrasenialogin" matInput placeholder="Ingrese su contraseña"
+                      ngModel passwordToggle required>
+              </mat-form-field>
+            </div>
+        
 
-            <div>
-              <label class="label">Contraseña</label>
-              <div class="input-group-append">
-                  <div class="field">
-                   <p><input  ID="inputPassword" type="password"  Class="input"
-                           name="contrasenialogin" placeholder="Ingrese su contraseña" ngModel passwordToggle required ></p> 
-                  </div>                           
-              </div>      
-            </div> 
-
-        </div>               
-        <input type="submit" (click)="main()"   class="boton" >                             
-        </div>
+            </div>             
+            <input type="submit" (click)="main()"   class="boton" >                             
+            </div>
   </div>
 </div>   
+
