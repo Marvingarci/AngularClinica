@@ -4,12 +4,14 @@ mat-tab-group {
 
 mat-horizontal-stepper{
   height: 100%;
+  padding: 15px;
 }
 
 .container{
   height: 450px;
   padding: 20px;
   overflow: auto;
+  position: relative;
 
 }
 
@@ -25,4 +27,23 @@ mat-horizontal-stepper{
 
 .col {
   text-align: center;
+}
+
+h2{
+  margin-bottom: 20px;
+}
+
+mat-divider {
+  margin-bottom: 16px;
+}
+
+/*radio buttons */
+.example-radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
 }
