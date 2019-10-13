@@ -31,6 +31,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatCardModule} from '@angular/material/card';
 
 
 const routes: Route[] = [
@@ -94,6 +95,7 @@ const routes: Route[] = [
     MatSelectModule,
     MatStepperModule,
     ReactiveFormsModule,
+    MatCardModule,
     MatRadioModule,
     MatDividerModule
     
