@@ -1,4 +1,5 @@
 <mat-horizontal-stepper linear #stepper>
+  <!-- primer step -->
   <mat-step>
     <ng-template matStepLabel>Datos Generales</ng-template>
     <div class="container">
@@ -63,9 +64,9 @@
           </div>
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Fecha Nacimiento">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" placeholder="Fecha Nacimiento">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
           </div>
         </div>    
@@ -128,6 +129,8 @@
         <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
     </div>
   </mat-step>
+
+  <!-- segundo step -->
   <mat-step>
       <ng-template matStepLabel>Antecedentes Familiares</ng-template>
         <div class="container">
@@ -184,7 +187,7 @@
           <mat-divider></mat-divider>
           
           <div>
-            <label id="example-radio-group-label">3. Desnutricion</label>
+            <label id="example-radio-group-label">3. Desnutrición</label>
             <mat-radio-group
               aria-labelledby="example-radio-group-label"
               class="example-radio-group"
@@ -223,7 +226,7 @@
           <mat-divider></mat-divider>
 
           <div>
-            <label id="example-radio-group-label">3. Enfermedades Mentales</label>
+            <label id="example-radio-group-label">4. Enfermedades Mentales</label>
             <mat-radio-group
               aria-labelledby="example-radio-group-label"
               class="example-radio-group"
@@ -287,295 +290,426 @@
           <mat-divider></mat-divider>
 
           <div>
-              <label id="example-radio-group-label">6. Alcoholismo o Sustancias Psicoactivas</label>
-              <mat-radio-group
-                aria-labelledby="example-radio-group-label"
-                class="example-radio-group"
-                [(ngModel)]="antecedente_familiar.alcoholismo_sustancias_psicoactivas">
-                <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-                  {{opcion}}
-                </mat-radio-button>
-              </mat-radio-group>
+            <label id="example-radio-group-label">6. Alcoholismo o Sustancias Psicoactivas</label>
+            <mat-radio-group
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group"
+              [(ngModel)]="antecedente_familiar.alcoholismo_sustancias_psicoactivas">
+              <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+                {{opcion}}
+              </mat-radio-button>
+            </mat-radio-group>
           </div>
           <div> 
+            <mat-form-field>
+              <mat-label>Parentesco</mat-label>
+              <mat-select [(ngModel)]="antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas" name="observacion_alcoholismo_sustancias_psicoactivas">
+                <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+                  {{parentesco.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <p>parentesco seleccionado: {{antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas}} </p>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <div>
+            <label id="example-radio-group-label">7. Alergias</label>
+            <mat-radio-group
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group"
+              [(ngModel)]="antecedente_familiar.alergias">
+              <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+                {{opcion}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="row">
+            <div class="col-md-3"> 
               <mat-form-field>
                 <mat-label>Parentesco</mat-label>
-                <mat-select [(ngModel)]="antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas" name="observacion_alcoholismo_sustancias_psicoactivas">
+                <mat-select [(ngModel)]="antecedente_familiar.observacion_alergias" name="observacion_alergias">
                   <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                     {{parentesco.viewValue}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <p>parentesco seleccionado: {{antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas}} </p>
+              <p>parentesco seleccionado: {{antecedente_familiar.observacion_enfermedades_mentales}} </p>
             </div>
 
-            <mat-divider></mat-divider>
+            <div class="col-md-3"> 
+              <mat-form-field>
+                <mat-label>Tipo Alergia</mat-label>
+                <mat-select [(ngModel)]="antecedente_familiar.tipo_alergia" name="tipo_alergia">
+                  <mat-option *ngFor="let alergia of alergias" [value]="alergia.value">
+                    {{alergia.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <p>alergia selecionada: {{antecedente_familiar.tipo_alergia}} </p>
+            </div>
+          </div>
 
-            <div>
-              <label id="example-radio-group-label">6. Alergias</label>
-              <mat-radio-group
-                aria-labelledby="example-radio-group-label"
-                class="example-radio-group"
-                [(ngModel)]="antecedente_familiar.alergias">
-                <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-                  {{opcion}}
-                </mat-radio-button>
-              </mat-radio-group>
-            </div>
-            <div class="row">
-              <div class="col-md-3"> 
-                <mat-form-field>
-                  <mat-label>Parentesco</mat-label>
-                  <mat-select [(ngModel)]="antecedente_familiar.observacion_alergias" name="observacion_alergias">
-                    <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-                      {{parentesco.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <p>parentesco seleccionado: {{antecedente_familiar.observacion_enfermedades_mentales}} </p>
-              </div>
-  
-              <div class="col-md-3"> 
-                <mat-form-field>
-                  <mat-label>Tipo Alergia</mat-label>
-                  <mat-select [(ngModel)]="antecedente_familiar.tipo_alergia" name="tipo_alergia">
-                    <mat-option *ngFor="let alergia of alergias" [value]="alergia.value">
-                      {{alergia.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <p>alergia selecionada: {{antecedente_familiar.tipo_alergia}} </p>
-              </div>
-            </div>
+          <mat-divider></mat-divider>
 
-            <mat-divider></mat-divider>
-
-            <div>
-              <label id="example-radio-group-label">7. Cáncer</label>
-              <mat-radio-group
-                aria-labelledby="example-radio-group-label"
-                class="example-radio-group"
-                [(ngModel)]="antecedente_familiar.cancer">
-                <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-                  {{opcion}}
-                </mat-radio-button>
-              </mat-radio-group>
-            </div>
-            <div class="row">
-              <div class="col-md-3"> 
-                <mat-form-field>
-                  <mat-label>Parentesco</mat-label>
-                  <mat-select [(ngModel)]="antecedente_familiar.observacion_cancer" name="observacion_cancer">
-                    <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-                      {{parentesco.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <p>parentesco seleccionado: {{antecedente_familiar.observacion_cancer}} </p>
-              </div>
-  
-              <div class="col-md-3"> 
-                <mat-form-field>
-                  <mat-label>Tipo cáncer</mat-label>
-                  <mat-select [(ngModel)]="antecedente_familiar.tipo_cancer" name="tipo_cancer">
-                    <mat-option *ngFor="let cancer of canceres" [value]="cancer.value">
-                      {{cancer.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <p>cáncer selecionada: {{antecedente_familiar.tipo_cancer}} </p>
-              </div>
-            </div>
-            
-            <mat-divider></mat-divider>
-
-            <div>
-              <label id="example-radio-group-label">9. Hipertensión arterial</label>
-              <mat-radio-group
-                aria-labelledby="example-radio-group-label"
-                class="example-radio-group"
-                [(ngModel)]="antecedente_familiar.hipertension_arterial"> 
-                <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-                  {{opcion}}
-                </mat-radio-button>
-              </mat-radio-group>
-            </div>
-            <div> 
+          <div>
+            <label id="example-radio-group-label">8. Cáncer</label>
+            <mat-radio-group
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group"
+              [(ngModel)]="antecedente_familiar.cancer">
+              <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+                {{opcion}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="row">
+            <div class="col-md-3"> 
               <mat-form-field>
                 <mat-label>Parentesco</mat-label>
-                <mat-select [(ngModel)]="antecedente_familiar.observacion_hipertension_arterial" name="observacion_hipertension_arterial">
+                <mat-select [(ngModel)]="antecedente_familiar.observacion_cancer" name="observacion_cancer">
                   <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                     {{parentesco.viewValue}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <p>parentesco seleccionado: {{antecedente_familiar.observacion_hipertension_arterial}} </p>
+              <p>parentesco seleccionado: {{antecedente_familiar.observacion_cancer}} </p>
             </div>
 
-            <mat-divider></mat-divider>
-
-            <div class="row">
-              <div class="col-md-3">
-                <mat-form-field>
-                  <input matInput [(ngModel)]="antecedente_familiar.otros" name="otros" id="" placeholder="Otros">
-                </mat-form-field>
-              </div>
-
-              <div class="col-md-3">
-                <mat-form-field>
-                  <mat-label>Parentesco</mat-label>
-                  <mat-select [(ngModel)]="antecedente_familiar.observacion_otros" name="observacion_otros">
-                    <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-                      {{parentesco.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <p>parentesco seleccionado: {{antecedente_familiar.observacion_otros}} </p>
-              </div>
+            <div class="col-md-3"> 
+              <mat-form-field>
+                <mat-label>Tipo cáncer</mat-label>
+                <mat-select [(ngModel)]="antecedente_familiar.tipo_cancer" name="tipo_cancer">
+                  <mat-option *ngFor="let cancer of canceres" [value]="cancer.value">
+                    {{cancer.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <p>cáncer selecionada: {{antecedente_familiar.tipo_cancer}} </p>
             </div>
-            <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
-            <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
-
-            
-  
-
-            
-            
-
-
-
+          </div>
           
+          <mat-divider></mat-divider>
 
+          <div>
+            <label id="example-radio-group-label">9. Hipertensión arterial</label>
+            <mat-radio-group
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group"
+              [(ngModel)]="antecedente_familiar.hipertension_arterial"> 
+              <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+                {{opcion}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div> 
+            <mat-form-field>
+              <mat-label>Parentesco</mat-label>
+              <mat-select [(ngModel)]="antecedente_familiar.observacion_hipertension_arterial" name="observacion_hipertension_arterial">
+                <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+                  {{parentesco.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <p>parentesco seleccionado: {{antecedente_familiar.observacion_hipertension_arterial}} </p>
+          </div>
 
-            
+          <mat-divider></mat-divider>
 
-            
-          
-          
-         
+          <div class="row">
+            <div class="col-md-3">
+              <mat-form-field>
+                <input matInput [(ngModel)]="antecedente_familiar.otros" name="otros" id="" placeholder="Otros">
+              </mat-form-field>
+            </div>
 
-                    
-          
-
-          
-              
-          
-          
-          
-          
-
-
-
-
-          <!-- <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.diabetes" class="form-check-input" type="radio" name="diabetes_familiar" id="diabetes1" value="Si">Si
+            <div class="col-md-3">
+              <mat-form-field>
+                <mat-label>Parentesco</mat-label>
+                <mat-select [(ngModel)]="antecedente_familiar.observacion_otros" name="observacion_otros">
+                  <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+                    {{parentesco.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <p>parentesco seleccionado: {{antecedente_familiar.observacion_otros}} </p>
+            </div>
           </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.diabetes" class="form-check-input" type="radio" name="diabetes_familiar" id="diabetes2" value="No">No
-          </div>
-          <div class="form-group">
-            <textarea [(ngModel)]="antecedente_familiar.observacion_diabetes" class="form-control" name="observacion_diabetes_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-          </div>
-          <div class="form-group">
-            <label>2. T.B Plumonar</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.tb_pulmonar" class="form-check-input" type="radio" name="tb_pulmonar_familiar" id="pulmonar1" value="Si">Si
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.tb_pulmonar" class="form-check-input" type="radio" name="tb_pulmonar_familiar" id="pulmonar2" value="No">No
-          </div>
-          <div class="form-group">
-            <textarea [(ngModel)]="antecedente_familiar.observacion_tb_pulmonar" class="form-control" name="observacion_tb_pulmonar_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea1">3. Desnutricion</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.desnutricion" class="form-check-input" type="radio" name="desnutricion_famliar" id="desnutri1" value="Si">Si
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.desnutricion" class="form-check-input" type="radio" name="desnutricion_familiar" id="desnutri2" value="No">No
-          </div>
-          <div class="form-group">
-            <textarea [(ngModel)]="antecedente_familiar.observacion_desnutricion" class="form-control" name="observacion_desnutricion_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-          </div>
-          <div class="form-group">
-            <label>4. Enf. Mentales</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.enfermedades_mentales" class="form-check-input" type="radio" name="enfermedades_mentales_familiar" id="mentales1" value="Si">si  
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.enfermedades_mentales" class="form-check-input" type="radio" name="enfermedades_mentales_familiar" id="mentales2" value="No">No        
-          </div>
-          <div class="form-group">
-            <textarea [(ngModel)]="antecedente_familiar.observacion_enfermedades_mentales" class="form-control" name="observacion_enfermedades_mentales_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-          </div>
-          <div class="form-group">
-            <label>5. Convulsiones</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.convulciones" class="form-check-input" type="radio" name="convulciones_familiar" id="convulsiones1" value="Si">Si            
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.convulciones" class="form-check-input" type="radio" name="convulciones_familiar" id="convulsiones2" value="No">No
-          </div>
-          <div class="form-group">
-            <textarea [(ngModel)]="antecedente_familiar.observacion_convulciones" class="form-control" name="observacion_convulciones_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-          </div> 
-          <div class="form-group">
-            <label>6. Alcoholismo o sustancias psicoactiva</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.alcoholismo_sustancias_psicoactivas" class="form-check-input" type="radio" name="alcoholismo_sustancias_psicoactivas_familiar" id="sustancia1" value="Si">Si                  
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.alcoholismo_sustancias_psicoactivas" class="form-check-input" type="radio" name="alcoholismo_sustancias_psicoactivas_familiar" id="sustancia2" value="No">No                 
-          </div>
-          <div class="form-group">
-            <textarea [(ngModel)]="antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas" class="form-control" name="observacion_alcoholismo_sustancias_psicoactivas_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-          </div>
-          <div class="form-group">
-            <label>7. Alergias</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.alergias" class="form-check-input" type="radio" name="alergias_familiar" id="alergia1" value="Si">Si                 
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.alergias" class="form-check-input" type="radio" name="alergias_familiar" id="alergia2" value="No">No                       
-          </div>
-          <div class="form-group">
-            <textarea [(ngModel)]="antecedente_familiar.observacion_alergias" class="form-control" name="observacion_alergias_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea1">8. Cancer</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.cancer" class="form-check-input" type="radio" name="cancer_familiar" id="cancer1" value="Si">Si                    
-          </div>
-          <div class="form-check form-check-inline">
-            <input [(ngModel)]="antecedente_familiar.cancer" class="form-check-input" type="radio" name="cancer_familiar" id="cancer2" value="No">No                          
-          </div>
-          <div class="form-group">
-            <textarea [(ngModel)]="antecedente_familiar.observacion_cancer" class="form-control" name="observacion_cancer_familiar" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea1">9. Otros</label>
-            <input [(ngModel)]="antecedente_familiar.otros" name="otros_familiar" class="form-control" type="text" style="width: 20%;">
-          </div>    
-          <div class="form-group">
-            <textarea [(ngModel)]="antecedente_familiar.observacion_otros" name="observacion_otros_familiar" class="form-control" id="" rows="3" placeholder="En caso de positivo detallar parentesco indicando numero correspondiente"></textarea>
-          </div> -->
-  
-        </div>
+          <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
+          <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>  
+      </div>
   </mat-step>
+
+  <!-- tercer step -->
   <mat-step>
     <ng-template matStepLabel>Antecedente Personales</ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+    <div class="container">
+      <h2>Antecedente Personales</h2>
+
+      <div>
+        <label id="example-radio-group-label">1. Diabetes</label>
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+          [(ngModel)]="antecedente_personal.diabetes">
+          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+            {{opcion}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <mat-form-field class="medium-width">
+          <textarea matInput [(ngModel)]= "antecedente_personal.observacion_diabetes" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+      </mat-form-field>
+
+
+      <mat-divider></mat-divider>
+
+      <div>
+        <label id="example-radio-group-label">2. Tuberculosis Pulmonar</label>
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+          [(ngModel)]="antecedente_personal.tb_pulmonar">
+          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+            {{opcion}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <mat-form-field class="medium-width">
+        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_tb_pulmonar" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+      </mat-form-field>
+
+      <mat-divider></mat-divider>
+
+      <div>
+        <label id="example-radio-group-label">3. ITS/VIH</label>
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+          [(ngModel)]="antecedente_personal.its">
+          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+            {{opcion}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <mat-form-field class="medium-width">
+        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_its" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+      </mat-form-field>
+
+      <mat-divider></mat-divider>
+      
+      <div>
+        <label id="example-radio-group-label">4. Desnutrición</label>
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+          [(ngModel)]="antecedente_personal.desnutricion">
+          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+            {{opcion}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div> 
+        <mat-form-field>
+          <mat-label>Tipo Desnutrición</mat-label>
+          <mat-select [(ngModel)]="antecedente_personal.tipo_desnutricion" name="tipo_cancer">
+            <mat-option *ngFor="let desnutricion of desnutriciones" [value]="desnutricion.value">
+              {{desnutricion.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p>desnutricion selecionada: {{antecedente_personal.tipo_desnutricion}} </p>
+      </div>
+      <mat-form-field class="medium-width">
+        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_desnutricion" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+      </mat-form-field>
+
+      <mat-divider></mat-divider>
+
+      <div>
+          <label id="example-radio-group-label">5. Enfermedades Mentales</label>
+          <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="antecedente_personal.enfermedades_mentales">
+            <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+              {{opcion}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      
+        <div> 
+          <mat-form-field>
+            <mat-label>Tipo Enfermedad Mental</mat-label>
+            <mat-select [(ngModel)]="antecedente_personal.tipo_enfermedad_mental" name="tipo_enfermedad_mental">
+              <mat-option *ngFor="let enfermedad_mental of enfermedades_mentales" [value]="enfermedad_mental.value">
+                {{enfermedad_mental.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>enfermedad mental selecionada: {{antecedente_personal.tipo_enfermedad_mental}}</p>
+        </div>
+        <mat-form-field class="medium-width">
+          <textarea matInput [(ngModel)]= "antecedente_personal.observacion_enfermedades_mentales" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        </mat-form-field>
+        
+
+        <mat-divider></mat-divider>
+
+        <div>
+          <label id="example-radio-group-label">6. Convulsiones</label>
+          <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="antecedente_personal.convulsiones">
+            <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+              {{opcion}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <mat-form-field class="medium-width">
+          <textarea matInput [(ngModel)]= "antecedente_personal.observacion_convulsiones" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        </mat-form-field>
+
+        <mat-divider></mat-divider>
+
+        <div>
+          <label id="example-radio-group-label">8. Alergias</label>
+          <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="antecedente_personal.alergias">
+            <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+              {{opcion}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        
+        <div> 
+          <mat-form-field>
+            <mat-label>Tipo Alergia</mat-label>
+            <mat-select [(ngModel)]="antecedente_personal.tipo_alergia" name="tipo_alergia">
+              <mat-option *ngFor="let alergia of alergias" [value]="alergia.value">
+                {{alergia.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>alergia selecionada: {{antecedente_personal.tipo_alergia}} </p>
+        </div>
+        <mat-form-field class="medium-width">
+          <textarea matInput [(ngModel)]= "antecedente_personal.observacion_alergias" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        </mat-form-field>
+
+       <mat-divider></mat-divider>
+
+       <div>
+          <label id="example-radio-group-label">8. Cáncer</label>
+          <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="antecedente_familiar.cancer">
+            <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+              {{opcion}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div> 
+          <mat-form-field>
+            <mat-label>Tipo cáncer</mat-label>
+            <mat-select [(ngModel)]="antecedente_personal.tipo_cancer" name="tipo_cancer">
+              <mat-option *ngFor="let cancer of canceres" [value]="cancer.value">
+                {{cancer.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>cáncer selecionada: {{antecedente_personal.tipo_cancer}} </p>
+        </div>
+        <mat-form-field class="medium-width">
+          <textarea matInput [(ngModel)]= "antecedente_personal.observacion_cancer" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        </mat-form-field>
+      
+        <mat-divider></mat-divider>
+
+        <div>
+          <label id="example-radio-group-label">9. Hospitalarias y Quirurgicas</label>
+          <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="antecedente_personal.hospitalarias_quirurgicas">
+            <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+              {{opcion}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+       
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]= "antecedente_personal.fecha_antecedente_hospitalario" [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" placeholder="Fecha">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>            
+          </div>
+
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input [(ngModel)]= "antecedente_personal.tiempo_hospitalizacion" matInput placeholder="Tiempo Hospitalización">
+            </mat-form-field>
+         </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+              <mat-form-field class="example-full-width">
+                <textarea matInput [(ngModel)]= "antecedente_personal.diagnostico" placeholder="Diagnóstico"></textarea>
+              </mat-form-field>
+          </div>
+
+          <div class="col">
+              <mat-form-field class="example-full-width">
+                <textarea matInput [(ngModel)]= "antecedente_personal.tratamiento" placeholder="Tratamiento"></textarea>
+              </mat-form-field>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div>
+          <label id="example-radio-group-label">10. Traumáticos</label>
+          <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="antecedente_personal.traumaticos">
+            <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+              {{opcion}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <mat-form-field class="medium-width">
+          <textarea matInput [(ngModel)]= "antecedente_personal.observacion_traumaticos" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        </mat-form-field>
+
+        <mat-divider></mat-divider>
+
+        
+        <div>
+          <mat-form-field>
+            <input matInput [(ngModel)]="antecedente_personal.otros" name="otros" id="" placeholder="10. Otros">
+          </mat-form-field>
+        </div>
+        <mat-form-field class="medium-width">
+          <textarea matInput [(ngModel)]= "antecedente_personal.observacion_otros" placeholder="Observacion"></textarea>
+        </mat-form-field>
+
+        <div>
+            <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
+            <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
+        </div>
+        
     </div>
   </mat-step>
   <mat-step>
