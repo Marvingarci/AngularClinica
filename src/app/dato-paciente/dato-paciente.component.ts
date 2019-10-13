@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormularioService } from '../services/formulario.service';
-import { HttpClient } from '@angular/common/http';
 import { Paciente } from "../interfaces/paciente";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dato-paciente',
@@ -9,13 +9,22 @@ import { Paciente } from "../interfaces/paciente";
   styleUrls: ['./dato-paciente.component.css']
 })
 export class DatoPacienteComponent implements OnInit {
-  API_ENDPOINT = 'http://127.0.0.1:8000/api';
+  API_ENDPOINT = 'http://apiclinicaunah.test/api/';
   pacientes: Paciente[];
-  constructor(private formularioService: FormularioService, private httpClient: HttpClient) {
-    httpClient.get(this.API_ENDPOINT + '/formulario').subscribe((data: Paciente[]) =>{
+
+  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute) {
+    this.getdato();
+  }
+
+  getdato(){
+    this.formularioService.get().subscribe((data: Paciente[]) =>{
       this.pacientes = data;
+    },(error)=>{
+      console.log(error);
+      alert('Ocurrio un error');
     });
-   }
+  }
+
 
   ngOnInit() {
   }

@@ -1,104 +1,49 @@
-#formContent {
-  -webkit-border-radius: 10px 10px 10px 10px;
-  border-radius: 10px 10px 10px 10px;
-  background: #FFF;
-  padding: 30px;
-  width: 90%;
-  position: relative;
-  padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  text-align: left;
-  opacity: .6;
+mat-tab-group {
+  margin: 25px;
 }
 
-.wrapper {
-  display: flex;
-  align-items: center;
-  flex-direction: column; 
-  justify-content: center;
-  width: 100%;
-  min-height: 100%;
+mat-horizontal-stepper{
+  height: 100%;
+  padding: 15px;
+}
+
+.container{
+  height: 450px;
   padding: 20px;
-  /* background-image: url("https://campusvirtual.unah.edu.hn/theme/image.php/bootstrapcampus/theme/1568312409/frontpage-bg");
-  background-size: cover; */
-
-}
-
-
-#Citologia{
-  border: 0;
-  border-bottom: 2px;
-    
-}
-
-
-#telefono, #iptDuracion,
-#iptPeriocidad, #iptCaracteristicas,
-#iptEdadInicioVidaSexual, #iptParejasSexuales, #iptDescribirParejasSexuales{
-  margin-bottom:20px; 
-}
-
-textarea{
-  width: 95%;
-  border-color: #3354FF;
-}
-
-textarea:focus{
-  color: #FFCD33;
-}
-
-input{
-  border-color: #3354FF;
-  
-}
-
-Input:Focus {
-  color: #FFCD33;
-}
-
-::-webkit-input-placeholder {
-color: #3354FF;  }
-:-moz-placeholder { /* Firefox 18- */
-color:  #3354FF;}
-::-moz-placeholder {  /* Firefox 19+ */
-color: #3354FF;  }
-:-ms-input-placeholder {  
-color: #3354FF;  }::-webkit-input-placeholder {
-  color: #3354FF ;  }
-:-moz-placeholder { /* Firefox 18- */
-  color: #3354FF;  }
-::-moz-placeholder {  /* Firefox 19+ */
-  color: #3354FF;  }
-:-ms-input-placeholder {  
-  color: #3354FF;  }
-
-input[type='radio']:after { 
-  width: 15px;
-  height: 15px;
-  border-radius: 15px;
-  top: -2px;
-  left: -1px;
+  overflow: auto;
   position: relative;
-  background-color: #FFF;
-  content: '';
-  display: inline-block;
-  visibility: visible;
-  border: 2px solid white;
+
 }
 
-input[type='radio']:checked:after 
-{ 
-  width: 15px;
-  height: 15px;
-  border-radius: 15px; 
-  top: -2px; 
-  left: -1px; 
-  position: relative; 
-  background-color: #FFCD33; 
-  content: ''; 
-  display: inline-block; 
-  visibility: visible; 
-  border: 2px solid white; 
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
 }
 
+.example-full-width {
+  width: 100%;
+}
+
+.col {
+  text-align: center;
+}
+
+h2{
+  margin-bottom: 20px;
+}
+
+mat-divider {
+  margin-bottom: 16px;
+}
+
+/*radio buttons */
+.example-radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+}

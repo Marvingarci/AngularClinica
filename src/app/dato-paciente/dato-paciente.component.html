@@ -10,9 +10,9 @@
               <div class="col-md-2">
                 <img src="https://image.flaticon.com/icons/png/512/16/16480.png" width="100" id="imagen" >
               </div>
-              <div class="col-md-5">
+              <div class="col-md-5" *ngFor="let paciente of pacientes">
                   <div>
-                        <h6>Nombre:</h6>
+                        <h6 >Nombre:{{paciente.primer_nombre}}</h6>
                   </div>
                   <div>
                         <h6>Cuenta:</h6>
@@ -69,15 +69,5 @@
         </div>
       </nav>
     </div> 
-
-    <div class="fixed-top">
-        <nav class="navbar navbar-light bg-primary">
-            <a class="navbar-brand" href="#">
-              <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-              Bootstrap
-            </a>
-          </nav>
-    </div>
-
   </div>
 </div>
