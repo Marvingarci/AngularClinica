@@ -9,7 +9,7 @@ margin:0px;
 }
 
 #intro{
-    background: url('https://cmplima.org.pe/wp-content/uploads/2018/04/medico-paciente-manos.jpg')no-repeat center center fixed;
+    background: url('https://campusvirtual.unah.edu.hn/theme/image.php/bootstrapcampus/theme/1568312409/frontpage-bg')no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -26,7 +26,7 @@ margin:0px;
   background-size: cover;  
   border-radius: 50px;
   display: block;margin:auto;
-  border: 3px solid #00f;
+  border: 3px solid rgb(122, 22, 22);
   margin-bottom: 10px;  
 }
 
@@ -36,7 +36,7 @@ margin:0px;
 }
 
 #formstyle{     
-    background-color: #FFCD33 ;
+    background-color:  #3354FF; ;
     position: absolute;
     /*nos posicionamos en el centro del navegador*/
     top:25%;
@@ -49,7 +49,7 @@ margin:0px;
     height:630px;
     /*indicamos que el margen superior, es la mitad de la altura*/
     margin-top:-150px;
-    border:5px solid #00f;
+    border:5px solid rgb(122, 22, 22);
     padding:10px;
     text-align: center;
   color: aliceblue;	/*IE*/
@@ -60,17 +60,13 @@ margin:0px;
 }
 
 
-input:focus {
-  border:5px solid #fff;
-  
-  }
 
-#input{
-  background: #00f;
+
+.example-full-width{
   border-color: rgb(0, 255, 255);
   border-radius: 20px;
   text-align: center;
-  width:380px;
+  width:350px;
   color: #fff;  
 }::placeholder { color: rgb(52, 201, 201); }
 

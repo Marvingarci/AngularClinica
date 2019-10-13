@@ -3,6 +3,8 @@ import { FormularioService } from '../services/formulario.service';
 import { Paciente } from "../interfaces/paciente";
 import { ActivatedRoute } from '@angular/router';
 
+
+
 @Component({
   selector: 'app-dato-paciente',
   templateUrl: './dato-paciente.component.html',
