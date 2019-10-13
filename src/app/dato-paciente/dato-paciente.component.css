@@ -1,45 +1,16 @@
-#formContent {
-    -webkit-border-radius: 10px 10px 10px 10px;
-    border-radius: 10px 10px 10px 10px;
-    background: #FFF;
-    padding: 30px;
-    width: 90%;
-    position: relative;
-    padding: 0px;
-    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    text-align: left;
-    opacity: .6;
-  }
 
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
 
+.container {
+  background-color: gray;
+  margin-top: 50px;
+  padding-top: 30px;
+}
 
-  
-.wrapper {
-    display: flex;
-    align-items: center;
-    flex-direction: column; 
-    justify-content: center;
-    width: 100%;
-    min-height: 100%;
-    padding: 20px;
-    /* background-image: url("https://campusvirtual.unah.edu.hn/theme/image.php/bootstrapcampus/theme/1568312409/frontpage-bg"); */
-    /* background-size: cover; */
-  }
-
-
-  #dato{
-    height: 100%;
-    width:100%;
-    position: absolute;
-    margin:0px;
-    }
-
-
-  #dato{
-    background: url('https://image.freepik.com/foto-gratis/informe-examen-medico-estetoscopio-blanco-escritorio_1387-344.jpg')no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-  }
+.example-full-width {
+  width: 100%;
+}
