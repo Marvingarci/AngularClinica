@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./loginadmin.component.css']
 })
 export class LoginadminComponent implements OnInit {
+  
+  
   lista:string[]=[
   "Salud Pública",
   "Ginecología y Obstetricia",
