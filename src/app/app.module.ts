@@ -30,6 +30,7 @@ import {MatFormFieldModule, MatLabel} from '@angular/material/form-field'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MatOption } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
+import {MatCardModule} from '@angular/material/card';
 
 const routes: Route[] = [
   {path: '', component: LoginComponent},
@@ -90,6 +91,7 @@ const routes: Route[] = [
     MatSelectModule,
     MatStepperModule,
     ReactiveFormsModule,
+    MatCardModule,
     
   ],
   providers: [],
