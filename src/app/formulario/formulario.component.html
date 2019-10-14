@@ -1,4 +1,14 @@
 <mat-horizontal-stepper linear #stepper>
+
+
+
+
+
+<!-- VALIDACIONES ALBERTO -->
+
+
+
+
   <!-- primer step -->
   <mat-step>
     <ng-template matStepLabel>Datos Generales</ng-template>
@@ -7,25 +17,25 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Primer Apellido">
+            <input matInput [(ngModel)]= "paciente.primer_apellido" placeholder="Primer Apellido">
           </mat-form-field>
         </div>
         <div class="col">
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Segundo Apellido">
+            <input matInput [(ngModel)]= "paciente.segundo_apellido" placeholder="Segundo Apellido">
           </mat-form-field>
         </div>
-        </div>
+      </div>
 
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Primer Nombre">
+              <input matInput [(ngModel)]= "paciente.primer_nombre" placeholder="Primer Nombre">
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Segundo Nombre">
+              <input matInput [(ngModel)]= "paciente.segundo_nombre" placeholder="Segundo Nombre">
             </mat-form-field>
           </div>
         </div>
@@ -33,12 +43,12 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="N° Cuenta">
+              <input matInput [(ngModel)]= "paciente.numero_cuenta" placeholder="N° Cuenta">
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="N° Identidad">
+              <input matInput [(ngModel)]= "paciente.numero_identidad" placeholder="N° Identidad">
             </mat-form-field>
           </div>
         </div>
@@ -46,12 +56,12 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput name="lugar_procedencia" placeholder="Lugar de Procedencia">
+              <input matInput [(ngModel)]= "paciente.lugar_procedencia" name="lugar_procedencia" placeholder="Lugar de Procedencia">
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput  name="carrera" placeholder="Carrera">
+              <input matInput [(ngModel)]= "paciente.carrera" name="carrera" placeholder="Carrera">
             </mat-form-field>
           </div>
         </div>
@@ -59,12 +69,12 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput name="direccion" id="" placeholder="Direccion">
+              <input matInput [(ngModel)]= "paciente.direccion" name="direccion" id="" placeholder="Direccion">
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" placeholder="Fecha Nacimiento">
+              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" [(ngModel)]= "paciente.fecha_nacimiento" placeholder="Fecha Nacimiento">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
@@ -117,18 +127,64 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput type= "number" name="numero_telefono" id="telefono" placeholder="N° Telefono">
+              <input matInput [(ngModel)]= "paciente.numero_telefono" type= "number" name="numero_telefono" id="telefono" placeholder="N° Telefono">
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput type= "number"name="emergencia_telefono" id="" placeholder="Telefono de emergencia">
+              <input matInput [(ngModel)]= "paciente.emergencia_telefono" type= "number"name="emergencia_telefono" id="" placeholder="Telefono de emergencia">
             </mat-form-field>
           </div>
         </div>
         <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
     </div>
   </mat-step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- VALIDACIONES BRASLY -->
+
+
+
+
+
+
 
   <!-- segundo step -->
   <mat-step>
@@ -191,7 +247,7 @@
             <mat-radio-group
               aria-labelledby="example-radio-group-label"
               class="example-radio-group"
-              [(ngModel)]="antecedente_familiar.tb_pulmonar">
+              [(ngModel)]="antecedente_familiar.desnutricion">
               <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
                 {{opcion}}
               </mat-radio-button>
@@ -269,7 +325,7 @@
             <mat-radio-group
               aria-labelledby="example-radio-group-label"
               class="example-radio-group"
-              [(ngModel)]="antecedente_familiar.convulciones">
+              [(ngModel)]="antecedente_familiar.convulsiones">
               <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
                 {{opcion}}
               </mat-radio-button>
@@ -278,7 +334,7 @@
           <div> 
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select [(ngModel)]="antecedente_familiar.observacion_convulciones" name="observacion_convulciones">
+              <mat-select [(ngModel)]="antecedente_familiar.observacion_convulsiones" name="observacion_convulsiones">
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -440,6 +496,50 @@
           <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>  
       </div>
   </mat-step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- VALIDACIONES MELVIN -->
+
+
+
+
+
 
   <!-- tercer step -->
   <mat-step>
@@ -609,7 +709,7 @@
         <mat-radio-group
           aria-labelledby="example-radio-group-label"
           class="example-radio-group"
-          [(ngModel)]="antecedente_familiar.cancer">
+          [(ngModel)]="antecedente_personal.cancer">
           <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
             {{opcion}}
           </mat-radio-button>
@@ -713,6 +813,68 @@
     </div>
   </mat-step>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- VALIDACIONES MARVIN -->
+
+
+
+
+
+
+
+
   <!-- cuarto step -->
   <mat-step>
       <ng-template matStepLabel>Habitos Toxicologicos Personales</ng-template>
@@ -805,20 +967,480 @@
       </div>
       
   </mat-step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- VALIDACIONES BRASLY -->
+
+
+
+
+
+
+
+
+
+  <!-- quinto step -->
   <mat-step>
       <ng-template matStepLabel>Actividad Sexual Y Reproductiva</ng-template>
+      <div class="container">
+        <h2>Actividad Sexual y Reproductiva</h2>
+
+        <div>
+          <label id="example-radio-group-label">Actividad Sexual</label>
+          <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="actividad_sexual.actividad_sexual">
+            <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+              {{opcion}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="row">
+
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]= "actividad_sexual.edad_inicio_sexual" type= "number" placeholder="Edad inicio vida sexual">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]= "actividad_sexual.numero_parejas_sexuales" type= "number" placeholder="Numero de parejas sexuales">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div> 
+          <mat-form-field class="example-full-width">
+            <mat-label>Practica sexual de riesgo</mat-label>
+            <mat-select [(ngModel)]="actividad_sexual.practicas_sexuales_riesgo" name="practicas_sexuales_riesgo">
+              <mat-option *ngFor="let practica_sexual_riesgo of practicas_sexuales_riesgo" [value]="practica_sexual_riesgo.value">
+                {{practica_sexual_riesgo.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>Practica Sexual selecionada: {{actividad_sexual.practicas_sexuales_riesgo}} </p>
+        </div>
+
+        <div>
+          <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
+          <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
+        </div>
+      </div>
       
   </mat-step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+<!-- VALIDACIONES ALBERTO -->
+
+
+
+
+
+
+
+
+  <!-- sexto step -->
   <mat-step>
       <ng-template matStepLabel>Antecedentes Ginecologicos</ng-template>
+      <div class="container">
+        <h2>Antecedentes Ginecológicos</h2>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]= "antecedente_ginecologico.edad_inicio_menstruacion" name="edad_inicio_menstruacion" type= "number" placeholder="Edad inicio menstruacion">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]= "antecedente_ginecologico.fum" [min]="minDate" [max]="maxDate" [matDatepicker]="picker3" placeholder="Fecha ultima menstruacion">
+              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+              <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>    
+
+        <mat-divider></mat-divider>
+
+        <div class="row">
+          <div class="col" style="text-align: left;">
+            <label id="example-radio-group-label">Citologías</label>
+            <mat-radio-group
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group"
+              [(ngModel)]="antecedente_ginecologico.citologia">
+              <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+                {{opcion}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]= "antecedente_ginecologico.fecha_citologia" [min]="minDate" [max]="maxDate" [matDatepicker]="picker4" placeholder="Fecha Citología">
+              <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+              <mat-datepicker #picker4></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <mat-form-field class="example-full-width">
+            <textarea matInput [(ngModel)]= "antecedente_ginecologico.resultado_citologia" placeholder="Resultado Citología"></textarea>
+          </mat-form-field>
+        </div>
+
+        <mat-divider></mat-divider>
+
+
+        <label>Ciclo menstrual</label>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]="antecedente_ginecologico.duracion_ciclo_menstrual" placeholder="Duración ciclo menstrual">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <mat-label>Periodicidad ciclo menstrual</mat-label>
+              <mat-select [(ngModel)]="antecedente_ginecologico.periocidad_ciclo_menstrual" name="periocidad_ciclo_menstrual">
+                <mat-option *ngFor="let periocidad of periocidades" [value]="periocidad.value">
+                  {{periocidad.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <p>Periocidad selecionada: {{antecedente_ginecologico.periocidad_ciclo_menstrual}} </p>
+          </div>
+        </div>
+
+        <div>
+          <mat-form-field class="example-full-width">
+            <mat-label>Características ciclo menstrual</mat-label>
+            <mat-select [(ngModel)]="antecedente_ginecologico.caracteristicas_ciclo_menstrual" name="Características ciclo menstrual">
+              <mat-option *ngFor="let caracteristica of caracteristicas" [value]="caracteristica.value">
+                {{caracteristica.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>caracteristica selecionada: {{antecedente_ginecologico.caracteristicas_ciclo_menstrual}}</p>
+        </div>
+
+        <div>
+          <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
+          <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
+        </div>
+      </div>
       
   </mat-step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- VALIDACIONES MELVIN -->
+
+
+
+
+
+
+  <!-- septimo step -->
   <mat-step>
       <ng-template matStepLabel>Planificacion Familiar</ng-template>
+      <div class="container">
+        <h2>Planificacion Familiar</h2>
+        <div>  
+          <mat-radio-group
+            class="example-radio-group"
+            [(ngModel)]="planificacion_familiar.planificacion_familiar">
+            <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
+              {{opcion}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Método de planificación</mat-label>
+            <mat-select [(ngModel)]="planificacion_familiar.metodo_planificacion" name="metodo_planificacion">
+              <mat-option *ngFor="let metodo of metodos" [value]="metodo.value">
+                {{metodo.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>caracteristica selecionada: {{planificacion_familiar.metodo_planificacion}}</p>
+        </div>
+        <mat-form-field class="medium-width">
+          <textarea matInput [(ngModel)]= "planificacion_familiar.observacion_planificacion" placeholder="Observación"></textarea>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
+          <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
+        </div>
+      </div>
       
   </mat-step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- VALIDACIONES MARVIN -->
+
+
+
+
+
+
+
+
+
+
+  <!-- octavo step -->
   <mat-step>
-      <ng-template matStepLabel>Antecedentes Obstetricos</ng-template>
+      <ng-template matStepLabel>Antecedentes Obstétricos</ng-template>
+      <div class="container">
+        <h2>Antecedentes Obstétricos</h2>
+
+        <label>Historial Gine-obstétrico</label>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]="antecedente_obstetrico.partos" type= "number" placeholder="Numero de partos">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]="antecedente_obstetrico.abortos" type= "number" placeholder="Numero de abortos">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]="antecedente_obstetrico.cesarias" type= "number" placeholder="Numero de cesarias">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]="antecedente_obstetrico.hijos_vivos" type= "number" placeholder="Numero de hijos vivos">
+            </mat-form-field>
+          </div>
+        </div>
+
+        
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]="antecedente_obstetrico.hijos_muertos" type= "number" placeholder="Numero de hijos muertos">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput [(ngModel)]= "antecedente_obstetrico.fecha_termino_ult_embarazo" [min]="minDate" [max]="maxDate" [matDatepicker]="picker5" placeholder="Fecha ultimo embarazo">
+              <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+              <mat-datepicker #picker5></mat-datepicker>
+            </mat-form-field>            
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <mat-label>Resultado ultimo embarazo</mat-label>
+              <mat-select [(ngModel)]="antecedente_obstetrico.descripcion_termino_ult_embarazo" name="descripcion_termino_ult_embarazo">
+                <mat-option *ngFor="let resultado_embarazo of resultados_embarazos" [value]="resultado_embarazo.value">
+                  {{resultado_embarazo.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <p>resultado selecionado: {{antecedente_obstetrico.descripcion_termino_ult_embarazo}}</p>
+          </div>
+
+          <div class="col">
+              <mat-form-field class="example-full-width">
+                <textarea matInput [(ngModel)]= "antecedente_obstetrico.observaciones" placeholder="Observaciones"></textarea>
+              </mat-form-field>
+          </div>
+        </div>
+
+        <div>
+          <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right" (click)="enviarDatos()">Enviar</button>
+          <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
+        </div>
+      </div>
       
   </mat-step>
 </mat-horizontal-stepper>
