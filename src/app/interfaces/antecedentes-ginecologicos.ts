@@ -1,6 +1,6 @@
 export interface AntecedentesGinecologicos {
     id_antecedente__ginecologico? : number;
-    menarquia_a? : string;
+    edad_inicio_menstruacion? : string;
     fum? : string;
     citologia? : string;
     fecha_citologia? : string;

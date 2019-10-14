@@ -13,6 +13,7 @@ import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos'
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 export interface Sexo {
   value: string;
@@ -53,6 +54,32 @@ export interface Cancer {
   value: string;
   viewValue: string;
 }
+
+export interface practica_sexual_riesgo {
+  value: string;
+  viewValue: string;
+}
+
+export interface Periocidad {
+  value: string;
+  viewValue: string;
+}
+
+export interface Caracteristica {
+  value: string;
+  viewValue: string;
+}
+
+export interface Metodo {
+  value: string;
+  viewValue: string;
+}
+
+export interface resultado_embarazo {
+  value: string;
+  viewValue: string;
+}
+
 
 @Component({
   selector: 'app-formulario',
@@ -95,8 +122,8 @@ export class FormularioComponent implements OnInit {
     enfermedades_mentales : null,
     observacion_enfermedades_mentales : null,
     tipo_enfermedad_mental: null,
-    convulciones : null,
-    observacion_convulciones : null,
+    convulsiones : null,
+    observacion_convulsiones : null,
     alcoholismo_sustancias_psicoactivas : null,
     observacion_alcoholismo_sustancias_psicoactivas: null,
     alergias : null,
@@ -171,7 +198,7 @@ export class FormularioComponent implements OnInit {
   };
 
   antecedente_ginecologico: AntecedentesGinecologicos = {
-    menarquia_a : null,
+    edad_inicio_menstruacion : null,
     fum : null,
     citologia : null,
     fecha_citologia : null,
@@ -191,6 +218,11 @@ export class FormularioComponent implements OnInit {
   };
 
   antecedente_obstetrico: AntecedentesObstetricos = {
+    partos: null,
+    abortos: null,
+    cesarias: null,
+    hijos_vivos: null,
+    hijos_muertos: null,
     fecha_termino_ult_embarazo : null,
     descripcion_termino_ult_embarazo : null,
     observaciones : null,
@@ -201,8 +233,9 @@ export class FormularioComponent implements OnInit {
   error: boolean = false;
 
   //date picker
-  minDate = new Date(2000, 0, 1);
-  maxDate = new Date(2020, 0, 1);
+  minDate = new Date(1950, 0, 1).toISOString;
+  maxDate = new Date(2020, 0, 1).toISOString;
+  
 
 
   
@@ -272,6 +305,44 @@ export class FormularioComponent implements OnInit {
     {value: 'Pene' , viewValue: 'Pene'},
     {value: 'Leucemia' , viewValue: 'Leucemia'},
 
+  ];
+
+  practicas_sexuales_riesgo: practica_sexual_riesgo[] = [
+    {value: 'Anal' , viewValue: 'Anal'},
+    {value: 'Vaginal' , viewValue: 'Vaginal'},
+    {value: 'Oral' , viewValue: 'Oral'},
+  ];
+
+  periocidades: Periocidad[] = [
+    {value: 'Regular' , viewValue: 'Regular'},
+    {value: 'Irregular' , viewValue: 'Irregular'},
+
+  ];
+  
+  caracteristicas: Caracteristica[] = [
+    {value: 'Abundante' , viewValue: 'Abundante'},
+    {value: 'Normal' , viewValue: 'Normal'},
+    {value: 'Escasa' , viewValue: 'Escasa'},
+
+  ];
+
+  metodos: Metodo[] = [
+    {value: 'DIU' , viewValue: 'DIU'},
+    {value: 'Condón' , viewValue: 'Condón'},
+    {value: 'Pastilla' , viewValue: 'Pastilla'},
+    {value: 'Implante' , viewValue: 'Implante'},
+    {value: 'Inyección trimestral' , viewValue: 'Inyección trimestral'},
+    {value: 'Inyección trimestral' , viewValue: 'Inyección trimestral'},
+    {value: 'Inyección mensual' , viewValue: 'Inyección mensual'},
+    {value: 'Ritmo' , viewValue: 'Ritmo'},
+    {value: 'Esterilización' , viewValue: 'Esterilización'},
+
+  ];
+
+  resultados_embarazos: resultado_embarazo[] = [
+    {value: 'Sin complicaciones' , viewValue: 'Sin complicaciones'},
+    {value: 'Con complicaciones' , viewValue: 'Con complicaciones'},
+    
   ];
 
 

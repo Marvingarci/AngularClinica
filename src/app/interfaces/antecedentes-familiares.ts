@@ -11,8 +11,8 @@ export interface AntecedentesFamiliares {
     enfermedades_mentales : string;
     observacion_enfermedades_mentales? : string;
     tipo_enfermedad_mental?: string;
-    convulciones : string;
-    observacion_convulciones? : string;
+    convulsiones : string;
+    observacion_convulsiones? : string;
     alcoholismo_sustancias_psicoactivas : string;
     observacion_alcoholismo_sustancias_psicoactivas? : string;
     alergias : string;
