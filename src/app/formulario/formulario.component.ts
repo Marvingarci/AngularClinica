@@ -9,6 +9,7 @@ import { ActividadSexual } from '../interfaces/actividad-sexual';
 import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologicos';
 import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familiares';
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
+import { AppComponent } from "../app.component";
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -90,6 +91,8 @@ export interface resultado_embarazo {
   }]
 })
 export class FormularioComponent implements OnInit {
+  
+
 
   paciente: Paciente = {
     primer_apellido: null,
@@ -359,7 +362,9 @@ export class FormularioComponent implements OnInit {
 
   constructor(private formularioService: FormularioService, 
     private router: Router,
-    private _formBuilder: FormBuilder) { }
+    private _formBuilder: FormBuilder, activar: AppComponent) {
+      activar.esconder();
+     }
 
   ngOnInit() {
 
