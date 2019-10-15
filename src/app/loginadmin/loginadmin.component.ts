@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppComponent } from "../app.component";
+
 
 @Component({
   selector: 'app-loginadmin',
@@ -25,7 +27,10 @@ export class LoginadminComponent implements OnInit {
   "Otorrinolaringología",
   "Medicina Física y Rehabilitación"];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, activar: AppComponent) {
+    activar.esconder();
+    
+   }
 
   ngOnInit() {
   }
