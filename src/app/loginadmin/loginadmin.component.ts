@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from "../app.component";
 
+import { LoginAdmin } from '../interfaces/login_admin';
+import { LoginadminService } from '../services/loginadmin.service';
 
 @Component({
   selector: 'app-loginadmin',
@@ -10,6 +12,13 @@ import { AppComponent } from "../app.component";
 })
 export class LoginadminComponent implements OnInit {
   
+  login_admin:LoginAdmin ={
+    usuario_admin:null,
+    contrasenia_admin:null,
+    nombre_admin:null,
+    identidad_admin:null,
+    especialidad_admin:null
+  };
   
   lista:string[]=[
   "Salud Pública",
@@ -27,7 +36,7 @@ export class LoginadminComponent implements OnInit {
   "Otorrinolaringología",
   "Medicina Física y Rehabilitación"];
 
-  constructor(private router: Router, activar: AppComponent) {
+  constructor(private router: Router, activar: AppComponent, private login_adminservice:LoginadminService) {
     activar.esconder();
     
    }
@@ -35,8 +44,22 @@ export class LoginadminComponent implements OnInit {
   ngOnInit() {
   }
 
-  saveLoginAdmin(){
-    this.router.navigate(['principal']);
+  save(){
+    this.login_adminservice.saveloginadmin(this.login_admin).subscribe((data)=>{
+      alert('Administrador Guardado con exito');
+      console.log(data);
+    }, (error) => { 
+      console.log(error);
+      alert('ocurrio un error');
+    
+    });
   }
+
+
+
+
+   // console.log(this.login_admin);
+    //this.router.navigate(['principal']);
+  
 
 }

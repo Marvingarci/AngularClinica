@@ -3,58 +3,62 @@
           
       <div id="formstyle">
         
-             <div class="view" id="imagenpuma"></div>
-  
-             <div class="col">
-                <mat-form-field class="example-full-width">
-                        <input ID="usuario" type="text" name="usuario"
-                        class="input"  matInput placeholder="Usuario" required>
-                </mat-form-field>
-              </div>
-                    
-            <div>
-                  <div class="col">
-                      <mat-form-field class="example-full-width">
-                              <input ID="usuario" type="text" name="usuario"
-                              class="input"  matInput placeholder="Ingrese su contraseña" ngModel passwordToggle required>
-                      </mat-form-field>
-                    </div>
-                    <div class="col">
-                        <mat-form-field class="example-full-width">
-                                <input ID="usuario" type="text" name="usuario"
-                                class="input"  matInput placeholder="Confirme su contraseña" ngModel passwordToggle required>
-                        </mat-form-field>
-                      </div>      
-                </div> 
+<div class="view" id="imagenpuma"></div>
+
+<div class="col">
+  <mat-form-field class="example-full-width">
+          <input [(ngModel)]="login_admin.usuario_admin" ID="usuario" type="text" name="usuario"
+          class="input"  matInput placeholder="Usuario" required>
+  </mat-form-field>
+</div>
+      
+<div>
+    <div class="col">
+        <mat-form-field class="example-full-width">
+                <input id="password" type="password" [(ngModel)]="password" name="password" 
+                class="input"  matInput placeholder="Ingrese su contraseña" ngModel passwordToggle #passwordvalidityMsg="ngModel" required>
+        </mat-form-field>
+      </div>
+      <div class="col">
+          <mat-form-field class="example-full-width">
+                  <input [(ngModel)]="login_admin.contrasenia_admin"  id="confPass" type="password" pattern="{{password}}"  [(ngModel)]="confPass"  name="confPass" #confPassvalidityMsg="ngModel"
+                  class="input"  matInput placeholder="Confirme su contraseña" ngModel passwordToggle required>
+          </mat-form-field>
+          <div *ngIf="confPassvalidityMsg.invalid && (confPassvalidityMsg.dirty || confPassvalidityMsg.touched)" >
+            <div *ngIf="confPassvalidityMsg.errors.pattern" class="errorverificacion"> error de verificacion</div>
+        </div>      
+  </div> 
+</div>
 
 
-                <div class="col">
-                    <mat-form-field class="example-full-width">
-                            <input ID="usuario" type="text" name="usuario"
-                            class="input"  matInput placeholder="Ingrese el nombre completo" required>
-                    </mat-form-field>
-                  </div>
-              
-                  <div class="col">
-                      <mat-form-field class="example-full-width">
-                              <input ID="usuario"  name="usuario" type="number" 
-                              maxlength="13" minlength="13"  oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                              
-                              class="input"  matInput  placeholder="ingrese el número de identidad"  required>
-                      </mat-form-field>
-                    </div>
+<div class="col">
+  <mat-form-field class="example-full-width">
+          <input [(ngModel)]="login_admin.nombre_admin"  ID="usuario" type="text" name="usuario"
+          class="input"  matInput placeholder="Ingrese el nombre completo" required>
+  </mat-form-field>
+</div>
 
-                      
-             <div >
-            <label class="label">Especialidad</label>
-              <p><select id = "select" name="miselect" [(ngModel)]="seleccionado">
-                <option [value]="item" *ngFor="let item of lista">{{item}}</option>
-                </select></p>
-            </div> 
+<div class="col">
+    <mat-form-field class="example-full-width">
+            <input [(ngModel)]="login_admin.identidad_admin"  ID="usuario"  name="usuario" type="text" 
+            maxlength="13" minlength="13"  oninput="if(this.value.length > this.maxLength)
+             this.value = this.value.slice(0, this.maxLength);" step="1"
+            
+            class="input" required matInput  placeholder="ingrese el número de identidad"  >
+    </mat-form-field>
+  </div>
+
+    
+<div >
+<label class="label">Especialidad</label>
+<p><select id = "select" name="miselect" [(ngModel)]="login_admin.especialidad_admin" >
+<option [value]="item" *ngFor="let item of lista">{{item}}</option>
+</select></p>
+</div> 
 
           
                  
-          <button  (click)="saveLoginAdmin()"   class="boton" >crear</button>      
+          <button  (click)="save()"   class="boton" >crear</button>      
       </div>
     </div>
   </div>   
