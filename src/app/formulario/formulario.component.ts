@@ -435,6 +435,15 @@ export class FormularioComponent implements OnInit {
     this.des3 = true;      
      }
 
+     seccion: boolean = true;
+   
+     mostrarS(){
+       this.seccion=false;
+     }
+     mostrarN(){
+      this.seccion=true;
+    }
+
    
 
 
