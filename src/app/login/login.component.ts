@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, RootRenderer } from '@angular/core';
 import { LoginService } from '../services/login.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Login } from '../interfaces/login';
+import { AppComponent } from "../app.component";
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,8 @@ import { Login } from '../interfaces/login';
 
 export class LoginComponent implements OnInit {
 
+
+
   login: Login = {
     cuentalogin: null,
     contrasenialogin: null
@@ -22,7 +25,9 @@ export class LoginComponent implements OnInit {
   
 
     
-  constructor(private loginService: LoginService,private router: Router){
+  constructor(private loginService: LoginService,private router: Router, activar: AppComponent){
+   activar.esconder();
+   
   }
 
   main(){
