@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
 
 
   login: Login = {
-    cuentalogin: null,
-    contrasenialogin: null
+    cuenta: null,
+    clave: null
   };
 
 
@@ -30,14 +30,24 @@ export class LoginComponent implements OnInit {
    
   }
 
-  main(){
-    this.router.navigate(['formulario']);
-  }
+
   
   ngOnInit() {
+  
   }
 
-   
+
+  comprobarDatos(){
+    
+    this.loginService.guardarDatos(this.login).subscribe( (data) =>{
+      console.log(data);   
+      alert('todo perron');  
+    }, (error) => {
+      console.log(error);
+      alert('se chorrio');
+    });
+
+  }
   
 
 }
