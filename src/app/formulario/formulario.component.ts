@@ -95,13 +95,104 @@ export class FormularioComponent implements OnInit {
    
   // Aqui esta codificando MELVIN
     isDisabled = true;
+    input : string ;
     triggerSomeEventSi() {      
         this.isDisabled = false;
     }
-    triggerSomeEventNo() {
-      this.isDisabled = true; 
+     triggerSomeEventNo() {
+      this.input  =null ;
+      this.isDisabled = true;      
      }
 
+     isDisabled1 = true;
+     input1 : string ;
+     triggerSomeEventSi1() {    
+         this.isDisabled1 = false;
+     }
+     triggerSomeEventNo1() {  
+      this.input1  =null ;
+       this.isDisabled1 = true; 
+      }
+
+      isDisabled2 = true;
+      input2 : string ;
+     triggerSomeEventSi2() {      
+         this.isDisabled2 = false;
+     }
+     triggerSomeEventNo2() {  
+      this.input2  =null ;
+       this.isDisabled2 = true; 
+      }
+
+      isDisabled3 = true;
+      input3 : string ;
+      triggerSomeEventSi3() {      
+          this.isDisabled3 = false;
+      }
+      triggerSomeEventNo3() {  
+        this.input3  =null ;
+        this.isDisabled3 = true; 
+       }
+
+       isDisabled4 = true;
+      input4 : string ;
+      triggerSomeEventSi4() {      
+          this.isDisabled4 = false;
+      }
+      triggerSomeEventNo4() {  
+        this.input4  =null ;
+        this.isDisabled4 = true; 
+       }
+
+       isDisabled5 = true;
+       input5 : string ;
+       triggerSomeEventSi5() {      
+           this.isDisabled5 = false;
+       }
+       triggerSomeEventN5() {  
+         this.input5  =null ;
+         this.isDisabled5 = true; 
+        }
+
+        isDisabled6 = true;
+        input6 : string ;
+        triggerSomeEventSi6() {      
+            this.isDisabled6 = false;
+        }
+        triggerSomeEventNo6() {  
+          this.input6  =null ;
+          this.isDisabled6 = true; 
+         }
+
+         isDisabled7 = true;
+         input7 : string ;
+         triggerSomeEventSi7() {      
+             this.isDisabled7 = false;
+         }
+         triggerSomeEventNo7() {  
+           this.input7  =null ;
+           this.isDisabled7 = true; 
+          }
+
+          isDisabled8 = true;
+          input8 : string ;
+          triggerSomeEventSi8() {      
+              this.isDisabled8 = false;
+          }
+          triggerSomeEventNo8() {  
+            this.input8  =null ;
+            this.isDisabled8 = true; 
+           }
+
+           isDisabled9 = true;
+          input9 : string ;
+          triggerSomeEventSi9() {      
+              this.isDisabled9 = false;
+          }
+          triggerSomeEventNo9() {  
+            this.input9  =null ;
+            this.isDisabled9 = true; 
+           }
 
 
 
