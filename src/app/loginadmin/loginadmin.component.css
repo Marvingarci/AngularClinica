@@ -60,7 +60,9 @@ margin:0px;
 }
 
 
-
+.errorverificacion{
+color:rgb(122, 22, 22);
+}
 
 .example-full-width{
   border-color: rgb(0, 255, 255);
