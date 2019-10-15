@@ -15,6 +15,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { stringify } from '@angular/compiler/src/util';
 
 
 
@@ -393,9 +394,48 @@ export class FormularioComponent implements OnInit {
 
 
 // Aqui esta codificando MARVIN
+    des = true;
+    ingreso : string ;
+    des1 = true;
+    ingreso1: string ;
+    des2 = true;
+    ingreso2: string ;
+    des3 = true;
+    ingreso3: string ;
+    
+    Mostrar() {      
+        this.des = false;
+    }
+    Esconder() {
+      this.ingreso  =null ;
+      this.des = true;      
+     }
 
 
+     Mostrar1() {      
+      this.des1 = false;
+    }
+    Esconder1() {
+    this.ingreso1  =null ;
+    this.des1 = true;      
+     }
 
+     Mostrar2() {      
+      this.des2 = false;
+    }
+    Esconder2() {
+    this.ingreso2  =null ;
+    this.des2 = true;      
+     }
+     Mostrar3() {      
+      this.des3 = false;
+    }
+    Esconder3() {
+    this.ingreso3  =null ;
+    this.des3 = true;      
+     }
+
+   
 
 
 

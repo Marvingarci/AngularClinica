@@ -32,25 +32,36 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatListModule} from '@angular/material/list';
+
+
+
+
 
 
 const routes: Route[] = [
   {path: '', component: LoginComponent},
   {path: 'formulario', component: FormularioComponent},
   {path: 'principal', component: PrincipalComponent},
-  {path: 'at1', component: At1Component},
   {path: 'datoPaciente', component: DatoPacienteComponent},
 
   {path: 'loginadmin', component: LoginadminComponent},
-
-  {path: 'at1', component: At1Component},
-  
-  {path: 'registroPaciente', component: PacienteComponent},
-  {path: 'listadoEstudiantes', component: ListadoEstudiantesComponent},
-  {path: 'listadotrabajadores', component: ListadoTrabajadoresComponent},
-  {path: 'listadoVisitantes', component: ListadoVisitantesComponent},
-  {path: 'listadoProsene', component: ListadoProseneComponent},
-  {path: 'verPaciente', component: VerPacienteComponent}
+  {
+    path: 'principal',
+    component: PrincipalComponent,
+    children: [
+      {path: 'at1', component: At1Component},
+      {path: 'registro', component: PacienteComponent},
+      {path: 'listadoEstudiantes', component: ListadoEstudiantesComponent},
+      {path: 'listadotrabajadores', component: ListadoTrabajadoresComponent},
+      {path: 'listadoVisitantes', component: ListadoVisitantesComponent},
+      {path: 'listadoProsene', component: ListadoProseneComponent},
+      {path: 'verPaciente', component: VerPacienteComponent}
+    ]
+  }
  
   
 
@@ -97,7 +108,11 @@ const routes: Route[] = [
     ReactiveFormsModule,
     MatCardModule,
     MatRadioModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatExpansionModule,
+    MatListModule
     
   ],
   providers: [],
