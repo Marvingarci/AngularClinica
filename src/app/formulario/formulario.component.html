@@ -87,10 +87,11 @@
           <div class="col"> 
             <mat-form-field>
               <mat-label>Sexo</mat-label>
-                <mat-select [(ngModel)]="paciente.sexo" name="sexo">
-                  <mat-option *ngFor="let sexo of sexos" [value]="sexo.value">
-                  {{sexo.viewValue}}
-                </mat-option>
+                <mat-select  [(ngModel)]="paciente.sexo" name="sexo">
+                  <mat-option (click)="mostrarN()"  [value]="sexos[0]">Hombre</mat-option>
+                  <mat-option (click)="mostrarS()" [value]="sexos[1]">Mujer</mat-option>
+                  <mat-option (click)="mostrarN()" [value]="sexos[2]">Otros</mat-option>
+                  
               </mat-select>
             </mat-form-field>
             <p> sexo seleccionado: {{paciente.sexo}} </p>
@@ -1107,7 +1108,7 @@
 
 
   <!-- sexto step -->
-  <mat-step>
+  <mat-step *ngIf="seccion==false">
       <ng-template matStepLabel>Antecedentes Ginecologicos</ng-template>
       <div class="container">
         <h2>Antecedentes Ginecológicos</h2>
@@ -1341,7 +1342,7 @@
 
 
   <!-- octavo step -->
-  <mat-step>
+  <mat-step *ngIf="seccion==false">
       <ng-template matStepLabel>Antecedentes Obstétricos</ng-template>
       <div class="container">
         <h2>Antecedentes Obstétricos</h2>
