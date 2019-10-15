@@ -557,63 +557,53 @@
       <mat-form-field class="medium-width">
           <textarea matInput  [(ngModel)]= "antecedente_personal.observacion_diabetes" 
           placeholder="Detallar inicio de enfermedad y tratamiento" 
-           [disabled]="isDisabled"></textarea>
+           [disabled]="isDisabled" [value] ="input"></textarea>
       </mat-form-field>
 
       <mat-divider></mat-divider>
 
       <div>
         <label id="example-radio-group-label">2. Tuberculosis Pulmonar</label>
-        <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group"
-          [(ngModel)]="antecedente_personal.tb_pulmonar">
-          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion" (click)="triggerSomeEvent1()" >
-            {{opcion}}
-          </mat-radio-button>
-        </mat-radio-group>
+        <p><mat-radio-group [(ngModel)]="antecedente_personal.tb_pulmonar" aria-label="Select an option" >        
+            <mat-radio-button value="Si" (click)="triggerSomeEventSi1()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNo1()">No</mat-radio-button>
+          </mat-radio-group></p> 
       </div>
       <mat-form-field class="medium-width">
         <textarea matInput [(ngModel)]= "antecedente_personal.observacion_tb_pulmonar"
-         placeholder="Detallar inicio de enfermedad y tratamiento" [disabled]="isDisabled1"></textarea>
+         placeholder="Detallar inicio de enfermedad y tratamiento" 
+         [disabled]="isDisabled1" [value] ="input1"></textarea>
       </mat-form-field>
 
       <mat-divider></mat-divider>
 
-      <div>
+      <div>          
         <label id="example-radio-group-label">3. ITS/VIH</label>
-        <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group"
-          [(ngModel)]="antecedente_personal.its">
-          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-            {{opcion}}
-          </mat-radio-button>
-        </mat-radio-group>
+        <p><mat-radio-group [(ngModel)]="antecedente_personal.its" aria-label="Select an option" >        
+            <mat-radio-button value="Si" (click)="triggerSomeEventSi2()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNo2()">No</mat-radio-button>
+          </mat-radio-group></p> 
       </div>
       <mat-form-field class="medium-width">
-        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_its" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_its"
+         placeholder="Detallar inicio de enfermedad y tratamiento" 
+         [disabled]="isDisabled2" [value] ="input2"></textarea>
       </mat-form-field>
 
       <mat-divider></mat-divider>
       
       <div>
         <label id="example-radio-group-label">4. Desnutrición</label>
-        <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group"
-          [(ngModel)]="antecedente_personal.desnutricion">
-          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-            {{opcion}}
-          </mat-radio-button>
-        </mat-radio-group>
+        <p><mat-radio-group [(ngModel)]="antecedente_personal.desnutricion" aria-label="Select an option" >        
+            <mat-radio-button value="Si" (click)="triggerSomeEventSi3()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNo3()">No</mat-radio-button>
+          </mat-radio-group></p> 
       </div>
-
       <div> 
         <mat-form-field>
           <mat-label>Tipo Desnutrición</mat-label>
-          <mat-select [(ngModel)]="antecedente_personal.tipo_desnutricion" name="tipo_cancer">
-            <mat-option *ngFor="let desnutricion of desnutriciones" [value]="desnutricion.value">
+          <mat-select [(ngModel)]="antecedente_personal.tipo_desnutricion" name="tipo_cancer" [value] ="input3" [disabled]="isDisabled3">
+            <mat-option *ngFor="let desnutricion of desnutriciones" [value]="desnutricion.value" >
               {{desnutricion.viewValue}}
             </mat-option>
           </mat-select>
@@ -621,27 +611,24 @@
         <p>desnutricion selecionada: {{antecedente_personal.tipo_desnutricion}} </p>
       </div>
       <mat-form-field class="medium-width">
-        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_desnutricion" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_desnutricion"
+         placeholder="Detallar inicio de enfermedad y tratamiento" 
+         [disabled]="isDisabled3" [value] ="input3"></textarea>
       </mat-form-field>
 
       <mat-divider></mat-divider>
 
       <div>
         <label id="example-radio-group-label">5. Enfermedades Mentales</label>
-        <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group"
-          [(ngModel)]="antecedente_personal.enfermedades_mentales">
-          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-            {{opcion}}
-          </mat-radio-button>
-        </mat-radio-group>
-      </div>
-    
+        <p><mat-radio-group [(ngModel)]="antecedente_personal.enfermedades_mentales" aria-label="Select an option" >        
+            <mat-radio-button value="Si" (click)="triggerSomeEventSi4()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNo4()">No</mat-radio-button>
+          </mat-radio-group></p> 
+      </div>    
       <div> 
         <mat-form-field>
           <mat-label>Tipo Enfermedad Mental</mat-label>
-          <mat-select [(ngModel)]="antecedente_personal.tipo_enfermedad_mental" name="tipo_enfermedad_mental">
+          <mat-select [(ngModel)]="antecedente_personal.tipo_enfermedad_mental" name="tipo_enfermedad_mental" [disabled]="isDisabled4">
             <mat-option *ngFor="let enfermedad_mental of enfermedades_mentales" [value]="enfermedad_mental.value">
               {{enfermedad_mental.viewValue}}
             </mat-option>
@@ -650,45 +637,41 @@
         <p>enfermedad mental selecionada: {{antecedente_personal.tipo_enfermedad_mental}}</p>
       </div>
       <mat-form-field class="medium-width">
-        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_enfermedades_mentales" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_enfermedades_mentales" 
+        placeholder="Detallar inicio de enfermedad y tratamiento" 
+        [disabled]="isDisabled4" [value] ="input4"></textarea>
       </mat-form-field>
       
 
       <mat-divider></mat-divider>
 
-      <div>
+
+      <div>          
         <label id="example-radio-group-label">6. Convulsiones</label>
-        <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group"
-          [(ngModel)]="antecedente_personal.convulsiones">
-          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-            {{opcion}}
-          </mat-radio-button>
-        </mat-radio-group>
+        <p><mat-radio-group [(ngModel)]="antecedente_personal.convulsiones" aria-label="Select an option" >        
+            <mat-radio-button value="Si" (click)="triggerSomeEventSi5()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNo5()">No</mat-radio-button>
+          </mat-radio-group></p>        
       </div>
       <mat-form-field class="medium-width">
-        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_convulsiones" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_convulsiones" 
+        placeholder="Detallar inicio de enfermedad y tratamiento"
+        [disabled]="isDisabled5" [value] ="input5" ></textarea>
       </mat-form-field>
 
       <mat-divider></mat-divider>
 
-      <div>
-        <label id="example-radio-group-label">8. Alergias</label>
-        <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group"
-          [(ngModel)]="antecedente_personal.alergias">
-          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-            {{opcion}}
-          </mat-radio-button>
-        </mat-radio-group>
-      </div>
-      
+      <div>          
+        <label id="example-radio-group-label">7. Alergias</label>
+        <p><mat-radio-group [(ngModel)]="antecedente_personal.alergias" aria-label="Select an option" >        
+            <mat-radio-button value="Si" (click)="triggerSomeEventSi6()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNo6()">No</mat-radio-button>
+          </mat-radio-group></p> 
+      </div>      
       <div> 
         <mat-form-field>
           <mat-label>Tipo Alergia</mat-label>
-          <mat-select [(ngModel)]="antecedente_personal.tipo_alergia" name="tipo_alergia">
+          <mat-select [(ngModel)]="antecedente_personal.tipo_alergia" name="tipo_alergia" [disabled]="isDisabled6">
             <mat-option *ngFor="let alergia of alergias" [value]="alergia.value">
               {{alergia.viewValue}}
             </mat-option>
@@ -697,27 +680,24 @@
         <p>alergia selecionada: {{antecedente_personal.tipo_alergia}} </p>
       </div>
       <mat-form-field class="medium-width">
-        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_alergias" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_alergias" 
+        placeholder="Detallar inicio de enfermedad y tratamiento"
+        [disabled]="isDisabled6" [value] ="input6"></textarea>
       </mat-form-field>
 
       <mat-divider></mat-divider>
 
       <div>
         <label id="example-radio-group-label">8. Cáncer</label>
-        <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group"
-          [(ngModel)]="antecedente_personal.cancer">
-          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-            {{opcion}}
-          </mat-radio-button>
-        </mat-radio-group>
+        <p><mat-radio-group [(ngModel)]="antecedente_personal.cancer" aria-label="Select an option" >        
+            <mat-radio-button value="Si" (click)="triggerSomeEventSi7()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNo7()">No</mat-radio-button>
+          </mat-radio-group></p> 
       </div>
-
       <div> 
         <mat-form-field>
           <mat-label>Tipo cáncer</mat-label>
-          <mat-select [(ngModel)]="antecedente_personal.tipo_cancer" name="tipo_cancer">
+          <mat-select [(ngModel)]="antecedente_personal.tipo_cancer" name="tipo_cancer" [disabled]="isDisabled7">
             <mat-option *ngFor="let cancer of canceres" [value]="cancer.value">
               {{cancer.viewValue}}
             </mat-option>
@@ -726,36 +706,36 @@
         <p>cáncer selecionada: {{antecedente_personal.tipo_cancer}} </p>
       </div>
       <mat-form-field class="medium-width">
-        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_cancer" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_cancer"
+         placeholder="Detallar inicio de enfermedad y tratamiento"
+         [disabled]="isDisabled7" [value] ="input7"></textarea>
       </mat-form-field>
+
     
       <mat-divider></mat-divider>
 
+
       <div>
         <label id="example-radio-group-label">9. Hospitalarias y Quirurgicas</label>
-        <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group"
-          [(ngModel)]="antecedente_personal.hospitalarias_quirurgicas">
-          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-            {{opcion}}
-          </mat-radio-button>
-        </mat-radio-group>
+        <p><mat-radio-group [(ngModel)]="antecedente_personal.hospitalarias_quirurgicas" aria-label="Select an option" >        
+            <mat-radio-button value="Si" (click)="triggerSomeEventSi8()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNo8()">No</mat-radio-button>
+          </mat-radio-group></p> 
       </div>
 
       
       <div class="row">
         <div class="col">
           <mat-form-field class="example-full-width">
-            <input matInput [(ngModel)]= "antecedente_personal.fecha_antecedente_hospitalario" [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" placeholder="Fecha">
+            <input matInput [(ngModel)]= "antecedente_personal.fecha_antecedente_hospitalario" [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" placeholder="Fecha" [disabled]="isDisabled8" [value] ="input8">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
+            <mat-datepicker #picker2 ></mat-datepicker>
           </mat-form-field>            
         </div>
 
         <div class="col">
           <mat-form-field class="example-full-width">
-            <input [(ngModel)]= "antecedente_personal.tiempo_hospitalizacion" matInput placeholder="Tiempo Hospitalización">
+            <input [(ngModel)]= "antecedente_personal.tiempo_hospitalizacion" matInput placeholder="Tiempo Hospitalización" [disabled]="isDisabled8" [value] ="input8">
           </mat-form-field>
         </div>
       </div>
@@ -763,13 +743,13 @@
       <div class="row">
         <div class="col">
             <mat-form-field class="example-full-width">
-              <textarea matInput [(ngModel)]= "antecedente_personal.diagnostico" placeholder="Diagnóstico"></textarea>
+              <textarea matInput [(ngModel)]= "antecedente_personal.diagnostico" placeholder="Diagnóstico" [disabled]="isDisabled8" [value] ="input8"></textarea>
             </mat-form-field>
         </div>
 
         <div class="col">
             <mat-form-field class="example-full-width">
-              <textarea matInput [(ngModel)]= "antecedente_personal.tratamiento" placeholder="Tratamiento"></textarea>
+              <textarea matInput [(ngModel)]= "antecedente_personal.tratamiento" placeholder="Tratamiento" [disabled]="isDisabled8" [value] ="input8"></textarea>
             </mat-form-field>
         </div>
       </div>
@@ -778,17 +758,15 @@
 
       <div>
         <label id="example-radio-group-label">10. Traumáticos</label>
-        <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group"
-          [(ngModel)]="antecedente_personal.traumaticos">
-          <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-            {{opcion}}
-          </mat-radio-button>
-        </mat-radio-group>
+        <p><mat-radio-group [(ngModel)]="antecedente_personal.traumaticos" aria-label="Select an option" >        
+            <mat-radio-button value="Si" (click)="triggerSomeEventSi9()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNo9()">No</mat-radio-button>
+          </mat-radio-group></p> 
       </div>
       <mat-form-field class="medium-width">
-        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_traumaticos" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        <textarea matInput [(ngModel)]= "antecedente_personal.observacion_traumaticos" 
+        placeholder="Detallar inicio de enfermedad y tratamiento"
+        [disabled]="isDisabled9" [value] ="input9"></textarea>
       </mat-form-field>
 
       <mat-divider></mat-divider>
@@ -796,7 +774,7 @@
       
       <div>
         <mat-form-field>
-          <input matInput [(ngModel)]="antecedente_personal.otros" name="otros" id="" placeholder="10. Otros">
+          <input matInput [(ngModel)]="antecedente_personal.otros" name="otros" id="" placeholder="11. Otros">
         </mat-form-field>
       </div>
       <mat-form-field class="medium-width">
