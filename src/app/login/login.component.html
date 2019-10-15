@@ -11,7 +11,7 @@
                   <mat-form-field class="example-full-width">
                           <input ID="cuentalogin" type="number" name="cuentalogin"
                           maxlength="11"  oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                          class="input"  matInput placeholder="Ingrese su número de cuenta" required>
+                          class="input"  matInput placeholder="Ingrese su número de cuenta" required [(ngModel)]="login.cuenta">
                   </mat-form-field>
                 </div>
                   
@@ -19,13 +19,13 @@
               <mat-form-field class="example-full-width">
                       <input ID="inputPassword" type="password"  Class="input"
                       name="contrasenialogin" matInput placeholder="Ingrese su contraseña"
-                      ngModel passwordToggle required>
+                      ngModel passwordToggle required [(ngModel)]="login.clave">
               </mat-form-field>
             </div>
         
 
             </div>             
-            <input type="submit" (click)="main()"   class="boton" >                             
+            <input type="submit" (click)="comprobarDatos()"   class="boton" >                             
             </div>
   </div>
 </div>   
