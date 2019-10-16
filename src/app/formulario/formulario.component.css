@@ -4,14 +4,20 @@ mat-tab-group {
 
 mat-horizontal-stepper{
   height: 100%;
+  width: 100%;
   padding: 15px;
+  align-content: center;
 }
 
 .container{
-  height: 450px;
+  /* height: 450px; */
+  height: 80%;
+  width: 100%;
+  margin: auto auto;
   padding: 20px;
   overflow: auto;
-  position: relative;
+  position: absolute;
+  
 
 }
 
