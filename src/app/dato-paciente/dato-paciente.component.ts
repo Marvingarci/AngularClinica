@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormularioService } from '../services/formulario.service';
 import { Paciente } from "../interfaces/paciente";
 import { ActivatedRoute } from '@angular/router';
-
+import { AppComponent } from "../app.component";
 
 
 @Component({
@@ -14,8 +14,9 @@ export class DatoPacienteComponent implements OnInit {
   API_ENDPOINT = 'http://apiclinicaunah.test/api/';
   pacientes: Paciente[];
 
-  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute) {
+  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, principal: AppComponent) {
     this.getdato();
+    principal.esconder();
   }
 
   getdato(){

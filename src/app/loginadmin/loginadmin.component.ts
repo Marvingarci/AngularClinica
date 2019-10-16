@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppComponent } from "../app.component";
+
 import { LoginAdmin } from '../interfaces/login_admin';
 import { LoginadminService } from '../services/loginadmin.service';
 
@@ -34,7 +36,10 @@ export class LoginadminComponent implements OnInit {
   "Otorrinolaringología",
   "Medicina Física y Rehabilitación"];
 
-  constructor(private router: Router,private login_adminservice:LoginadminService) { }
+  constructor(private router: Router, activar: AppComponent, private login_adminservice:LoginadminService) {
+    activar.esconder();
+    
+   }
 
   ngOnInit() {
   }
