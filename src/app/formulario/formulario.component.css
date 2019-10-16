@@ -6,7 +6,6 @@ mat-horizontal-stepper{
   height: 100%;
   width: 100%;
   padding: 15px;
-  align-content: center;
 }
 
 .container{
@@ -15,7 +14,7 @@ mat-horizontal-stepper{
   width: 100%;
   padding: 20px;
   overflow: auto;
-  position: fixed;
+  position: absolute;
   
 
 }
