@@ -90,11 +90,10 @@
                 <mat-select  [(ngModel)]="paciente.sexo" name="sexo">
                   <mat-option (click)="mostrarN()"  [value]="sexos[0]">Hombre</mat-option>
                   <mat-option (click)="mostrarS()" [value]="sexos[1]">Mujer</mat-option>
-                  <mat-option (click)="mostrarN()" [value]="sexos[2]">Otros</mat-option>
                   
               </mat-select>
             </mat-form-field>
-            <p> sexo seleccionado: {{paciente.sexo}} </p>
+            <p> sexo seleccionado: {{paciente.sexo}}</p>
           </div>
   
   
@@ -926,7 +925,7 @@
 
         <div>
           <mat-form-field>
-            <input matInput [(ngModel)]="habito_toxicologico_personal.otros" name="otros"  placeholder="5. Otros">
+            <input matInput [(ngModel)]="habito_toxicologico_personal.otros" name="otros"  placeholder="5. Otros" required>
           </mat-form-field>
         </div>
         <mat-form-field class="medium-width">
@@ -934,7 +933,7 @@
         </mat-form-field>
 
         <div>
-          <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
+          <button mat-raised-button matStepperNext  class="btn btn-outline-primary float-right">Siguiente</button>
           <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
         </div>
   
@@ -1284,8 +1283,11 @@
           <textarea matInput [(ngModel)]= "planificacion_familiar.observacion_planificacion" placeholder="Observación"></textarea>
         </mat-form-field>
         <div>
-          <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
+          <button *ngIf="seccion==false" mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
+          <button *ngIf="seccion==true" mat-raised-button matStepperNext class="btn btn-outline-primary float-right" (click)="enviarDatos()">Enviar</button>
+
           <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
+
         </div>
       </div>
       
