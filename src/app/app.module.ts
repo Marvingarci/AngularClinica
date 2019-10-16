@@ -17,22 +17,30 @@ import { ListadoEstudiantesComponent } from './listado-estudiantes/listado-estud
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
+import { VerPacienteComponent } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-//material angular
 import { MatSliderModule } from '@angular/material/slider';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field'
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule} from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDividerModule } from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatDividerModule} from '@angular/material/divider';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatListModule} from '@angular/material/list';
+
+
+
+
+
 
 const routes: Route[] = [
   {path: '', component: LoginComponent},
@@ -40,16 +48,22 @@ const routes: Route[] = [
   {path: 'principal', component: PrincipalComponent},
   {path: 'at1', component: At1Component},
   {path: 'datoPaciente/:id', component: DatoPacienteComponent},
+  {path: 'datoPaciente', component: DatoPacienteComponent},
 
   {path: 'loginadmin', component: LoginadminComponent},
-
-  {path: 'at1', component: At1Component},
-  
-  {path: 'registroPaciente', component: PacienteComponent},
-  {path: 'listadoEstudiantes', component: ListadoEstudiantesComponent},
-  {path: 'listadotrabajadores', component: ListadoTrabajadoresComponent},
-  {path: 'listadoVisitantes', component: ListadoVisitantesComponent},
-  {path: 'listadoProsene', component: ListadoProseneComponent}
+  {
+    path: 'principal',
+    component: PrincipalComponent,
+    children: [
+      {path: 'at1', component: At1Component},
+      {path: 'registro', component: PacienteComponent},
+      {path: 'listadoEstudiantes', component: ListadoEstudiantesComponent},
+      {path: 'listadotrabajadores', component: ListadoTrabajadoresComponent},
+      {path: 'listadoVisitantes', component: ListadoVisitantesComponent},
+      {path: 'listadoProsene', component: ListadoProseneComponent},
+      {path: 'verPaciente', component: VerPacienteComponent}
+    ]
+  }
  
   
 
@@ -69,7 +83,8 @@ const routes: Route[] = [
     ListadoEstudiantesComponent,
     ListadoTrabajadoresComponent,
     ListadoVisitantesComponent,
-    ListadoProseneComponent ,
+    ListadoProseneComponent,
+    VerPacienteComponent ,
     
   ],
   imports: [
@@ -95,7 +110,11 @@ const routes: Route[] = [
     ReactiveFormsModule,
     MatCardModule,
     MatRadioModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatExpansionModule,
+    MatListModule
     
   ],
   providers: [],

@@ -9,11 +9,12 @@ import { ActividadSexual } from '../interfaces/actividad-sexual';
 import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologicos';
 import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familiares';
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
+import { AppComponent } from "../app.component";
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { stringify } from '@angular/compiler/src/util';
 
 
 
@@ -92,16 +93,111 @@ export interface resultado_embarazo {
   }]
 })
 export class FormularioComponent implements OnInit {
+
+  
    
   // Aqui esta codificando MELVIN
     isDisabled = true;
+    input : string ;
     triggerSomeEventSi() {      
         this.isDisabled = false;
     }
-    triggerSomeEventNo() {
-      this.isDisabled = true; 
+     triggerSomeEventNo() {
+      this.input  =null ;
+      this.isDisabled = true;      
      }
 
+     isDisabled1 = true;
+     input1 : string ;
+     triggerSomeEventSi1() {    
+         this.isDisabled1 = false;
+     }
+     triggerSomeEventNo1() {  
+      this.input1  =null ;
+       this.isDisabled1 = true; 
+      }
+
+      isDisabled2 = true;
+      input2 : string ;
+     triggerSomeEventSi2() {      
+         this.isDisabled2 = false;
+     }
+     triggerSomeEventNo2() {  
+      this.input2  =null ;
+       this.isDisabled2 = true; 
+      }
+
+      isDisabled3 = true;
+      input3 : string ;
+      triggerSomeEventSi3() {      
+          this.isDisabled3 = false;
+      }
+      triggerSomeEventNo3() {  
+        this.input3  =null ;
+        this.isDisabled3 = true; 
+       }
+
+       isDisabled4 = true;
+      input4 : string ;
+      triggerSomeEventSi4() {      
+          this.isDisabled4 = false;
+      }
+      triggerSomeEventNo4() {  
+        this.input4  =null ;
+        this.isDisabled4 = true; 
+       }
+
+       isDisabled5 = true;
+       input5 : string ;
+       triggerSomeEventSi5() {      
+           this.isDisabled5 = false;
+       }
+       triggerSomeEventN5() {  
+         this.input5  =null ;
+         this.isDisabled5 = true; 
+        }
+
+        isDisabled6 = true;
+        input6 : string ;
+        triggerSomeEventSi6() {      
+            this.isDisabled6 = false;
+        }
+        triggerSomeEventNo6() {  
+          this.input6  =null ;
+          this.isDisabled6 = true; 
+         }
+
+         isDisabled7 = true;
+         input7 : string ;
+         triggerSomeEventSi7() {      
+             this.isDisabled7 = false;
+         }
+         triggerSomeEventNo7() {  
+           this.input7  =null ;
+           this.isDisabled7 = true; 
+          }
+
+          isDisabled8 = true;
+          input8 : string ;
+          triggerSomeEventSi8() {      
+              this.isDisabled8 = false;
+          }
+          triggerSomeEventNo8() {  
+            this.input8  =null ;
+            this.isDisabled8 = true; 
+           }
+
+           isDisabled9 = true;
+          input9 : string ;
+          triggerSomeEventSi9() {      
+              this.isDisabled9 = false;
+          }
+          triggerSomeEventNo9() {  
+            this.input9  =null ;
+            this.isDisabled9 = true; 
+           }
+
+           
 
 
 
@@ -199,6 +295,109 @@ export class FormularioComponent implements OnInit {
 
 
 // Aqui esta codificando BRASLI
+
+isDisabledB1 = true;
+triggerSomeEventSiB1() {      
+    this.isDisabledB1 = false;
+}
+triggerSomeEventNoB1() {  
+  this.isDisabledB1 = true; 
+ }
+
+ isDisabledB2 = true;
+ triggerSomeEventSiB2() {      
+     this.isDisabledB2 = false;
+ }
+ triggerSomeEventNoB2() {  
+   this.isDisabledB2 = true; 
+  }
+   isDisabledB3 = true;
+triggerSomeEventSiB3() {      
+    this.isDisabledB3 = false;
+}
+triggerSomeEventNoB3() {  
+  this.isDisabledB3 = true; 
+ }
+
+  isDisabledB4 = true;
+  triggerSomeEventSiB4() {      
+      this.isDisabledB4 = false;
+  }
+  triggerSomeEventNoB4() {  
+    this.isDisabledB4 = true; 
+   }
+
+   isDisabledB5 = true;
+  triggerSomeEventSiB5() {      
+      this.isDisabledB5 = false;
+  }
+  triggerSomeEventNoB5() {  
+    this.isDisabledB5 = true; 
+   }
+
+   isDisabledB6 = true;
+  triggerSomeEventSiB6() {      
+      this.isDisabledB6 = false;
+  }
+  triggerSomeEventNoB6() {  
+    this.isDisabledB6 = true; 
+   }
+
+   isDisabledB7 = true;
+  triggerSomeEventSiB7() {      
+      this.isDisabledB7 = false;
+  }
+  triggerSomeEventNoB7() {  
+    this.isDisabledB7 = true; 
+   }
+
+   isDisabledB8 = true;
+  triggerSomeEventSiB8() {      
+      this.isDisabledB8 = false;
+  }
+  triggerSomeEventNoB8() {  
+    this.isDisabledB8 = true; 
+   }
+
+   isDisabledB9 = true;
+  triggerSomeEventSiB9() {      
+      this.isDisabledB9 = false;
+  }
+  triggerSomeEventNoB9() {  
+    this.isDisabledB9 = true; 
+   }
+
+   isDisabledB10 = true;
+     inputB10 : string ;
+     triggerSomeEventSiB10() {    
+         this.isDisabledB10 = false;
+     }
+     triggerSomeEventNoB10() {  
+      this.inputB10  =null ;
+       this.isDisabledB10 = true; 
+      }
+
+      isDisabledB11 = true;
+      inputB11 : string ;
+      triggerSomeEventSiB11() {    
+          this.isDisabledB11 = false;
+      }
+      triggerSomeEventNoB11() {  
+       this.inputB11  =null ;
+        this.isDisabledB11 = true; 
+       }
+
+       isDisabledB12 = true;
+       inputB12 : string ;
+       triggerSomeEventSiB12() {      
+           this.isDisabledB12 = false;
+       }
+       triggerSomeEventNoB12() {             
+       this.inputB12  =null ;
+         this.isDisabledB12 = true; 
+        }
+
+   
 
 
 
@@ -300,9 +499,57 @@ export class FormularioComponent implements OnInit {
 
 
 // Aqui esta codificando MARVIN
+    des = true;
+    ingreso : string ;
+    des1 = true;
+    ingreso1: string ;
+    des2 = true;
+    ingreso2: string ;
+    des3 = true;
+    ingreso3: string ;
+    
+    Mostrar() {      
+        this.des = false;
+    }
+    Esconder() {
+      this.ingreso  =null ;
+      this.des = true;      
+     }
 
 
+     Mostrar1() {      
+      this.des1 = false;
+    }
+    Esconder1() {
+    this.ingreso1  =null ;
+    this.des1 = true;      
+     }
 
+     Mostrar2() {      
+      this.des2 = false;
+    }
+    Esconder2() {
+    this.ingreso2  =null ;
+    this.des2 = true;      
+     }
+     Mostrar3() {      
+      this.des3 = false;
+    }
+    Esconder3() {
+    this.ingreso3  =null ;
+    this.des3 = true;      
+     }
+
+     seccion: boolean = true;
+   
+     mostrarS(){
+       this.seccion=false;
+     }
+     mostrarN(){
+      this.seccion=true;
+    }
+
+   
 
 
 
@@ -769,22 +1016,21 @@ export class FormularioComponent implements OnInit {
   
 
   isLinear = false;
+  isOptional = false;
   firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  secondFormGroup: FormGroup; 
 
 
   constructor(private formularioService: FormularioService, 
     private router: Router,
-    private _formBuilder: FormBuilder) { }
+    private _formBuilder: FormBuilder, activar: AppComponent) {
+      activar.esconder();
+     }
 
   ngOnInit() {
-
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
+    // this.firstFormGroup = this._formBuilder.group({
+    //   firstCtrl: ['', Validators.required]
+    // });
     
   }
 

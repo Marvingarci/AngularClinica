@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="page-wrapper chiller-theme toggled">
+<div  class="page-wrapper chiller-theme toggled">
     <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
       <i class="fas fa-bars"></i>
     </a>
@@ -31,9 +31,11 @@
           </div>
           
         </div>
+      -->
         <!-- sidebar-header  -->
-        
+      
         <!-- sidebar-search  -->
+        <!--
         <div class="sidebar-menu">
                 <div class="col-12">
                         <div class="list-group" id="list-tab" role="tablist">
@@ -45,10 +47,12 @@
                           
                         
                       </div>
-        </div>
+        </div> -->
         <!-- sidebar-menu  -->
-      </div>
+      
       <!-- sidebar-content  -->
+    <!--
+    </div>
       <div class="sidebar-footer">
             <a href="#">Ayuda?
               <i class="fa fa-bell"></i>
@@ -56,7 +60,9 @@
             </a>       
           </div>
     </nav>
+    -->
     <!-- sidebar-wrapper  -->
+    <!--
     <main class="page-content" style="margin-top: 0px">
     <nav class="navbar" style="background: #003399">
                     <a class="navbar-brand" style="color: aliceblue">Pagina principal</a>
@@ -74,21 +80,205 @@
     
   
     </main>
-    
+    -->
     <!-- page-content" -->
+  <!--
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js"></script>
+  -->
   <!-- page-wrapper -->
-    
+    <!--
 </body>
 </html>
+-->
+
+<!--
+
+<mat-sidenav-container class="example-container" >
+  <mat-sidenav mode="side" opened>
+
+      <div >
+          <img class="img-responsive img-rounded" src="https://www.unah.edu.hn/themes/portalunah/assets/images/logo-unah-blanco.png"
+            alt="User picture">
+            <div class="sidebar-brand">
+                  <a style="text-align: center; color:aliceblue" [routerLink]="['/principal']" routerLinkActive="router-link-active" ><h5>Clinica UNAH Tec Danli</h5></a>
+                  <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                  </div>
+                </div>
+        </div>
+      
+      <mat-expansion-panel [disabled]="isDisabled">
+          <mat-expansion-panel-header style="font-size: 16px;">
+            Pacientes
+          </mat-expansion-panel-header>
+          <mat-list role="list">
+              <mat-action-list>
+                  <button mat-list-item [routerLink]="['/principal']" routerLinkActive="router-link-active"> Alumnos </button>
+                  <button mat-list-item [routerLink]="['/principal']" routerLinkActive="router-link-active"> Empleados </button>
+                  <button mat-list-item [routerLink]="['/principal']" routerLinkActive="router-link-active"> Visitantes </button>
+                  <button mat-list-item [routerLink]="['/principal']" routerLinkActive="router-link-active"> Prosene </button>
+  
+                </mat-action-list>
+            </mat-list>
+        </mat-expansion-panel>
+
+
+        <mat-action-list>
+            <button mat-list-item (click)="save()"> At1 </button>
+            <button mat-list-item (click)="undo()"> Consolidado Diario </button>
+            <button mat-list-item (click)="undo()"> Inventario </button>
+            <button mat-list-item (click)="undo()"> Administradores </button>
+            <button mat-list-item (click)="undo()"> Ayuda? </button>
+
+
+          </mat-action-list>
+        
+
+    
+        
+
+
+  
+    
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+      <mat-toolbar color="">
+          
+        
+          <mat-toolbar-row>
+            <span>Principal</span>
+            <span class="example-spacer"></span>
+            <span class="example-fill-remaining-space"></span>
+            
+
+              
+
+
+          
+
+
+             </mat-toolbar-row>
+        
+         
+        </mat-toolbar>
+
+
+
+
+         <li class="nav-item">
+                                        <a class="nav-link" style="font-size: 18px" [routerLink]="['/registroPaciente']" routerLinkActive="router-link-active" >Estudiantes</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link" style="font-size: 18px" [routerLink]="['/listadotrabajadores']" >Trabajadores</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link active" style="font-size: 18px" [routerLink]="['/listadoVisitantes']" >Visitantes</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link " style="font-size: 18px" [routerLink]="['/listadoProsene']" tabindex="-1" aria-disabled="true">Prosene</a>
+                                      </li>
+       
 
 
 
 
 
 
+    
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+-->
+<div>
+  
+<mat-sidenav-container  class="example-container" >
+    <mat-sidenav  mode="side" opened>
+  
+        <div >
+            <img class="img-responsive img-rounded" src="https://www.unah.edu.hn/themes/portalunah/assets/images/logo-unah-blanco.png"
+              alt="User picture">
+              <div class="sidebar-brand">
+                    <a style="text-align: center; color:aliceblue" [routerLink]="['/principal']" routerLinkActive="router-link-active" ><h5>Clinica UNAH Tec Danli</h5></a>
+                    <div id="close-sidebar">
+                      <i class="fas fa-times"></i>
+                    </div>
+                  </div>
+          </div>
+        
+        <mat-expansion-panel [disabled]="isDisabled">
+            <mat-expansion-panel-header style="font-size: 16px;">
+              Pacientes
+            </mat-expansion-panel-header>
+            <mat-list role="list">
+                <mat-action-list>
+                    <button mat-list-item  [routerLink]="['/principal/registro']" routerLinkActive="router-link-active"> Alumnos </button>
+                    <button mat-list-item [routerLink]="['/principal/listadotrabajadores']" routerLinkActive="router-link-active"> Empleados </button>
+                    <button mat-list-item [routerLink]="['/principal/listadoVisitantes']" routerLinkActive="router-link-active"> Visitantes </button>
+                    <button mat-list-item [routerLink]="['/principal/listadoProsene']" routerLinkActive="router-link-active"> Prosene </button>
+    
+                  </mat-action-list>
+              </mat-list>
+          </mat-expansion-panel>
+  
+  
+          <mat-action-list>
+              <button mat-list-item [routerLink]="['/principal/at1']" routerLinkActive="router-link-active"> At1 </button>
+              <button mat-list-item (click)="undo()"> Consolidado Diario </button>
+              <button mat-list-item (click)="undo()"> Inventario </button>
+              <button mat-list-item (click)="undo()"> Administradores </button>
+              <button mat-list-item (click)="undo()"> Ayuda? </button>
+  
+  
+            </mat-action-list>
+          
+  
+      
+          
+  
+  
+    
+      
+  
+    </mat-sidenav>
+    <mat-sidenav-content >
+  
+        <mat-toolbar>
+            
+          
+            <mat-toolbar-row>
+              <span>Principal</span>
+              <span class="example-spacer"></span>
+              <span class="example-fill-remaining-space"></span>
+              
+  
+                
+
+  
+            
+  
+  
+               </mat-toolbar-row>
+          
+
+          </mat-toolbar>
+          
+
+   
+
+  
+          <router-outlet></router-outlet>
+  
+  
+      
+  
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>
 
 
