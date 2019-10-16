@@ -12,7 +12,6 @@ import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos'
 import { AppComponent } from "../app.component";
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { stringify } from '@angular/compiler/src/util';
@@ -94,6 +93,7 @@ export interface resultado_embarazo {
   }]
 })
 export class FormularioComponent implements OnInit {
+
   
    
   // Aqui esta codificando MELVIN
@@ -197,6 +197,8 @@ export class FormularioComponent implements OnInit {
             this.isDisabled9 = true; 
            }
 
+           
+
 
 
 
@@ -293,6 +295,109 @@ export class FormularioComponent implements OnInit {
 
 
 // Aqui esta codificando BRASLI
+
+isDisabledB1 = true;
+triggerSomeEventSiB1() {      
+    this.isDisabledB1 = false;
+}
+triggerSomeEventNoB1() {  
+  this.isDisabledB1 = true; 
+ }
+
+ isDisabledB2 = true;
+ triggerSomeEventSiB2() {      
+     this.isDisabledB2 = false;
+ }
+ triggerSomeEventNoB2() {  
+   this.isDisabledB2 = true; 
+  }
+   isDisabledB3 = true;
+triggerSomeEventSiB3() {      
+    this.isDisabledB3 = false;
+}
+triggerSomeEventNoB3() {  
+  this.isDisabledB3 = true; 
+ }
+
+  isDisabledB4 = true;
+  triggerSomeEventSiB4() {      
+      this.isDisabledB4 = false;
+  }
+  triggerSomeEventNoB4() {  
+    this.isDisabledB4 = true; 
+   }
+
+   isDisabledB5 = true;
+  triggerSomeEventSiB5() {      
+      this.isDisabledB5 = false;
+  }
+  triggerSomeEventNoB5() {  
+    this.isDisabledB5 = true; 
+   }
+
+   isDisabledB6 = true;
+  triggerSomeEventSiB6() {      
+      this.isDisabledB6 = false;
+  }
+  triggerSomeEventNoB6() {  
+    this.isDisabledB6 = true; 
+   }
+
+   isDisabledB7 = true;
+  triggerSomeEventSiB7() {      
+      this.isDisabledB7 = false;
+  }
+  triggerSomeEventNoB7() {  
+    this.isDisabledB7 = true; 
+   }
+
+   isDisabledB8 = true;
+  triggerSomeEventSiB8() {      
+      this.isDisabledB8 = false;
+  }
+  triggerSomeEventNoB8() {  
+    this.isDisabledB8 = true; 
+   }
+
+   isDisabledB9 = true;
+  triggerSomeEventSiB9() {      
+      this.isDisabledB9 = false;
+  }
+  triggerSomeEventNoB9() {  
+    this.isDisabledB9 = true; 
+   }
+
+   isDisabledB10 = true;
+     inputB10 : string ;
+     triggerSomeEventSiB10() {    
+         this.isDisabledB10 = false;
+     }
+     triggerSomeEventNoB10() {  
+      this.inputB10  =null ;
+       this.isDisabledB10 = true; 
+      }
+
+      isDisabledB11 = true;
+      inputB11 : string ;
+      triggerSomeEventSiB11() {    
+          this.isDisabledB11 = false;
+      }
+      triggerSomeEventNoB11() {  
+       this.inputB11  =null ;
+        this.isDisabledB11 = true; 
+       }
+
+       isDisabledB12 = true;
+       inputB12 : string ;
+       triggerSomeEventSiB12() {      
+           this.isDisabledB12 = false;
+       }
+       triggerSomeEventNoB12() {             
+       this.inputB12  =null ;
+         this.isDisabledB12 = true; 
+        }
+
+   
 
 
 
@@ -912,8 +1017,9 @@ export class FormularioComponent implements OnInit {
   
 
   isLinear = false;
+  isOptional = false;
   firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  secondFormGroup: FormGroup; 
 
 
   constructor(private formularioService: FormularioService, 
@@ -931,6 +1037,9 @@ export class FormularioComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+    // this.firstFormGroup = this._formBuilder.group({
+    //   firstCtrl: ['', Validators.required]
+    // });
     
   }
 
