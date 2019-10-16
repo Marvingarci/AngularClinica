@@ -444,6 +444,7 @@ export class FormularioComponent implements OnInit {
       this.seccion=true;
     }
 
+    
    
 
 
@@ -922,6 +923,7 @@ export class FormularioComponent implements OnInit {
      }
 
   ngOnInit() {
+   
 
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
