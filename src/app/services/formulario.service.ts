@@ -20,6 +20,10 @@ export class FormularioService {
   constructor(private httpClient :HttpClient) {
 
    }
+   put(paciente){
+    const Headers = new HttpHeaders({'Content-Type':'application/json'});
+    return this.httpClient.put(this.API_ENDPOINT+'/pacientes/'+ paciente.id_paciente , paciente, {headers: Headers});
+  }
 
   guardarDatosGenerales(paciente: Paciente){
     return this.httpClient.post(this.API_ENDPOINT + 'pacientes', paciente, {headers: this.headers});
