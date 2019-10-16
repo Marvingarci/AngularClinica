@@ -39,7 +39,7 @@ const routes: Route[] = [
   {path: 'formulario', component: FormularioComponent},
   {path: 'principal', component: PrincipalComponent},
   {path: 'at1', component: At1Component},
-  {path: 'datoPaciente', component: DatoPacienteComponent},
+  {path: 'datoPaciente/:id', component: DatoPacienteComponent},
 
   {path: 'loginadmin', component: LoginadminComponent},
 
