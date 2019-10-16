@@ -9,10 +9,12 @@ import { ActividadSexual } from '../interfaces/actividad-sexual';
 import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologicos';
 import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familiares';
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
+import { AppComponent } from "../app.component";
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { stringify } from '@angular/compiler/src/util';
 
 
 
@@ -92,6 +94,7 @@ export interface resultado_embarazo {
 })
 export class FormularioComponent implements OnInit {
 
+  
    
   // Aqui esta codificando MELVIN
     isDisabled = true;
@@ -426,9 +429,57 @@ triggerSomeEventNoB3() {
 
 
 // Aqui esta codificando MARVIN
+    des = true;
+    ingreso : string ;
+    des1 = true;
+    ingreso1: string ;
+    des2 = true;
+    ingreso2: string ;
+    des3 = true;
+    ingreso3: string ;
+    
+    Mostrar() {      
+        this.des = false;
+    }
+    Esconder() {
+      this.ingreso  =null ;
+      this.des = true;      
+     }
 
 
+     Mostrar1() {      
+      this.des1 = false;
+    }
+    Esconder1() {
+    this.ingreso1  =null ;
+    this.des1 = true;      
+     }
 
+     Mostrar2() {      
+      this.des2 = false;
+    }
+    Esconder2() {
+    this.ingreso2  =null ;
+    this.des2 = true;      
+     }
+     Mostrar3() {      
+      this.des3 = false;
+    }
+    Esconder3() {
+    this.ingreso3  =null ;
+    this.des3 = true;      
+     }
+
+     seccion: boolean = true;
+   
+     mostrarS(){
+       this.seccion=false;
+     }
+     mostrarN(){
+      this.seccion=true;
+    }
+
+   
 
 
 
@@ -902,7 +953,9 @@ triggerSomeEventNoB3() {
 
   constructor(private formularioService: FormularioService, 
     private router: Router,
-    private _formBuilder: FormBuilder) { }
+    private _formBuilder: FormBuilder, activar: AppComponent) {
+      activar.esconder();
+     }
 
   ngOnInit() {
     // this.firstFormGroup = this._formBuilder.group({

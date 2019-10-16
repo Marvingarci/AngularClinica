@@ -16,11 +16,13 @@ export class FormularioService {
 
   API_ENDPOINT = "http://127.0.0.1:8000/api/"
 
-  constructor(private httpClient :HttpClient) { }
+  headers = new HttpHeaders({'Content-Type':'application/json'});
+  constructor(private httpClient :HttpClient) {
+
+   }
 
   guardarDatosGenerales(paciente: Paciente){
-    const headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.post(this.API_ENDPOINT + 'pacientes', paciente, {headers: headers});
+    return this.httpClient.post(this.API_ENDPOINT + 'pacientes', paciente, {headers: this.headers});
   };
 
   get(){

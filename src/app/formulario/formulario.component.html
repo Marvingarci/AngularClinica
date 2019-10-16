@@ -87,10 +87,11 @@
           <div class="col"> 
             <mat-form-field>
               <mat-label>Sexo</mat-label>
-                <mat-select [(ngModel)]="paciente.sexo" name="sexo">
-                  <mat-option *ngFor="let sexo of sexos" [value]="sexo.value">
-                  {{sexo.viewValue}}
-                </mat-option>
+                <mat-select  [(ngModel)]="paciente.sexo" name="sexo">
+                  <mat-option (click)="mostrarN()"  [value]="sexos[0]">Hombre</mat-option>
+                  <mat-option (click)="mostrarS()" [value]="sexos[1]">Mujer</mat-option>
+                  <mat-option (click)="mostrarN()" [value]="sexos[2]">Otros</mat-option>
+                  
               </mat-select>
             </mat-form-field>
             <p> sexo seleccionado: {{paciente.sexo}} </p>
@@ -850,13 +851,13 @@
             aria-labelledby="example-radio-group-label"
             class="example-radio-group"
             [(ngModel)]="habito_toxicologico_personal.alcohol">
-            <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-              {{opcion}}
-            </mat-radio-button>
+            <mat-radio-button value="Si" (click)="Mostrar()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="Esconder()">No</mat-radio-button>
+
           </mat-radio-group>
         </div>
-        <mat-form-field class="medium-width">
-            <textarea matInput [(ngModel)]= "habito_toxicologico_personal.observacion_alcohol" placeholder="Detallar tiempo de uso y frecuencia"></textarea>
+        <mat-form-field  class="medium-width">
+            <textarea matInput  [(ngModel)]= "habito_toxicologico_personal.observacion_alcohol" [disabled]="des" [value] ="ingreso" placeholder="Detallar tiempo de uso y frecuencia"></textarea>
         </mat-form-field>
   
   
@@ -868,13 +869,12 @@
             aria-labelledby="example-radio-group-label"
             class="example-radio-group"
             [(ngModel)]="habito_toxicologico_personal.tabaquismo">
-            <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-              {{opcion}}
-            </mat-radio-button>
+            <mat-radio-button value="Si" (click)="Mostrar1()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="Esconder1()">No</mat-radio-button>
           </mat-radio-group>
         </div>
         <mat-form-field class="medium-width">
-          <textarea matInput [(ngModel)]= "habito_toxicologico_personal.observacion_tabaquismo" placeholder="Detallar tiempo de uso y frecuencia"></textarea>
+          <textarea matInput [(ngModel)]= "habito_toxicologico_personal.observacion_tabaquismo" [disabled]="des1" [value] ="ingreso1" placeholder="Detallar tiempo de uso y frecuencia"></textarea>
         </mat-form-field>
   
         <mat-divider></mat-divider>
@@ -885,13 +885,12 @@
             aria-labelledby="example-radio-group-label"
             class="example-radio-group"
             [(ngModel)]="habito_toxicologico_personal.marihuana">
-            <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-              {{opcion}}
-            </mat-radio-button>
+            <mat-radio-button value="Si" (click)="Mostrar2()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="Esconder2()">No</mat-radio-button>
           </mat-radio-group>
         </div>
         <mat-form-field class="medium-width">
-          <textarea matInput [(ngModel)]= "habito_toxicologico_personal.observacion_marihuana" placeholder="Detallar tiempo de uso y frecuencia"></textarea>
+          <textarea matInput [(ngModel)]= "habito_toxicologico_personal.observacion_marihuana" [disabled]="des2" [value] ="ingreso2" placeholder="Detallar tiempo de uso y frecuencia"></textarea>
         </mat-form-field>
   
         <mat-divider></mat-divider>
@@ -902,20 +901,19 @@
             aria-labelledby="example-radio-group-label"
             class="example-radio-group"
             [(ngModel)]="habito_toxicologico_personal.cocaina">
-            <mat-radio-button class="example-radio-button" *ngFor="let opcion of opciones" [value]="opcion">
-              {{opcion}}
-            </mat-radio-button>
+            <mat-radio-button value="Si" (click)="Mostrar3()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="Esconder3()">No</mat-radio-button>
           </mat-radio-group>
         </div>
         <mat-form-field class="medium-width">
-          <textarea matInput [(ngModel)]= "habito_toxicologico_personal.observacion_cocaina" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+          <textarea matInput [(ngModel)]= "habito_toxicologico_personal.observacion_cocaina" [disabled]="des3" [value] ="ingreso3" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
         </mat-form-field>
   
         <mat-divider></mat-divider>
 
         <div>
           <mat-form-field>
-            <input matInput [(ngModel)]="habito_toxicologico_personal.otros" name="otros" id="" placeholder="5. Otros">
+            <input matInput [(ngModel)]="habito_toxicologico_personal.otros" name="otros"  placeholder="5. Otros">
           </mat-form-field>
         </div>
         <mat-form-field class="medium-width">
@@ -1097,7 +1095,7 @@
 
 
   <!-- sexto step -->
-  <mat-step>
+  <mat-step *ngIf="seccion==false">
       <ng-template matStepLabel>Antecedentes Ginecologicos</ng-template>
       <div class="container">
         <h2>Antecedentes Ginecológicos</h2>
@@ -1331,7 +1329,7 @@
 
 
   <!-- octavo step -->
-  <mat-step>
+  <mat-step *ngIf="seccion==false">
       <ng-template matStepLabel>Antecedentes Obstétricos</ng-template>
       <div class="container">
         <h2>Antecedentes Obstétricos</h2>

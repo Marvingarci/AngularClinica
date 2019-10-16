@@ -8,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'AngularClinica';
+  private principal: boolean;
+
+  constructor(){
+    this.principal=true;
+  }
+
+  mostrar(){
+    this.principal=true;
+  }
+  esconder(){
+    this.principal=false;
+  }
 }
