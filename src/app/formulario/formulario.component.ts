@@ -552,6 +552,7 @@ triggerSomeEventNoB3() {
       this.seccion=true;
     }
 
+    
    
 
 
@@ -1031,6 +1032,14 @@ triggerSomeEventNoB3() {
      }
 
   ngOnInit() {
+   
+
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
     // this.firstFormGroup = this._formBuilder.group({
     //   firstCtrl: ['', Validators.required]
     // });

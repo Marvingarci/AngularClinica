@@ -90,11 +90,10 @@
                 <mat-select  [(ngModel)]="paciente.sexo" name="sexo">
                   <mat-option (click)="mostrarN()"  [value]="sexos[0]">Hombre</mat-option>
                   <mat-option (click)="mostrarS()" [value]="sexos[1]">Mujer</mat-option>
-                  <mat-option (click)="mostrarN()" [value]="sexos[2]">Otros</mat-option>
                   
               </mat-select>
             </mat-form-field>
-            <p> sexo seleccionado: {{paciente.sexo}} </p>
+            <p> sexo seleccionado: {{paciente.sexo}}</p>
           </div>
   
   
@@ -893,7 +892,7 @@
 
         <div>
           <mat-form-field>
-            <input matInput [(ngModel)]="habito_toxicologico_personal.otros" name="otros"  placeholder="5. Otros">
+            <input matInput [(ngModel)]="habito_toxicologico_personal.otros" name="otros"  placeholder="5. Otros" required>
           </mat-form-field>
         </div>
         <mat-form-field class="medium-width">
@@ -901,7 +900,7 @@
         </mat-form-field>
 
         <div>
-          <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
+          <button mat-raised-button matStepperNext  class="btn btn-outline-primary float-right">Siguiente</button>
           <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
         </div>
   
@@ -1219,6 +1218,96 @@
 
 
 
+  <!-- septimo step -->
+  <mat-step>
+      <ng-template matStepLabel>Planificacion Familiar</ng-template>
+      <div class="container">
+        <h2>Planificacion Familiar</h2>
+        <div>  
+          <p><mat-radio-group  [(ngModel)]="planificacion_familiar.planificacion_familiar" aria-label="Select an option" >        
+            <mat-radio-button value="Si" (click)="triggerSomeEventSiB12()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNoB12()">No</mat-radio-button>
+          </mat-radio-group></p> 
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Método de planificación</mat-label>
+            <mat-select [(ngModel)]="planificacion_familiar.metodo_planificacion" name="metodo_planificacion"    [disabled]="isDisabledB12">
+              <mat-option *ngFor="let metodo of metodos" [value]="metodo.value">
+                {{metodo.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>caracteristica selecionada: {{planificacion_familiar.metodo_planificacion}}</p>
+        </div>
+        <mat-form-field class="medium-width">
+          <textarea matInput [(ngModel)]= "planificacion_familiar.observacion_planificacion"
+           placeholder="Observación"    [disabled]="isDisabledB12" [value]="inputB12"></textarea>
+        </mat-form-field>
+        <div>
+          <button *ngIf="seccion==false" mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
+          <button *ngIf="seccion==true" mat-raised-button matStepperNext class="btn btn-outline-primary float-right" (click)="enviarDatos()">Enviar</button>
+
+          <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
+
+        </div>
+      </div>
+      
+  </mat-step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- VALIDACIONES MARVIN -->
+
+
+
+
+
+
+
+
+
+
+  <!-- octavo step -->
+  <mat-step *ngIf="seccion==false">
   <!-- septimo step --><mat-step *ngIf="seccion==false">
       <ng-template matStepLabel>Antecedentes Obstétricos</ng-template>
       <div class="container">
