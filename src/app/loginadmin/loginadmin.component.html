@@ -8,7 +8,8 @@
 <div class="col">
   <mat-form-field class="example-full-width">
           <input [(ngModel)]="login_admin.usuario_admin" ID="usuario" type="text" name="usuario"
-          class="input"  matInput placeholder="Usuario" required>
+          class="input"  matInput placeholder="Usuario" required
+          maxlength="10" minlength="6" >
   </mat-form-field>
 </div>
       
@@ -16,13 +17,15 @@
     <div class="col">
         <mat-form-field class="example-full-width">
                 <input id="password" type="password" [(ngModel)]="password" name="password" 
-                class="input"  matInput placeholder="Ingrese su contraseña" ngModel passwordToggle #passwordvalidityMsg="ngModel" required>
+                class="input"  matInput placeholder="Ingrese su contraseña" ngModel passwordToggle #passwordvalidityMsg="ngModel" 
+                required maxlength="10" minlength="6" >
         </mat-form-field>
       </div>
       <div class="col">
           <mat-form-field class="example-full-width">
                   <input [(ngModel)]="login_admin.contrasenia_admin"  id="confPass" type="password" pattern="{{password}}"  [(ngModel)]="confPass"  name="confPass" #confPassvalidityMsg="ngModel"
-                  class="input"  matInput placeholder="Confirme su contraseña" ngModel passwordToggle required>
+                  class="input"  matInput placeholder="Confirme su contraseña" ngModel passwordToggle
+                   required maxlength="10" minlength="6" >
           </mat-form-field>
           <div *ngIf="confPassvalidityMsg.invalid && (confPassvalidityMsg.dirty || confPassvalidityMsg.touched)" >
             <div *ngIf="confPassvalidityMsg.errors.pattern" class="errorverificacion">Las contraseñas no coinciden</div>
@@ -34,7 +37,8 @@
 <div class="col">
   <mat-form-field class="example-full-width">
           <input [(ngModel)]="login_admin.nombre_admin"  ID="usuario" type="text" name="usuario"
-          class="input"  matInput placeholder="Ingrese el nombre completo" required>
+          class="input"  matInput placeholder="Ingrese el nombre completo"
+           required maxlength="30" minlength="6">
   </mat-form-field>
 </div>
 
@@ -50,6 +54,25 @@
 
     
 <div >
+
+    <!-- <mat-form-field>
+        <mat-label>Especialidades</mat-label>
+        <mat-select [(ngModel)]="login_admin.especialidad_admin" name="especialidad_admin">
+          <mat-option *ngFor="let especialidad of especialidad_admins" [value]="especialidad_admin.value">
+            {{especialidad.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
+   <!-- <mat-form-field>
+    <mat-label>Sexo</mat-label>
+      <mat-select  [(ngModel)]="login_admin.especialidad_admin" >
+        <mat-option (click)="mostrarN()"  [value]="sexos[0]">Hombre</mat-option>
+        <mat-option (click)="mostrarS()" [value]="sexos[1]">Mujer</mat-option>
+        <mat-option (click)="mostrarN()" [value]="sexos[2]">Otros</mat-option>                  
+    </mat-select>
+  </mat-form-field>-->
+
 <label class="label">Especialidad</label>
 <p><select id = "select" name="miselect" [(ngModel)]="login_admin.especialidad_admin" >
 <option [value]="item" *ngFor="let item of lista">{{item}}</option>
