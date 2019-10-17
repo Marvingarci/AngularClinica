@@ -16,7 +16,10 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { stringify } from '@angular/compiler/src/util';
 
-
+export interface Loginadmin {
+  value: string;
+  viewValue: string;
+}
 
 export interface Sexo {
   value: string;
