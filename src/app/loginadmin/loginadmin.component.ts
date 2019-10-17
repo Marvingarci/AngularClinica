@@ -44,7 +44,7 @@ export class LoginadminComponent implements OnInit {
   ngOnInit() {
   }
 
-  save(){
+  save(){    
     this.login_adminservice.saveloginadmin(this.login_admin).subscribe((data)=>{
       alert('Administrador Guardado con exito');
       console.log(data);
@@ -54,12 +54,4 @@ export class LoginadminComponent implements OnInit {
     
     });
   }
-
-
-
-
-   // console.log(this.login_admin);
-    //this.router.navigate(['principal']);
-  
-
 }
