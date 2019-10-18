@@ -1226,7 +1226,7 @@
       <div class="container">
         <h2>Planificacion Familiar</h2>
         <div>  
-          <p><mat-radio-group  [(ngModel)]="planificacion_familiar.planificacion_familiar" aria-label="Select an option" >        
+          <p><mat-radio-group  aria-label="Select an option" >        
             <mat-radio-button value="Si" (click)="triggerSomeEventSiB12()">Si</mat-radio-button> &nbsp;   
             <mat-radio-button value="No" (click)="triggerSomeEventNoB12()">No</mat-radio-button>
           </mat-radio-group></p> 
@@ -1235,17 +1235,17 @@
         <div>
           <mat-form-field>
             <mat-label>Método de planificación</mat-label>
-            <mat-select [(ngModel)]="planificacion_familiar.metodo_planificacion" name="metodo_planificacion"    [disabled]="isDisabledB12">
+            <mat-select name="metodo_planificacion"    [disabled]="isDisabledB12">
               <mat-option *ngFor="let metodo of metodos" [value]="metodo.value">
                 {{metodo.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <p>caracteristica selecionada: {{planificacion_familiar.metodo_planificacion}}</p>
+          <p>caracteristica selecionada: </p>
         </div>
         <mat-form-field class="medium-width">
-          <textarea matInput [(ngModel)]= "planificacion_familiar.observacion_planificacion"
-           placeholder="Observación"    [disabled]="isDisabledB12" [value]="inputB12"></textarea>
+          <textarea matInput 
+           placeholder="Observación" [disabled]="isDisabledB12" [value]="inputB12"></textarea>
         </mat-form-field>
         <div>
           <button *ngIf="seccion==false" mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
@@ -1474,6 +1474,7 @@
 
       
     </div>
+  </mat-step>
     
 </mat-step>  
 </mat-horizontal-stepper>
