@@ -3,29 +3,47 @@
         
     <div id="formstyle">
       <div>
-           <div class="view" id="imagenpuma"></div>
+          <div class="view" id="imagenpuma"></div>
 
-              
+          <form [formGroup]= "login_form">
 
-              <div class="col">
+              <div>
                   <mat-form-field class="example-full-width">
-                          <input ID="cuentalogin" type="number" name="cuentalogin"
-                          maxlength="11"  oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                          class="input"  matInput placeholder="Ingrese su número de cuenta" required [(ngModel)]="login.cuenta">
+                    <input matInput placeholder="Ingrese su cuenta" formControlName= "cuenta" required>
+                    <mat-error *ngIf="cuenta.hasError('required')">
+                      <strong>ingrese la cuenta</strong>
+                    </mat-error>
+                    <mat-error *ngIf="cuenta.hasError('minLength') && cuenta.hasError('maxLength')">
+                      <strong>cuenta invalida</strong>
+                    </mat-error>
                   </mat-form-field>
                 </div>
-                  
-           <div class="col">
+
+            <!-- <div class="col">
               <mat-form-field class="example-full-width">
-                      <input ID="inputPassword" type="password"  Class="input"
-                      name="contrasenialogin" matInput placeholder="Ingrese su contraseña"
-                      ngModel passwordToggle required [(ngModel)]="login.clave">
+                <input matInput type="number"
+                placeholder="Ingrese su número de cuenta"
+                formControlName="cuenta" required>
+                <mat-error *ngIf="cuenta.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div> -->
+                
+
+            <div>
+              <mat-form-field class="example-full-width">
+                <input matInput  
+                placeholder="Ingrese su contraseña"
+                formControlName="clave">
+                <mat-error *ngIf="clave.hasError('required') ">
+                  <strong>Ingrese la contraseña</strong>
+                </mat-error>
+
               </mat-form-field>
             </div>
-        
+          </form>
 
-            </div>             
-            <input type="submit" (click)="comprobarDatos()"   class="boton" >                             
-            </div>
+          </div>             
+          <input type="submit" (click)="comprobarDatos()"   class="boton" >                             
+          </div>
   </div>
 </div>   
