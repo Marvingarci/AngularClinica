@@ -32,6 +32,10 @@ export class FormularioService {
   get(){
     return this.httpClient.get(this.API_ENDPOINT+'pacientes');
   }
+  getUno(paciente: number){
+    const Headers = new HttpHeaders({'Content-Type':'application/json'});
+    return this.httpClient.get(this.API_ENDPOINT+'pacientes/'+paciente);
+  }
 
   guardarAntecedentesFamiliares(antecedente_familiar: AntecedentesFamiliares){
     const headers = new HttpHeaders({'Content-Type':'application/json'});

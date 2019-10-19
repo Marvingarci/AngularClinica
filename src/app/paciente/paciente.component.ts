@@ -62,13 +62,7 @@ export class PacienteComponent implements OnInit {
   getPacientes(){
     this.pacienteService.get().subscribe((data: Paciente[]) =>{
       this.pacientes = data;
-      for (let index = 0; index < this.pacientes.length; index++) {
-        this.pacientes2[index].id_paciente = this.pacientes[index].id_paciente;
-        this.pacientes2[index].nombre = this.pacientes[index].primer_nombre;
-        this.pacientes2[index].Identidad = this.pacientes[index].numero_identidad;
-        this.pacientes2[index].tel = this.pacientes[index].numero_telefono;
-        this.pacientes2[index].numero_cuenta = this.pacientes[index].numero_cuenta;
-      }
+      
       console.log(data);
     },(error)=>{
       console.log(error);

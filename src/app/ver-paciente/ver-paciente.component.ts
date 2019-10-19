@@ -42,13 +42,13 @@ export class VerPacienteComponent implements OnInit {
   }
 
   id: any;
-  pacientes: Paciente[];
   constructor(private FormService: FormularioService, private activatedRoute: ActivatedRoute ) { 
     this.id = this.activatedRoute.snapshot.params['id'];
+
     if(this.id){
-      this.FormService.get().subscribe((data: Paciente[])=>{
-          this.pacientes = data;
-          this.paciente = this.pacientes.find((m)=>{ return m.id_paciente == this.id});
+      this.FormService.getUno(this.id).subscribe((data: Paciente)=>{
+          this.paciente = data;
+          console.log(this.id);
           console.log(this.paciente);
       }, (error)=>{
         console.log(error);
