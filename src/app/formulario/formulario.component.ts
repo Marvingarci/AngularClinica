@@ -14,7 +14,10 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
-
+export interface Loginadmin {
+  value: string;
+  viewValue: string;
+}
 
 export interface Sexo {
   value: string;
