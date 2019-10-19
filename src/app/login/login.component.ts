@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
     cuenta: null,
     clave: null
   };
-
   pacientes: Paciente[];
   Formulario: FormularioService;
   pase: boolean=true;
@@ -64,11 +63,12 @@ export class LoginComponent implements OnInit {
 
 
   comprobarDatos(){
+    this.login.cuenta = this.login_form.get('cuenta').value;
+    this.login.clave = this.login_form.get('clave').value;
 
     for (let index = 0; index < this.pacientes.length; index++) {
       if (this.pacientes[index].numero_cuenta == this.login.cuenta) {
         this.pase=false;
-      
       }
     }
 
@@ -87,9 +87,8 @@ export class LoginComponent implements OnInit {
     }
 
     
-    this.login.cuenta = this.login_form.get('cuenta').value;
-    this.login.clave = this.login_form.get('clave').value;
-
+    
+/*
     if(this.login_form.valid){
       this.loginService.guardarDatos(this.login).subscribe( (data) =>{
         console.log(data);   
@@ -102,7 +101,7 @@ export class LoginComponent implements OnInit {
       alert('la esta cagando !!')
     }
 
-    
+    */
 
   }
 
