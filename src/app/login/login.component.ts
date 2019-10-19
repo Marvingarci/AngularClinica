@@ -17,9 +17,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 export class LoginComponent implements OnInit {
-
+ hide = true;
   //input
-  hide = true;
+ 
 
   login_form = new FormGroup({
     cuenta: new FormControl('',[Validators.required, Validators.maxLength(11), Validators.minLength(11)]),

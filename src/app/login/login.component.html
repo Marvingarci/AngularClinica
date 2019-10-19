@@ -30,14 +30,16 @@
                 
 
             <div>
-              <mat-form-field class="example-full-width">
-                <input matInput  
-                placeholder="Ingrese su contraseña"
-                formControlName="clave">
-                <mat-error *ngIf="clave.hasError('required') ">
-                  <strong>Ingrese la contraseña</strong>
-                </mat-error>
-
+              <mat-form-field class="example-full-width">                
+                    <input matInput  
+                    placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'"
+                    formControlName="clave">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    <mat-error *ngIf="clave.hasError('required') ">
+                      <strong>Ingrese la contraseña</strong>
+                    </mat-error>
               </mat-form-field>
             </div>
           </form>
