@@ -4,24 +4,24 @@
             <div class="row">
                 <div class="col-6">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Nombre" value="{{paciente.primer_nombre}} {{paciente.segundo_apellido}}" disabled>
+                        <input matInput placeholder="Nombre" value="{{paciente.primer_nombre}} {{paciente.segundo_nombre}}" readonly>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Apellido" value={{paciente.primer_apellido}}>
+                            <input matInput placeholder="Apellido" value="{{paciente.primer_apellido}} {{paciente.segundo_apellido}}" readonly>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Numero de cuenta" value="20142502040">
+                            <input matInput placeholder="Numero de cuenta" value="{{paciente.numero_cuenta}}" readonly >
                         </mat-form-field>
                 </div>
                 <div class="col-6">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Centro" value="UNAHTEC Danli">
+                        <input matInput placeholder="Centro" value="UNAHTEC Danli" readonly>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Carrera" value="Informatica Administrativa">
+                            <input matInput placeholder="Carrera" value="{{paciente.carrera}}" readonly>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Año" value="2014">
+                            <input matInput placeholder="Sexo" value="{{paciente.sexo}}" readonly>
                         </mat-form-field>
                 </div>
             </div>  
