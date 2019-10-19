@@ -11,7 +11,8 @@ import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familia
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
 import { AppComponent } from "../app.component";
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 
 
@@ -80,6 +81,12 @@ export interface resultado_embarazo {
   viewValue: string;
 }
 
+export class MyErrorStateMatcher implements ErrorStateMatcher{
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-formulario',
@@ -93,7 +100,7 @@ export class FormularioComponent implements OnInit {
 
   formulario_datos_generales = new FormGroup({
 
-      primer_apellido: new FormControl('', Validators.required),
+      primer_apellido: new FormControl('', [Validators.required, Validators.maxLength(15)]),
       segundo_apellido: new FormControl('', Validators.required),
       primer_nombre: new FormControl('', Validators.required),
       segundo_nombre: new FormControl('', Validators.required),
@@ -111,108 +118,190 @@ export class FormularioComponent implements OnInit {
   
   
   });
+
+  formulario_antecedentes_familiares = new FormGroup({
+    
+    diabetes : new FormControl('',[Validators.required]),
+    observacion_diabetes : new FormControl({value:'', disabled: true},[]),
+    tb_pulmonar : new FormControl('',[Validators.required]),
+    observacion_tb_pulmonar : new FormControl('',[]),
+    desnutricion : new FormControl('',[Validators.required]),
+    observacion_desnutricion : new FormControl('',[]),
+    tipo_desnutricion: new FormControl('',[]),
+    enfermedades_mentales : new FormControl('',[Validators.required]),
+    observacion_enfermedades_mentales : new FormControl('',[]),
+    tipo_enfermedad_mental: new FormControl('',[]),
+    convulsiones : new FormControl('',[Validators.required]),
+    observacion_convulsiones : new FormControl('',[]),
+    alcoholismo_sustancias_psicoactivas : new FormControl('',[Validators.required]),
+    observacion_alcoholismo_sustancias_psicoactivas: new FormControl('',[]),
+    alergias : new FormControl('',[Validators.required]),
+    observacion_alergias: new FormControl('',[]),
+    tipo_alergia: new FormControl('',[]),
+    cancer : new FormControl('',[Validators.required]),
+    observacion_cancer: new FormControl('',[]),
+    tipo_cancer: new FormControl('',[]),
+    hipertension_arterial: new FormControl('',[Validators.required]),
+    observacion_hipertension_arterial: new FormControl('',[]),
+    otros : new FormControl('',[]),
+    observacion_otros : new FormControl('',[]),
+      
+  });
+
+
+  formulario_antecedentes_personales = new FormGroup({
   
-   
+    diabetes : new FormControl('',[Validators.required]),
+    observacion_diabetes : new FormControl('',[]),
+    tb_pulmonar : new FormControl('',[Validators.required]),
+    observacion_tb_pulmonar : new FormControl('',[]),
+    its : new FormControl('',[Validators.required]),
+    observacion_its : new FormControl('',[]),
+    desnutricion : new FormControl('',[Validators.required]),
+    observacion_desnutricion : new FormControl('',[]),
+    tipo_desnutricion: new FormControl('',[]),
+    enfermedades_mentales : new FormControl('',[Validators.required]),
+    observacion_enfermedades_mentales : new FormControl('',[]),
+    tipo_enfermedad_mental: new FormControl('',[]),
+    convulsiones : new FormControl('',[Validators.required]),
+    observacion_convulsiones : new FormControl('',[]),
+    alergias : new FormControl('',[Validators.required]),
+    observacion_alergias : new FormControl('',[]),
+    tipo_alergia: new FormControl('',[]),
+    cancer : new FormControl('',[Validators.required]),
+    observacion_cancer : new FormControl('',[]),
+    tipo_cancer: new FormControl('',[]),
+    hospitalarias_quirurgicas : new FormControl('',[Validators.required]),
+    fecha_antecedente_hospitalario: new FormControl('',[]),
+    tratamiento: new FormControl('',[]),
+    diagnostico: new FormControl('',[]),
+    tiempo_hospitalizacion: new FormControl('',[]),
+    traumaticos : new FormControl('',[Validators.required]),
+    observacion_traumaticos : new FormControl('',[]),
+    otros : new FormControl('',[]),
+    observacion_otros : new FormControl('',[]),
+  });
+
+  formulario_habito_toxicologico_personal = new FormGroup({
+
+    alcohol : new FormControl('',[Validators.required]),
+    observacion_alcohol : new FormControl(''),
+    tabaquismo : new FormControl('',[Validators.required]),
+    observacion_tabaquismo : new FormControl(''),
+    marihuana : new FormControl('',[Validators.required]),
+    observacion_marihuana : new FormControl(''),
+    cocaina : new FormControl('',[Validators.required]),
+    observacion_cocaina : new FormControl(''),
+    otros : new FormControl(''),
+    observacion_otros : new FormControl('')
+
+  });
+
+  
+
+  matcher = new MyErrorStateMatcher();
+  
+  
 // Aqui esta codificando MELVIN
-  isDisabled = true;
-  input : string ;
-  triggerSomeEventSi() {      
-      this.isDisabled = false;
-  }
-  triggerSomeEventNo() {
-  this.input  =null ;
-  this.isDisabled = true;      
+isDisabled = true;
+input : string ;
+triggerSomeEventSi() {      
+    this.isDisabled = false;
+}
+triggerSomeEventNo() {
+this.input  =null ;
+this.isDisabled = true;      
+}
+
+isDisabled1 = true;
+input1 : string ;
+triggerSomeEventSi1() {    
+    this.isDisabled1 = false;
+}
+triggerSomeEventNo1() {  
+this.input1  =null ;
+  this.isDisabled1 = true; 
+}
+
+isDisabled2 = true;
+input2 : string ;
+triggerSomeEventSi2() {      
+    this.isDisabled2 = false;
+}
+triggerSomeEventNo2() {  
+this.input2  =null ;
+  this.isDisabled2 = true; 
+}
+
+isDisabled3 = true;
+input3 : string ;
+triggerSomeEventSi3() {      
+    this.isDisabled3 = false;
+}
+triggerSomeEventNo3() {  
+  this.input3  =null ;
+  this.isDisabled3 = true; 
   }
 
-  isDisabled1 = true;
-  input1 : string ;
-  triggerSomeEventSi1() {    
-      this.isDisabled1 = false;
-  }
-  triggerSomeEventNo1() {  
-  this.input1  =null ;
-    this.isDisabled1 = true; 
+  isDisabled4 = true;
+input4 : string ;
+triggerSomeEventSi4() {      
+    this.isDisabled4 = false;
+}
+triggerSomeEventNo4() {  
+  this.input4  =null ;
+  this.isDisabled4 = true; 
+}
+
+isDisabled5 = true;
+input5 : string ;
+triggerSomeEventSi5() {      
+    this.isDisabled5 = false;
+}
+triggerSomeEventN5() {  
+  this.input5  =null ;
+  this.isDisabled5 = true; 
+}
+
+isDisabled6 = true;
+input6 : string ;
+triggerSomeEventSi6() {      
+    this.isDisabled6 = false;
+}
+triggerSomeEventNo6() {  
+  this.input6  =null ;
+  this.isDisabled6 = true; 
+}
+
+isDisabled7 = true;
+input7 : string ;
+triggerSomeEventSi7() {      
+    this.isDisabled7 = false;
+}
+triggerSomeEventNo7() {  
+  this.input7  =null ;
+  this.isDisabled7 = true; 
+}
+
+isDisabled8 = true;
+input8 : string ;
+triggerSomeEventSi8() {      
+    this.isDisabled8 = false;
+}
+triggerSomeEventNo8() {  
+  this.input8  =null ;
+  this.isDisabled8 = true; 
   }
 
-  isDisabled2 = true;
-  input2 : string ;
-  triggerSomeEventSi2() {      
-      this.isDisabled2 = false;
+  isDisabled9 = true;
+input9 : string ;
+triggerSomeEventSi9() {      
+    this.isDisabled9 = false;
+}
+triggerSomeEventNo9() {  
+  this.input9  =null ;
+  this.isDisabled9 = true; 
   }
-  triggerSomeEventNo2() {  
-  this.input2  =null ;
-    this.isDisabled2 = true; 
-  }
-
-  isDisabled3 = true;
-  input3 : string ;
-  triggerSomeEventSi3() {      
-      this.isDisabled3 = false;
-  }
-  triggerSomeEventNo3() {  
-    this.input3  =null ;
-    this.isDisabled3 = true; 
-    }
-
-    isDisabled4 = true;
-  input4 : string ;
-  triggerSomeEventSi4() {      
-      this.isDisabled4 = false;
-  }
-  triggerSomeEventNo4() {  
-    this.input4  =null ;
-    this.isDisabled4 = true; 
-  }
-
-  isDisabled5 = true;
-  input5 : string ;
-  triggerSomeEventSi5() {      
-      this.isDisabled5 = false;
-  }
-  triggerSomeEventN5() {  
-    this.input5  =null ;
-    this.isDisabled5 = true; 
-  }
-
-  isDisabled6 = true;
-  input6 : string ;
-  triggerSomeEventSi6() {      
-      this.isDisabled6 = false;
-  }
-  triggerSomeEventNo6() {  
-    this.input6  =null ;
-    this.isDisabled6 = true; 
-  }
-
-  isDisabled7 = true;
-  input7 : string ;
-  triggerSomeEventSi7() {      
-      this.isDisabled7 = false;
-  }
-  triggerSomeEventNo7() {  
-    this.input7  =null ;
-    this.isDisabled7 = true; 
-  }
-
-  isDisabled8 = true;
-  input8 : string ;
-  triggerSomeEventSi8() {      
-      this.isDisabled8 = false;
-  }
-  triggerSomeEventNo8() {  
-    this.input8  =null ;
-    this.isDisabled8 = true; 
-    }
-
-    isDisabled9 = true;
-  input9 : string ;
-  triggerSomeEventSi9() {      
-      this.isDisabled9 = false;
-  }
-  triggerSomeEventNo9() {  
-    this.input9  =null ;
-    this.isDisabled9 = true; 
-    }
 
 isDisabledB1 = true;
 triggerSomeEventSiB1() {      
@@ -285,390 +374,86 @@ triggerSomeEventNoB9() {
   this.isDisabledB9 = true; 
   }
 
-  isDisabledB10 = true;
-    inputB10 : string ;
-    triggerSomeEventSiB10() {    
-        this.isDisabledB10 = false;
-    }
-    triggerSomeEventNoB10() {  
-    this.inputB10  =null ;
-      this.isDisabledB10 = true; 
-    }
-
-    isDisabledB11 = true;
-    inputB11 : string ;
-    triggerSomeEventSiB11() {    
-        this.isDisabledB11 = false;
-    }
-    triggerSomeEventNoB11() {  
-      this.inputB11  =null ;
-      this.isDisabledB11 = true; 
-      }
-
-      isDisabledB12 = true;
-      inputB12 : string ;
-      triggerSomeEventSiB12() {      
-          this.isDisabledB12 = false;
-      }
-      triggerSomeEventNoB12() {             
-      this.inputB12  =null ;
-        this.isDisabledB12 = true; 
-      }
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
-
-
-
-
-
-
-
-
-
-// Aqui esta codificando MARVIN
-    des = true;
-    ingreso : string ;
-    des1 = true;
-    ingreso1: string ;
-    des2 = true;
-    ingreso2: string ;
-    des3 = true;
-    ingreso3: string ;
+isDisabledB10 = true;
+inputB10 : string ;
+triggerSomeEventSiB10() {    
+    this.isDisabledB10 = false;
+}
+triggerSomeEventNoB10() {  
+this.inputB10  =null ;
+  this.isDisabledB10 = true; 
+}
+
+isDisabledB11 = true;
+inputB11 : string ;
+triggerSomeEventSiB11() {    
+    this.isDisabledB11 = false;
+}
+triggerSomeEventNoB11() {  
+  this.inputB11  =null ;
+  this.isDisabledB11 = true; 
+}
+
+isDisabledB12 = true;
+inputB12 : string ;
+triggerSomeEventSiB12() {      
+    this.isDisabledB12 = false;
+}
+triggerSomeEventNoB12() {             
+  this.inputB12  =null ;
+  this.isDisabledB12 = true; 
+}
+
+
+des = true;
+ingreso : string ;
+des1 = true;
+ingreso1: string ;
+des2 = true;
+ingreso2: string ;
+des3 = true;
+ingreso3: string ;
     
-    Mostrar() {      
-        this.des = false;
-    }
-    Esconder() {
-      this.ingreso  =null ;
-      this.des = true;      
-     }
-
-
-     Mostrar1() {      
-      this.des1 = false;
-    }
-    Esconder1() {
-    this.ingreso1  =null ;
-    this.des1 = true;      
-     }
-
-     Mostrar2() {      
-      this.des2 = false;
-    }
-    Esconder2() {
-    this.ingreso2  =null ;
-    this.des2 = true;      
-     }
-     Mostrar3() {      
-      this.des3 = false;
-    }
-    Esconder3() {
-    this.ingreso3  =null ;
-    this.des3 = true;      
-     }
-
-     seccion: boolean = true;
-   
-     mostrarS(){
-       this.seccion=false;
-     }
-     mostrarN(){
-      this.seccion=true;
-    }
-
-    
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     // Aqui esta codificando ALBERTO
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
+Mostrar() {      
+  this.des = false;
+}
+Esconder() {
+this.ingreso  =null ;
+this.des = true;      
+}
+
+
+Mostrar1() {      
+this.des1 = false;
+}
+Esconder1() {
+this.ingreso1  =null ;
+this.des1 = true;      
+}
+
+Mostrar2() {      
+this.des2 = false;
+}
+Esconder2() {
+this.ingreso2  =null ;
+this.des2 = true;      
+}
+Mostrar3() {      
+this.des3 = false;
+}
+Esconder3() {
+this.ingreso3  =null ;
+this.des3 = true;      
+}
+
+seccion: boolean = true;
+
+mostrarS(){
+  this.seccion=false;
+}
+mostrarN(){
+this.seccion=true;
+}
 
   paciente: Paciente = {
     primer_apellido: null,
@@ -854,7 +639,7 @@ triggerSomeEventNoB9() {
 
   ];
 
-  enfermedades_mentales: enfermedad_mental[] = [
+  enfermedades_mentaless: enfermedad_mental[] = [
     {value: 'Alzheimer' , viewValue: 'Alzheimer'},
     {value: 'Parkinson' , viewValue: 'Parkinson'},
     {value: 'Esquizofrenia' , viewValue: 'Esquizofrenia'},
@@ -865,7 +650,7 @@ triggerSomeEventNoB9() {
 
   ];
   
-  alergias: Alergia[] = [
+  tipos_alergias: Alergia[] = [
     {value: 'Medicamentos' , viewValue: 'Medicamentos'},
     {value: 'Alimentos' , viewValue: 'Alimentos'},
     {value: 'Cambios de clima' , viewValue: 'Cambios de clima'},
@@ -942,39 +727,142 @@ triggerSomeEventNoB9() {
   }
 
   enviarDatos(){
+
+    if(this.formulario_datos_generales.valid){
+
+        // guardar datos del formulario en paciente y enviarlo a la api
+      this.paciente.primer_apellido = this.formulario_datos_generales.get('primer_apellido').value;
+      this.paciente.segundo_apellido = this.formulario_datos_generales.get('segundo_apellido').value;
+      this.paciente.primer_nombre = this.formulario_datos_generales.get('primer_nombre').value;
+      this.paciente.segundo_nombre = this.formulario_datos_generales.get('segundo_nombre').value;
+      this.paciente.numero_cuenta = this.formulario_datos_generales.get('numero_cuenta').value;
+      this.paciente.numero_identidad = this.formulario_datos_generales.get('numero_identidad').value;
+      this.paciente.lugar_procedencia = this.formulario_datos_generales.get('lugar_procedencia').value;
+      this.paciente.direccion = this.formulario_datos_generales.get('direccion').value;
+      this.paciente.carrera = this.formulario_datos_generales.get('carrera').value;
+      this.paciente.sexo = this.formulario_datos_generales.get('sexo').value;
+      this.paciente.estado_civil = this.formulario_datos_generales.get('estado_civil').value;
+      this.paciente.seguro_medico = this.formulario_datos_generales.get('seguro_medico').value;
+      this.paciente.numero_telefono = this.formulario_datos_generales.get('numero_telefono').value;
+      this.paciente.emergencia_telefono = this.formulario_datos_generales.get('emergencia_telefono').value;
+      
+      
+      this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
+        console.log(data);     
+      }, (error) => {
+        console.log(error);
+        this.error = true;
+        alert('ocurrion un error');
+      });
+    }
+
+
+    if(this.formulario_antecedentes_familiares){
+      // guardar datos del formulario en antecedente_familiar y enviarlo a la api
+      this.antecedente_familiar.diabetes = this.formulario_antecedentes_familiares.get('diabetes').value;
+      this.antecedente_familiar.observacion_diabetes = this.formulario_antecedentes_familiares.get('observacion_diabetes').value;
+      this.antecedente_familiar.tb_pulmonar = this.formulario_antecedentes_familiares.get('tb_pulmonar').value;
+      this.antecedente_familiar.observacion_tb_pulmonar = this.formulario_antecedentes_familiares.get('observacion_tb_pulmonar').value;
+      this.antecedente_familiar.desnutricion = this.formulario_antecedentes_familiares.get('desnutricion').value;
+      this.antecedente_familiar.observacion_desnutricion = this.formulario_antecedentes_familiares.get('observacion_desnutricion').value;
+      this.antecedente_familiar.tipo_desnutricion = this.formulario_antecedentes_familiares.get('tipo_desnutricion').value;
+      this.antecedente_familiar.enfermedades_mentales = this.formulario_antecedentes_familiares.get('enfermedades_mentales').value;
+      this.antecedente_familiar.observacion_enfermedades_mentales = this.formulario_antecedentes_familiares.get('observacion_enfermedades_mentales').value;
+      this.antecedente_familiar.tipo_enfermedad_mental = this.formulario_antecedentes_familiares.get('tipo_enfermedad_mental').value;
+      this.antecedente_familiar.convulsiones = this.formulario_antecedentes_familiares.get('convulsiones').value;
+      this.antecedente_familiar.observacion_convulsiones = this.formulario_antecedentes_familiares.get('observacion_convulsiones').value;
+      this.antecedente_familiar.alcoholismo_sustancias_psicoactivas = this.formulario_antecedentes_familiares.get('alcoholismo_sustancias_psicoactivas').value;
+      this.antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas = this.formulario_antecedentes_familiares.get('observacion_alcoholismo_sustancias_psicoactivas').value;
+      this.antecedente_familiar.alergias = this.formulario_antecedentes_familiares.get('alergias').value;
+      this.antecedente_familiar.observacion_alergias = this.formulario_antecedentes_familiares.get('observacion_alergias').value;
+      this.antecedente_familiar.tipo_alergia = this.formulario_antecedentes_familiares.get('tipo_alergia').value;
+      this.antecedente_familiar.cancer = this.formulario_antecedentes_familiares.get('cancer').value;
+      this.antecedente_familiar.observacion_cancer = this.formulario_antecedentes_familiares.get('observacion_cancer').value;
+      this.antecedente_familiar.tipo_cancer = this.formulario_antecedentes_familiares.get('tipo_cancer').value;
+      this.antecedente_familiar.hipertension_arterial = this.formulario_antecedentes_familiares.get('hipertension_arterial').value;
+      this.antecedente_familiar.observacion_hipertension_arterial = this.formulario_antecedentes_familiares.get('observacion_hipertension_arterial').value;
+      this.antecedente_familiar.otros = this.formulario_antecedentes_familiares.get('otros').value;
+      this.antecedente_familiar.observacion_otros = this.formulario_antecedentes_familiares.get('observacion_otros').value;
+
+      this.formularioService.guardarAntecedentesFamiliares(this.antecedente_familiar).subscribe( (data) =>{
+        console.log(data);
+      }, (error) => {
+        console.log(error);
+        this.error = true;
+        alert('ocurrion un error');
+      });
+
+    }
     
-    this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
-      console.log(data);     
-    }, (error) => {
-      console.log(error);
-      this.error = true;
-      alert('ocurrion un error');
-    });
+    if(this.formulario_antecedentes_personales.valid){
 
-    this.formularioService.guardarAntecedentesFamiliares(this.antecedente_familiar).subscribe( (data) =>{
-      console.log(data);
-    }, (error) => {
-      console.log(error);
-      this.error = true;
-      alert('ocurrion un error');
-    });
+      // guardar datos del formulario en antecedente_personal y enviarlo a la api
+      this.antecedente_personal.diabetes = this.formulario_antecedentes_personales.get('diabetes').value;
+      this.antecedente_personal.observacion_diabetes = this.formulario_antecedentes_personales.get('observacion_diabetes').value;
+      this.antecedente_personal.tb_pulmonar = this.formulario_antecedentes_personales.get('tb_pulmonar').value;
+      this.antecedente_personal.observacion_tb_pulmonar = this.formulario_antecedentes_personales.get('observacion_tb_pulmonar').value;
+      this.antecedente_personal.its = this.formulario_antecedentes_personales.get('its').value;
+      this.antecedente_personal.observacion_its = this.formulario_antecedentes_personales.get('observacion_its').value;
+      this.antecedente_personal.desnutricion = this.formulario_antecedentes_personales.get('desnutricion').value;
+      this.antecedente_personal.observacion_desnutricion = this.formulario_antecedentes_personales.get('observacion_desnutricion').value;
+      this.antecedente_personal.tipo_desnutricion = this.formulario_antecedentes_personales.get('tipo_desnutricion').value;
+      this.antecedente_personal.enfermedades_mentales = this.formulario_antecedentes_personales.get('enfermedades_mentales').value;
+      this.antecedente_personal.observacion_enfermedades_mentales = this.formulario_antecedentes_personales.get('observacion_enfermedades_mentales').value;
+      this.antecedente_personal.tipo_enfermedad_mental = this.formulario_antecedentes_personales.get('tipo_enfermedad_mental').value;
+      this.antecedente_personal.convulsiones = this.formulario_antecedentes_personales.get('convulsiones').value;
+      this.antecedente_personal.observacion_convulsiones = this.formulario_antecedentes_personales.get('observacion_convulsiones').value;
+      this.antecedente_personal.alergias = this.formulario_antecedentes_personales.get('alergias').value;
+      this.antecedente_personal.observacion_alergias = this.formulario_antecedentes_personales.get('observacion_alergias').value;
+      this.antecedente_personal.tipo_alergia = this.formulario_antecedentes_personales.get('tipo_alergia').value;
+      this.antecedente_personal.cancer = this.formulario_antecedentes_personales.get('cancer').value;
+      this.antecedente_personal.observacion_cancer = this.formulario_antecedentes_personales.get('observacion_cancer').value;
+      this.antecedente_personal.tipo_cancer = this.formulario_antecedentes_personales.get('tipo_cancer').value;
+      this.antecedente_personal.hospitalarias_quirurgicas = this.formulario_antecedentes_personales.get('hospitalarias_quirurgicas').value;
+      this.antecedente_personal.fecha_antecedente_hospitalario = this.formulario_antecedentes_personales.get('fecha_antecedente_hospitalario').value;
+      this.antecedente_personal.tratamiento = this.formulario_antecedentes_personales.get('tratamiento').value;
+      this.antecedente_personal.diagnostico = this.formulario_antecedentes_personales.get('diagnostico').value;
+      this.antecedente_personal.tiempo_hospitalizacion = this.formulario_antecedentes_personales.get('tiempo_hospitalizacion').value;
+      this.antecedente_personal.traumaticos = this.formulario_antecedentes_personales.get('traumaticos').value;
+      this.antecedente_personal.observacion_traumaticos = this.formulario_antecedentes_personales.get('observacion_traumaticos').value;
+      this.antecedente_personal.otros = this.formulario_antecedentes_personales.get('otros').value;
+      this.antecedente_personal.observacion_otros = this.formulario_antecedentes_personales.get('observacion_otros').value;
+  
+      
+      this.formularioService.guardarAntecedentesPersonales(this.antecedente_personal).subscribe( (data) =>{
+        console.log(data);
+      }, (error) => {
+        this.error = true;
+        console.log(error);
+        alert('ocurrion un error');
+      });
+  
+    }
 
-    this.formularioService.guardarAntecedentesPersonales(this.antecedente_personal).subscribe( (data) =>{
-      console.log(data);
-    }, (error) => {
-      this.error = true;
-      console.log(error);
-      alert('ocurrion un error');
-    });
+      
+    if(this.formulario_habito_toxicologico_personal.valid){
 
-    this.formularioService.guardarHabitosToxicologicosPersonales(this.habito_toxicologico_personal).subscribe( (data) =>{
-      console.log(data);
-    }, (error) => {
-      this.error = true;
-      console.log(error);
-      alert('ocurrion un error');
-    });
+      // guardar datos del formulario en antecedente_personal y enviarlo a la api
+      this.habito_toxicologico_personal.alcohol = this.formulario_habito_toxicologico_personal.get('alcohol').value;
+      this.habito_toxicologico_personal.observacion_alcohol = this.formulario_habito_toxicologico_personal.get('observacion_alcohol').value;
+      this.habito_toxicologico_personal.tabaquismo = this.formulario_habito_toxicologico_personal.get('tabaquismo').value;
+      this.habito_toxicologico_personal.observacion_tabaquismo = this.formulario_habito_toxicologico_personal.get('observacion_tabaquismo').value;
+      this.habito_toxicologico_personal.marihuana = this.formulario_habito_toxicologico_personal.get('marihuana').value;
+      this.habito_toxicologico_personal.observacion_marihuana = this.formulario_habito_toxicologico_personal.get('observacion_marihuana').value;
+      this.habito_toxicologico_personal.cocaina = this.formulario_habito_toxicologico_personal.get('cocaina').value;
+      this.habito_toxicologico_personal.observacion_cocaina = this.formulario_habito_toxicologico_personal.get('observacion_cocaina').value;
+      this.habito_toxicologico_personal.otros = this.formulario_habito_toxicologico_personal.get('otros').value;
+      this.habito_toxicologico_personal.observacion_otros = this.formulario_habito_toxicologico_personal.get('observacion_otros').value;
+    
+      this.formularioService.guardarHabitosToxicologicosPersonales(this.habito_toxicologico_personal).subscribe( (data) =>{
+        console.log(data);
+      }, (error) => {
+        this.error = true;
+        console.log(error);
+        alert('ocurrion un error');
+      });
 
+    }
+    
     this.formularioService.guardarActividadSexual(this.actividad_sexual).subscribe( (data) =>{
       console.log(data);
     }, (error) => {
@@ -1010,9 +898,86 @@ triggerSomeEventNoB9() {
     if(!this.error){
       alert ('los datos se enviarion');
       this.router.navigate(['principal']);
-    }
-
-    
+    }    
     
   };
+
+
+  //obtener los campos del formGroup: formulario_datos_generales
+  get primer_apellido(){return this.formulario_datos_generales.get('primer_apellido')};
+  get segundo_apellido(){return this.formulario_datos_generales.get('segundo_apellido')};
+  get primer_nombre(){return this.formulario_datos_generales.get('primer_nombre')};
+  get segundo_nombre(){return this.formulario_datos_generales.get('segundo_nombre')};
+  get numero_cuenta(){return this.formulario_datos_generales.get('numero_cuenta')};
+  get numero_identidad(){return this.formulario_datos_generales.get('numero_identidad')};
+  get lugar_procedencia(){return this.formulario_datos_generales.get('lugar_procedencia')};
+  get direccion(){return this.formulario_datos_generales.get('direccion')};
+  get carrera(){return this.formulario_datos_generales.get('carrera')};
+  get fecha_nacimiento(){return this.formulario_datos_generales.get('fecha_nacimiento')};
+  get sexo(){return this.formulario_datos_generales.get('sexo')};
+  get estado_civil(){return this.formulario_datos_generales.get('estado_civil')};
+  get seguro_medico(){return this.formulario_datos_generales.get('seguro_medico')};
+  get numero_telefono(){return this.formulario_datos_generales.get('numero_telefono')};
+  get emergencia_telefono(){return this.formulario_datos_generales.get('emergencia_telefono')};
+
+  
+  //obtener los campos del formGroup: formulario_antecedentes_familiares
+  get diabetes(){return this.formulario_antecedentes_familiares.get('diabetes')};
+  get observacion_diabetes(){return this.formulario_antecedentes_familiares.get('observacion_diabetes')};
+  get tb_pulmonar(){return this.formulario_antecedentes_familiares.get('tb_pulmonar')};
+  get observacion_tb_pulmonar(){return this.formulario_antecedentes_familiares.get('observacion_tb_pulmonar')};
+  get desnutricion(){return this.formulario_antecedentes_familiares.get('desnutricion')};
+  get observacion_desnutricion(){return this.formulario_antecedentes_familiares.get('observacion_desnutricion')};
+  get tipo_desnutricion(){return this.formulario_antecedentes_familiares.get('tipo_desnutricion')};
+  get enfermedades_mentales(){return this.formulario_antecedentes_familiares.get('enfermedades_mentales')};
+  get observacion_enfermedades_mentales(){return this.formulario_antecedentes_familiares.get('observacion_enfermedades_mentales')};
+  get tipo_enfermedad_mental(){return this.formulario_antecedentes_familiares.get('tipo_enfermedad_mental')};
+  get convulsiones(){return this.formulario_antecedentes_familiares.get('convulsiones')};
+  get observacion_convulsiones(){return this.formulario_antecedentes_familiares.get('observacion_convulsiones')};
+  get alcoholismo_sustancias_psicoactivas(){return this.formulario_antecedentes_familiares.get('alcoholismo_sustancias_psicoactivas')};
+  get observacion_alcoholismo_sustancias_psicoactivas(){return this.formulario_antecedentes_familiares.get('observacion_alcoholismo_sustancias_psicoactivas')};
+  get alergias(){return this.formulario_antecedentes_familiares.get('alergias')};
+  get observacion_alergias(){return this.formulario_antecedentes_familiares.get('observacion_alergias')};
+  get tipo_alergia(){return this.formulario_antecedentes_familiares.get('tipo_alergia')};
+  get cancer(){return this.formulario_antecedentes_familiares.get('cancer')};
+  get observacion_cancer(){return this.formulario_antecedentes_familiares.get('observacion_cancer')};
+  get tipo_cancer(){return this.formulario_antecedentes_familiares.get('tipo_cancer')};
+  get hipertension_arterial(){return this.formulario_antecedentes_familiares.get('hipertension_arterial')};
+  get observacion_hipertension_arterial(){return this.formulario_antecedentes_familiares.get('observacion_hipertension_arterial')};
+  get otros(){return this.formulario_antecedentes_familiares.get('otros')};
+  get observacion_otros(){return this.formulario_antecedentes_familiares.get('observacion_otros')};
+
+
+  //obtener los campos del formGroup: formulario_antecedentes_personales
+  get diabetes_ap(){return this.formulario_antecedentes_personales.get('diabetes')};
+  get observacion_diabetes_ap(){return this.formulario_antecedentes_personales.get('observacion_diabetes')};
+  get tb_pulmonar_ap(){return this.formulario_antecedentes_personales.get('tb_pulmonar')};
+  get observacion_tb_pulmonar_ap(){return this.formulario_antecedentes_personales.get('observacion_tb_pulmonar')};
+  get its(){return this.formulario_antecedentes_personales.get('its')};
+  get observacion_its(){return this.formulario_antecedentes_personales.get('observacion_its')};
+  get desnutricion_ap(){return this.formulario_antecedentes_personales.get('desnutricion')};
+  get observacion_desnutricion_ap(){return this.formulario_antecedentes_personales.get('observacion_desnutricion')};
+  get tipo_desnutricion_ap(){return this.formulario_antecedentes_personales.get('tipo_desnutricion')};
+  get enfermedades_mentales_ap(){return this.formulario_antecedentes_personales.get('enfermedades_mentales')};
+  get observacion_enfermedades_mentales_ap(){return this.formulario_antecedentes_personales.get('observacion_enfermedades_mentales')};
+  get tipo_enfermedad_mental_ap(){return this.formulario_antecedentes_personales.get('tipo_enfermedad_mental')};
+  get convulsiones_ap(){return this.formulario_antecedentes_personales.get('convulsiones')};
+  get observacion_convulsiones_ap(){return this.formulario_antecedentes_personales.get('observacion_convulsiones')};
+  get alergias_ap(){return this.formulario_antecedentes_personales.get('alergias')};
+  get observacion_alergias_ap(){return this.formulario_antecedentes_personales.get('observacion_alergias')};
+  get tipo_alergia_ap(){return this.formulario_antecedentes_personales.get('tipo_alergia')};
+  get cancer_ap(){return this.formulario_antecedentes_personales.get('cancer')};
+  get observacion_cancer_ap(){return this.formulario_antecedentes_personales.get('observacion_cancer')};
+  get tipo_cancer_ap(){return this.formulario_antecedentes_personales.get('tipo_cancer')};
+  get hospitalarias_quirurgicas(){return this.formulario_antecedentes_personales.get('hospitalarias_quirurgicas')};
+  get fecha_antecedente_hospitalario(){return this.formulario_antecedentes_personales.get('fecha_antecedente_hospitalario')};
+  get tratamiento(){return this.formulario_antecedentes_personales.get('tratamiento')};
+  get diagnostico(){return this.formulario_antecedentes_personales.get('diagnostico')};
+  get tiempo_hospitalizacion(){return this.formulario_antecedentes_personales.get('tiempo_hospitalizacion')};
+  get traumaticos(){return this.formulario_antecedentes_personales.get('traumaticos')};
+  get observacion_traumaticos(){return this.formulario_antecedentes_personales.get('observacion_traumaticos')};
+  get otros_ap(){return this.formulario_antecedentes_personales.get('otros')};
+  get observacion_otros_ap(){return this.formulario_antecedentes_personales.get('observacion_otros')};
+
+
 }
