@@ -5,22 +5,100 @@
         
 <div class="view" id="imagenpuma"></div>
 
+<form [formGroup]= "loginadmin_form">
+
 <div class="col">
   <mat-form-field class="example-full-width">
-          <input ID="usuario" type="text" name="usuario"
-          class="input"  matInput placeholder="Usuario" required>
+          <input  matInput placeholder="Usuario" formControlName= "usuario" required>
+          <mat-error *ngIf="usuario.hasError('required')">
+              <strong>ingrese el usuario</strong>
+            </mat-error>
+            <mat-error *ngIf="usuario.hasError('minLength') && usuario.hasError('maxLength')">
+              <strong>usuario invalido</strong>
+            </mat-error>
   </mat-form-field>
 </div>
-      
-<div>
+
+<div class="col">
+    <mat-form-field class="example-full-width">
+            <input  matInput placeholder="Ingrese la contraseña" formControlName= "contrasenia" [type]="hide ? 'password' : 'text'" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            <mat-error *ngIf="contrasenia.hasError('required')">
+                <strong>ingrese la contrasenia</strong>
+              </mat-error>
+              <mat-error *ngIf="contrasenia.hasError('minLength') && contrasenia.hasError('maxLength')">
+                <strong>contrasenia invalida</strong>
+              </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="col">
+      <mat-form-field class="example-full-width">
+              <input  matInput placeholder="Confirme la contraseña" formControlName= "contraseniaC" [type]="hide ? 'password' : 'text'" required>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+              <mat-error *ngIf="contraseniaC.hasError('required')">
+                  <strong>Confirme la contrasenia</strong>
+                </mat-error>
+                <mat-error *ngIf="contraseniaC.hasError('minLength') && contraseniaC.hasError('maxLength')">
+                  <strong>contrasenia no confirmada</strong>
+                </mat-error>
+      </mat-form-field>     
+    </div>
+
     <div class="col">
         <mat-form-field class="example-full-width">
+                <input  matInput placeholder="Ingrese nombre completo" formControlName= "nombre" required>
+                <mat-error *ngIf="nombre.hasError('required')">
+                    <strong>Escriba su nombre completo</strong>
+                  </mat-error>
+                  <mat-error *ngIf="nombre.hasError('minLength') && nombre.hasError('maxLength')">
+                    <strong>Escriba su nombre completo</strong>
+                  </mat-error>
+        </mat-form-field>     
+      </div>
+
+      <div class="col">
+          <mat-form-field class="example-full-width">
+                  <input  matInput placeholder="Ingrese número de indentidad" formControlName= "identidad" required>
+                  <mat-error *ngIf="identidad.hasError('required')">
+                      <strong>Escriba correctamente el numero de identidad</strong>
+                    </mat-error>
+                    <mat-error *ngIf="identidad.hasError('minLength') && identidad.hasError('maxLength')">
+                      <strong>Escriba correctamente el numero de identidad</strong>
+                    </mat-error>
+          </mat-form-field>     
+        </div>
+
+            <div >
+            <label class="label">Especialidad</label>
+            <p><select id = "select" name="miselect" formControlName= "especialidad">
+            <option [value]="item" *ngFor="let item of lista">{{item}}</option>
+            </select></p>           
+            </div> 
+
+
+
+    
+       
+<!-- <div>
+    <div class="col">
+        <mat-form-field class="example-full-width">
+                <input id="password" type="password" [(ngModel)]="password" name="password" 
+                class="input"  matInput placeholder="Ingrese su contraseña" ngModel passwordToggle #passwordvalidityMsg="ngModel" 
+                required maxlength="10" minlength="6" >
                 <input id="password" type="password" name="password" 
                 class="input"  matInput placeholder="Ingrese su contraseña" >
         </mat-form-field>
       </div>
       <div class="col">
           <mat-form-field class="example-full-width">
+                  <input [(ngModel)]="login_admin.contrasenia_admin"  id="confPass" type="password" pattern="{{password}}"  [(ngModel)]="confPass"  name="confPass" #confPassvalidityMsg="ngModel"
+                  class="input"  matInput placeholder="Confirme su contraseña" ngModel passwordToggle
+                   required maxlength="10" minlength="6" >
                   <input  id="confPass" type="password" pattern="{{password}}" name="confPass"
                   class="input"  matInput placeholder="Confirme su contraseña">
           </mat-form-field>
@@ -33,10 +111,14 @@
 
 <div class="col">
   <mat-form-field class="example-full-width">
+          <input [(ngModel)]="login_admin.nombre_admin"  ID="usuario" type="text" name="usuario"
+          class="input"  matInput placeholder="Ingrese el nombre completo"
+           required maxlength="30" minlength="6">
           <input  ID="usuario" type="text" name="usuario"
           class="input"  matInput placeholder="Ingrese el nombre completo" required>
   </mat-form-field>
 </div>
+
 
 <div class="col">
     <mat-form-field class="example-full-width">
@@ -54,13 +136,39 @@
 <p><select id = "select" name="miselect" >
 <option [value]="item" *ngFor="let item of lista">{{item}}</option>
 </select></p>
-</div> 
+</div>      -->
 
-          
-                 
-          <button  (click)="save()"   class="boton" >crear</button>      
+</form>
+      <div><input type="submit" (click)="comprobarDatos()"   class="boton" >   </div>           
+    
       </div>
     </div>
   </div>   
 
-  
+
+
+
+
+
+
+
+
+
+
+   <!-- <mat-form-field>
+        <mat-label>Especialidades</mat-label>
+        <mat-select [(ngModel)]="login_admin.especialidad_admin" name="especialidad_admin">
+          <mat-option *ngFor="let especialidad of especialidad_admins" [value]="especialidad_admin.value">
+            {{especialidad.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
+   <!-- <mat-form-field>
+    <mat-label>Sexo</mat-label>
+      <mat-select  [(ngModel)]="login_admin.especialidad_admin" >
+        <mat-option (click)="mostrarN()"  [value]="sexos[0]">Hombre</mat-option>
+        <mat-option (click)="mostrarS()" [value]="sexos[1]">Mujer</mat-option>
+        <mat-option (click)="mostrarN()" [value]="sexos[2]">Otros</mat-option>                  
+    </mat-select>
+  </mat-form-field>-->
