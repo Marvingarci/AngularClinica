@@ -3,6 +3,9 @@ import { LoginService } from '../services/login.service';
 import { Router, RouterModule } from '@angular/router';
 import { Login } from '../interfaces/login';
 import { AppComponent } from "../app.component";
+import { Paciente } from "../interfaces/paciente";
+import { PacienteComponent } from '../paciente/paciente.component';
+import { FormularioService } from '../services/formulario.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -36,14 +39,20 @@ export class LoginComponent implements OnInit {
     cuenta: null,
     clave: null
   };
+  pacientes: Paciente[];
+  Formulario: FormularioService;
+  pase: boolean=true;
 
-
-  
-
-    
-  constructor(private loginService: LoginService,private router: Router, activar: AppComponent){
+  constructor(private loginService: LoginService,private router: Router, private activar: AppComponent,  Formulario: FormularioService){
    activar.esconder();
-   
+
+
+   Formulario.get().subscribe((data: Paciente[])=>{
+    this.pacientes = data;
+    console.log(this.pacientes);
+  }, (error)=>{
+    console.log(error);
+  }); 
   }
 
 
@@ -57,6 +66,29 @@ export class LoginComponent implements OnInit {
     this.login.cuenta = this.login_form.get('cuenta').value;
     this.login.clave = this.login_form.get('clave').value;
 
+    for (let index = 0; index < this.pacientes.length; index++) {
+      if (this.pacientes[index].numero_cuenta == this.login.cuenta) {
+        this.pase=false;
+      }
+    }
+
+    if (this.pase == true) {
+      this.loginService.guardarDatos(this.login).subscribe( (data) =>{
+        console.log(data);   
+        alert('todo perron'); 
+         this.router.navigate(['/formulario']);
+      }, (error) => {
+        console.log(error);
+        alert('Clave incorrecta');
+      });
+      
+    }else{
+      this.router.navigate(['/datoPaciente']);
+    }
+
+    
+    
+/*
     if(this.login_form.valid){
       this.loginService.guardarDatos(this.login).subscribe( (data) =>{
         console.log(data);   
@@ -69,7 +101,7 @@ export class LoginComponent implements OnInit {
       alert('la esta cagando !!')
     }
 
-    
+    */
 
   }
 

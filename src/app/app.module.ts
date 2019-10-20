@@ -39,6 +39,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
+import { MatTableModule } from '@angular/material'  
+
 
 
 
@@ -64,7 +66,9 @@ const routes: Route[] = [
       {path: 'listadotrabajadores', component: ListadoTrabajadoresComponent},
       {path: 'listadoVisitantes', component: ListadoVisitantesComponent},
       {path: 'listadoProsene', component: ListadoProseneComponent},
-      {path: 'verPaciente', component: VerPacienteComponent}
+      {path: 'verPaciente', component: VerPacienteComponent},
+      {path: 'verPaciente/:id', component: VerPacienteComponent}
+
     ]
   }
  
@@ -117,6 +121,7 @@ const routes: Route[] = [
     MatToolbarModule,
     MatExpansionModule,
     MatListModule,
+    MatTableModule
   
     
   ],
