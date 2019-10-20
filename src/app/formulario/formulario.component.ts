@@ -103,21 +103,25 @@ export class FormularioComponent implements OnInit {
 
   formulario_datos_generales = new FormGroup({
 
-      primer_apellido: new FormControl('', [Validators.required, Validators.maxLength(15)]),
-      segundo_apellido: new FormControl('', Validators.required),
-      primer_nombre: new FormControl('', Validators.required),
-      segundo_nombre: new FormControl('', Validators.required),
-      numero_cuenta: new FormControl('', Validators.required),
-      numero_identidad: new FormControl('', Validators.required),
-      lugar_procedencia: new FormControl('', Validators.required),
-      direccion: new FormControl('', Validators.required),
-      carrera: new FormControl('', Validators.required),
+      primer_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+      segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+      primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+      segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+      numero_cuenta: new FormControl('', [Validators.required,Validators.pattern(/^[2][0-9]{10}$/)]), 
+      // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
+      // "/ /" indica el inicio y el final de la expresion regular
+      // "{10}" indica le numero de digitos de lo que lo antecede
+      numero_identidad: new FormControl('', [Validators.required,Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
+       // "\d" es lo mismo "[0-9]"
+      lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
+      direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      carrera: new FormControl('', [Validators.required]),
       fecha_nacimiento: new FormControl('', Validators.required),
       sexo: new FormControl('', Validators.required),
       estado_civil: new FormControl('', Validators.required),
       seguro_medico: new FormControl('', Validators.required),
-      numero_telefono: new FormControl('', Validators.required),
-      emergencia_telefono: new FormControl('', Validators.required),
+      numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+      emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
   
   
   });
@@ -127,25 +131,25 @@ export class FormularioComponent implements OnInit {
     diabetes : new FormControl('',[Validators.required]),
     observacion_diabetes : new FormControl({value:'', disabled: true},[]),
     tb_pulmonar : new FormControl('',[Validators.required]),
-    observacion_tb_pulmonar : new FormControl('',[]),
+    observacion_tb_pulmonar : new FormControl({value:'', disabled: true},[]),
     desnutricion : new FormControl('',[Validators.required]),
-    observacion_desnutricion : new FormControl('',[]),
-    tipo_desnutricion: new FormControl('',[]),
+    observacion_desnutricion : new FormControl({value:'', disabled: true},[]),
+    tipo_desnutricion: new FormControl({value:'', disabled: true},[]),
     enfermedades_mentales : new FormControl('',[Validators.required]),
-    observacion_enfermedades_mentales : new FormControl('',[]),
-    tipo_enfermedad_mental: new FormControl('',[]),
+    observacion_enfermedades_mentales : new FormControl({value:'', disabled: true},[]),
+    tipo_enfermedad_mental: new FormControl({value:'', disabled: true},[]),
     convulsiones : new FormControl('',[Validators.required]),
-    observacion_convulsiones : new FormControl('',[]),
+    observacion_convulsiones : new FormControl({value:'', disabled: true},[]),
     alcoholismo_sustancias_psicoactivas : new FormControl('',[Validators.required]),
-    observacion_alcoholismo_sustancias_psicoactivas: new FormControl('',[]),
+    observacion_alcoholismo_sustancias_psicoactivas: new FormControl({value:'', disabled: true},[]),
     alergias : new FormControl('',[Validators.required]),
-    observacion_alergias: new FormControl('',[]),
-    tipo_alergia: new FormControl('',[]),
+    observacion_alergias: new FormControl({value:'', disabled: true},[]),
+    tipo_alergia: new FormControl({value:'', disabled: true},[]),
     cancer : new FormControl('',[Validators.required]),
-    observacion_cancer: new FormControl('',[]),
-    tipo_cancer: new FormControl('',[]),
+    observacion_cancer: new FormControl({value:'', disabled: true},[]),
+    tipo_cancer: new FormControl({value:'', disabled: true},[]),
     hipertension_arterial: new FormControl('',[Validators.required]),
-    observacion_hipertension_arterial: new FormControl('',[]),
+    observacion_hipertension_arterial: new FormControl({value:'', disabled: true},[]),
     otros : new FormControl('',[]),
     observacion_otros : new FormControl('',[]),
       
@@ -200,6 +204,49 @@ export class FormularioComponent implements OnInit {
 
   });
 
+  formulario_actividad_sexual = new FormGroup({
+
+    actividad_sexual : new FormControl('', Validators.required),
+    edad_inicio_sexual : new FormControl(''),
+    numero_parejas_sexuales : new FormControl(''),
+    practicas_sexuales_riesgo : new FormControl(''),
+  
+  });
+
+  formulario_antecedente_ginecologico = new FormGroup ({
+
+    edad_inicio_menstruacion : new FormControl('',[Validators.required]),
+    fum : new FormControl('',[Validators.required]),
+    citologia : new FormControl('',[Validators.required]),
+    fecha_citologia : new FormControl(''),
+    resultado_citologia : new FormControl(''),
+    duracion_ciclo_menstrual : new FormControl('', [Validators.required]),
+    periocidad_ciclo_menstrual : new FormControl('',[Validators.required]),
+    caracteristicas_ciclo_menstrual : new FormControl('',[Validators.required])
+
+
+  });
+
+  formulario_planificacion_familiar = new FormGroup({
+
+    planificacion_familiar : new FormControl('',Validators.required),
+    metodo_planificacion : new FormControl(''),
+    observacion_planificacion : new FormControl(''),
+    
+  });
+
+  formulario_antecedente_obstetrico = new FormGroup({
+
+    partos: new FormControl(''),
+    abortos: new FormControl(''),
+    cesarias: new FormControl(''),
+    hijos_vivos: new FormControl(''),
+    hijos_muertos: new FormControl(''),
+    fecha_termino_ult_embarazo : new FormControl(''),
+    descripcion_termino_ult_embarazo : new FormControl(''),
+    observaciones : new FormControl(''),
+  
+  });
   
 
   matcher = new MyErrorStateMatcher();
@@ -261,7 +308,7 @@ input5 : string ;
 triggerSomeEventSi5() {      
     this.isDisabled5 = false;
 }
-triggerSomeEventN5() {  
+triggerSomeEventNo5() {  
   this.input5  =null ;
   this.isDisabled5 = true; 
 }
@@ -357,6 +404,7 @@ triggerSomeEventNoB6() {
 triggerSomeEventSiB7() {      
     this.isDisabledB7 = false;
 }
+
 triggerSomeEventNoB7() {  
   this.isDisabledB7 = true; 
   }
@@ -600,8 +648,8 @@ this.seccion=true;
   error: boolean = false;
 
   //date picker
-  minDate = new Date(1950, 0, 1).toISOString;
-  maxDate = new Date(2020, 0, 1).toISOString;
+  minDate = new Date(1950, 0, 1);
+  maxDate = new Date();
   
 
 
@@ -624,7 +672,8 @@ this.seccion=true;
     {value: 'Soltero', viewValue: 'Soltero'},
     {value: 'Union Libre', viewValue: 'Union Libre'},
     {value: 'Divorciado', viewValue: 'Divorciado'},
-    {value: 'Viudo', viewValue: 'Viudo'}
+    {value: 'Viudo', viewValue: 'Viudo'},
+    {value: 'Casado', viewValue: 'Casado'},
    
   ];
 
@@ -674,7 +723,7 @@ this.seccion=true;
 
   ];
 
-  practicas_sexuales_riesgo: practica_sexual_riesgo[] = [
+  practicas_sexuales: practica_sexual_riesgo[] = [
     {value: 'Anal' , viewValue: 'Anal'},
     {value: 'Vaginal' , viewValue: 'Vaginal'},
     {value: 'Oral' , viewValue: 'Oral'},
@@ -731,177 +780,247 @@ this.seccion=true;
 
   enviarDatos(){
 
-    if(this.formulario_datos_generales.valid){
-
-        // guardar datos del formulario en paciente y enviarlo a la api
-      this.paciente.primer_apellido = this.formulario_datos_generales.get('primer_apellido').value;
-      this.paciente.segundo_apellido = this.formulario_datos_generales.get('segundo_apellido').value;
-      this.paciente.primer_nombre = this.formulario_datos_generales.get('primer_nombre').value;
-      this.paciente.segundo_nombre = this.formulario_datos_generales.get('segundo_nombre').value;
-      this.paciente.numero_cuenta = this.formulario_datos_generales.get('numero_cuenta').value;
-      this.paciente.numero_identidad = this.formulario_datos_generales.get('numero_identidad').value;
-      this.paciente.lugar_procedencia = this.formulario_datos_generales.get('lugar_procedencia').value;
-      this.paciente.direccion = this.formulario_datos_generales.get('direccion').value;
-      this.paciente.carrera = this.formulario_datos_generales.get('carrera').value;
-      this.paciente.sexo = this.formulario_datos_generales.get('sexo').value;
-      this.paciente.estado_civil = this.formulario_datos_generales.get('estado_civil').value;
-      this.paciente.seguro_medico = this.formulario_datos_generales.get('seguro_medico').value;
-      this.paciente.numero_telefono = this.formulario_datos_generales.get('numero_telefono').value;
-      this.paciente.emergencia_telefono = this.formulario_datos_generales.get('emergencia_telefono').value;
-      
-      
-      this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
-        console.log(data);     
-      }, (error) => {
-        console.log(error);
-        this.error = true;
-        alert('ocurrion un error');
-      });
-    }
-
-
-    if(this.formulario_antecedentes_familiares){
-      // guardar datos del formulario en antecedente_familiar y enviarlo a la api
-      this.antecedente_familiar.diabetes = this.formulario_antecedentes_familiares.get('diabetes').value;
-      this.antecedente_familiar.observacion_diabetes = this.formulario_antecedentes_familiares.get('observacion_diabetes').value;
-      this.antecedente_familiar.tb_pulmonar = this.formulario_antecedentes_familiares.get('tb_pulmonar').value;
-      this.antecedente_familiar.observacion_tb_pulmonar = this.formulario_antecedentes_familiares.get('observacion_tb_pulmonar').value;
-      this.antecedente_familiar.desnutricion = this.formulario_antecedentes_familiares.get('desnutricion').value;
-      this.antecedente_familiar.observacion_desnutricion = this.formulario_antecedentes_familiares.get('observacion_desnutricion').value;
-      this.antecedente_familiar.tipo_desnutricion = this.formulario_antecedentes_familiares.get('tipo_desnutricion').value;
-      this.antecedente_familiar.enfermedades_mentales = this.formulario_antecedentes_familiares.get('enfermedades_mentales').value;
-      this.antecedente_familiar.observacion_enfermedades_mentales = this.formulario_antecedentes_familiares.get('observacion_enfermedades_mentales').value;
-      this.antecedente_familiar.tipo_enfermedad_mental = this.formulario_antecedentes_familiares.get('tipo_enfermedad_mental').value;
-      this.antecedente_familiar.convulsiones = this.formulario_antecedentes_familiares.get('convulsiones').value;
-      this.antecedente_familiar.observacion_convulsiones = this.formulario_antecedentes_familiares.get('observacion_convulsiones').value;
-      this.antecedente_familiar.alcoholismo_sustancias_psicoactivas = this.formulario_antecedentes_familiares.get('alcoholismo_sustancias_psicoactivas').value;
-      this.antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas = this.formulario_antecedentes_familiares.get('observacion_alcoholismo_sustancias_psicoactivas').value;
-      this.antecedente_familiar.alergias = this.formulario_antecedentes_familiares.get('alergias').value;
-      this.antecedente_familiar.observacion_alergias = this.formulario_antecedentes_familiares.get('observacion_alergias').value;
-      this.antecedente_familiar.tipo_alergia = this.formulario_antecedentes_familiares.get('tipo_alergia').value;
-      this.antecedente_familiar.cancer = this.formulario_antecedentes_familiares.get('cancer').value;
-      this.antecedente_familiar.observacion_cancer = this.formulario_antecedentes_familiares.get('observacion_cancer').value;
-      this.antecedente_familiar.tipo_cancer = this.formulario_antecedentes_familiares.get('tipo_cancer').value;
-      this.antecedente_familiar.hipertension_arterial = this.formulario_antecedentes_familiares.get('hipertension_arterial').value;
-      this.antecedente_familiar.observacion_hipertension_arterial = this.formulario_antecedentes_familiares.get('observacion_hipertension_arterial').value;
-      this.antecedente_familiar.otros = this.formulario_antecedentes_familiares.get('otros').value;
-      this.antecedente_familiar.observacion_otros = this.formulario_antecedentes_familiares.get('observacion_otros').value;
-
-      this.formularioService.guardarAntecedentesFamiliares(this.antecedente_familiar).subscribe( (data) =>{
-        console.log(data);
-      }, (error) => {
-        console.log(error);
-        this.error = true;
-        alert('ocurrion un error');
-      });
-
-    }
     
-    if(this.formulario_antecedentes_personales.valid){
 
-      // guardar datos del formulario en antecedente_personal y enviarlo a la api
-      this.antecedente_personal.diabetes = this.formulario_antecedentes_personales.get('diabetes').value;
-      this.antecedente_personal.observacion_diabetes = this.formulario_antecedentes_personales.get('observacion_diabetes').value;
-      this.antecedente_personal.tb_pulmonar = this.formulario_antecedentes_personales.get('tb_pulmonar').value;
-      this.antecedente_personal.observacion_tb_pulmonar = this.formulario_antecedentes_personales.get('observacion_tb_pulmonar').value;
-      this.antecedente_personal.its = this.formulario_antecedentes_personales.get('its').value;
-      this.antecedente_personal.observacion_its = this.formulario_antecedentes_personales.get('observacion_its').value;
-      this.antecedente_personal.desnutricion = this.formulario_antecedentes_personales.get('desnutricion').value;
-      this.antecedente_personal.observacion_desnutricion = this.formulario_antecedentes_personales.get('observacion_desnutricion').value;
-      this.antecedente_personal.tipo_desnutricion = this.formulario_antecedentes_personales.get('tipo_desnutricion').value;
-      this.antecedente_personal.enfermedades_mentales = this.formulario_antecedentes_personales.get('enfermedades_mentales').value;
-      this.antecedente_personal.observacion_enfermedades_mentales = this.formulario_antecedentes_personales.get('observacion_enfermedades_mentales').value;
-      this.antecedente_personal.tipo_enfermedad_mental = this.formulario_antecedentes_personales.get('tipo_enfermedad_mental').value;
-      this.antecedente_personal.convulsiones = this.formulario_antecedentes_personales.get('convulsiones').value;
-      this.antecedente_personal.observacion_convulsiones = this.formulario_antecedentes_personales.get('observacion_convulsiones').value;
-      this.antecedente_personal.alergias = this.formulario_antecedentes_personales.get('alergias').value;
-      this.antecedente_personal.observacion_alergias = this.formulario_antecedentes_personales.get('observacion_alergias').value;
-      this.antecedente_personal.tipo_alergia = this.formulario_antecedentes_personales.get('tipo_alergia').value;
-      this.antecedente_personal.cancer = this.formulario_antecedentes_personales.get('cancer').value;
-      this.antecedente_personal.observacion_cancer = this.formulario_antecedentes_personales.get('observacion_cancer').value;
-      this.antecedente_personal.tipo_cancer = this.formulario_antecedentes_personales.get('tipo_cancer').value;
-      this.antecedente_personal.hospitalarias_quirurgicas = this.formulario_antecedentes_personales.get('hospitalarias_quirurgicas').value;
-      this.antecedente_personal.fecha_antecedente_hospitalario = this.formulario_antecedentes_personales.get('fecha_antecedente_hospitalario').value;
-      this.antecedente_personal.tratamiento = this.formulario_antecedentes_personales.get('tratamiento').value;
-      this.antecedente_personal.diagnostico = this.formulario_antecedentes_personales.get('diagnostico').value;
-      this.antecedente_personal.tiempo_hospitalizacion = this.formulario_antecedentes_personales.get('tiempo_hospitalizacion').value;
-      this.antecedente_personal.traumaticos = this.formulario_antecedentes_personales.get('traumaticos').value;
-      this.antecedente_personal.observacion_traumaticos = this.formulario_antecedentes_personales.get('observacion_traumaticos').value;
-      this.antecedente_personal.otros = this.formulario_antecedentes_personales.get('otros').value;
-      this.antecedente_personal.observacion_otros = this.formulario_antecedentes_personales.get('observacion_otros').value;
+   
+      if(this.formulario_datos_generales.valid){
+
+          // guardar datos del formulario en paciente y enviarlo a la api
+        this.paciente.primer_apellido = this.formulario_datos_generales.get('primer_apellido').value;
+        this.paciente.segundo_apellido = this.formulario_datos_generales.get('segundo_apellido').value;
+        this.paciente.primer_nombre = this.formulario_datos_generales.get('primer_nombre').value;
+        this.paciente.segundo_nombre = this.formulario_datos_generales.get('segundo_nombre').value;
+        this.paciente.numero_cuenta = this.formulario_datos_generales.get('numero_cuenta').value;
+        this.paciente.numero_identidad = this.formulario_datos_generales.get('numero_identidad').value;
+        this.paciente.lugar_procedencia = this.formulario_datos_generales.get('lugar_procedencia').value;
+        this.paciente.direccion = this.formulario_datos_generales.get('direccion').value;
+        this.paciente.carrera = this.formulario_datos_generales.get('carrera').value;
+        this.paciente.fecha_nacimiento = this.formulario_datos_generales.get('fecha_nacimiento').value;
+        this.paciente.sexo = this.formulario_datos_generales.get('sexo').value;
+        this.paciente.estado_civil = this.formulario_datos_generales.get('estado_civil').value;
+        this.paciente.seguro_medico = this.formulario_datos_generales.get('seguro_medico').value;
+        this.paciente.numero_telefono = this.formulario_datos_generales.get('numero_telefono').value;
+        this.paciente.emergencia_telefono = this.formulario_datos_generales.get('emergencia_telefono').value;
+        
+        
+        this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
+          console.log(data);     
+        }, (error) => {
+          console.log(error);
+          this.error = true;
+          alert('ocurrion un error');
+        });
+      }else{
+        this.error= true;
+      }
+
+
+      if(this.formulario_antecedentes_familiares){
+        // guardar datos del formulario en antecedente_familiar y enviarlo a la api
+        this.antecedente_familiar.diabetes = this.formulario_antecedentes_familiares.get('diabetes').value;
+        this.antecedente_familiar.observacion_diabetes = this.formulario_antecedentes_familiares.get('observacion_diabetes').value;
+        this.antecedente_familiar.tb_pulmonar = this.formulario_antecedentes_familiares.get('tb_pulmonar').value;
+        this.antecedente_familiar.observacion_tb_pulmonar = this.formulario_antecedentes_familiares.get('observacion_tb_pulmonar').value;
+        this.antecedente_familiar.desnutricion = this.formulario_antecedentes_familiares.get('desnutricion').value;
+        this.antecedente_familiar.observacion_desnutricion = this.formulario_antecedentes_familiares.get('observacion_desnutricion').value;
+        this.antecedente_familiar.tipo_desnutricion = this.formulario_antecedentes_familiares.get('tipo_desnutricion').value;
+        this.antecedente_familiar.enfermedades_mentales = this.formulario_antecedentes_familiares.get('enfermedades_mentales').value;
+        this.antecedente_familiar.observacion_enfermedades_mentales = this.formulario_antecedentes_familiares.get('observacion_enfermedades_mentales').value;
+        this.antecedente_familiar.tipo_enfermedad_mental = this.formulario_antecedentes_familiares.get('tipo_enfermedad_mental').value;
+        this.antecedente_familiar.convulsiones = this.formulario_antecedentes_familiares.get('convulsiones').value;
+        this.antecedente_familiar.observacion_convulsiones = this.formulario_antecedentes_familiares.get('observacion_convulsiones').value;
+        this.antecedente_familiar.alcoholismo_sustancias_psicoactivas = this.formulario_antecedentes_familiares.get('alcoholismo_sustancias_psicoactivas').value;
+        this.antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas = this.formulario_antecedentes_familiares.get('observacion_alcoholismo_sustancias_psicoactivas').value;
+        this.antecedente_familiar.alergias = this.formulario_antecedentes_familiares.get('alergias').value;
+        this.antecedente_familiar.observacion_alergias = this.formulario_antecedentes_familiares.get('observacion_alergias').value;
+        this.antecedente_familiar.tipo_alergia = this.formulario_antecedentes_familiares.get('tipo_alergia').value;
+        this.antecedente_familiar.cancer = this.formulario_antecedentes_familiares.get('cancer').value;
+        this.antecedente_familiar.observacion_cancer = this.formulario_antecedentes_familiares.get('observacion_cancer').value;
+        this.antecedente_familiar.tipo_cancer = this.formulario_antecedentes_familiares.get('tipo_cancer').value;
+        this.antecedente_familiar.hipertension_arterial = this.formulario_antecedentes_familiares.get('hipertension_arterial').value;
+        this.antecedente_familiar.observacion_hipertension_arterial = this.formulario_antecedentes_familiares.get('observacion_hipertension_arterial').value;
+        this.antecedente_familiar.otros = this.formulario_antecedentes_familiares.get('otros').value;
+        this.antecedente_familiar.observacion_otros = this.formulario_antecedentes_familiares.get('observacion_otros').value;
+
+        this.formularioService.guardarAntecedentesFamiliares(this.antecedente_familiar).subscribe( (data) =>{
+          console.log(data);
+        }, (error) => {
+          console.log(error);
+          this.error = true;
+          alert('ocurrion un error');
+        });
+
+      }else{
+        this.error= true;
+      }
+      
+      if(this.formulario_antecedentes_personales.valid){
+
+        // guardar datos del formulario en antecedente_personal y enviarlo a la api
+        this.antecedente_personal.diabetes = this.formulario_antecedentes_personales.get('diabetes').value;
+        this.antecedente_personal.observacion_diabetes = this.formulario_antecedentes_personales.get('observacion_diabetes').value;
+        this.antecedente_personal.tb_pulmonar = this.formulario_antecedentes_personales.get('tb_pulmonar').value;
+        this.antecedente_personal.observacion_tb_pulmonar = this.formulario_antecedentes_personales.get('observacion_tb_pulmonar').value;
+        this.antecedente_personal.its = this.formulario_antecedentes_personales.get('its').value;
+        this.antecedente_personal.observacion_its = this.formulario_antecedentes_personales.get('observacion_its').value;
+        this.antecedente_personal.desnutricion = this.formulario_antecedentes_personales.get('desnutricion').value;
+        this.antecedente_personal.observacion_desnutricion = this.formulario_antecedentes_personales.get('observacion_desnutricion').value;
+        this.antecedente_personal.tipo_desnutricion = this.formulario_antecedentes_personales.get('tipo_desnutricion').value;
+        this.antecedente_personal.enfermedades_mentales = this.formulario_antecedentes_personales.get('enfermedades_mentales').value;
+        this.antecedente_personal.observacion_enfermedades_mentales = this.formulario_antecedentes_personales.get('observacion_enfermedades_mentales').value;
+        this.antecedente_personal.tipo_enfermedad_mental = this.formulario_antecedentes_personales.get('tipo_enfermedad_mental').value;
+        this.antecedente_personal.convulsiones = this.formulario_antecedentes_personales.get('convulsiones').value;
+        this.antecedente_personal.observacion_convulsiones = this.formulario_antecedentes_personales.get('observacion_convulsiones').value;
+        this.antecedente_personal.alergias = this.formulario_antecedentes_personales.get('alergias').value;
+        this.antecedente_personal.observacion_alergias = this.formulario_antecedentes_personales.get('observacion_alergias').value;
+        this.antecedente_personal.tipo_alergia = this.formulario_antecedentes_personales.get('tipo_alergia').value;
+        this.antecedente_personal.cancer = this.formulario_antecedentes_personales.get('cancer').value;
+        this.antecedente_personal.observacion_cancer = this.formulario_antecedentes_personales.get('observacion_cancer').value;
+        this.antecedente_personal.tipo_cancer = this.formulario_antecedentes_personales.get('tipo_cancer').value;
+        this.antecedente_personal.hospitalarias_quirurgicas = this.formulario_antecedentes_personales.get('hospitalarias_quirurgicas').value;
+        this.antecedente_personal.fecha_antecedente_hospitalario = this.formulario_antecedentes_personales.get('fecha_antecedente_hospitalario').value;
+        this.antecedente_personal.tratamiento = this.formulario_antecedentes_personales.get('tratamiento').value;
+        this.antecedente_personal.diagnostico = this.formulario_antecedentes_personales.get('diagnostico').value;
+        this.antecedente_personal.tiempo_hospitalizacion = this.formulario_antecedentes_personales.get('tiempo_hospitalizacion').value;
+        this.antecedente_personal.traumaticos = this.formulario_antecedentes_personales.get('traumaticos').value;
+        this.antecedente_personal.observacion_traumaticos = this.formulario_antecedentes_personales.get('observacion_traumaticos').value;
+        this.antecedente_personal.otros = this.formulario_antecedentes_personales.get('otros').value;
+        this.antecedente_personal.observacion_otros = this.formulario_antecedentes_personales.get('observacion_otros').value;
+    
+        
+        this.formularioService.guardarAntecedentesPersonales(this.antecedente_personal).subscribe( (data) =>{
+          console.log(data);
+        }, (error) => {
+          this.error = true;
+          console.log(error);
+          alert('ocurrion un error');
+        });
+    
+      }else{
+        this.error= true;
+      }
+
+        
+      if(this.formulario_habito_toxicologico_personal.valid){
+
+        // guardar datos del formulario en habito_toxicologico y enviarlo a la api
+        this.habito_toxicologico_personal.alcohol = this.formulario_habito_toxicologico_personal.get('alcohol').value;
+        this.habito_toxicologico_personal.observacion_alcohol = this.formulario_habito_toxicologico_personal.get('observacion_alcohol').value;
+        this.habito_toxicologico_personal.tabaquismo = this.formulario_habito_toxicologico_personal.get('tabaquismo').value;
+        this.habito_toxicologico_personal.observacion_tabaquismo = this.formulario_habito_toxicologico_personal.get('observacion_tabaquismo').value;
+        this.habito_toxicologico_personal.marihuana = this.formulario_habito_toxicologico_personal.get('marihuana').value;
+        this.habito_toxicologico_personal.observacion_marihuana = this.formulario_habito_toxicologico_personal.get('observacion_marihuana').value;
+        this.habito_toxicologico_personal.cocaina = this.formulario_habito_toxicologico_personal.get('cocaina').value;
+        this.habito_toxicologico_personal.observacion_cocaina = this.formulario_habito_toxicologico_personal.get('observacion_cocaina').value;
+        this.habito_toxicologico_personal.otros = this.formulario_habito_toxicologico_personal.get('otros').value;
+        this.habito_toxicologico_personal.observacion_otros = this.formulario_habito_toxicologico_personal.get('observacion_otros').value;
+      
+        this.formularioService.guardarHabitosToxicologicosPersonales(this.habito_toxicologico_personal).subscribe( (data) =>{
+          console.log(data);
+        }, (error) => {
+          this.error = true;
+          console.log(error);
+          alert('ocurrion un error');
+        });
+
+      }else{
+        this.error= true;
+      }
+
+      if(this.formulario_actividad_sexual.valid){
+          // guardar datos del formulario en actividad_sexual y enviarlo a la api
+        this.actividad_sexual.actividad_sexual = this.formulario_actividad_sexual.get('actividad_sexual').value;
+        this.actividad_sexual.edad_inicio_sexual = this.formulario_actividad_sexual.get('edad_inicio_sexual').value;
+        this.actividad_sexual.numero_parejas_sexuales = this.formulario_actividad_sexual.get('numero_parejas_sexuales').value;
+        this.actividad_sexual.practicas_sexuales_riesgo = this.formulario_actividad_sexual.get('practicas_sexuales_riesgo').value;
+
+        this.formularioService.guardarActividadSexual(this.actividad_sexual).subscribe( (data) =>{
+          console.log(data);
+        }, (error) => {
+          this.error = true;
+          console.log(error);
+          alert('ocurrion un error');
+        });
+
+      }else{
+        this.error= true;
+      }
+
+
+      if(this.seccion == false){
+
+        if(this.formulario_antecedente_ginecologico.valid){
+
+          // guardar datos del formulario en antecedente_genicologico y enviarlo a la api
+          this.antecedente_ginecologico.edad_inicio_menstruacion = this.formulario_antecedente_ginecologico.get('edad_inicio_menstruacion').value;
+          this.antecedente_ginecologico.fum = this.formulario_antecedente_ginecologico.get('fum').value;
+          this.antecedente_ginecologico.citologia = this.formulario_antecedente_ginecologico.get('citologia').value;
+          this.antecedente_ginecologico.fecha_citologia = this.formulario_antecedente_ginecologico.get('fecha_citologia').value;
+          this.antecedente_ginecologico.resultado_citologia = this.formulario_antecedente_ginecologico.get('resultado_citologia').value;
+          this.antecedente_ginecologico.duracion_ciclo_menstrual = this.formulario_antecedente_ginecologico.get('duracion_ciclo_menstrual').value;
+          this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.formulario_antecedente_ginecologico.get('periocidad_ciclo_menstrual').value;
+          this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.formulario_antecedente_ginecologico.get('caracteristicas_ciclo_menstrual').value;
+
+          this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico).subscribe( (data) =>{
+            console.log(data);
+          }, (error) => {
+            this.error = true;
+            console.log(error);
+            alert('ocurrion un error');
+          });
+          
+          
+        }
+
+        if(this.formulario_antecedente_obstetrico.valid){
+
+          // guardar datos del formulario en antecedente_obstetrico y enviarlo a la api
+          this.antecedente_obstetrico.partos = this.formulario_antecedente_obstetrico.get('partos').value;
+          this.antecedente_obstetrico.abortos = this.formulario_antecedente_obstetrico.get('abortos').value;
+          this.antecedente_obstetrico.cesarias = this.formulario_antecedente_obstetrico.get('cesarias').value;
+          this.antecedente_obstetrico.hijos_vivos = this.formulario_antecedente_obstetrico.get('hijos_vivos').value;
+          this.antecedente_obstetrico.hijos_muertos = this.formulario_antecedente_obstetrico.get('hijos_muertos').value;
+          this.antecedente_obstetrico.fecha_termino_ult_embarazo = this.formulario_antecedente_obstetrico.get('fecha_termino_ult_embarazo').value;
+          this.antecedente_obstetrico.descripcion_termino_ult_embarazo = this.formulario_antecedente_obstetrico.get('descripcion_termino_ult_embarazo').value;
+          this.antecedente_obstetrico.observaciones = this.formulario_antecedente_obstetrico.get('observaciones').value;  
   
-      
-      this.formularioService.guardarAntecedentesPersonales(this.antecedente_personal).subscribe( (data) =>{
-        console.log(data);
-      }, (error) => {
-        this.error = true;
-        console.log(error);
-        alert('ocurrion un error');
-      });
   
-    }
+          this.formularioService.guardarAntecedentesObstetricos(this.antecedente_obstetrico).subscribe( (data) =>{
+            console.log(data);
+          }, (error) => {
+            this.error = true;
+            console.log(error);
+            alert('ocurrion un error');
+          });
+         
+          
+        } 
+
+      }
+
+
+      if(this.formulario_planificacion_familiar.valid){
+
+          // guardar datos del formulario en planificacion_familiar y enviarlo a la api
+        this.planificacion_familiar.planificacion_familiar = this.formulario_planificacion_familiar.get('planificacion_familiar').value;
+        this.planificacion_familiar.metodo_planificacion = this.formulario_planificacion_familiar.get('metodo_planificacion').value;
+        this.planificacion_familiar.observacion_planificacion = this.formulario_planificacion_familiar.get('observacion_planificacion').value;
+
+        this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiar).subscribe( (data) =>{
+          console.log(data);
+        }, (error) => {
+          this.error = true;
+          console.log(error);
+          alert('ocurrion un error');
+        });
+
+      }else{
+        this.error= true;
+      }
 
       
-    if(this.formulario_habito_toxicologico_personal.valid){
-
-      // guardar datos del formulario en antecedente_personal y enviarlo a la api
-      this.habito_toxicologico_personal.alcohol = this.formulario_habito_toxicologico_personal.get('alcohol').value;
-      this.habito_toxicologico_personal.observacion_alcohol = this.formulario_habito_toxicologico_personal.get('observacion_alcohol').value;
-      this.habito_toxicologico_personal.tabaquismo = this.formulario_habito_toxicologico_personal.get('tabaquismo').value;
-      this.habito_toxicologico_personal.observacion_tabaquismo = this.formulario_habito_toxicologico_personal.get('observacion_tabaquismo').value;
-      this.habito_toxicologico_personal.marihuana = this.formulario_habito_toxicologico_personal.get('marihuana').value;
-      this.habito_toxicologico_personal.observacion_marihuana = this.formulario_habito_toxicologico_personal.get('observacion_marihuana').value;
-      this.habito_toxicologico_personal.cocaina = this.formulario_habito_toxicologico_personal.get('cocaina').value;
-      this.habito_toxicologico_personal.observacion_cocaina = this.formulario_habito_toxicologico_personal.get('observacion_cocaina').value;
-      this.habito_toxicologico_personal.otros = this.formulario_habito_toxicologico_personal.get('otros').value;
-      this.habito_toxicologico_personal.observacion_otros = this.formulario_habito_toxicologico_personal.get('observacion_otros').value;
-    
-      this.formularioService.guardarHabitosToxicologicosPersonales(this.habito_toxicologico_personal).subscribe( (data) =>{
-        console.log(data);
-      }, (error) => {
-        this.error = true;
-        console.log(error);
-        alert('ocurrion un error');
-      });
-
-    }
-    
-    this.formularioService.guardarActividadSexual(this.actividad_sexual).subscribe( (data) =>{
-      console.log(data);
-    }, (error) => {
-      this.error = true;
-      console.log(error);
-      alert('ocurrion un error');
-    });
-
-    this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico).subscribe( (data) =>{
-      console.log(data);
-    }, (error) => {
-      this.error = true;
-      console.log(error);
-      alert('ocurrion un error');
-    });
-
-    this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiar).subscribe( (data) =>{
-      console.log(data);
-    }, (error) => {
-      this.error = true;
-      console.log(error);
-      alert('ocurrion un error');
-    });
-
-    this.formularioService.guardarAntecedentesObstetricos(this.planificacion_familiar).subscribe( (data) =>{
-      console.log(data);
-    }, (error) => {
-      this.error = true;
-      console.log(error);
-      alert('ocurrion un error');
-    });
-
-    if(!this.error){
-      alert ('los datos se enviarion');
       this.router.navigate(['principal']);
-    }    
+      alert ('los datos se enviarion');
     
   };
 
@@ -982,5 +1101,50 @@ this.seccion=true;
   get otros_ap(){return this.formulario_antecedentes_personales.get('otros')};
   get observacion_otros_ap(){return this.formulario_antecedentes_personales.get('observacion_otros')};
 
+  //obtener los campos del formGroup: formulario_habito_toxicologico_personal
+  get alcohol(){return this.formulario_habito_toxicologico_personal.get('alcohol')};
+  get observacion_alcohol(){return this.formulario_habito_toxicologico_personal.get('observacion_alcohol')};
+  get tabaquismo(){return this.formulario_habito_toxicologico_personal.get('tabaquismo')};
+  get observacion_tabaquismo(){return this.formulario_habito_toxicologico_personal.get('observacion_tabaquismo')};
+  get marihuana(){return this.formulario_habito_toxicologico_personal.get('marihuana')};
+  get observacion_marihuana(){return this.formulario_habito_toxicologico_personal.get('observacion_marihuana')};
+  get cocaina(){return this.formulario_habito_toxicologico_personal.get('cocaina')};
+  get observacion_cocaina(){return this.formulario_habito_toxicologico_personal.get('observacion_cocaina')};
+  get otros_ht(){return this.formulario_habito_toxicologico_personal.get('otros')};
+  get observacion_otros_ht(){return this.formulario_habito_toxicologico_personal.get('observacion_otros')};
+
+
+  //obtener los campos del formGroup: formulario_actividad_sexual
+  get actividad_sexuall(){return this.formulario_actividad_sexual.get('actividad_sexual')};
+  get edad_inicio_sexual(){return this.formulario_actividad_sexual.get('edad_inicio_sexual')};
+  get numero_parejas_sexuales(){return this.formulario_actividad_sexual.get('numero_parejas_sexuales')};
+  get practicas_sexuales_riesgo(){return this.formulario_actividad_sexual.get('practicas_sexuales_riesgo')};
+
+
+  //obtener los campos del formGroup: formulario_antecedente_ginecologico
+  get edad_inicio_menstruacion(){return this.formulario_antecedente_ginecologico.get('edad_inicio_menstruacion')};
+  get fum(){return this.formulario_antecedente_ginecologico.get('fum')};
+  get citologia(){return this.formulario_antecedente_ginecologico.get('citologia')};
+  get fecha_citologia(){return this.formulario_antecedente_ginecologico.get('fecha_citologia')};
+  get resultado_citologia(){return this.formulario_antecedente_ginecologico.get('resultado_citologia')};
+  get duracion_ciclo_menstrual(){return this.formulario_antecedente_ginecologico.get('duracion_ciclo_menstrual')};
+  get periocidad_ciclo_menstrual(){return this.formulario_antecedente_ginecologico.get('periocidad_ciclo_menstrual')};
+  get caracteristicas_ciclo_menstrual(){return this.formulario_antecedente_ginecologico.get('caracteristicas_ciclo_menstrual')};
+
+
+  //obtener los campos del formGroup: formulario_planifacion_familiar
+  get planificacion_familiarr(){return this.formulario_planificacion_familiar.get('planificacion_familiar')};
+  get metodo_planificacion(){return this.formulario_planificacion_familiar.get('metodo_planificacion')};
+  get observacion_planificacion(){return this.formulario_planificacion_familiar.get('observacion_planificacion')};
+
+  //obtener los campos del formGroup: formulario_antecedente_obstetrico
+  get partos(){return this.formulario_antecedente_obstetrico.get('partos')};
+  get abortos(){return this.formulario_antecedente_obstetrico.get('abortos')};
+  get cesarias(){return this.formulario_antecedente_obstetrico.get('cesarias')};
+  get hijos_vivos(){return this.formulario_antecedente_obstetrico.get('hijos_vivos')};
+  get hijos_muertos(){return this.formulario_antecedente_obstetrico.get('hijos_muertos')};
+  get fecha_termino_ult_embarazo(){return this.formulario_antecedente_obstetrico.get('fecha_termino_ult_embarazo')};
+  get descripcion_termino_ult_embarazo(){return this.formulario_antecedente_obstetrico.get('descripcion_termino_ult_embarazo')};
+  get observaciones(){return this.formulario_antecedente_obstetrico.get('observaciones')};
 
 }
