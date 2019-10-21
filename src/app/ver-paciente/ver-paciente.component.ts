@@ -40,7 +40,7 @@ export class VerPacienteComponent implements OnInit {
     prosene: null
 
   }
-
+  
   id: any;
   constructor(private FormService: FormularioService, private activatedRoute: ActivatedRoute ) { 
     this.id = this.activatedRoute.snapshot.params['id'];
