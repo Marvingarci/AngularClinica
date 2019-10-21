@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
   
   }
 
-
+  paciente: Paciente;
   comprobarDatos(){
     this.login.cuenta = this.login_form.get('cuenta').value;
     this.login.clave = this.login_form.get('clave').value;
@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
     for (let index = 0; index < this.pacientes.length; index++) {
       if (this.pacientes[index].numero_cuenta == this.login.cuenta) {
         this.pase=false;
+        this.paciente=this.pacientes[index];
       }
     }
 
@@ -79,11 +80,11 @@ export class LoginComponent implements OnInit {
          this.router.navigate(['/formulario']);
       }, (error) => {
         console.log(error);
-        alert('Clave incorrecta');
+        alert('Usuario incorrecto o contrasena incorrecta');
       });
       
     }else{
-      this.router.navigate(['/datoPaciente']);
+      this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);
     }
 
     
