@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
     cuenta: null,
     clave: null
   };
+  paciente: Paciente;
   pacientes: Paciente[];
   Formulario: FormularioService;
   pase: boolean=true;
@@ -69,6 +70,7 @@ export class LoginComponent implements OnInit {
     for (let index = 0; index < this.pacientes.length; index++) {
       if (this.pacientes[index].numero_cuenta == this.login.cuenta) {
         this.pase=false;
+        this.paciente=this.pacientes[index];
       }
     }
 
@@ -83,7 +85,7 @@ export class LoginComponent implements OnInit {
       });
       
     }else{
-      this.router.navigate(['/datoPaciente']);
+      this.router.navigate(['/datoPaciente'+this.paciente.id_paciente]);
     }
 
     
