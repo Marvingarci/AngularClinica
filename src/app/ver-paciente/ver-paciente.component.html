@@ -4,14 +4,14 @@
             
             <div class="row">
                 <div class="col-6">
-                           <h6>Nombre:{{ paciente.primer_nombre }}  </h6>
-                           <h6>No. de cuenta:{{ paciente.numero_cuenta}}</h6>
-                           <h6>Carrera:{{paciente.carrera}}</h6>
-                           <h6>Sexo:{{paciente.sexo}}</h6>
+                           <h6>Nombre:{{ paciente[0].primer_nombre }} {{ paciente[0].segundo_nombre }} </h6>
+                           <h6>No. de cuenta:{{ paciente[0].numero_cuenta}}</h6>
+                           <h6>Carrera:{{paciente[0].carrera}}</h6>
+                           <h6>Sexo:{{paciente[0].sexo}}</h6>
                           
                 </div>
                 <div class="col-6">
-                        <h6>Apellidos: {{paciente.primer_apellido }} {{paciente.segundo_apellido}}</h6>
+                        <h6>Apellidos: {{paciente[0].primer_apellido }} {{paciente[0].segundo_apellido}}</h6>
                         <h6>Edad:</h6>
                         <h6>Coro:</h6>
                         <h6>Centro:</h6>
