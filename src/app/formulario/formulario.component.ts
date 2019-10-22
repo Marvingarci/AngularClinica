@@ -1019,7 +1019,7 @@ this.seccion=true;
       }
 
       
-      this.router.navigate(['principal']);
+      this.router.navigate(['datoPaciente']);
       alert ('los datos se enviarion');
     
   };
