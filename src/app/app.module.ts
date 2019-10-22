@@ -41,6 +41,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import { MatTableModule } from '@angular/material'  
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 
 
@@ -125,7 +127,8 @@ const routes: Route[] = [
     MatToolbarModule,
     MatExpansionModule,
     MatListModule,
-    MatTableModule
+    MatTableModule,
+    MatProgressSpinnerModule
   
     
   ],

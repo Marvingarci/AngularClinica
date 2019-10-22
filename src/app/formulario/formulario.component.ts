@@ -13,6 +13,7 @@ import { AppComponent } from "../app.component";
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 export interface Loginadmin {
   value: string;
@@ -329,15 +330,15 @@ triggerSomeEventNo6() {
   this.isDisabled6 = true; 
 }
 
-isDisabled7 = true;
-input7 : string ;
-triggerSomeEventSi7() {      
-    this.isDisabled7 = false;
-}
-triggerSomeEventNo7() {  
-  this.input7  =null ;
-  this.isDisabled7 = true; 
-}
+// isDisabled7 = true;
+// input7 : string ;
+// triggerSomeEventSi7() {      
+//     this.isDisabled7 = false;
+// }
+// triggerSomeEventNo7() {  
+//   this.input7  =null ;
+//   this.isDisabled7 = true; 
+// }
 
 isDisabled8 = true;
 input8 : string ;
@@ -826,10 +827,17 @@ ocultar: boolean = true;
   }
   
  
-  frijol: boolean= false;
   constructor(private formularioService: FormularioService, 
     private router: Router, activar: AppComponent) {
           
+    //Obtencion de datos scrapping
+     this.formularioService.getScrap().subscribe((data: Paciente)=>{
+        this.scrap = data;
+        console.log(this.scrap);
+        this.formularioService.IngresoPaciente=this.scrap;
+      }, (error)=>{
+        console.log(error);
+      }); 
   
      }
      pacienteNuevo: Paciente = {
@@ -902,8 +910,7 @@ ocultar: boolean = true;
       }else{
         this.error= true;
       }
-      
-
+     
 
       if(this.formulario_antecedentes_familiares){
         // guardar datos del formulario en antecedente_familiar y enviarlo a la api
@@ -1107,30 +1114,37 @@ ocultar: boolean = true;
       }else{
         this.error= true;
       }
-      //Obtencion de Paciente recien registrado
-      this.formularioService.getUltimoID().subscribe((data)=>{
-        this.resultado = data;
-        console.log(this.resultado);
-        console.log(data);
-      }, (error)=>{
-        console.log(error);
-      }); 
-
-
-      // //Obtencion de datos scrapping
-      // this.formularioService.getScrap().subscribe((data: Paciente)=>{
-      //   this.scrap = data;
-      //   console.log(this.scrap);
-      //   this.formularioService.IngresoPaciente=this.scrap;
-      // }, (error)=>{
-      //   console.log(error);
-      // }); 
-
       
-      this.router.navigate(['datoPaciente/'+this.resultado[0].ultimoId]);
+
+      this.obtener();  
+      for (let index = 0; index < 10; index++) {
+        this.obtener();
+        
+      }
+     
+     if(this.resultado==null){
+      this.obtener();
+     }else{
+     }
       alert ('los datos se enviarion');
     
   };
+
+  obtener(){
+     //Obtencion de Paciente recien registrado
+     this.formularioService.getUltimoID().subscribe((data)=>{
+      this.resultado = data;
+      console.log(this.resultado);
+      if(this.resultado!=null){
+        this.router.navigate(['datoPaciente/'+this.resultado[0].ultimoId]);
+       }
+    }, (error)=>{
+      console.log(error);
+    }); 
+
+  }
+  
+
 
 
   //obtener los campos del formGroup: formulario_datos_generales

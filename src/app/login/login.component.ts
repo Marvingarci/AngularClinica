@@ -18,6 +18,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 export class LoginComponent implements OnInit {
  hide = true;
+ loading: boolean =false;
   //input
   scrap: Paciente = {
     id_paciente: null,
@@ -87,6 +88,7 @@ export class LoginComponent implements OnInit {
   }
 
   comprobarDatos(){
+    this.loading=true;
     this.login.cuenta = this.login_form.get('cuenta').value;
     this.login.clave = this.login_form.get('clave').value;
 
@@ -101,12 +103,10 @@ export class LoginComponent implements OnInit {
     if (this.pase == true) {
       this.loginService.guardarDatos(this.login).subscribe( (data) =>{
         console.log(data);   
-
-        
-
         alert('todo perron'); 
          this.router.navigate(['/formulario']);
       }, (error) => {
+        this.loading=false;
         console.log(error);
         alert('Usuario incorrecto ');
       });
@@ -115,7 +115,8 @@ export class LoginComponent implements OnInit {
       if (this.paciente.contrasenia==this.login.clave) {
         this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);  
       }else{
-        alert('Contrase;a incorrecta')
+        this.loading=false;
+        alert('Contraseña incorrecta')
       }
       
     }

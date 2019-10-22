@@ -1,8 +1,13 @@
+
 <div id="intro" class="view">
   <div class="full-bg-img">
         
     <div id="formstyle">
       <div>
+          <div *ngIf="loading==true">
+              <mat-spinner></mat-spinner>
+            
+            </div>
           <div class="view" id="imagenpuma"></div>
 
           <form [formGroup]= "login_form">
