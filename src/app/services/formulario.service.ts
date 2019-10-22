@@ -13,7 +13,7 @@ import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos'
   providedIn: 'root'
 })
 export class FormularioService {
-
+  idActualizar: number;
   API_ENDPOINT = "http://127.0.0.1:8000/api/"
 
   headers = new HttpHeaders({'Content-Type':'application/json'});
@@ -22,7 +22,7 @@ export class FormularioService {
    }
    put(paciente){
     const Headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.put(this.API_ENDPOINT+'/pacientes/'+ paciente.id_paciente , paciente, {headers: Headers});
+    return this.httpClient.put(this.API_ENDPOINT+'pacientes/'+ paciente.id_paciente , paciente, {headers: Headers});
   }
 
   guardarDatosGenerales(paciente: Paciente){
