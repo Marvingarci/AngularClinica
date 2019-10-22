@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
     cuenta: null,
     clave: null
   };
+  paciente: Paciente;
   pacientes: Paciente[];
   Formulario: FormularioService;
   pase: boolean=true;
@@ -61,7 +62,6 @@ export class LoginComponent implements OnInit {
   
   }
 
-  paciente: Paciente;
   comprobarDatos(){
     this.login.cuenta = this.login_form.get('cuenta').value;
     this.login.clave = this.login_form.get('clave').value;
@@ -80,11 +80,16 @@ export class LoginComponent implements OnInit {
          this.router.navigate(['/formulario']);
       }, (error) => {
         console.log(error);
-        alert('Usuario incorrecto o contrasena incorrecta');
+        alert('Usuario incorrecto ');
       });
       
     }else{
-      this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);
+      if (this.paciente.contrasenia==this.login.clave) {
+        this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);  
+      }else{
+        alert('Contrase;a incorrecta')
+      }
+      
     }
 
     
