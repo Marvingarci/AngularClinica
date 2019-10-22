@@ -22,18 +22,12 @@ export class LoginComponent implements OnInit {
  
 
   login_form = new FormGroup({
-    cuenta: new FormControl('',[Validators.required, Validators.maxLength(11), Validators.minLength(11)]),
+    cuenta: new FormControl('',[Validators.required,Validators.pattern(/^[2][0-9]{10}$/)]),
     clave: new FormControl('',[Validators.required]),
 
   });
 
-  getErrorMessage() {
-    return this.login_form.get('cuenta').hasError('required') ? 'You must enter a value' :
-    this.login_form.get('cuenta').hasError('cuenta') ? 'Not a valid cuenta' :
-        '';
-  }
-
-
+ 
 
   login: Login = {
     cuenta: null,
