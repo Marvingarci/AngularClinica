@@ -194,99 +194,93 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 -->
+
+
 <div>
   
-    <mat-toolbar>
-            
+  <mat-toolbar>
           
-        <mat-toolbar-row>
-          <span>Clinica UNAH-tec Danli</span>
-          <span class="example-spacer"></span>
-          <span class="example-fill-remaining-space"></span>
-          
-
-            
-
-
+        
+      <mat-toolbar-row>
+        <span>Clinica UNAH-tec Danli</span>
+        <span class="example-spacer"></span>
+        <span class="example-fill-remaining-space"></span>
         
 
+          
 
-           </mat-toolbar-row>
+
       
 
-      </mat-toolbar>
-  
+
+         </mat-toolbar-row>
+    
+
+    </mat-toolbar>
+
 <mat-sidenav-container  class="example-container" >
-    <mat-sidenav  mode="side" opened class='sidenav1'>
-  
-        <div >
-            <img style="width: 226px; height: 150px;" class="img-responsive img-rounded" src="https://dircom.unah.edu.hn/dmsdocument/7509-unah-version-horizontal-png"
-              alt="User picture">
-              <div class="sidebar-brand">
-                    <a style="text-align: center; color:black" [routerLink]="['/principal']" routerLinkActive="router-link-active" ><h5>Principal</h5></a>
-                    <div id="close-sidebar">
-                      <i class="fas fa-times"></i>
-                    </div>
+  <mat-sidenav  mode="side" opened>
+
+      <div >
+          <img style="width: 226px; height: 150px;" class="img-responsive img-rounded" src="https://dircom.unah.edu.hn/dmsdocument/7509-unah-version-horizontal-png"
+            alt="User picture">
+            <div class="sidebar-brand">
+                  <a style="text-align: center; color:black" [routerLink]="['/principal']" routerLinkActive="router-link-active" ><h5>Principal</h5></a>
+                  <div id="close-sidebar">
+                    <i class="fas fa-times"></i>
                   </div>
-          </div>
+                </div>
+        </div>
+      
+      <mat-expansion-panel [disabled]="isDisabled">
+          <mat-expansion-panel-header style="font-size: 16px;">
+            Pacientes
+          </mat-expansion-panel-header>
+          <mat-list role="list">
+              <mat-action-list>
+                  <button mat-list-item  [routerLink]="['/principal/registro']" routerLinkActive="router-link-active"> Alumnos </button>
+                  <button mat-list-item [routerLink]="['/principal/listadotrabajadores']" routerLinkActive="router-link-active"> Empleados </button>
+                  <button mat-list-item [routerLink]="['/principal/listadoVisitantes']" routerLinkActive="router-link-active"> Visitantes </button>
+                  <button mat-list-item [routerLink]="['/principal/listadoProsene']" routerLinkActive="router-link-active"> Prosene </button>
+  
+                </mat-action-list>
+            </mat-list>
+        </mat-expansion-panel>
+
+
+        <mat-action-list>
+            <button mat-list-item [routerLink]="['/principal/at1']" routerLinkActive="router-link-active"> At1 </button>
+            <button mat-list-item (click)="undo()"> Consolidado Diario </button>
+            <button mat-list-item (click)="undo()"> Inventario </button>
+            <button mat-list-item (click)="undo()"> Administradores </button>
+            <button mat-list-item (click)="undo()"> Ayuda? </button>
+
+
+          </mat-action-list>
         
-        <mat-expansion-panel [disabled]="isDisabled" class="expansion">
-            <mat-expansion-panel-header style="font-size: 16px;" >
-              Pacientes
-            </mat-expansion-panel-header>
-            <mat-list role="list" >
-                <mat-action-list class="rol">
-                    <button mat-list-item  [routerLink]="['/principal/registro']" routerLinkActive="router-link-active"> Alumnos </button>
-                    <button mat-list-item [routerLink]="['/principal/listadotrabajadores']" routerLinkActive="router-link-active"> Empleados </button>
-                    <button mat-list-item [routerLink]="['/principal/listadoVisitantes']" routerLinkActive="router-link-active"> Visitantes </button>
-                    <button mat-list-item [routerLink]="['/principal/listadoProsene']" routerLinkActive="router-link-active"> Prosene </button>
+
     
-                  </mat-action-list>
-              </mat-list>
-          </mat-expansion-panel>
+        
+
+
   
-  
-          <mat-action-list>
-              <button mat-list-item [routerLink]="['/principal/at1']" routerLinkActive="router-link-active"> At1 </button>
-              <button mat-list-item (click)="undo()"> Consolidado Diario </button>
-              <button mat-list-item (click)="undo()"> Inventario </button>
-              <button mat-list-item (click)="undo()"> Administradores </button>
-              <button mat-list-item (click)="undo()"> Ayuda? </button>
-  
-  
-            </mat-action-list>
-          
+    
+
   </mat-sidenav>
+  <mat-sidenav-content >
+
+        
+
+ 
 
 
-
-
-    <mat-sidenav-content  >  
-        <mat-toolbar class='sidenav'>   
-          <mat-toolbar-row>
-              <span>Principal</span>
-              <span class="example-spacer"></span>
-              <span class="example-fill-remaining-space"></span>
-          </mat-toolbar-row>
-        </mat-toolbar>
-  
-      
-          
-  
-  
-    
-      
-  
-    </mat-sidenav>
-    <mat-sidenav-content >
-  
-          
         <router-outlet></router-outlet>
-    </mat-sidenav-content>
 
 
+    
 
-  </mat-sidenav-container>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
 </div>
-
 
