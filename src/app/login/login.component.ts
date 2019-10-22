@@ -19,7 +19,37 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
  hide = true;
   //input
- 
+  scrap: Paciente = {
+    id_paciente: null,
+    numero_paciente: null,
+    contrasenia: null,
+    primer_apellido: null,
+    segundo_apellido: null,
+    primer_nombre: null,
+    segundo_nombre: null,
+    numero_cuenta: null,
+    numero_identidad: null,
+    lugar_procedencia: null,
+    direccion: null,
+    carrera: null,
+    fecha_nacimiento: null,
+    sexo: null,
+    estado_civil: null,
+    seguro_medico: null,
+    numero_telefono: null,
+    emergencia_telefono: null,
+    peso: null,
+    talla: null,
+    imc: null,
+    temperatura: null,
+    presion: null,
+    pulso: null,
+    estudiante: null,
+    empleado: null,
+    visitante: null,
+    prosene: null,
+  }
+  
 
   login_form = new FormGroup({
     cuenta: new FormControl('',[Validators.required,Validators.pattern(/^[2][0-9]{10}$/)]),
@@ -66,10 +96,14 @@ export class LoginComponent implements OnInit {
         this.paciente=this.pacientes[index];
       }
     }
+    
 
     if (this.pase == true) {
       this.loginService.guardarDatos(this.login).subscribe( (data) =>{
         console.log(data);   
+
+        
+
         alert('todo perron'); 
          this.router.navigate(['/formulario']);
       }, (error) => {
@@ -87,22 +121,7 @@ export class LoginComponent implements OnInit {
     }
 
     
-    
-/*
-    if(this.login_form.valid){
-      this.loginService.guardarDatos(this.login).subscribe( (data) =>{
-        console.log(data);   
-        alert('todo perron');  
-      }, (error) => {
-        console.log(error);
-        alert('se chorrio');
-      });
-    }else{
-      alert('la esta cagando !!')
-    }
-
-    */
-
+ 
   }
 
   get cuenta(){return this.login_form.get('cuenta')};

@@ -785,17 +785,78 @@ ocultar: boolean = true;
   ];
 
 
+  resultado:any;
 
   //radio buttons
   opciones: string[] = ['Si', 'No' ];
+  scrap: Paciente = {
+    id_paciente: null,
+    numero_paciente: null,
+    contrasenia: null,
+    primer_apellido: null,
+    segundo_apellido: null,
+    primer_nombre: null,
+    segundo_nombre: null,
+    numero_cuenta: null,
+    numero_identidad: null,
+    lugar_procedencia: null,
+    direccion: null,
+    carrera: null,
+    fecha_nacimiento: null,
+    sexo: null,
+    estado_civil: null,
+    seguro_medico: null,
+    numero_telefono: null,
+    emergencia_telefono: null,
+    peso: null,
+    talla: null,
+    imc: null,
+    temperatura: null,
+    presion: null,
+    pulso: null,
+    estudiante: null,
+    empleado: null,
+    visitante: null,
+    prosene: null,
+  }
   
-
  
-
+  frijol: boolean= false;
   constructor(private formularioService: FormularioService, 
     private router: Router, activar: AppComponent) {
-      activar.esconder();
+          
+  
      }
+     pacienteNuevo: Paciente = {
+      id_paciente: null,
+      numero_paciente: null,
+      contrasenia: null,
+      primer_apellido: null,
+      segundo_apellido: null,
+      primer_nombre: null,
+      segundo_nombre: null,
+      numero_cuenta: null,
+      numero_identidad: null,
+      lugar_procedencia: null,
+      direccion: null,
+      carrera: null,
+      fecha_nacimiento: null,
+      sexo: null,
+      estado_civil: null,
+      seguro_medico: null,
+      numero_telefono: null,
+      emergencia_telefono: null,
+      peso: null,
+      talla: null,
+      imc: null,
+      temperatura: null,
+      presion: null,
+      pulso: null,
+      estudiante: null,
+      empleado: null,
+      visitante: null,
+      prosene: null,
+    }
 
   ngOnInit() {
     
@@ -836,6 +897,7 @@ ocultar: boolean = true;
       }else{
         this.error= true;
       }
+      
 
 
       if(this.formulario_antecedentes_familiares){
@@ -1040,9 +1102,26 @@ ocultar: boolean = true;
       }else{
         this.error= true;
       }
+      //Obtencion de Paciente recien registrado
+      this.formularioService.getUltimoID().subscribe((data)=>{
+        this.resultado = data;
+        console.log(this.resultado);
+      }, (error)=>{
+        console.log(error);
+      }); 
+
+
+      //Obtencion de datos scrapping
+      this.formularioService.getScrap().subscribe((data: Paciente)=>{
+        this.scrap = data;
+        console.log(this.scrap);
+        this.formularioService.IngresoPaciente=this.scrap;
+      }, (error)=>{
+        console.log(error);
+      }); 
 
       
-      this.router.navigate(['datoPaciente']);
+      this.router.navigate(['datoPaciente/'+this.resultado[0].ultimoId]);
       alert ('los datos se enviarion');
     
   };
@@ -1169,5 +1248,7 @@ ocultar: boolean = true;
   get fecha_termino_ult_embarazo(){return this.formulario_antecedente_obstetrico.get('fecha_termino_ult_embarazo')};
   get descripcion_termino_ult_embarazo(){return this.formulario_antecedente_obstetrico.get('descripcion_termino_ult_embarazo')};
   get observaciones(){return this.formulario_antecedente_obstetrico.get('observaciones')};
+
+  
 
 }

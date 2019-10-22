@@ -65,6 +65,8 @@ export class DatoPacienteComponent implements OnInit {
       },(error)=>{
         console.log(error);
       });
+    }else{
+//      this.paciente=this.formularioService.IngresoPaciente;
     }
     principal.esconder();
 

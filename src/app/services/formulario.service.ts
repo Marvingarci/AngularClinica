@@ -14,6 +14,8 @@ import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos'
 })
 export class FormularioService {
   idActualizar: number;
+  IngresoPaciente: Paciente;
+  NuevoIngreso: Paciente;
   API_ENDPOINT = "http://127.0.0.1:8000/api/"
 
   headers = new HttpHeaders({'Content-Type':'application/json'});
@@ -31,6 +33,15 @@ export class FormularioService {
 
   get(){
     return this.httpClient.get(this.API_ENDPOINT+'pacientes');
+  }
+
+  getUltimoID(){
+    return this.httpClient.get(this.API_ENDPOINT+'pacientes/ultimo/si');
+  }
+
+  getScrap(){
+    const Headers = new HttpHeaders({'Content-Type':'application/json'});
+    return this.httpClient.get(this.API_ENDPOINT+'login');
   }
   getUno(paciente: number){
     const Headers = new HttpHeaders({'Content-Type':'application/json'});
