@@ -1111,19 +1111,20 @@ ocultar: boolean = true;
       this.formularioService.getUltimoID().subscribe((data)=>{
         this.resultado = data;
         console.log(this.resultado);
+        console.log(data);
       }, (error)=>{
         console.log(error);
       }); 
 
 
-      //Obtencion de datos scrapping
-      this.formularioService.getScrap().subscribe((data: Paciente)=>{
-        this.scrap = data;
-        console.log(this.scrap);
-        this.formularioService.IngresoPaciente=this.scrap;
-      }, (error)=>{
-        console.log(error);
-      }); 
+      // //Obtencion de datos scrapping
+      // this.formularioService.getScrap().subscribe((data: Paciente)=>{
+      //   this.scrap = data;
+      //   console.log(this.scrap);
+      //   this.formularioService.IngresoPaciente=this.scrap;
+      // }, (error)=>{
+      //   console.log(error);
+      // }); 
 
       
       this.router.navigate(['datoPaciente/'+this.resultado[0].ultimoId]);
