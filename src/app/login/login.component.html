@@ -6,40 +6,22 @@
           <div class="view" id="imagenpuma"></div>
 
           <form [formGroup]= "login_form">
-
-              <div>
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Ingrese su cuenta" formControlName= "cuenta" required>
-                    <mat-error *ngIf="cuenta.hasError('required')">
-                      <strong>ingrese la cuenta</strong>
-                    </mat-error>
-                    <mat-error *ngIf="cuenta.hasError('minLength') && cuenta.hasError('maxLength')">
-                      <strong>cuenta invalida</strong>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-
-            <!-- <div class="col">
-              <mat-form-field class="example-full-width">
-                <input matInput type="number"
-                placeholder="Ingrese su número de cuenta"
-                formControlName="cuenta" required>
-                <mat-error *ngIf="cuenta.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </div> -->
-                
-
+            <div>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Ingrese su cuenta" formControlName= "cuenta" required>
+                  <mat-error *ngIf="cuenta.hasError('required')">ingrese la cuenta!</mat-error>
+                  <mat-error *ngIf="cuenta.hasError('pattern')">ingrese un numero de cuenta valido!</mat-error>
+                </mat-form-field>
+              </div>
             <div>
               <mat-form-field class="example-full-width">                
-                    <input matInput  
-                    placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'"
-                    formControlName="clave">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                    <mat-error *ngIf="clave.hasError('required') ">
-                      <strong>Ingrese la contraseña</strong>
-                    </mat-error>
+                <input matInput  
+                placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'"
+                formControlName="clave">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                <mat-error *ngIf="clave.hasError('required') ">ingrese la contraseña!</mat-error>
               </mat-form-field>
             </div>
           </form>
