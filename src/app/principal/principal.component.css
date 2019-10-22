@@ -5,13 +5,15 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: #eee;
+    background:rgb(253, 253, 253);
     
   }
   .example-fill-remaining-space {
     /* This fills the remaining space, by using flexbox. 
        Every toolbar row uses a flexbox row layout. */
     flex: 1 1 auto;
+    
+    
   }
 
   .example-form {
@@ -24,3 +26,17 @@
   .example-full-width {
     width: 100%;
   }
+
+  .sidenav{
+    background:  rgb(0, 17, 255);
+  }
+  .sidenav1{
+    background:  rgb(0, 17, 255);
+  }
+  .expansion{    
+    background:  rgb(0, 17, 255);
+  }
+
+.rol{  background:  rgb(0, 17, 255);
+
+}
