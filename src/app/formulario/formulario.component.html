@@ -452,7 +452,7 @@
           <div class="col-md-3"> 
             <mat-form-field>
               <mat-label>Tipo Alergia</mat-label>
-              <mat-select formControlName= "tipo_alergia" name="tipo_alergia" *ngIf="alergias.value('Si')==!disabled">
+              <mat-select formControlName= "tipo_alergia" name="tipo_alergia" >
                 <mat-option *ngFor="let alergia of tipos_alergias" [value]="alergia.value" >
                   {{alergia.viewValue}}
                 </mat-option>
