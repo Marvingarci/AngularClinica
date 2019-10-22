@@ -27,21 +27,69 @@
     width: 100%;
   }
 
-  .sidenav{
-    background:  rgb(0, 17, 255);
-  }
-  .sidenav1{
-    background:  rgb(0, 17, 255);
-  }
-  .expansion{    
-    background:  rgb(0, 17, 255);
-  }
 
-.rol{  background:  rgb(0, 17, 255);
 
-}
+
+
   mat-sidenav{
     padding-left: 10px;
     padding-right: 10px;
     
   }
+
+
+
+  .toolbar{
+    background:  rgb(104, 71, 250);
+    color: snow;
+  }
+ 
+  /* .expansion{    
+    background:  rgba(0, 17, 255, 0.788);
+  }  .sidenav{    
+    background:  rgba(0, 17, 255, 0.788);
+  } */
+
+  /* Tamaño del scroll */
+
+ 
+.container{
+  /* height: 450px; */
+  overflow: auto;
+  height: 100%;
+  min-width: 100px;
+  
+}
+
+
+/* Tamaño del scroll */
+.container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+ /* Estilos barra (thumb) de scroll */
+.container::-webkit-scrollbar-thumb {
+  background: rgb(104, 71, 250);
+  border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-thumb:active {
+  background-color: #1fb7f3;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: #1100fd;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+ /* Estilos track de scroll */
+.container::-webkit-scrollbar-track {
+  background: #a7a0ff;
+  border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-track:hover, 
+.container::-webkit-scrollbar-track:active {
+  background: #787bff;
+}
