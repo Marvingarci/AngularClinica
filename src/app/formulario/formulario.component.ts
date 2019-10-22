@@ -142,9 +142,12 @@ export class FormularioComponent implements OnInit {
     observacion_convulsiones : new FormControl({value:'', disabled: true},[]),
     alcoholismo_sustancias_psicoactivas : new FormControl('',[Validators.required]),
     observacion_alcoholismo_sustancias_psicoactivas: new FormControl({value:'', disabled: true},[]),
+    
     alergias : new FormControl('',[Validators.required]),
     observacion_alergias: new FormControl({value:'', disabled: true},[]),
     tipo_alergia: new FormControl({value:'', disabled: true},[]),
+
+
     cancer : new FormControl('',[Validators.required]),
     observacion_cancer: new FormControl({value:'', disabled: true},[]),
     tipo_cancer: new FormControl({value:'', disabled: true},[]),
@@ -403,14 +406,16 @@ triggerSomeEventNoB6() {
   this.isDisabledB6 = true; 
   }
 
-//  // isDisabledB7 = true;
-// triggerSomeEventSiB7() {      
-//     this.isDisabledB7 = false;
-// }
 
-// triggerSomeEventNoB7() {  
-//   this.isDisabledB7 = true; 
-//   }
+  isDisabledB77 = true;
+  triggerSomeEventSiB77() {      
+    this.isDisabledB77 = false;
+}
+triggerSomeEventNoB77() {  
+  this.isDisabledB77 = true; 
+  }
+
+
 
   isDisabledB8 = true;
 triggerSomeEventSiB8() {      
