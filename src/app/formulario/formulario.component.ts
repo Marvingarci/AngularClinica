@@ -403,14 +403,14 @@ triggerSomeEventNoB6() {
   this.isDisabledB6 = true; 
   }
 
-  isDisabledB7 = true;
-triggerSomeEventSiB7() {      
-    this.isDisabledB7 = false;
-}
+//  // isDisabledB7 = true;
+// triggerSomeEventSiB7() {      
+//     this.isDisabledB7 = false;
+// }
 
-triggerSomeEventNoB7() {  
-  this.isDisabledB7 = true; 
-  }
+// triggerSomeEventNoB7() {  
+//   this.isDisabledB7 = true; 
+//   }
 
   isDisabledB8 = true;
 triggerSomeEventSiB8() {      
