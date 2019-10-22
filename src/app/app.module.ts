@@ -11,7 +11,7 @@ import { PrincipalComponent } from './principal/principal.component';
 import { LoginadminComponent } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
-import { DatoPacienteComponent } from './dato-paciente/dato-paciente.component';
+import { DatoPacienteComponent, DialogContentExampleDialog } from './dato-paciente/dato-paciente.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { ListadoEstudiantesComponent } from './listado-estudiantes/listado-estudiantes.component';
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
@@ -40,6 +40,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatListModule} from '@angular/material/list';
 import { MatTableModule } from '@angular/material'  
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 
@@ -91,7 +93,9 @@ const routes: Route[] = [
     ListadoTrabajadoresComponent,
     ListadoVisitantesComponent,
     ListadoProseneComponent,
-    VerPacienteComponent ,
+    VerPacienteComponent,
+    DialogContentExampleDialog
+
     
   ],
   imports: [
@@ -102,7 +106,7 @@ const routes: Route[] = [
     NgxPasswordToggleModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-
+    MatDialogModule,
     MatSliderModule,
     MatTabsModule,
     MatStepperModule,
@@ -124,6 +128,9 @@ const routes: Route[] = [
     MatTableModule
   
     
+  ],
+  entryComponents: [
+    DialogContentExampleDialog
   ],
   providers: [],
   bootstrap: [AppComponent]
