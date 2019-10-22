@@ -197,7 +197,7 @@
 <div>
   
 <mat-sidenav-container  class="example-container" >
-    <mat-sidenav  mode="side" opened>
+    <mat-sidenav  mode="side" opened class='sidenav1'>
   
         <div >
             <img class="img-responsive img-rounded" src="https://www.unah.edu.hn/themes/portalunah/assets/images/logo-unah-blanco.png"
@@ -210,12 +210,12 @@
                   </div>
           </div>
         
-        <mat-expansion-panel [disabled]="isDisabled">
-            <mat-expansion-panel-header style="font-size: 16px;">
+        <mat-expansion-panel [disabled]="isDisabled" class="expansion">
+            <mat-expansion-panel-header style="font-size: 16px;" >
               Pacientes
             </mat-expansion-panel-header>
-            <mat-list role="list">
-                <mat-action-list>
+            <mat-list role="list" >
+                <mat-action-list class="rol">
                     <button mat-list-item  [routerLink]="['/principal/registro']" routerLinkActive="router-link-active"> Alumnos </button>
                     <button mat-list-item [routerLink]="['/principal/listadotrabajadores']" routerLinkActive="router-link-active"> Empleados </button>
                     <button mat-list-item [routerLink]="['/principal/listadoVisitantes']" routerLinkActive="router-link-active"> Visitantes </button>
@@ -236,47 +236,24 @@
   
             </mat-action-list>
           
-  
-      
-          
-  
-  
-    
-      
-  
-    </mat-sidenav>
-    <mat-sidenav-content >
-  
-        <mat-toolbar>
-            
-          
-            <mat-toolbar-row>
+  </mat-sidenav>
+
+
+
+
+    <mat-sidenav-content  >  
+        <mat-toolbar class='sidenav'>   
+          <mat-toolbar-row>
               <span>Principal</span>
               <span class="example-spacer"></span>
               <span class="example-fill-remaining-space"></span>
-              
-  
-                
-
-  
-            
-  
-  
-               </mat-toolbar-row>
+          </mat-toolbar-row>
+        </mat-toolbar>
           
-
-          </mat-toolbar>
-          
-
-   
-
-  
-          <router-outlet></router-outlet>
-  
-  
-      
-  
+        <router-outlet></router-outlet>
     </mat-sidenav-content>
+
+
 
   </mat-sidenav-container>
 </div>
