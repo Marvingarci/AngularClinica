@@ -286,14 +286,17 @@ this.input2  =null ;
 isDisabled3 = true;
 input3 : string ;
 triggerSomeEventSi3() {      
-    this.isDisabled3 = false;
+  this.isDisabled3 = false;
 }
 triggerSomeEventNo3() {  
   this.input3  =null ;
   this.isDisabled3 = true; 
+  
+  
+  
   }
 
-  isDisabled4 = true;
+isDisabled4 = true;
 input4 : string ;
 triggerSomeEventSi4() {      
     this.isDisabled4 = false;
@@ -400,14 +403,14 @@ triggerSomeEventNoB6() {
   this.isDisabledB6 = true; 
   }
 
-  isDisabledB7 = true;
-triggerSomeEventSiB7() {      
-    this.isDisabledB7 = false;
-}
+//  // isDisabledB7 = true;
+// triggerSomeEventSiB7() {      
+//     this.isDisabledB7 = false;
+// }
 
-triggerSomeEventNoB7() {  
-  this.isDisabledB7 = true; 
-  }
+// triggerSomeEventNoB7() {  
+//   this.isDisabledB7 = true; 
+//   }
 
   isDisabledB8 = true;
 triggerSomeEventSiB8() {      
@@ -427,18 +430,36 @@ triggerSomeEventNoB9() {
 
 isDisabledB10 = true;
 inputB10 : string ;
-triggerSomeEventSiB10() {    
+triggerSomeEventSiB10() { 
+
+  console.log(this.formulario_datos_generales.get('sexo').value);
+  
+  if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
     this.isDisabledB10 = false;
+  }else{
+    this.isDisabledB10 = false;
+    this.ocultar=false;
+  }
+  
+  
 }
 triggerSomeEventNoB10() {  
-this.inputB10  =null ;
-  this.isDisabledB10 = true; 
+  console.log(this.formulario_datos_generales.get('sexo').value);
+
+  if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
+    this.inputB10  =null ;
+    this.isDisabledB10 = true; 
+  }else{
+    this.inputB10  =null ;
+    this.isDisabledB10 = true; 
+    this.ocultar=true;
+  }
 }
 
 isDisabledB11 = true;
 inputB11 : string ;
 triggerSomeEventSiB11() {    
-    this.isDisabledB11 = false;
+  this.isDisabledB11 = false;
 }
 triggerSomeEventNoB11() {  
   this.inputB11  =null ;
@@ -497,14 +518,16 @@ this.ingreso3  =null ;
 this.des3 = true;      
 }
 
-seccion: boolean = true;
 
 mostrarS(){
-  this.seccion=false;
+  this.ocultar=false;
 }
 mostrarN(){
-this.seccion=true;
+this.ocultar=true;
 }
+
+ocultar: boolean = true;
+
 
   paciente: Paciente = {
     primer_apellido: null,
@@ -947,7 +970,7 @@ this.seccion=true;
       }
 
 
-      if(this.seccion == false){
+      if(this.ocultar == false){
 
         if(this.formulario_antecedente_ginecologico.valid){
 
@@ -1019,7 +1042,7 @@ this.seccion=true;
       }
 
       
-      this.router.navigate(['principal']);
+      this.router.navigate(['datoPaciente']);
       alert ('los datos se enviarion');
     
   };

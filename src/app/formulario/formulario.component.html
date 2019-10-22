@@ -1,14 +1,5 @@
 <mat-horizontal-stepper linear #stepper>
 
-
-
-
-
-<!-- VALIDACIONES ALBERTO -->
-
-
-
-
   <!-- primer step -->
   <mat-step [stepControl]= "formulario_datos_generales">
     <form [formGroup]="formulario_datos_generales">
@@ -431,8 +422,8 @@
           <p><mat-radio-group formControlName= "alergias" 
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="triggerSomeEventSiB7()">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="triggerSomeEventNoB7()">No</mat-radio-button>
+            <mat-radio-button value="Si"  >Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" >No</mat-radio-button>
             <mat-error style="margin-inline-start: 5px;" *ngIf="alergias.hasError('required')">campo requerido!</mat-error>      
           </mat-radio-group></p>
         </div>
@@ -440,7 +431,7 @@
           <div class="col-md-3"> 
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "observacion_alergias" name="observacion_alergias" [disabled]="isDisabledB7">
+              <mat-select formControlName= "observacion_alergias" name="observacion_alergias"  >
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -452,8 +443,8 @@
           <div class="col-md-3"> 
             <mat-form-field>
               <mat-label>Tipo Alergia</mat-label>
-              <mat-select formControlName= "tipo_alergia" name="tipo_alergia">
-                <mat-option *ngFor="let alergia of tipos_alergias" [value]="alergia.value" [disabled]="isDisabledB7">
+              <mat-select formControlName= "tipo_alergia" name="tipo_alergia" >
+                <mat-option *ngFor="let alergia of tipos_alergias" [value]="alergia.value" >
                   {{alergia.viewValue}}
                 </mat-option>
               </mat-select>
@@ -1216,7 +1207,7 @@
 
 
   <!-- sexto step -->
-  <mat-step *ngIf="seccion==false" [stepControl]="formulario_antecedente_ginecologico">
+  <mat-step *ngIf="ocultar==false" [stepControl]="formulario_antecedente_ginecologico">
     <form [formGroup]="formulario_antecedente_ginecologico">
       <ng-template matStepLabel>Antecedentes Ginecologicos</ng-template>
       <div class="container">
@@ -1348,7 +1339,7 @@
 
 
   <!-- septimo step -->
-  <mat-step *ngIf="seccion==false" [stepControl]="formulario_antecedente_obstetrico">
+  <mat-step *ngIf="ocultar==false" [stepControl]="formulario_antecedente_obstetrico">
     <form [formGroup]= "formulario_antecedente_obstetrico">
       <ng-template matStepLabel>Antecedentes Obstétricos</ng-template>
       <div class="container">
