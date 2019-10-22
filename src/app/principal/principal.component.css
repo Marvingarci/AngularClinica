@@ -1,7 +1,7 @@
 
   .example-container {
     position: absolute;
-    top: 0;
+    top: 65px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -23,4 +23,9 @@
   
   .example-full-width {
     width: 100%;
+  }
+  mat-sidenav{
+    padding-left: 10px;
+    padding-right: 10px;
+    
   }
