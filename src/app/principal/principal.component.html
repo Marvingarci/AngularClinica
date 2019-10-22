@@ -198,29 +198,22 @@
 
 <div>
   
-  <mat-toolbar>
-          
-        
-      <mat-toolbar-row>
+  <mat-toolbar>        
+      <mat-toolbar-row class="toolbar"> 
         <span>Clinica UNAH-tec Danli</span>
         <span class="example-spacer"></span>
         <span class="example-fill-remaining-space"></span>
-        
-
-          
-
-
-      
+      </mat-toolbar-row>
+  </mat-toolbar>
 
 
-         </mat-toolbar-row>
-    
 
-    </mat-toolbar>
+
 
 <mat-sidenav-container  class="example-container" >
-  <mat-sidenav  mode="side" opened>
-
+  
+<mat-sidenav  mode="side" opened>
+<div class="container"> 
       <div >
           <img style="width: 226px; height: 150px;" class="img-responsive img-rounded" src="https://dircom.unah.edu.hn/dmsdocument/7509-unah-version-horizontal-png"
             alt="User picture">
@@ -232,7 +225,7 @@
                 </div>
         </div>
       
-      <mat-expansion-panel [disabled]="isDisabled">
+      <mat-expansion-panel [disabled]="isDisabled" class="expansion">
           <mat-expansion-panel-header style="font-size: 16px;">
             Pacientes
           </mat-expansion-panel-header>
@@ -264,9 +257,10 @@
 
 
   
-    
+  </div>  
 
   </mat-sidenav>
+
   <mat-sidenav-content >
 
         
@@ -282,5 +276,6 @@
   </mat-sidenav-content>
 
 </mat-sidenav-container>
+
 </div>
 
