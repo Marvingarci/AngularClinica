@@ -1136,7 +1136,9 @@ ocultar: boolean = true;
       this.resultado = data;
       console.log(this.resultado);
       if(this.resultado!=null){
+        if(this.resultado[0].ultimoId!=null){
         this.router.navigate(['datoPaciente/'+this.resultado[0].ultimoId]);
+      }
        }
     }, (error)=>{
       console.log(error);
