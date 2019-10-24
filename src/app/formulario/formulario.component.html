@@ -191,6 +191,10 @@
     -->
 
   <!-- primer step -->
+
+
+
+  
   <mat-step [stepControl]= "formulario_datos_generales">
     <form [formGroup]="formulario_datos_generales">
     <ng-template matStepLabel>Datos Generales</ng-template>
@@ -613,8 +617,8 @@
           <p><mat-radio-group formControlName= "alergias" 
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-            <mat-radio-button value="Si" >Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" >No</mat-radio-button>
+            <mat-radio-button value="Si" (click)="triggerSomeEventSiB77()" >Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNoB77()">No</mat-radio-button>
             <mat-error style="margin-inline-start: 5px;" *ngIf="alergias.hasError('required')">campo requerido!</mat-error>      
           </mat-radio-group></p>
         </div>
@@ -622,7 +626,7 @@
           <div class="col-md-3"> 
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "observacion_alergias" name="observacion_alergias" [disabled]="isDisabledB7" >
+              <mat-select formControlName= "observacion_alergias" name="observacion_alergias" [disabled]="isDisabledB77" >
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -634,7 +638,7 @@
           <div class="col-md-3"> 
             <mat-form-field>
               <mat-label>Tipo Alergia</mat-label>
-              <mat-select formControlName= "tipo_alergia" name="tipo_alergia" [disabled]="isDisabledB7">
+              <mat-select formControlName= "tipo_alergia" name="tipo_alergia" [disabled]="isDisabledB77">
                 <mat-option *ngFor="let alergia of tipos_alergias" [value]="alergia.value" >
                   {{alergia.viewValue}}
                 </mat-option>
@@ -790,17 +794,20 @@
           <p><mat-radio-group  formControlName="diabetes"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="triggerSomeEventSi()">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="triggerSomeEventNo()">No</mat-radio-button>
+            <mat-radio-button value="Si" (click)="c1si()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="c1no()">No</mat-radio-button>
             <mat-error style="margin-inline-start: 5px;" *ngIf="diabetes_ap.hasError('required')">campo requerido!</mat-error>
           </mat-radio-group></p> 
+
+         
+       
 
         </div>
 
         <mat-form-field class="medium-width">
           <textarea matInput  formControlName="observacion_diabetes"
           placeholder="Detallar inicio de enfermedad y tratamiento" 
-          [disabled]="isDisabled" [value] ="input"></textarea>
+          [disabled]="c1" ></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -819,7 +826,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_tb_pulmonar"
             placeholder="Detallar inicio de enfermedad y tratamiento" 
-            [disabled]="isDisabled1" [value] ="input1"></textarea>
+            [disabled]="isDisabled1"></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -838,7 +845,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_its"
             placeholder="Detallar inicio de enfermedad y tratamiento" 
-            [disabled]="isDisabled2" [value] ="input2"></textarea>
+            [disabled]="isDisabled2" ></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -857,7 +864,7 @@
         <div> 
           <mat-form-field>
             <mat-label>Tipo Desnutrición</mat-label>
-            <mat-select formControlName="tipo_desnutricion" name="tipo_desnutricion" [value] ="input3" [disabled]="isDisabled3">
+            <mat-select formControlName="tipo_desnutricion" name="tipo_desnutricion"  [disabled]="isDisabled3">
               <mat-option *ngFor="let desnutricion of desnutriciones" [value]="desnutricion.value" >
                 {{desnutricion.viewValue}}
               </mat-option>
@@ -868,7 +875,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_desnutricion"
             placeholder="Detallar inicio de enfermedad y tratamiento" 
-            [disabled]="isDisabled3" [value] ="input3"></textarea>
+            [disabled]="isDisabled3" ></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -898,7 +905,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_enfermedades_mentales"
           placeholder="Detallar inicio de enfermedad y tratamiento" 
-          [disabled]="isDisabled4" [value] ="input4"></textarea>
+          [disabled]="isDisabled4" ></textarea>
         </mat-form-field>
         
 
@@ -918,7 +925,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_convulsiones"
           placeholder="Detallar inicio de enfermedad y tratamiento"
-          [disabled]="isDisabled5" [value] ="input5" ></textarea>
+          [disabled]="isDisabled5"  ></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -947,7 +954,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_alergias"
           placeholder="Detallar inicio de enfermedad y tratamiento"
-          [disabled]="isDisabled6" [value] ="input6"></textarea>
+          [disabled]="isDisabled6" ></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -957,8 +964,8 @@
           <p><mat-radio-group formControlName="cancer"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-              <mat-radio-button value="Si" >Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" >No</mat-radio-button>
+              <mat-radio-button value="Si" (click)="triggerSomeEventSi7" >Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="No" (click)="triggerSomeEventNo7" >No</mat-radio-button>
               <mat-error style="margin-inline-start: 5px;" *ngIf="cancer_ap.hasError('required')">campo requerido!</mat-error>
             </mat-radio-group></p> 
 
@@ -977,7 +984,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_cancer"
             placeholder="Detallar inicio de enfermedad y tratamiento"
-            [disabled]="isDisabled7" [value] ="input7"></textarea>
+            [disabled]="isDisabled7" ></textarea>
         </mat-form-field>
 
       
@@ -1000,7 +1007,7 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput formControlName="fecha_antecedente_hospitalario" [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" placeholder="Fecha" [disabled]="isDisabled8" [value] ="input8">
+              <input matInput formControlName="fecha_antecedente_hospitalario" [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" placeholder="Fecha" [disabled]="isDisabled8" >
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2 ></mat-datepicker>
             </mat-form-field>            
@@ -1008,7 +1015,7 @@
 
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput formControlName="tiempo_hospitalizacion" placeholder="Tiempo Hospitalización" [disabled]="isDisabled8" [value] ="input8">
+              <input matInput formControlName="tiempo_hospitalizacion" placeholder="Tiempo Hospitalización" [disabled]="isDisabled8" >
             </mat-form-field>
           </div>
         </div>
@@ -1016,13 +1023,13 @@
         <div class="row">
           <div class="col">
               <mat-form-field class="example-full-width">
-                <textarea matInput formControlName="diagnostico"  placeholder="Diagnóstico" [disabled]="isDisabled8" [value] ="input8"></textarea>
+                <textarea matInput formControlName="diagnostico"  placeholder="Diagnóstico" [disabled]="isDisabled8" ></textarea>
               </mat-form-field>
           </div>
 
           <div class="col">
               <mat-form-field class="example-full-width">
-                <textarea matInput formControlName="tratamiento" placeholder="Tratamiento" [disabled]="isDisabled8" [value] ="input8"></textarea>
+                <textarea matInput formControlName="tratamiento" placeholder="Tratamiento" [disabled]="isDisabled8" ></textarea>
               </mat-form-field>
           </div>
         </div>
@@ -1042,7 +1049,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_traumaticos"
           placeholder="Detallar inicio de enfermedad y tratamiento"
-          [disabled]="isDisabled9" [value] ="input9" ></textarea>
+          [disabled]="isDisabled9"  ></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
