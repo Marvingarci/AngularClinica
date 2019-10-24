@@ -257,87 +257,108 @@ export class FormularioComponent implements OnInit {
   
   
 // Aqui esta codificando MELVIN
-c1 = true;
-c1si() {      
-    this.c1 = false;
-}
-c1no() {
-this.c1 = true;      
-}
 
-isDisabled1 = true;
-triggerSomeEventSi1() {    
-    this.isDisabled1 = false;
-}
-triggerSomeEventNo1() { 
-  this.isDisabled1 = true; 
-}
 
-isDisabled2 = true;
-triggerSomeEventSi2() {      
-    this.isDisabled2 = false;
-}
-triggerSomeEventNo2() {  
-  this.isDisabled2 = true; 
-}
+read1 = true;
+csi1() { this.read1 = false;}
+cno1() {this.read1 = true;  }
 
-isDisabled3 = true;
-triggerSomeEventSi3() {      
-  this.isDisabled3 = false;
-}
-triggerSomeEventNo3() { 
-  this.isDisabled3 = true;   
-  }
+read2 = true;
+csi2() { this.read2 = false;}
+cno2() {this.read2 = true;  }
 
+read3 = true;
+csi3() { this.read3 = false;}
+cno3() {this.read3 = true;  }
+
+read4 = true;
 isDisabled4 = true;
-triggerSomeEventSi4() {      
-    this.isDisabled4 = false;
-}
-triggerSomeEventNo4() {
-  this.isDisabled4 = true; 
-}
+csi4() { this.read4 = false;
+  this.isDisabled4 = false; }
+cno4() {this.read4 = true; 
+  this.isDisabled4 = true;  }
 
+read5 = true;
 isDisabled5 = true;
-triggerSomeEventSi5() {      
-    this.isDisabled5 = false;
-}
-triggerSomeEventNo5() {  
-  this.isDisabled5 = true; 
-}
+csi5() { this.read5 = false;
+  this.isDisabled5 = false; }
+cno5() {this.read5 = true; 
+  this.isDisabled5 = true;  }
 
-isDisabled6 = true;
-triggerSomeEventSi6() {      
-    this.isDisabled6 = false;
-}
-triggerSomeEventNo6() {  
-  this.isDisabled6 = true; 
-}
+read6 = true;
+csi6() { this.read6 = false;}
+cno6() {this.read6 = true;  }
 
+
+read7 = true;
 isDisabled7 = true;
-triggerSomeEventSi7() {      
-    this.isDisabled7 = false;
-}
-triggerSomeEventNo7() {  
-  this.isDisabled7 = true; 
-}
+csi7() { this.read7 = false;
+  this.isDisabled7 = false; }
+cno7() {this.read7 = true;
+  this.isDisabled7 = true; }
 
-
-
+read8 = true;
 isDisabled8 = true;
-triggerSomeEventSi8() {      
-    this.isDisabled8 = false;
-}
-triggerSomeEventNo8() {
-  this.isDisabled8 = true; 
-  }
+csi8() { this.read8 = false;
+  this.isDisabled8 = false;  }
+cno8() {this.read8 = true; 
+  this.isDisabled8 = true; }
 
-  isDisabled9 = true;
-triggerSomeEventSi9() {      
-    this.isDisabled9 = false;
-}
-triggerSomeEventNo9() { 
-  this.isDisabled9 = true; 
-  }
+read9 = true;
+csi9() { this.read9 = false;}
+cno9() {this.read9 = true;  }
+
+read10 = true;
+csi10() { this.read10 = false;}
+cno10() {this.read10 = true;  }
+
+read11 = true;
+csi11() { this.read11 = false;}
+cno11() {this.read11 = true;  }
+
+read12 = true;
+csi12() { this.read12 = false;}
+cno12() {this.read12 = true;  }
+
+read13 = true;
+csi13() { this.read13 = false;}
+cno13() {this.read13 = true;  }
+
+read14 = true;
+csi14() { this.read14 = false;}
+cno14() {this.read14 = true;  }
+
+read15 = true;
+isDisabledB25 = true;
+csi15() { this.read15 = false;
+          this.isDisabledB25 = false;}
+cno15() {this.read15 = true;  
+  this.isDisabledB25 = true;}
+
+  read16 = true;
+isDisabledB26 = true;
+csi16() { this.read16 = false;
+          this.isDisabledB26 = false;}
+cno16() {this.read16 = true;  
+  this.isDisabledB26 = true;}
+
+  read17 = true;
+csi17() { this.read17 = false;}
+cno17() {this.read17 = true;  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 isDisabledB1 = true;
 triggerSomeEventSiB1() {      
