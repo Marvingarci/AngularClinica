@@ -106,6 +106,8 @@ export class DatoPacienteComponent implements OnInit {
   templateUrl: 'dialog-content-example-dialog.html',
 })
 export class DialogContentExampleDialog {
+  hide = true;
+
    paciente1: Paciente = {
     id_paciente: null,
     numero_paciente: null,
@@ -150,19 +152,32 @@ export class DialogContentExampleDialog {
 });
 
 guardar(){
+
   
   if(this.Nueva.valid){
     // guardar datos del formulario en paciente y enviarlo a la api
+    
   this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
+  
+  if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
+
+  
   this.formularioService.put(this.paciente1).subscribe((data)=>{
-    alert('Contrase;a guardada');
+
+    alert('Contraseña guardada');
     console.log(data);
   }, (error)=>{
     console.log(error);
     alert('No se guardo ni mierda');
   });
-
+}else{
+  alert('La contrase;a no es la misma');
+}
 
 }
 
-}}
+}
+get nuevaContra(){return this.Nueva.get('nuevaContra')};
+get nuevaContraRep(){return this.Nueva.get('nuevaContraRep')};
+
+}
