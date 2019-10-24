@@ -2,10 +2,7 @@ export interface Paciente {
     id_paciente?: number;
     numero_paciente?: string;
     contrasenia?: string;
-    primer_apellido: string;
-    segundo_apellido?: string;
-    primer_nombre: string;
-    segundo_nombre?: string;
+    nombre_completo: string;
     numero_cuenta: string;
     numero_identidad: string;
     lugar_procedencia: string;
