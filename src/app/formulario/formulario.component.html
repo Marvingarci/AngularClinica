@@ -191,6 +191,7 @@
     -->
 
   <!-- primer step -->
+  
   <mat-step [stepControl]= "formulario_datos_generales">
     <form [formGroup]="formulario_datos_generales">
     <ng-template matStepLabel>Datos Generales</ng-template>
@@ -198,52 +199,21 @@
       <h2>Datos Generales</h2>
       <div class="row">
         <div class="col">
-          <mat-form-field class="example-full-width">
-            <input matInput formControlName= "primer_apellido"  placeholder="Primer Apellido">
-            <mat-hint align="end">{{primer_apellido.value.length}} / 15</mat-hint>
-            <mat-error *ngIf="primer_apellido.hasError('required')">campo requerido!</mat-error>
-            <mat-error *ngIf="primer_apellido.hasError('pattern')">ingrese un apellido valido!</mat-error>
+          <mat-form-field class="example-full-width" >
+            <input matInput formControlName= "nombre_completo"  placeholder="Nombre Completo" value={{nombre_completo.setValue(datosScraping.nombre)}}>
+            
+            <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido!</mat-error>
+            <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un apellido valido!</mat-error>
 
           </mat-form-field>
         </div>
-        <div class="col">
-          <mat-form-field class="example-full-width">
-            <input matInput formControlName= "segundo_apellido" placeholder="Segundo Apellido">
-            <mat-hint align="end">{{segundo_apellido.value.length}} / 15</mat-hint>
-            <mat-error *ngIf="segundo_apellido.hasError('required')">campo requerido!</mat-error>
-            <mat-error *ngIf="segundo_apellido.hasError('pattern')">ingrese un apellido valido!</mat-error>
-
-
-          </mat-form-field>
-        </div>
+        
       </div>
 
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput formControlName= "primer_nombre" placeholder="Primer Nombre">
-            <mat-hint align="end">{{primer_nombre.value.length}} / 15</mat-hint>
-            <mat-error *ngIf="primer_nombre.hasError('required')">campo requerido!</mat-error>
-            <mat-error *ngIf="primer_nombre.hasError('pattern')">ingrese un nombre valido!</mat-error>
-              
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <input matInput formControlName= "segundo_nombre" placeholder="Segundo Nombre">
-            <mat-hint align="end">{{segundo_nombre.value.length}} / 15</mat-hint>
-            <mat-error *ngIf="segundo_nombre.hasError('required')">campo requerido!</mat-error>
-            <mat-error *ngIf="segundo_nombre.hasError('pattern')">ingrese un nombre valido!</mat-error>
-
-
-            </mat-form-field>
-          </div>
-        </div>
-                  
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta">
+              <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta" value={{numero_cuenta.setValue(datosScraping.cuenta)}}>
             <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint>
             <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido!</mat-error>
             <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta valido!</mat-error>
