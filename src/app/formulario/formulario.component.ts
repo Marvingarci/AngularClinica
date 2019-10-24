@@ -14,6 +14,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { Login } from '../interfaces/login';
 
 export interface Loginadmin {
   value: string;
@@ -100,14 +101,28 @@ export class MyErrorStateMatcher implements ErrorStateMatcher{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
   }]
 })
+
+
 export class FormularioComponent implements OnInit {
+
+  datosScraping: Login = {
+    cuenta: null,
+    clave : null,
+    nombre: null,
+    carrera : null,
+    centro : null,
+    indice_global : null,
+    indice_periodo : null,  
+  }
+
 
   formulario_datos_generales = new FormGroup({
 
-      primer_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-      segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-      primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-      segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+      
+      nombre_completo: new FormControl('', [Validators.required]),
+      // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+      // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+      // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
       numero_cuenta: new FormControl('', [Validators.required,Validators.pattern(/^[2][0-9]{10}$/)]), 
       // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
       // "/ /" indica el inicio y el final de la expresion regular
@@ -257,108 +272,108 @@ export class FormularioComponent implements OnInit {
   
   
 // Aqui esta codificando MELVIN
-isDisabled = true;
-input : string ;
-triggerSomeEventSi() {      
-    this.isDisabled = false;
-}
-triggerSomeEventNo() {
-this.input  =null ;
-this.isDisabled = true;      
-}
 
-isDisabled1 = true;
-input1 : string ;
-triggerSomeEventSi1() {    
-    this.isDisabled1 = false;
-}
-triggerSomeEventNo1() {  
-this.input1  =null ;
-  this.isDisabled1 = true; 
-}
 
-isDisabled2 = true;
-input2 : string ;
-triggerSomeEventSi2() {      
-    this.isDisabled2 = false;
-}
-triggerSomeEventNo2() {  
-this.input2  =null ;
-  this.isDisabled2 = true; 
-}
+read1 = true;
+csi1() { this.read1 = false;}
+cno1() {this.read1 = true;  }
 
-isDisabled3 = true;
-input3 : string ;
-triggerSomeEventSi3() {      
-  this.isDisabled3 = false;
-}
-triggerSomeEventNo3() {  
-  this.input3  =null ;
-  this.isDisabled3 = true; 
-  
-  
-  
-  }
+read2 = true;
+csi2() { this.read2 = false;}
+cno2() {this.read2 = true;  }
 
+read3 = true;
+csi3() { this.read3 = false;}
+cno3() {this.read3 = true;  }
+
+read4 = true;
 isDisabled4 = true;
-input4 : string ;
-triggerSomeEventSi4() {      
-    this.isDisabled4 = false;
-}
-triggerSomeEventNo4() {  
-  this.input4  =null ;
-  this.isDisabled4 = true; 
-}
+csi4() { this.read4 = false;
+  this.isDisabled4 = false; }
+cno4() {this.read4 = true; 
+  this.isDisabled4 = true;  }
 
+read5 = true;
 isDisabled5 = true;
-input5 : string ;
-triggerSomeEventSi5() {      
-    this.isDisabled5 = false;
-}
-triggerSomeEventNo5() {  
-  this.input5  =null ;
-  this.isDisabled5 = true; 
-}
+csi5() { this.read5 = false;
+  this.isDisabled5 = false; }
+cno5() {this.read5 = true; 
+  this.isDisabled5 = true;  }
 
-isDisabled6 = true;
-input6 : string ;
-triggerSomeEventSi6() {      
-    this.isDisabled6 = false;
-}
-triggerSomeEventNo6() {  
-  this.input6  =null ;
-  this.isDisabled6 = true; 
-}
+read6 = true;
+csi6() { this.read6 = false;}
+cno6() {this.read6 = true;  }
 
-// isDisabled7 = true;
-// input7 : string ;
-// triggerSomeEventSi7() {      
-//     this.isDisabled7 = false;
-// }
-// triggerSomeEventNo7() {  
-//   this.input7  =null ;
-//   this.isDisabled7 = true; 
-// }
 
+read7 = true;
+isDisabled7 = true;
+csi7() { this.read7 = false;
+  this.isDisabled7 = false; }
+cno7() {this.read7 = true;
+  this.isDisabled7 = true; }
+
+read8 = true;
 isDisabled8 = true;
-input8 : string ;
-triggerSomeEventSi8() {      
-    this.isDisabled8 = false;
-}
-triggerSomeEventNo8() {  
-  this.input8  =null ;
-  this.isDisabled8 = true; 
-  }
+csi8() { this.read8 = false;
+  this.isDisabled8 = false;  }
+cno8() {this.read8 = true; 
+  this.isDisabled8 = true; }
 
-  isDisabled9 = true;
-input9 : string ;
-triggerSomeEventSi9() {      
-    this.isDisabled9 = false;
-}
-triggerSomeEventNo9() {  
-  this.input9  =null ;
-  this.isDisabled9 = true; 
-  }
+read9 = true;
+csi9() { this.read9 = false;}
+cno9() {this.read9 = true;  }
+
+read10 = true;
+csi10() { this.read10 = false;}
+cno10() {this.read10 = true;  }
+
+read11 = true;
+csi11() { this.read11 = false;}
+cno11() {this.read11 = true;  }
+
+read12 = true;
+csi12() { this.read12 = false;}
+cno12() {this.read12 = true;  }
+
+read13 = true;
+csi13() { this.read13 = false;}
+cno13() {this.read13 = true;  }
+
+read14 = true;
+csi14() { this.read14 = false;}
+cno14() {this.read14 = true;  }
+
+read15 = true;
+isDisabledB25 = true;
+csi15() { this.read15 = false;
+          this.isDisabledB25 = false;}
+cno15() {this.read15 = true;  
+  this.isDisabledB25 = true;}
+
+  read16 = true;
+isDisabledB26 = true;
+csi16() { this.read16 = false;
+          this.isDisabledB26 = false;}
+cno16() {this.read16 = true;  
+  this.isDisabledB26 = true;}
+
+  read17 = true;
+csi17() { this.read17 = false;}
+cno17() {this.read17 = true;  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 isDisabledB1 = true;
 triggerSomeEventSiB1() {      
@@ -536,10 +551,8 @@ ocultar: boolean = true;
 
 
   paciente: Paciente = {
-    primer_apellido: null,
-    segundo_apellido: null,
-    primer_nombre: null,
-    segundo_nombre: null,
+    id_paciente: null,
+    nombre_completo: null,
     numero_cuenta: null,
     numero_identidad: null,
     lugar_procedencia: null,
@@ -792,88 +805,38 @@ ocultar: boolean = true;
 
 
   resultado:any;
+  id:any;
 
   //radio buttons
   opciones: string[] = ['Si', 'No' ];
-  scrap: Paciente = {
-    id_paciente: null,
-    numero_paciente: null,
-    contrasenia: null,
-    primer_apellido: null,
-    segundo_apellido: null,
-    primer_nombre: null,
-    segundo_nombre: null,
-    numero_cuenta: null,
-    numero_identidad: null,
-    lugar_procedencia: null,
-    direccion: null,
-    carrera: null,
-    fecha_nacimiento: null,
-    sexo: null,
-    estado_civil: null,
-    seguro_medico: null,
-    numero_telefono: null,
-    emergencia_telefono: null,
-    peso: null,
-    talla: null,
-    imc: null,
-    temperatura: null,
-    presion: null,
-    pulso: null,
-    estudiante: null,
-    empleado: null,
-    visitante: null,
-    prosene: null,
-  }
+
   
  
   constructor(private formularioService: FormularioService, 
     private router: Router, activar: AppComponent) {
-          
-    //Obtencion de datos scrapping
-     this.formularioService.getScrap().subscribe((data: Paciente)=>{
-        this.scrap = data;
-        console.log(this.scrap);
-        this.formularioService.IngresoPaciente=this.scrap;
-      }, (error)=>{
-        console.log(error);
-      }); 
-  
-     }
-     pacienteNuevo: Paciente = {
-      id_paciente: null,
-      numero_paciente: null,
-      contrasenia: null,
-      primer_apellido: null,
-      segundo_apellido: null,
-      primer_nombre: null,
-      segundo_nombre: null,
-      numero_cuenta: null,
-      numero_identidad: null,
-      lugar_procedencia: null,
-      direccion: null,
-      carrera: null,
-      fecha_nacimiento: null,
-      sexo: null,
-      estado_civil: null,
-      seguro_medico: null,
-      numero_telefono: null,
-      emergencia_telefono: null,
-      peso: null,
-      talla: null,
-      imc: null,
-      temperatura: null,
-      presion: null,
-      pulso: null,
-      estudiante: null,
-      empleado: null,
-      visitante: null,
-      prosene: null,
-    }
 
+      this.getDatosScraping();
+
+    }
+     
   ngOnInit() {
+    this.getDatosScraping();  
     
+  
   }
+
+  getDatosScraping(){
+    this.formularioService.getScrap().subscribe((data: Login) =>{
+      this.datosScraping = data;
+      console.log(this.datosScraping);
+    },
+    (error) => {
+      console.log(error),
+      alert('ocurrio un error');  
+    });    
+  }
+
+
 
   enviarDatos(){
 
@@ -883,10 +846,11 @@ ocultar: boolean = true;
       if(this.formulario_datos_generales.valid){
 
           // guardar datos del formulario en paciente y enviarlo a la api
-        this.paciente.primer_apellido = this.formulario_datos_generales.get('primer_apellido').value;
-        this.paciente.segundo_apellido = this.formulario_datos_generales.get('segundo_apellido').value;
-        this.paciente.primer_nombre = this.formulario_datos_generales.get('primer_nombre').value;
-        this.paciente.segundo_nombre = this.formulario_datos_generales.get('segundo_nombre').value;
+        this.paciente.id_paciente = this.datosScraping.id_login;
+        this.paciente.nombre_completo = this.formulario_datos_generales.get('nombre_completo').value;
+        // this.paciente.segundo_apellido = this.formulario_datos_generales.get('segundo_apellido').value;
+        // this.paciente.primer_nombre = this.formulario_datos_generales.get('primer_nombre').value;
+        // this.paciente.segundo_nombre = this.formulario_datos_generales.get('segundo_nombre').value;
         this.paciente.numero_cuenta = this.formulario_datos_generales.get('numero_cuenta').value;
         this.paciente.numero_identidad = this.formulario_datos_generales.get('numero_identidad').value;
         this.paciente.lugar_procedencia = this.formulario_datos_generales.get('lugar_procedencia').value;
@@ -907,8 +871,7 @@ ocultar: boolean = true;
           this.error = true;
           alert('ocurrion un error');
         });
-      }else{
-        this.error= true;
+
       }
      
 
@@ -938,6 +901,9 @@ ocultar: boolean = true;
         this.antecedente_familiar.observacion_hipertension_arterial = this.formulario_antecedentes_familiares.get('observacion_hipertension_arterial').value;
         this.antecedente_familiar.otros = this.formulario_antecedentes_familiares.get('otros').value;
         this.antecedente_familiar.observacion_otros = this.formulario_antecedentes_familiares.get('observacion_otros').value;
+        this.antecedente_familiar.id_paciente = this.datosScraping.id_login;
+      
+            
 
         this.formularioService.guardarAntecedentesFamiliares(this.antecedente_familiar).subscribe( (data) =>{
           console.log(data);
@@ -947,8 +913,6 @@ ocultar: boolean = true;
           alert('ocurrion un error');
         });
 
-      }else{
-        this.error= true;
       }
       
       if(this.formulario_antecedentes_personales.valid){
@@ -993,8 +957,6 @@ ocultar: boolean = true;
           alert('ocurrion un error');
         });
     
-      }else{
-        this.error= true;
       }
 
         
@@ -1020,8 +982,6 @@ ocultar: boolean = true;
           alert('ocurrion un error');
         });
 
-      }else{
-        this.error= true;
       }
 
       if(this.formulario_actividad_sexual.valid){
@@ -1039,8 +999,6 @@ ocultar: boolean = true;
           alert('ocurrion un error');
         });
 
-      }else{
-        this.error= true;
       }
 
 
@@ -1124,9 +1082,17 @@ ocultar: boolean = true;
      
      if(this.resultado==null){
       this.obtener();
-     }else{
      }
-      alert ('los datos se enviarion');
+
+     this.datosScraping.id_login=  null;
+     this.datosScraping.cuenta = null;
+     this.datosScraping.clave = null;
+     this.datosScraping.nombre = null;
+     this.datosScraping.carrera = null;
+     this.datosScraping.indice_global = null;
+     this.datosScraping.indice_periodo = null;
+     
+     alert ('los datos se enviarion');
     
   };
 
@@ -1150,7 +1116,7 @@ ocultar: boolean = true;
 
 
   //obtener los campos del formGroup: formulario_datos_generales
-  get primer_apellido(){return this.formulario_datos_generales.get('primer_apellido')};
+  get nombre_completo(){return this.formulario_datos_generales.get('nombre_completo')};
   get segundo_apellido(){return this.formulario_datos_generales.get('segundo_apellido')};
   get primer_nombre(){return this.formulario_datos_generales.get('primer_nombre')};
   get segundo_nombre(){return this.formulario_datos_generales.get('segundo_nombre')};
