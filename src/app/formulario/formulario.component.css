@@ -12,21 +12,24 @@ mat-horizontal-stepper{
 .container{
   /* height: 450px; */
   height: 80%;
-  min-width: 97%;
+  min-width: 99%;
   padding-top: 20px;
   padding-bottom: 20px;
-  padding-left: 20px;
-  padding-right: 60px;
+  padding-left: 30px;
+  padding-right: 30px;
   overflow: auto;
   position: absolute;
+  overflow-x: hidden;   
+  top:30;
+  left:0;
   
 }
 
 
 /* Tamaño del scroll */
 .container::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 10px;
 }
 
  /* Estilos barra (thumb) de scroll */

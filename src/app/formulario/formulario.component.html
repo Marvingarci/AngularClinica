@@ -190,6 +190,12 @@
       </mat-step>
     -->
 
+
+
+
+
+
+
   <!-- primer step -->
   
   <mat-step [stepControl]= "formulario_datos_generales">
@@ -397,7 +403,7 @@
 
 
   <!-- segundo step --> 
-  <mat-step [stepControl]= "formulario_antecedentes_familiares">
+   <mat-step [stepControl]= "formulario_antecedentes_familiares">
     <form [formGroup]="formulario_antecedentes_familiares">
       <ng-template matStepLabel>Antecedentes Familiares</ng-template>
       <div class="container">
@@ -583,8 +589,8 @@
           <p><mat-radio-group formControlName= "alergias" 
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-            <mat-radio-button value="Si" >Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" >No</mat-radio-button>
+            <mat-radio-button value="Si" (click)="triggerSomeEventSiB77()" >Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNoB77()">No</mat-radio-button>
             <mat-error style="margin-inline-start: 5px;" *ngIf="alergias.hasError('required')">campo requerido!</mat-error>      
           </mat-radio-group></p>
         </div>
@@ -592,7 +598,7 @@
           <div class="col-md-3"> 
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "observacion_alergias" name="observacion_alergias" [disabled]="isDisabledB7" >
+              <mat-select formControlName= "observacion_alergias" name="observacion_alergias" [disabled]="isDisabledB77" >
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -604,7 +610,7 @@
           <div class="col-md-3"> 
             <mat-form-field>
               <mat-label>Tipo Alergia</mat-label>
-              <mat-select formControlName= "tipo_alergia" name="tipo_alergia" [disabled]="isDisabledB7">
+              <mat-select formControlName= "tipo_alergia" name="tipo_alergia" [disabled]="isDisabledB77">
                 <mat-option *ngFor="let alergia of tipos_alergias" [value]="alergia.value" >
                   {{alergia.viewValue}}
                 </mat-option>
@@ -701,7 +707,7 @@
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>  
       </div>
     </form>  
-  </mat-step>
+  </mat-step> 
 
 
 
@@ -755,22 +761,23 @@
         
         <h2>Antecedente Personales</h2>
 
+
+        
+
         <div>
           <label id="example-radio-group-label">1. Diabetes</label>
           <p><mat-radio-group  formControlName="diabetes"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="triggerSomeEventSi()">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="triggerSomeEventNo()">No</mat-radio-button>
+            <mat-radio-button value="Si" (click)="csi1()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="cno1()">No</mat-radio-button>
             <mat-error style="margin-inline-start: 5px;" *ngIf="diabetes_ap.hasError('required')">campo requerido!</mat-error>
-          </mat-radio-group></p> 
-
+          </mat-radio-group></p>  
         </div>
-
         <mat-form-field class="medium-width">
           <textarea matInput  formControlName="observacion_diabetes"
           placeholder="Detallar inicio de enfermedad y tratamiento" 
-          [disabled]="isDisabled" [value] ="input"></textarea>
+          [readonly]="read1" ></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -780,8 +787,8 @@
           <p><mat-radio-group formControlName="tb_pulmonar"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="triggerSomeEventSi1()">Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" (click)="triggerSomeEventNo1()">No</mat-radio-button>
+              <mat-radio-button value="Si" (click)="csi2()">Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="No" (click)="cno2()">No</mat-radio-button>
               <mat-error style="margin-inline-start: 5px;" *ngIf="tb_pulmonar_ap.hasError('required')">campo requerido!</mat-error>
             </mat-radio-group></p> 
 
@@ -789,7 +796,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_tb_pulmonar"
             placeholder="Detallar inicio de enfermedad y tratamiento" 
-            [disabled]="isDisabled1" [value] ="input1"></textarea>
+            [readonly]="read2"></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -799,8 +806,8 @@
           <p><mat-radio-group formControlName="its"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="triggerSomeEventSi2()">Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" (click)="triggerSomeEventNo2()">No</mat-radio-button>
+              <mat-radio-button value="Si" (click)="csi3()">Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="No" (click)="cno3()">No</mat-radio-button>
               <mat-error style="margin-inline-start: 5px;" *ngIf="its.hasError('required')">campo requerido!</mat-error>
             </mat-radio-group></p> 
 
@@ -808,7 +815,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_its"
             placeholder="Detallar inicio de enfermedad y tratamiento" 
-            [disabled]="isDisabled2" [value] ="input2"></textarea>
+            [readonly]="read3"  ></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -818,8 +825,8 @@
           <p><mat-radio-group formControlName="desnutricion"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="triggerSomeEventSi3()">Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" (click)="triggerSomeEventNo3()">No</mat-radio-button>
+              <mat-radio-button value="Si" (click)="csi4()">Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="No" (click)="cno4()">No</mat-radio-button>
               <mat-error style="margin-inline-start: 5px;" *ngIf="desnutricion_ap.hasError('required')">campo requerido!</mat-error>
             </mat-radio-group></p> 
 
@@ -827,7 +834,7 @@
         <div> 
           <mat-form-field>
             <mat-label>Tipo Desnutrición</mat-label>
-            <mat-select formControlName="tipo_desnutricion" name="tipo_desnutricion" [value] ="input3" [disabled]="isDisabled3">
+            <mat-select formControlName="tipo_desnutricion" name="tipo_desnutricion"  [disabled]="isDisabled4">
               <mat-option *ngFor="let desnutricion of desnutriciones" [value]="desnutricion.value" >
                 {{desnutricion.viewValue}}
               </mat-option>
@@ -838,7 +845,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_desnutricion"
             placeholder="Detallar inicio de enfermedad y tratamiento" 
-            [disabled]="isDisabled3" [value] ="input3"></textarea>
+            [readonly]="read4"  ></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -848,8 +855,8 @@
           <p><mat-radio-group formControlName="enfermedades_mentales"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="triggerSomeEventSi4()">Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" (click)="triggerSomeEventNo4()">No</mat-radio-button>
+              <mat-radio-button value="Si" (click)="csi5()">Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="No" (click)="cno5()">No</mat-radio-button>
               <mat-error style="margin-inline-start: 5px;" *ngIf="enfermedades_mentales_ap.hasError('required')">campo requerido!</mat-error>
             </mat-radio-group></p> 
 
@@ -857,7 +864,7 @@
         <div> 
           <mat-form-field>
             <mat-label>Tipo Enfermedad Mental</mat-label>
-            <mat-select formControlName="tipo_enfermedad_mental" name="tipo_enfermedad_mental" [disabled]="isDisabled4">
+            <mat-select formControlName="tipo_enfermedad_mental" name="tipo_enfermedad_mental" [disabled]="isDisabled5">
               <mat-option *ngFor="let enfermedad_mental of enfermedades_mentaless" [value]="enfermedad_mental.value">
                 {{enfermedad_mental.viewValue}}
               </mat-option>
@@ -868,7 +875,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_enfermedades_mentales"
           placeholder="Detallar inicio de enfermedad y tratamiento" 
-          [disabled]="isDisabled4" [value] ="input4"></textarea>
+          [readonly]="read5"  ></textarea>
         </mat-form-field>
         
 
@@ -880,15 +887,15 @@
           <p><mat-radio-group formControlName="convulsiones"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="triggerSomeEventSi5()">Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" (click)="triggerSomeEventNo5()">No</mat-radio-button>
+              <mat-radio-button value="Si" (click)="csi6()">Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="No" (click)="cno6()">No</mat-radio-button>
               <mat-error style="margin-inline-start: 5px;" *ngIf="convulsiones_ap.hasError('required')">campo requerido!</mat-error>
             </mat-radio-group></p>    
           </div>
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_convulsiones"
           placeholder="Detallar inicio de enfermedad y tratamiento"
-          [disabled]="isDisabled5" [value] ="input5" ></textarea>
+          [readonly]="read6"  ></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -898,15 +905,15 @@
           <p><mat-radio-group formControlName="alergias"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="triggerSomeEventSi6()">Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" (click)="triggerSomeEventNo6()">No</mat-radio-button>
+              <mat-radio-button value="Si" (click)="csi7()">Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="No" (click)="cno7()">No</mat-radio-button>
               <mat-error style="margin-inline-start: 5px;" *ngIf="alergias_ap.hasError('required')">campo requerido!</mat-error>            
             </mat-radio-group></p> 
         </div>      
         <div> 
           <mat-form-field>
             <mat-label>Tipo Alergia</mat-label>
-            <mat-select formControlName="tipo_alergia" name="tipo_alergia" [disabled]="isDisabled6">
+            <mat-select formControlName="tipo_alergia" name="tipo_alergia" [disabled]="isDisabled7">
               <mat-option *ngFor="let alergia of tipos_alergias" [value]="alergia.value">
                 {{alergia.viewValue}}
               </mat-option>
@@ -917,7 +924,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_alergias"
           placeholder="Detallar inicio de enfermedad y tratamiento"
-          [disabled]="isDisabled6" [value] ="input6"></textarea>
+          [readonly]="read7" ></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -927,8 +934,8 @@
           <p><mat-radio-group formControlName="cancer"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-              <mat-radio-button value="Si" >Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" >No</mat-radio-button>
+              <mat-radio-button value="Si" (click)="csi8()">Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="No" (click)="cno8()" >No</mat-radio-button>
               <mat-error style="margin-inline-start: 5px;" *ngIf="cancer_ap.hasError('required')">campo requerido!</mat-error>
             </mat-radio-group></p> 
 
@@ -936,7 +943,7 @@
         <div> 
           <mat-form-field>
             <mat-label>Tipo cáncer</mat-label>
-            <mat-select formControlName="tipo_cancer" name="tipo_cancer" [disabled]="isDisabled7">
+            <mat-select formControlName="tipo_cancer" name="tipo_cancer" [disabled]="isDisabled8">
               <mat-option *ngFor="let cancer of canceres" [value]="cancer.value">
                 {{cancer.viewValue}}
               </mat-option>
@@ -947,7 +954,7 @@
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_cancer"
             placeholder="Detallar inicio de enfermedad y tratamiento"
-            [disabled]="isDisabled7" [value] ="input7"></textarea>
+            [readonly]="read8"  ></textarea>
         </mat-form-field>
 
       
@@ -959,8 +966,8 @@
           <p><mat-radio-group formControlName="hospitalarias_quirurgicas"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="triggerSomeEventSi8()">Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" (click)="triggerSomeEventNo8()">No</mat-radio-button>
+              <mat-radio-button value="Si" (click)="csi9()">Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="No" (click)="cno9()">No</mat-radio-button>
               <mat-error style="margin-inline-start: 5px;" *ngIf="hospitalarias_quirurgicas.hasError('required')">campo requerido!</mat-error>
             </mat-radio-group></p> 
 
@@ -970,7 +977,7 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput formControlName="fecha_antecedente_hospitalario" [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" placeholder="Fecha" [disabled]="isDisabled8" [value] ="input8">
+              <input matInput formControlName="fecha_antecedente_hospitalario" [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" placeholder="Fecha" [readonly]="read9"  >
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2 ></mat-datepicker>
             </mat-form-field>            
@@ -978,7 +985,7 @@
 
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput formControlName="tiempo_hospitalizacion" placeholder="Tiempo Hospitalización" [disabled]="isDisabled8" [value] ="input8">
+              <input matInput formControlName="tiempo_hospitalizacion" placeholder="Tiempo Hospitalización" [readonly]="read9" >
             </mat-form-field>
           </div>
         </div>
@@ -986,13 +993,13 @@
         <div class="row">
           <div class="col">
               <mat-form-field class="example-full-width">
-                <textarea matInput formControlName="diagnostico"  placeholder="Diagnóstico" [disabled]="isDisabled8" [value] ="input8"></textarea>
+                <textarea matInput formControlName="diagnostico"  placeholder="Diagnóstico" [readonly]="read9" ></textarea>
               </mat-form-field>
           </div>
 
           <div class="col">
               <mat-form-field class="example-full-width">
-                <textarea matInput formControlName="tratamiento" placeholder="Tratamiento" [disabled]="isDisabled8" [value] ="input8"></textarea>
+                <textarea matInput formControlName="tratamiento" placeholder="Tratamiento" [readonly]="read9"  ></textarea>
               </mat-form-field>
           </div>
         </div>
@@ -1004,15 +1011,15 @@
           <p><mat-radio-group formControlName="traumaticos"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="triggerSomeEventSi9()">Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" (click)="triggerSomeEventNo9()">No</mat-radio-button>
+              <mat-radio-button value="Si" (click)="csi10()">Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="No" (click)="cno10()">No</mat-radio-button>
               <mat-error style="margin-inline-start: 5px;" *ngIf="traumaticos.hasError('required')">campo requerido!</mat-error>
             </mat-radio-group></p> 
         </div>
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_traumaticos"
           placeholder="Detallar inicio de enfermedad y tratamiento"
-          [disabled]="isDisabled9" [value] ="input9" ></textarea>
+          [readonly]="read10"  ></textarea>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -1034,7 +1041,7 @@
           
       </div>
     </form>
-  </mat-step>
+  </mat-step> 
 
 
 
@@ -1110,8 +1117,8 @@
           <p><mat-radio-group formControlName="alcohol"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">
-            <mat-radio-button value="Si" (click)="Mostrar()">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="Esconder()">No</mat-radio-button>
+            <mat-radio-button value="Si" (click)="csi11()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="cno11()">No</mat-radio-button>
             <mat-error style="margin-inline-start: 5px;" *ngIf="alcohol.hasError('required')">campo requerido!</mat-error>
 
           </mat-radio-group></p>
@@ -1119,7 +1126,8 @@
         </div>
         
         <mat-form-field  class="medium-width">
-            <textarea matInput formControlName="observacion_alcohol" [disabled]="des" [value] ="ingreso" placeholder="Detallar tiempo de uso y frecuencia"></textarea>
+            <textarea matInput formControlName="observacion_alcohol" placeholder="Detallar tiempo de uso y frecuencia" 
+            [readonly]="read11"></textarea>
         </mat-form-field>
   
   
@@ -1131,15 +1139,16 @@
             aria-labelledby="example-radio-group-label"
             class="example-radio-group"
             >
-            <mat-radio-button value="Si" (click)="Mostrar1()">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="Esconder1()">No</mat-radio-button>
+            <mat-radio-button value="Si" (click)="csi12()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="cno12()">No</mat-radio-button>
             <mat-error style="margin-inline-start: 5px;" *ngIf="tabaquismo.hasError('required')"> campo requerido!</mat-error>
 
           </mat-radio-group>
 
         </div>
         <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_tabaquismo" [disabled]="des1" [value] ="ingreso1" placeholder="Detallar tiempo de uso y frecuencia"></textarea>
+          <textarea matInput formControlName="observacion_tabaquismo"  placeholder="Detallar tiempo de uso y frecuencia"
+          [readonly]="read12"></textarea>
         </mat-form-field>
   
         <mat-divider></mat-divider>
@@ -1150,15 +1159,16 @@
             aria-labelledby="example-radio-group-label"
             class="example-radio-group"
             >
-            <mat-radio-button value="Si" (click)="Mostrar2()">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="Esconder2()">No</mat-radio-button>
+            <mat-radio-button value="Si" (click)="csi13()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="cno13()">No</mat-radio-button>
             <mat-error style="margin-inline-start: 5px;" *ngIf="marihuana.hasError('required')">campo requerido!</mat-error>
 
           </mat-radio-group>
 
         </div>
         <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_marihuana" [disabled]="des2" [value] ="ingreso2" placeholder="Detallar tiempo de uso y frecuencia"></textarea>
+          <textarea matInput formControlName="observacion_marihuana" 
+           placeholder="Detallar tiempo de uso y frecuencia" [readonly]="read13"></textarea>
         </mat-form-field>
   
         <mat-divider></mat-divider>
@@ -1169,15 +1179,16 @@
             aria-labelledby="example-radio-group-label"
             class="example-radio-group"
             >
-            <mat-radio-button value="Si" (click)="Mostrar3()">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="Esconder3()">No</mat-radio-button>
+            <mat-radio-button value="Si" (click)="csi14()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="cno14()">No</mat-radio-button>
             <mat-error style="margin-inline-start: 5px;" *ngIf="cocaina.hasError('required')">campo requerido!</mat-error>
 
           </mat-radio-group>
 
         </div>
         <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_cocaina"  [disabled]="des3" [value] ="ingreso3" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+          <textarea matInput formControlName="observacion_cocaina"  
+           placeholder="Detallar inicio de enfermedad y tratamiento" [readonly]="read14"></textarea>
         </mat-form-field>
   
         <mat-divider></mat-divider>
@@ -1268,8 +1279,8 @@
           <p><mat-radio-group formControlName="actividad_sexual"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="triggerSomeEventSiB10()">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="triggerSomeEventNoB10()">No</mat-radio-button>
+            <mat-radio-button value="Si" (click)="csi15()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="cno15()">No</mat-radio-button>
             <mat-error style="margin-inline-start: 5px;" *ngIf="actividad_sexuall.hasError('required')">campo requerido!</mat-error>
 
           </mat-radio-group></p> 
@@ -1279,13 +1290,13 @@
           <div class="col">
             <mat-form-field class="example-full-width">
               <input matInput formControlName="edad_inicio_sexual" type= "number" 
-              placeholder="Edad inicio vida sexual" [disabled]="isDisabledB10" [value] ="inputB10">
+              placeholder="Edad inicio vida sexual" [readonly]="read15">
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-full-width">
               <input matInput formControlName="numero_parejas_sexuales" type= "number" 
-              placeholder="Numero de parejas sexuales" [disabled]="isDisabledB10" [value] ="inputB10">
+              placeholder="Numero de parejas sexuales" [readonly]="read15">
             </mat-form-field>
           </div>
         </div>
@@ -1293,7 +1304,7 @@
         <div> 
           <mat-form-field class="example-full-width">
             <mat-label>Practica sexual de riesgo</mat-label>
-            <mat-select formControlName="practicas_sexuales_riesgo" name="practicas_sexuales_riesgo" [disabled]="isDisabledB10">
+            <mat-select formControlName="practicas_sexuales_riesgo" name="practicas_sexuales_riesgo" [disabled]="isDisabledB25">
               <mat-option *ngFor="let practica_sexual of practicas_sexuales" [value]="practica_sexual.value">
                 {{practica_sexual.viewValue}}
               </mat-option>
@@ -1403,8 +1414,8 @@
             <p><mat-radio-group formControlName="citologia" 
               aria-labelledby="example-radio-group-label"
               class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="triggerSomeEventSiB11()">Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" (click)="triggerSomeEventNoB11()">No</mat-radio-button>
+              <mat-radio-button value="Si" (click)="csi17()">Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="No" (click)="cno17()">No</mat-radio-button>
               <mat-error style="margin-inline-start: 5px;" *ngIf="citologia.hasError('required')">campo requerido!</mat-error>
 
             </mat-radio-group></p> 
@@ -1413,14 +1424,14 @@
           <div class="col">
             <mat-form-field class="example-full-width">
               <input matInput formControlName="fecha_citologia" [min]="minDate" [max]="maxDate" 
-              [matDatepicker]="picker4" placeholder="Fecha Citología" [disabled]="isDisabledB11" [value] ="inputB11">
+              [matDatepicker]="picker4" placeholder="Fecha Citología" [readonly]="read17">
               <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
               <mat-datepicker #picker4></mat-datepicker>
             </mat-form-field>
           </div>
           <mat-form-field class="example-full-width">
             <textarea matInput formControlName="resultado_citologia" placeholder="Resultado Citología" 
-            [disabled]="isDisabledB11" ></textarea>
+            [readonly]="read17"></textarea>
           </mat-form-field>
         </div>
 
@@ -1635,8 +1646,8 @@
           <p><mat-radio-group formControlName="planificacion_familiar" 
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="triggerSomeEventSiB12()">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="triggerSomeEventNoB12()">No</mat-radio-button>
+            <mat-radio-button value="Si" (click)="csi16()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="cno16()">No</mat-radio-button>
             <mat-error style="margin-inline-start: 5px;" *ngIf="planificacion_familiarr.hasError('required')">campo requerido!</mat-error>
 
           </mat-radio-group></p> 
@@ -1645,7 +1656,7 @@
         <div>
           <mat-form-field>
             <mat-label>Método de planificación</mat-label>
-            <mat-select name="metodo_planificacion" formControlName="metodo_planificacion"  [disabled]="isDisabledB12">
+            <mat-select name="metodo_planificacion" formControlName="metodo_planificacion"  [disabled]="isDisabledB26">
               <mat-option *ngFor="let metodo of metodos" [value]="metodo.value">
                 {{metodo.viewValue}}
               </mat-option>
@@ -1655,7 +1666,7 @@
         </div>
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_planificacion"
-           placeholder="Observación" [disabled]="isDisabledB12" [value]="inputB12"></textarea>
+           placeholder="Observación" [readonly]="read16"></textarea>
         </mat-form-field>
         <div>
           <button  disabled="{{formulario_planificacion_familiar.invalid}}" mat-raised-button matStepperNext class="btn btn-outline-primary float-right" (click)="enviarDatos()">Enviar</button>
