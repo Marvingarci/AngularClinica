@@ -16,6 +16,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Login } from '../interfaces/login';
 
+
 export interface Loginadmin {
   value: string;
   viewValue: string;
@@ -104,6 +105,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher{
 
 
 export class FormularioComponent implements OnInit {
+  datosGenerales: string = 'Datos Generales';
+  antecedentesFamiliares: string = 'Antecedentes Familiares';
+  antecedentesPersonales: string = 'Antecedente Personales';
+  habitosToxicologicosPersonales: string = 'Habitos Toxicologicos Personales';
+  actividadSexualYReproductiva: string = 'Actividad Sexual Y Reproductiva';
+  antecedentesGinecologicos: string = 'Antecedentes Ginecologicos';
+  antecedentesObstetricos: string = 'Antecedentes Obstétricos';
+  planificacionFamiliar: string = 'Planificacion Familiar';
+
+  
 
   datosScraping: Login = {
     cuenta: null,
@@ -117,6 +128,7 @@ export class FormularioComponent implements OnInit {
 
 
   formulario_datos_generales = new FormGroup({
+
 
       
       nombre_completo: new FormControl('', [Validators.required]),
@@ -157,13 +169,10 @@ export class FormularioComponent implements OnInit {
     convulsiones : new FormControl('',[Validators.required]),
     observacion_convulsiones : new FormControl({value:'', disabled: true},[]),
     alcoholismo_sustancias_psicoactivas : new FormControl('',[Validators.required]),
-    observacion_alcoholismo_sustancias_psicoactivas: new FormControl({value:'', disabled: true},[]),
-    
+    observacion_alcoholismo_sustancias_psicoactivas: new FormControl({value:'', disabled: true},[]),    
     alergias : new FormControl('',[Validators.required]),
     observacion_alergias: new FormControl({value:'', disabled: true},[]),
     tipo_alergia: new FormControl({value:'', disabled: true},[]),
-
-
     cancer : new FormControl('',[Validators.required]),
     observacion_cancer: new FormControl({value:'', disabled: true},[]),
     tipo_cancer: new FormControl({value:'', disabled: true},[]),
@@ -178,7 +187,7 @@ export class FormularioComponent implements OnInit {
   formulario_antecedentes_personales = new FormGroup({
   
     diabetes : new FormControl('',[Validators.required]),
-    observacion_diabetes : new FormControl('',[]),
+    observacion_diabetes : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),  
     tb_pulmonar : new FormControl('',[Validators.required]),
     observacion_tb_pulmonar : new FormControl('',[]),
     its : new FormControl('',[Validators.required]),
@@ -343,12 +352,7 @@ read14 = true;
 csi14() { this.read14 = false;}
 cno14() {this.read14 = true;  }
 
-read15 = true;
-isDisabledB25 = true;
-csi15() { this.read15 = false;
-          this.isDisabledB25 = false;}
-cno15() {this.read15 = true;  
-  this.isDisabledB25 = true;}
+
 
   read16 = true;
 isDisabledB26 = true;
@@ -361,6 +365,9 @@ cno16() {this.read16 = true;
 csi17() { this.read17 = false;}
 cno17() {this.read17 = true;  }
 
+ya(){
+  alert('macizo');
+}
 
 
 
@@ -449,30 +456,35 @@ triggerSomeEventNoB9() {
   this.isDisabledB9 = true; 
   }
 
-isDisabledB10 = true;
-inputB10 : string ;
-triggerSomeEventSiB10() { 
+  
 
+  
+read15 = true;
+isDisabledB25 = true;
+
+csi15() { 
   console.log(this.formulario_datos_generales.get('sexo').value);
   
   if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-    this.isDisabledB10 = false;
+    this.read15 = false;
+          this.isDisabledB25 = false;
   }else{
-    this.isDisabledB10 = false;
+    this.read15 = false;
+          this.isDisabledB25 = false;
     this.ocultar=false;
   }
   
   
 }
-triggerSomeEventNoB10() {  
+cno15() {  
   console.log(this.formulario_datos_generales.get('sexo').value);
 
   if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-    this.inputB10  =null ;
-    this.isDisabledB10 = true; 
+    this.read15 = true;  
+  this.isDisabledB25 = true; 
   }else{
-    this.inputB10  =null ;
-    this.isDisabledB10 = true; 
+    this.read15 = true;  
+  this.isDisabledB25 = true;
     this.ocultar=true;
   }
 }
