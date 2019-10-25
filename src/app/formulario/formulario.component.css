@@ -9,10 +9,6 @@ mat-horizontal-stepper{
   justify-content: center;
 }
 
-#stepper::header{
-  color: #1fb7f3;
-}
-
 .container{
   /* height: 450px; */
   height: 80%;
@@ -105,8 +101,4 @@ mat-divider {
 
 .example-radio-button {
   margin: 5px;
-}
-
-mat-error{
-  margin-bottom: 10px;
 }
