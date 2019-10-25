@@ -4,23 +4,31 @@
 
   <h3>Ya casi terminamos loque queremos que hagas es establecer un contrase;a para ingresar al sistema de la clinica</h3>
   <form [formGroup]="Nueva">
-  <mat-form-field class="example-full-width">
-        <input matInput formControlName= "nuevaContra"  placeholder="Ingrese una nueva contre;a">
-    
-        
+          <mat-form-field class="example-full-width">                
+              <input matInput  
+              placeholder="Ingrese su nueva contraseña" [type]="hide ? 'password' : 'text'"
+              formControlName="nuevaContra">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+              <mat-error *ngIf="nuevaContra.hasError('required') ">ingrese la contraseña!</mat-error>
+            </mat-form-field>
 
-      </mat-form-field>
-      <br>
-      <mat-form-field class="example-full-width">
-        
-            <input matInput formControlName= "nuevaContraRep"  placeholder="Repita la contrase;a">
-            
-    
-          </mat-form-field>
+<br>
+            <mat-form-field class="example-full-width">                
+                <input matInput  
+                placeholder="Repita su contraseña" [type]="hide ? 'password' : 'text'"
+                formControlName="nuevaContraRep">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                <mat-error *ngIf="nuevaContraRep.hasError('required') ">ingrese la contraseña!</mat-error>
+              </mat-form-field>
+
     </form>
     
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="guardar()" mat-dialog-close>guardar</button>
+  <button mat-button (click)="guardar()" >guardar</button>
 </mat-dialog-actions>

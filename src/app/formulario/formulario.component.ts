@@ -13,7 +13,6 @@ import { AppComponent } from "../app.component";
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Login } from '../interfaces/login';
 
 
@@ -122,8 +121,8 @@ export class FormularioComponent implements OnInit {
     nombre: null,
     carrera : null,
     centro : null,
-    indice_global : null,
-    indice_periodo : null,  
+    numero_identidad : null,
+     
   }
 
 
@@ -959,7 +958,7 @@ ocultar: boolean = true;
         this.antecedente_personal.observacion_traumaticos = this.formulario_antecedentes_personales.get('observacion_traumaticos').value;
         this.antecedente_personal.otros = this.formulario_antecedentes_personales.get('otros').value;
         this.antecedente_personal.observacion_otros = this.formulario_antecedentes_personales.get('observacion_otros').value;
-    
+        this.antecedente_personal.id_paciente = this.datosScraping.id_login;
         
         this.formularioService.guardarAntecedentesPersonales(this.antecedente_personal).subscribe( (data) =>{
           console.log(data);
@@ -985,7 +984,8 @@ ocultar: boolean = true;
         this.habito_toxicologico_personal.observacion_cocaina = this.formulario_habito_toxicologico_personal.get('observacion_cocaina').value;
         this.habito_toxicologico_personal.otros = this.formulario_habito_toxicologico_personal.get('otros').value;
         this.habito_toxicologico_personal.observacion_otros = this.formulario_habito_toxicologico_personal.get('observacion_otros').value;
-      
+        this.habito_toxicologico_personal.id_paciente = this.datosScraping.id_login;
+
         this.formularioService.guardarHabitosToxicologicosPersonales(this.habito_toxicologico_personal).subscribe( (data) =>{
           console.log(data);
         }, (error) => {
@@ -1002,6 +1002,7 @@ ocultar: boolean = true;
         this.actividad_sexual.edad_inicio_sexual = this.formulario_actividad_sexual.get('edad_inicio_sexual').value;
         this.actividad_sexual.numero_parejas_sexuales = this.formulario_actividad_sexual.get('numero_parejas_sexuales').value;
         this.actividad_sexual.practicas_sexuales_riesgo = this.formulario_actividad_sexual.get('practicas_sexuales_riesgo').value;
+        this.actividad_sexual.id_paciente = this.datosScraping.id_login;
 
         this.formularioService.guardarActividadSexual(this.actividad_sexual).subscribe( (data) =>{
           console.log(data);
@@ -1027,6 +1028,7 @@ ocultar: boolean = true;
           this.antecedente_ginecologico.duracion_ciclo_menstrual = this.formulario_antecedente_ginecologico.get('duracion_ciclo_menstrual').value;
           this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.formulario_antecedente_ginecologico.get('periocidad_ciclo_menstrual').value;
           this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.formulario_antecedente_ginecologico.get('caracteristicas_ciclo_menstrual').value;
+          this.antecedente_ginecologico.id_paciente = this.datosScraping.id_login;
 
           this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico).subscribe( (data) =>{
             console.log(data);
@@ -1050,7 +1052,7 @@ ocultar: boolean = true;
           this.antecedente_obstetrico.fecha_termino_ult_embarazo = this.formulario_antecedente_obstetrico.get('fecha_termino_ult_embarazo').value;
           this.antecedente_obstetrico.descripcion_termino_ult_embarazo = this.formulario_antecedente_obstetrico.get('descripcion_termino_ult_embarazo').value;
           this.antecedente_obstetrico.observaciones = this.formulario_antecedente_obstetrico.get('observaciones').value;  
-  
+          this.antecedente_obstetrico.id_paciente = this.datosScraping.id_login;
   
           this.formularioService.guardarAntecedentesObstetricos(this.antecedente_obstetrico).subscribe( (data) =>{
             console.log(data);
@@ -1072,7 +1074,8 @@ ocultar: boolean = true;
         this.planificacion_familiar.planificacion_familiar = this.formulario_planificacion_familiar.get('planificacion_familiar').value;
         this.planificacion_familiar.metodo_planificacion = this.formulario_planificacion_familiar.get('metodo_planificacion').value;
         this.planificacion_familiar.observacion_planificacion = this.formulario_planificacion_familiar.get('observacion_planificacion').value;
-
+        this.planificacion_familiar.id_paciente = this.datosScraping.id_login;
+        
         this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiar).subscribe( (data) =>{
           console.log(data);
         }, (error) => {
@@ -1084,7 +1087,10 @@ ocultar: boolean = true;
       }else{
         this.error= true;
       }
-      
+
+
+    // alert ('los datos se enviarion');      
+    // this.router.navigate(['datoPaciente/'+this.datosScraping.id_login]);
 
       this.obtener();  
       for (let index = 0; index < 10; index++) {
@@ -1096,15 +1102,15 @@ ocultar: boolean = true;
       this.obtener();
      }
 
+     //borro los datos que se habian recuperado del scraping 
      this.datosScraping.id_login=  null;
      this.datosScraping.cuenta = null;
      this.datosScraping.clave = null;
      this.datosScraping.nombre = null;
      this.datosScraping.carrera = null;
-     this.datosScraping.indice_global = null;
-     this.datosScraping.indice_periodo = null;
+     this.datosScraping.numero_identidad = null;
      
-     alert ('los datos se enviarion');
+     
     
   };
 
