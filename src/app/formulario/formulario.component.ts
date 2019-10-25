@@ -177,7 +177,7 @@ export class FormularioComponent implements OnInit {
     tipo_cancer: new FormControl({value:'', disabled: true},[]),
     hipertension_arterial: new FormControl('',[Validators.required]),
     observacion_hipertension_arterial: new FormControl({value:'', disabled: true},[]),
-    otros : new FormControl('',[]),
+    otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]), 
     observacion_otros : new FormControl('',[]),
       
   });
@@ -188,66 +188,66 @@ export class FormularioComponent implements OnInit {
     diabetes : new FormControl('',[Validators.required]),
     observacion_diabetes : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),  
     tb_pulmonar : new FormControl('',[Validators.required]),
-    observacion_tb_pulmonar : new FormControl('',[]),
+    observacion_tb_pulmonar : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     its : new FormControl('',[Validators.required]),
-    observacion_its : new FormControl('',[]),
+    observacion_its : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     desnutricion : new FormControl('',[Validators.required]),
-    observacion_desnutricion : new FormControl('',[]),
+    observacion_desnutricion : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     tipo_desnutricion: new FormControl('',[]),
     enfermedades_mentales : new FormControl('',[Validators.required]),
-    observacion_enfermedades_mentales : new FormControl('',[]),
+    observacion_enfermedades_mentales : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     tipo_enfermedad_mental: new FormControl('',[]),
     convulsiones : new FormControl('',[Validators.required]),
-    observacion_convulsiones : new FormControl('',[]),
+    observacion_convulsiones : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     alergias : new FormControl('',[Validators.required]),
-    observacion_alergias : new FormControl('',[]),
+    observacion_alergias : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     tipo_alergia: new FormControl('',[]),
     cancer : new FormControl('',[Validators.required]),
-    observacion_cancer : new FormControl('',[]),
+    observacion_cancer : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     tipo_cancer: new FormControl('',[]),
     hospitalarias_quirurgicas : new FormControl('',[Validators.required]),
     fecha_antecedente_hospitalario: new FormControl('',[]),
-    tratamiento: new FormControl('',[]),
-    diagnostico: new FormControl('',[]),
-    tiempo_hospitalizacion: new FormControl('',[]),
+    tratamiento: new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    diagnostico: new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    tiempo_hospitalizacion: new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     traumaticos : new FormControl('',[Validators.required]),
-    observacion_traumaticos : new FormControl('',[]),
-    otros : new FormControl('',[]),
-    observacion_otros : new FormControl('',[]),
+    observacion_traumaticos : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    observacion_otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
   });
 
   formulario_habito_toxicologico_personal = new FormGroup({
 
     alcohol : new FormControl('',[Validators.required]),
-    observacion_alcohol : new FormControl(''),
+    observacion_alcohol : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     tabaquismo : new FormControl('',[Validators.required]),
-    observacion_tabaquismo : new FormControl(''),
+    observacion_tabaquismo : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     marihuana : new FormControl('',[Validators.required]),
-    observacion_marihuana : new FormControl(''),
+    observacion_marihuana : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     cocaina : new FormControl('',[Validators.required]),
-    observacion_cocaina : new FormControl(''),
-    otros : new FormControl(''),
-    observacion_otros : new FormControl('')
+    observacion_cocaina : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    observacion_otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
 
   });
 
   formulario_actividad_sexual = new FormGroup({
 
     actividad_sexual : new FormControl('', Validators.required),
-    edad_inicio_sexual : new FormControl(''),
-    numero_parejas_sexuales : new FormControl(''),
+    edad_inicio_sexual : new FormControl('', [ Validators.max(50)]),
+    numero_parejas_sexuales : new FormControl('', [ Validators.max(99)]),
     practicas_sexuales_riesgo : new FormControl(''),
   
   });
 
   formulario_antecedente_ginecologico = new FormGroup ({
 
-    edad_inicio_menstruacion : new FormControl('',[Validators.required]),
+    edad_inicio_menstruacion : new FormControl('',[Validators.required,Validators.max(15),Validators.min(7)]),
     fum : new FormControl('',[Validators.required]),
     citologia : new FormControl('',[Validators.required]),
     fecha_citologia : new FormControl(''),
-    resultado_citologia : new FormControl(''),
-    duracion_ciclo_menstrual : new FormControl('', [Validators.required]),
+    resultado_citologia : new FormControl('', [ Validators.maxLength(60),Validators.minLength(3)]),
+    duracion_ciclo_menstrual : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     periocidad_ciclo_menstrual : new FormControl('',[Validators.required]),
     caracteristicas_ciclo_menstrual : new FormControl('',[Validators.required])
 
@@ -258,20 +258,20 @@ export class FormularioComponent implements OnInit {
 
     planificacion_familiar : new FormControl('',Validators.required),
     metodo_planificacion : new FormControl(''),
-    observacion_planificacion : new FormControl(''),
+    observacion_planificacion : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     
   });
 
   formulario_antecedente_obstetrico = new FormGroup({
 
-    partos: new FormControl(''),
-    abortos: new FormControl(''),
-    cesarias: new FormControl(''),
-    hijos_vivos: new FormControl(''),
-    hijos_muertos: new FormControl(''),
+    partos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
+    abortos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
+    cesarias: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
+    hijos_vivos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
+    hijos_muertos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
     fecha_termino_ult_embarazo : new FormControl(''),
     descripcion_termino_ult_embarazo : new FormControl(''),
-    observaciones : new FormControl(''),
+    observaciones : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
   
   });
   
