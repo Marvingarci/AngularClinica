@@ -6,6 +6,7 @@ export interface Login {
     carrera? : string;
     centro? : string;
     numero_identidad?: string;
+    imagen?: string;
     created_at? : string;
     updated_at? : string;
 }
