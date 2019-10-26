@@ -30,7 +30,7 @@ export interface AntecedentesPersonales {
     observacion_traumaticos? : string;
     otros? : string;
     observacion_otros? : string;
-    id_paciente? : string;
+    id_paciente? : number;
     created_at? : string;
     updated_at? : string;
 }

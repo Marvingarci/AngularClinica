@@ -5,8 +5,7 @@ export interface Login {
     nombre?: string;
     carrera? : string;
     centro? : string;
-    indice_global? : string;
-    indice_periodo? : string;  
+    numero_identidad?: string;
     created_at? : string;
     updated_at? : string;
 }

@@ -13,8 +13,8 @@ import { AppComponent } from "../app.component";
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Login } from '../interfaces/login';
+
 
 export interface Loginadmin {
   value: string;
@@ -104,6 +104,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher{
 
 
 export class FormularioComponent implements OnInit {
+  datosGenerales: string = 'Datos Generales';
+  antecedentesFamiliares: string = 'Antecedentes Familiares';
+  antecedentesPersonales: string = 'Antecedente Personales';
+  habitosToxicologicosPersonales: string = 'Habitos Toxicologicos Personales';
+  actividadSexualYReproductiva: string = 'Actividad Sexual Y Reproductiva';
+  antecedentesGinecologicos: string = 'Antecedentes Ginecologicos';
+  antecedentesObstetricos: string = 'Antecedentes Obstétricos';
+  planificacionFamiliar: string = 'Planificacion Familiar';
+
+  
 
   datosScraping: Login = {
     cuenta: null,
@@ -111,12 +121,13 @@ export class FormularioComponent implements OnInit {
     nombre: null,
     carrera : null,
     centro : null,
-    indice_global : null,
-    indice_periodo : null,  
+    numero_identidad : null,
+     
   }
 
 
   formulario_datos_generales = new FormGroup({
+
 
       
       nombre_completo: new FormControl('', [Validators.required]),
@@ -157,19 +168,16 @@ export class FormularioComponent implements OnInit {
     convulsiones : new FormControl('',[Validators.required]),
     observacion_convulsiones : new FormControl({value:'', disabled: true},[]),
     alcoholismo_sustancias_psicoactivas : new FormControl('',[Validators.required]),
-    observacion_alcoholismo_sustancias_psicoactivas: new FormControl({value:'', disabled: true},[]),
-    
+    observacion_alcoholismo_sustancias_psicoactivas: new FormControl({value:'', disabled: true},[]),    
     alergias : new FormControl('',[Validators.required]),
     observacion_alergias: new FormControl({value:'', disabled: true},[]),
     tipo_alergia: new FormControl({value:'', disabled: true},[]),
-
-
     cancer : new FormControl('',[Validators.required]),
     observacion_cancer: new FormControl({value:'', disabled: true},[]),
     tipo_cancer: new FormControl({value:'', disabled: true},[]),
     hipertension_arterial: new FormControl('',[Validators.required]),
     observacion_hipertension_arterial: new FormControl({value:'', disabled: true},[]),
-    otros : new FormControl('',[]),
+    otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]), 
     observacion_otros : new FormControl('',[]),
       
   });
@@ -178,68 +186,68 @@ export class FormularioComponent implements OnInit {
   formulario_antecedentes_personales = new FormGroup({
   
     diabetes : new FormControl('',[Validators.required]),
-    observacion_diabetes : new FormControl('',[]),
+    observacion_diabetes : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),  
     tb_pulmonar : new FormControl('',[Validators.required]),
-    observacion_tb_pulmonar : new FormControl('',[]),
+    observacion_tb_pulmonar : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     its : new FormControl('',[Validators.required]),
-    observacion_its : new FormControl('',[]),
+    observacion_its : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     desnutricion : new FormControl('',[Validators.required]),
-    observacion_desnutricion : new FormControl('',[]),
+    observacion_desnutricion : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     tipo_desnutricion: new FormControl('',[]),
     enfermedades_mentales : new FormControl('',[Validators.required]),
-    observacion_enfermedades_mentales : new FormControl('',[]),
+    observacion_enfermedades_mentales : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     tipo_enfermedad_mental: new FormControl('',[]),
     convulsiones : new FormControl('',[Validators.required]),
-    observacion_convulsiones : new FormControl('',[]),
+    observacion_convulsiones : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     alergias : new FormControl('',[Validators.required]),
-    observacion_alergias : new FormControl('',[]),
+    observacion_alergias : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     tipo_alergia: new FormControl('',[]),
     cancer : new FormControl('',[Validators.required]),
-    observacion_cancer : new FormControl('',[]),
+    observacion_cancer : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     tipo_cancer: new FormControl('',[]),
     hospitalarias_quirurgicas : new FormControl('',[Validators.required]),
     fecha_antecedente_hospitalario: new FormControl('',[]),
-    tratamiento: new FormControl('',[]),
-    diagnostico: new FormControl('',[]),
-    tiempo_hospitalizacion: new FormControl('',[]),
+    tratamiento: new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    diagnostico: new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    tiempo_hospitalizacion: new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     traumaticos : new FormControl('',[Validators.required]),
-    observacion_traumaticos : new FormControl('',[]),
-    otros : new FormControl('',[]),
-    observacion_otros : new FormControl('',[]),
+    observacion_traumaticos : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    observacion_otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
   });
 
   formulario_habito_toxicologico_personal = new FormGroup({
 
     alcohol : new FormControl('',[Validators.required]),
-    observacion_alcohol : new FormControl(''),
+    observacion_alcohol : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     tabaquismo : new FormControl('',[Validators.required]),
-    observacion_tabaquismo : new FormControl(''),
+    observacion_tabaquismo : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     marihuana : new FormControl('',[Validators.required]),
-    observacion_marihuana : new FormControl(''),
+    observacion_marihuana : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     cocaina : new FormControl('',[Validators.required]),
-    observacion_cocaina : new FormControl(''),
-    otros : new FormControl(''),
-    observacion_otros : new FormControl('')
+    observacion_cocaina : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    observacion_otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
 
   });
 
   formulario_actividad_sexual = new FormGroup({
 
     actividad_sexual : new FormControl('', Validators.required),
-    edad_inicio_sexual : new FormControl(''),
-    numero_parejas_sexuales : new FormControl(''),
+    edad_inicio_sexual : new FormControl('', [ Validators.max(50)]),
+    numero_parejas_sexuales : new FormControl('', [ Validators.max(99)]),
     practicas_sexuales_riesgo : new FormControl(''),
   
   });
 
   formulario_antecedente_ginecologico = new FormGroup ({
 
-    edad_inicio_menstruacion : new FormControl('',[Validators.required]),
+    edad_inicio_menstruacion : new FormControl('',[Validators.required,Validators.max(15),Validators.min(7)]),
     fum : new FormControl('',[Validators.required]),
     citologia : new FormControl('',[Validators.required]),
     fecha_citologia : new FormControl(''),
-    resultado_citologia : new FormControl(''),
-    duracion_ciclo_menstrual : new FormControl('', [Validators.required]),
+    resultado_citologia : new FormControl('', [ Validators.maxLength(60),Validators.minLength(3)]),
+    duracion_ciclo_menstrual : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     periocidad_ciclo_menstrual : new FormControl('',[Validators.required]),
     caracteristicas_ciclo_menstrual : new FormControl('',[Validators.required])
 
@@ -250,20 +258,20 @@ export class FormularioComponent implements OnInit {
 
     planificacion_familiar : new FormControl('',Validators.required),
     metodo_planificacion : new FormControl(''),
-    observacion_planificacion : new FormControl(''),
+    observacion_planificacion : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     
   });
 
   formulario_antecedente_obstetrico = new FormGroup({
 
-    partos: new FormControl(''),
-    abortos: new FormControl(''),
-    cesarias: new FormControl(''),
-    hijos_vivos: new FormControl(''),
-    hijos_muertos: new FormControl(''),
+    partos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
+    abortos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
+    cesarias: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
+    hijos_vivos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
+    hijos_muertos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
     fecha_termino_ult_embarazo : new FormControl(''),
     descripcion_termino_ult_embarazo : new FormControl(''),
-    observaciones : new FormControl(''),
+    observaciones : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
   
   });
   
@@ -343,12 +351,7 @@ read14 = true;
 csi14() { this.read14 = false;}
 cno14() {this.read14 = true;  }
 
-read15 = true;
-isDisabledB25 = true;
-csi15() { this.read15 = false;
-          this.isDisabledB25 = false;}
-cno15() {this.read15 = true;  
-  this.isDisabledB25 = true;}
+
 
   read16 = true;
 isDisabledB26 = true;
@@ -361,6 +364,9 @@ cno16() {this.read16 = true;
 csi17() { this.read17 = false;}
 cno17() {this.read17 = true;  }
 
+ya(){
+  alert('macizo');
+}
 
 
 
@@ -449,30 +455,35 @@ triggerSomeEventNoB9() {
   this.isDisabledB9 = true; 
   }
 
-isDisabledB10 = true;
-inputB10 : string ;
-triggerSomeEventSiB10() { 
+  
 
+  
+read15 = true;
+isDisabledB25 = true;
+
+csi15() { 
   console.log(this.formulario_datos_generales.get('sexo').value);
   
   if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-    this.isDisabledB10 = false;
+    this.read15 = false;
+          this.isDisabledB25 = false;
   }else{
-    this.isDisabledB10 = false;
+    this.read15 = false;
+          this.isDisabledB25 = false;
     this.ocultar=false;
   }
   
   
 }
-triggerSomeEventNoB10() {  
+cno15() {  
   console.log(this.formulario_datos_generales.get('sexo').value);
 
   if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-    this.inputB10  =null ;
-    this.isDisabledB10 = true; 
+    this.read15 = true;  
+  this.isDisabledB25 = true; 
   }else{
-    this.inputB10  =null ;
-    this.isDisabledB10 = true; 
+    this.read15 = true;  
+  this.isDisabledB25 = true;
     this.ocultar=true;
   }
 }
@@ -947,7 +958,7 @@ ocultar: boolean = true;
         this.antecedente_personal.observacion_traumaticos = this.formulario_antecedentes_personales.get('observacion_traumaticos').value;
         this.antecedente_personal.otros = this.formulario_antecedentes_personales.get('otros').value;
         this.antecedente_personal.observacion_otros = this.formulario_antecedentes_personales.get('observacion_otros').value;
-    
+        this.antecedente_personal.id_paciente = this.datosScraping.id_login;
         
         this.formularioService.guardarAntecedentesPersonales(this.antecedente_personal).subscribe( (data) =>{
           console.log(data);
@@ -973,7 +984,8 @@ ocultar: boolean = true;
         this.habito_toxicologico_personal.observacion_cocaina = this.formulario_habito_toxicologico_personal.get('observacion_cocaina').value;
         this.habito_toxicologico_personal.otros = this.formulario_habito_toxicologico_personal.get('otros').value;
         this.habito_toxicologico_personal.observacion_otros = this.formulario_habito_toxicologico_personal.get('observacion_otros').value;
-      
+        this.habito_toxicologico_personal.id_paciente = this.datosScraping.id_login;
+
         this.formularioService.guardarHabitosToxicologicosPersonales(this.habito_toxicologico_personal).subscribe( (data) =>{
           console.log(data);
         }, (error) => {
@@ -990,6 +1002,7 @@ ocultar: boolean = true;
         this.actividad_sexual.edad_inicio_sexual = this.formulario_actividad_sexual.get('edad_inicio_sexual').value;
         this.actividad_sexual.numero_parejas_sexuales = this.formulario_actividad_sexual.get('numero_parejas_sexuales').value;
         this.actividad_sexual.practicas_sexuales_riesgo = this.formulario_actividad_sexual.get('practicas_sexuales_riesgo').value;
+        this.actividad_sexual.id_paciente = this.datosScraping.id_login;
 
         this.formularioService.guardarActividadSexual(this.actividad_sexual).subscribe( (data) =>{
           console.log(data);
@@ -1015,6 +1028,7 @@ ocultar: boolean = true;
           this.antecedente_ginecologico.duracion_ciclo_menstrual = this.formulario_antecedente_ginecologico.get('duracion_ciclo_menstrual').value;
           this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.formulario_antecedente_ginecologico.get('periocidad_ciclo_menstrual').value;
           this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.formulario_antecedente_ginecologico.get('caracteristicas_ciclo_menstrual').value;
+          this.antecedente_ginecologico.id_paciente = this.datosScraping.id_login;
 
           this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico).subscribe( (data) =>{
             console.log(data);
@@ -1038,7 +1052,7 @@ ocultar: boolean = true;
           this.antecedente_obstetrico.fecha_termino_ult_embarazo = this.formulario_antecedente_obstetrico.get('fecha_termino_ult_embarazo').value;
           this.antecedente_obstetrico.descripcion_termino_ult_embarazo = this.formulario_antecedente_obstetrico.get('descripcion_termino_ult_embarazo').value;
           this.antecedente_obstetrico.observaciones = this.formulario_antecedente_obstetrico.get('observaciones').value;  
-  
+          this.antecedente_obstetrico.id_paciente = this.datosScraping.id_login;
   
           this.formularioService.guardarAntecedentesObstetricos(this.antecedente_obstetrico).subscribe( (data) =>{
             console.log(data);
@@ -1060,7 +1074,8 @@ ocultar: boolean = true;
         this.planificacion_familiar.planificacion_familiar = this.formulario_planificacion_familiar.get('planificacion_familiar').value;
         this.planificacion_familiar.metodo_planificacion = this.formulario_planificacion_familiar.get('metodo_planificacion').value;
         this.planificacion_familiar.observacion_planificacion = this.formulario_planificacion_familiar.get('observacion_planificacion').value;
-
+        this.planificacion_familiar.id_paciente = this.datosScraping.id_login;
+        
         this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiar).subscribe( (data) =>{
           console.log(data);
         }, (error) => {
@@ -1072,7 +1087,10 @@ ocultar: boolean = true;
       }else{
         this.error= true;
       }
-      
+
+
+    // alert ('los datos se enviarion');      
+    // this.router.navigate(['datoPaciente/'+this.datosScraping.id_login]);
 
       this.obtener();  
       for (let index = 0; index < 10; index++) {
@@ -1084,15 +1102,15 @@ ocultar: boolean = true;
       this.obtener();
      }
 
+     //borro los datos que se habian recuperado del scraping 
      this.datosScraping.id_login=  null;
      this.datosScraping.cuenta = null;
      this.datosScraping.clave = null;
      this.datosScraping.nombre = null;
      this.datosScraping.carrera = null;
-     this.datosScraping.indice_global = null;
-     this.datosScraping.indice_periodo = null;
+     this.datosScraping.numero_identidad = null;
      
-     alert ('los datos se enviarion');
+     
     
   };
 
