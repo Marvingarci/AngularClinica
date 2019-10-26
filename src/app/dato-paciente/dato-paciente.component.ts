@@ -23,6 +23,7 @@ export class DatoPacienteComponent implements OnInit {
     nombre_completo: null,
     numero_cuenta: null,
     numero_identidad: null,
+    imagen: null,
     lugar_procedencia: null,
     direccion: null,
     carrera: null,
