@@ -5,6 +5,7 @@ export interface Paciente {
     nombre_completo: string;
     numero_cuenta: string;
     numero_identidad: string;
+    imagen?: string;
     lugar_procedencia: string;
     direccion: string;
     carrera: string;
