@@ -1,36 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { Paciente } from '../interfaces/paciente';
+import { Component, OnInit , ViewChild} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormularioService } from '../services/formulario.service';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-export interface Paciente2{
-  id_paciente: number;
-  nombre: string;
-  numero_cuenta: string;
-  fecha: Date;
-  tel: string;
-  Identidad: string;
+
+export interface Paciente {
+  id_paciente?: number;
+  numero_paciente?: string;
+  contrasenia?: string;
+  nombre_completo?: string;
+  numero_cuenta?: string;
+  numero_identidad?: string;
+  lugar_procedencia?: string;
+  direccion?: string;
+  carrera?: string;
+  fecha_nacimiento?: string;
+  sexo?: string;
+  estado_civil?: string;
+  seguro_medico?: string;
+  numero_telefono?: string;
+  emergencia_telefono?: string;
+  peso?: string;
+  talla?: string;
+  imc?: string;
+  temperatura?: string;
+  presion?: string;
+  pulso?: string;
+  estudiante?: boolean;
+  empleado?: boolean;
+  visitante?: boolean;
+  prosene?: boolean;
+  created_at?:string;
+  updated_at?:string;
+  nada:string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Marvin', weight: 1.23, symbol: 'HM'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+
+
 
 @Component({
   selector: 'app-paciente',
@@ -38,48 +45,48 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./paciente.component.css']
 })
 export class PacienteComponent implements OnInit {
-
+  
   API_ENDPOINT = 'http://apiclinicaunah.test/api/';
   pacientes: Paciente[];
-  pacientes2: Paciente2[];
+  dataSource: any;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
 
   constructor( private pacienteService: FormularioService, private httpClient: HttpClient ) { 
     this.getPacientes();
 
+
    
-    /*let pacientes;
-    for(let paciente of this.pacientes){
-      this.pacientes2[paciente.id_paciente].id_paciente = paciente.id_paciente;
-      this.pacientes2[paciente.id_paciente].nombre = paciente.primer_nombre;
-      this.pacientes2[paciente.id_paciente].Identidad = paciente.numero_identidad;
-      this.pacientes2[paciente.id_paciente].tel = paciente.numero_telefono;
-      this.pacientes2[paciente.id_paciente].numero_cuenta = paciente.numero_cuenta;
-    }
-    console.log(this.pacientes2);*/
-    
   }
   
   getPacientes(){
     this.pacienteService.get().subscribe((data: Paciente[]) =>{
-      this.pacientes = data;
-      
-      console.log(data);
+      this.dataSource =  new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+
+      console.log(this.pacientes);
+
     },(error)=>{
       console.log(error);
       alert('Ocurrio un error');
     });
   }
 
-  displayedColumns: string[] = ['id_paciente', 'nombre', 'Identidad', 'tel', 'Numero_Cuenta'];
-  dataSource = new MatTableDataSource(this.pacientes2);
+  displayedColumns: string[] = ['id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono', 'nada'];
+
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.paginator = this.paginator;
+
   }
+  
+
 
 
 
   ngOnInit() {
+
   }
 
 }

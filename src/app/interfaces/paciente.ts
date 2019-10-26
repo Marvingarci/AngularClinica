@@ -25,5 +25,5 @@ export interface Paciente {
     visitante?: boolean;
     prosene?: boolean;
     created_at?:string;
-    update_at?:string;
+    updated_at?:string;
 }
