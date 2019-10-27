@@ -4,8 +4,8 @@
         
     <div id="formstyle">
       <div>
-          <div *ngIf="loading==true">
-              <mat-spinner></mat-spinner>
+          <div *ngIf="loading==true" >
+              <mat-spinner class="loading"></mat-spinner>
             
             </div>
           <div class="view" id="imagenpuma"></div>
@@ -30,9 +30,14 @@
               </mat-form-field>
             </div>
           </form>
-
+        
           </div>             
-          <input type="submit" (click)="comprobarDatos()"   class="boton" >                             
+          <input type="submit" (click)="comprobarDatos()"   class="boton" >  
+           <div>
+          <a routerLink="/loginadministrador" mat-menu-item class="link">Ingresar como administrador</a>
+          </div>                           
           </div>
+           
+ 
   </div>
 </div>   
