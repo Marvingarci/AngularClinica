@@ -16,6 +16,7 @@ import { PacienteComponent } from '../paciente/paciente.component';
 })
 
 export class DatoPacienteComponent implements OnInit {
+  
  paciente: Paciente = {
     id_paciente: null,
     numero_paciente: null,
@@ -45,6 +46,7 @@ export class DatoPacienteComponent implements OnInit {
     prosene: null,
   }
   id: any;
+  noImg: boolean = true;
   pacientes: Paciente[];
   
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, principal: AppComponent, public dialog: MatDialog) {
@@ -55,6 +57,14 @@ export class DatoPacienteComponent implements OnInit {
         this.paciente = this.pacientes.find((m)=>{return m.id_paciente == this.id});
         console.log(this.paciente.contrasenia);
         this.formularioService.idActualizar=this.paciente.id_paciente;
+
+        
+        // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
+        //si el paciente tiene imagen entonces esta variable cambiara a false
+        if(this.paciente.imagen != null){
+          this.noImg = false;
+        }
+        
         if (this.paciente.contrasenia == null) {
           this.openDialog();
         }
@@ -66,7 +76,10 @@ export class DatoPacienteComponent implements OnInit {
     }else{
 //      this.paciente=this.formularioService.IngresoPaciente;
     }
+
     principal.esconder();
+
+
 
    
     
@@ -84,6 +97,7 @@ export class DatoPacienteComponent implements OnInit {
 
 
   ngOnInit() {
+    
   }
 
   openDialog() {
@@ -137,6 +151,8 @@ export class DialogContentExampleDialog {
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute){
     this.paciente1.id_paciente = this.formularioService.idActualizar;
     console.log(this.id);
+
+  
   }
   
 
