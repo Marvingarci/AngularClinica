@@ -15,18 +15,21 @@
     <mat-card>
             
             <div class="row">
-                <div class="col-6">
+                <div class="col-2">
+                    <img class="img" src={{paciente.imagen}}/>
+                </div>
+                <div class="col">
                     <mat-form-field class="example-full-width">
                         <input matInput placeholder="Nombre" value="{{paciente.nombre_completo}}" readonly>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Numero de Telefono" value="{{paciente.numero_telefono}}"readonly>
+                            <input matInput placeholder="Identidad" value="{{paciente.numero_identidad}}" readonly>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
                             <input matInput placeholder="Numero de cuenta" value="{{paciente.numero_cuenta}}" readonly >
                         </mat-form-field>
                 </div>
-                <div class="col-6">
+                <div class="col">
                     <mat-form-field class="example-full-width">
                         <input matInput placeholder="Centro" value="UNAHTEC Danli" readonly>
                         </mat-form-field>

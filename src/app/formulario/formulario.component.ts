@@ -567,6 +567,7 @@ ocultar: boolean = true;
     nombre_completo: null,
     numero_cuenta: null,
     numero_identidad: null,
+    imagen: null,
     lugar_procedencia: null,
     direccion: null,
     carrera: null,
@@ -865,6 +866,8 @@ ocultar: boolean = true;
         // this.paciente.segundo_nombre = this.formulario_datos_generales.get('segundo_nombre').value;
         this.paciente.numero_cuenta = this.formulario_datos_generales.get('numero_cuenta').value;
         this.paciente.numero_identidad = this.formulario_datos_generales.get('numero_identidad').value;
+        this.paciente.imagen = this.datosScraping.imagen;
+
         this.paciente.lugar_procedencia = this.formulario_datos_generales.get('lugar_procedencia').value;
         this.paciente.direccion = this.formulario_datos_generales.get('direccion').value;
         this.paciente.carrera = this.formulario_datos_generales.get('carrera').value;

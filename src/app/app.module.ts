@@ -43,6 +43,7 @@ import { MatTableModule } from '@angular/material'
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoginAdministradorComponent } from './login-administrador/login-administrador.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -59,6 +60,9 @@ const routes: Route[] = [
   {path: 'at1', component: At1Component},
   {path: 'datoPaciente/:id', component: DatoPacienteComponent},
   {path: 'datoPaciente', component: DatoPacienteComponent},
+  {path: 'verPaciente', component: VerPacienteComponent},
+
+
   {path: 'loginadmin', component: LoginadminComponent},
   {path: 'loginadministrador', component: LoginAdministradorComponent},
 
@@ -72,8 +76,8 @@ const routes: Route[] = [
       {path: 'listadotrabajadores', component: ListadoTrabajadoresComponent},
       {path: 'listadoVisitantes', component: ListadoVisitantesComponent},
       {path: 'listadoProsene', component: ListadoProseneComponent},
-      {path: 'verPaciente', component: VerPacienteComponent},
-      {path: 'verPaciente/:id', component: VerPacienteComponent}
+      // {path: 'verPaciente', component: VerPacienteComponent},
+      // {path: 'verPaciente/:id', component: VerPacienteComponent}
 
     ]
   }
@@ -131,7 +135,8 @@ const routes: Route[] = [
     MatExpansionModule,
     MatListModule,
     MatTableModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule,
   
     
   ],

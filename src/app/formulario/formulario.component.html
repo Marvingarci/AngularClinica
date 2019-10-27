@@ -223,7 +223,7 @@
           <div class="col">
             <mat-form-field class="example-full-width">
               <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta" value={{numero_cuenta.setValue(datosScraping.cuenta)}}>
-            <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint>
+            <!-- <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint> -->
             <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido!</mat-error>
             <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta valido!</mat-error>
 
@@ -233,7 +233,7 @@
           <div class="col">
             <mat-form-field class="example-full-width">
               <input matInput formControlName= "numero_identidad" placeholder="N° Identidad" value={{numero_identidad.setValue(datosScraping.numero_identidad)}} >
-            <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint>
+            <!-- <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint> -->
             <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido!</mat-error>
             <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un numero de indentidad valido!</mat-error>
 
