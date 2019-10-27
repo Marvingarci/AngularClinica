@@ -3,18 +3,17 @@
               
           <div id="formstyle">
             <div>
-                <div *ngIf="loading==true" >
-                    <mat-spinner class="loading"></mat-spinner>
-                  
-                  </div>
+               
+
                   <div class="bienvenida">
                     <h4 class="h4"> Bienvenido a Clínica UNAH-TEC Danlí</h4> 
                     <h6 class="h6"> Por favor ingrese su usuario y contraseña</h6>
                   </div>
                   <p></p>
                   
-                  
-                <div class="view" id="imagenpuma"></div>
+                   
+                  <div> <div *ngIf="loading==true" > <mat-spinner class="loading"></mat-spinner></div> 
+                  <div class="view" id="imagenpuma"></div></div>
       
                 <form [formGroup]= "loginadministrador_form">
                   <div>
@@ -41,13 +40,6 @@
               
 
 
-                <div>
-                    <button class="boton" (click)="ingresar()">Ingresar</button>
-          
-                  </div>
-                       
-       
+                <div><button class="boton" (click)="ingresar()">Ingresar</button></div>
         </div>
-      </div>   
-
-
+      </div> 
