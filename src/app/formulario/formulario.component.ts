@@ -17,6 +17,7 @@ import { Login } from '../interfaces/login';
 
 
 export interface Loginadmin {
+ // contrasenia_admin: any;
   value: string;
   viewValue: string;
 }
