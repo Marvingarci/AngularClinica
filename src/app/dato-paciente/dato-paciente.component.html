@@ -16,7 +16,8 @@
             
             <div class="row">
                 <div class="col-2">
-                    <img class="img" src={{paciente.imagen}}/>
+                    <img *ngIf="noImg==true" class="sinImg"/>
+                    <img *ngIf="noImg == false" class="img" src={{paciente.imagen}}/>
                 </div>
                 <div class="col">
                     <mat-form-field class="example-full-width">
