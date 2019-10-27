@@ -31,6 +31,7 @@ export class LoginadminComponent implements OnInit {
 
   
   login_admin:LoginAdmin ={
+    id:null,
     usuario_admin:null,
     contrasenia_admin:null,
     nombre_admin:null,
