@@ -9,6 +9,7 @@ import { FormularioService } from "../services/formulario.service";
 export class LoginService {
   API_ENDPOINT = 'http://127.0.0.1:8000/api/'
   constructor(private httpClient :HttpClient, formularioService: FormularioService) {}
+  idpaciente:any;//este es para recuperar el id y redireccionar 
 
   guardarDatos(login: Login){
     

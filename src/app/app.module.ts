@@ -3,7 +3,7 @@ import { NgModule, Component } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormularioComponent } from './formulario/formulario.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Route} from '@angular/router';
 import { LoginComponent } from './login/login.component';
@@ -103,7 +103,8 @@ const routes: Route[] = [
     ListadoProseneComponent,
     VerPacienteComponent,
     DialogContentExampleDialog,
-    LoginAdministradorComponent
+    LoginAdministradorComponent,
+    
 
     
   ],
@@ -137,6 +138,7 @@ const routes: Route[] = [
     MatTableModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    
   
     
   ],
