@@ -42,6 +42,7 @@ import {MatListModule} from '@angular/material/list';
 import { MatTableModule } from '@angular/material'  
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoginAdministradorComponent } from './login-administrador/login-administrador.component';
 
 
 
@@ -58,8 +59,9 @@ const routes: Route[] = [
   {path: 'at1', component: At1Component},
   {path: 'datoPaciente/:id', component: DatoPacienteComponent},
   {path: 'datoPaciente', component: DatoPacienteComponent},
-
   {path: 'loginadmin', component: LoginadminComponent},
+  {path: 'loginadministrador', component: LoginAdministradorComponent},
+
   {
     path: 'principal',
     component: PrincipalComponent,
@@ -96,7 +98,8 @@ const routes: Route[] = [
     ListadoVisitantesComponent,
     ListadoProseneComponent,
     VerPacienteComponent,
-    DialogContentExampleDialog
+    DialogContentExampleDialog,
+    LoginAdministradorComponent
 
     
   ],
