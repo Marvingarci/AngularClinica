@@ -1,0 +1,126 @@
+.bienvenida{  background:#00f;   
+
+  border-radius: 15px;}
+.h4{ color: cornsilk;}
+.h6{color: rgb(151, 203, 238);}
+html,
+body,
+header,
+#intro{
+height: 100%;
+width:100%;
+position: absolute;
+margin:0px;
+}
+
+
+
+/* https://campusvirtual.unah.edu.hn/theme/image.php/bootstrapcampus/theme/1568312409/frontpage-bg */
+#intro{
+    background: url('src\imagenes\fondoazul.jpg')no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#imagenpuma{
+  height: 100px;
+  width:100px;
+  margin:0px;
+  background: url('src\imagenes\pumitafinal.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+  border-radius: 50px;
+  margin-left: 90px;
+  border: 3px solid #00f;
+  margin-bottom: 25px;
+  
+}
+mat-spinner{
+  position: absolute;
+  height: 100px;
+  width: 200px;;
+  left: 100px;
+
+}
+.label{
+  margin-top: 5px;
+  font-size: 30dp;
+}
+
+#formstyle{  
+  -webkit-box-shadow: 0 30px 60px 0 rgba(228, 38, 38, 0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  
+  padding-bottom: 50px; 
+  margin-top: 50px;
+    background-color: #fff  ;
+    position: absolute;
+    /*nos posicionamos en el centro del navegador*/
+    top:40%;
+    left:50%;
+    /*determinamos una anchura*/
+    width:310px;
+    /*indicamos que el margen izquierdo, es la mitad de la anchura*/
+    margin-left:-150px;
+    /*determinamos una altura*/
+    height:450px;
+    /*indicamos que el margen superior, es la mitad de la altura*/
+    margin-top:-150px;
+    border:5px solid #00f ;
+    padding:10px;
+    text-align: center;
+  color: #00f ;	/*IE*/
+	filter: alpha(opacity=70);
+	/*FireFox Opera*/
+  opacity: .7;
+  border-radius: 30px;
+}
+
+
+
+
+.example-full-width{
+  border-radius: 20px;
+  text-align: center;
+  width:250px;
+  color: #00f;
+  
+}
+#show_password{
+  background-color:   #00f;
+  margin-left:-43px; 
+  border-radius: 20px;
+  opacity: .3;
+}
+.boton{
+  width:80px;
+  height:30px;
+  background-color:#00f ;
+  color: #fff;
+  margin: 5px;  
+  border-radius: 10px;
+  font-size:11px;
+  line-height:10px;
+  text-transform: uppercase;
+  text-align: center;
+  
+  }
+  .boton:hover{
+    background: azure;
+    border:2px solid #00f ;
+    color: blue;    
+  }
+
+  
+  
+
+  /* input[type=number]::-webkit-inner-spin-button{ 
+    -webkit-appearance: none; 
+    margin: 0; 
+  } */
+
+
