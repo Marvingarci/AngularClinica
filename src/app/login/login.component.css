@@ -59,7 +59,7 @@ mat-spinner{
     /*indicamos que el margen izquierdo, es la mitad de la anchura*/
     margin-left:-150px;
     /*determinamos una altura*/
-    height:320px;
+    height:350px;
     /*indicamos que el margen superior, es la mitad de la altura*/
     margin-top:-150px;
     border:5px solid rgb(122, 22, 22) ;
@@ -104,6 +104,14 @@ mat-spinner{
   text-align: center;
   ;
   }
+
+  .link{
+    color: #fff;    
+  }
+  .link:hover{
+    color: aqua;
+  }
+  
 
   /* input[type=number]::-webkit-inner-spin-button{ 
     -webkit-appearance: none; 
