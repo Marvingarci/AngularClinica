@@ -15,6 +15,7 @@ import { LoginComponent } from '../login/login.component';
   styleUrls: ['./dato-paciente.component.css']
 })
 export class DatoPacienteComponent implements OnInit {
+  
  paciente: Paciente = {
     id_paciente: null,
     numero_paciente: null,
@@ -44,6 +45,7 @@ export class DatoPacienteComponent implements OnInit {
     prosene: null,
   }
   id: any;
+  noImg: boolean = true;
   pacientes: Paciente[];
   
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, 
@@ -58,6 +60,15 @@ export class DatoPacienteComponent implements OnInit {
         console.log(this.paciente.contrasenia);
         this.formularioService.idActualizar=this.paciente.id_paciente;
        
+
+        
+        // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
+        //si el paciente tiene imagen entonces esta variable cambiara a false
+        if(this.paciente.imagen != null){
+          this.noImg = false;
+        }
+        
+        
         console.log(this.paciente);
       
       },(error)=>{
@@ -66,7 +77,10 @@ export class DatoPacienteComponent implements OnInit {
     }else{
 //      this.paciente=this.formularioService.IngresoPaciente;
     }
+
     principal.esconder();
+
+
 
    
     
@@ -84,6 +98,7 @@ export class DatoPacienteComponent implements OnInit {
 
 
   ngOnInit() {
+    
   }
 
  
@@ -143,6 +158,8 @@ export class DialogContentExampleDialog {
     }, (error)=>{
       console.log(error);
     }); 
+
+  
   }
   
 

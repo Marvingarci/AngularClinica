@@ -20,6 +20,16 @@
 .img{
   height: 140px;
   width: 115px;
-  background-color: khaki;
+  background-size: cover;
+  background-position: center;
+
+}
+
+.sinImg{
+  height: 140px;
+  width: 115px;
+  background:url('src/imagenes/image_user.png');
+  background-size: cover;
+  background-position: center;
 }
 
