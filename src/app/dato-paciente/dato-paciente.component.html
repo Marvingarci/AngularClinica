@@ -39,7 +39,10 @@
                         <mat-form-field class="example-full-width">
                             <input matInput placeholder="Sexo" value="{{paciente.sexo}}" readonly>
                         </mat-form-field>
+
+                        <button mat-flat-button color="primary" routerLink="/formulario/{{paciente.id}}">Editar</button>
                 </div>
+                
             </div>  
         
     </mat-card>
