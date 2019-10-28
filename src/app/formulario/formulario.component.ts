@@ -149,10 +149,10 @@ export class FormularioComponent implements OnInit {
        // "\d" es lo mismo "[0-9]"
       lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
       direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      carrera: new FormControl('', []),
+      carrera: new FormControl('',[]),
       fecha_nacimiento: new FormControl('', Validators.required),
       sexo: new FormControl('', Validators.required),
-      categoria: new FormControl('', Validators.required),
+      categoria: new FormControl('', []),
       estado_civil: new FormControl('', Validators.required),
       seguro_medico: new FormControl('', Validators.required),
       numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
@@ -876,12 +876,6 @@ ocultar: boolean = true;
          }); 
 
         
-
-     this.datosScraping.cuenta = null;
-     this.datosScraping.clave = null;
-     this.datosScraping.nombre = null;
-     this.datosScraping.carrera = null;
-     this.datosScraping.numero_identidad = null;
 
       }
       console.log(this.datosScraping);
