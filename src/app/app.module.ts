@@ -43,6 +43,8 @@ import { MatTableModule } from '@angular/material'
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatMenuModule} from '@angular/material/menu';
+import { InventarioComponent } from './inventario/inventario.component';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 
 
 
@@ -55,11 +57,13 @@ import {MatMenuModule} from '@angular/material/menu';
 const routes: Route[] = [
   {path: '', component: LoginComponent},
   {path: 'formulario', component: FormularioComponent},
+  {path: 'formulario:id', component: FormularioComponent},
   {path: 'principal', component: PrincipalComponent},
   {path: 'at1', component: At1Component},
   {path: 'datoPaciente/:id', component: DatoPacienteComponent},
   {path: 'datoPaciente', component: DatoPacienteComponent},
   {path: 'verPaciente', component: VerPacienteComponent},
+  {path: 'inventario', component: InventarioComponent},
 
 
   {path: 'loginadmin', component: LoginadminComponent},
@@ -73,6 +77,7 @@ const routes: Route[] = [
       {path: 'listadotrabajadores', component: ListadoTrabajadoresComponent},
       {path: 'listadoVisitantes', component: ListadoVisitantesComponent},
       {path: 'listadoProsene', component: ListadoProseneComponent},
+      {path: 'inventario', component: InventarioComponent},
       // {path: 'verPaciente', component: VerPacienteComponent},
       // {path: 'verPaciente/:id', component: VerPacienteComponent}
 
@@ -99,7 +104,8 @@ const routes: Route[] = [
     ListadoVisitantesComponent,
     ListadoProseneComponent,
     VerPacienteComponent,
-    DialogContentExampleDialog
+    DialogContentExampleDialog,
+    InventarioComponent
 
     
   ],
@@ -133,6 +139,7 @@ const routes: Route[] = [
     MatTableModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    MatBottomSheetModule,
   
     
   ],
