@@ -39,11 +39,7 @@ export class DatoPacienteComponent implements OnInit {
     temperatura: null,
     presion: null,
     pulso: null,
-    estudiante: null,
-    empleado: null,
-    visitante: null,
-    prosene: null,
-  }
+    categoria: null  }
   id: any;
   noImg: boolean = true;
   pacientes: Paciente[];
@@ -137,10 +133,7 @@ export class DialogContentExampleDialog {
     temperatura: null,
     presion: null,
     pulso: null,
-    estudiante: null,
-    empleado: null,
-    visitante: null,
-    prosene: null,
+    categoria:null
   }
   id:any;
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, public login: LoginService, private router: Router ){
@@ -155,6 +148,7 @@ export class DialogContentExampleDialog {
           this.paciente1.id_paciente=this.resultado[0].ultimoId;
       }
        }
+
     }, (error)=>{
       console.log(error);
     }); 

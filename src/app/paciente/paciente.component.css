@@ -491,3 +491,7 @@ table {
   font-size: 14px;
   width: 100%;
 }
+
+#contenidoPrincipal{
+  margin-top: 20px;
+}
