@@ -67,7 +67,7 @@ mat-spinner{
     /*indicamos que el margen izquierdo, es la mitad de la anchura*/
     margin-left:-150px;
     /*determinamos una altura*/
-    height:470px;
+    height:450px;
     /*indicamos que el margen superior, es la mitad de la altura*/
     margin-top:-150px;
     border:5px solid #00f ;

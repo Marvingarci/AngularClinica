@@ -3,7 +3,7 @@ import { NgModule, Component } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormularioComponent } from './formulario/formulario.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Route} from '@angular/router';
 import { LoginComponent } from './login/login.component';
@@ -42,6 +42,7 @@ import {MatListModule} from '@angular/material/list';
 import { MatTableModule } from '@angular/material'  
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoginAdministradorComponent } from './login-administrador/login-administrador.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { InventarioComponent } from './inventario/inventario.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
@@ -67,6 +68,8 @@ const routes: Route[] = [
 
 
   {path: 'loginadmin', component: LoginadminComponent},
+  {path: 'loginadministrador', component: LoginAdministradorComponent},
+
   {
     path: 'principal',
     component: PrincipalComponent,
@@ -105,7 +108,9 @@ const routes: Route[] = [
     ListadoProseneComponent,
     VerPacienteComponent,
     DialogContentExampleDialog,
-    InventarioComponent
+    InventarioComponent,
+    LoginAdministradorComponent,
+    
 
     
   ],
@@ -140,6 +145,7 @@ const routes: Route[] = [
     MatProgressSpinnerModule,
     MatMenuModule,
     MatBottomSheetModule,
+    
   
     
   ],

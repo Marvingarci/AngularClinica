@@ -94,8 +94,7 @@ export class LoginComponent implements OnInit {
         this.pase=false;
         this.paciente=this.pacientes[index];
       }
-    }
-    
+    }    
 
     if (this.pase == true) {
       this.loginService.guardarDatos(this.login).subscribe( (data) =>{
@@ -114,12 +113,8 @@ export class LoginComponent implements OnInit {
       }else{
         this.loading=false;
         alert('Contraseña incorrecta')
-      }
-      
-    }
-
-    
- 
+      }      
+    } 
   }
 
   get cuenta(){return this.login_form.get('cuenta')};

@@ -1,21 +1,21 @@
 import { Component, OnInit , Input} from '@angular/core';
 import { FormularioService } from '../services/formulario.service';
 import { Paciente } from "../interfaces/paciente";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route } from '@angular/router';
 import { AppComponent } from "../app.component";
 import {MatDialog} from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
-import { PacienteComponent } from '../paciente/paciente.component';
-
-
+import { Router } from '@angular/router';
+import { LoginService } from "../services/login.service";
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-dato-paciente',
   templateUrl: './dato-paciente.component.html',
   styleUrls: ['./dato-paciente.component.css']
 })
-
 export class DatoPacienteComponent implements OnInit {
+  
  paciente: Paciente = {
     id_paciente: null,
     numero_paciente: null,
@@ -45,9 +45,13 @@ export class DatoPacienteComponent implements OnInit {
     prosene: null,
   }
   id: any;
+  noImg: boolean = true;
   pacientes: Paciente[];
   
-  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, principal: AppComponent, public dialog: MatDialog) {
+  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, 
+              principal: AppComponent, public dialog: MatDialog, login: LoginService) {
+                this.dialog.closeAll;
+
     this.id = this.activatedRoute.snapshot.params['id'];
     if(this.id){
       this.formularioService.get().subscribe((data: Paciente[]) =>{
@@ -55,9 +59,16 @@ export class DatoPacienteComponent implements OnInit {
         this.paciente = this.pacientes.find((m)=>{return m.id_paciente == this.id});
         console.log(this.paciente.contrasenia);
         this.formularioService.idActualizar=this.paciente.id_paciente;
-        if (this.paciente.contrasenia == null) {
-          this.openDialog();
+       
+
+        
+        // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
+        //si el paciente tiene imagen entonces esta variable cambiara a false
+        if(this.paciente.imagen != null){
+          this.noImg = false;
         }
+        
+        
         console.log(this.paciente);
       
       },(error)=>{
@@ -66,7 +77,10 @@ export class DatoPacienteComponent implements OnInit {
     }else{
 //      this.paciente=this.formularioService.IngresoPaciente;
     }
+
     principal.esconder();
+
+
 
    
     
@@ -84,20 +98,14 @@ export class DatoPacienteComponent implements OnInit {
 
 
   ngOnInit() {
-  }
-
-  openDialog() {
-    index: Number;
-    const index = this.paciente.id_paciente;
-    const dialogRef = this.dialog.open(DialogContentExampleDialog);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
     
   }
 
+ 
+
 }
+
+
 
 @Component({
   selector: 'dialog-content-example-dialog',
@@ -105,6 +113,7 @@ export class DatoPacienteComponent implements OnInit {
 })
 export class DialogContentExampleDialog {
   hide = true;
+  resultado:any;
 
    paciente1: Paciente = {
     id_paciente: null,
@@ -134,9 +143,23 @@ export class DialogContentExampleDialog {
     prosene: null,
   }
   id:any;
-  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute){
+  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, public login: LoginService, private router: Router ){
     this.paciente1.id_paciente = this.formularioService.idActualizar;
     console.log(this.id);
+    ///////
+    this.formularioService.getUltimoID().subscribe((data)=>{
+      this.resultado = data;
+      console.log(this.resultado);
+      if(this.resultado!=null){
+        if(this.resultado[0].ultimoId!=null){
+          this.paciente1.id_paciente=this.resultado[0].ultimoId;
+      }
+       }
+    }, (error)=>{
+      console.log(error);
+    }); 
+
+  
   }
   
 
@@ -147,6 +170,18 @@ export class DialogContentExampleDialog {
 });
 
 guardar(){
+  
+  this.formularioService.getUltimoID().subscribe((data)=>{
+    this.resultado = data;
+    console.log(this.resultado);
+    if(this.resultado!=null){
+      if(this.resultado[0].ultimoId!=null){
+        this.paciente1.id_paciente=this.resultado[0].ultimoId;
+    }
+     }
+  }, (error)=>{
+    console.log(error);
+  }); 
 
   
   if(this.Nueva.valid){
@@ -158,8 +193,11 @@ guardar(){
 
   
   this.formularioService.put(this.paciente1).subscribe((data)=>{
-
+    
     alert('Contraseña guardada');
+    
+    this.router.navigate(['datoPaciente/'+this.login.idpaciente]);
+
     console.log(data);
   }, (error)=>{
     console.log(error);

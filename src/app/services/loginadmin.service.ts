@@ -6,6 +6,9 @@ import { LoginAdmin } from '../interfaces/login_admin';
   providedIn: 'root'
 })
 export class LoginadminService {
+  get() {
+    throw new Error("Method not implemented.");
+  }
   API_ENDPOINT = 'http://127.0.0.1:8000/api'
 
   constructor(private httpClient :HttpClient) {}

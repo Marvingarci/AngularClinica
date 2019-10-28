@@ -14,9 +14,13 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Login } from '../interfaces/login';
+import { DialogContentExampleDialog, DatoPacienteComponent } from "../dato-paciente/dato-paciente.component";
+import {MatDialog} from '@angular/material/dialog';
+import { LoginService } from "../services/login.service";
 
 
 export interface Loginadmin {
+ // contrasenia_admin: any;
   value: string;
   viewValue: string;
 }
@@ -825,7 +829,7 @@ ocultar: boolean = true;
   
  
   constructor(private formularioService: FormularioService, 
-    private router: Router, activar: AppComponent) {
+    private router: Router, activar: AppComponent,public dialog: MatDialog, public login: LoginService) {
 
       this.getDatosScraping();
 
@@ -1094,16 +1098,9 @@ ocultar: boolean = true;
 
     // alert ('los datos se enviarion');      
     // this.router.navigate(['datoPaciente/'+this.datosScraping.id_login]);
+    this.obtener();
 
-      this.obtener();  
-      for (let index = 0; index < 10; index++) {
-        this.obtener();
-        
-      }
      
-     if(this.resultado==null){
-      this.obtener();
-     }
 
      //borro los datos que se habian recuperado del scraping 
      this.datosScraping.id_login=  null;
@@ -1124,13 +1121,28 @@ ocultar: boolean = true;
       console.log(this.resultado);
       if(this.resultado!=null){
         if(this.resultado[0].ultimoId!=null){
-        this.router.navigate(['datoPaciente/'+this.resultado[0].ultimoId]);
+          alert('Ready');
+          this.login.idpaciente =this.resultado[0].ultimoId;
+          this.openDialog();
+
       }
        }
     }, (error)=>{
       console.log(error);
     }); 
 
+  }
+  openDialog() {
+    
+    index: Number;
+    const index = this.paciente.id_paciente;
+    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+    
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+    
   }
   
 
