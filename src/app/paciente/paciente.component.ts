@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { FormularioService } from '../services/formulario.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import { Router, RouterModule } from '@angular/router';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
+
 
 
 export interface Paciente {
@@ -27,13 +30,8 @@ export interface Paciente {
   temperatura?: string;
   presion?: string;
   pulso?: string;
-  estudiante?: boolean;
-  empleado?: boolean;
-  visitante?: boolean;
-  prosene?: boolean;
-  created_at?:string;
-  updated_at?:string;
-  nada:string;
+  categoria?: any;
+ 
 }
 
 
@@ -48,12 +46,22 @@ export class PacienteComponent implements OnInit {
   
   API_ENDPOINT = 'http://apiclinicaunah.test/api/';
   pacientes: Paciente[];
+  alumnos: Paciente[];
+  empleados: Paciente[];
+  visitantes: Paciente[];
+  prosene: Paciente[];
+  
   dataSource: any;
+  dataSource2: any;
+  dataSource3: any;
+  dataSource4: any;
+  
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
 
-  constructor( private pacienteService: FormularioService, private httpClient: HttpClient ) { 
+  constructor( private pacienteService: FormularioService, private httpClient: HttpClient, private router:Router ) { 
     this.getPacientes();
+
 
 
    
@@ -61,10 +69,20 @@ export class PacienteComponent implements OnInit {
   
   getPacientes(){
     this.pacienteService.get().subscribe((data: Paciente[]) =>{
-      this.dataSource =  new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
+      this.pacientes=data;
 
       console.log(this.pacientes);
+      this.alumnos = this.pacientes.filter(paciente => paciente.categoria === 'E');
+      this.prosene = this.pacientes.filter(paciente => paciente.categoria === 'P');
+      this.visitantes = this.pacientes.filter(paciente => paciente.categoria === 'V');
+      this.empleados = this.pacientes.filter(paciente => paciente.categoria === 'T');
+
+
+      this.dataSource =  new MatTableDataSource(this.alumnos);
+     this.dataSource2 =  new MatTableDataSource(this.empleados);
+     this.dataSource3 =  new MatTableDataSource(this.visitantes);
+     this.dataSource4 =  new MatTableDataSource(this.prosene);
+ 
 
     },(error)=>{
       console.log(error);
@@ -72,7 +90,11 @@ export class PacienteComponent implements OnInit {
     });
   }
 
+  
+ 
+
   displayedColumns: string[] = ['id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono', 'nada'];
+  displayedColumns2: string[] = ['id_paciente', 'nombre_completo', 'numero_cuenta', 'sexo', 'numero_telefono', 'nada'];
 
 
   applyFilter(filterValue: string) {
@@ -87,6 +109,11 @@ export class PacienteComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  formulario(){
+    this.pacienteService.esAlumno = false;
+    this.router.navigate(['/formulario']);
   }
 
 }

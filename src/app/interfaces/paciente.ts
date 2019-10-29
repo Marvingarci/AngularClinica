@@ -21,10 +21,7 @@ export interface Paciente {
     temperatura?: string;
     presion?: string;
     pulso?: string;
-    estudiante?: boolean;
-    empleado?: boolean;
-    visitante?: boolean;
-    prosene?: boolean;
+    categoria?:string;
     created_at?:string;
     updated_at?:string;
 }

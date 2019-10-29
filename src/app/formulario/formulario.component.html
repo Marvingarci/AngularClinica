@@ -1,69 +1,28 @@
 <mat-horizontal-stepper linear #stepper>
-<!--Primer step para scrapping
-    <mat-step [stepControl]= "formulario_datos_generales">
+    <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
         <form [formGroup]="formulario_datos_generales">
-        <ng-template matStepLabel>Datos Generales</ng-template>
+        <ng-template matStepLabel >{{datosGenerales}}</ng-template>
         <div class="container">
           <h2>Datos Generales</h2>
           <div class="row">
             <div class="col">
-              <mat-form-field class="example-full-width">
-                <input matInput formControlName= "primer_apellido"  placeholder="Primer Apellido">
-                <mat-hint align="end">{{primer_apellido.value.length}} / 15</mat-hint>
-                <mat-error *ngIf="primer_apellido.hasError('required')">campo requerido!</mat-error>
-                <mat-error *ngIf="primer_apellido.hasError('pattern')">ingrese un apellido valido!</mat-error>
+              <mat-form-field class="example-full-width" >
+                <input matInput formControlName= "nombre_completo"  placeholder="Nombre Completo" >
+                
+                <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido!</mat-error>
+                <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un apellido valido!</mat-error>
     
               </mat-form-field>
             </div>
-            <div class="col">
-              <mat-form-field class="example-full-width">
-                <input matInput formControlName= "segundo_apellido" placeholder="Segundo Apellido">
-                <mat-hint align="end">{{segundo_apellido.value.length}} / 15</mat-hint>
-                <mat-error *ngIf="segundo_apellido.hasError('required')">campo requerido!</mat-error>
-                <mat-error *ngIf="segundo_apellido.hasError('pattern')">ingrese un apellido valido!</mat-error>
-    
-    
-              </mat-form-field>
-            </div>
+            
           </div>
     
             <div class="row">
+             
               <div class="col">
                 <mat-form-field class="example-full-width">
-                  <input matInput formControlName= "primer_nombre" placeholder="Primer Nombre">
-                <mat-hint align="end">{{primer_nombre.value.length}} / 15</mat-hint>
-                <mat-error *ngIf="primer_nombre.hasError('required')">campo requerido!</mat-error>
-                <mat-error *ngIf="primer_nombre.hasError('pattern')">ingrese un nombre valido!</mat-error>
-                  
-                </mat-form-field>
-              </div>
-              <div class="col">
-                <mat-form-field class="example-full-width">
-                  <input matInput formControlName= "segundo_nombre" placeholder="Segundo Nombre">
-                <mat-hint align="end">{{segundo_nombre.value.length}} / 15</mat-hint>
-                <mat-error *ngIf="segundo_nombre.hasError('required')">campo requerido!</mat-error>
-                <mat-error *ngIf="segundo_nombre.hasError('pattern')">ingrese un nombre valido!</mat-error>
-    
-    
-                </mat-form-field>
-              </div>
-            </div>
-                      
-            <div class="row">
-              <div class="col">
-                <mat-form-field class="example-full-width">
-                  <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta">
-                <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint>
-                <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido!</mat-error>
-                <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta valido!</mat-error>
-    
-    
-                </mat-form-field>
-              </div>
-              <div class="col">
-                <mat-form-field class="example-full-width">
-                  <input matInput formControlName= "numero_identidad" placeholder="N° Identidad">
-                <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint>
+                  <input matInput formControlName= "numero_identidad" placeholder="N° Identidad"  >
+                <!-- <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint> -->
                 <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido!</mat-error>
                 <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un numero de indentidad valido!</mat-error>
     
@@ -81,12 +40,15 @@
     
                 </mat-form-field>
               </div>
-              <div class="col">
+              <div class="col"> 
                 <mat-form-field class="example-full-width">
-                  <input matInput formControlName= "carrera" name="carrera" placeholder="Carrera">
-                <mat-error *ngIf="carrera.hasError('required')">campo requerido!</mat-error>
-                <mat-error *ngIf="carrera.hasError('pattern')">ingrese datos validos!</mat-error>
-    
+                  <mat-label>Categoria Paciente</mat-label>
+                    <mat-select formControlName= "categoria">
+                        <mat-option *ngFor="let categoria of categorias" [value]="categoria.value">
+                            {{categoria.viewValue}}
+                          </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="categoria.hasError('required')">campo requerido!</mat-error>
     
                 </mat-form-field>
               </div>
@@ -116,11 +78,11 @@
               </div>
             </div>    
       
-            <mat-divider></mat-divider>
+             
             
             <div class="row">
               <div class="col"> 
-                <mat-form-field>
+                <mat-form-field class="example-full-width">
                   <mat-label>Sexo</mat-label>
                     <mat-select formControlName= "sexo">
                       <mat-option (click)="mostrarN()"  value="Hombre">Hombre</mat-option>
@@ -130,12 +92,11 @@
                   <mat-error *ngIf="sexo.hasError('required')">campo requerido!</mat-error>
     
                 </mat-form-field>
-                <p> sexo seleccionado:{{formulario_datos_generales.get('sexo').value}} </p>
               </div>
       
       
               <div class="col"> 
-                <mat-form-field>
+                <mat-form-field class="example-full-width">
                   <mat-label>Seguro Medico</mat-label>
                   <mat-select formControlName= "seguro_medico" name="seguro_medico">
                     <mat-option *ngFor="let seguro_medico of seguros_medicos" [value]="seguro_medico.value">
@@ -145,11 +106,10 @@
                 <mat-error *ngIf="seguro_medico.hasError('required')">campo requerido!</mat-error>
     
                 </mat-form-field>
-                <p>seguro medico seleccionado:{{formulario_datos_generales.get('seguro_medico').value}}</p>
               </div>
       
               <div class="col"> 
-                <mat-form-field>
+                <mat-form-field  class="example-full-width">
                   <mat-label>Estado Civil</mat-label>
                   <mat-select formControlName= "estado_civil" >
                     <mat-option *ngFor="let estado_civil of estados_civiles" [value]="estado_civil.value">
@@ -159,11 +119,8 @@
                 <mat-error *ngIf="estado_civil.hasError('required')">campo requerido!</mat-error>
     
                 </mat-form-field>
-                <p>estado civil seleccionado: {{formulario_datos_generales.get('estado_civil').value}}  </p>
               </div>
             </div>
-                          
-            <br/>
       
             <div class="row">
               <div class="col">
@@ -188,7 +145,7 @@
         </div>
       </form>
       </mat-step>
-    -->
+    
 
 
 
@@ -198,10 +155,7 @@
 
   <!-- primer step -->
   
-  <!-- <mat-step [stepControl]= "formulario_datos_generales" >
-    <form [formGroup]="formulario_datos_generales">
-    <ng-template matStepLabel >{{datosGenerales}}</ng-template> -->
-  <mat-step [stepControl]= "formulario_datos_generales" id="step1">
+  <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1">
     <form [formGroup]="formulario_datos_generales">
     <ng-template matStepLabel >{{datosGenerales}}</ng-template>
     <div class="container">
@@ -742,7 +696,7 @@
 
 
   <!-- tercer step -->
-  <mat-step [stepControl]="formulario_antecedentes_personales">
+  <mat-step  [stepControl]="formulario_antecedentes_personales">
     <form [formGroup]= "formulario_antecedentes_personales">
       <ng-template matStepLabel>{{antecedentesPersonales}}</ng-template>
       <div class="container">

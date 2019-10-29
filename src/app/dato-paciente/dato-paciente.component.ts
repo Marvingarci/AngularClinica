@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '
 import { Router } from '@angular/router';
 import { LoginService } from "../services/login.service";
 import { LoginComponent } from '../login/login.component';
+import { FormularioComponent } from '../formulario/formulario.component';
 
 @Component({
   selector: 'app-dato-paciente',
@@ -39,11 +40,7 @@ export class DatoPacienteComponent implements OnInit {
     temperatura: null,
     presion: null,
     pulso: null,
-    estudiante: null,
-    empleado: null,
-    visitante: null,
-    prosene: null,
-  }
+    categoria: null  }
   id: any;
   noImg: boolean = true;
   pacientes: Paciente[];
@@ -137,15 +134,12 @@ export class DialogContentExampleDialog {
     temperatura: null,
     presion: null,
     pulso: null,
-    estudiante: null,
-    empleado: null,
-    visitante: null,
-    prosene: null,
+    categoria:null
   }
   id:any;
-  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, public login: LoginService, private router: Router ){
+  constructor( private formularioService: FormularioService, private activatedRoute: ActivatedRoute, public login: LoginService, private router: Router ){
     this.paciente1.id_paciente = this.formularioService.idActualizar;
-    console.log(this.id);
+    console.log(this.paciente1.id_paciente);
     ///////
     this.formularioService.getUltimoID().subscribe((data)=>{
       this.resultado = data;
@@ -155,6 +149,7 @@ export class DialogContentExampleDialog {
           this.paciente1.id_paciente=this.resultado[0].ultimoId;
       }
        }
+
     }, (error)=>{
       console.log(error);
     }); 
@@ -177,6 +172,7 @@ guardar(){
     if(this.resultado!=null){
       if(this.resultado[0].ultimoId!=null){
         this.paciente1.id_paciente=this.resultado[0].ultimoId;
+        console.log(this.paciente1.id_paciente);    
     }
      }
   }, (error)=>{
@@ -196,15 +192,17 @@ guardar(){
     
     alert('Contraseña guardada');
     
-    this.router.navigate(['datoPaciente/'+this.login.idpaciente]);
+    this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
 
     console.log(data);
   }, (error)=>{
     console.log(error);
     alert('No se guardo ni mierda');
+    
   });
 }else{
   alert('La contrase;a no es la misma');
+  
 }
 
 }

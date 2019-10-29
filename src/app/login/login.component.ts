@@ -43,11 +43,7 @@ export class LoginComponent implements OnInit {
     imc: null,
     temperatura: null,
     presion: null,
-    pulso: null,
-    estudiante: null,
-    empleado: null,
-    visitante: null,
-    prosene: null,
+    pulso: null
   }
   scrap1: LoginAdmin = {  
     id :null,

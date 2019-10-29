@@ -60,6 +60,9 @@
   min-width: 100px;
   
 }
+#contenidoPrincipal{
+  margin-top: 20px;
+}
 
 
 /* Tamaño del scroll */
