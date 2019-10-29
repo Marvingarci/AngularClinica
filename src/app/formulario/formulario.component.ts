@@ -863,6 +863,7 @@ ocultar: boolean = true;
     this.formularioService.getScrap().subscribe((data: Login) =>{
       this.datosScraping = data;
       
+      console.log(this.datosScraping);
 
       
           //Obtencion de Paciente ultimo paciente regitrado
@@ -870,6 +871,7 @@ ocultar: boolean = true;
            this.resultado = data;
            if(this.resultado[0].ultimoId==null){
             this.resultado[0].ultimoId=0;
+            console.log(this.resultado[0].ultimoId);
            }
            
 
