@@ -1,0 +1,71 @@
+
+.container {
+    color: black;
+    
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+  .example-medium-width{
+    width: 50%;
+  }
+  
+  .mat-card{
+    margin-top: 40px;
+  }
+  
+  .mat-toolbar{
+    background:  rgb(104, 71, 250);
+    color: snow;
+  }
+
+  .mat-icon-button{
+    position: absolute;
+    right:20px;
+  }
+
+  .img{
+    height: 140px;
+    width: 115px;
+    background-color: khaki;
+  }
+
+  .container{
+    /* height: 450px; */
+    height: 80%;
+    min-width: 99%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    overflow: auto;
+    position: absolute;
+    overflow-x: hidden;   
+    top:30;
+    left:0;
+    
+  }
+
+  .example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+mat-form-field {
+  margin-right: 12px;
+}
+  
+
+  
+  
+
+  
+  
+  
