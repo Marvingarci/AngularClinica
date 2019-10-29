@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '
 import { Router } from '@angular/router';
 import { LoginService } from "../services/login.service";
 import { LoginComponent } from '../login/login.component';
+import { FormularioComponent } from '../formulario/formulario.component';
 
 @Component({
   selector: 'app-dato-paciente',
@@ -136,9 +137,9 @@ export class DialogContentExampleDialog {
     categoria:null
   }
   id:any;
-  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, public login: LoginService, private router: Router ){
+  constructor( private formularioService: FormularioService, private activatedRoute: ActivatedRoute, public login: LoginService, private router: Router ){
     this.paciente1.id_paciente = this.formularioService.idActualizar;
-    console.log(this.id);
+    console.log(this.paciente1.id_paciente);
     ///////
     this.formularioService.getUltimoID().subscribe((data)=>{
       this.resultado = data;
@@ -171,6 +172,7 @@ guardar(){
     if(this.resultado!=null){
       if(this.resultado[0].ultimoId!=null){
         this.paciente1.id_paciente=this.resultado[0].ultimoId;
+        console.log(this.paciente1.id_paciente);    
     }
      }
   }, (error)=>{
@@ -190,15 +192,17 @@ guardar(){
     
     alert('Contraseña guardada');
     
-    this.router.navigate(['datoPaciente/'+this.login.idpaciente]);
+    this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
 
     console.log(data);
   }, (error)=>{
     console.log(error);
     alert('No se guardo ni mierda');
+    
   });
 }else{
   alert('La contrase;a no es la misma');
+  
 }
 
 }

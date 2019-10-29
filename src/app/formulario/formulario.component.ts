@@ -17,6 +17,7 @@ import { Login } from '../interfaces/login';
 import { DialogContentExampleDialog, DatoPacienteComponent } from "../dato-paciente/dato-paciente.component";
 import {MatDialog} from '@angular/material/dialog';
 import { LoginService } from "../services/login.service";
+import { NgStyle } from '@angular/common';
 
 
 export interface Loginadmin {
@@ -149,10 +150,10 @@ export class FormularioComponent implements OnInit {
        // "\d" es lo mismo "[0-9]"
       lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
       direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      carrera: new FormControl('',[]),
+      carrera: new FormControl('', []),
       fecha_nacimiento: new FormControl('', Validators.required),
       sexo: new FormControl('', Validators.required),
-      categoria: new FormControl('', []),
+      categoria: new FormControl('',[]),
       estado_civil: new FormControl('', Validators.required),
       seguro_medico: new FormControl('', Validators.required),
       numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
@@ -861,23 +862,40 @@ ocultar: boolean = true;
   getDatosScraping(){
     this.formularioService.getScrap().subscribe((data: Login) =>{
       this.datosScraping = data;
-      if (this.esAlumno==false) {
+      
 
       
           //Obtencion de Paciente ultimo paciente regitrado
           this.formularioService.getUltimoID().subscribe((data)=>{
            this.resultado = data;
-            var numero=1;
-           this.datosScraping.id_login= parseInt(this.resultado[0].ultimoId)+numero;
+           if(this.resultado[0].ultimoId==null){
+            this.resultado[0].ultimoId=0;
+           }
            
-           
+
+           if (this.esAlumno==false) {
+
+               this.datosScraping.cuenta = null;
+               this.datosScraping.clave = null;
+               this.datosScraping.nombre = null;
+               this.datosScraping.carrera = null;
+               this.datosScraping.numero_identidad = null;
+               this.datosScraping.imagen = null;
+              }
+
+              var numero=1;
+              console.log(this.resultado[0].ultimoId);
+              this.datosScraping.id_login= parseInt(this.resultado[0].ultimoId)+numero;
+              console.log(this.datosScraping.id_login);
+   
+      
          }, (error)=>{
            console.log(error);
          }); 
 
         
 
-      }
+     
       console.log(this.datosScraping);
     },
     (error) => {
@@ -918,6 +936,7 @@ ocultar: boolean = true;
     
     
     this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
+      this.obtener();
       console.log(data);     
     }, (error) => {
       console.log(error);
@@ -936,7 +955,7 @@ ocultar: boolean = true;
     // this.paciente.segundo_apellido = this.formulario_datos_generales.get('segundo_apellido').value;
     // this.paciente.primer_nombre = this.formulario_datos_generales.get('primer_nombre').value;
     // this.paciente.segundo_nombre = this.formulario_datos_generales.get('segundo_nombre').value;
-    this.paciente.numero_cuenta = 'no tiene';
+    this.paciente.numero_cuenta = null;
     this.paciente.numero_identidad = this.formulario_datos_generales.get('numero_identidad').value;
     this.paciente.imagen = this.datosScraping.imagen;
 
@@ -953,7 +972,9 @@ ocultar: boolean = true;
     
     
     this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
-      console.log(data);     
+      console.log(data);  
+      this.obtener();
+   
     }, (error) => {
       console.log(error);
       this.error = true;
@@ -1169,7 +1190,7 @@ ocultar: boolean = true;
 
     // alert ('los datos se enviarion');      
     // this.router.navigate(['datoPaciente/'+this.datosScraping.id_login]);
-    this.obtener();
+   
 
      
 
