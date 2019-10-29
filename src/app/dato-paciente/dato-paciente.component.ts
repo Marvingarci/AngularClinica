@@ -137,6 +137,7 @@ export class DialogContentExampleDialog {
     categoria:null
   }
   id:any;
+  Listo:boolean = false;
   constructor( private formularioService: FormularioService, private activatedRoute: ActivatedRoute, public login: LoginService, private router: Router ){
     this.paciente1.id_paciente = this.formularioService.idActualizar;
     console.log(this.paciente1.id_paciente);
@@ -189,12 +190,12 @@ guardar(){
 
   
   this.formularioService.put(this.paciente1).subscribe((data)=>{
-    
-    alert('Contraseña guardada');
-    
+  
+    alert('Contraseña guardada');  
     this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
-
     console.log(data);
+    this.Listo = true;
+
   }, (error)=>{
     console.log(error);
     alert('No se guardo ni mierda');

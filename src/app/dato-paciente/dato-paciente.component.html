@@ -22,26 +22,47 @@
                 <div class="col">
                     <mat-form-field class="example-full-width">
                         <input matInput placeholder="Nombre" value="{{paciente.nombre_completo}}" readonly>
-                        </mat-form-field>
-                        <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Identidad" value="{{paciente.numero_identidad}}" readonly>
-                        </mat-form-field>
-                        <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Numero de cuenta" value="{{paciente.numero_cuenta}}" readonly >
-                        </mat-form-field>
+                        <button mat-button matSuffix mat-stroked-button aria-label="create">
+                            <mat-icon>create</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Identidad" value="{{paciente.numero_identidad}}" readonly>
+                        <button mat-button matSuffix mat-stroked-button aria-label="create">
+                            <mat-icon>create</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Numero de cuenta" value="{{paciente.numero_cuenta}}" readonly >
+                        <button mat-button matSuffix mat-stroked-button aria-label="create">
+                            <mat-icon>create</mat-icon>
+                        </button>
+                    </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field class="example-full-width">
                         <input matInput placeholder="Centro" value="UNAHTEC Danli" readonly>
+                        <button mat-button matSuffix mat-stroked-button aria-label="create">
+                            <mat-icon>create</mat-icon>
+                        </button>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Carrera" value="{{paciente.carrera}}" readonly>
+                            <input matInput placeholder="Carrera" value="{{paciente.carrera}}" readonly >
+                            <button mat-button matSuffix mat-stroked-button aria-label="search">
+                                <mat-icon>create</mat-icon>
+                            </button>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
                             <input matInput placeholder="Sexo" value="{{paciente.sexo}}" readonly>
+                            <button mat-button matSuffix mat-stroked-button aria-label="create">
+                                <mat-icon>create</mat-icon>
+                            </button>
                         </mat-form-field>
 
-                        <button mat-flat-button color="primary" routerLink="/formulario/{{paciente.id}}">Editar</button>
+                        <div style="text-align: right;">
+                            <button style="position: absolute;bottom:10%;" mat-flat-button color="primary" routerLink="/formulario/{{paciente.id}}">Guardar</button>
+                        </div>
+
                 </div>
                 
             </div>  
