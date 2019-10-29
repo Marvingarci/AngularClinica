@@ -113,6 +113,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher{
 
 
 export class FormularioComponent implements OnInit {
+  loading: boolean=false;
   datosGenerales: string = 'Datos Generales';
   antecedentesFamiliares: string = 'Antecedentes Familiares';
   antecedentesPersonales: string = 'Antecedente Personales';
@@ -862,6 +863,7 @@ ocultar: boolean = true;
   getDatosScraping(){
     this.formularioService.getScrap().subscribe((data: Login) =>{
       this.datosScraping = data;
+     
       
 
       
@@ -874,15 +876,14 @@ ocultar: boolean = true;
            
 
            if (this.esAlumno==false) {
-
-               this.datosScraping.cuenta = null;
+            
                this.datosScraping.clave = null;
                this.datosScraping.nombre = null;
                this.datosScraping.carrera = null;
                this.datosScraping.numero_identidad = null;
                this.datosScraping.imagen = null;
-              }
-
+              
+            }
               var numero=1;
               console.log(this.resultado[0].ultimoId);
               this.datosScraping.id_login= parseInt(this.resultado[0].ultimoId)+numero;
@@ -907,7 +908,7 @@ ocultar: boolean = true;
 
 
   enviarDatos(){
-
+    this.loading = true;
 
 
    if (this.esAlumno==true) {
@@ -1213,7 +1214,7 @@ ocultar: boolean = true;
       console.log(this.resultado);
       if(this.resultado!=null){
         if(this.resultado[0].ultimoId!=null){
-          alert('Ready');
+          this.loading=false;
           this.login.idpaciente =this.resultado[0].ultimoId;
           this.openDialog();
 

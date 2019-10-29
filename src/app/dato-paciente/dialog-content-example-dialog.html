@@ -1,3 +1,4 @@
+<div *ngIf="Listo==false" > 
 <h2 mat-dialog-title disableClose >Cambio de contraseña</h2>
 <mat-dialog-content class="mat-typography">
   <h3>Una vez finalizado esto podras ingresar a la pagina usando tu numero de cuenta de la UNAH y la contraseña que a continuacion ingresaras</h3>
@@ -30,5 +31,26 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="guardar()" [mat-dialog-close]="isDisabled">guardar</button>
+  <button mat-button (click)="guardar()">guardar</button>
 </mat-dialog-actions>
+</div>
+
+<div *ngIf="Listo==true"> 
+    <h1 mat-dialog-title disableClose >Bienvenido al Portal de la clinica UNAH</h1>
+    <mat-dialog-content class="mat-typography">
+      <div class="view" id="check" style="
+        height: 200px;
+        width:200px;
+        margin:0px;
+        background: url('src\app\dato-paciente\check.png');
+        "></div>
+      <h3>Ahora tienes que avocarte a la Clinica de manera personal para terminar tu expediente </h3>
+    
+      <h3>Aqui veras tus tratamientos, citas, indicaciones y ayuda que te brindaran una vez vez que visites la Clinica</h3>
+      
+        
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button  mat-dialog-close>Comenzar</button>
+    </mat-dialog-actions>
+    </div>

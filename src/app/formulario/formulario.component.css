@@ -9,6 +9,12 @@ mat-horizontal-stepper{
   justify-content: center;
 }
 
+#spin{
+  position: absolute;
+   top: 50%;
+   left: 50%;
+}
+
 .container{
   /* height: 450px; */
   height: 80%;
