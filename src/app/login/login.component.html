@@ -18,7 +18,7 @@
               <div>
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Ingrese su cuenta" formControlName= "cuenta" required>
-                    <mat-label><mat-icon>perm_identity</mat-icon> <b>Número de Cuenta</b> </mat-label>
+                    <mat-label><mat-icon>person</mat-icon>&nbsp;    <b>Cuenta</b> </mat-label>
                     <mat-error *ngIf="cuenta.hasError('required')">ingrese la cuenta!</mat-error>
                     <mat-error *ngIf="cuenta.hasError('pattern')">ingrese un numero de cuenta valido!</mat-error>
                   </mat-form-field>
@@ -28,7 +28,7 @@
                   <input matInput  
                   placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'"
                   formControlName="clave">
-                  <mat-label><mat-icon>lock</mat-icon> <b>Contraseña</b> </mat-label>
+                  <mat-label><mat-icon>vpn_key</mat-icon> &nbsp;   <b>Contraseña</b> </mat-label>
                   <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                       </button>
@@ -40,7 +40,5 @@
             </div>  
              <div><button class="boton" (click)="comprobarDatos()">Ingresar</button></div>            
            
-             <div>
-            <a routerLink="/loginadministrador" mat-menu-item class="link">Ingresar como administrador</a>
-            </div>                           
+                                      
         </div>
