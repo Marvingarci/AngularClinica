@@ -22,26 +22,32 @@
                 <div class="col">
                     <mat-form-field class="example-full-width">
                         <input matInput placeholder="Nombre" value="{{paciente.nombre_completo}}" readonly>
+                        <mat-icon matSuffix>mode_edit</mat-icon>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
                             <input matInput placeholder="Identidad" value="{{paciente.numero_identidad}}" readonly>
+                            <mat-icon matSuffix>mode_edit</mat-icon>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
                             <input matInput placeholder="Numero de cuenta" value="{{paciente.numero_cuenta}}" readonly >
+                            <mat-icon matSuffix>mode_edit</mat-icon>
                         </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field class="example-full-width">
                         <input matInput placeholder="Centro" value="UNAHTEC Danli" readonly>
+                        <mat-icon matSuffix>mode_edit</mat-icon>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
                             <input matInput placeholder="Carrera" value="{{paciente.carrera}}" readonly>
+                            <mat-icon matSuffix>mode_edit</mat-icon>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
                             <input matInput placeholder="Sexo" value="{{paciente.sexo}}" readonly>
+                            <mat-icon matSuffix><button mat-button>mode_edit</button></mat-icon>
                         </mat-form-field>
 
-                        <button mat-flat-button color="primary" routerLink="/formulario/{{paciente.id}}">Editar</button>
+                        <button class="simon" mat-flat-button color="primary" routerLink="/formulario/{{paciente.id}}">Editar</button>
                 </div>
                 
             </div>  
