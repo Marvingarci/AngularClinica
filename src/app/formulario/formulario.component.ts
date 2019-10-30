@@ -934,6 +934,9 @@ ocultar: boolean = true;
     this.paciente.seguro_medico = this.formulario_datos_generales.get('seguro_medico').value;
     this.paciente.numero_telefono = this.formulario_datos_generales.get('numero_telefono').value;
     this.paciente.emergencia_telefono = this.formulario_datos_generales.get('emergencia_telefono').value;
+    this.paciente.categoria='E';
+    console.log(this.formulario_datos_generales.get('categoria').value);
+
     
     
     this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
@@ -970,6 +973,7 @@ ocultar: boolean = true;
     this.paciente.numero_telefono = this.formulario_datos_generales.get('numero_telefono').value;
     this.paciente.emergencia_telefono = this.formulario_datos_generales.get('emergencia_telefono').value;
     this.paciente.categoria= this.formulario_datos_generales.get('categoria').value;
+    console.log(this.formulario_datos_generales.get('categoria').value);
     
     
     this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{

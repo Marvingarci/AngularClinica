@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { LoginService } from "../services/login.service";
 import { LoginComponent } from '../login/login.component';
 import { FormularioComponent } from '../formulario/formulario.component';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-dato-paciente',
@@ -46,8 +47,7 @@ export class DatoPacienteComponent implements OnInit {
   pacientes: Paciente[];
   
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, 
-              principal: AppComponent, public dialog: MatDialog, login: LoginService) {
-                this.dialog.closeAll;
+              principal: AppComponent, public dialog: MatDialog, login: LoginService, private mensaje: MatSnackBar) {
 
     this.id = this.activatedRoute.snapshot.params['id'];
     if(this.id){
@@ -89,7 +89,7 @@ export class DatoPacienteComponent implements OnInit {
       this.pacientes = data;
     },(error)=>{
       console.log(error);
-      alert('Ocurrio un error');
+      this.mensaje.open('Ocurrio un error', '', {duration:2000});
     });
   }
 
@@ -102,11 +102,14 @@ export class DatoPacienteComponent implements OnInit {
 
 }
 
-
+/////////de aqui para abajo///////////////////////////////////
 
 @Component({
   selector: 'dialog-content-example-dialog',
   templateUrl: 'dialog-content-example-dialog.html',
+  styleUrls: ['./dialogo.css']
+
+
 })
 export class DialogContentExampleDialog {
   hide = true;
@@ -138,7 +141,8 @@ export class DialogContentExampleDialog {
   }
   id:any;
   Listo:boolean = false;
-  constructor( private formularioService: FormularioService, private activatedRoute: ActivatedRoute, public login: LoginService, private router: Router ){
+  constructor( private formularioService: FormularioService, private activatedRoute: ActivatedRoute, public login: LoginService, private router: Router
+    , private mensaje: MatSnackBar ){
     this.paciente1.id_paciente = this.formularioService.idActualizar;
     console.log(this.paciente1.id_paciente);
     ///////
@@ -191,18 +195,17 @@ guardar(){
   
   this.formularioService.put(this.paciente1).subscribe((data)=>{
   
-    alert('Contraseña guardada');  
+    this.mensaje.open('Contraseña guardada', '', {duration:2000});
     this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
     console.log(data);
     this.Listo = true;
 
   }, (error)=>{
     console.log(error);
-    alert('No se guardo ni mierda');
     
   });
 }else{
-  alert('La contrase;a no es la misma');
+  this.mensaje.open('La contraseña no es la misma', '', {duration:2000});
   
 }
 

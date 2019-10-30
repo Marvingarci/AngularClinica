@@ -19,6 +19,8 @@ import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitan
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
 import { VerPacienteComponent } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 
 //Material Angular
@@ -145,6 +147,7 @@ const routes: Route[] = [
     MatProgressSpinnerModule,
     MatMenuModule,
     MatBottomSheetModule,
+    MatSnackBarModule
     
   
     
