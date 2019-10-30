@@ -40,7 +40,11 @@ export class DatoPacienteComponent implements OnInit {
     temperatura: null,
     presion: null,
     pulso: null,
-    categoria: null  }
+    categoria: null  
+  }
+
+
+
   id: any;
   noImg: boolean = true;
   pacientes: Paciente[];
