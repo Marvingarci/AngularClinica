@@ -1,21 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
+import { InventariosService } from '../services/inventarios.service';
 
 export interface Inventario {
   cantidad: number;
   nombre: string;
   descripcion: string;
-  fecha_nacimiento: string;
+  fecha_vencimiento: Date;
   ver: string;
 }
-
-const ELEMENT_DATA: Inventario[] = [
-  {cantidad: 2, nombre: 'Panadol', descripcion: 'Para el dolor de cabez', fecha_nacimiento: '1222', ver: ''},
-  {cantidad: 3, nombre: 'Panadol', descripcion: 'Para el dolor de cabez', fecha_nacimiento: 'H', ver: ''},
-  
-];
-
 
 @Component({
   selector: 'app-inventario',
@@ -25,17 +19,22 @@ const ELEMENT_DATA: Inventario[] = [
 export class InventarioComponent implements OnInit {
 
   API_ENDPOINT = "http://127.0.0.1:8000/api/";
-  inventario: Inventario[];
-
-  displayedColumns: string[] = ['cantidad', 'nombre', 'descripcion', 'fecha_nacimiento', 'ver'];
+  inventario1: Inventario[];
   
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
 
+  displayedColumns: string[] = ['cantidad', 'nombre', 'descripcion', 'fecha_vencimiento', 'ver'];
+  
+  dataSource:any;
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   
-  constructor(private httpClient: HttpClient) { }
+  constructor(private inventarioss: InventariosService, private httpClient: HttpClient) { 
+    httpClient.get(this.API_ENDPOINT + 'inventarios' ).subscribe((data: Inventario[]) => {
+      this.dataSource= new MatTableDataSource(data);
+      console.log(this.inventario1);
+    });
+  }
 
   ngOnInit() {
   }
