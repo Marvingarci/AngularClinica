@@ -53,19 +53,32 @@
                             </button>
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Sexo" value="{{paciente.sexo}}" readonly>
+                            <input matInput placeholder="Sexo" value="{{paciente.sexo}}" readonly="disable">
                             <button mat-button matSuffix mat-stroked-button aria-label="create">
                                 <mat-icon>create</mat-icon>
                             </button>
-                        </mat-form-field>
+                        </mat-form-field> 
+                        <div>
+                            <button mat-raised-button
+                                class="btn btn-outline-primary float-right"
+                                style="position: relative;"
+                                (click)="disable = !disable">
+                                {{!disable== true ? 'Guardar' : 'Editar'}}
+                            </button>
 
-                        <div style="text-align: right;">
-                            <button style="position: absolute;bottom:10%;" mat-flat-button color="primary" routerLink="/formulario/{{paciente.id}}">Guardar</button>
-                        </div>
+                            <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+                                {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+                              </button>
+                        </div>  
+
 
                 </div>
                 
-            </div>  
+            </div> 
+            
+
+            
+            
         
     </mat-card>
     <br/>
