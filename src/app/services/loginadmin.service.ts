@@ -6,12 +6,15 @@ import { LoginAdmin } from '../interfaces/login_admin';
   providedIn: 'root'
 })
 export class LoginadminService {
-  get() {
-    throw new Error("Method not implemented.");
-  }
   API_ENDPOINT = 'http://127.0.0.1:8000/api'
+  getAdmin(){
+    return this.httpClient.get(this.API_ENDPOINT+'/login_admin');
+  }
+ 
+  
+ 
 
-  constructor(private httpClient :HttpClient) {}
+  constructor(private httpClient :HttpClient,LoginAdminService: LoginadminService) {}
 
     saveloginadmin(login_admin:LoginAdmin){
       const headers = new HttpHeaders({'Content-Type':'application/json'});

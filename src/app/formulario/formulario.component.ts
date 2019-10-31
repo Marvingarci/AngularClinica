@@ -24,73 +24,11 @@ export interface Loginadmin {
  // contrasenia_admin: any;
   value: string;
   viewValue: string;
+
 }
 
-export interface Sexo {
-  value: string;
-  viewValue: string;
-}
 
-export interface seguro_medico {
-  value: string;
-  viewValue: string;
-}
-export interface categoria {
-  value: string;
-  viewValue: string;
-}
-
-export interface estado_civil {
-  value: string;
-  viewValue: string;
-}
-
-export interface Parentesco {
-  value: string;
-  viewValue: string;
-}
-
-export interface Desnutricion {
-  value: string;
-  viewValue: string;
-}
-
-export interface enfermedad_mental {
-  value: string;
-  viewValue: string;
-}
-
-export interface Alergia {
-  value: string;
-  viewValue: string;
-}
-
-export interface Cancer {
-  value: string;
-  viewValue: string;
-}
-
-export interface practica_sexual_riesgo {
-  value: string;
-  viewValue: string;
-}
-
-export interface Periocidad {
-  value: string;
-  viewValue: string;
-}
-
-export interface Caracteristica {
-  value: string;
-  viewValue: string;
-}
-
-export interface Metodo {
-  value: string;
-  viewValue: string;
-}
-
-export interface resultado_embarazo {
+export interface select {
   value: string;
   viewValue: string;
 }
@@ -721,24 +659,24 @@ ocultar: boolean = true;
   
 
   //select
-  categorias: categoria[] = [
+  categorias: select[] = [
     {value: 'T', viewValue: 'Empleado'},
     {value: 'V', viewValue: 'Visitante'},
     {value: 'P', viewValue: 'Prosene'}
   ];
-  sexos: Sexo[] = [
+  sexos: select[] = [
     {value: 'hombre', viewValue: 'Hombre'},
     {value: 'mujer', viewValue: 'Mujer'},
     {value: 'otro', viewValue: 'Otro'}
   ];
 
-  seguros_medicos: seguro_medico[] = [
+  seguros_medicos: select[] = [
     {value: 'Privado', viewValue: 'Privado'},
     {value: 'IHSS', viewValue: 'IHSS'},
     {value: 'No', viewValue: 'No'}
   ];
 
-  estados_civiles: estado_civil[] = [
+  estados_civiles: select[] = [
     {value: 'Soltero', viewValue: 'Soltero'},
     {value: 'Union Libre', viewValue: 'Union Libre'},
     {value: 'Divorciado', viewValue: 'Divorciado'},
@@ -747,7 +685,7 @@ ocultar: boolean = true;
    
   ];
 
-  parentescos: Parentesco[] = [
+  parentescos: select[] = [
     {value: 'Padre' , viewValue: 'Padre'},
     {value: 'Madre' , viewValue: 'Madre'},
     {value: 'Abuelos' , viewValue: 'Abuelos'},
@@ -755,13 +693,13 @@ ocultar: boolean = true;
 
   ];
 
-  desnutriciones: Desnutricion[] = [
+  desnutriciones: select[] = [
     {value: 'Obecidad' , viewValue: 'Obecidad'},
     {value: 'Muy degaldo' , viewValue: 'Muy delgado'},
 
   ];
 
-  enfermedades_mentaless: enfermedad_mental[] = [
+  enfermedades_mentaless: select[] = [
     {value: 'Alzheimer' , viewValue: 'Alzheimer'},
     {value: 'Parkinson' , viewValue: 'Parkinson'},
     {value: 'Esquizofrenia' , viewValue: 'Esquizofrenia'},
@@ -772,7 +710,7 @@ ocultar: boolean = true;
 
   ];
   
-  tipos_alergias: Alergia[] = [
+  tipos_alergias: select[] = [
     {value: 'Medicamentos' , viewValue: 'Medicamentos'},
     {value: 'Alimentos' , viewValue: 'Alimentos'},
     {value: 'Cambios de clima' , viewValue: 'Cambios de clima'},
@@ -782,7 +720,7 @@ ocultar: boolean = true;
 
   ];
 
-  canceres: Cancer[] = [
+  canceres: select[] = [
     {value: 'Mama' , viewValue: 'Mama'},
     {value: 'Tiroides' , viewValue: 'Tiroides'},
     {value: 'Estómago' , viewValue: 'Estómago'},
@@ -793,26 +731,26 @@ ocultar: boolean = true;
 
   ];
 
-  practicas_sexuales: practica_sexual_riesgo[] = [
+  practicas_sexuales: select[] = [
     {value: 'Anal' , viewValue: 'Anal'},
     {value: 'Vaginal' , viewValue: 'Vaginal'},
     {value: 'Oral' , viewValue: 'Oral'},
   ];
 
-  periocidades: Periocidad[] = [
+  periocidades: select[] = [
     {value: 'Regular' , viewValue: 'Regular'},
     {value: 'Irregular' , viewValue: 'Irregular'},
 
   ];
   
-  caracteristicas: Caracteristica[] = [
+  caracteristicas: select[] = [
     {value: 'Abundante' , viewValue: 'Abundante'},
     {value: 'Normal' , viewValue: 'Normal'},
     {value: 'Escasa' , viewValue: 'Escasa'},
 
   ];
 
-  metodos: Metodo[] = [
+  metodos: select[] = [
     {value: 'DIU' , viewValue: 'DIU'},
     {value: 'Condón' , viewValue: 'Condón'},
     {value: 'Pastilla' , viewValue: 'Pastilla'},
@@ -825,7 +763,7 @@ ocultar: boolean = true;
 
   ];
 
-  resultados_embarazos: resultado_embarazo[] = [
+  resultados_embarazos: select[] = [
     {value: 'Sin complicaciones' , viewValue: 'Sin complicaciones'},
     {value: 'Con complicaciones' , viewValue: 'Con complicaciones'},
     
@@ -865,6 +803,7 @@ ocultar: boolean = true;
       this.datosScraping = data;
      
       
+      console.log(this.datosScraping);
 
       
           //Obtencion de Paciente ultimo paciente regitrado
@@ -872,6 +811,7 @@ ocultar: boolean = true;
            this.resultado = data;
            if(this.resultado[0].ultimoId==null){
             this.resultado[0].ultimoId=0;
+            console.log(this.resultado[0].ultimoId);
            }
            
 
@@ -937,6 +877,37 @@ ocultar: boolean = true;
     this.paciente.categoria='E';
     console.log(this.formulario_datos_generales.get('categoria').value);
 
+      this.paciente.id_paciente = this.datosScraping.id_login;
+      this.paciente.nombre_completo = this.nombre_completo.value;
+      this.paciente.numero_cuenta = this.numero_cuenta.value;
+      this.paciente.numero_identidad = this.numero_identidad.value;
+      this.paciente.imagen = this.datosScraping.imagen;
+      this.paciente.lugar_procedencia = this.lugar_procedencia.value;
+      this.paciente.direccion = this.direccion.value;
+      this.paciente.carrera = this.carrera.value;
+      this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
+      this.paciente.sexo = this.sexo.value;
+      this.paciente.estado_civil = this.estado_civil.value;
+      this.paciente.seguro_medico = this.seguro_medico.value;
+      this.paciente.numero_telefono = this.numero_telefono.value;
+      this.paciente.emergencia_telefono = this.emergencia_telefono.value;
+      this.paciente.categoria = "E";
+
+    // this.paciente.id_paciente = this.datosScraping.id_login;
+    // this.paciente.nombre_completo = this.formulario_datos_generales.get('nombre_completo').value;
+    // this.paciente.numero_cuenta = this.formulario_datos_generales.get('numero_cuenta').value;
+    // this.paciente.numero_identidad = this.formulario_datos_generales.get('numero_identidad').value;
+    // this.paciente.imagen = this.datosScraping.imagen;
+    // this.paciente.lugar_procedencia = this.formulario_datos_generales.get('lugar_procedencia').value;
+    // this.paciente.direccion = this.formulario_datos_generales.get('direccion').value;
+    // this.paciente.carrera = this.formulario_datos_generales.get('carrera').value;
+    // this.paciente.fecha_nacimiento = this.formulario_datos_generales.get('fecha_nacimiento').value;
+    // this.paciente.sexo = this.formulario_datos_generales.get('sexo').value;
+    // this.paciente.estado_civil = this.formulario_datos_generales.get('estado_civil').value;
+    // this.paciente.seguro_medico = this.formulario_datos_generales.get('seguro_medico').value;
+    // this.paciente.numero_telefono = this.formulario_datos_generales.get('numero_telefono').value;
+    // this.paciente.emergencia_telefono = this.formulario_datos_generales.get('emergencia_telefono').value;
+    // this.paciente.categoria = this.categoria.value;
     
     
     this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
@@ -955,16 +926,13 @@ ocultar: boolean = true;
 
       // guardar datos del formulario en paciente y enviarlo a la api
     this.paciente.id_paciente = this.datosScraping.id_login;
-    this.paciente.nombre_completo = this.formulario_datos_generales.get('nombre_completo').value;
-    // this.paciente.segundo_apellido = this.formulario_datos_generales.get('segundo_apellido').value;
-    // this.paciente.primer_nombre = this.formulario_datos_generales.get('primer_nombre').value;
-    // this.paciente.segundo_nombre = this.formulario_datos_generales.get('segundo_nombre').value;
+    this.paciente.nombre_completo = this.nombre_completo.value;
     this.paciente.numero_cuenta = null;
-    this.paciente.numero_identidad = this.formulario_datos_generales.get('numero_identidad').value;
+    this.paciente.numero_identidad = this.numero_identidad.value;
     this.paciente.imagen = this.datosScraping.imagen;
 
-    this.paciente.lugar_procedencia = this.formulario_datos_generales.get('lugar_procedencia').value;
-    this.paciente.direccion = this.formulario_datos_generales.get('direccion').value;
+    this.paciente.lugar_procedencia = this.lugar_procedencia.value;
+    this.paciente.direccion = this.direccion.value;
     this.paciente.carrera = 'No es estudiante';
     this.paciente.fecha_nacimiento = this.formulario_datos_generales.get('fecha_nacimiento').value;
     this.paciente.sexo = this.formulario_datos_generales.get('sexo').value;
@@ -974,6 +942,15 @@ ocultar: boolean = true;
     this.paciente.emergencia_telefono = this.formulario_datos_generales.get('emergencia_telefono').value;
     this.paciente.categoria= this.formulario_datos_generales.get('categoria').value;
     console.log(this.formulario_datos_generales.get('categoria').value);
+
+    
+    this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
+    this.paciente.sexo = this.sexo.value;
+    this.paciente.estado_civil = this.estado_civil.value;
+    this.paciente.seguro_medico = this.seguro_medico.value;
+    this.paciente.numero_telefono = this.numero_telefono.value;
+    this.paciente.emergencia_telefono = this.emergencia_telefono.value;
+    this.paciente.categoria= this.categoria.value;
     
     
     this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
@@ -992,30 +969,30 @@ ocultar: boolean = true;
 
       if(this.formulario_antecedentes_familiares){
         // guardar datos del formulario en antecedente_familiar y enviarlo a la api
-        this.antecedente_familiar.diabetes = this.formulario_antecedentes_familiares.get('diabetes').value;
-        this.antecedente_familiar.observacion_diabetes = this.formulario_antecedentes_familiares.get('observacion_diabetes').value;
-        this.antecedente_familiar.tb_pulmonar = this.formulario_antecedentes_familiares.get('tb_pulmonar').value;
-        this.antecedente_familiar.observacion_tb_pulmonar = this.formulario_antecedentes_familiares.get('observacion_tb_pulmonar').value;
-        this.antecedente_familiar.desnutricion = this.formulario_antecedentes_familiares.get('desnutricion').value;
-        this.antecedente_familiar.observacion_desnutricion = this.formulario_antecedentes_familiares.get('observacion_desnutricion').value;
-        this.antecedente_familiar.tipo_desnutricion = this.formulario_antecedentes_familiares.get('tipo_desnutricion').value;
-        this.antecedente_familiar.enfermedades_mentales = this.formulario_antecedentes_familiares.get('enfermedades_mentales').value;
-        this.antecedente_familiar.observacion_enfermedades_mentales = this.formulario_antecedentes_familiares.get('observacion_enfermedades_mentales').value;
-        this.antecedente_familiar.tipo_enfermedad_mental = this.formulario_antecedentes_familiares.get('tipo_enfermedad_mental').value;
-        this.antecedente_familiar.convulsiones = this.formulario_antecedentes_familiares.get('convulsiones').value;
-        this.antecedente_familiar.observacion_convulsiones = this.formulario_antecedentes_familiares.get('observacion_convulsiones').value;
-        this.antecedente_familiar.alcoholismo_sustancias_psicoactivas = this.formulario_antecedentes_familiares.get('alcoholismo_sustancias_psicoactivas').value;
-        this.antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas = this.formulario_antecedentes_familiares.get('observacion_alcoholismo_sustancias_psicoactivas').value;
-        this.antecedente_familiar.alergias = this.formulario_antecedentes_familiares.get('alergias').value;
-        this.antecedente_familiar.observacion_alergias = this.formulario_antecedentes_familiares.get('observacion_alergias').value;
-        this.antecedente_familiar.tipo_alergia = this.formulario_antecedentes_familiares.get('tipo_alergia').value;
-        this.antecedente_familiar.cancer = this.formulario_antecedentes_familiares.get('cancer').value;
-        this.antecedente_familiar.observacion_cancer = this.formulario_antecedentes_familiares.get('observacion_cancer').value;
-        this.antecedente_familiar.tipo_cancer = this.formulario_antecedentes_familiares.get('tipo_cancer').value;
-        this.antecedente_familiar.hipertension_arterial = this.formulario_antecedentes_familiares.get('hipertension_arterial').value;
-        this.antecedente_familiar.observacion_hipertension_arterial = this.formulario_antecedentes_familiares.get('observacion_hipertension_arterial').value;
-        this.antecedente_familiar.otros = this.formulario_antecedentes_familiares.get('otros').value;
-        this.antecedente_familiar.observacion_otros = this.formulario_antecedentes_familiares.get('observacion_otros').value;
+        this.antecedente_familiar.diabetes = this.diabetes.value;
+        this.antecedente_familiar.observacion_diabetes = this.observacion_diabetes.value;
+        this.antecedente_familiar.tb_pulmonar = this.tb_pulmonar.value;
+        this.antecedente_familiar.observacion_tb_pulmonar = this.observacion_tb_pulmonar.value;
+        this.antecedente_familiar.desnutricion = this.desnutricion.value;
+        this.antecedente_familiar.observacion_desnutricion = this.observacion_desnutricion.value;
+        this.antecedente_familiar.tipo_desnutricion = this.tipo_desnutricion.value;
+        this.antecedente_familiar.enfermedades_mentales = this.enfermedades_mentales.value;
+        this.antecedente_familiar.observacion_enfermedades_mentales = this.observacion_enfermedades_mentales.value;
+        this.antecedente_familiar.tipo_enfermedad_mental = this.tipo_enfermedad_mental.value;
+        this.antecedente_familiar.convulsiones = this.convulsiones.value;
+        this.antecedente_familiar.observacion_convulsiones = this.observacion_convulsiones.value;
+        this.antecedente_familiar.alcoholismo_sustancias_psicoactivas = this.alcoholismo_sustancias_psicoactivas.value;
+        this.antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas = this.observacion_alcoholismo_sustancias_psicoactivas.value;
+        this.antecedente_familiar.alergias = this.alergias.value;
+        this.antecedente_familiar.observacion_alergias = this.observacion_alergias.value;
+        this.antecedente_familiar.tipo_alergia = this.tipo_alergia.value;
+        this.antecedente_familiar.cancer = this.cancer.value;
+        this.antecedente_familiar.observacion_cancer = this.observacion_cancer.value;
+        this.antecedente_familiar.tipo_cancer = this.tipo_cancer.value;
+        this.antecedente_familiar.hipertension_arterial = this.hipertension_arterial.value;
+        this.antecedente_familiar.observacion_hipertension_arterial = this.observacion_hipertension_arterial.value;
+        this.antecedente_familiar.otros = this.otros.value;
+        this.antecedente_familiar.observacion_otros = this.observacion_otros.value;
         this.antecedente_familiar.id_paciente = this.datosScraping.id_login;
       
             
@@ -1033,35 +1010,35 @@ ocultar: boolean = true;
       if(this.formulario_antecedentes_personales.valid){
 
         // guardar datos del formulario en antecedente_personal y enviarlo a la api
-        this.antecedente_personal.diabetes = this.formulario_antecedentes_personales.get('diabetes').value;
-        this.antecedente_personal.observacion_diabetes = this.formulario_antecedentes_personales.get('observacion_diabetes').value;
-        this.antecedente_personal.tb_pulmonar = this.formulario_antecedentes_personales.get('tb_pulmonar').value;
-        this.antecedente_personal.observacion_tb_pulmonar = this.formulario_antecedentes_personales.get('observacion_tb_pulmonar').value;
-        this.antecedente_personal.its = this.formulario_antecedentes_personales.get('its').value;
-        this.antecedente_personal.observacion_its = this.formulario_antecedentes_personales.get('observacion_its').value;
-        this.antecedente_personal.desnutricion = this.formulario_antecedentes_personales.get('desnutricion').value;
-        this.antecedente_personal.observacion_desnutricion = this.formulario_antecedentes_personales.get('observacion_desnutricion').value;
-        this.antecedente_personal.tipo_desnutricion = this.formulario_antecedentes_personales.get('tipo_desnutricion').value;
-        this.antecedente_personal.enfermedades_mentales = this.formulario_antecedentes_personales.get('enfermedades_mentales').value;
-        this.antecedente_personal.observacion_enfermedades_mentales = this.formulario_antecedentes_personales.get('observacion_enfermedades_mentales').value;
-        this.antecedente_personal.tipo_enfermedad_mental = this.formulario_antecedentes_personales.get('tipo_enfermedad_mental').value;
-        this.antecedente_personal.convulsiones = this.formulario_antecedentes_personales.get('convulsiones').value;
-        this.antecedente_personal.observacion_convulsiones = this.formulario_antecedentes_personales.get('observacion_convulsiones').value;
-        this.antecedente_personal.alergias = this.formulario_antecedentes_personales.get('alergias').value;
-        this.antecedente_personal.observacion_alergias = this.formulario_antecedentes_personales.get('observacion_alergias').value;
-        this.antecedente_personal.tipo_alergia = this.formulario_antecedentes_personales.get('tipo_alergia').value;
-        this.antecedente_personal.cancer = this.formulario_antecedentes_personales.get('cancer').value;
-        this.antecedente_personal.observacion_cancer = this.formulario_antecedentes_personales.get('observacion_cancer').value;
-        this.antecedente_personal.tipo_cancer = this.formulario_antecedentes_personales.get('tipo_cancer').value;
-        this.antecedente_personal.hospitalarias_quirurgicas = this.formulario_antecedentes_personales.get('hospitalarias_quirurgicas').value;
-        this.antecedente_personal.fecha_antecedente_hospitalario = this.formulario_antecedentes_personales.get('fecha_antecedente_hospitalario').value;
-        this.antecedente_personal.tratamiento = this.formulario_antecedentes_personales.get('tratamiento').value;
-        this.antecedente_personal.diagnostico = this.formulario_antecedentes_personales.get('diagnostico').value;
-        this.antecedente_personal.tiempo_hospitalizacion = this.formulario_antecedentes_personales.get('tiempo_hospitalizacion').value;
-        this.antecedente_personal.traumaticos = this.formulario_antecedentes_personales.get('traumaticos').value;
-        this.antecedente_personal.observacion_traumaticos = this.formulario_antecedentes_personales.get('observacion_traumaticos').value;
-        this.antecedente_personal.otros = this.formulario_antecedentes_personales.get('otros').value;
-        this.antecedente_personal.observacion_otros = this.formulario_antecedentes_personales.get('observacion_otros').value;
+        this.antecedente_personal.diabetes = this.diabetes.value;
+        this.antecedente_personal.observacion_diabetes = this.observacion_diabetes.value;
+        this.antecedente_personal.tb_pulmonar = this.tb_pulmonar.value;
+        this.antecedente_personal.observacion_tb_pulmonar = this.observacion_tb_pulmonar.value;
+        this.antecedente_personal.its = this.its.value;
+        this.antecedente_personal.observacion_its = this.observacion_its.value;
+        this.antecedente_personal.desnutricion = this.desnutricion.value;
+        this.antecedente_personal.observacion_desnutricion = this.observacion_desnutricion.value;
+        this.antecedente_personal.tipo_desnutricion = this.tipo_desnutricion.value;
+        this.antecedente_personal.enfermedades_mentales = this.enfermedades_mentales.value;
+        this.antecedente_personal.observacion_enfermedades_mentales = this.observacion_enfermedades_mentales.value;
+        this.antecedente_personal.tipo_enfermedad_mental = this.tipo_enfermedad_mental.value;
+        this.antecedente_personal.convulsiones = this.convulsiones.value;
+        this.antecedente_personal.observacion_convulsiones = this.observacion_convulsiones.value;
+        this.antecedente_personal.alergias = this.alergias.value;
+        this.antecedente_personal.observacion_alergias = this.observacion_alergias.value;
+        this.antecedente_personal.tipo_alergia = this.tipo_alergia.value;
+        this.antecedente_personal.cancer = this.cancer.value;
+        this.antecedente_personal.observacion_cancer = this.observacion_cancer.value;
+        this.antecedente_personal.tipo_cancer = this.tipo_cancer.value;
+        this.antecedente_personal.hospitalarias_quirurgicas = this.hospitalarias_quirurgicas.value;
+        this.antecedente_personal.fecha_antecedente_hospitalario = this.fecha_antecedente_hospitalario.value;
+        this.antecedente_personal.tratamiento = this.tratamiento.value;
+        this.antecedente_personal.diagnostico = this.diagnostico.value;
+        this.antecedente_personal.tiempo_hospitalizacion = this.tiempo_hospitalizacion.value;
+        this.antecedente_personal.traumaticos = this.traumaticos.value;
+        this.antecedente_personal.observacion_traumaticos = this.observacion_traumaticos.value;
+        this.antecedente_personal.otros = this.otros.value;
+        this.antecedente_personal.observacion_otros = this.observacion_otros.value;
         this.antecedente_personal.id_paciente = this.datosScraping.id_login;
         
         this.formularioService.guardarAntecedentesPersonales(this.antecedente_personal).subscribe( (data) =>{
@@ -1078,16 +1055,16 @@ ocultar: boolean = true;
       if(this.formulario_habito_toxicologico_personal.valid){
 
         // guardar datos del formulario en habito_toxicologico y enviarlo a la api
-        this.habito_toxicologico_personal.alcohol = this.formulario_habito_toxicologico_personal.get('alcohol').value;
-        this.habito_toxicologico_personal.observacion_alcohol = this.formulario_habito_toxicologico_personal.get('observacion_alcohol').value;
-        this.habito_toxicologico_personal.tabaquismo = this.formulario_habito_toxicologico_personal.get('tabaquismo').value;
-        this.habito_toxicologico_personal.observacion_tabaquismo = this.formulario_habito_toxicologico_personal.get('observacion_tabaquismo').value;
-        this.habito_toxicologico_personal.marihuana = this.formulario_habito_toxicologico_personal.get('marihuana').value;
-        this.habito_toxicologico_personal.observacion_marihuana = this.formulario_habito_toxicologico_personal.get('observacion_marihuana').value;
-        this.habito_toxicologico_personal.cocaina = this.formulario_habito_toxicologico_personal.get('cocaina').value;
-        this.habito_toxicologico_personal.observacion_cocaina = this.formulario_habito_toxicologico_personal.get('observacion_cocaina').value;
-        this.habito_toxicologico_personal.otros = this.formulario_habito_toxicologico_personal.get('otros').value;
-        this.habito_toxicologico_personal.observacion_otros = this.formulario_habito_toxicologico_personal.get('observacion_otros').value;
+        this.habito_toxicologico_personal.alcohol = this.alcohol.value;
+        this.habito_toxicologico_personal.observacion_alcohol = this.observacion_alcohol.value;
+        this.habito_toxicologico_personal.tabaquismo = this.tabaquismo.value;
+        this.habito_toxicologico_personal.observacion_tabaquismo = this.observacion_tabaquismo.value;
+        this.habito_toxicologico_personal.marihuana = this.marihuana.value;
+        this.habito_toxicologico_personal.observacion_marihuana = this.observacion_marihuana.value;
+        this.habito_toxicologico_personal.cocaina = this.cocaina.value;
+        this.habito_toxicologico_personal.observacion_cocaina = this.observacion_cocaina.value;
+        this.habito_toxicologico_personal.otros = this.otros.value;
+        this.habito_toxicologico_personal.observacion_otros = this.observacion_otros.value;
         this.habito_toxicologico_personal.id_paciente = this.datosScraping.id_login;
 
         this.formularioService.guardarHabitosToxicologicosPersonales(this.habito_toxicologico_personal).subscribe( (data) =>{
@@ -1102,10 +1079,10 @@ ocultar: boolean = true;
 
       if(this.formulario_actividad_sexual.valid){
           // guardar datos del formulario en actividad_sexual y enviarlo a la api
-        this.actividad_sexual.actividad_sexual = this.formulario_actividad_sexual.get('actividad_sexual').value;
-        this.actividad_sexual.edad_inicio_sexual = this.formulario_actividad_sexual.get('edad_inicio_sexual').value;
-        this.actividad_sexual.numero_parejas_sexuales = this.formulario_actividad_sexual.get('numero_parejas_sexuales').value;
-        this.actividad_sexual.practicas_sexuales_riesgo = this.formulario_actividad_sexual.get('practicas_sexuales_riesgo').value;
+        this.actividad_sexual.actividad_sexual = this.actividad_sexuall.value;
+        this.actividad_sexual.edad_inicio_sexual = this.edad_inicio_sexual.value;
+        this.actividad_sexual.numero_parejas_sexuales = this.numero_parejas_sexuales.value;
+        this.actividad_sexual.practicas_sexuales_riesgo = this.practicas_sexuales_riesgo.value;
         this.actividad_sexual.id_paciente = this.datosScraping.id_login;
 
         this.formularioService.guardarActividadSexual(this.actividad_sexual).subscribe( (data) =>{
@@ -1124,14 +1101,14 @@ ocultar: boolean = true;
         if(this.formulario_antecedente_ginecologico.valid){
 
           // guardar datos del formulario en antecedente_genicologico y enviarlo a la api
-          this.antecedente_ginecologico.edad_inicio_menstruacion = this.formulario_antecedente_ginecologico.get('edad_inicio_menstruacion').value;
-          this.antecedente_ginecologico.fum = this.formulario_antecedente_ginecologico.get('fum').value;
-          this.antecedente_ginecologico.citologia = this.formulario_antecedente_ginecologico.get('citologia').value;
-          this.antecedente_ginecologico.fecha_citologia = this.formulario_antecedente_ginecologico.get('fecha_citologia').value;
-          this.antecedente_ginecologico.resultado_citologia = this.formulario_antecedente_ginecologico.get('resultado_citologia').value;
-          this.antecedente_ginecologico.duracion_ciclo_menstrual = this.formulario_antecedente_ginecologico.get('duracion_ciclo_menstrual').value;
-          this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.formulario_antecedente_ginecologico.get('periocidad_ciclo_menstrual').value;
-          this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.formulario_antecedente_ginecologico.get('caracteristicas_ciclo_menstrual').value;
+          this.antecedente_ginecologico.edad_inicio_menstruacion = this.edad_inicio_menstruacion.value;
+          this.antecedente_ginecologico.fum = this.fum.value;
+          this.antecedente_ginecologico.citologia = this.citologia.value;
+          this.antecedente_ginecologico.fecha_citologia = this.fecha_citologia.value;
+          this.antecedente_ginecologico.resultado_citologia = this.resultado_citologia.value;
+          this.antecedente_ginecologico.duracion_ciclo_menstrual = this.duracion_ciclo_menstrual.value;
+          this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
+          this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
           this.antecedente_ginecologico.id_paciente = this.datosScraping.id_login;
 
           this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico).subscribe( (data) =>{
@@ -1148,14 +1125,14 @@ ocultar: boolean = true;
         if(this.formulario_antecedente_obstetrico.valid){
 
           // guardar datos del formulario en antecedente_obstetrico y enviarlo a la api
-          this.antecedente_obstetrico.partos = this.formulario_antecedente_obstetrico.get('partos').value;
-          this.antecedente_obstetrico.abortos = this.formulario_antecedente_obstetrico.get('abortos').value;
-          this.antecedente_obstetrico.cesarias = this.formulario_antecedente_obstetrico.get('cesarias').value;
-          this.antecedente_obstetrico.hijos_vivos = this.formulario_antecedente_obstetrico.get('hijos_vivos').value;
-          this.antecedente_obstetrico.hijos_muertos = this.formulario_antecedente_obstetrico.get('hijos_muertos').value;
-          this.antecedente_obstetrico.fecha_termino_ult_embarazo = this.formulario_antecedente_obstetrico.get('fecha_termino_ult_embarazo').value;
-          this.antecedente_obstetrico.descripcion_termino_ult_embarazo = this.formulario_antecedente_obstetrico.get('descripcion_termino_ult_embarazo').value;
-          this.antecedente_obstetrico.observaciones = this.formulario_antecedente_obstetrico.get('observaciones').value;  
+          this.antecedente_obstetrico.partos = this.partos.value;
+          this.antecedente_obstetrico.abortos = this.abortos.value;
+          this.antecedente_obstetrico.cesarias = this.cesarias.value;
+          this.antecedente_obstetrico.hijos_vivos = this.hijos_vivos.value;
+          this.antecedente_obstetrico.hijos_muertos = this.hijos_muertos.value;
+          this.antecedente_obstetrico.fecha_termino_ult_embarazo = this.fecha_termino_ult_embarazo.value;
+          this.antecedente_obstetrico.descripcion_termino_ult_embarazo = this.descripcion_termino_ult_embarazo.value;
+          this.antecedente_obstetrico.observaciones = this.observaciones.value;  
           this.antecedente_obstetrico.id_paciente = this.datosScraping.id_login;
   
           this.formularioService.guardarAntecedentesObstetricos(this.antecedente_obstetrico).subscribe( (data) =>{
@@ -1175,9 +1152,9 @@ ocultar: boolean = true;
       if(this.formulario_planificacion_familiar.valid){
 
           // guardar datos del formulario en planificacion_familiar y enviarlo a la api
-        this.planificacion_familiar.planificacion_familiar = this.formulario_planificacion_familiar.get('planificacion_familiar').value;
-        this.planificacion_familiar.metodo_planificacion = this.formulario_planificacion_familiar.get('metodo_planificacion').value;
-        this.planificacion_familiar.observacion_planificacion = this.formulario_planificacion_familiar.get('observacion_planificacion').value;
+        this.planificacion_familiar.planificacion_familiar = this.planificacion_familiarr.value;
+        this.planificacion_familiar.metodo_planificacion = this.metodo_planificacion.value;
+        this.planificacion_familiar.observacion_planificacion = this.observacion_planificacion.value;
         this.planificacion_familiar.id_paciente = this.datosScraping.id_login;
         
         this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiar).subscribe( (data) =>{
