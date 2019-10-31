@@ -20,12 +20,14 @@ export class FormularioService {
   API_ENDPOINT = "http://127.0.0.1:8000/api/"
 
   headers = new HttpHeaders({'Content-Type':'application/json'});
+
   constructor(private httpClient :HttpClient) {
 
    }
+
+   
    put(paciente){
-    const Headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.put(this.API_ENDPOINT+'pacientes/'+ paciente.id_paciente , paciente, {headers: Headers});
+    return this.httpClient.put(this.API_ENDPOINT+'pacientes/'+ paciente.id_paciente , paciente, {headers: this.headers});
   }
 
   guardarDatosGenerales(paciente: Paciente){
@@ -41,11 +43,10 @@ export class FormularioService {
   }
 
   getScrap(){
-    const Headers = new HttpHeaders({'Content-Type':'application/json'});
     return this.httpClient.get(this.API_ENDPOINT+'login');
   }
+  
   getUno(paciente: number){
-    const Headers = new HttpHeaders({'Content-Type':'application/json'});
     return this.httpClient.get(this.API_ENDPOINT+'pacientes/'+paciente);
   }
 
@@ -54,37 +55,30 @@ export class FormularioService {
   }
 
   guardarAntecedentesFamiliares(antecedente_familiar: AntecedentesFamiliares){
-    const headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.post(this.API_ENDPOINT + 'antecedentes_familiares', antecedente_familiar, {headers: headers});
+    return this.httpClient.post(this.API_ENDPOINT + 'antecedentes_familiares', antecedente_familiar, {headers: this.headers});
   };
 
   guardarAntecedentesPersonales(antecedente_personal: AntecedentesPersonales){
-    const headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.post(this.API_ENDPOINT + 'antecedentes_personales', antecedente_personal, {headers: headers});
+    return this.httpClient.post(this.API_ENDPOINT + 'antecedentes_personales', antecedente_personal, {headers: this.headers});
   };
 
   guardarHabitosToxicologicosPersonales(habito_toxicologico_personal: HabitosToxicologicosPersonales){
-    const headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.post(this.API_ENDPOINT + 'habitos_toxicologicos_personales', habito_toxicologico_personal, {headers: headers});
+    return this.httpClient.post(this.API_ENDPOINT + 'habitos_toxicologicos_personales', habito_toxicologico_personal, {headers: this.headers});
   };
 
   guardarActividadSexual(actividad_sexual: ActividadSexual){
-    const headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.post(this.API_ENDPOINT + 'actividad_sexual', actividad_sexual, {headers: headers});
+    return this.httpClient.post(this.API_ENDPOINT + 'actividad_sexual', actividad_sexual, {headers: this.headers});
   };
 
   guardarAntecedentesGinecologicos(antecedente_ginecologico: AntecedentesGinecologicos){
-    const headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.post(this.API_ENDPOINT + 'antecedentes_ginecologicos', antecedente_ginecologico, {headers: headers});
+    return this.httpClient.post(this.API_ENDPOINT + 'antecedentes_ginecologicos', antecedente_ginecologico, {headers: this.headers});
   };
 
   guardarPlanificacionesFamiliares(planificacion_familiar: PlanificacionesFamiliares){
-    const headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.post(this.API_ENDPOINT + 'planificaciones_familiares', planificacion_familiar, {headers: headers});
+    return this.httpClient.post(this.API_ENDPOINT + 'planificaciones_familiares', planificacion_familiar, {headers: this.headers});
   };
 
   guardarAntecedentesObstetricos(antecedente_obstetrico: AntecedentesObstetricos){
-    const headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.post(this.API_ENDPOINT + 'antecedentes_obstetricos', antecedente_obstetrico, {headers: headers});
+    return this.httpClient.post(this.API_ENDPOINT + 'antecedentes_obstetricos', antecedente_obstetrico, {headers: this.headers});
   };
 }
