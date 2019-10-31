@@ -22,29 +22,33 @@ export class LoginComponent implements OnInit {
  hide = true;
  loading: boolean =false;
   //input
-  scrap: Paciente = {
-    id_paciente: null,
-    numero_paciente: null,
-    contrasenia: null,
-    nombre_completo: null,
-    numero_cuenta: null,
-    numero_identidad: null,
-    lugar_procedencia: null,
-    direccion: null,
-    carrera: null,
-    fecha_nacimiento: null,
-    sexo: null,
-    estado_civil: null,
-    seguro_medico: null,
-    numero_telefono: null,
-    emergencia_telefono: null,
-    peso: null,
-    talla: null,
-    imc: null,
-    temperatura: null,
-    presion: null,
-    pulso: null
-  }
+  // scrap: Paciente = {
+  //   id_paciente: null,
+  //   numero_paciente: null,
+  //   contrasenia: null,
+  //   nombre_completo: null,
+  //   numero_cuenta: null,
+  //   numero_identidad: null,
+  //   lugar_procedencia: null,
+  //   direccion: null,
+  //   carrera: null,
+  //   fecha_nacimiento: null,
+  //   sexo: null,
+  //   estado_civil: null,
+  //   seguro_medico: null,
+  //   numero_telefono: null,
+  //   emergencia_telefono: null,
+  //   peso: null,
+  //   talla: null,
+  //   imc: null,
+  //   temperatura: null,
+  //   presion: null,
+  //   pulso: null,
+  //   estudiante: null,
+  //   empleado: null,
+  //   visitante: null,
+  //   prosene: null,
+  // }
   scrap1: LoginAdmin = {  
     id :null,
     usuario_admin : null,
@@ -157,5 +161,4 @@ export class LoginComponent implements OnInit {
 
   get cuenta(){return this.login_form.get('cuenta')};
   get clave(){return this.login_form.get('clave')}; 
-
 }

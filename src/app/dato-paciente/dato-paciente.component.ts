@@ -40,10 +40,15 @@ export class DatoPacienteComponent implements OnInit {
     temperatura: null,
     presion: null,
     pulso: null,
-    categoria: null  }
+    categoria: null  
+  }
+
+
+
   id: any;
   noImg: boolean = true;
   pacientes: Paciente[];
+  disable : boolean = true;
   
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, 
               principal: AppComponent, public dialog: MatDialog, login: LoginService) {
