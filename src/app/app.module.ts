@@ -19,6 +19,8 @@ import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitan
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
 import { VerPacienteComponent } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InventarioComponent } from './inventario/inventario.component';
+import { FormInventarioComponent } from './form-inventario/form-inventario.component';
 
 
 //Material Angular
@@ -43,10 +45,10 @@ import { MatTableModule } from '@angular/material'
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatMenuModule} from '@angular/material/menu';
-import { InventarioComponent } from './inventario/inventario.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { PaseAdminComponent } from './pase-admin/pase-admin.component';
 import { VerAdministradoresComponent } from './ver-administradores/ver-administradores.component';
+
 
 
 
@@ -66,6 +68,7 @@ const routes: Route[] = [
   {path: 'datoPaciente', component: DatoPacienteComponent},
   {path: 'verPaciente', component: VerPacienteComponent},
   {path: 'inventario', component: InventarioComponent},
+  {path: 'formInventario', component: FormInventarioComponent},
 
 
   {path: 'loginadmin', component: LoginadminComponent},
@@ -114,9 +117,15 @@ const routes: Route[] = [
     VerPacienteComponent,
     DialogContentExampleDialog,
     InventarioComponent,
+
+
+
+
+    
     PaseAdminComponent,
     VerAdministradoresComponent,
-    
+
+    FormInventarioComponent,
 
     
   ],

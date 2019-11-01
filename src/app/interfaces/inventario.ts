@@ -3,7 +3,7 @@ export interface Inventario{
     cantidad: number,
     nombre: string,
     descripcion: string,
-    fecha_nacimiento: Date,
+    fecha_vencimiento: Date,
     created_at? : string;
     updated_at? : string;
 }
