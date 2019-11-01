@@ -1,11 +1,10 @@
-<div id="intro" class="view">
-    <div class="full-bg-img">
-          
-      <div id="formstyle">
-        
-<div class="view" id="imagenpuma"></div>
 
-<form [formGroup]= "loginadmin_form">
+          
+<div>
+   <div class="titulo"><h2 >Registro Admnistradores</h2></div> 
+        
+
+<form  id="form" [formGroup]= "loginadmin_form">
 
 <div class="col">
   <mat-form-field class="example-full-width">
@@ -74,8 +73,8 @@
         </div>
 
             <div >
-            <label class="label">Especialidad</label>
-            <p><select id = "select" name="miselect" formControlName= "especialidad">
+            <label  class="label">Especialidad</label>
+            <p><select class="example-full-width" id = "select" name="miselect" formControlName= "especialidad">
             <option [value]="item" *ngFor="let item of lista">{{item}}</option>
             </select></p>           
             </div> 
@@ -137,13 +136,14 @@
 <option [value]="item" *ngFor="let item of lista">{{item}}</option>
 </select></p>
 </div>      -->
-
+<div><button (click)="comprobarDatos()"   class="boton" > Guardar</button>  </div>  
 </form>
-      <div><input type="submit" (click)="comprobarDatos()"   class="boton" >   </div>           
+               
+</div>
     
-      </div>
-    </div>
-  </div>   
+  
+  
+ 
 
 
 
