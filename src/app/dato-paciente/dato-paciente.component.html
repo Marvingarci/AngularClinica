@@ -22,42 +22,51 @@
 
                 <div class="col">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Nombre" formControlName="nombre_completo" [value]="paciente.nombre_completo" [readonly]= "readonly">
+                        <input matInput placeholder="Nombre" 
+                        formControlName="nombre_completo" 
+                        [readonly]= "readonly">
+
+                        <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido!</mat-error>
+                        <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un nombre valido!</mat-error>
                         
                     </mat-form-field>
                     <mat-form-field class="example-full-width">
                         <input matInput placeholder="Identidad"
                          formControlName="numero_identidad"
-                        [value]="paciente.numero_identidad"
                         [readonly]= "readonly">
+                        <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido!</mat-error>
+                        <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un numero de indentidad valido!</mat-error>
                         
                     </mat-form-field>
                     <mat-form-field class="example-full-width">
                         <input matInput placeholder="Numero de cuenta"
                         formControlName="numero_cuenta" 
-                        [value]="paciente.numero_cuenta"                        
                         [readonly]= "readonly">
+                        <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido!</mat-error>
+                        <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta valido!</mat-error>
                         
                     </mat-form-field>
                 </div>
                 <div class="col">
                     <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Centro" 
-                        value="UNAH-TEC Danlí" 
+                        <input matInput placeholder="Numero de telefono" 
+                        formControlName="numero_telefono"
                         [readonly]= "readonly">
+                        <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido!</mat-error>
+                        <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un numero de telefono valido!</mat-error>
                         
                         </mat-form-field>
                         <mat-form-field class="example-full-width">
                             <input matInput placeholder="Carrera" 
                             formControlName="carrera"  
-                            [value]="paciente.carrera"
                             [readonly]="readonly">
+                            <mat-error *ngIf="carrera.hasError('required')">campo requerido!</mat-error>
+                            <mat-error *ngIf="carrera.hasError('pattern')">ingrese datos validos!</mat-error>
                            
                         </mat-form-field>
                         <mat-form-field class="example-full-width" *ngIf="readonly">
                             <input matInput placeholder="Sexo" 
                             formControlName="sexo" 
-                            [value]="paciente.sexo"                            
                             [readonly]="readonly">
                             <!-- <button mat-button matSuffix mat-stroked-button aria-label="create">
                                 <mat-icon>create</mat-icon>
@@ -78,10 +87,22 @@
                             <button mat-raised-button
                                 class="btn btn-outline-primary float-right"
                                 style="margin-top: 10px;"
-                                (click)="readonly = !readonly; actualizar()">
+                                (click)="editar(); actualizar()"
+                                disabled={{formulario_datos_generales.invalid}}
+                                >
                                 {{!readonly ? 'Guardar' : 'Editar'}}
                             </button>
                         </div>
+
+                        <!-- <div style="text-align: right;">
+                            <button mat-raised-button
+                                class="btn btn-outline-primary float-right"
+                                style="margin-top: 10px;"
+                                (click)="readonly = !readonly; actualizar()"
+                                >
+                                {{!readonly ? 'Guardar' : 'Editar'}}
+                            </button>
+                        </div> -->
 
                 </div>
                 
