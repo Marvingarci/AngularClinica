@@ -102,7 +102,7 @@ export class DatoPacienteComponent implements OnInit {
         this.pacientes = data;
         this.paciente = this.pacientes.find((m)=>{return m.id_paciente == this.id});
 
-        //establesco el valor al los formcontrol para que se visualizen en los respectivos inputs
+        //establesco el valor a los formcontrol para que se visualizen en los respectivos inputs
         this.nombre_completo.setValue(this.paciente.nombre_completo);
         this.numero_identidad.setValue(this.paciente.numero_identidad);
         this.numero_cuenta.setValue(this.paciente.numero_cuenta);
