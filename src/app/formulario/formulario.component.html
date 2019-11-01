@@ -163,8 +163,10 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="example-full-width" >
-            <input matInput formControlName= "nombre_completo"  placeholder="Nombre Completo" value={{nombre_completo.setValue(datosScraping.nombre)}}>
-            
+            <input matInput 
+            formControlName= "nombre_completo"  
+            placeholder="Nombre Completo" 
+            >
             <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido!</mat-error>
             <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un nombre valido!</mat-error>
 
@@ -176,7 +178,10 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta" value={{numero_cuenta.setValue(datosScraping.cuenta)}}>
+              <input matInput 
+              formControlName= "numero_cuenta" 
+              placeholder="N° Cuenta" 
+              >
             <!-- <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint> -->
             <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido!</mat-error>
             <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta valido!</mat-error>
@@ -186,7 +191,10 @@
           </div>
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput formControlName= "numero_identidad" placeholder="N° Identidad" value={{numero_identidad.setValue(datosScraping.numero_identidad)}} >
+              <input matInput 
+              formControlName= "numero_identidad" 
+              placeholder="N° Identidad" 
+              >
             <!-- <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint> -->
             <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido!</mat-error>
             <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un numero de indentidad valido!</mat-error>
@@ -207,7 +215,11 @@
           </div>
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput formControlName= "carrera" name="carrera" placeholder="Carrera" value={{carrera.setValue(datosScraping.carrera)}}>
+              <input matInput 
+              formControlName= "carrera" 
+              name="carrera" 
+              placeholder="Carrera" 
+              >
             <mat-error *ngIf="carrera.hasError('required')">campo requerido!</mat-error>
             <mat-error *ngIf="carrera.hasError('pattern')">ingrese datos validos!</mat-error>
 
