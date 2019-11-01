@@ -4,11 +4,16 @@ import { Paciente } from "../interfaces/paciente";
 import { ActivatedRoute, Route } from '@angular/router';
 import { AppComponent } from "../app.component";
 import {MatDialog} from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from "../services/login.service";
 import { LoginComponent } from '../login/login.component';
 import { FormularioComponent } from '../formulario/formulario.component';
+
+export interface select {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-dato-paciente',
@@ -16,6 +21,8 @@ import { FormularioComponent } from '../formulario/formulario.component';
   styleUrls: ['./dato-paciente.component.css']
 })
 export class DatoPacienteComponent implements OnInit {
+
+  
   
  paciente: Paciente = {
     id_paciente: null,
@@ -43,17 +50,53 @@ export class DatoPacienteComponent implements OnInit {
     categoria: null  
   }
 
+  formulario_datos_generales = new FormGroup({
+    
+      
+    nombre_completo: new FormControl('', [Validators.required]),
+    // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    numero_cuenta: new FormControl('', [ Validators.pattern(/^[2][0-9]{10}$/)]), 
+    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
+    // "/ /" indica el inicio y el final de la expresion regular
+    // "{10}" indica le numero de digitos de lo que lo antecede
+    numero_identidad: new FormControl('', [Validators.required,Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
+     // "\d" es lo mismo "[0-9]"
+    // lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
+    // direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    carrera: new FormControl('', []),
+    // fecha_nacimiento: new FormControl('', Validators.required),
+    sexo: new FormControl('', Validators.required),
+    // categoria: new FormControl('',[]),
+    // estado_civil: new FormControl('', Validators.required),
+    // seguro_medico: new FormControl('', Validators.required),
+    // numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+    // emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
+
+
+});
+
 
 
   id: any;
   noImg: boolean = true;
   pacientes: Paciente[];
+
+  //variable que identifica si un input es editable
+  readonly: boolean = true;
+  
   
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, 
-              principal: AppComponent, public dialog: MatDialog, login: LoginService) {
-                this.dialog.closeAll;
+              principal: AppComponent, public dialog: MatDialog, login: LoginService, private formBuilder: FormBuilder) 
+
+              
+  {
+
+    this.dialog.closeAll;
 
     this.id = this.activatedRoute.snapshot.params['id'];
+    
     if(this.id){
       this.formularioService.get().subscribe((data: Paciente[]) =>{
         this.pacientes = data;
@@ -99,10 +142,39 @@ export class DatoPacienteComponent implements OnInit {
 
 
   ngOnInit() {
-    
+
   }
 
+
+  actualizar(){
+    if(this.readonly === true){
+      this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
+        console.log(data);
+        alert('se actualizo perron');
+      }, (error)=>{
+        console.log(error);
+        alert('se chorrio');
+      });
+    }
+  }
  
+  //obtener los campos del formGroup: formulario_datos_generales
+  // get nombre_completo(){return this.formulario_datos_generales.get('nombre_completo')};
+  // get segundo_apellido(){return this.formulario_datos_generales.get('segundo_apellido')};
+  // get primer_nombre(){return this.formulario_datos_generales.get('primer_nombre')};
+  // get segundo_nombre(){return this.formulario_datos_generales.get('segundo_nombre')};
+  // get numero_cuenta(){return this.formulario_datos_generales.get('numero_cuenta')};
+  // get numero_identidad(){return this.formulario_datos_generales.get('numero_identidad')};
+  // get lugar_procedencia(){return this.formulario_datos_generales.get('lugar_procedencia')};
+  // get direccion(){return this.formulario_datos_generales.get('direccion')};
+  // get carrera(){return this.formulario_datos_generales.get('carrera')};
+  // get fecha_nacimiento(){return this.formulario_datos_generales.get('fecha_nacimiento')};
+  // get sexo(){return this.formulario_datos_generales.get('sexo')};
+  // get estado_civil(){return this.formulario_datos_generales.get('estado_civil')};
+  // get seguro_medico(){return this.formulario_datos_generales.get('seguro_medico')};
+  // get numero_telefono(){return this.formulario_datos_generales.get('numero_telefono')};
+  // get emergencia_telefono(){return this.formulario_datos_generales.get('emergencia_telefono')};
+  // get categoria(){return this.formulario_datos_generales.get('categoria')};
 
 }
 
@@ -187,33 +259,38 @@ guardar(){
   
   if(this.Nueva.valid){
     // guardar datos del formulario en paciente y enviarlo a la api
+    this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
+  
     
-  this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
-  
-  if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
+
+    if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
 
   
-  this.formularioService.put(this.paciente1).subscribe((data)=>{
-  
-    alert('Contraseña guardada');  
-    this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
-    console.log(data);
-    this.Listo = true;
+      this.formularioService.actualizarPaciente(this.paciente1).subscribe((data)=>{
+      
+        alert('Contraseña guardada');  
+        this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
+        console.log(data);
+        this.Listo = true;
 
-  }, (error)=>{
-    console.log(error);
-    alert('No se guardo ni mierda');
-    
-  });
-}else{
-  alert('La contrase;a no es la misma');
+      }, (error)=>{
+        console.log(error);
+        alert('No se guardo ni mierda');
+        
+      });
+    }else{
+      alert('La contrase;a no es la misma');
+      
+    }
+  }
+
   
 }
 
-}
 
-}
 get nuevaContra(){return this.Nueva.get('nuevaContra')};
 get nuevaContraRep(){return this.Nueva.get('nuevaContraRep')};
+
+
 
 }
