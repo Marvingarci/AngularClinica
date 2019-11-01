@@ -77,7 +77,7 @@ export class FormularioComponent implements OnInit {
   formulario_datos_generales = new FormGroup({
     
       
-      nombre_completo: new FormControl('', [Validators.required]),
+      nombre_completo: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-z\s]{0,100}$/)]),
       // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
       // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
       // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
@@ -89,7 +89,7 @@ export class FormularioComponent implements OnInit {
        // "\d" es lo mismo "[0-9]"
       lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
       direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      carrera: new FormControl('', []),
+      carrera: new FormControl('', [Validators.required]),
       fecha_nacimiento: new FormControl('', Validators.required),
       sexo: new FormControl('', Validators.required),
       categoria: new FormControl('',[]),
@@ -100,6 +100,7 @@ export class FormularioComponent implements OnInit {
   
   
   });
+
 
   formulario_antecedentes_familiares = new FormGroup({
     
@@ -783,6 +784,7 @@ ocultar: boolean = true;
     private router: Router, activar: AppComponent,public dialog: MatDialog, public login: LoginService, private formulario: FormularioService) {
       this.getDatosScraping();
 
+      
     }
      
   ngOnInit() {
