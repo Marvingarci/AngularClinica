@@ -49,6 +49,7 @@ export class DatoPacienteComponent implements OnInit {
   id: any;
   noImg: boolean = true;
   pacientes: Paciente[];
+  disable : boolean = true;
   
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, 
               principal: AppComponent, public dialog: MatDialog, login: LoginService, private mensaje: MatSnackBar) {

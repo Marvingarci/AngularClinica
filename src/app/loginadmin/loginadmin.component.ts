@@ -81,6 +81,7 @@ export class LoginadminComponent implements OnInit {
     }else{
       alert('la esta cagando !!')
     }
+    this.router.navigate(['/principal/veradministradores']);
   }
 
   get usuario(){return this.loginadmin_form.get('usuario')};
