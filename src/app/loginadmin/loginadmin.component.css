@@ -38,23 +38,17 @@ margin:0px;
 #formstyle{     
     background-color:  #3354FF; ;
     position: absolute;
-    /*nos posicionamos en el centro del navegador*/
     top:25%;
     left:45%;
-    /*determinamos una anchura*/
     width:420px;
-    /*indicamos que el margen izquierdo, es la mitad de la anchura*/
     margin-left:-130px;
-    /*determinamos una altura*/
     height:630px;
-    /*indicamos que el margen superior, es la mitad de la altura*/
     margin-top:-150px;
     border:5px solid rgb(122, 22, 22);
     padding:10px;
     text-align: center;
-  color: aliceblue;	/*IE*/
+  color: aliceblue;	
 	filter: alpha(opacity=70);
-	/*FireFox Opera*/
   opacity: .8;
   border-radius: 30px;
 }
