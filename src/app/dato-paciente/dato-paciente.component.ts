@@ -53,11 +53,11 @@ export class DatoPacienteComponent implements OnInit {
   formulario_datos_generales = new FormGroup({
     
       
-    nombre_completo: new FormControl('', [Validators.required]),
+    nombre_completo: new FormControl('', [Validators.required,  Validators.pattern(/^[a-zA-z\s]{0,100}$/)]),
     // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
     // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
     // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    numero_cuenta: new FormControl('', [ Validators.pattern(/^[2][0-9]{10}$/)]), 
+    numero_cuenta: new FormControl('', [ Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]), 
     // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
     // "/ /" indica el inicio y el final de la expresion regular
     // "{10}" indica le numero de digitos de lo que lo antecede
@@ -65,13 +65,13 @@ export class DatoPacienteComponent implements OnInit {
      // "\d" es lo mismo "[0-9]"
     // lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
     // direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    carrera: new FormControl('', []),
+    carrera: new FormControl('', [Validators.required]),
     // fecha_nacimiento: new FormControl('', Validators.required),
     sexo: new FormControl('', Validators.required),
     // categoria: new FormControl('',[]),
     // estado_civil: new FormControl('', Validators.required),
     // seguro_medico: new FormControl('', Validators.required),
-    // numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+    numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
     // emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
 
 
@@ -91,7 +91,7 @@ export class DatoPacienteComponent implements OnInit {
               principal: AppComponent, public dialog: MatDialog, login: LoginService, private formBuilder: FormBuilder) 
 
               
-  {
+  {    
 
     this.dialog.closeAll;
 
@@ -101,6 +101,15 @@ export class DatoPacienteComponent implements OnInit {
       this.formularioService.get().subscribe((data: Paciente[]) =>{
         this.pacientes = data;
         this.paciente = this.pacientes.find((m)=>{return m.id_paciente == this.id});
+
+        //establesco el valor al los formcontrol para que se visualizen en los respectivos inputs
+        this.nombre_completo.setValue(this.paciente.nombre_completo);
+        this.numero_identidad.setValue(this.paciente.numero_identidad);
+        this.numero_cuenta.setValue(this.paciente.numero_cuenta);
+        this.carrera.setValue(this.paciente.carrera);
+        this.sexo.setValue(this.paciente.sexo);
+        this.numero_telefono.setValue(this.paciente.numero_telefono);
+
         console.log(this.paciente.contrasenia);
         this.formularioService.idActualizar=this.paciente.id_paciente;
        
@@ -118,8 +127,7 @@ export class DatoPacienteComponent implements OnInit {
       },(error)=>{
         console.log(error);
       });
-    }else{
-//      this.paciente=this.formularioService.IngresoPaciente;
+
     }
 
     principal.esconder();
@@ -138,43 +146,60 @@ export class DatoPacienteComponent implements OnInit {
       console.log(error);
       alert('Ocurrio un error');
     });
+    
   }
 
 
   ngOnInit() {
-
   }
 
+  editar(){
+    this.readonly = !this.readonly;
+
+    // this.nombre_completo.setValue('hola');
+  }
 
   actualizar(){
     if(this.readonly === true){
-      this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
-        console.log(data);
-        alert('se actualizo perron');
-      }, (error)=>{
-        console.log(error);
-        alert('se chorrio');
-      });
+    
+      if(this.formulario_datos_generales.valid){
+
+        this.paciente.nombre_completo = this.nombre_completo.value;
+        this.paciente.numero_cuenta = this.numero_cuenta.value;
+        this.paciente.numero_identidad = this.numero_identidad.value;
+        this.paciente.carrera = this.carrera.value;
+        this.paciente.sexo = this.sexo.value;
+        this.paciente.numero_telefono = this.numero_telefono.value;
+
+        this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
+          console.log(data);
+          alert('Perron no le chima una catracha XD, son pajas estamos en vivo');
+        }, (error)=>{
+          console.log(error);
+          alert('se chorrio');
+        });
+      } 
+    }else{
     }
   }
- 
+
   //obtener los campos del formGroup: formulario_datos_generales
-  // get nombre_completo(){return this.formulario_datos_generales.get('nombre_completo')};
-  // get segundo_apellido(){return this.formulario_datos_generales.get('segundo_apellido')};
-  // get primer_nombre(){return this.formulario_datos_generales.get('primer_nombre')};
-  // get segundo_nombre(){return this.formulario_datos_generales.get('segundo_nombre')};
-  // get numero_cuenta(){return this.formulario_datos_generales.get('numero_cuenta')};
-  // get numero_identidad(){return this.formulario_datos_generales.get('numero_identidad')};
-  // get lugar_procedencia(){return this.formulario_datos_generales.get('lugar_procedencia')};
-  // get direccion(){return this.formulario_datos_generales.get('direccion')};
-  // get carrera(){return this.formulario_datos_generales.get('carrera')};
-  // get fecha_nacimiento(){return this.formulario_datos_generales.get('fecha_nacimiento')};
-  // get sexo(){return this.formulario_datos_generales.get('sexo')};
-  // get estado_civil(){return this.formulario_datos_generales.get('estado_civil')};
-  // get seguro_medico(){return this.formulario_datos_generales.get('seguro_medico')};
-  // get numero_telefono(){return this.formulario_datos_generales.get('numero_telefono')};
-  // get emergencia_telefono(){return this.formulario_datos_generales.get('emergencia_telefono')};
-  // get categoria(){return this.formulario_datos_generales.get('categoria')};
+  get nombre_completo(){return this.formulario_datos_generales.get('nombre_completo')};
+  get segundo_apellido(){return this.formulario_datos_generales.get('segundo_apellido')};
+  get primer_nombre(){return this.formulario_datos_generales.get('primer_nombre')};
+  get segundo_nombre(){return this.formulario_datos_generales.get('segundo_nombre')};
+  get numero_cuenta(){return this.formulario_datos_generales.get('numero_cuenta')};
+  get numero_identidad(){return this.formulario_datos_generales.get('numero_identidad')};
+  get lugar_procedencia(){return this.formulario_datos_generales.get('lugar_procedencia')};
+  get direccion(){return this.formulario_datos_generales.get('direccion')};
+  get carrera(){return this.formulario_datos_generales.get('carrera')};
+  get fecha_nacimiento(){return this.formulario_datos_generales.get('fecha_nacimiento')};
+  get sexo(){return this.formulario_datos_generales.get('sexo')};
+  get estado_civil(){return this.formulario_datos_generales.get('estado_civil')};
+  get seguro_medico(){return this.formulario_datos_generales.get('seguro_medico')};
+  get numero_telefono(){return this.formulario_datos_generales.get('numero_telefono')};
+  get emergencia_telefono(){return this.formulario_datos_generales.get('emergencia_telefono')};
+  get categoria(){return this.formulario_datos_generales.get('categoria')};
 
 }
 
