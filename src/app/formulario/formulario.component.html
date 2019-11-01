@@ -166,7 +166,7 @@
             <input matInput formControlName= "nombre_completo"  placeholder="Nombre Completo" value={{nombre_completo.setValue(datosScraping.nombre)}}>
             
             <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido!</mat-error>
-            <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un apellido valido!</mat-error>
+            <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un nombre valido!</mat-error>
 
           </mat-form-field>
         </div>
