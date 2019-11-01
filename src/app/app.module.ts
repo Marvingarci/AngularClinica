@@ -62,7 +62,7 @@ const routes: Route[] = [
   {path: 'at1', component: At1Component},
   {path: 'datoPaciente/:id', component: DatoPacienteComponent},
   {path: 'datoPaciente', component: DatoPacienteComponent},
-  {path: 'verPaciente', component: VerPacienteComponent},
+  {path: 'verPaciente/:id', component: VerPacienteComponent},
   {path: 'inventario', component: InventarioComponent},
 
 
