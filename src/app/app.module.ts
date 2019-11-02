@@ -47,7 +47,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { PaseAdminComponent } from './pase-admin/pase-admin.component';
-import { VerAdministradoresComponent } from './ver-administradores/ver-administradores.component';
+import { VerAdministradoresComponent, DialogContentExampleDialog1 } from './ver-administradores/ver-administradores.component';
+import { BorraradministradorComponent } from './borraradministrador/borraradministrador.component';
 
 
 
@@ -88,7 +89,10 @@ const routes: Route[] = [
       {path: 'inventario', component: InventarioComponent},
       {path: 'paseadmin', component: PaseAdminComponent},
       {path: 'veradministradores', component: VerAdministradoresComponent},
+      {path: 'veradministradores/:id', component: VerAdministradoresComponent},
+      {path: 'borraradministradores/:id', component: BorraradministradorComponent},
       {path: 'loginadmin', component: LoginadminComponent},
+      {path: 'loginadmin/:id', component: LoginadminComponent}
       // {path: 'verPaciente', component: VerPacienteComponent},
       // {path: 'verPaciente/:id', component: VerPacienteComponent}
 
@@ -117,6 +121,7 @@ const routes: Route[] = [
     VerPacienteComponent,
     DialogContentExampleDialog,
     InventarioComponent,
+    DialogContentExampleDialog1,
 
 
 
@@ -126,6 +131,8 @@ const routes: Route[] = [
     VerAdministradoresComponent,
 
     FormInventarioComponent,
+
+    BorraradministradorComponent,
 
     
   ],
@@ -165,7 +172,8 @@ const routes: Route[] = [
     
   ],
   entryComponents: [
-    DialogContentExampleDialog
+    DialogContentExampleDialog,
+    DialogContentExampleDialog1
   ],
   providers: [],
   bootstrap: [AppComponent]
