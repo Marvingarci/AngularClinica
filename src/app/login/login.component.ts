@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
     console.log(error);
   }); 
 
-   Formulario.get().subscribe((data: Paciente[])=>{
+   Formulario.obtenerPacientes().subscribe((data: Paciente[])=>{
     this.pacientes = data;
     console.log(this.pacientes);
   }, (error)=>{
