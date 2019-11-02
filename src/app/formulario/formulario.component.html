@@ -7,7 +7,7 @@
           <div class="row">
             <div class="col">
               <mat-form-field class="example-full-width" >
-                <input matInput formControlName= "nombre_completo"  placeholder="Nombre Completo" >
+                <input matInput class="example-full-width"  formControlName= "nombre_completo"  placeholder="Nombre Completo" >
                 
                 <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido!</mat-error>
                 <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un apellido valido!</mat-error>

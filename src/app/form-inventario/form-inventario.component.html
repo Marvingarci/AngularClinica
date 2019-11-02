@@ -1,1 +1,45 @@
-<h2>bgfkjkl</h2>
+
+<div>
+    <div class="titulo"><h2 >Registro Inventario</h2></div> 
+    <form  id="form" [formGroup]= "formInventario">
+ 
+        <div class="col">
+        <mat-form-field class="example-full-width">
+            <input  matInput placeholder="Cantidad" formControlName= "cantidad" required>
+            <mat-error *ngIf="cantidad.hasError('required')">
+            <strong>ingrese la cantidad</strong>
+            </mat-error>
+            <mat-error *ngIf="cantidad.hasError('minLength') && cantidad.hasError('maxLength')">
+            <strong>cantidad invalido</strong>
+            </mat-error>
+        </mat-form-field>
+        </div>
+ 
+        <div class="col">
+            <mat-form-field class="example-full-width">
+                <input  matInput placeholder="Ingrese el nombre" formControlName= "nombre" required>
+                    <mat-error *ngIf="nombre.hasError('required')">
+                        <strong>Escriba el nombre</strong>
+                        </mat-error>
+                    <mat-error *ngIf="nombre.hasError('minLength') && nombre.hasError('maxLength')">
+                        <strong>Escriba su nombre completo</strong>
+                    </mat-error>
+            </mat-form-field>     
+        </div>
+
+        <div class="col">
+            <mat-form-field class="example-full-width">
+                <input  matInput placeholder="Descripcion" formControlName= "descripcion" required>
+                    <mat-error *ngIf="descripcion.hasError('required')">
+                        <strong>Escriba el nombre</strong>
+                    </mat-error>
+                    <mat-error *ngIf="descripcion.hasError('minLength')">
+                        <strong>Escriba</strong>
+                    </mat-error>
+            </mat-form-field>     
+        </div>
+
+        <div><button (click)="comprobarDatos()"   class="boton" > Guardar</button>  </div>  
+    </form>
+                
+ </div>

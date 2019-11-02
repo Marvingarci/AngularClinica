@@ -69,7 +69,6 @@
                       <mat-card> 
                           <mat-tab-group animationDuration="0ms">
                           <mat-tab label="Alumnos" >
-                            <h5 style="text-align: center">Listado de Pacientes Alumnos</h5>
                             <mat-form-field>
                                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
                               </mat-form-field>
@@ -116,7 +115,6 @@
                           </mat-tab>
                           <!--Empleados-->
                           <mat-tab label="Empleados">
-                              <h5 style="text-align: center">Listado de Pacientes Empleados</h5>
                               <mat-form-field>
                                   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
                                 </mat-form-field>
@@ -169,7 +167,6 @@
                           <!--Visitanes-->
                           <mat-tab label="Visitantes">
                                
-                            <h5 style="text-align: center">Listado de Pacientes Visitantes</h5>
                             <mat-form-field>
                                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
                               </mat-form-field>
@@ -217,7 +214,6 @@
                           </mat-tab>
                           <!--Prosene-->
                           <mat-tab label="Prosene">
-                            <h5 style="text-align: center">Listado de Pacientes Prosene</h5>
                             <mat-form-field>
                                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
                               </mat-form-field>
@@ -226,7 +222,7 @@
                               
                                 <!-- Position Column -->
                                 <ng-container matColumnDef="id_paciente">
-                                  <th mat-header-cell *matHeaderCellDef> id_paciente </th>
+                                  <th mat-header-cell *matHeaderCellDef> Id del paciente </th>
                                   <td mat-cell *matCellDef="let element"> {{element.id_paciente}} </td>
                                 </ng-container>
                               
@@ -274,7 +270,8 @@
                               background-color: aqua
                               ">
                                 <a  routerLinkActive="router-link-active" >
-                                    <button class="btn btn-info"  (click)="formulario()" style="font-size: 20px">Crear Nuevo Paciente</button>
+                                    <button mat-raised-button color="primary" (click)="formulario()">Crear Nuevo Paciente</button>
+
                                   
                                 </a>       
                               </div>

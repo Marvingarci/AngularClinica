@@ -7,6 +7,7 @@ import { Paciente } from "../interfaces/paciente";
 import { PacienteComponent } from '../paciente/paciente.component';
 import { FormularioService } from '../services/formulario.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { LoginAdmin } from '../interfaces/login_admin';
 import { LoginadminService } from '../services/loginadmin.service';
 
@@ -73,7 +74,8 @@ export class LoginComponent implements OnInit {
   Formulario: FormularioService;
   pase: boolean=true;
 
-  constructor(private LoginAdminService: LoginadminService,private loginService: LoginService,private router: Router, private activar: AppComponent,  Formulario: FormularioService){
+  constructor(private LoginAdminService: LoginadminService,private loginService: LoginService,private router: Router,
+     private activar: AppComponent,  Formulario: FormularioService, private mensaje: MatSnackBar){
    activar.esconder();
 
  this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) =>{
@@ -83,7 +85,7 @@ export class LoginComponent implements OnInit {
     console.log(error);
   }); 
 
-   Formulario.get().subscribe((data: Paciente[])=>{
+   Formulario.obtenerPacientes().subscribe((data: Paciente[])=>{
     this.pacientes = data;
     console.log(this.pacientes);
   }, (error)=>{
@@ -115,12 +117,14 @@ export class LoginComponent implements OnInit {
     if (this.pase == true) {
       this.loginService.guardarDatos(this.login).subscribe( (data) =>{
         console.log(data);   
-        alert('todo perron'); 
+        
+        this.mensaje.open('Todo perron', '', {duration:2000});
+
          this.router.navigate(['/formulario']);
       }, (error) => {
         this.loading=false;
         console.log(error);
-        alert('Usuario incorrecto ');
+        this.mensaje.open('Usuario Incorrecto', '', {duration:2000});
       });
       
     }else{
@@ -128,7 +132,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);  
       }else{
         this.loading=false;
-        alert('Contraseña incorrecta')
+        this.mensaje.open('Contraseña incorrecta', '', {duration:2000});
       }      
     } 
 

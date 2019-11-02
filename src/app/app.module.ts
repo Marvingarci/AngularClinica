@@ -19,6 +19,8 @@ import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitan
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
 import { VerPacienteComponent } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 import { InventarioComponent } from './inventario/inventario.component';
 import { FormInventarioComponent } from './form-inventario/form-inventario.component';
 
@@ -70,6 +72,7 @@ const routes: Route[] = [
   {path: 'verPaciente/:id', component: VerPacienteComponent},
   {path: 'inventario', component: InventarioComponent},
   {path: 'formInventario', component: FormInventarioComponent},
+  {path: 'formInventario/:id', component: FormInventarioComponent},
 
 
   {path: 'loginadmin', component: LoginadminComponent},
@@ -167,7 +170,8 @@ const routes: Route[] = [
     MatProgressSpinnerModule,
     MatMenuModule,
     MatBottomSheetModule,
-    
+    MatSnackBarModule
+    ,MatSidenavModule
   
     
   ],

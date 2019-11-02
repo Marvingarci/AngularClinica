@@ -12,13 +12,10 @@ export class LoginService {
   idpaciente:any;//este es para recuperar el id y redireccionar 
 
   guardarDatos(login: Login){
-    
     const headers = new HttpHeaders({'Content-Type':'application/json'});
-    
-  
     return this.httpClient.post(this.API_ENDPOINT + 'login', login, {headers: headers});
-    
-  
   }
+
+  
 
 }

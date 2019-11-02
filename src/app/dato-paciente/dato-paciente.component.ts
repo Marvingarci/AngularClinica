@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { LoginService } from "../services/login.service";
 import { LoginComponent } from '../login/login.component';
 import { FormularioComponent } from '../formulario/formulario.component';
+import { MatSnackBar } from '@angular/material';
 
 export interface select {
   value: string;
@@ -88,7 +89,7 @@ export class DatoPacienteComponent implements OnInit {
   
   
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, 
-              principal: AppComponent, public dialog: MatDialog, login: LoginService, private formBuilder: FormBuilder) 
+              principal: AppComponent, public dialog: MatDialog, login: LoginService, private formBuilder: FormBuilder, private mensaje: MatSnackBar) 
 
               
   {    
@@ -98,7 +99,7 @@ export class DatoPacienteComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.params['id'];
     
     if(this.id){
-      this.formularioService.get().subscribe((data: Paciente[]) =>{
+      this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
         this.pacientes = data;
         this.paciente = this.pacientes.find((m)=>{return m.id_paciente == this.id});
 
@@ -140,11 +141,11 @@ export class DatoPacienteComponent implements OnInit {
   
 
   getdato(){
-    this.formularioService.get().subscribe((data: Paciente[]) =>{
+    this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
       this.pacientes = data;
     },(error)=>{
       console.log(error);
-      alert('Ocurrio un error');
+      this.mensaje.open('Ocurrio un error', '', {duration:2000});
     });
     
   }
@@ -203,11 +204,14 @@ export class DatoPacienteComponent implements OnInit {
 
 }
 
-
+/////////de aqui para abajo///////////////////////////////////
 
 @Component({
   selector: 'dialog-content-example-dialog',
   templateUrl: 'dialog-content-example-dialog.html',
+  styleUrls: ['./dialogo.css']
+
+
 })
 export class DialogContentExampleDialog {
   hide = true;
@@ -239,7 +243,8 @@ export class DialogContentExampleDialog {
   }
   id:any;
   Listo:boolean = false;
-  constructor( private formularioService: FormularioService, private activatedRoute: ActivatedRoute, public login: LoginService, private router: Router ){
+  constructor( private formularioService: FormularioService, private activatedRoute: ActivatedRoute, public login: LoginService, private router: Router
+    , private mensaje: MatSnackBar ){
     this.paciente1.id_paciente = this.formularioService.idActualizar;
     console.log(this.paciente1.id_paciente);
     ///////
@@ -291,20 +296,21 @@ guardar(){
     if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
 
   
+ 
       this.formularioService.actualizarPaciente(this.paciente1).subscribe((data)=>{
       
-        alert('Contraseña guardada');  
+          
         this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
-        console.log(data);
+        this.mensaje.open('Contraseña guardada', '', {duration:2000});
         this.Listo = true;
 
       }, (error)=>{
         console.log(error);
-        alert('No se guardo ni mierda');
-        
+        this.mensaje.open('there was an error!', '', {duration:2000});
+
       });
     }else{
-      alert('La contrase;a no es la misma');
+      this.mensaje.open('La contraseña no es la misma', '', {duration:2000});
       
     }
   }

@@ -12,8 +12,6 @@ export class LoginadminService {
     return this.httpClient.get(this.API_ENDPOINT+'/login_admin');
   }
  
-  
- 
 
   constructor(private httpClient :HttpClient,LoginAdminService: LoginadminService) {}
 

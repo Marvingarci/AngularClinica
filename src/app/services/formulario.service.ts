@@ -34,9 +34,18 @@ export class FormularioService {
     return this.httpClient.post(this.API_ENDPOINT + 'pacientes', paciente, {headers: this.headers});
   };
 
-  get(){
+  obtenerPacientes(){
     return this.httpClient.get(this.API_ENDPOINT+'pacientes');
   }
+
+  obtenerAntecedentesFamiliares(){
+    return this.httpClient.get(this.API_ENDPOINT+'antecedentes_familiares');
+  }
+
+  obtenerAntecedentesPersonales(){
+    return this.httpClient.get(this.API_ENDPOINT+'antecedentes_personales')
+  }
+
 
   getUltimoID(){
     return this.httpClient.get(this.API_ENDPOINT+'pacientes/ultimo/si');
@@ -50,9 +59,6 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT+'pacientes/'+paciente);
   }
 
-  getPaciente(){
-    return this.httpClient.get(this.API_ENDPOINT + 'pacientes');
-  }
 
   guardarAntecedentesFamiliares(antecedente_familiar: AntecedentesFamiliares){
     return this.httpClient.post(this.API_ENDPOINT + 'antecedentes_familiares', antecedente_familiar, {headers: this.headers});
