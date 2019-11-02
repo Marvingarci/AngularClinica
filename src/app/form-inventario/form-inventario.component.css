@@ -1,0 +1,41 @@
+.example-full-width{
+    width: 80%;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .titulo{
+    text-align: center;
+  }
+  
+  #label{
+    font-size: 10dp;
+    color: rgb(35, 35, 36);
+  }
+  #form{   
+      text-align: center;
+  }
+  
+  .errorverificacion{
+  color:rgb(122, 22, 22);
+  }
+  
+  .boton{
+    height:30px;
+    background-color:#00f ;
+    color: #fff;
+    border-radius: 10px;
+    font-size:11px;
+    line-height:10px;
+    text-transform: uppercase;
+    float: right;
+    margin-right: 10%;   
+    }.boton:hover{
+      background: azure;
+      border:2px solid #00f ;
+      color: blue;       
+      }
+  
+    input[type=number]::-webkit-inner-spin-button{ 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }

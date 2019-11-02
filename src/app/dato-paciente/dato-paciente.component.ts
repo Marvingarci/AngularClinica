@@ -99,7 +99,7 @@ export class DatoPacienteComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.params['id'];
     
     if(this.id){
-      this.formularioService.get().subscribe((data: Paciente[]) =>{
+      this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
         this.pacientes = data;
         this.paciente = this.pacientes.find((m)=>{return m.id_paciente == this.id});
 
@@ -141,7 +141,7 @@ export class DatoPacienteComponent implements OnInit {
   
 
   getdato(){
-    this.formularioService.get().subscribe((data: Paciente[]) =>{
+    this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
       this.pacientes = data;
     },(error)=>{
       console.log(error);
