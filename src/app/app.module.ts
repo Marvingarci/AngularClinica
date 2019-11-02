@@ -69,6 +69,7 @@ const routes: Route[] = [
   {path: 'verPaciente/:id', component: VerPacienteComponent},
   {path: 'inventario', component: InventarioComponent},
   {path: 'formInventario', component: FormInventarioComponent},
+  {path: 'formInventario/:id', component: FormInventarioComponent},
 
 
   {path: 'loginadmin', component: LoginadminComponent},
