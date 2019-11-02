@@ -18,6 +18,7 @@ import { DialogContentExampleDialog, DatoPacienteComponent } from "../dato-pacie
 import {MatDialog} from '@angular/material/dialog';
 import { LoginService } from "../services/login.service";
 import { NgStyle } from '@angular/common';
+import { stringify } from 'querystring';
 
 
 export interface Loginadmin {
@@ -81,7 +82,7 @@ export class FormularioComponent implements OnInit {
       // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
       // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
       // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-      numero_cuenta: new FormControl('', [ Validators.pattern(/^[2][0-9]{10}$/)]), 
+      numero_cuenta: new FormControl('', [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]), 
       // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
       // "/ /" indica el inicio y el final de la expresion regular
       // "{10}" indica le numero de digitos de lo que lo antecede
@@ -92,7 +93,7 @@ export class FormularioComponent implements OnInit {
       carrera: new FormControl('', [Validators.required]),
       fecha_nacimiento: new FormControl('', Validators.required),
       sexo: new FormControl('', Validators.required),
-      categoria: new FormControl('',[]),
+      categoria: new FormControl('',[Validators.required]),
       estado_civil: new FormControl('', Validators.required),
       seguro_medico: new FormControl('', Validators.required),
       numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
@@ -782,14 +783,17 @@ ocultar: boolean = true;
  
   constructor(private formularioService: FormularioService, 
     private router: Router, activar: AppComponent,public dialog: MatDialog, public login: LoginService, private formulario: FormularioService) {
-      this.getDatosScraping();
-
+      
+      // if(this.esAlumno == true){
+        this.getDatosScraping();
+      // }
       
     }
      
   ngOnInit() {
-    this.getDatosScraping();  
+    this.getDatosScraping();
     this.esAlumno = this.formulario.esAlumno;
+       
    
   
   }
@@ -797,54 +801,83 @@ ocultar: boolean = true;
     if (this.esAlumno==false) {
       this.numero_cuenta.valid;
       this.numero_identidad.valid;
+      
     }
   }
 
   getDatosScraping(){
-    this.formularioService.getScrap().subscribe((data: Login) =>{
-      this.datosScraping = data;
-     
-      
-      console.log(this.datosScraping);
 
-      
-          //Obtencion de Paciente ultimo paciente regitrado
-          this.formularioService.getUltimoID().subscribe((data)=>{
-           this.resultado = data;
-           if(this.resultado[0].ultimoId==null){
-            this.resultado[0].ultimoId=0;
-            console.log(this.resultado[0].ultimoId);
-           }
-           
+    // if(this.esAlumno === true){
+      this.formularioService.getScrap().subscribe((data: Login) =>{
+        this.datosScraping = data;
+  
+  
+        if(this.esAlumno === true){
 
-           if (this.esAlumno==false) {
-            
-               this.datosScraping.clave = null;
-               this.datosScraping.nombre = null;
-               this.datosScraping.carrera = null;
-               this.datosScraping.numero_identidad = null;
-               this.datosScraping.imagen = null;
-              
-            }
-              var numero=1;
-              console.log(this.resultado[0].ultimoId);
-              this.datosScraping.id_login= parseInt(this.resultado[0].ultimoId)+numero;
-              console.log(this.datosScraping.id_login);
-   
-      
-         }, (error)=>{
-           console.log(error);
-         }); 
+          // si el paciente es un alumno 
+          //establesco el valor a los formcontrol recuperados del scrapping
+          // para que se visualizen en los respectivos inputs
+          this.nombre_completo.setValue(this.datosScraping.nombre);
+          this.numero_cuenta.setValue(this.datosScraping.cuenta);
+          this.numero_identidad.setValue(this.datosScraping.numero_identidad);
+          this.carrera.setValue(this.datosScraping.carrera);
+          this.categoria.setValue('E');
 
+        }else{
+          //si el paciente no es un alumno
+          //establesco el valor por defecto a los formcontrol que no pertenecen a un
+          //paciente normal y les establesco un valor por defecto
+
+          var numAleatorio: string;
+          numAleatorio = '2'+ Math.floor(Math.random()*10000000000);
+          console.log(numAleatorio);
+          this.carrera.setValue('no es estudiante');
+          this.numero_cuenta.setValue(numAleatorio);
+        }
+       
         
-
+        console.log(this.datosScraping);
+  
+        
+            //Obtencion de Paciente ultimo paciente regitrado
+            this.formularioService.getUltimoID().subscribe((data)=>{
+             this.resultado = data;
+             if(this.resultado[0].ultimoId==null){
+              this.resultado[0].ultimoId=0;
+              console.log(this.resultado[0].ultimoId);
+             }
+             
+  
+             if (this.esAlumno==false) {
+              
+                 this.datosScraping.clave = null;
+                 this.datosScraping.nombre = null;
+                 this.datosScraping.carrera = null;
+                 this.datosScraping.numero_identidad = null;
+                 this.datosScraping.imagen = null;
+                
+              }
+                var numero=1;
+                console.log(this.resultado[0].ultimoId);
+                this.datosScraping.id_login= parseInt(this.resultado[0].ultimoId)+numero;
+                console.log(this.datosScraping.id_login);
      
-      console.log(this.datosScraping);
-    },
-    (error) => {
-      console.log(error),
-      alert('ocurrio un error');  
-    });    
+        
+           }, (error)=>{
+             console.log(error);
+           }); 
+  
+          
+  
+       
+        console.log(this.datosScraping);
+      },
+      (error) => {
+        console.log(error),
+        alert('ocurrio un error');  
+      });    
+    // }
+    
   }
 
 
@@ -853,89 +886,72 @@ ocultar: boolean = true;
     this.loading = true;
 
 
-   if (this.esAlumno==true) {
+    if (this.esAlumno==true) {
      
-    if(this.formulario_datos_generales.valid){
+      if(this.formulario_datos_generales.valid){
 
-      // guardar datos del formulario en paciente y enviarlo a la api
-      this.paciente.id_paciente = this.datosScraping.id_login;
-      this.paciente.nombre_completo = this.nombre_completo.value;
-      this.paciente.numero_cuenta = this.numero_cuenta.value;
-      this.paciente.numero_identidad = this.numero_identidad.value;
-      this.paciente.imagen = this.datosScraping.imagen;
-      this.paciente.lugar_procedencia = this.lugar_procedencia.value;
-      this.paciente.direccion = this.direccion.value;
-      this.paciente.carrera = this.carrera.value;
-      this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
-      this.paciente.sexo = this.sexo.value;
-      this.paciente.estado_civil = this.estado_civil.value;
-      this.paciente.seguro_medico = this.seguro_medico.value;
-      this.paciente.numero_telefono = this.numero_telefono.value;
-      this.paciente.emergencia_telefono = this.emergencia_telefono.value;
-      this.paciente.categoria = "E";
+        // guardar datos del formulario en paciente y enviarlo a la api
+        this.paciente.id_paciente = this.datosScraping.id_login;
+        this.paciente.nombre_completo = this.nombre_completo.value;
+        this.paciente.numero_cuenta = this.numero_cuenta.value;
+        this.paciente.numero_identidad = this.numero_identidad.value;
+        this.paciente.imagen = this.datosScraping.imagen;
+        this.paciente.lugar_procedencia = this.lugar_procedencia.value;
+        this.paciente.direccion = this.direccion.value;
+        this.paciente.carrera = this.carrera.value;
+        this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
+        this.paciente.sexo = this.sexo.value;
+        this.paciente.estado_civil = this.estado_civil.value;
+        this.paciente.seguro_medico = this.seguro_medico.value;
+        this.paciente.numero_telefono = this.numero_telefono.value;
+        this.paciente.emergencia_telefono = this.emergencia_telefono.value;
+        this.paciente.categoria = this.categoria.value;
+        
+        this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
+          this.obtener();
+          console.log(data);     
+        }, (error) => {
+          console.log(error);
+          this.error = true;
+          alert('ocurrion un error');
+        });
+      }
 
-    // this.paciente.id_paciente = this.datosScraping.id_login;
-    // this.paciente.nombre_completo = this.formulario_datos_generales.get('nombre_completo').value;
-    // this.paciente.numero_cuenta = this.formulario_datos_generales.get('numero_cuenta').value;
-    // this.paciente.numero_identidad = this.formulario_datos_generales.get('numero_identidad').value;
-    // this.paciente.imagen = this.datosScraping.imagen;
-    // this.paciente.lugar_procedencia = this.formulario_datos_generales.get('lugar_procedencia').value;
-    // this.paciente.direccion = this.formulario_datos_generales.get('direccion').value;
-    // this.paciente.carrera = this.formulario_datos_generales.get('carrera').value;
-    // this.paciente.fecha_nacimiento = this.formulario_datos_generales.get('fecha_nacimiento').value;
-    // this.paciente.sexo = this.formulario_datos_generales.get('sexo').value;
-    // this.paciente.estado_civil = this.formulario_datos_generales.get('estado_civil').value;
-    // this.paciente.seguro_medico = this.formulario_datos_generales.get('seguro_medico').value;
-    // this.paciente.numero_telefono = this.formulario_datos_generales.get('numero_telefono').value;
-    // this.paciente.emergencia_telefono = this.formulario_datos_generales.get('emergencia_telefono').value;
-    // this.paciente.categoria = this.categoria.value;
-    
-    
-    this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
-      this.obtener();
-      console.log(data);     
-    }, (error) => {
-      console.log(error);
-      this.error = true;
-      alert('ocurrion un error');
-    });
-
-  }
-   }else{
+    }else{
      
-    if(this.formulario_datos_generales.valid){
+      if(this.formulario_datos_generales.valid){
 
-      // guardar datos del formulario en paciente y enviarlo a la api
-    this.paciente.id_paciente = this.datosScraping.id_login;
-    this.paciente.nombre_completo = this.nombre_completo.value;
-    this.paciente.numero_cuenta = null;
-    this.paciente.numero_identidad = this.numero_identidad.value;
-    this.paciente.imagen = this.datosScraping.imagen;
+        // guardar datos del formulario en paciente y enviarlo a la api
+        this.paciente.id_paciente = this.datosScraping.id_login;
+        this.paciente.nombre_completo = this.nombre_completo.value;
+        this.paciente.numero_cuenta = this.numero_cuenta.value;
+        this.paciente.numero_identidad = this.numero_identidad.value;
+        // this.paciente.imagen = this.datosScraping.imagen;
 
-    this.paciente.lugar_procedencia = this.lugar_procedencia.value;
-    this.paciente.direccion = this.direccion.value;
-    this.paciente.carrera = 'No es estudiante';
-    this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
-    this.paciente.sexo = this.sexo.value;
-    this.paciente.estado_civil = this.estado_civil.value;
-    this.paciente.seguro_medico = this.seguro_medico.value;
-    this.paciente.numero_telefono = this.numero_telefono.value;
-    this.paciente.emergencia_telefono = this.emergencia_telefono.value;
-    this.paciente.categoria= this.categoria.value;
-    
-    
-    this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
-      console.log(data);  
-      this.obtener();
-   
-    }, (error) => {
-      console.log(error);
-      this.error = true;
-      alert('ocurrion un error');
-    });
+        this.paciente.lugar_procedencia = this.lugar_procedencia.value;
+        this.paciente.direccion = this.direccion.value;
+        this.paciente.carrera = this.carrera.value;
+        this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
+        this.paciente.sexo = this.sexo.value;
+        this.paciente.estado_civil = this.estado_civil.value;
+        this.paciente.seguro_medico = this.seguro_medico.value;
+        this.paciente.numero_telefono = this.numero_telefono.value;
+        this.paciente.emergencia_telefono = this.emergencia_telefono.value;
+        this.paciente.categoria= this.categoria.value;
+      
+      
+        this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
+          console.log(data);  
+          this.obtener();
+      
+        }, (error) => {
+          console.log(error);
+          this.error = true;
+          alert('ocurrion un error');
+        });
 
-  }
-   }
+      }
+    }
      
 
       if(this.formulario_antecedentes_familiares){
