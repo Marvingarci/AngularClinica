@@ -1,5 +1,5 @@
 export interface LoginAdmin {
-    id:number;
+    id?:number;
     usuario_admin : string;
     contrasenia_admin : string;
     nombre_admin : string;
