@@ -1,0 +1,13 @@
+<div align="center"> 
+  <h1 mat-dialog-title disableClose >Está Seguro de eliminar a:</h1>
+  <label>nombre del administrador</label>
+  <mat-dialog-content class="mat-typography">
+    <h3>Al eliminarlo no podrá ingresar como administrador </h3>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <button mat-button  mat-dialog-close>Cancelar</button>
+    <button (click)="eliminar()" mat-button  mat-dialog-close>Eliminar</button>
+  </mat-dialog-actions>
+
+</div>
