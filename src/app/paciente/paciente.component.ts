@@ -68,7 +68,7 @@ export class PacienteComponent implements OnInit {
   }
   
   getPacientes(){
-    this.pacienteService.get().subscribe((data: Paciente[]) =>{
+    this.pacienteService.obtenerPacientes().subscribe((data: Paciente[]) =>{
       this.pacientes=data;
 
       console.log(this.pacientes);
