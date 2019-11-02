@@ -48,7 +48,12 @@
 
             <ng-container matColumnDef="nada">
             <th mat-header-cell *matHeaderCellDef> </th>
-            <td mat-cell *matCellDef="let element"> <a href="">  Editar</a> </td>
+            <div mat-cell *matCellDef="let element">
+                  <!-- (click)="openDialog(element.id)" -->
+                     <button               
+                  routerLink="/principal/borraradministradores/{{element.id}}"  >  Eliminar</button> 
+                 <a mat-list-item routerLink="/principal/loginadmin/{{element.id}}" > Editar</a> 
+            </div>
             </ng-container>
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
