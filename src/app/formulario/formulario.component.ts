@@ -827,7 +827,7 @@ ocultar: boolean = true;
           //si el paciente no es un alumno
           //establesco el valor por defecto a los formcontrol que no pertenecen a un
           //paciente normal y les establesco un valor por defecto
-          
+
           var numAleatorio: string;
           numAleatorio = '2'+ Math.floor(Math.random()*10000000000);
           console.log(numAleatorio);
@@ -924,13 +924,13 @@ ocultar: boolean = true;
         // guardar datos del formulario en paciente y enviarlo a la api
         this.paciente.id_paciente = this.datosScraping.id_login;
         this.paciente.nombre_completo = this.nombre_completo.value;
-        this.paciente.numero_cuenta = null;
+        this.paciente.numero_cuenta = this.numero_cuenta.value;
         this.paciente.numero_identidad = this.numero_identidad.value;
         // this.paciente.imagen = this.datosScraping.imagen;
 
         this.paciente.lugar_procedencia = this.lugar_procedencia.value;
         this.paciente.direccion = this.direccion.value;
-        this.paciente.carrera = 'No es estudiante';
+        this.paciente.carrera = this.carrera.value;
         this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
