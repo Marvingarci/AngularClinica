@@ -163,7 +163,7 @@ const routes: Route[] = [
     MatMenuModule,
     MatBottomSheetModule,
     MatSnackBarModule
-    
+    ,MatSidenavModule
   
     
   ],

@@ -297,7 +297,6 @@ guardar(){
 
   
  
-  this.mensaje.open('La contraseña no es la misma', '', {duration:2000});
       this.formularioService.actualizarPaciente(this.paciente1).subscribe((data)=>{
       
           
@@ -307,7 +306,8 @@ guardar(){
 
       }, (error)=>{
         console.log(error);
-        
+        this.mensaje.open('there was an error!', '', {duration:2000});
+
       });
     }else{
       this.mensaje.open('La contraseña no es la misma', '', {duration:2000});

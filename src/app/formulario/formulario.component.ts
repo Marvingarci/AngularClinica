@@ -19,6 +19,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { LoginService } from "../services/login.service";
 import { NgStyle } from '@angular/common';
 import { stringify } from 'querystring';
+import { Subscription } from 'rxjs';
 
 
 export interface Loginadmin {
@@ -799,7 +800,8 @@ ocultar: boolean = true;
   }
   modificaciones(){
     if (this.esAlumno==false) {
-     
+      this.numero_cuenta.valid;
+      this.numero_identidad.valid;
       
     }
   }
@@ -875,7 +877,7 @@ ocultar: boolean = true;
         console.log(error),
         alert('ocurrio un error');  
       });    
-    // }
+    
     
   }
 
@@ -887,71 +889,6 @@ ocultar: boolean = true;
 
     if (this.esAlumno==true) {
      
-    if(this.formulario_datos_generales.valid){
-
-      // guardar datos del formulario en paciente y enviarlo a la api
-    this.paciente.id_paciente = this.datosScraping.id_login;
-    this.paciente.nombre_completo = this.formulario_datos_generales.get('nombre_completo').value;
-    // this.paciente.segundo_apellido = this.formulario_datos_generales.get('segundo_apellido').value;
-    // this.paciente.primer_nombre = this.formulario_datos_generales.get('primer_nombre').value;
-    // this.paciente.segundo_nombre = this.formulario_datos_generales.get('segundo_nombre').value;
-    this.paciente.numero_cuenta = this.formulario_datos_generales.get('numero_cuenta').value;
-    this.paciente.numero_identidad = this.formulario_datos_generales.get('numero_identidad').value;
-    this.paciente.imagen = this.datosScraping.imagen;
-
-    this.paciente.lugar_procedencia = this.formulario_datos_generales.get('lugar_procedencia').value;
-    this.paciente.direccion = this.formulario_datos_generales.get('direccion').value;
-    this.paciente.carrera = this.formulario_datos_generales.get('carrera').value;
-    this.paciente.fecha_nacimiento = this.formulario_datos_generales.get('fecha_nacimiento').value;
-    this.paciente.sexo = this.formulario_datos_generales.get('sexo').value;
-    this.paciente.estado_civil = this.formulario_datos_generales.get('estado_civil').value;
-    this.paciente.seguro_medico = this.formulario_datos_generales.get('seguro_medico').value;
-    this.paciente.numero_telefono = this.formulario_datos_generales.get('numero_telefono').value;
-    this.paciente.emergencia_telefono = this.formulario_datos_generales.get('emergencia_telefono').value;
-    this.paciente.categoria='E';
-    console.log(this.formulario_datos_generales.get('categoria').value);
-
-      this.paciente.id_paciente = this.datosScraping.id_login;
-      this.paciente.nombre_completo = this.nombre_completo.value;
-      this.paciente.numero_cuenta = this.numero_cuenta.value;
-      this.paciente.numero_identidad = this.numero_identidad.value;
-      this.paciente.imagen = this.datosScraping.imagen;
-      this.paciente.lugar_procedencia = this.lugar_procedencia.value;
-      this.paciente.direccion = this.direccion.value;
-      this.paciente.carrera = this.carrera.value;
-      this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
-      this.paciente.sexo = this.sexo.value;
-      this.paciente.estado_civil = this.estado_civil.value;
-      this.paciente.seguro_medico = this.seguro_medico.value;
-      this.paciente.numero_telefono = this.numero_telefono.value;
-      this.paciente.emergencia_telefono = this.emergencia_telefono.value;
-      this.paciente.categoria = "E";
-
-    // this.paciente.id_paciente = this.datosScraping.id_login;
-    // this.paciente.nombre_completo = this.formulario_datos_generales.get('nombre_completo').value;
-    // this.paciente.numero_cuenta = this.formulario_datos_generales.get('numero_cuenta').value;
-    // this.paciente.numero_identidad = this.formulario_datos_generales.get('numero_identidad').value;
-    // this.paciente.imagen = this.datosScraping.imagen;
-    // this.paciente.lugar_procedencia = this.formulario_datos_generales.get('lugar_procedencia').value;
-    // this.paciente.direccion = this.formulario_datos_generales.get('direccion').value;
-    // this.paciente.carrera = this.formulario_datos_generales.get('carrera').value;
-    // this.paciente.fecha_nacimiento = this.formulario_datos_generales.get('fecha_nacimiento').value;
-    // this.paciente.sexo = this.formulario_datos_generales.get('sexo').value;
-    // this.paciente.estado_civil = this.formulario_datos_generales.get('estado_civil').value;
-    // this.paciente.seguro_medico = this.formulario_datos_generales.get('seguro_medico').value;
-    // this.paciente.numero_telefono = this.formulario_datos_generales.get('numero_telefono').value;
-    // this.paciente.emergencia_telefono = this.formulario_datos_generales.get('emergencia_telefono').value;
-    // this.paciente.categoria = this.categoria.value;
-    
-    
-    this.formularioService.guardarDatosGenerales(this.paciente).subscribe( (data) =>{
-      this.obtener();
-      console.log(data);     
-    }, (error) => {
-      console.log(error);
-      this.error = true;
-      alert('ocurrion un error');
-    });
       if(this.formulario_datos_generales.valid){
 
         // guardar datos del formulario en paciente y enviarlo a la api
@@ -964,6 +901,8 @@ ocultar: boolean = true;
         this.paciente.direccion = this.direccion.value;
         this.paciente.carrera = this.carrera.value;
         this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
+        
+
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
@@ -995,7 +934,7 @@ ocultar: boolean = true;
         this.paciente.lugar_procedencia = this.lugar_procedencia.value;
         this.paciente.direccion = this.direccion.value;
         this.paciente.carrera = this.carrera.value;
-        this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
+        this.paciente.fecha_nacimiento =  this.fecha_nacimiento.value;
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
@@ -1237,7 +1176,7 @@ ocultar: boolean = true;
      
      
     
-  };}
+  };
 
   obtener(){
      //Obtencion de Paciente recien registrado
@@ -1399,3 +1338,5 @@ ocultar: boolean = true;
   
 
 }
+
+
