@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { InventariosService } from '../services/inventarios.service';
+import { ActivatedRoute } from '@angular/router';
+import { Inventario } from '../interfaces/inventario';
 
-export interface Inventario {
+export interface tablaInventario {
   cantidad: number;
   nombre: string;
   descripcion: string;
@@ -19,7 +21,16 @@ export interface Inventario {
 export class InventarioComponent implements OnInit {
 
   API_ENDPOINT = "http://127.0.0.1:8000/api/";
-  inventario1: Inventario[];
+  tablaInventario: tablaInventario[];
+  id: any;
+
+  inventario: Inventario={
+    cantidad: null,
+    nombre: null,
+    descripcion: null,
+    fecha_vencimiento: null,
+    
+  };
   
 
   displayedColumns: string[] = ['cantidad', 'nombre', 'descripcion', 'fecha_vencimiento', 'ver'];
@@ -29,14 +40,21 @@ export class InventarioComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   
-  constructor(private inventarioss: InventariosService, private httpClient: HttpClient) { 
-    httpClient.get(this.API_ENDPOINT + 'inventarios' ).subscribe((data: Inventario[]) => {
-      this.dataSource= new MatTableDataSource(data);
-      console.log(this.inventario1);
-    });
+  constructor(private inventariosService: InventariosService, private httpClient: HttpClient,private activatedRoute: ActivatedRoute, ) { 
+
   }
 
   ngOnInit() {
+    this.getDatos();
   }
+
+  getDatos(){
+    this.inventariosService.getInventario().subscribe((data: tablaInventario[])=>{
+      this.tablaInventario = data;
+      this.dataSource = new MatTableDataSource(this.tablaInventario);
+    
+    });
+  }
+  
 
 }
