@@ -1,94 +1,39 @@
-html,
-body,
-header,
-#intro{
-height: 100%;
-width:100%;
-position: absolute;
-margin:0px;
+.example-full-width{
+  width: 80%;
+  margin-top: 10px;
+  text-align: center;
+}
+.titulo{
+  text-align: center;
 }
 
-#intro{
-    background: url('https://campusvirtual.unah.edu.hn/theme/image.php/bootstrapcampus/theme/1568312409/frontpage-bg')no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-
-#imagenpuma{
-  height: 100px;
-  width:100px;
-  background: url('src\imagenes\pumitafinal.jpg');
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;  
-  border-radius: 50px;
-  display: block;margin:auto;
-  border: 3px solid rgb(122, 22, 22);
-  margin-bottom: 10px;  
-}
-
-.label{
+#label{
   font-size: 10dp;
-  color: #00f;
+  color: rgb(35, 35, 36);
 }
-
-#formstyle{     
-    background-color:  #3354FF; ;
-    position: absolute;
-    top:25%;
-    left:45%;
-    width:420px;
-    margin-left:-130px;
-    height:630px;
-    margin-top:-150px;
-    border:5px solid rgb(122, 22, 22);
-    padding:10px;
+#form{   
     text-align: center;
-  color: aliceblue;	
-	filter: alpha(opacity=70);
-  opacity: .8;
-  border-radius: 30px;
 }
-
 
 .errorverificacion{
 color:rgb(122, 22, 22);
 }
 
-.example-full-width{
-  border-color: rgb(0, 255, 255);
-  border-radius: 20px;
-  text-align: center;
-  width:350px;
-  color: #fff;  
-}::placeholder { color: rgb(52, 201, 201); }
-
-#select{
-  background: #00f;
-  border-color: #FFCD33;
-  border-radius: 20px;
-  text-align: center;
-  width:380px;
-  color: #fff; 
-}
-
 .boton{
-  width:80px;
   height:30px;
-  background-color:#11119F ;
+  background-color:#00f ;
   color: #fff;
-  padding:-3px;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
-  border-radius: 50px;
+  border-radius: 10px;
   font-size:11px;
   line-height:10px;
   text-transform: uppercase;
-  text-align: center;
-  }
+  float: right;
+  margin-right: 10%;   
+  }.boton:hover{
+    background: azure;
+    border:2px solid #00f ;
+    color: blue;       
+    }
 
   input[type=number]::-webkit-inner-spin-button{ 
     -webkit-appearance: none; 

@@ -4,12 +4,17 @@ import { Paciente } from "../interfaces/paciente";
 import { ActivatedRoute, Route } from '@angular/router';
 import { AppComponent } from "../app.component";
 import {MatDialog} from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from "../services/login.service";
 import { LoginComponent } from '../login/login.component';
 import { FormularioComponent } from '../formulario/formulario.component';
 import { MatSnackBar } from '@angular/material';
+
+export interface select {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-dato-paciente',
@@ -17,6 +22,8 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./dato-paciente.component.css']
 })
 export class DatoPacienteComponent implements OnInit {
+
+  
   
  paciente: Paciente = {
     id_paciente: null,
@@ -44,21 +51,66 @@ export class DatoPacienteComponent implements OnInit {
     categoria: null  
   }
 
+  formulario_datos_generales = new FormGroup({
+    
+      
+    nombre_completo: new FormControl('', [Validators.required,  Validators.pattern(/^[a-zA-z\s]{0,100}$/)]),
+    // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    numero_cuenta: new FormControl('', [ Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]), 
+    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
+    // "/ /" indica el inicio y el final de la expresion regular
+    // "{10}" indica le numero de digitos de lo que lo antecede
+    numero_identidad: new FormControl('', [Validators.required,Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
+     // "\d" es lo mismo "[0-9]"
+    // lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
+    // direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    carrera: new FormControl('', [Validators.required]),
+    // fecha_nacimiento: new FormControl('', Validators.required),
+    sexo: new FormControl('', Validators.required),
+    // categoria: new FormControl('',[]),
+    // estado_civil: new FormControl('', Validators.required),
+    // seguro_medico: new FormControl('', Validators.required),
+    numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+    // emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
+
+
+});
+
 
 
   id: any;
   noImg: boolean = true;
   pacientes: Paciente[];
-  disable : boolean = true;
+
+  //variable que identifica si un input es editable
+  readonly: boolean = true;
+  
   
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, 
-              principal: AppComponent, public dialog: MatDialog, login: LoginService, private mensaje: MatSnackBar) {
+              principal: AppComponent, public dialog: MatDialog, login: LoginService, private formBuilder: FormBuilder, private mensaje: MatSnackBar) 
+
+              
+  {    
+
+    this.dialog.closeAll;
 
     this.id = this.activatedRoute.snapshot.params['id'];
+    
     if(this.id){
       this.formularioService.get().subscribe((data: Paciente[]) =>{
         this.pacientes = data;
         this.paciente = this.pacientes.find((m)=>{return m.id_paciente == this.id});
+
+        //establesco el valor a los formcontrol para que se visualizen en los respectivos inputs
+        this.nombre_completo.setValue(this.paciente.nombre_completo);
+        this.numero_identidad.setValue(this.paciente.numero_identidad);
+        this.numero_cuenta.setValue(this.paciente.numero_cuenta);
+        this.carrera.setValue(this.paciente.carrera);
+        this.sexo.setValue(this.paciente.sexo);
+        this.numero_telefono.setValue(this.paciente.numero_telefono);
+
         console.log(this.paciente.contrasenia);
         this.formularioService.idActualizar=this.paciente.id_paciente;
        
@@ -76,8 +128,7 @@ export class DatoPacienteComponent implements OnInit {
       },(error)=>{
         console.log(error);
       });
-    }else{
-//      this.paciente=this.formularioService.IngresoPaciente;
+
     }
 
     principal.esconder();
@@ -96,14 +147,60 @@ export class DatoPacienteComponent implements OnInit {
       console.log(error);
       this.mensaje.open('Ocurrio un error', '', {duration:2000});
     });
+    
   }
 
 
   ngOnInit() {
-    
   }
 
- 
+  editar(){
+    this.readonly = !this.readonly;
+
+    // this.nombre_completo.setValue('hola');
+  }
+
+  actualizar(){
+    if(this.readonly === true){
+    
+      if(this.formulario_datos_generales.valid){
+
+        this.paciente.nombre_completo = this.nombre_completo.value;
+        this.paciente.numero_cuenta = this.numero_cuenta.value;
+        this.paciente.numero_identidad = this.numero_identidad.value;
+        this.paciente.carrera = this.carrera.value;
+        this.paciente.sexo = this.sexo.value;
+        this.paciente.numero_telefono = this.numero_telefono.value;
+
+        this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
+          console.log(data);
+          alert('Perron no le chima una catracha XD, son pajas estamos en vivo');
+        }, (error)=>{
+          console.log(error);
+          alert('se chorrio');
+        });
+      } 
+    }else{
+    }
+  }
+
+  //obtener los campos del formGroup: formulario_datos_generales
+  get nombre_completo(){return this.formulario_datos_generales.get('nombre_completo')};
+  get segundo_apellido(){return this.formulario_datos_generales.get('segundo_apellido')};
+  get primer_nombre(){return this.formulario_datos_generales.get('primer_nombre')};
+  get segundo_nombre(){return this.formulario_datos_generales.get('segundo_nombre')};
+  get numero_cuenta(){return this.formulario_datos_generales.get('numero_cuenta')};
+  get numero_identidad(){return this.formulario_datos_generales.get('numero_identidad')};
+  get lugar_procedencia(){return this.formulario_datos_generales.get('lugar_procedencia')};
+  get direccion(){return this.formulario_datos_generales.get('direccion')};
+  get carrera(){return this.formulario_datos_generales.get('carrera')};
+  get fecha_nacimiento(){return this.formulario_datos_generales.get('fecha_nacimiento')};
+  get sexo(){return this.formulario_datos_generales.get('sexo')};
+  get estado_civil(){return this.formulario_datos_generales.get('estado_civil')};
+  get seguro_medico(){return this.formulario_datos_generales.get('seguro_medico')};
+  get numero_telefono(){return this.formulario_datos_generales.get('numero_telefono')};
+  get emergencia_telefono(){return this.formulario_datos_generales.get('emergencia_telefono')};
+  get categoria(){return this.formulario_datos_generales.get('categoria')};
 
 }
 
@@ -192,32 +289,39 @@ guardar(){
   
   if(this.Nueva.valid){
     // guardar datos del formulario en paciente y enviarlo a la api
-    
-  this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
+    this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
   
-  if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
+    
+
+    if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
 
   
-  this.formularioService.put(this.paciente1).subscribe((data)=>{
-  
-    this.mensaje.open('Contraseña guardada', '', {duration:2000});
-    this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
-    console.log(data);
-    this.Listo = true;
-
-  }, (error)=>{
-    console.log(error);
-    
-  });
-}else{
+ 
   this.mensaje.open('La contraseña no es la misma', '', {duration:2000});
+      this.formularioService.actualizarPaciente(this.paciente1).subscribe((data)=>{
+      
+          
+        this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
+        this.mensaje.open('Contraseña guardada', '', {duration:2000});
+        this.Listo = true;
+
+      }, (error)=>{
+        console.log(error);
+        
+      });
+    }else{
+      this.mensaje.open('La contraseña no es la misma', '', {duration:2000});
+      
+    }
+  }
+
   
 }
 
-}
 
-}
 get nuevaContra(){return this.Nueva.get('nuevaContra')};
 get nuevaContraRep(){return this.Nueva.get('nuevaContraRep')};
+
+
 
 }

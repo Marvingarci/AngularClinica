@@ -26,7 +26,7 @@ export class FormularioService {
    }
 
    
-   put(paciente){
+   actualizarPaciente(paciente: Paciente){
     return this.httpClient.put(this.API_ENDPOINT+'pacientes/'+ paciente.id_paciente , paciente, {headers: this.headers});
   }
 

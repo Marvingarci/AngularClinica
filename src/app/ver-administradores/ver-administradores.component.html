@@ -1,9 +1,10 @@
 <div class="container">
-        <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+        <div><mat-form-field>
+           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">            
         </mat-form-field>
+        <button mat-list-item [routerLink]="['/principal/loginadmin']" routerLinkActive="router-link-active" class="boton">
+            Crear Nuevo Administrador</button></div>
         
-        <button mat-list-item [routerLink]="['/principal/loginadmin']" routerLinkActive="router-link-active">Crear Nuevo Administrador</button> 
         <!--'id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'-->
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         
@@ -47,7 +48,7 @@
 
             <ng-container matColumnDef="nada">
             <th mat-header-cell *matHeaderCellDef> </th>
-            <td mat-cell *matCellDef="let element"> <a href="">Ver  </a>  <a href="">  Editar</a> </td>
+            <td mat-cell *matCellDef="let element"> <a href="">  Editar</a> </td>
             </ng-container>
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
