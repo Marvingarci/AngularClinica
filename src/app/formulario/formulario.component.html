@@ -386,7 +386,7 @@
         <div> 
           <mat-form-field>
             <mat-label>Parentesco</mat-label>
-            <mat-select  formControlName= "observacion_diabetes" name="observacion_diabetes" [disabled]="isDisabledB1" >
+            <mat-select  formControlName= "parentesco_diabetes" [disabled]="isDisabledB1" >
               <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                 {{parentesco.viewValue}}
               </mat-option>
@@ -411,7 +411,7 @@
         <div> 
           <mat-form-field>
             <mat-label>Parentesco</mat-label>
-            <mat-select formControlName= "observacion_tb_pulmonar" name="observacion_tb_pulmonar" [disabled]="isDisabledB2">
+            <mat-select formControlName= "parentesco_tb_pulmonar" name="observacion_tb_pulmonar" [disabled]="isDisabledB2">
               <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                 {{parentesco.viewValue}}
               </mat-option>
@@ -435,7 +435,7 @@
           <div class="col-md-3"> 
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "observacion_desnutricion" name="observacion_desnutricion" [disabled]="isDisabledB3">
+              <mat-select formControlName= "parentesco_desnutricion" name="observacion_desnutricion" [disabled]="isDisabledB3">
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -471,7 +471,7 @@
           <div class="col-md-3"> 
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "observacion_enfermedades_mentales" name="observacion_enfermedades_mentales" [disabled]="isDisabledB4">
+              <mat-select formControlName= "parentesco_enfermedades_mentales" name="observacion_enfermedades_mentales" [disabled]="isDisabledB4">
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -506,7 +506,7 @@
         <div> 
           <mat-form-field>
             <mat-label>Parentesco</mat-label>
-            <mat-select formControlName= "observacion_convulsiones" name="observacion_convulsiones" [disabled]="isDisabledB5">
+            <mat-select formControlName= "parentesco_convulsiones" name="observacion_convulsiones" [disabled]="isDisabledB5">
               <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                 {{parentesco.viewValue}}
               </mat-option>
@@ -530,7 +530,7 @@
         <div> 
           <mat-form-field>
             <mat-label>Parentesco</mat-label>
-            <mat-select formControlName= "observacion_alcoholismo_sustancias_psicoactivas" name="observacion_alcoholismo_sustancias_psicoactivas" [disabled]="isDisabledB6">
+            <mat-select formControlName= "parentesco_alcoholismo_sustancias_psicoactivas" name="observacion_alcoholismo_sustancias_psicoactivas" [disabled]="isDisabledB6">
               <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                 {{parentesco.viewValue}}
               </mat-option>
@@ -555,7 +555,7 @@
           <div class="col-md-3"> 
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "observacion_alergias" name="observacion_alergias" [disabled]="isDisabledB77" >
+              <mat-select formControlName= "parentesco_alergias" name="observacion_alergias" [disabled]="isDisabledB77" >
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -591,7 +591,7 @@
           <div class="col-md-3"> 
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "observacion_cancer" name="observacion_cancer" [disabled]="isDisabledB8">
+              <mat-select formControlName= "parentesco_cancer" name="observacion_cancer" [disabled]="isDisabledB8">
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -626,7 +626,7 @@
         <div> 
           <mat-form-field>
             <mat-label>Parentesco</mat-label>
-            <mat-select formControlName= "observacion_hipertension_arterial" name="observacion_hipertension_arterial" [disabled]="isDisabledB9">
+            <mat-select formControlName= "parentesco_hipertension_arterial"  [disabled]="isDisabledB9">
               <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                 {{parentesco.viewValue}}
               </mat-option>
@@ -649,7 +649,7 @@
           <div class="col-md-3">
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "observacion_otros" name="observacion_otros">
+              <mat-select formControlName= "parentesco_otros" >
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -735,8 +735,8 @@
           placeholder="Detallar inicio de enfermedad y tratamiento" 
           [readonly]="read1" ></textarea>
          
-          <mat-error style="margin-inline-start: 5px;"  *ngIf="observacion_diabetes.hasError('maxlength')">campo muy extenso!</mat-error>
-          <mat-error style="margin-inline-start: 5px;"  *ngIf="observacion_diabetes.hasError('minlength')">introduzca una observación valida!</mat-error>
+          <mat-error style="margin-inline-start: 5px;"  *ngIf="observacion_diabetes_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+          <mat-error style="margin-inline-start: 5px;"  *ngIf="observacion_diabetes_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
        
 
@@ -757,8 +757,8 @@
           <textarea matInput formControlName="observacion_tb_pulmonar"
             placeholder="Detallar inicio de enfermedad y tratamiento" 
             [readonly]="read2"></textarea>
-            <mat-error *ngIf="observacion_tb_pulmonar.hasError('maxlength')">campo muy extenso!</mat-error>
-            <mat-error *ngIf="observacion_tb_pulmonar.hasError('minlength')">introduzca una observación valida!</mat-error>
+            <mat-error *ngIf="observacion_tb_pulmonar_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+            <mat-error *ngIf="observacion_tb_pulmonar_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -809,8 +809,8 @@
           <textarea matInput formControlName="observacion_desnutricion"
             placeholder="Detallar inicio de enfermedad y tratamiento" 
             [readonly]="read4"  ></textarea>
-            <mat-error *ngIf="observacion_desnutricion.hasError('maxlength')">campo muy extenso!</mat-error>
-            <mat-error *ngIf="observacion_desnutricion.hasError('minlength')">introduzca una observación valida!</mat-error>
+            <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+            <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -840,8 +840,8 @@
           <textarea matInput formControlName="observacion_enfermedades_mentales"
           placeholder="Detallar inicio de enfermedad y tratamiento" 
           [readonly]="read5"  ></textarea>
-          <mat-error *ngIf="observacion_enfermedades_mentales.hasError('maxlength')">campo muy extenso!</mat-error>
-          <mat-error *ngIf="observacion_enfermedades_mentales.hasError('minlength')">introduzca una observación valida!</mat-error>
+          <mat-error *ngIf="observacion_enfermedades_mentales_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+          <mat-error *ngIf="observacion_enfermedades_mentales_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
         
 
@@ -862,8 +862,8 @@
           <textarea matInput formControlName="observacion_convulsiones"
           placeholder="Detallar inicio de enfermedad y tratamiento"
           [readonly]="read6"  ></textarea>
-          <mat-error *ngIf="observacion_convulsiones.hasError('maxlength')">campo muy extenso!</mat-error>
-          <mat-error *ngIf="observacion_convulsiones.hasError('minlength')">introduzca una observación valida!</mat-error>
+          <mat-error *ngIf="observacion_convulsiones_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+          <mat-error *ngIf="observacion_convulsiones_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -892,8 +892,8 @@
           <textarea matInput formControlName="observacion_alergias"
           placeholder="Detallar inicio de enfermedad y tratamiento"
           [readonly]="read7" ></textarea>
-          <mat-error *ngIf="observacion_alergias.hasError('maxlength')">campo muy extenso!</mat-error>
-          <mat-error *ngIf="observacion_alergias.hasError('minlength')">introduzca una observación valida!</mat-error>
+          <mat-error *ngIf="observacion_alergias_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+          <mat-error *ngIf="observacion_alergias_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
 
         <mat-divider></mat-divider>
@@ -923,8 +923,8 @@
           <textarea matInput formControlName="observacion_cancer"
             placeholder="Detallar inicio de enfermedad y tratamiento"
             [readonly]="read8"  ></textarea>
-            <mat-error *ngIf="observacion_cancer.hasError('maxlength')">campo muy extenso!</mat-error>
-            <mat-error *ngIf="observacion_cancer.hasError('minlength')">introduzca una observación valida!</mat-error>
+            <mat-error *ngIf="observacion_cancer_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+            <mat-error *ngIf="observacion_cancer_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
 
       
@@ -1014,8 +1014,8 @@
         </div>
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_otros" placeholder="Observacion"></textarea>
-          <mat-error *ngIf="observacion_otros.hasError('maxlength')">campo muy extenso!</mat-error>
-          <mat-error *ngIf="observacion_otros.hasError('minlength')">introduzca una observación valida!</mat-error>
+          <mat-error *ngIf="observacion_otros_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+          <mat-error *ngIf="observacion_otros_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
 
         <div>
@@ -1194,8 +1194,8 @@
         </div>
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_otros" placeholder="Observacion"></textarea>
-          <mat-error *ngIf="observacion_otros.hasError('maxlength')">campo muy extenso!</mat-error>
-          <mat-error *ngIf="observacion_otros.hasError('minlength')">introduzca una observación valida!</mat-error>
+          <mat-error *ngIf="observacion_otros_ht.hasError('maxlength')">campo muy extenso!</mat-error>
+          <mat-error *ngIf="observacion_otros_ht.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
 
         <div>
