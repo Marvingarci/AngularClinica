@@ -800,10 +800,7 @@ ocultar: boolean = true;
   //radio buttons
   opciones: string[] = ['Si', 'No' ];
 
-  //opciones checkbox
-  parentescoscheck: string[] = [
-   'si','no'
-  ];
+ 
 
   
  
@@ -815,24 +812,13 @@ ocultar: boolean = true;
         this.getDatosScraping();
       // }      
     }
+    
     compareWithFn(item1, item2) {
       return item1 && item2 ? item1.nom === item2.nom : item1 === item2;
     }
 
     
-  selectedParentesco: [string];
-  myparentesco: any = [
-     {name: "Padre",
-      value: "padre"},
-    { name: "Madre",
-      value: "madre",
-      selected: true},
-    {name: "Abuelos",
-      value: "abuelos",
-      selected: true},
-    { name: "Tios",
-      value: "tios"}
-  ];
+ 
 
   
      
