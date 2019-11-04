@@ -20,7 +20,10 @@ export interface Select {
 export interface Element{
   antecedente: string;
   valor: string;
+  tipo?: string;
+  parentesco?: string;
   observacion?: string;
+
 }
 
 
@@ -69,29 +72,29 @@ export class VerPacienteComponent implements OnInit {
   formulario_antecedentes_familiares = new FormGroup({
       
     diabetes : new FormControl('',[Validators.required]),
-    observacion_diabetes : new FormControl({value:'', disabled: true},[]),
+    parentesco_diabetes : new FormControl({value:'', disabled: true},[]),
     tb_pulmonar : new FormControl('',[Validators.required]),
-    observacion_tb_pulmonar : new FormControl({value:'', disabled: true},[]),
+    parentesco_tb_pulmonar : new FormControl({value:'', disabled: true},[]),
     desnutricion : new FormControl('',[Validators.required]),
-    observacion_desnutricion : new FormControl({value:'', disabled: true},[]),
+    parentesco_desnutricion : new FormControl({value:'', disabled: true},[]),
     tipo_desnutricion: new FormControl({value:'', disabled: true},[]),
     enfermedades_mentales : new FormControl('',[Validators.required]),
-    observacion_enfermedades_mentales : new FormControl({value:'', disabled: true},[]),
+    parentesco_enfermedades_mentales : new FormControl({value:'', disabled: true},[]),
     tipo_enfermedad_mental: new FormControl({value:'', disabled: true},[]),
     convulsiones : new FormControl('',[Validators.required]),
-    observacion_convulsiones : new FormControl({value:'', disabled: true},[]),
+    parentesco_convulsiones : new FormControl({value:'', disabled: true},[]),
     alcoholismo_sustancias_psicoactivas : new FormControl('',[Validators.required]),
-    observacion_alcoholismo_sustancias_psicoactivas: new FormControl({value:'', disabled: true},[]),    
+    parentesco_alcoholismo_sustancias_psicoactivas: new FormControl({value:'', disabled: true},[]),    
     alergias : new FormControl('',[Validators.required]),
-    observacion_alergias: new FormControl({value:'', disabled: true},[]),
+    parentesco_alergias: new FormControl({value:'', disabled: true},[]),
     tipo_alergia: new FormControl({value:'', disabled: true},[]),
     cancer : new FormControl('',[Validators.required]),
-    observacion_cancer: new FormControl({value:'', disabled: true},[]),
+    parentesco_cancer: new FormControl({value:'', disabled: true},[]),
     tipo_cancer: new FormControl({value:'', disabled: true},[]),
     hipertension_arterial: new FormControl('',[Validators.required]),
-    observacion_hipertension_arterial: new FormControl({value:'', disabled: true},[]),
+    parentesco_hipertension_arterial: new FormControl({value:'', disabled: true},[]),
     otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]), 
-    observacion_otros : new FormControl('',[]),
+    parentesco_otros : new FormControl('',[]),
       
   });
 
@@ -137,29 +140,29 @@ export class VerPacienteComponent implements OnInit {
   antecedente_familiar: AntecedentesFamiliares ={
 
     diabetes : null,
-    observacion_diabetes : null,
+    parentesco_diabetes : null,
     tb_pulmonar : null,
-    observacion_tb_pulmonar : null,
+    parentesco_tb_pulmonar : null,
     desnutricion : null,
-    observacion_desnutricion : null,
+    parentesco_desnutricion : null,
     tipo_desnutricion: null,
     enfermedades_mentales : null,
-    observacion_enfermedades_mentales : null,
+    parentesco_enfermedades_mentales : null,
     tipo_enfermedad_mental: null,
     convulsiones : null,
-    observacion_convulsiones : null,
+    parentesco_convulsiones : null,
     alcoholismo_sustancias_psicoactivas : null,
-    observacion_alcoholismo_sustancias_psicoactivas: null,
+    parentesco_alcoholismo_sustancias_psicoactivas: null,
     alergias : null,
-    observacion_alergias: null,
+    parentesco_alergias: null,
     tipo_alergia: null,
     cancer : null,
-    observacion_cancer: null,
+    parentesco_cancer: null,
     tipo_cancer: null,
     hipertension_arterial: null,
-    observacion_hipertension_arterial: null,
+    parentesco_hipertension_arterial: null,
     otros : null,
-    observacion_otros : null,
+    parentesco_otros : null,
     id_paciente : null
     
 
@@ -167,6 +170,10 @@ export class VerPacienteComponent implements OnInit {
 
   //creo un arreglo de la interfaz en donde voy a mostrar los datos de la tabla
   tablaAntecedentesFamiliares: Element[] ;
+
+  //creo un arreglo en el cual se añaden las columnas que se van a mostrar en la tabla
+  displayedColumns: string[] = ['antecedente', 'valor', 'tipo', 'parentesco', 'observacion'];
+
 
 
 
@@ -348,56 +355,10 @@ export class VerPacienteComponent implements OnInit {
         this.antecedentes_familiares = data;
         this.antecedente_familiar = this.antecedentes_familiares.find((m)=>{return m.id_paciente == this.id});
         
-        this.tablaAntecedentesFamiliares = 
-        [
-          {antecedente: 'Diabetes',
-          valor: this.antecedente_familiar.diabetes,
-          observacion: this.antecedente_familiar.observacion_diabetes
-          },
+
+        //cargo los datos de la tabla antecedentes familiares
+        this.cargarTablaAntecedentesFamiliares();
         
-          {
-          antecedente: 'Tuberculosis Pulmonar',
-          valor: this.antecedente_familiar.tb_pulmonar,
-          observacion: this.antecedente_familiar.observacion_tb_pulmonar
-          },
-      
-          {
-          antecedente: 'Desnutrición',
-          valor: this.antecedente_familiar.desnutricion,
-          observacion: this.antecedente_familiar.observacion_desnutricion
-          },
-      
-          {
-          antecedente: 'Enfermedades Mentales',
-          valor: this.antecedente_familiar.enfermedades_mentales,
-          observacion: this.antecedente_familiar.observacion_enfermedades_mentales
-          },
-      
-          {
-          antecedente: 'Convulsiones',
-          valor: this.antecedente_familiar.convulsiones,
-          observacion: this.antecedente_familiar.observacion_convulsiones
-          }, 
-      
-          {
-          antecedente: 'Alcoholismo o Sustancias Psicoactivas',
-          valor: this.antecedente_familiar.alcoholismo_sustancias_psicoactivas,
-          observacion: this.antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas
-          }, 
-      
-          { 
-          antecedente: 'Alergias',
-          valor: this.antecedente_familiar.alergias,
-          observacion: this.antecedente_familiar.observacion_alergias
-          }, 
-      
-          { 
-          antecedente: 'Cáncer',
-          valor: this.antecedente_familiar.cancer,
-          observacion: this.antecedente_familiar.observacion_cancer
-          }, 
-      
-        ];
 
         //establesco el valor a los formcontrol para que se visualizen
         //en los respectivos inputs de los antecedentes familiares
@@ -420,19 +381,92 @@ export class VerPacienteComponent implements OnInit {
   //   });
   // }
 
-  
-  displayedColumns: string[] = ['antecedente', 'valor', 'observacion'];
-  
-  
-
-  // displayedColumns: string[] = ['antecedente', '', 'tb_pulmonar', 'desnutricion', 'enfermedades_mentales'];
- 
-
+    
   ngOnInit() {
     
   }
 
+  cargarTablaAntecedentesFamiliares(){
+
+    // establesco los valores a el arreglo de interfaces "tablaAntecedentesFamiliares"
+    this.tablaAntecedentesFamiliares = 
+    [
+      {antecedente: 'Diabetes',
+      valor: this.antecedente_familiar.diabetes,
+      parentesco: this.antecedente_familiar.parentesco_diabetes
+      },
+    
+      {
+      antecedente: 'Tuberculosis Pulmonar',
+      valor: this.antecedente_familiar.tb_pulmonar,
+      parentesco: this.antecedente_familiar.parentesco_tb_pulmonar
+      },
+  
+      {
+      antecedente: 'Desnutrición',
+      valor: this.antecedente_familiar.desnutricion,
+      tipo: this.antecedente_familiar.tipo_desnutricion,
+      parentesco: this.antecedente_familiar.parentesco_desnutricion
+      },
+  
+      {
+      antecedente: 'Enfermedades Mentales',
+      valor: this.antecedente_familiar.enfermedades_mentales,
+      tipo: this.antecedente_familiar.tipo_enfermedad_mental,
+      parentesco: this.antecedente_familiar.parentesco_enfermedades_mentales
+      },
+  
+      {
+      antecedente: 'Convulsiones',
+      valor: this.antecedente_familiar.convulsiones,
+      parentesco: this.antecedente_familiar.parentesco_convulsiones
+      }, 
+  
+      {
+      antecedente: 'Alcoholismo o Sustancias Psicoactivas',
+      valor: this.antecedente_familiar.alcoholismo_sustancias_psicoactivas,
+      parentesco: this.antecedente_familiar.parentesco_alcoholismo_sustancias_psicoactivas
+      }, 
+  
+      { 
+      antecedente: 'Alergias',
+      valor: this.antecedente_familiar.alergias,
+      tipo: this.antecedente_familiar.tipo_alergia,
+      parentesco: this.antecedente_familiar.parentesco_alergias
+      }, 
+  
+      { 
+      antecedente: 'Cáncer',
+      valor: this.antecedente_familiar.cancer,
+      tipo: this.antecedente_familiar.tipo_cancer,
+      parentesco: this.antecedente_familiar.parentesco_cancer
+      },
+
+      {
+      antecedente: 'Hipertensión arterial',
+      valor: this.antecedente_familiar.hipertension_arterial,
+      parentesco: this.antecedente_familiar.parentesco_hipertension_arterial
+      },
+
+  
+    ];
+
+
+    // verifico si otro tiene un valor para poder agregarlo a la tabla
+    if(this.antecedente_familiar.otros != null){
+      this.tablaAntecedentesFamiliares.push(
+        {
+          antecedente: this.antecedente_familiar.otros,
+          valor: this.antecedente_familiar.hipertension_arterial,
+          parentesco: this.antecedente_familiar.parentesco_otros
+      });
+    }
+  }
+
   cargarInformacionDatosGenerales(){
+
+    //establesco el valor a los formControl de formulario_datos_generales
+    //para que aparescan cargados en los inputs 
     this.nombre_completo.setValue(this.paciente.nombre_completo);
     this.numero_identidad.setValue(this.paciente.numero_identidad);
     this.numero_cuenta.setValue(this.paciente.numero_cuenta);
@@ -451,30 +485,32 @@ export class VerPacienteComponent implements OnInit {
 
   cargarInformacionAntecedentesFamiliares(){
 
+    //establesco el valor a los formControl de formulario_antecedentes_familiares
+    //para que aparescan cargados en los inputs 
     this.diabetes.setValue(this.antecedente_familiar.diabetes);
-    this.observacion_diabetes.setValue(this.antecedente_familiar.observacion_diabetes); 
+    this.parentesco_diabetes.setValue(this.antecedente_familiar.parentesco_diabetes); 
     this.tb_pulmonar.setValue(this.antecedente_familiar.tb_pulmonar);
-    this.observacion_tb_pulmonar.setValue(this.antecedente_familiar.observacion_tb_pulmonar);
+    this.parentesco_tb_pulmonar.setValue(this.antecedente_familiar.parentesco_tb_pulmonar);
     this.desnutricion.setValue(this.antecedente_familiar.desnutricion);
-    this.observacion_desnutricion.setValue(this.antecedente_familiar.observacion_desnutricion);
+    this.parentesco_desnutricion.setValue(this.antecedente_familiar.parentesco_desnutricion);
     this.tipo_desnutricion.setValue(this.antecedente_familiar.tipo_desnutricion);
     this.enfermedades_mentales.setValue(this.antecedente_familiar.enfermedades_mentales);
-    this.observacion_enfermedades_mentales.setValue(this.antecedente_familiar.observacion_enfermedades_mentales);
+    this.parentesco_enfermedades_mentales.setValue(this.antecedente_familiar.parentesco_enfermedades_mentales);
     this.tipo_enfermedad_mental.setValue(this.antecedente_familiar.tipo_enfermedad_mental);
     this.convulsiones.setValue(this.antecedente_familiar.convulsiones);
-    this.observacion_convulsiones.setValue(this.antecedente_familiar.observacion_convulsiones);
+    this.parentesco_convulsiones.setValue(this.antecedente_familiar.parentesco_convulsiones);
     this.alcoholismo_sustancias_psicoactivas.setValue(this.antecedente_familiar.alcoholismo_sustancias_psicoactivas);
-    this.observacion_alcoholismo_sustancias_psicoactivas.setValue(this.antecedente_familiar.observacion_alcoholismo_sustancias_psicoactivas);
+    this.parentesco_alcoholismo_sustancias_psicoactivas.setValue(this.antecedente_familiar.parentesco_alcoholismo_sustancias_psicoactivas);
     this.alergias.setValue(this.antecedente_familiar.alergias);
-    this.observacion_alergias.setValue(this.antecedente_familiar.observacion_alergias);
+    this.parentesco_alergias.setValue(this.antecedente_familiar.parentesco_alergias);
     this.tipo_alergia.setValue(this.antecedente_familiar.tipo_alergia);
     this.cancer.setValue(this.antecedente_familiar.cancer);
-    this.observacion_cancer.setValue(this.antecedente_familiar.observacion_cancer);
+    this.parentesco_cancer.setValue(this.antecedente_familiar.parentesco_cancer);
     this.tipo_cancer.setValue(this.antecedente_familiar.tipo_cancer);
     this.hipertension_arterial.setValue(this.antecedente_familiar.hipertension_arterial);
-    this.observacion_hipertension_arterial.setValue(this.antecedente_familiar.observacion_hipertension_arterial);
+    this.parentesco_hipertension_arterial.setValue(this.antecedente_familiar.parentesco_hipertension_arterial);
     this.otros.setValue(this.antecedente_familiar.otros);
-    this.observacion_otros.setValue(this.antecedente_familiar.observacion_otros);
+    this.parentesco_otros.setValue(this.antecedente_familiar.parentesco_otros);
 
   }
 
@@ -496,28 +532,28 @@ export class VerPacienteComponent implements OnInit {
 
    //obtener los campos del formGroup: formulario_antecedentes_familiares
   get diabetes(){return this.formulario_antecedentes_familiares.get('diabetes')};
-  get observacion_diabetes(){return this.formulario_antecedentes_familiares.get('observacion_diabetes')};
+  get parentesco_diabetes(){return this.formulario_antecedentes_familiares.get('parentesco_diabetes')};
   get tb_pulmonar(){return this.formulario_antecedentes_familiares.get('tb_pulmonar')};
-  get observacion_tb_pulmonar(){return this.formulario_antecedentes_familiares.get('observacion_tb_pulmonar')};
+  get parentesco_tb_pulmonar(){return this.formulario_antecedentes_familiares.get('parentesco_tb_pulmonar')};
   get desnutricion(){return this.formulario_antecedentes_familiares.get('desnutricion')};
-  get observacion_desnutricion(){return this.formulario_antecedentes_familiares.get('observacion_desnutricion')};
+  get parentesco_desnutricion(){return this.formulario_antecedentes_familiares.get('parentesco_desnutricion')};
   get tipo_desnutricion(){return this.formulario_antecedentes_familiares.get('tipo_desnutricion')};
   get enfermedades_mentales(){return this.formulario_antecedentes_familiares.get('enfermedades_mentales')};
-  get observacion_enfermedades_mentales(){return this.formulario_antecedentes_familiares.get('observacion_enfermedades_mentales')};
+  get parentesco_enfermedades_mentales(){return this.formulario_antecedentes_familiares.get('parentesco_enfermedades_mentales')};
   get tipo_enfermedad_mental(){return this.formulario_antecedentes_familiares.get('tipo_enfermedad_mental')};
   get convulsiones(){return this.formulario_antecedentes_familiares.get('convulsiones')};
-  get observacion_convulsiones(){return this.formulario_antecedentes_familiares.get('observacion_convulsiones')};
+  get parentesco_convulsiones(){return this.formulario_antecedentes_familiares.get('parentesco_convulsiones')};
   get alcoholismo_sustancias_psicoactivas(){return this.formulario_antecedentes_familiares.get('alcoholismo_sustancias_psicoactivas')};
-  get observacion_alcoholismo_sustancias_psicoactivas(){return this.formulario_antecedentes_familiares.get('observacion_alcoholismo_sustancias_psicoactivas')};
+  get parentesco_alcoholismo_sustancias_psicoactivas(){return this.formulario_antecedentes_familiares.get('parentesco_alcoholismo_sustancias_psicoactivas')};
   get alergias(){return this.formulario_antecedentes_familiares.get('alergias')};
-  get observacion_alergias(){return this.formulario_antecedentes_familiares.get('observacion_alergias')};
+  get parentesco_alergias(){return this.formulario_antecedentes_familiares.get('parentesco_alergias')};
   get tipo_alergia(){return this.formulario_antecedentes_familiares.get('tipo_alergia')};
   get cancer(){return this.formulario_antecedentes_familiares.get('cancer')};
-  get observacion_cancer(){return this.formulario_antecedentes_familiares.get('observacion_cancer')};
+  get parentesco_cancer(){return this.formulario_antecedentes_familiares.get('parentesco_cancer')};
   get tipo_cancer(){return this.formulario_antecedentes_familiares.get('tipo_cancer')};
   get hipertension_arterial(){return this.formulario_antecedentes_familiares.get('hipertension_arterial')};
-  get observacion_hipertension_arterial(){return this.formulario_antecedentes_familiares.get('observacion_hipertension_arterial')};
+  get parentesco_hipertension_arterial(){return this.formulario_antecedentes_familiares.get('parentesco_hipertension_arterial')};
   get otros(){return this.formulario_antecedentes_familiares.get('otros')};
-  get observacion_otros(){return this.formulario_antecedentes_familiares.get('observacion_otros')};
+  get parentesco_otros(){return this.formulario_antecedentes_familiares.get('parentesco_otros')};
  
 }
