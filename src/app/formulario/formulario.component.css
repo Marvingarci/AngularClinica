@@ -83,7 +83,13 @@ mat-horizontal-stepper{
 }
 
 .col {
-  text-align: center;
+  text-align: left;
+  margin-left: 10px;
+  
+}
+.row{
+  
+  margin-left: 15px;
 }
 
 h2{
@@ -102,9 +108,22 @@ mat-divider {
 .example-radio-group {
   display: flex;
   flex-direction: row;
-  margin: 15px 0;
+ margin-top: 20px;
+ 
+
 }
 
 .example-radio-button {
   margin: 5px;
 }
+
+/* label */
+#example-radio-group-label{
+  margin-top: 20px;
+}
+
+.sexual{  width: 210px;}
+.acordion{
+  width: 370px;
+}
+
