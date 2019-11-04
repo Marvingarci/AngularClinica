@@ -1074,7 +1074,7 @@ ocultar: boolean = true;
         this.antecedente_personal.tiempo_hospitalizacion = this.tiempo_hospitalizacion.value;
         this.antecedente_personal.traumaticos = this.traumaticos.value;
         this.antecedente_personal.observacion_traumaticos = this.observacion_traumaticos.value;
-        this.antecedente_personal.otros = this.otros.value;
+        this.antecedente_personal.otros = this.otros_ap.value;
         this.antecedente_personal.observacion_otros = this.observacion_otros_ap.value;
         this.antecedente_personal.id_paciente = this.datosScraping.id_login;
         
@@ -1100,7 +1100,7 @@ ocultar: boolean = true;
         this.habito_toxicologico_personal.observacion_marihuana = this.observacion_marihuana.value;
         this.habito_toxicologico_personal.cocaina = this.cocaina.value;
         this.habito_toxicologico_personal.observacion_cocaina = this.observacion_cocaina.value;
-        this.habito_toxicologico_personal.otros = this.otros.value;
+        this.habito_toxicologico_personal.otros = this.otros_ht.value;
         this.habito_toxicologico_personal.observacion_otros = this.observacion_otros_ht.value;
         this.habito_toxicologico_personal.id_paciente = this.datosScraping.id_login;
 
