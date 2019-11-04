@@ -374,26 +374,26 @@
          
           <label id="example-radio-group-label">1. Diabetes</label>
           <mat-error style="margin-inline-start: 5px;" *ngIf="diabetes.hasError('required')">campo requerido!</mat-error>   
-       <div class="row" >         
+        <div class="row" >         
           <mat-radio-group formControlName= "diabetes"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group" > 
                
-              <mat-radio-button value="Si" (click)="triggerSomeEventSiB1()">Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" (click)="triggerSomeEventNoB1()">No</mat-radio-button>
+            <mat-radio-button value="Si" (click)="triggerSomeEventSiB1()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNoB1()">No</mat-radio-button>
               
-            </mat-radio-group>          
-            &nbsp; &nbsp; &nbsp; &nbsp;      
+          </mat-radio-group>          
+          &nbsp; &nbsp; &nbsp; &nbsp;      
          
-           <mat-form-field>
-                        <mat-label>Parentesco</mat-label>
-                        <mat-select  formControlName= "observacion_diabetes" name="observacion_diabetes"
-                        [compareWith]="compareWithFn" [disabled]="isDisabledB1" multiple >
-                        <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-                          {{parentesco.viewValue}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
+          <mat-form-field>
+            <mat-label>Parentesco</mat-label>
+            <mat-select  formControlName= "observacion_diabetes" name="observacion_diabetes"
+            [compareWith]="compareWithFn" [disabled]="isDisabledB1" multiple >
+              <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+                {{parentesco.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
             <!-- <div class="acordion">
                 <mat-accordion class="example-headers-align">
                     <mat-expansion-panel [expanded]="step===0" (opened)="setStep(0)" hideToggle [disabled]="isDisabledB1">
@@ -410,10 +410,10 @@
                      </mat-expansion-panel>
                 </mat-accordion>
                 </div> -->
-          </div>
-              <mat-error style="margin-inline-start: 5px;" *ngIf="diabetes.hasError('required')">campo requerido!</mat-error>
-            </mat-radio-group></p> 
-        </div>
+          <!-- </div> -->
+        <!-- </mat-radio-group></p>  -->
+        <mat-error style="margin-inline-start: 5px;" *ngIf="diabetes.hasError('required')">campo requerido!</mat-error>
+      </div>
         <div> 
           <mat-form-field>
             <mat-label>Parentesco</mat-label>
@@ -750,8 +750,8 @@
           <textarea matInput formControlName="observacion_tb_pulmonar"
             placeholder="Detallar inicio de enfermedad y tratamiento" 
             [readonly]="read2" [value] ="input2"></textarea>
-            <mat-error *ngIf="observacion_tb_pulmonar.hasError('maxlength')">campo muy extenso!</mat-error>
-            <mat-error *ngIf="observacion_tb_pulmonar.hasError('minlength')">introduzca una observación valida!</mat-error>
+            <mat-error *ngIf="observacion_tb_pulmonar_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+            <mat-error *ngIf="observacion_tb_pulmonar_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
         </div>
 
@@ -799,8 +799,8 @@
           <textarea matInput formControlName="observacion_desnutricion"
             placeholder="Detallar inicio de enfermedad y tratamiento" 
             [readonly]="read4"  [value] ="input4"></textarea>
-            <mat-error *ngIf="observacion_desnutricion.hasError('maxlength')">campo muy extenso!</mat-error>
-            <mat-error *ngIf="observacion_desnutricion.hasError('minlength')">introduzca una observación valida!</mat-error>
+            <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+            <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
         </div>
 
@@ -828,8 +828,8 @@
           <textarea matInput formControlName="observacion_enfermedades_mentales"
           placeholder="Detallar inicio de enfermedad y tratamiento" 
           [readonly]="read5" [value] ="input5" ></textarea>
-          <mat-error *ngIf="observacion_enfermedades_mentales.hasError('maxlength')">campo muy extenso!</mat-error>
-          <mat-error *ngIf="observacion_enfermedades_mentales.hasError('minlength')">introduzca una observación valida!</mat-error>
+          <mat-error *ngIf="observacion_enfermedades_mentales_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+          <mat-error *ngIf="observacion_enfermedades_mentales_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
         </div>        
 
@@ -848,8 +848,8 @@
           <textarea matInput formControlName="observacion_convulsiones"
           placeholder="Detallar inicio de enfermedad y tratamiento"
           [readonly]="read6" [value] ="input6" ></textarea>
-          <mat-error *ngIf="observacion_convulsiones.hasError('maxlength')">campo muy extenso!</mat-error>
-          <mat-error *ngIf="observacion_convulsiones.hasError('minlength')">introduzca una observación valida!</mat-error>
+          <mat-error *ngIf="observacion_convulsiones_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+          <mat-error *ngIf="observacion_convulsiones_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
         </div>
 
@@ -877,8 +877,8 @@
           <textarea matInput formControlName="observacion_alergias"
           placeholder="Detallar inicio de enfermedad y tratamiento"
           [readonly]="read7" [value] ="input7"></textarea>
-          <mat-error *ngIf="observacion_alergias.hasError('maxlength')">campo muy extenso!</mat-error>
-          <mat-error *ngIf="observacion_alergias.hasError('minlength')">introduzca una observación valida!</mat-error>
+          <mat-error *ngIf="observacion_alergias_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+          <mat-error *ngIf="observacion_alergias_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
         </div>
 
@@ -906,8 +906,8 @@
           <textarea matInput formControlName="observacion_cancer"
             placeholder="Detallar inicio de enfermedad y tratamiento"
             [readonly]="read8" [value] ="input8" ></textarea>
-            <mat-error *ngIf="observacion_cancer.hasError('maxlength')">campo muy extenso!</mat-error>
-            <mat-error *ngIf="observacion_cancer.hasError('minlength')">introduzca una observación valida!</mat-error>
+            <mat-error *ngIf="observacion_cancer_ap.hasError('maxlength')">campo muy extenso!</mat-error>
+            <mat-error *ngIf="observacion_cancer_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
         </div>
 
