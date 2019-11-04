@@ -374,23 +374,26 @@
          
           <label id="example-radio-group-label">1. Diabetes</label>
           <mat-error style="margin-inline-start: 5px;" *ngIf="diabetes.hasError('required')">campo requerido!</mat-error>   
-         <div class="row" >         
+        <div class="row" >         
           <mat-radio-group formControlName= "diabetes"
             aria-labelledby="example-radio-group-label"
-            class="example-radio-group" >                
-              <mat-radio-button value="Si" (click)="triggerSomeEventSiB1()">Si</mat-radio-button> &nbsp;   
-              <mat-radio-button value="No" (click)="triggerSomeEventNoB1()">No</mat-radio-button>              
-            </mat-radio-group>          
-            &nbsp; &nbsp; &nbsp; &nbsp;      
+            class="example-radio-group" > 
+               
+            <mat-radio-button value="Si" (click)="triggerSomeEventSiB1()">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No" (click)="triggerSomeEventNoB1()">No</mat-radio-button>
+              
+          </mat-radio-group>          
+          &nbsp; &nbsp; &nbsp; &nbsp;      
          
-           <mat-form-field>
-                        <mat-label>Parentesco</mat-label>
-                        <mat-select  formControlName= "parentesco_diabetes" name="parentesco_diabetes" [disabled]="isDisabledB1" multiple >
-                        <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-                          {{parentesco.viewValue}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
+          <mat-form-field>
+            <mat-label>Parentesco</mat-label>
+            <mat-select  formControlName= "observacion_diabetes" name="observacion_diabetes"
+            [compareWith]="compareWithFn" [disabled]="isDisabledB1" multiple >
+              <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+                {{parentesco.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
             <!-- <div class="acordion">
                 <mat-accordion class="example-headers-align">
                     <mat-expansion-panel [expanded]="step===0" (opened)="setStep(0)" hideToggle [disabled]="isDisabledB1">
@@ -407,7 +410,21 @@
                      </mat-expansion-panel>
                 </mat-accordion>
                 </div> -->
-          </div>
+          <!-- </div> -->
+        <!-- </mat-radio-group></p>  -->
+        <mat-error style="margin-inline-start: 5px;" *ngIf="diabetes.hasError('required')">campo requerido!</mat-error>
+      </div>
+        <div> 
+          <mat-form-field>
+            <mat-label>Parentesco</mat-label>
+            <mat-select  formControlName= "parentesco_diabetes" [disabled]="isDisabledB1" >
+              <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+                {{parentesco.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>parentesco seleccionado: </p>
+        </div>
 
         <mat-divider></mat-divider>
 
