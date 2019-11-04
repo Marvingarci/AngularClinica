@@ -107,7 +107,7 @@ export class FormularioComponent implements OnInit {
   formulario_antecedentes_familiares = new FormGroup({
     
     diabetes : new FormControl('',[Validators.required]),
-    observacion_diabetes : new FormControl({value:'', disabled: true},[]),
+    observacion_diabetes : new FormControl({value:'', disabled: true},[],),
     tb_pulmonar : new FormControl('',[Validators.required]),
     observacion_tb_pulmonar : new FormControl({value:'', disabled: true},[]),
     desnutricion : new FormControl('',[Validators.required]),
@@ -215,11 +215,11 @@ export class FormularioComponent implements OnInit {
 
   formulario_antecedente_obstetrico = new FormGroup({
 
-    partos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
-    abortos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
-    cesarias: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
-    hijos_vivos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
-    hijos_muertos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(1)]),
+    partos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
+    abortos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
+    cesarias: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
+    hijos_vivos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
+    hijos_muertos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
     fecha_termino_ult_embarazo : new FormControl(''),
     descripcion_termino_ult_embarazo : new FormControl(''),
     observaciones : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
@@ -234,73 +234,88 @@ export class FormularioComponent implements OnInit {
 
 
 read1 = true;
+input1 : string = '';
 csi1() { this.read1 = false;}
-cno1() {this.read1 = true;  }
+cno1() {this.read1 = true;
+        this.input1= null;}
 
 read2 = true;
+input2 : string = '';
 csi2() { this.read2 = false;}
-cno2() {this.read2 = true;  }
+cno2() {this.read2 = true;this.input2= null;  }
 
 read3 = true;
+input3 : string = '';
 csi3() { this.read3 = false;}
-cno3() {this.read3 = true;  }
+cno3() {this.read3 = true; this.input3= null; }
 
 read4 = true;
+input4 : string = '';
 isDisabled4 = true;
 csi4() { this.read4 = false;
   this.isDisabled4 = false; }
 cno4() {this.read4 = true; 
-  this.isDisabled4 = true;  }
+  this.isDisabled4 = true; this.input4= null; }
 
 read5 = true;
 isDisabled5 = true;
+input5 : string = '';
 csi5() { this.read5 = false;
   this.isDisabled5 = false; }
 cno5() {this.read5 = true; 
-  this.isDisabled5 = true;  }
+  this.isDisabled5 = true; this.input5= null; }
 
 read6 = true;
+input6 : string = '';
 csi6() { this.read6 = false;}
-cno6() {this.read6 = true;  }
+cno6() {this.read6 = true;  this.input6= null;}
 
 
 read7 = true;
 isDisabled7 = true;
+input7 : string = '';
 csi7() { this.read7 = false;
   this.isDisabled7 = false; }
 cno7() {this.read7 = true;
-  this.isDisabled7 = true; }
+  this.isDisabled7 = true;this.input7= null; }
 
 read8 = true;
 isDisabled8 = true;
+input8 : string = '';
 csi8() { this.read8 = false;
   this.isDisabled8 = false;  }
 cno8() {this.read8 = true; 
-  this.isDisabled8 = true; }
+  this.isDisabled8 = true;this.input8= null; }
 
 read9 = true;
+input9 : string = '';
 csi9() { this.read9 = false;}
-cno9() {this.read9 = true;  }
+cno9() {this.read9 = true;this.input9= null;  }
 
 read10 = true;
+input10 : string = '';
 csi10() { this.read10 = false;}
-cno10() {this.read10 = true;  }
+cno10() {this.read10 = true; this.input10= null; }
 
 read11 = true;
+input11 : string = '';
 csi11() { this.read11 = false;}
-cno11() {this.read11 = true;  }
+cno11() {this.read11 = true; this.input11= null; }
 
 read12 = true;
+input12 : string = '';
 csi12() { this.read12 = false;}
-cno12() {this.read12 = true;  }
+cno12() {this.read12 = true; this.input12= null; }
 
 read13 = true;
+input13 : string = '';
 csi13() { this.read13 = false;}
-cno13() {this.read13 = true;  }
+cno13() {this.read13 = true; this.input13= null; }
 
 read14 = true;
+input14 : string = '';
 csi14() { this.read14 = false;}
-cno14() {this.read14 = true;  }
+cno14() {this.read14 = true; this.input14= null; }
 
 
 
@@ -312,8 +327,9 @@ cno16() {this.read16 = true;
   this.isDisabledB26 = true;}
 
   read17 = true;
+  input17 : string = '';
 csi17() { this.read17 = false;}
-cno17() {this.read17 = true;  }
+cno17() {this.read17 = true; this.input17= null;  }
 
 ya(){
   alert('macizo');
@@ -411,6 +427,7 @@ triggerSomeEventNoB9() {
   
 read15 = true;
 isDisabledB25 = true;
+input15 : string = '';
 
 csi15() { 
   console.log(this.formulario_datos_generales.get('sexo').value);
@@ -427,6 +444,7 @@ csi15() {
   
 }
 cno15() {  
+   this.input15= null;
   console.log(this.formulario_datos_generales.get('sexo').value);
 
   if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
@@ -437,6 +455,7 @@ cno15() {
   this.isDisabledB25 = true;
     this.ocultar=true;
   }
+ 
 }
 
 isDisabledB11 = true;
@@ -780,24 +799,51 @@ ocultar: boolean = true;
   //radio buttons
   opciones: string[] = ['Si', 'No' ];
 
+  //opciones checkbox
+  parentescoscheck: string[] = [
+   'si','no'
+  ];
+
   
  
   constructor(private formularioService: FormularioService, 
-    private router: Router, activar: AppComponent,public dialog: MatDialog, public login: LoginService, private formulario: FormularioService) {
+    private router: Router, activar: AppComponent,public dialog: MatDialog, 
+    public login: LoginService, private formulario: FormularioService) {
       
       // if(this.esAlumno == true){
         this.getDatosScraping();
-      // }
-      
+      // }      
     }
+    compareWithFn(item1, item2) {
+      return item1 && item2 ? item1.nom === item2.nom : item1 === item2;
+    }
+
+    
+  selectedParentesco: [string];
+  myparentesco: any = [
+     {name: "Padre",
+      value: "padre"},
+    { name: "Madre",
+      value: "madre",
+      selected: true},
+    {name: "Abuelos",
+      value: "abuelos",
+      selected: true},
+    { name: "Tios",
+      value: "tios"}
+  ];
+
+  
      
   ngOnInit() {
     this.getDatosScraping();
-    this.esAlumno = this.formulario.esAlumno;
-       
-   
+    this.esAlumno = this.formulario.esAlumno; 
   
   }
+  
+
+
+
   modificaciones(){
     if (this.esAlumno==false) {
       this.numero_cuenta.valid;
