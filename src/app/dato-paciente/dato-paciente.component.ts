@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { LoginService } from "../services/login.service";
 import { LoginComponent } from '../login/login.component';
 import { FormularioComponent } from '../formulario/formulario.component';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 export interface select {
   value: string;
@@ -243,8 +243,8 @@ export class DialogContentExampleDialog {
   }
   id:any;
   Listo:boolean = false;
-  constructor( private formularioService: FormularioService, private activatedRoute: ActivatedRoute, public login: LoginService, private router: Router
-    , private mensaje: MatSnackBar ){
+  constructor( private formularioService: FormularioService,private activatedRoute: ActivatedRoute,
+   public login: LoginService, private router: Router, private mensaje: MatSnackBar ){
     this.paciente1.id_paciente = this.formularioService.idActualizar;
     console.log(this.paciente1.id_paciente);
     ///////
@@ -263,6 +263,12 @@ export class DialogContentExampleDialog {
     }); 
 
   
+  }
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
   }
   
 
@@ -303,16 +309,16 @@ guardar(){
       
           
         this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
-        this.mensaje.open('Contraseña guardada', '', {duration:2000});
+        this.showError('Contraseña Guardada'); 
         this.Listo = true;
 
       }, (error)=>{
         console.log(error);
-        this.mensaje.open('there was an error!', '', {duration:2000});
+        this.showError('Existe un error'); 
 
       });
     }else{
-      this.mensaje.open('La contraseña no es la misma', '', {duration:2000});
+      this.showError('La contraseña no coincide'); 
       
     }
   }

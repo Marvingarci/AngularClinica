@@ -2,7 +2,7 @@
         <div><mat-form-field>
            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">            
         </mat-form-field>
-        <button mat-list-item [routerLink]="['/principal/loginadmin']" routerLinkActive="router-link-active" class="boton">
+        <button mat-raised-button [routerLink]="['/principal/loginadmin']" routerLinkActive="router-link-active" class="boton">
             Crear Nuevo Administrador</button></div>
         
         <!--'id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'-->
@@ -11,7 +11,7 @@
             <!-- Position Column -->
             <ng-container matColumnDef="id_loginAdmin">
             <th mat-header-cell *matHeaderCellDef> # </th>
-            <td mat-cell *matCellDef="let element"> {{element.id_loginAdmin}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
             </ng-container>
 
             
@@ -49,12 +49,13 @@
             <ng-container matColumnDef="nada">
             <th mat-header-cell *matHeaderCellDef> </th>
             <div mat-cell *matCellDef="let element">
-                  <!-- (click)="openDialog(element.id)" -->
-                     <button               
-                  routerLink="/principal/borraradministradores/{{element.id}}"  >  Eliminar</button> 
-                 <a mat-list-item routerLink="/principal/loginadmin/{{element.id}}" > Editar</a> 
+                
+        
+        <button mat-raised-button class="botonee" color="primary"  routerLink="/principal/loginadmin/{{element.id}}" > Editar</button> &nbsp;  
+        <button mat-raised-button class="botonee" color="warn"  routerLink="/principal/borraradministradores/{{element.id}}"  >  Eliminar</button>        
             </div>
             </ng-container>
+            
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>

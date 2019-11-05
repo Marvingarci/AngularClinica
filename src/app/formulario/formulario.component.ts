@@ -1233,12 +1233,10 @@ ocultar: boolean = true;
     
     index: Number;
     const index = this.paciente.id_paciente;
-    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+    const dialogRef = this.dialog.open(DialogContentExampleDialog, {disableClose:true});
     
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    
     
   }
   
