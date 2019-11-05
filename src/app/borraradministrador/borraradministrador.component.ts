@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginadminService } from '../services/loginadmin.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoginAdmin } from '../interfaces/login_admin';
+import { MatSnackBarConfig, MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-borraradministrador',
@@ -20,7 +21,7 @@ export class BorraradministradorComponent implements OnInit {
   pacientes: LoginAdmin[];
   id: any;
   admins: LoginAdmin[];
-  constructor(private login_adminservice:LoginadminService,private LoginAdminService: LoginadminService,private activatedRoute: ActivatedRoute) {
+  constructor(private mensaje: MatSnackBar,private login_adminservice:LoginadminService,private LoginAdminService: LoginadminService,private activatedRoute: ActivatedRoute) {
     this.getPacientes();
     this.id = this.activatedRoute.snapshot.params['id'];
     this.login_adminservice.getAdmin().subscribe((data: LoginAdmin[]) =>{
@@ -33,6 +34,13 @@ export class BorraradministradorComponent implements OnInit {
       console.log(error);
     });
    }
+
+   showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
 
    getPacientes(){
     this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) =>{
@@ -50,10 +58,10 @@ export class BorraradministradorComponent implements OnInit {
 
   borrar(){
     this.LoginAdminService.delete(this.id).subscribe((data)=>{
-      
-     //  alert('eliminado con exito');
-      console.log(data);
        this.getPacientes();
+      this.showError('Administrador eliminado correctamente'); 
+      console.log(data);
+      
      
   },(error)=>{console.log(error);
     });
