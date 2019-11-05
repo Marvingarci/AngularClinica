@@ -71,8 +71,8 @@ const routes: Route[] = [
   {path: 'datoPaciente', component: DatoPacienteComponent},
   {path: 'verPaciente/:id', component: VerPacienteComponent},
   {path: 'inventario', component: InventarioComponent},
-  {path: 'formInventario', component: FormInventarioComponent},
-  {path: 'formInventario/:id', component: FormInventarioComponent},
+  //{path: 'formInventario', component: FormInventarioComponent},
+  
 
 
   {path: 'loginadmin', component: LoginadminComponent},
@@ -95,7 +95,9 @@ const routes: Route[] = [
       {path: 'veradministradores/:id', component: VerAdministradoresComponent},
       {path: 'borraradministradores/:id', component: BorraradministradorComponent},
       {path: 'loginadmin', component: LoginadminComponent},
-      {path: 'loginadmin/:id', component: LoginadminComponent}
+      {path: 'loginadmin/:id', component: LoginadminComponent},
+      {path: 'formInventario', component: FormInventarioComponent},
+      {path: 'formInventario/:id', component: FormInventarioComponent}
       // {path: 'verPaciente', component: VerPacienteComponent},
       // {path: 'verPaciente/:id', component: VerPacienteComponent}
 
