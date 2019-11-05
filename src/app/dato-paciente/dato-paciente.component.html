@@ -1,12 +1,20 @@
-<mat-toolbar>        
-        <mat-toolbar-row class="toolbar"> 
-            <span>Clinica UNAH-tec Danli</span>
-            <span class="example-spacer"></span>
-            <span class="example-fill-remaining-space"></span>
-            <button mat-button>Basic</button>
+<mat-toolbar class="toolbar">
+    <span>Clinica UNAH-TEC Danli</span>
 
-        </mat-toolbar-row>
-    </mat-toolbar>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" >
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+            <mat-icon >clear</mat-icon>
+            <span>Cerrar secion</span>
+        </button>
+    </mat-menu> 
+      
+        
+    
+</mat-toolbar>
 
 
 <div class="container">
