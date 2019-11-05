@@ -18,6 +18,7 @@ export class FormInventarioComponent implements OnInit {
     cantidad: new FormControl('',[Validators.required,  Validators.minLength(1),Validators.maxLength(4)]),
     nombre: new FormControl('',[Validators.required,  Validators.minLength(4),Validators.maxLength(30)]),
     descripcion: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
+    fecha_vencimiento: new FormControl('', Validators.required),
     
     
   });
@@ -54,6 +55,7 @@ export class FormInventarioComponent implements OnInit {
         this.cantidad.setValue(this.inventario.cantidad);
         this.nombre.setValue(this.inventario.nombre);
         this.descripcion.setValue(this.inventario.descripcion);
+        this.fecha_vencimiento.setValue(this.inventario.fecha_vencimiento);
         
       },(error)=>{
         console.log(error);
@@ -74,6 +76,7 @@ export class FormInventarioComponent implements OnInit {
       this.inventario.cantidad = this.cantidad.value;
       this.inventario.nombre = this.nombre.value;
       this.inventario.descripcion = this.descripcion.value;
+      this.inventario.fecha_vencimiento = this.fecha_vencimiento.value;
       
       if(this.editando == true){
         this.inventariosService.actualizarInventario(this.inventario).subscribe((data)=>{
@@ -100,6 +103,7 @@ export class FormInventarioComponent implements OnInit {
   get cantidad(){return this.formInventario.get('cantidad')};
   get nombre(){return this.formInventario.get('nombre')};
   get descripcion(){return this.formInventario.get('descripcion')};
+  get fecha_vencimiento(){return this.formInventario.get('fecha_vencimiento')};
   
   
   
