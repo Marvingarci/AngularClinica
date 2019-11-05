@@ -46,6 +46,22 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_personales')
   }
 
+  obtenerHabitosToxicologicos(){
+    return this.httpClient.get(this.API_ENDPOINT+'habitos_toxicologicos_personales')
+  }
+
+  obtenerAntecedentesGinecologicos(){
+    return this.httpClient.get(this.API_ENDPOINT+'antecedentes_ginecologicos')
+  }
+
+  obtenerAntecedentesObstetricos(){
+    return this.httpClient.get(this.API_ENDPOINT+'antecedentes_obstetricos')
+  }
+
+  obtenerPlanificacionesFamiliares(){
+    return this.httpClient.get(this.API_ENDPOINT+'planificaciones_familiares')
+  }
+
 
   getUltimoID(){
     return this.httpClient.get(this.API_ENDPOINT+'pacientes/ultimo/si');
