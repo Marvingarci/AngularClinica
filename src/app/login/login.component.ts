@@ -7,7 +7,7 @@ import { Paciente } from "../interfaces/paciente";
 import { PacienteComponent } from '../paciente/paciente.component';
 import { FormularioService } from '../services/formulario.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import { LoginAdmin } from '../interfaces/login_admin';
 import { LoginadminService } from '../services/loginadmin.service';
 
@@ -94,6 +94,12 @@ export class LoginComponent implements OnInit {
 
   
   }
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
 
 
   
@@ -118,13 +124,13 @@ export class LoginComponent implements OnInit {
       this.loginService.guardarDatos(this.login).subscribe( (data) =>{
         console.log(data);   
         
-        this.mensaje.open('Todo perron', '', {duration:2000});
+        this.showError('Llene el siguiente formulario'); 
 
          this.router.navigate(['/formulario']);
       }, (error) => {
         this.loading=false;
         console.log(error);
-        this.mensaje.open('Usuario Incorrecto', '', {duration:2000});
+        this.showError('Usuario Incorrecto'); 
       });
       
     }else{
@@ -132,7 +138,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);  
       }else{
         this.loading=false;
-        this.mensaje.open('Contraseña incorrecta', '', {duration:2000});
+        this.showError('Contraseña Incorrecta'); 
       }      
     } 
 
@@ -151,7 +157,7 @@ export class LoginComponent implements OnInit {
         
  console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
         this.loading=false;
-        alert('Contraseña incorrecta')
+        this.showError('Contraseña Incorrecta'); 
       } 
 
 
