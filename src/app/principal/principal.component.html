@@ -225,23 +225,12 @@
                 </div>
         </div>
       
-      <mat-expansion-panel [disabled]="isDisabled" class="expansion">
-          <mat-expansion-panel-header style="font-size: 16px;">
-            Pacientes
-          </mat-expansion-panel-header>
-          <mat-list role="list">
-              <mat-action-list>
-                  <button mat-list-item  [routerLink]="['/principal/registro']" routerLinkActive="router-link-active"> Alumnos </button>
-                  <button mat-list-item [routerLink]="['/principal/listadotrabajadores']" routerLinkActive="router-link-active"> Empleados </button>
-                  <button mat-list-item [routerLink]="['/principal/listadoVisitantes']" routerLinkActive="router-link-active"> Visitantes </button>
-                  <button mat-list-item [routerLink]="['/principal/listadoProsene']" routerLinkActive="router-link-active"> Prosene </button>
-  
-                </mat-action-list>
-            </mat-list>
-        </mat-expansion-panel>
+    
 
 
         <mat-action-list>
+            <button mat-list-item  [routerLink]="['/principal/registro']" routerLinkActive="router-link-active"> Pacientes </button>
+
             <button mat-list-item [routerLink]="['/principal/at1']" routerLinkActive="router-link-active"> At1 </button>
             <button mat-list-item (click)="undo()"> Consolidado Diario </button>
             <button mat-list-item [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active"> Inventario </button>
