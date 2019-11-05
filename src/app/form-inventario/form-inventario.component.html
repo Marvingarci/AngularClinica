@@ -1,45 +1,62 @@
-
-<div>
-    <div class="titulo"><h2 >Registro Inventario</h2></div> 
-    <form  id="form" [formGroup]= "formInventario">
- 
-        <div class="col">
-        <mat-form-field class="example-full-width">
-            <input  matInput placeholder="Cantidad" formControlName= "cantidad" required>
-            <mat-error *ngIf="cantidad.hasError('required')">
-            <strong>ingrese la cantidad</strong>
-            </mat-error>
-            <mat-error *ngIf="cantidad.hasError('minLength') && cantidad.hasError('maxLength')">
-            <strong>cantidad invalido</strong>
-            </mat-error>
-        </mat-form-field>
-        </div>
- 
-        <div class="col">
-            <mat-form-field class="example-full-width">
-                <input  matInput placeholder="Ingrese el nombre" formControlName= "nombre" required>
-                    <mat-error *ngIf="nombre.hasError('required')">
-                        <strong>Escriba el nombre</strong>
-                        </mat-error>
-                    <mat-error *ngIf="nombre.hasError('minLength') && nombre.hasError('maxLength')">
-                        <strong>Escriba su nombre completo</strong>
+<div class="container">
+    <mat-card>
+        <div>
+            <div class="titulo"><h2 >Registro Inventario</h2></div> 
+            <form  id="form" [formGroup]= "formInventario">
+        
+                <div class="col">
+                <mat-form-field class="example-full-width">
+                    <input  matInput placeholder="Cantidad" formControlName= "cantidad" required>
+                    <mat-error *ngIf="cantidad.hasError('required')">
+                    <strong>campo requerido!</strong>
                     </mat-error>
-            </mat-form-field>     
-        </div>
-
-        <div class="col">
-            <mat-form-field class="example-full-width">
-                <input  matInput placeholder="Descripcion" formControlName= "descripcion" required>
-                    <mat-error *ngIf="descripcion.hasError('required')">
-                        <strong>Escriba el nombre</strong>
+                    <mat-error *ngIf="cantidad.hasError('minLength') && cantidad.hasError('maxLength')">
+                    <strong>campo requerido!</strong>
                     </mat-error>
-                    <mat-error *ngIf="descripcion.hasError('minLength')">
-                        <strong>Escriba</strong>
-                    </mat-error>
-            </mat-form-field>     
-        </div>
+                </mat-form-field>
+                </div>
+        
+                <div class="col">
+                    <mat-form-field class="example-full-width">
+                        <input  matInput placeholder="Ingrese el nombre" formControlName= "nombre" required>
+                            <mat-error *ngIf="nombre.hasError('required')">
+                                <strong>campo requerido!</strong>
+                                </mat-error>
+                            <mat-error *ngIf="nombre.hasError('minLength') && nombre.hasError('maxLength')">
+                                <strong>campo requerido!</strong>
+                            </mat-error>
+                    </mat-form-field>     
+                </div>
 
-        <div><button (click)="comprobarDatos()"   class="boton" > Guardar</button>  </div>  
-    </form>
-                
- </div>
+                <div class="col">
+                    <mat-form-field class="example-full-width">
+                        <input  matInput placeholder="Descripcion" formControlName= "descripcion" required>
+                            <mat-error *ngIf="descripcion.hasError('required')">
+                                <strong>campo requerido!</strong>
+                            </mat-error>
+                            <mat-error *ngIf="descripcion.hasError('minLength')">
+                                <strong>campo requerido!</strong>
+                            </mat-error>
+                    </mat-form-field>     
+                </div>
+
+                <div class="col">
+                        <mat-form-field class="example-full-width">
+                          <input matInput [min]="minDate" [max]="maxDate"
+                          [matDatepicker]="picker1"
+                          formControlName= "fecha_vencimiento" placeholder="Fecha Vencimiento">
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                        <mat-error *ngIf="fecha_vencimiento.hasError('required')">campo requerido!</mat-error>
+            
+                        </mat-form-field>
+                      </div>
+            </form>
+                        
+        </div>
+    </mat-card>
+    
+    <div >
+        <button  mat-raised-button (click)="comprobarDatos()"  class="btn btn-outline-primary float-right" style="margin-top: 20px;"> Guardar</button>  
+    </div>
+</div>
