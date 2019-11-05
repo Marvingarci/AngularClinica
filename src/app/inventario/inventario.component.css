@@ -5,6 +5,24 @@ table {
   
   .mat-form-field {
     font-size: 14px;
-    width: 100%;
+    width: 30%;
+  }
+
+  .boton{
+    height:30px;    
+    /* border-radius: 10px; */
+  background-color:rgb(104, 71, 250);  
+  color: #fff;
+   
+    line-height:10px;
+    text-transform: uppercase;
+    float: right;
+    margin-top: 15px;
+    
+     
+    }
+
+  .btn{
+    float: right;
   }
   
