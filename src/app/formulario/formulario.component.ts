@@ -934,7 +934,8 @@ ocultar: boolean = true;
         this.paciente.direccion = this.direccion.value;
         this.paciente.carrera = this.carrera.value;
         this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
-        
+        this.paciente.contrasenia=this.login.porMientras;
+        console.log(this.login.porMientras);
 
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;

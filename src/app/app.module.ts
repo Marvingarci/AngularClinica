@@ -51,6 +51,7 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { PaseAdminComponent } from './pase-admin/pase-admin.component';
 import { VerAdministradoresComponent, DialogContentExampleDialog1 } from './ver-administradores/ver-administradores.component';
 import { BorraradministradorComponent } from './borraradministrador/borraradministrador.component';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 
@@ -173,7 +174,8 @@ const routes: Route[] = [
     MatMenuModule,
     MatBottomSheetModule,
     MatSnackBarModule
-    ,MatSidenavModule
+    ,MatSidenavModule,
+    MatBadgeModule
   
     
   ],

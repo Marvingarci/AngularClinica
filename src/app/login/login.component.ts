@@ -111,6 +111,7 @@ export class LoginComponent implements OnInit {
     this.loading=true;
     this.login.cuenta = this.login_form.get('cuenta').value;
     this.login.clave = this.login_form.get('clave').value;
+    this.loginService.porMientras = this.login_form.get('clave').value;
 
 //PACIENTES
     for (let index = 0; index < this.pacientes.length; index++) {

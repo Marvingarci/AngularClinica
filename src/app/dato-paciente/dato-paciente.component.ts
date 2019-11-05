@@ -121,6 +121,10 @@ export class DatoPacienteComponent implements OnInit {
         if(this.paciente.imagen != null){
           this.noImg = false;
         }
+
+
+        //Aqui se asegura si el alumno ya establecio una contrase;a y sino lanza el dialogo
+        
         
         
         console.log(this.paciente);
@@ -254,6 +258,7 @@ export class DialogContentExampleDialog {
       if(this.resultado!=null){
         if(this.resultado[0].ultimoId!=null){
           this.paciente1.id_paciente=this.resultado[0].ultimoId;
+          
       }
        }
 
@@ -286,6 +291,7 @@ guardar(){
       if(this.resultado[0].ultimoId!=null){
         this.paciente1.id_paciente=this.resultado[0].ultimoId;
         console.log(this.paciente1.id_paciente);    
+        
     }
      }
   }, (error)=>{
@@ -296,24 +302,14 @@ guardar(){
   if(this.Nueva.valid){
     // guardar datos del formulario en paciente y enviarlo a la api
     this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
-  
-    
-
     if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
-
-  
- 
       this.formularioService.actualizarPaciente(this.paciente1).subscribe((data)=>{
-      
-          
         this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
         this.showError('Contraseña Guardada'); 
         this.Listo = true;
-
       }, (error)=>{
         console.log(error);
         this.showError('Existe un error'); 
-
       });
     }else{
       this.showError('La contraseña no coincide'); 
