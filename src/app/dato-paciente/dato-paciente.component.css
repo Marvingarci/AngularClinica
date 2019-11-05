@@ -4,6 +4,12 @@
   
 }
 
+.mat-icon-button{
+  position: absolute;
+  right:20px;
+}
+
+
 .example-full-width {
   width: 100%;
 }
