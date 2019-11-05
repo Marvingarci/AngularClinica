@@ -254,6 +254,7 @@ export class DialogContentExampleDialog {
       if(this.resultado!=null){
         if(this.resultado[0].ultimoId!=null){
           this.paciente1.id_paciente=this.resultado[0].ultimoId;
+          
       }
        }
 
@@ -280,6 +281,7 @@ guardar(){
       if(this.resultado[0].ultimoId!=null){
         this.paciente1.id_paciente=this.resultado[0].ultimoId;
         console.log(this.paciente1.id_paciente);    
+        
     }
      }
   }, (error)=>{
