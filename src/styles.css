@@ -14,11 +14,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
     .background-red > .mat-simple-snackbar {
         background-color:  rgb(104, 71, 250); 
         color: #fff;
-        font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
         justify-content: center;       
       }
       .mat-snack-bar-container{
-          background: #fff;
+          background: rgb(104, 71, 250); 
       }
       
       
