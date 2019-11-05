@@ -27,6 +27,16 @@
       transform: rotate(0deg);
     }
   }
+
+  .botonee{
+    width: 100px;
+    height: 30px;
+    margin-top: 7px;
+    padding: 0%;
+    }
+    .botones{
+      text-align: right;
+    }
   
   @keyframes sonar {
     0% {
