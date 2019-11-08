@@ -18,10 +18,6 @@
   margin-top: 40px;
 }
 
-.toolbar{
-  background:  rgb(104, 71, 250);
-  color: snow;
-}
 
 .img{
   height: 140px;
@@ -45,3 +41,7 @@
   flex: 1 1 auto;
 }
 
+#new-color{
+  background-color: #21D4FD;
+  background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%);
+}

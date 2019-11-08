@@ -812,11 +812,13 @@ ocultar: boolean = true;
   // variable que identifica si el paciente tiene imagen de perfil
   noImg: boolean = true;
 
-  // arreglo de tipo Paciente en el que se mandan a traer todos los pacientes de la base de datos
-  pacientes: Paciente[];
+  // arreglos de cada tipo de interfaz en los que se guardan los datos que se mandan  
+  // a traer todos los datos respectivos desde la api
+  pacientes: Paciente[]; 
   antecedentes_familiares: AntecedentesFamiliares[];
   antecedentes_personales: AntecedentesPersonales[];
   habitos_toxicologicos: HabitosToxicologicosPersonales[];
+  actividades_sexuales: ActividadSexual[];
 
   //variable que identifica si un input es editable
   readonly: boolean = true;
@@ -927,6 +929,19 @@ ocultar: boolean = true;
       }, (error)=>{
         console.log(error);
       });
+
+
+      this.formularioService.obtenerActividadesSexuales().subscribe((data : ActividadSexual[])=>{
+        this.actividades_sexuales = data;
+        this.actividad_sexual = this.actividades_sexuales.find((m)=>{return m.id_paciente == this.id});
+
+
+        //establesco el valor a los formcontrol para que se visualizen
+          //en los respectivos inputs de los habitos toxicologicos
+          this.cargarInformacionActividadSexual();
+      },(error)=>{
+
+      });
   
 
     }
@@ -934,21 +949,15 @@ ocultar: boolean = true;
     
   }
 
-  // getAntecedenteFamiliar(){
-  //   this.formularioService.obtenerAntecedentesFamiliares().subscribe((data: AntecedentesFamiliares[])=>{
-  //     this.antecedentes_familiares = data;
-
-  //   });
-  // }
-
     
+  culitoPelado(){
+    
+  }
   ngOnInit() {
     
   }
 
-  culitoPelado(){
-
-  }
+ 
 
   cargarTablaAntecedentesFamiliares(){
 
@@ -1154,7 +1163,6 @@ ocultar: boolean = true;
   }
 
 
-  
 
   cargarInformacionDatosGenerales(){
 
@@ -1255,6 +1263,14 @@ ocultar: boolean = true;
     this.otros_ht.setValue(this.habito_toxicologico_personal.otros);
     this.observacion_otros_ht.setValue(this.habito_toxicologico_personal.observacion_otros);
 
+  }
+
+  cargarInformacionActividadSexual(){
+
+    this.actividad_sexuall.setValue(this.actividad_sexual.actividad_sexual);
+    this.edad_inicio_sexual.setValue(this.actividad_sexual.edad_inicio_sexual);
+    this.numero_parejas_sexuales.setValue(this.actividad_sexual.numero_parejas_sexuales);
+    this.practicas_sexuales_riesgo.setValue(this.actividad_sexual.practicas_sexuales_riesgo);
   }
 
    //obtener los campos del formGroup: formulario_datos_generales

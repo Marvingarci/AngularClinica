@@ -50,6 +50,10 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT+'habitos_toxicologicos_personales')
   }
 
+  obtenerActividadesSexuales(){
+    return this.httpClient.get(this.API_ENDPOINT+'actividad_sexual')
+  }
+
   obtenerAntecedentesGinecologicos(){
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_ginecologicos')
   }
