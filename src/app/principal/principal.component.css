@@ -98,3 +98,13 @@ height: 8px;
 .container::-webkit-scrollbar-track:active {
   background: #787bff;
 }
+
+.logoU{
+
+  background: url('src\imagenes\logoUperron.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+ 
+}
