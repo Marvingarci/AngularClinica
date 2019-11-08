@@ -228,16 +228,13 @@
 
 
         <mat-action-list class="intro">
-            <button mat-list-item  [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"> Pacientes </button>
-
-            <button mat-list-item [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"> At1 </button>
-            <button mat-list-item (click)="undo()" class="hoveritem"> Consolidado Diario </button>
-            <button mat-list-item [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> Inventario </button>
-            <button mat-list-item [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem"> Administradores </button>
-            <button mat-list-item (click)="undo()" class="hoveritem"> Ayuda? </button>
-
-
-          </mat-action-list>
+            <button mat-list-item  [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Pacientes</strong> </button>
+            <button mat-list-item [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"><strong>  At1</strong>  </button>
+            <button mat-list-item (click)="undo()" class="hoveritem"> <strong> Consolidado Diario </strong> </button>
+            <button mat-list-item [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Inventario </strong> </button>
+            <button mat-list-item [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Administradores </strong> </button>
+            <button mat-list-item (click)="undo()" class="hoveritem"> <strong> Ayuda? </strong> </button>
+        </mat-action-list>
         
 
     
