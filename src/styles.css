@@ -20,5 +20,18 @@ body { margin: 0; font-family:Poppins-Regular,sans-serif;
       .mat-snack-bar-container{
           background: rgb(104, 71, 250); 
       }
+
+      .botonperron{
+        color: #fff;
+        border-radius: 5px;         
+        text-align: center;
+        background-color: #21D4FD;
+        background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%);
+        }  
+        .botonperron:hover {
+        background-color: #B721FF;
+        background-image: linear-gradient(90deg, #B721FF 0%, #21D4FD 100%);
+        transition: all 1s ease;
+        } 
       
       
