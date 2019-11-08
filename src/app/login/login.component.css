@@ -95,6 +95,11 @@ mat-spinner{
   height:40px;
   color: #fff;
   border-radius: 20px;  
+
+  /* quitar borde feo */
+  outline:none;  
+  display:block;
+  
   margin-left: 20px;
   margin-right: 20px;
   text-align: center;
