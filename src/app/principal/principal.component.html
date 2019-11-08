@@ -215,7 +215,7 @@
 <mat-sidenav  mode="side" opened  >
 <div class="container"> 
       <div >
-          <img style="width: 226px; height: 150px; border-radius: 5px;" class="img-responsive img-rounded" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYZIg9ncZWdYWArYEIBpqNm6L2L5wYjWVEYoMrfLUkToi29Cm7&s" alt="User picture">
+          <div style="width: 226px; height: 155px;" class="logoU" alt="User picture"></div>
             <div class="sidebar-brand">
                   <a style="text-align: center; color:rgb(255, 255, 255)" [routerLink]="['/principal']" routerLinkActive="router-link-active" ><h5>Principal</h5></a>
                   <div id="close-sidebar">
@@ -228,7 +228,7 @@
 
 
         <mat-action-list class="intro">
-            <button mat-list-item  [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Pacientes</strong> </button>
+            <button mat-list-item style="color:rgb(109, 0, 160)" [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Pacientes</strong> </button>
             <button mat-list-item [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"><strong>  At1</strong>  </button>
             <button mat-list-item (click)="undo()" class="hoveritem"> <strong> Consolidado Diario </strong> </button>
             <button mat-list-item [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Inventario </strong> </button>
