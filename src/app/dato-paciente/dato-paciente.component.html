@@ -1,4 +1,4 @@
-<mat-toolbar class="toolbar">
+<mat-toolbar class="toolbar" id="new-color">
     <span>Clinica UNAH-TEC Danli</span>
 
     <button mat-icon-button [matMenuTriggerFor]="menu" >
@@ -91,7 +91,7 @@
                           </mat-form-field>
 
                         <div style="text-align: right;">
-                            <button mat-raised-button
+                            <button class="botonperron" mat-raised-button
                                 class="btn btn-outline-primary float-right"
                                 style="margin-top: 10px;"
                                 (click)="editar(); actualizar()"
