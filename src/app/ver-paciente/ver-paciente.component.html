@@ -579,7 +579,7 @@
                   </div>
                 </div>
                 <button mat-raised-button
-                  class="btn btn-outline-primary float-right"
+                  class="btn btn-outline-primary float-right botonperron"
                   style="margin-top: 10px;"
                   (click)="readonly = !readonly; culitoPelado()">
                   {{!readonly ? 'Guardar' : 'Editar'}}
@@ -666,7 +666,7 @@
       
               
                 <button mat-raised-button
-                  class="btn btn-outline-primary float-right"
+                  class="btn btn-outline-primary float-right botonperron"
                   style="margin-top: 10px;"
                   (click)="readonly = !readonly; culitoPelado()">
                   {{!readonly ? 'Guardar' : 'Editar'}}
@@ -966,7 +966,7 @@
                     </div>
                   </div>
                   <button mat-raised-button
-                    class="btn btn-outline-primary float-right"
+                    class="btn btn-outline-primary float-right botonperron"
                     style="margin-top: 10px;"
                     (click)="readonly = !readonly; culitoPelado()">
                     {{!readonly ? 'Guardar' : 'Editar'}}
@@ -1053,7 +1053,7 @@
       
               
                 <button mat-raised-button
-                  class="btn btn-outline-primary float-right"
+                  class="btn btn-outline-primary float-right botonperron"
                   style="margin-top: 10px;"
                   (click)="readonly = !readonly; culitoPelado()">
                   {{!readonly ? 'Guardar' : 'Editar'}}
@@ -1348,7 +1348,7 @@
               </div>
 
               <button mat-raised-button
-                class="btn btn-outline-primary float-right"
+                class="btn btn-outline-primary float-right botonperron"
                 style="margin-top: 10px;"
                 (click)="readonly = !readonly; culitoPelado()">
                 {{!readonly ? 'Guardar' : 'Editar'}}
@@ -1437,7 +1437,7 @@
       
               
                 <button mat-raised-button
-                  class="btn btn-outline-primary float-right"
+                  class="btn btn-outline-primary float-right botonperron"
                   style="margin-top: 10px;"
                   (click)="readonly = !readonly; culitoPelado()">
                   {{!readonly ? 'Guardar' : 'Editar'}}
@@ -1538,7 +1538,7 @@
               </form>
 
               <button mat-raised-button
-                class="btn btn-outline-primary float-right"
+                class="btn btn-outline-primary float-right botonperron"
                 style="margin-top: 10px;"
                 (click)="readonly = !readonly; culitoPelado()">
                 {{!readonly ? 'Guardar' : 'Editar'}}
@@ -1576,6 +1576,103 @@
                 <!-- <mat-icon>date_range</mat-icon> -->
             </mat-panel-description>
             </mat-expansion-panel-header>
+
+            <div *ngIf="readonly">
+              <form [formGroup]="formulario_actividad_sexual">
+                <div class="row">
+
+                    <div class="col">
+                        <mat-form-field class="example-full-width" >
+                          <input matInput 
+                          formControlName="actividad_sexual" 
+                          placeholder="Actividad Sexual"
+                          [readonly]= "readonly"
+                          *ngIf="readonly">
+                          <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso!</mat-error>
+                          <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación valida!</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="example-full-width">
+                            <input matInput 
+                            formControlName="numero_parejas_sexuales" 
+                            placeholder="Numero de parejas sexuales"
+                            [readonly]= "readonly">
+                            <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso!</mat-error>
+                            <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación valida!</mat-error>
+                          </mat-form-field>
+                    </div>
+
+                    <div class="col">
+                      <mat-form-field class="example-full-width">
+                        <input matInput 
+                        formControlName="edad_inicio_sexual" 
+                        placeholder="Edad inicio sexual"
+                        [readonly]= "readonly">
+                        <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso!</mat-error>
+                        <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación valida!</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field class="example-full-width" >
+                          <input matInput 
+                          formControlName="practicas_sexuales_riesgo" 
+                          placeholder="Practicas sexuales de riesgo"
+                          [readonly]= "readonly">
+                          <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso!</mat-error>
+                          <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación valida!</mat-error>
+                        </mat-form-field>
+                    
+                    </div>
+                  
+                  </div>
+                </form>
+                <button mat-raised-button
+                  class="btn btn-outline-primary float-right botonperron"
+                  style="margin-top: 10px;"
+                  (click)="readonly = !readonly; culitoPelado()">
+                  {{!readonly ? 'Guardar' : 'Editar'}}
+                </button> 
+              </div>
+              
+
+            <div *ngIf="!readonly">
+              <form [formGroup]="formulario_actividad_sexual">
+                <label id="example-radio-group-label">Actividad Sexual</label>
+                    <mat-error style="margin-inline-start: 5px;" *ngIf="actividad_sexuall.hasError('required')">campo requerido!</mat-error>
+                <div class="row">
+                  <mat-radio-group formControlName="actividad_sexual" aria-labelledby="example-radio-group-label" class="example-radio-group">        
+                    <mat-radio-button value="Si" (click)="csi15()">Si</mat-radio-button> &nbsp;   
+                    <mat-radio-button value="No" (click)="cno15()">No</mat-radio-button>
+                  </mat-radio-group>
+                &nbsp; &nbsp; &nbsp; &nbsp; 
+                    <mat-form-field class="sexual">
+                      <input matInput formControlName="edad_inicio_sexual" type= "number" 
+                      placeholder="Edad inicio vida sexual" [readonly]="read15" [value] ="input15">
+                      <mat-error *ngIf="edad_inicio_sexual.hasError('max')">edad invalida!</mat-error>
+                    </mat-form-field>
+                    &nbsp; &nbsp; &nbsp; &nbsp; 
+                    <mat-form-field class="sexual">
+                      <input matInput formControlName="numero_parejas_sexuales" type= "number" 
+                      placeholder="Numero de parejas sexuales" [readonly]="read15" [value] ="input15">
+                      <mat-error *ngIf="numero_parejas_sexuales.hasError('max')">muy extenso</mat-error>
+                    </mat-form-field>
+                    &nbsp; &nbsp; &nbsp; &nbsp; 
+                  <mat-form-field class="sexual">
+                    <mat-label>Practica sexual de riesgo</mat-label>
+                    <mat-select formControlName="practicas_sexuales_riesgo" name="practicas_sexuales_riesgo" [disabled]="isDisabledB25">
+                      <mat-option *ngFor="let practica_sexual of practicas_sexuales" [value]="practica_sexual.value">
+                        {{practica_sexual.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </form>
+              <button mat-raised-button
+                class="btn btn-outline-primary float-right botonperron"
+                style="margin-top: 10px;"
+                (click)="readonly = !readonly; culitoPelado()">
+                {{!readonly ? 'Guardar' : 'Editar'}}
+              </button> 
+            </div>
 
         
             <mat-action-row>
