@@ -47,13 +47,7 @@
     color: #fff;
   }
 
-  .toolbar{  
-  background-color: #B721FF;
-  background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%);
-  color: #fff;
-  margin-top: 0px;
-  }
- 
+
 .container{
 overflow: auto;
 height: 100%;
