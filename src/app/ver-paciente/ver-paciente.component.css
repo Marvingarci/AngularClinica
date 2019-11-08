@@ -10,11 +10,7 @@
     margin-top: 40px;
   }
   
-  .mat-toolbar{
-    background:  rgb(104, 71, 250);
-    color: snow;
-  }
-
+ 
   .mat-icon-button{
     position: absolute;
     right:20px;
