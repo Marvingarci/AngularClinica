@@ -1,4 +1,6 @@
-
+.intro{
+  background-color: #fff;
+}
   .example-container {
     position: absolute;
     top: 65px;
@@ -6,15 +8,27 @@
     left: 0;
     right: 0;
     background:rgb(253, 253, 253);
-    
-  }
+  margin-bottom: -2px; }
+
+    .router-link-active{ 
+       background-color: #B721FF;
+      background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%);
+      color: #fff;
+    }
+ 
   .example-fill-remaining-space {
-    /* This fills the remaining space, by using flexbox. 
-       Every toolbar row uses a flexbox row layout. */
-    flex: 1 1 auto;
-    
-    
+      flex: 1 1 auto;    
   }
+
+  .title {
+    display: block;
+    font-family: Poppins-Regular,sans-serif;
+    font-size: 30px;
+    color: #fff;
+    line-height: 1.2;
+    text-align: center;
+    padding: 20px;
+}
 
   .example-form {
     min-width: 150px;
@@ -27,48 +41,36 @@
     width: 100%;
   }
 
-
-
-
-
-  mat-sidenav{
-    padding-left: 10px;
-    padding-right: 10px;
-    
+  .hoveritem:hover{
+    background-color: #21D4FD;
+    background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%);
+    color: #fff;
   }
 
-
-
-  .toolbar{
-    background:  rgb(104, 71, 250);
-    color: snow;
+  .toolbar{  
+  background-color: #B721FF;
+  background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%);
+  color: #fff;
+  margin-top: 0px;
   }
- 
-  /* .expansion{    
-    background:  rgba(0, 17, 255, 0.788);
-  }  .sidenav{    
-    background:  rgba(0, 17, 255, 0.788);
-  } */
-
-  /* Tamaño del scroll */
-
  
 .container{
-  /* height: 450px; */
-  overflow: auto;
-  height: 100%;
-  min-width: 100px;
-  
+overflow: auto;
+height: 100%;
+min-width: 100px;  
+background-color: #fff;
+color: #fff;  
 }
+
 #contenidoPrincipal{
-  margin-top: 20px;
+margin-top: 20px;
 }
 
 
 /* Tamaño del scroll */
 .container::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+width: 8px;
+height: 8px;
 }
 
  /* Estilos barra (thumb) de scroll */
