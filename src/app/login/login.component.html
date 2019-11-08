@@ -1,19 +1,22 @@
-<div id="intro" class="view">
-    <div class="full-bg-img">
+<div class="intro">
+    
           
       <div id="formstyle">
         <div>
             
-             <div class="bienvenida">
+             <!-- <div class="bienvenida">
               <h4 class="h4"> Bienvenido a Clínica UNAH-TEC Danlí</h4> 
               <h6 class="h6"> Por favor ingrese su cuenta y contraseña</h6>
-            </div>
+            </div> -->
 
-            <p></p>
-            
-            <div> <div *ngIf="loading==true" > <mat-spinner class="loading"></mat-spinner></div>
+        
+            <div> <div *ngIf="loading==true" > <mat-spinner  [color]="color" class="loading"></mat-spinner></div>
             <div class="view" id="imagenpuma"></div></div> 
   
+            <span class="login100-form-title p-b-49">
+              <strong>Login</strong>
+              </span>
+              
             <form [formGroup]= "login_form">
               <div>
                   <mat-form-field class="example-full-width">
@@ -38,7 +41,7 @@
             </form>
           
             </div>  
-             <div><button class="boton" (click)="comprobarDatos()">Ingresar</button></div>            
+             <div><button mat-raised-button  class="boton" (click)="comprobarDatos()">INGRESAR</button></div>            
            
                                       
         </div>
