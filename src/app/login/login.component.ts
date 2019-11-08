@@ -22,6 +22,7 @@ import { LoginadminService } from '../services/loginadmin.service';
 export class LoginComponent implements OnInit {
  hide = true;
  loading: boolean =false;
+ color = 'warn';
   //input
   // scrap: Paciente = {
   //   id_paciente: null,
