@@ -52,6 +52,9 @@ import { PaseAdminComponent } from './pase-admin/pase-admin.component';
 import { VerAdministradoresComponent, DialogContentExampleDialog1 } from './ver-administradores/ver-administradores.component';
 import { BorraradministradorComponent } from './borraradministrador/borraradministrador.component';
 import {MatBadgeModule} from '@angular/material/badge';
+import { MedicosComponent } from './medicos/medicos.component';
+import { RegistromedicosComponent } from './registromedicos/registromedicos.component';
+import { BorrarMedicoComponent } from './borrar-medico/borrar-medico.component';
 
 
 
@@ -95,10 +98,14 @@ const routes: Route[] = [
       {path: 'veradministradores', component: VerAdministradoresComponent},
       {path: 'veradministradores/:id', component: VerAdministradoresComponent},
       {path: 'borraradministradores/:id', component: BorraradministradorComponent},
+      {path: 'borrarmedico/:id', component: BorrarMedicoComponent},
       {path: 'loginadmin', component: LoginadminComponent},
       {path: 'loginadmin/:id', component: LoginadminComponent},
       {path: 'formInventario', component: FormInventarioComponent},
-      {path: 'formInventario/:id', component: FormInventarioComponent}
+      {path: 'formInventario/:id', component: FormInventarioComponent},
+      {path: 'medicos', component: MedicosComponent},      
+      {path: 'registromedicos', component: RegistromedicosComponent},
+      {path: 'registromedicos/:id', component: RegistromedicosComponent}
       // {path: 'verPaciente', component: VerPacienteComponent},
       // {path: 'verPaciente/:id', component: VerPacienteComponent}
 
@@ -139,6 +146,10 @@ const routes: Route[] = [
     FormInventarioComponent,
 
     BorraradministradorComponent,
+
+    MedicosComponent,
+    RegistromedicosComponent,
+    BorrarMedicoComponent,
 
     
   ],
