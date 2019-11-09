@@ -1404,7 +1404,6 @@
                 &nbsp; &nbsp; &nbsp; &nbsp; 
                 <mat-form-field class="medium-width">
                   <textarea matInput formControlName="observacion_otros" placeholder="Observacion"></textarea>
-                  
                   <mat-error *ngIf="observacion_otros_ap.hasError('maxlength')">campo muy extenso!</mat-error>
                   <mat-error *ngIf="observacion_otros_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
                 </mat-form-field>
@@ -1515,9 +1514,14 @@
                <div class="row"> 
                   <mat-radio-group formControlName="alcohol"  aria-labelledby="example-radio-group-label" class="example-radio-group">
                   <mat-radio-button value="Si" (click)="csi11()">Si</mat-radio-button> &nbsp;   
-                  <mat-radio-button value="No" (click)="cno11()">No</mat-radio-button>
+                  <mat-radio-button value="No" 
+                  (click)=
+                  "cno11();
+                  borrarInputs([observacion_alcohol])">No</mat-radio-button>
                </mat-radio-group>
+
                &nbsp; &nbsp; &nbsp; &nbsp; 
+
                 <mat-form-field  class="medium-width">
                   <textarea matInput formControlName="observacion_alcohol" placeholder="Detallar tiempo de uso y frecuencia" 
                   [readonly]="read11" [value] ="input11" ></textarea>
@@ -1534,9 +1538,14 @@
                <div class="row"> 
                  <mat-radio-group formControlName="tabaquismo" aria-labelledby="example-radio-group-label" class="example-radio-group">
                   <mat-radio-button value="Si" (click)="csi12()">Si</mat-radio-button> &nbsp;   
-                  <mat-radio-button value="No" (click)="cno12()">No</mat-radio-button>
+                  <mat-radio-button value="No" 
+                  (click)=
+                  "cno12();
+                  borrarInputs([observacion_tabaquismo])">No</mat-radio-button>
                 </mat-radio-group>
+
                 &nbsp; &nbsp; &nbsp; &nbsp; 
+
               <mat-form-field class="medium-width">
                 <textarea matInput formControlName="observacion_tabaquismo"  placeholder="Detallar tiempo de uso y frecuencia"
                 [readonly]="read12" [value] ="input12" ></textarea>
@@ -1553,7 +1562,10 @@
                <div class="row"> 
                  <mat-radio-group formControlName="marihuana" aria-labelledby="example-radio-group-label" class="example-radio-group" >
                   <mat-radio-button value="Si" (click)="csi13()">Si</mat-radio-button> &nbsp;   
-                  <mat-radio-button value="No" (click)="cno13()">No</mat-radio-button>
+                  <mat-radio-button value="No" 
+                  (click)=
+                  "cno13();
+                  borrarInputs([observacion_marihuana])">No</mat-radio-button>
                  </mat-radio-group>
                  &nbsp; &nbsp; &nbsp; &nbsp; 
               <mat-form-field class="medium-width">
@@ -1572,7 +1584,10 @@
                 <div class="row">
                 <mat-radio-group formControlName="cocaina" aria-labelledby="example-radio-group-label" class="example-radio-group" >
                   <mat-radio-button value="Si" (click)="csi14()">Si</mat-radio-button> &nbsp;   
-                  <mat-radio-button value="No" (click)="cno14()">No</mat-radio-button>
+                  <mat-radio-button value="No" 
+                  (click)=
+                  "cno14();
+                  borrarInputs([observacion_cocaina])">No</mat-radio-button>
                 </mat-radio-group>
                   &nbsp; &nbsp; &nbsp; &nbsp; 
                 <mat-form-field class="medium-width">
@@ -1704,7 +1719,10 @@
                 <div class="row">
                   <mat-radio-group formControlName="actividad_sexual" aria-labelledby="example-radio-group-label" class="example-radio-group">        
                     <mat-radio-button value="Si" (click)="csi15()">Si</mat-radio-button> &nbsp;   
-                    <mat-radio-button value="No" (click)="cno15()">No</mat-radio-button>
+                    <mat-radio-button value="No" 
+                    (click)=
+                    "cno15();
+                    borrarInputs([edad_inicio_sexual, numero_parejas_sexuales, practicas_sexuales_riesgo])">No</mat-radio-button>
                   </mat-radio-group>
                 &nbsp; &nbsp; &nbsp; &nbsp; 
                     <mat-form-field class="sexual">
@@ -1771,7 +1789,99 @@
             </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <div>
+
+            <div *ngIf="readonly">
+              <form [formGroup]="formulario_antecedente_ginecologico">
+                <div class="row">
+
+                  <div class="col">
+                    <mat-form-field class="example-full-width">
+                      <input matInput formControlName="edad_inicio_menstruacion" type= "number" placeholder="Edad inicio menstruacion">
+                      <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido!</mat-error>
+                      <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
+                      <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col">
+                    <mat-form-field class="example-full-width">
+                      <input matInput formControlName="fum" placeholder="Fecha ultima menstruación">
+                      <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido!</mat-error>
+                      <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
+                      <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>
+                    </mat-form-field>                
+                  </div>
+                </div>  
+                  
+    
+                <mat-divider></mat-divider>
+  
+  
+                <div class="row">
+  
+                  <div class="col">
+                    <mat-form-field class="example-full-width">
+                      <input matInput formControlName="citologia" placeholder="Citologías">
+                      <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido!</mat-error>
+                      <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
+                      <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col">
+                    <mat-form-field class="example-full-width">
+                      <input matInput 
+                      formControlName="fecha_citologia" 
+                      placeholder="Fecha Citología" 
+                      readonly="readonly" 
+                      >
+                    </mat-form-field>
+                  </div>
+
+                  <mat-form-field class="example-full-width" style="padding-left: 15px;">
+                      <textarea matInput 
+                      formControlName="resultado_citologia" 
+                      placeholder="Resultado Citología" 
+                      [readonly]="read17" 
+                      ></textarea>
+                    </mat-form-field>
+                  
+                </div>
+
+                <mat-divider></mat-divider>
+        
+                <label>Ciclo menstrual</label>
+                <div class="row">
+
+                  <div class="col">
+                    <mat-form-field class="example-full-width">
+                      <input matInput formControlName="duracion_ciclo_menstrual" placeholder="Duración ciclo menstrual">
+                      
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col">
+                    <mat-form-field class="example-full-width">
+                      <input matInput formControlName="periocidad_ciclo_menstrual" placeholder="Periocidad ciclo menstrual">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col">
+                    <mat-form-field class="example-full-width">
+                      <input matInput formControlName="caracteristicas_ciclo_menstrual" placeholder="Periocidad ciclo menstrual">
+                    </mat-form-field>
+                  </div>
+                 </div>   
+              </form>
+              <button mat-raised-button
+                class="btn btn-outline-primary float-right botonperron"
+                style="margin-top: 10px;"
+                (click)="readonly = !readonly; culitoPelado()">
+                {{!readonly ? 'Guardar' : 'Editar'}}
+              </button> 
+            </div>
+
+            <div *ngIf="!readonly">
               <form [formGroup]="formulario_antecedente_ginecologico">
                 <div class="row">
                   <div class="col">
@@ -1787,7 +1897,7 @@
                     <mat-form-field class="example-full-width">
                       <input matInput formControlName="fum" readonly="readonly" [min]="minDate" [max]="maxDate"
                       [matDatepicker]="picker3"
-                      placeholder="Fecha ultima menstruacion">
+                      placeholder="Fecha ultima menstruación">
                       <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                       <mat-datepicker #picker3></mat-datepicker>
                       <mat-error *ngIf="fum.hasError('required')">campo requerido!</mat-error>
@@ -1805,7 +1915,9 @@
                       aria-labelledby="example-radio-group-label"
                       class="example-radio-group">        
                       <mat-radio-button value="Si" (click)="csi17()">Si</mat-radio-button> &nbsp;   
-                      <mat-radio-button value="No" (click)="cno17(); borrarInputs([fecha_citologia, resultado_citologia])">No</mat-radio-button>
+                      <mat-radio-button value="No" 
+                      (click)="cno17(); 
+                      borrarInputs([fecha_citologia, resultado_citologia])">No</mat-radio-button>
         
                     </mat-radio-group></p> 
                   </div>
@@ -1824,7 +1936,8 @@
                       <mat-datepicker #picker4></mat-datepicker>
                     </mat-form-field>
                   </div>
-                  <mat-form-field class="example-full-width">
+
+                  <mat-form-field class="example-full-width" style="padding-left: 15px;">
                     <textarea matInput 
                     formControlName="resultado_citologia" 
                     placeholder="Resultado Citología" 
@@ -1872,6 +1985,13 @@
                   </mat-form-field>
                 </div>
               </form>
+
+              <button mat-raised-button
+                class="btn btn-outline-primary float-right botonperron"
+                style="margin-top: 10px;"
+                (click)="readonly = !readonly; culitoPelado()">
+                {{!readonly ? 'Guardar' : 'Editar'}}
+              </button> 
             </div>
 
         
@@ -1894,7 +2014,11 @@
 
 
 
-        <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle>
+        <mat-expansion-panel 
+        [expanded]="step === 6" 
+        (opened)="setStep(6)" 
+        hideToggle 
+        *ngIf="mostrarAntecedenteObstetrico == true">
             <mat-expansion-panel-header>
             <mat-panel-title>
                 Antecedentes Obstétricos
@@ -1905,6 +2029,143 @@
             </mat-panel-description>
             </mat-expansion-panel-header>
 
+
+            <div>
+              <form [formGroup]="formulario_antecedente_obstetrico">
+                <div class="row">
+
+                    <div class="col">
+                      <mat-form-field class="example-full-width">
+                        <input matInput 
+                        formControlName= "partos" 
+                        type= "number" 
+                        placeholder="Numero de partos"
+                        [readonly]="readonly">
+                        <mat-error *ngIf="partos.hasError('max')">invalido</mat-error>
+                        <mat-error *ngIf="partos.hasError('min')">invalido</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col">
+                      <mat-form-field class="example-full-width">
+                        <input matInput 
+                        formControlName= "abortos" 
+                        type= "number" 
+                        placeholder="Numero de abortos"
+                        [readonly]= "readonly">
+                        <mat-error *ngIf="abortos.hasError('max')">invalido</mat-error>
+                        <mat-error *ngIf="abortos.hasError('min')">invalido</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+          
+                  <div class="row">
+
+                    <div class="col">
+                      <mat-form-field class="example-full-width">
+                        <input matInput 
+                        formControlName= "cesarias" 
+                        type= "number" 
+                        placeholder="Numero de cesarias"
+                        [readonly]= "readonly">
+                        <mat-error *ngIf="cesarias.hasError('max')">invalido</mat-error>
+                        <mat-error *ngIf="cesarias.hasError('min')">invalido</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col">
+                      <mat-form-field class="example-full-width">
+                        <input matInput 
+                        formControlName= "hijos_vivos" 
+                        type= "number" 
+                        placeholder="Numero de hijos vivos"
+                        [readonly]="readonly">
+                        <mat-error *ngIf="hijos_vivos.hasError('max')">invalido</mat-error>
+                        <mat-error *ngIf="hijos_vivos.hasError('min')">invalido</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+          
+                  
+                  <div class="row">
+
+                    <div class="col">
+                      <mat-form-field class="example-full-width">
+                        <input matInput 
+                        formControlName= "hijos_muertos" 
+                        type= "number" 
+                        placeholder="Numero de hijos muertos"
+                        [readonly]= "readonly">
+                        <mat-error *ngIf="hijos_muertos.hasError('max')">invalido</mat-error>
+                        <mat-error *ngIf="hijos_muertos.hasError('min')">invalido</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col">
+
+                      <mat-form-field class="example-full-width" *ngIf="readonly">
+                        <input matInput 
+                        formControlName= "fecha_termino_ult_embarazo" 
+                        placeholder="Fecha termino ultimo embarazo"
+                        [readonly]= "readonly">
+                        <mat-error *ngIf="hijos_muertos.hasError('max')">invalido</mat-error>
+                        <mat-error *ngIf="hijos_muertos.hasError('min')">invalido</mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field class="example-full-width" *ngIf="!readonly">
+                        <input matInput 
+                        formControlName= "fecha_termino_ult_embarazo" 
+                        [min]="minDate" 
+                        [max]="maxDate" 
+                        [matDatepicker]="picker5" 
+                        placeholder="Fecha ultimo embarazo" 
+                        readonly="readonly"> 
+                        <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                        <mat-datepicker #picker5></mat-datepicker>
+                      </mat-form-field>            
+                    </div>
+                  </div>
+          
+                  <div class="row">
+                    
+                    <div class="col">
+
+                      <mat-form-field class="example-full-width" *ngIf="readonly">
+                        <input matInput 
+                        formControlName= "descripcion_termino_ult_embarazo" 
+                        placeholder="Resultado ultimo embarazo"
+                        [readonly]= "readonly">
+                      </mat-form-field>
+                        
+                      <mat-form-field class="example-full-width" *ngIf="!readonly"> 
+                        <mat-label>Resultado ultimo embarazo</mat-label>
+                        <mat-select formControlName= "descripcion_termino_ult_embarazo" name="descripcion_termino_ult_embarazo">
+                          <mat-option *ngFor="let resultado_embarazo of resultados_embarazos" [value]="resultado_embarazo.value">
+                            {{resultado_embarazo.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
+                    </div>
+          
+                    <div class="col">
+                      <mat-form-field class="example-full-width">
+                        <textarea matInput
+                        formControlName= "observaciones"   
+                        placeholder="Observaciones"
+                        [readonly]= "readonly">
+                        </textarea>
+                        <mat-error *ngIf="observaciones.hasError('maxlength')">campo muy extenso!</mat-error>
+                        <mat-error *ngIf="observaciones.hasError('minlength')">introduzca una observación valida!</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+              </form>
+              <button mat-raised-button
+                class="btn btn-outline-primary float-right botonperron"
+                style="margin-top: 10px;"
+                (click)="readonly = !readonly; culitoPelado()">
+                {{!readonly ? 'Guardar' : 'Editar'}}
+              </button> 
+            </div> 
         
             <mat-action-row>
               <button mat-button color="warn" (click)="prevStep()">Previous</button>
@@ -1938,7 +2199,96 @@
               </mat-panel-description>
               </mat-expansion-panel-header>
   
-          
+              <div *ngIf="readonly">
+                <form [formGroup]="formulario_planificacion_familiar">
+                  <div class="row">
+                   
+                    <div class="col">
+                        <mat-form-field class="example-full-width">
+                            <input matInput
+                            formControlName= "planificacion_familiar"   
+                            placeholder="Planificación familiar"
+                            [readonly]= "readonly"
+                            >
+                        
+                          </mat-form-field>
+                    </div>
+
+                    <div class="col">
+                        <mat-form-field class="example-full-width">
+                          <input matInput
+                          formControlName= "metodo_planificacion"   
+                          placeholder="Método de planificación"
+                          [readonly]= "readonly"
+                          >
+                      
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col">
+                        <mat-form-field class="example-full-width">
+                          <textarea matInput
+                          formControlName= "observacion_planificacion"   
+                          placeholder="Observación"
+                          [readonly]= "readonly">
+                        </textarea>
+                      
+                        </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+                <button mat-raised-button
+                  class="btn btn-outline-primary float-right botonperron"
+                  style="margin-top: 10px;"
+                  (click)="readonly = !readonly; culitoPelado()">
+                  {{!readonly ? 'Guardar' : 'Editar'}}
+                </button> 
+              </div>
+
+
+              <div *ngIf="!readonly">
+                <form [formGroup]="formulario_planificacion_familiar">
+                    <!-- <p><strong>Planificacion Familiar</strong></p> -->
+                    <mat-error style="margin-inline-start: 5px;" *ngIf="planificacion_familiarr.hasError('required')">campo requerido!</mat-error>
+                    <div>  
+                      <p><mat-radio-group formControlName="planificacion_familiar" 
+                        aria-labelledby="example-radio-group-label"
+                        class="example-radio-group">        
+                        <mat-radio-button value="Si" (click)="csi16()">Si</mat-radio-button> &nbsp;   
+                        <mat-radio-button value="No" 
+                        (click)=
+                        "cno16();
+                        borrarInputs([metodo_planificacion, observacion_planificacion]);">No</mat-radio-button>
+            
+                      </mat-radio-group></p> 
+                    </div>
+            
+                    <div>
+                      <mat-form-field>
+                        <mat-label>Método de planificación</mat-label>
+                        <mat-select  formControlName="metodo_planificacion"  [disabled]="isDisabledB26">
+                          <mat-option *ngFor="let metodo of metodos" [value]="metodo.value">
+                            {{metodo.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <mat-form-field class="medium-width">
+                      <textarea matInput formControlName="observacion_planificacion"
+                      placeholder="Observación" [readonly]="read16"></textarea>
+                      <mat-error *ngIf="observacion_planificacion.hasError('maxlength')">campo muy extenso!</mat-error>
+                      <mat-error *ngIf="observacion_planificacion.hasError('minlength')">introduzca una observación valida!</mat-error>
+                    </mat-form-field>
+                </form>
+                <button mat-raised-button
+                  class="btn btn-outline-primary float-right botonperron"
+                  style="margin-top: 10px;"
+                  (click)="readonly = !readonly; culitoPelado()">
+                  {{!readonly ? 'Guardar' : 'Editar'}}
+                </button> 
+              </div>
+
               <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
                 <button mat-button color="primary" (click)="nextStep()">Next</button>

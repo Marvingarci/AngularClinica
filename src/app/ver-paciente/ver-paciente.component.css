@@ -7,7 +7,7 @@
   }
   
   .mat-card{
-    margin-top: 40px;
+    /* margin-top: 10px; */
   }
   
  
@@ -32,8 +32,8 @@
     overflow: auto;
     position: absolute;
     overflow-x: hidden;   
-    top:30;
-    left:0;
+    /* top:30;
+    left:0; */
     
   }
 

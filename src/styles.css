@@ -41,6 +41,7 @@ body { margin: 0; font-family:Poppins-Regular,sans-serif;
         border-radius: 5px;
         text-align: center;
 
+             
         /* quitar borde feo */
         outline:none;  
         display:block;
