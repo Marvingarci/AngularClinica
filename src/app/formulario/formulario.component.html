@@ -1,5 +1,5 @@
 <mat-horizontal-stepper linear #stepper>
-    <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
+    <!-- <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
         <form [formGroup]="formulario_datos_generales">
         <ng-template matStepLabel >{{datosGenerales}}</ng-template>
         <div class="container">
@@ -22,7 +22,6 @@
               <div class="col">
                 <mat-form-field class="example-full-width">
                   <input matInput formControlName= "numero_identidad" placeholder="N° Identidad"  >
-                <!-- <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint> -->
                  <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido!</mat-error>
                 <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un numero de indentidad valido!</mat-error>
     
@@ -144,7 +143,7 @@
             <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right" style="margin-top: 10px;">Siguiente</button>
         </div>
       </form>
-      </mat-step>
+      </mat-step> -->
     
 
 
@@ -155,7 +154,7 @@
 
   <!-- primer step -->
   
-  <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1">
+  <!-- <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1">
     <form [formGroup]="formulario_datos_generales">
     <ng-template matStepLabel >{{datosGenerales}}</ng-template>
     <div class="container">
@@ -318,7 +317,7 @@
         <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right" style="margin-top: 10px;">Siguiente</button>
     </div>
   </form>
-  </mat-step>
+  </mat-step> -->
 
 
 
@@ -633,11 +632,16 @@
             </mat-form-field>
           </div>
         </div>
-        <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
+        </div>
+        <div class="botonesstep"> 
+        <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button> 
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>  
       </div>
-    </form>  
+    </form> 
+    
   </mat-step> 
+
+ 
 
 
 
@@ -974,16 +978,16 @@
           <mat-error *ngIf="observacion_otros_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
         </div>
-
-        <div>
+     </div>
+      <div class="botonesstep">
           <button mat-raised-button matStepperNext  class="btn btn-outline-primary float-right" >Siguiente</button>
           <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
         </div>
-          
-      </div>
     </form>
   </mat-step> 
 
+
+ 
 
 
 
@@ -1142,13 +1146,11 @@
           <mat-error *ngIf="observacion_otros_ht.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
         </div>
-
-        <div>
+     </div>
+       <div class="botonesstep">
           <button mat-raised-button matStepperNext  class="btn btn-outline-primary float-right">Siguiente</button>
           <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
         </div>
-  
-      </div>
     </form>    
   </mat-step>
 
@@ -1245,12 +1247,11 @@
             </mat-select>
           </mat-form-field>
         </div>
-
-        <div>
+    </div>
+      <div class="botonesstep">
           <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
           <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
         </div>
-      </div>
     </form>      
   </mat-step>
 
@@ -1407,12 +1408,11 @@
 
           </mat-form-field>
         </div>
-
-        <div>
+     </div>
+       <div class="botonesstep">
           <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
           <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
         </div>
-      </div>
     </form>     
   </mat-step>
 
@@ -1524,13 +1524,11 @@
             </mat-form-field>
           </div>
         </div>
-        <div>
+       </div>
+       <div class="botonesstep">
           <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
           <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
         </div>
-
-      
-      </div>
     </form>        
   </mat-step>
 
@@ -1615,18 +1613,15 @@
            <mat-error *ngIf="observacion_planificacion.hasError('maxlength')">campo muy extenso!</mat-error>
            <mat-error *ngIf="observacion_planificacion.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
-        <div>
+      </div>
+      <div class="botonesstep">
           <button  disabled="{{formulario_planificacion_familiar.invalid}}" mat-raised-button matStepperNext class="btn btn-outline-primary float-right" (click)="enviarDatos()">Enviar</button>
           <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
-
-        </div>
       </div>
     </form>
     <div *ngIf="loading==true" id="spin"> <mat-spinner class="loading"></mat-spinner></div>
+ </mat-step>
 
-      
-      
-  </mat-step>
  
 </mat-horizontal-stepper>
 
