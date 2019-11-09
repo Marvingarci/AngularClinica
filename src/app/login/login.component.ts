@@ -107,6 +107,64 @@ export class LoginComponent implements OnInit {
   
   }
 
+  onKeydown(event) {
+    if (event.key === "Enter") {
+      this.hide = false;
+      this.loading=true;
+      this.login.cuenta = this.login_form.get('cuenta').value;
+      this.login.clave = this.login_form.get('clave').value;
+      this.loginService.porMientras = this.login_form.get('clave').value;
+  
+  //PACIENTES
+      for (let index = 0; index < this.pacientes.length; index++) {
+        if (this.pacientes[index].numero_cuenta == this.login.cuenta) {
+          this.pase=false;
+          this.paciente=this.pacientes[index];
+        }
+      }    
+  
+      if (this.pase == true) {
+        this.loginService.guardarDatos(this.login).subscribe( (data) =>{
+          console.log(data);   
+          
+          this.showError('Llene el siguiente formulario'); 
+  
+           this.router.navigate(['/formulario']);
+        }, (error) => {
+          this.loading=false;
+          console.log(error);
+          this.showError('Usuario Incorrecto'); 
+        });
+        
+      }else{
+        if (this.paciente.contrasenia==this.login.clave) {
+          this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);  
+        }else{
+          this.loading=false;
+          this.showError('Contraseña Incorrecta'); 
+        }      
+      } 
+  
+     //ADMIINISTRADORES
+      for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
+        if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
+          this.login_admin=this.login_admins[indexx];
+        }
+      }
+  
+  
+     if (this.login_admin.contrasenia_admin  == this.login.clave) {
+   console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
+          this.router.navigate(['/principal/']);
+        }else{
+          
+   console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
+          this.loading=false;
+          this.showError('Contraseña Incorrecta'); 
+        } 
+    }
+  }
+
   comprobarDatos(){
     this.loading=true;
     this.login.cuenta = this.login_form.get('cuenta').value;
