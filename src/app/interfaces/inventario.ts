@@ -1,9 +1,11 @@
 export interface Inventario{
     id_inventario?: number,
-    cantidad: number,
+    unidad: number,
     nombre: string,
     descripcion: string,
-    fecha_vencimiento: Date,
+    //fecha_vencimiento: Date,
+    presentacion: string,
+    observacion: string,
     created_at? : string;
     updated_at? : string;
 }
