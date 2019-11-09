@@ -333,11 +333,35 @@ cno16() {this.read16 = true;
 
   read17 = true;
   input17 : string = '';
+
+  
 csi17() { this.read17 = false;}
 cno17() {this.read17 = true; this.input17= null;  }
 
 ya(){
   alert('macizo');
+}
+
+
+
+// hace esto melvin para que se te limpien los inputs
+borrarInputs(formControl : FormControl[]){
+
+  
+    formControl.forEach(controlador => {
+      controlador.setValue('');
+      console.log('se borro perron !!');
+    });
+  
+  // formControl[0].setValue('');
+  // formControl[1].setValue('');
+
+
+ 
+  //   
+  
+
+
 }
 
 
@@ -819,11 +843,16 @@ ocultar: boolean = true;
   antecedentes_personales: AntecedentesPersonales[];
   habitos_toxicologicos: HabitosToxicologicosPersonales[];
   actividades_sexuales: ActividadSexual[];
+  antecedentes_ginecologicos: AntecedentesGinecologicos[];
 
   //variable que identifica si un input es editable
   readonly: boolean = true;
 
+  //variable que identifica si un paciente es un alumno
   esAlumno: boolean = true;
+
+
+  mostrarAntecedenteGinecologico: boolean = false;
 
 
   dataSource: any;
@@ -850,7 +879,7 @@ ocultar: boolean = true;
         if(this.paciente.categoria != "E"){
           this.esAlumno = false;
         }
-        console.log(this.esAlumno);
+        console.log('esAlumno: '+this.esAlumno);
 
         console.log(this.paciente.contrasenia);
         this.formularioService.idActualizar=this.paciente.id_paciente;
@@ -937,10 +966,33 @@ ocultar: boolean = true;
 
 
         //establesco el valor a los formcontrol para que se visualizen
-          //en los respectivos inputs de los habitos toxicologicos
+          //en los respectivos inputs de la actividad sexual
           this.cargarInformacionActividadSexual();
-      },(error)=>{
 
+
+      },(error)=>{
+        console.log(error);
+      });
+
+      this.formularioService.obtenerAntecedentesGinecologicos().subscribe((data : AntecedentesGinecologicos[])=>{
+        this.antecedentes_ginecologicos = data;
+        this.antecedente_ginecologico = this.antecedentes_ginecologicos.find((m)=>{return m.id_paciente == this.id});
+
+        if(this.antecedente_ginecologico != null){
+          this.mostrarAntecedenteGinecologico = true;
+
+          //establesco el valor a los formcontrol para que se visualizen
+          //en los respectivos inputs de los antecedentes ginecologicos
+          this.cargarInformacionAntecedentesGinecologicos();
+
+          console.log(this.antecedente_ginecologico);
+        }
+
+        console.log('mostrarAncedententeGinecologico: '+this.mostrarAntecedenteGinecologico);
+
+        
+
+        
       });
   
 
@@ -953,6 +1005,8 @@ ocultar: boolean = true;
   culitoPelado(){
     
   }
+
+
   ngOnInit() {
     
   }
@@ -1242,10 +1296,17 @@ ocultar: boolean = true;
     this.observacion_cancer_ap.setValue(this.antecedente_personal.observacion_cancer);
     this.tipo_cancer_ap.setValue(this.antecedente_personal.tipo_cancer);
     this.hospitalarias_quirurgicas.setValue(this.antecedente_personal.hospitalarias_quirurgicas);
+    this.fecha_antecedente_hospitalario.setValue(this.antecedente_personal.fecha_antecedente_hospitalario);
+    this.tratamiento.setValue(this.antecedente_personal.tratamiento);
+    this.diagnostico.setValue(this.antecedente_personal.diagnostico);
+    this.tiempo_hospitalizacion.setValue(this.antecedente_personal.tiempo_hospitalizacion);
     this.traumaticos.setValue(this.antecedente_personal.traumaticos);
     this.observacion_traumaticos.setValue(this.antecedente_personal.observacion_traumaticos);
     this.otros_ap.setValue(this.antecedente_personal.otros);
     this.observacion_otros_ap.setValue(this.antecedente_personal.observacion_otros);
+
+
+    
 
   }
 
@@ -1271,6 +1332,20 @@ ocultar: boolean = true;
     this.edad_inicio_sexual.setValue(this.actividad_sexual.edad_inicio_sexual);
     this.numero_parejas_sexuales.setValue(this.actividad_sexual.numero_parejas_sexuales);
     this.practicas_sexuales_riesgo.setValue(this.actividad_sexual.practicas_sexuales_riesgo);
+  }
+
+  cargarInformacionAntecedentesGinecologicos(){
+
+    this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);
+    this.fum.setValue(this.antecedente_ginecologico.fum);
+    this.citologia.setValue(this.antecedente_ginecologico.citologia);
+    this.fecha_citologia.setValue(this.antecedente_ginecologico.fecha_citologia);
+    this.resultado_citologia.setValue(this.antecedente_ginecologico.resultado_citologia);
+    this.duracion_ciclo_menstrual.setValue(this.antecedente_ginecologico.duracion_ciclo_menstrual);
+    this.periocidad_ciclo_menstrual.setValue(this.antecedente_ginecologico.periocidad_ciclo_menstrual);
+    this.caracteristicas_ciclo_menstrual.setValue(this.antecedente_ginecologico.caracteristicas_ciclo_menstrual);
+
+
   }
 
    //obtener los campos del formGroup: formulario_datos_generales
