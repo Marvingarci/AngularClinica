@@ -28,11 +28,11 @@
                 </div>
               <div>
                 <mat-form-field class="example-full-width">                
-                  <input matInput  
+                  <input matInput (keydown)="onKeydown($event)" 
                   placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'"
                   formControlName="clave">
                   <mat-label><mat-icon>vpn_key</mat-icon> &nbsp;   <b>Contraseña</b> </mat-label>
-                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <button  mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                       </button>
                   <mat-error *ngIf="clave.hasError('required') ">ingrese la contraseña!</mat-error>
@@ -41,7 +41,7 @@
             </form>
           
             </div>  
-             <div><button mat-raised-button  class="boton" (click)="comprobarDatos()">INGRESAR</button></div>            
+             <div><button ng-enter mat-raised-button  class="boton" (click)="comprobarDatos()">INGRESAR</button></div>            
            
                                       
         </div>
