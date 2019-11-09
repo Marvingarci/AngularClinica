@@ -47,13 +47,7 @@
     color: #fff;
   }
 
-  .toolbar{  
-  background-color: #B721FF;
-  background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%);
-  color: #fff;
-  margin-top: 0px;
-  }
- 
+
 .container{
 overflow: auto;
 height: 100%;
@@ -97,4 +91,14 @@ height: 8px;
 .container::-webkit-scrollbar-track:hover, 
 .container::-webkit-scrollbar-track:active {
   background: #787bff;
+}
+
+.logoU{
+
+  background: url('src\imagenes\logoUperron.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+ 
 }

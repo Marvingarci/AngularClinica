@@ -7,14 +7,10 @@
   }
   
   .mat-card{
-    margin-top: 40px;
+    /* margin-top: 10px; */
   }
   
-  .mat-toolbar{
-    background:  rgb(104, 71, 250);
-    color: snow;
-  }
-
+ 
   .mat-icon-button{
     position: absolute;
     right:20px;
@@ -36,8 +32,8 @@
     overflow: auto;
     position: absolute;
     overflow-x: hidden;   
-    top:30;
-    left:0;
+    /* top:30;
+    left:0; */
     
   }
 

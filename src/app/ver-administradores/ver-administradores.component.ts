@@ -47,9 +47,9 @@ export class VerAdministradoresComponent implements OnInit {
   id: any;
   admins: LoginAdmin[];
   constructor( private login_adminservice:LoginadminService,private activatedRoute: ActivatedRoute,public dialog: MatDialog,
-    private pacienteService: FormularioService,private LoginAdminService: LoginadminService,
+    private LoginAdminService: LoginadminService,
      private httpClient: HttpClient, private router:Router) { 
-    this.getPacientes();
+    this.getAdministrador();
     this.id = this.activatedRoute.snapshot.params['id'];
 
     if(this.id){
@@ -66,7 +66,7 @@ export class VerAdministradoresComponent implements OnInit {
     }
   }//fin constructor
 
-  getPacientes(){
+  getAdministrador(){
     this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) =>{
       this.pacientes=data;
       console.log(this.pacientes);
@@ -90,6 +90,7 @@ export class VerAdministradoresComponent implements OnInit {
   }  
 
   ngOnInit() {
+    this.getAdministrador();
   }
 
   // openDialog(id) {    

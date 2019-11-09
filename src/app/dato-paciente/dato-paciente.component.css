@@ -1,6 +1,15 @@
 
 .container {
-  color: black;
+  
+  height: 89%;
+  min-width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  overflow: auto;
+  position: absolute;
+  overflow-x: hidden;  
   
 }
 
@@ -15,13 +24,9 @@
 }
 
 .mat-card{
-  margin-top: 40px;
+  /* margin-top: 10px; */
 }
 
-.toolbar{
-  background:  rgb(104, 71, 250);
-  color: snow;
-}
 
 .img{
   height: 140px;
@@ -45,3 +50,7 @@
   flex: 1 1 auto;
 }
 
+#new-color{
+  background-color: #21D4FD;
+  background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%);
+}

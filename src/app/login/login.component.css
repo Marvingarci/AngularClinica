@@ -68,7 +68,7 @@ mat-spinner{
 .login100-form-title {
     display: block;
     font-family: Poppins-Regular,sans-serif;
-    font-size: 39px;
+    font-size: 30px;
     color: #333;
     line-height: 1.2;
     text-align: center;
@@ -95,6 +95,11 @@ mat-spinner{
   height:40px;
   color: #fff;
   border-radius: 20px;  
+
+  /* quitar borde feo */
+  outline:none;  
+  display:block;
+  
   margin-left: 20px;
   margin-right: 20px;
   text-align: center;
@@ -106,3 +111,7 @@ mat-spinner{
   background-image: linear-gradient(90deg, #B721FF 0%, #21D4FD 100%);
   transition: all 1s ease;
   }  
+
+  .uploader-status ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #B721FF;
+}
