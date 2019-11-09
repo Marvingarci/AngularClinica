@@ -1,6 +1,15 @@
 
 .container {
-  color: black;
+  
+  height: 89%;
+  min-width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  overflow: auto;
+  position: absolute;
+  overflow-x: hidden;  
   
 }
 
@@ -15,7 +24,7 @@
 }
 
 .mat-card{
-  margin-top: 40px;
+  /* margin-top: 10px; */
 }
 
 
