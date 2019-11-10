@@ -1,15 +1,11 @@
-<div id="intro" class="view">
-    <div class="full-bg-img">
 <div id="formstyle">
-<div>
-    <div class="bienvenida">
-        <h4 class="h5"> Está seguro de eliminar a:</h4> 
-        <label class="h6">{{login_admin.usuario_admin}}</label>
-    </div>  
-</div>  
-        <div><button class="boton" routerLink="/principal/veradministradores" >cancelar</button>
-        <button class="boton"  routerLink="/principal/veradministradores" (click)="borrar()">eliminar</button>
-</div>            
-</div>
-</div>
+    <span class="login100-form-title p-b-49">
+    Está seguro de eliminar a:
+    <p><strong>{{login_admin.usuario_admin}}</strong></p>
+    </span>
+
+    <div class="botones">
+    <button mat-raised-button color="primary" routerLink="/principal/veradministradores" >cancelar</button> &nbsp; &nbsp; 
+    <button mat-raised-button color="warn"   routerLink="/principal/veradministradores" (click)="borrar()">eliminar</button>
+    </div>            
 </div>
