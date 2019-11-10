@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AppComponent } from "../app.component";
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.component.html',
@@ -11,9 +12,13 @@ export class PrincipalComponent implements OnInit {
   typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
   
 
-  constructor(mostrar: AppComponent) {
+  constructor(mostrar: AppComponent,private _location: Location) {
     mostrar.mostrar();
    }
+
+    atras() {
+        this._location.back();
+    }
 
   ngOnInit() {
   }
