@@ -200,7 +200,9 @@
   
   <mat-toolbar>        
       <mat-toolbar-row class="toolbar"> 
+        <span (click)="atras()" style="cursor: pointer;margin-top: 5px;"><mat-icon>arrow_back</mat-icon> </span>
         <span class="title"><strong> Clinica UNAH-TEC Danlí</strong></span>
+
         <span class="example-spacer"></span>
         <span class="example-fill-remaining-space"></span>
       </mat-toolbar-row>
@@ -217,7 +219,7 @@
       <div >
           <div style="width: 226px; height: 155px;" class="logoU" alt="User picture"></div>
             <div class="sidebar-brand">
-                  <a style="text-align: center; color:rgb(255, 255, 255)" [routerLink]="['/principal']" routerLinkActive="router-link-active" ><h5>Principal</h5></a>
+                  <a style="text-align: center; color:rgb(109, 0, 160)" [routerLink]="['/principal']" routerLinkActive="router-link-active" ><h5>Principal</h5></a>
                   <div id="close-sidebar">
                     <i class="fas fa-times"></i>
                   </div>
@@ -229,11 +231,11 @@
 
         <mat-action-list class="intro">
             <button mat-list-item style="color:rgb(109, 0, 160)" [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Pacientes</strong> </button>
-            <button mat-list-item [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"><strong>  At1</strong>  </button>
-            <button mat-list-item (click)="undo()" class="hoveritem"> <strong> Consolidado Diario </strong> </button>
-            <button mat-list-item [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Inventario </strong> </button>
-            <button mat-list-item [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Administradores </strong> </button>
-            <button mat-list-item (click)="undo()" class="hoveritem"> <strong> Ayuda? </strong> </button>
+            <button mat-list-item style="color:rgb(109, 0, 160)" [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"><strong>  At1</strong>  </button>
+            <button mat-list-item style="color:rgb(109, 0, 160)" (click)="undo()" class="hoveritem"> <strong> Consolidado Diario </strong> </button>
+            <button mat-list-item style="color:rgb(109, 0, 160)" [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Inventario </strong> </button>
+            <button mat-list-item style="color:rgb(109, 0, 160)" [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Administradores </strong> </button>
+            <button mat-list-item style="color:rgb(109, 0, 160)" (click)="undo()" class="hoveritem"> <strong> Ayuda? </strong> </button>
         </mat-action-list>
         
 
