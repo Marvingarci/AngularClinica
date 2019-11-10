@@ -1,127 +1,59 @@
-.bienvenida{  background:#00f;   
+.login100-form-title {
+  display: block;
+  font-family: Poppins-Regular,sans-serif;
+  font-size: 20px;
+  color: #333;
+  line-height: 1.2;
+  text-align: center;
+  padding: 20px;
+}
 
-    border-radius: 15px;}
-  .h4{ color: cornsilk;}
-  .h6{color: rgb(151, 203, 238);}
-  /* html,
-  body,
-  header,
-  #intro{
-  height: 100%;
-  width:100%;
-  position: absolute;
-  margin:0px;
-  } */
-  
-  
-  
-  /* https://campusvirtual.unah.edu.hn/theme/image.php/bootstrapcampus/theme/1568312409/frontpage-bg */
-  /* #intro{
-      background: url('src\imagenes\fondoazul.jpg')no-repeat center center fixed;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-  } */
-  
-  #imagenpuma{
-    height: 100px;
-    width:100px;
-    margin:0px;
-    background: url('src\imagenes\pumitafinal.jpg');
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;  
-    border-radius: 50px;
-    margin-left: 90px;
-    border: 3px solid #00f;
-    margin-bottom: 25px;
-    
-  }
-  mat-spinner{
-    position: absolute;
-    height: 100px;
-    width: 200px;;
-    left: 100px;
-  
-  }
-  .label{
-    margin-top: 5px;
-    font-size: 30dp;
-  }
-  
   #formstyle{  
     -webkit-box-shadow: 0 30px 60px 0 rgba(228, 38, 38, 0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);  
     padding-bottom: 50px; 
     margin-top: 50px;
-      background-color: #fff  ;
-      position: absolute;
-      /*nos posicionamos en el centro del navegador*/
-      top:45%;
-      left:50%;
-      /*determinamos una anchura*/
-      width:310px;
-      /*indicamos que el margen izquierdo, es la mitad de la anchura*/
-      margin-left:-150px;
-      /*determinamos una altura*/
-      height:280px;
-      /*indicamos que el margen superior, es la mitad de la altura*/
-      margin-top:-150px;
-      border:5px solid #00f ;
-      padding:10px;
-      text-align: center;
-    color: #00f ;	/*IE*/
-      filter: alpha(opacity=70);
-      /*FireFox Opera*/
-    opacity: .7;
-    border-radius: 30px;
+    background-color: #fff  ;
+    position: absolute;
+    top:40%;
+    left:47.58%;
+    width:360px;
+    margin-left:-150px;
+    height:370px;
+    margin-top:-150px;
+    padding:10px;
+    text-align: left;
+    color: rgb(109, 0, 160);	
+    filter: alpha(opacity=70); 
+    border-radius: 10px;
   }
-  
-  
-  
   
   .example-full-width{
     border-radius: 20px;
-    text-align: center;
-    width:250px;
-    color: #00f;
-    
+    text-align: left;
+    width:100%;
+    color: rgb(109, 0, 160);
+   padding-right: 20px;
+   padding-left: 20px;
+   padding-bottom: 20px;  
   }
+  
   #show_password{
-    background-color:   #00f;
-    margin-left:-43px; 
-    border-radius: 20px;
-    opacity: .3;
+    background-color:   rgb(109, 0, 160) ;
+    border-radius: 20px;  
   }
+
   .boton{
-    width:80px;
-    height:30px;
-    background-color:#00f ;
+    width:90%;
+    height:40px;
     color: #fff;
-    margin: 5px;  
-    border-radius: 10px;
-    font-size:11px;
-    line-height:10px;
-    text-transform: uppercase;
+    border-radius: 20px;    
+    /* quitar borde feo */
+    outline:none;  
+    display:block;    
+    margin-left: 20px;
+    margin-right: 20px;
     text-align: center;
-    
-    }
-    .boton:hover{
-      background: azure;
-      border:2px solid #00f ;
-      color: blue;    
-    }
-  
-    
-    
-  
-    /* input[type=number]::-webkit-inner-spin-button{ 
-      -webkit-appearance: none; 
-      margin: 0; 
-    } */
-  
-  
-  
+    background-color: #21D4FD;
+    background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%);
+    } 
