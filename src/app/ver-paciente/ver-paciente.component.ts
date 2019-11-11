@@ -180,6 +180,8 @@ export class VerPacienteComponent implements OnInit {
   formulario_actividad_sexual = new FormGroup({
 
     actividad_sexual : new FormControl('', Validators.required),
+
+    // hay que validar que si actividad sexual es true que sean requeridos estos 3 campos
     edad_inicio_sexual : new FormControl('', [ Validators.max(50)]),
     numero_parejas_sexuales : new FormControl('', [ Validators.max(99)]),
     practicas_sexuales_riesgo : new FormControl(''),
@@ -856,6 +858,7 @@ maxDate = new Date();
   readonlyAntecedentesFamiliares: boolean = true;
   readonlyAntecedentesPersonales: boolean = true;
   readonlyHabitosToxicologicos: boolean = true;
+  readonlyActividadSexual: boolean = true;
   readonlyAntecedentesObstetricos: boolean = true;
   readonlyAntecedentesGinecologicos: boolean = true;
   readonlyPlanificacionFamiliar: boolean = true;
@@ -964,7 +967,7 @@ maxDate = new Date();
         this.cargarTablaHabitosToxicologicos();
         console.log(this.tablaHabitosToxicologicos);
 
-        //establesco el valor a los formcontrol para que se visualizen
+      //   //establesco el valor a los formcontrol para que se visualizen
           //en los respectivos inputs de los habitos toxicologicos
           this.cargarInformacionHabitosToxicologicos();
 
@@ -1082,7 +1085,6 @@ maxDate = new Date();
 
       
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
-          console.log(data);
           alert('se actualizaron perron los datos generales');
         }, (error)=>{
           console.log(error);
@@ -1125,8 +1127,7 @@ maxDate = new Date();
       
             
 
-        this.formularioService.actualizaAntecedenteFamiliar(this.antecedente_familiar).subscribe( (data) =>{
-          console.log(data);
+        this.formularioService.actualizarAntecedenteFamiliar(this.antecedente_familiar).subscribe( (data) =>{
           this.cargarTablaAntecedentesFamiliares();
 
           alert('se actualizaron perron los antecedentes familiares')
@@ -1176,8 +1177,7 @@ maxDate = new Date();
         this.antecedente_personal.observacion_otros = this.observacion_otros_ap.value;
         
 
-        this.formularioService.actualizaAntecedentePersonal(this.antecedente_personal).subscribe((data)=>{
-          console.log(data);
+        this.formularioService.actualizarAntecedentePersonal(this.antecedente_personal).subscribe((data)=>{
           this.cargarTablaAntecedentesPersonales();
           alert('se actualizaron perron los antecedentes personales')
     
@@ -1192,9 +1192,56 @@ maxDate = new Date();
     
   }
 
-  ngOnInit() {
+  actualizarHabitosToxicologicos(){
+    if(this.readonlyHabitosToxicologicos == true){
+      if(this.formulario_habito_toxicologico_personal.valid){
 
-    
+        // guardar datos del formulario en habito_toxicologico y enviarlo a la api
+        this.habito_toxicologico_personal.alcohol = this.alcohol.value;
+        this.habito_toxicologico_personal.observacion_alcohol = this.observacion_alcohol.value;
+        this.habito_toxicologico_personal.tabaquismo = this.tabaquismo.value;
+        this.habito_toxicologico_personal.observacion_tabaquismo = this.observacion_tabaquismo.value;
+        this.habito_toxicologico_personal.marihuana = this.marihuana.value;
+        this.habito_toxicologico_personal.observacion_marihuana = this.observacion_marihuana.value;
+        this.habito_toxicologico_personal.cocaina = this.cocaina.value;
+        this.habito_toxicologico_personal.observacion_cocaina = this.observacion_cocaina.value;
+        this.habito_toxicologico_personal.otros = this.otros_ht.value;
+        this.habito_toxicologico_personal.observacion_otros = this.observacion_otros_ht.value;
+
+        this.formularioService.actualizarHabitoToxicologico(this.habito_toxicologico_personal).subscribe((data)=>{
+          this.cargarTablaHabitosToxicologicos();
+
+          alert('se actualizaron perron los habitos toxicologicos');
+        }, (error)=>{
+          console.log(error);
+        });
+      }
+    }
+  }
+
+  actualizarActividadSexual(){
+    if(this.readonlyActividadSexual == true){
+      if(this.formulario_actividad_sexual.valid){
+         // guardar datos del formulario en actividad_sexual y enviarlo a la api
+
+         this.actividad_sexual.actividad_sexual = this.actividad_sexuall.value;
+         this.actividad_sexual.edad_inicio_sexual = this.edad_inicio_sexual.value;
+         this.actividad_sexual.numero_parejas_sexuales = this.numero_parejas_sexuales.value;
+         this.actividad_sexual.practicas_sexuales_riesgo = this.practicas_sexuales_riesgo.value;
+
+         this.formularioService.actualizarActividadSexual(this.actividad_sexual).subscribe((data)=>{
+          this.cargarInformacionActividadSexual();
+
+          alert('se actualizaron perron la actividad sexual');
+           
+         },(error)=>{
+           console.log(error);
+         });
+      }
+    }
+  }
+
+  ngOnInit() {
   }
 
   
@@ -1375,6 +1422,7 @@ maxDate = new Date();
 
   cargarTablaHabitosToxicologicos(){
 
+  
     // establesco los valores a el arreglo de interfaces "tablaHabitosToxicologicos"
     this.tablaHabitosToxicologicos = 
     [
@@ -1406,12 +1454,13 @@ maxDate = new Date();
 
     // verifico si otro tiene un valor para poder agregarlo a la tabla
     if(this.habito_toxicologico_personal.otros != null){
-      this.tablaHabitosToxicologicos.push(
+      this.tablaHabitosToxicologicos.unshift(
         {
           antecedente: this.habito_toxicologico_personal.otros,
           valor: "Si",
           observacion: this.habito_toxicologico_personal.observacion_otros
       });
+     
     }
   }
 
@@ -1624,12 +1673,35 @@ maxDate = new Date();
 
     this.alcohol.setValue(this.habito_toxicologico_personal.alcohol);
     this.observacion_alcohol.setValue(this.habito_toxicologico_personal.observacion_alcohol);
+    
+    if(this.alcohol.value == "No"){
+      this.observacion_alcohol.disable({onlySelf: true});    
+      
+    }
+
     this.tabaquismo.setValue(this.habito_toxicologico_personal.tabaquismo);
     this.observacion_tabaquismo.setValue(this.habito_toxicologico_personal.observacion_tabaquismo);
+
+    if(this.tabaquismo.value == "No"){
+      this.observacion_tabaquismo.disable({onlySelf: true});    
+      
+    }
     this.marihuana.setValue(this.habito_toxicologico_personal.marihuana);
     this.observacion_marihuana.setValue(this.habito_toxicologico_personal.observacion_marihuana);
+
+    if(this.marihuana.value == "No"){
+      this.observacion_marihuana.disable({onlySelf: true});    
+      
+    }
+
     this.cocaina.setValue(this.habito_toxicologico_personal.cocaina);
     this.observacion_cocaina.setValue(this.habito_toxicologico_personal.observacion_cocaina);
+
+    if(this.cocaina.value == "No"){
+      this.observacion_cocaina.disable({onlySelf: true});    
+      
+    }
+
     this.otros_ht.setValue(this.habito_toxicologico_personal.otros);
     this.observacion_otros_ht.setValue(this.habito_toxicologico_personal.observacion_otros);
 
@@ -1641,6 +1713,18 @@ maxDate = new Date();
     this.edad_inicio_sexual.setValue(this.actividad_sexual.edad_inicio_sexual);
     this.numero_parejas_sexuales.setValue(this.actividad_sexual.numero_parejas_sexuales);
     this.practicas_sexuales_riesgo.setValue(this.actividad_sexual.practicas_sexuales_riesgo);
+
+    if(this.actividad_sexuall.value == "No"){
+
+      this.edad_inicio_sexual.disable({onlySelf:true});
+      this.numero_parejas_sexuales.disable({onlySelf:true});
+      this.practicas_sexuales_riesgo.disable({onlySelf:true});
+
+    }else{
+      this.edad_inicio_sexual.setValidators([Validators.required]);
+      this.numero_parejas_sexuales.setValidators([Validators.required]);
+      this.practicas_sexuales_riesgo.setValidators([Validators.required]);
+    }
   }
 
   cargarInformacionAntecedentesGinecologicos(){
