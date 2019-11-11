@@ -103,6 +103,43 @@ tr.mat-footer-row {
   
 }
 
+.col {
+  text-align: left;
+  margin-left: 10px;
+  
+}
+.row{
+  
+  margin-left: 15px;
+}
+
+h2{
+  margin-bottom: 20px;
+}
+
+mat-divider {
+  margin-bottom: 16px;
+}
+
+
+/*radio buttons */
+.example-radio-group {
+  display: flex;
+  flex-direction: row;
+ margin-top: 20px;
+ 
+
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+/* label */
+#example-radio-group-label{
+  margin-top: 20px;
+}
+
   
   
 

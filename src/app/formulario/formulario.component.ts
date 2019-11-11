@@ -936,7 +936,6 @@ ocultar: boolean = true;
         this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
         this.paciente.contrasenia=this.login.porMientras;
         console.log(this.login.porMientras);
-
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
@@ -991,7 +990,7 @@ ocultar: boolean = true;
     }
      
 
-      if(this.formulario_antecedentes_familiares){
+      if(this.formulario_antecedentes_familiares.valid){
         // guardar datos del formulario en antecedente_familiar y enviarlo a la api
         this.antecedente_familiar.diabetes = this.diabetes.value;
         this.antecedente_familiar.parentesco_diabetes = this.parentesco_diabetes.value;
@@ -1034,24 +1033,24 @@ ocultar: boolean = true;
       if(this.formulario_antecedentes_personales.valid){
 
         // guardar datos del formulario en antecedente_personal y enviarlo a la api
-        this.antecedente_personal.diabetes = this.diabetes.value;
+        this.antecedente_personal.diabetes = this.diabetes_ap.value;
         this.antecedente_personal.observacion_diabetes = this.observacion_diabetes_ap.value;
-        this.antecedente_personal.tb_pulmonar = this.tb_pulmonar.value;
+        this.antecedente_personal.tb_pulmonar = this.tb_pulmonar_ap.value;
         this.antecedente_personal.observacion_tb_pulmonar = this.observacion_tb_pulmonar_ap.value;
         this.antecedente_personal.its = this.its.value;
         this.antecedente_personal.observacion_its = this.observacion_its.value;
-        this.antecedente_personal.desnutricion = this.desnutricion.value;
+        this.antecedente_personal.desnutricion = this.desnutricion_ap.value;
         this.antecedente_personal.observacion_desnutricion = this.observacion_desnutricion_ap.value;
         this.antecedente_personal.tipo_desnutricion = this.tipo_desnutricion_ap.value;
-        this.antecedente_personal.enfermedades_mentales = this.enfermedades_mentales.value;
+        this.antecedente_personal.enfermedades_mentales = this.enfermedades_mentales_ap.value;
         this.antecedente_personal.observacion_enfermedades_mentales = this.observacion_enfermedades_mentales_ap.value;
         this.antecedente_personal.tipo_enfermedad_mental = this.tipo_enfermedad_mental_ap.value;
-        this.antecedente_personal.convulsiones = this.convulsiones.value;
+        this.antecedente_personal.convulsiones = this.convulsiones_ap.value;
         this.antecedente_personal.observacion_convulsiones = this.observacion_convulsiones_ap.value;
-        this.antecedente_personal.alergias = this.alergias.value;
+        this.antecedente_personal.alergias = this.alergias_ap.value;
         this.antecedente_personal.observacion_alergias = this.observacion_alergias_ap.value;
         this.antecedente_personal.tipo_alergia = this.tipo_alergia_ap.value;
-        this.antecedente_personal.cancer = this.cancer.value;
+        this.antecedente_personal.cancer = this.cancer_ap.value;
         this.antecedente_personal.observacion_cancer = this.observacion_cancer_ap.value;
         this.antecedente_personal.tipo_cancer = this.tipo_cancer_ap.value;
         this.antecedente_personal.hospitalarias_quirurgicas = this.hospitalarias_quirurgicas.value;

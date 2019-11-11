@@ -1,104 +1,33 @@
-#intro{
-    height: 100%;
-    width:100%;
-    position: absolute;
-    margin:0px;
-    }
-    #intro{
-    background-color:rgb(247, 224, 224);
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+.login100-form-title {
+  display: block;
+  font-family: Poppins-Regular,sans-serif;
+  font-size: 20px;
+  color: #333;
+  line-height: 1.2;
+  text-align: center;
+  padding: 20px;
 }
-.bienvenida{  background:rgb(255, 0, 0);border-radius: 15px;}
-  .h5{ color: cornsilk;}
-  .h6{color: rgb(255, 255, 255);}
 
+#formstyle{  
+  -webkit-box-shadow: 0 30px 60px 0 rgba(228, 38, 38, 0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);  
+  padding-bottom: 50px; 
+  margin-top: 50px;
+  background-color: #fff  ;
+  position: absolute;
+  top:55%;
+  left:47.58%;
+  width:360px;
+  margin-left:-150px;
+  height:170px;
+  margin-top:-150px;
+  padding:10px;
+  text-align: left;
+  color: rgb(109, 0, 160);	
+  filter: alpha(opacity=70); 
+  border-radius: 10px;
+}
   
-  #imagenpuma{
-    height: 100px;
-    width:100px;
-    margin:0px;
-    background: url('src\imagenes\pumitafinal.jpg');
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;  
-    border-radius: 50px;
-    margin-left: 90px;
-    border: 3px solid #00f;
-    margin-bottom: 25px;
-    
-  }
-  mat-spinner{
-    position: absolute;
-    height: 100px;
-    width: 200px;;
-    left: 100px;
-  
-  }
-  .label{
-    margin-top: 5px;
-    font-size: 30dp;
-  }
-  
-  #formstyle{  
-    -webkit-box-shadow: 0 30px 60px 0 rgba(228, 38, 38, 0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    
-    padding-bottom: 50px; 
-    margin-top: 50px;
-      background-color: #fff  ;
-      position: absolute;
-      /*nos posicionamos en el centro del navegador*/
-      top:65%;
-      left:50%;
-      /*determinamos una anchura*/
-      width:310px;
-      /*indicamos que el margen izquierdo, es la mitad de la anchura*/
-      margin-left:-150px;
-      /*determinamos una altura*/
-      height:125px;
-      /*indicamos que el margen superior, es la mitad de la altura*/
-      margin-top:-150px;
-      border:5px solid rgb(255, 0, 0) ;
-      padding:10px;
-      text-align: center;
-    color: rgb(255, 0, 0) ;	/*IE*/
-      filter: alpha(opacity=70);
-      /*FireFox Opera*/
-    opacity: .7;
-    border-radius: 30px;
-  }
-  
-  
-  
-  
-  .example-full-width{
-    border-radius: 20px;
-    text-align: center;
-    width:250px;
-    color: rgb(255, 0, 0);
-    
-  }
-
-  .boton{
-    width:80px;
-    height:30px;
-    background-color:rgb(230, 102, 86) ;
-    color: #fff;
-    margin: 5px;  
-    border-radius: 10px;
-    font-size:11px;
-    line-height:10px;
-    text-transform: uppercase;
-    text-align: center;
-    
-    }
-    .boton:hover{
-      background: azure;
-      border:2px solid rgb(255, 0, 0);
-      color: rgb(255, 0, 0);    
-    }
-  
+.botones{
+  margin-left: 80px;
+}

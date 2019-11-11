@@ -64,6 +64,13 @@ mat-horizontal-stepper{
   background: #787bff;
 }
 
+.botonesstep{
+  position: fixed;
+     bottom: 10px;
+     right: 40px;
+
+}
+
 
 
 
