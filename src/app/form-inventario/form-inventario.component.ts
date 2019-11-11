@@ -19,6 +19,7 @@ export class FormInventarioComponent implements OnInit {
     nombre: new FormControl('',[Validators.required,  Validators.minLength(4),Validators.maxLength(30)]),
     descripcion: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
     observacion: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
+    presentacion: new FormControl('',[Validators.required]),
     //fecha_vencimiento: new FormControl('', Validators.required),
     
     
@@ -38,6 +39,25 @@ export class FormInventarioComponent implements OnInit {
     //fecha_vencimiento: null,
     
   };
+
+  lista:string[]=[
+    "Salud Pública",
+    "Ginecología y Obstetricia",
+    "Pediatría",
+    "Cirugía General",
+    "Medicina Interna",
+    "Dermatología",
+    "Neurología",
+    "Neurocirugía",
+    "Cirugía Plástica",
+    "Anestesiología, Reanimación y Dolor",
+    "Ortopedia",
+    "Psiquiatría",
+    "Otorrinolaringología",
+    "Medicina Física y Rehabilitación"];
+
+
+
   inventarios: Inventario[];
   id: any;
   editando: boolean= false;
@@ -59,6 +79,7 @@ export class FormInventarioComponent implements OnInit {
         this.nombre.setValue(this.inventario.nombre);
         this.descripcion.setValue(this.inventario.descripcion);
         this.observacion.setValue(this.inventario.observacion);
+        this.presentacion.setValue(this.inventario.presentacion);
         //this.fecha_vencimiento.setValue(this.inventario.fecha_vencimiento);
         
       },(error)=>{
@@ -81,6 +102,7 @@ export class FormInventarioComponent implements OnInit {
       this.inventario.nombre = this.nombre.value;
       this.inventario.descripcion = this.descripcion.value;
       this.inventario.observacion = this.observacion.value;
+      this.inventario.presentacion = this.presentacion.value;
       //this.inventario.fecha_vencimiento = this.fecha_vencimiento.value;
       
       if(this.editando == true){
@@ -109,6 +131,7 @@ export class FormInventarioComponent implements OnInit {
   get nombre(){return this.formInventario.get('nombre')};
   get descripcion(){return this.formInventario.get('descripcion')};
   get observacion(){return this.formInventario.get('observacion')};
+  get presentacion(){return this.formInventario.get('presentacion')};
   //get fecha_vencimiento(){return this.formInventario.get('fecha_vencimiento')};
   
   
