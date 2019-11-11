@@ -59,6 +59,14 @@ export class FormularioService {
     );
   }
 
+  actualizarActividadSexual(actividad_sexual: ActividadSexual){
+    return this.httpClient.put(
+      this.API_ENDPOINT+'actividad_sexual/'+ actividad_sexual.id_paciente,
+      actividad_sexual,
+      {headers: this.headers}  
+    );
+  }
+
   actualizarAntecedenteGinecologico(antecedente_ginecologico: AntecedentesGinecologicos){
     return this.httpClient.put(
       this.API_ENDPOINT+'antecedentes_ginecologicos/'+ antecedente_ginecologico.id_paciente,
