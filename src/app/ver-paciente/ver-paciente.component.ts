@@ -1209,6 +1209,7 @@ maxDate = new Date();
         this.habito_toxicologico_personal.observacion_otros = this.observacion_otros_ht.value;
 
         this.formularioService.actualizarHabitoToxicologico(this.habito_toxicologico_personal).subscribe((data)=>{
+          
           this.cargarTablaHabitosToxicologicos();
 
           alert('se actualizaron perron los habitos toxicologicos');
@@ -1237,6 +1238,60 @@ maxDate = new Date();
          },(error)=>{
            console.log(error);
          });
+      }
+    }
+  }
+
+  actualizarAntecedentesGinecologicos(){
+
+    if(this.readonlyAntecedentesGinecologicos == true){
+      if(this.formulario_antecedente_ginecologico.valid){
+
+        // guardar datos del formulario en antecedente_genicologico y enviarlo a la api
+        this.antecedente_ginecologico.edad_inicio_menstruacion = this.edad_inicio_menstruacion.value;
+        this.antecedente_ginecologico.fum = this.fum.value;
+        this.antecedente_ginecologico.citologia = this.citologia.value;
+        this.antecedente_ginecologico.fecha_citologia = this.fecha_citologia.value;
+        this.antecedente_ginecologico.resultado_citologia = this.resultado_citologia.value;
+        this.antecedente_ginecologico.duracion_ciclo_menstrual = this.duracion_ciclo_menstrual.value;
+        this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
+        this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
+
+        this.formularioService.actualizarAntecedenteGinecologico(this.antecedente_ginecologico).subscribe((data)=>{
+          this.cargarInformacionAntecedentesGinecologicos();
+
+          alert('se actualizaron perron los antecedentes ginecologicos');
+
+        }, (error)=> {
+          console.log(error);
+        });
+
+      }
+    }
+  }
+
+  actualizarAntecedentesObstetricos(){
+    if(this.readonlyAntecedentesObstetricos == true){
+      if(this.formulario_antecedente_obstetrico.valid){
+
+        // guardar datos del formulario en antecedente_obstetrico y enviarlo a la api
+        this.antecedente_obstetrico.partos = this.partos.value;
+        this.antecedente_obstetrico.abortos = this.abortos.value;
+        this.antecedente_obstetrico.cesarias = this.cesarias.value;
+        this.antecedente_obstetrico.hijos_vivos = this.hijos_vivos.value;
+        this.antecedente_obstetrico.hijos_muertos = this.hijos_muertos.value;
+        this.antecedente_obstetrico.fecha_termino_ult_embarazo = this.fecha_termino_ult_embarazo.value;
+        this.antecedente_obstetrico.descripcion_termino_ult_embarazo = this.descripcion_termino_ult_embarazo.value;
+        this.antecedente_obstetrico.observaciones = this.observaciones.value;  
+
+        this.formularioService.actualizarAntecedenteObstetrico(this.antecedente_obstetrico).subscribe((data)=>{
+          this.cargarInformacionAntecedentesObstetricos();
+
+          alert('se actualizaron perron los antecedentes obstetricos');
+
+        }, (error)=>{
+          console.log(error);
+        });
       }
     }
   }
@@ -1421,7 +1476,6 @@ maxDate = new Date();
   }
 
   cargarTablaHabitosToxicologicos(){
-
   
     // establesco los valores a el arreglo de interfaces "tablaHabitosToxicologicos"
     this.tablaHabitosToxicologicos = 
@@ -1448,20 +1502,19 @@ maxDate = new Date();
       valor: this.habito_toxicologico_personal.cocaina,
       observacion: this.habito_toxicologico_personal.observacion_cocaina
       },
-      
 
     ];
 
     // verifico si otro tiene un valor para poder agregarlo a la tabla
-    if(this.habito_toxicologico_personal.otros != null){
-      this.tablaHabitosToxicologicos.unshift(
+    if(this.habito_toxicologico_personal.otros){
+      this.tablaHabitosToxicologicos.push(
         {
-          antecedente: this.habito_toxicologico_personal.otros,
+          antecedente: this.habito_toxicologico_personal.otros.trim(),
           valor: "Si",
           observacion: this.habito_toxicologico_personal.observacion_otros
-      });
-     
+      }); 
     }
+    
   }
 
 
@@ -1564,7 +1617,6 @@ maxDate = new Date();
     this.otros.setValue(this.antecedente_familiar.otros);
     this.parentesco_otros.setValue(this.antecedente_familiar.parentesco_otros);
     this.parentesco_otros.disable({onlySelf:true});
-
     
 
   }
