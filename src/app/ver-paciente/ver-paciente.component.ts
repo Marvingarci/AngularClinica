@@ -1786,6 +1786,12 @@ maxDate = new Date();
     this.citologia.setValue(this.antecedente_ginecologico.citologia);
     this.fecha_citologia.setValue(this.antecedente_ginecologico.fecha_citologia);
     this.resultado_citologia.setValue(this.antecedente_ginecologico.resultado_citologia);
+
+    if(this.citologia.value == "No"){
+      this.fecha_citologia.disable({onlySelf: true});
+      this.resultado_citologia.disable({onlySelf: true});
+    }
+
     this.duracion_ciclo_menstrual.setValue(this.antecedente_ginecologico.duracion_ciclo_menstrual);
     this.periocidad_ciclo_menstrual.setValue(this.antecedente_ginecologico.periocidad_ciclo_menstrual);
     this.caracteristicas_ciclo_menstrual.setValue(this.antecedente_ginecologico.caracteristicas_ciclo_menstrual);
@@ -1811,6 +1817,11 @@ maxDate = new Date();
     this.planificacion_familiarr.setValue(this.planificacion_familiar.planificacion_familiar);
     this.metodo_planificacion.setValue(this.planificacion_familiar.metodo_planificacion);
     this.observacion_planificacion.setValue(this.planificacion_familiar.observacion_planificacion);
+
+    if(this.planificacion_familiarr.value == "No"){
+      this.metodo_planificacion.disable({onlySelf: true});
+      this.observacion_planificacion.disable({onlySelf: true});
+    }
 
   }
 
