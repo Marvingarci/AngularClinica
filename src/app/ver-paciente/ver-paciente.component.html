@@ -325,6 +325,7 @@
                 <button mat-raised-button
                   class="btn btn-outline-primary float-right botonperron"
                   style="margin-top: 10px;"
+                  disabled={{formulario_datos_generales.invalid}}
                   (click)="readonlyDatosGenerales = !readonlyDatosGenerales; actualizar()">
                   {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
                 </button>
@@ -583,6 +584,7 @@
                 <button mat-raised-button
                   class="btn btn-outline-primary float-right botonperron"
                   style="margin-top: 10px;"
+                  disabled={{formulario_datos_generales.invalid}}
                   (click)="readonlyDatosGenerales = !readonlyDatosGenerales; actualizarDatosGenerales()">
                   {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
                 </button>
@@ -980,6 +982,7 @@
                   <button mat-raised-button
                     class="btn btn-outline-primary float-right botonperron"
                     style="margin-top: 10px;"
+                    disabled={{formulario_antecedentes_familiares.invalid}}
                     (click)="readonlyAntecedentesFamiliares = !readonlyAntecedentesFamiliares; actualizarAntecedentesFamiliares()">
                     {{!readonlyAntecedentesFamiliares ? 'Guardar' : 'Editar'}}
                   </button>
@@ -1416,6 +1419,7 @@
               <button mat-raised-button
                 class="btn btn-outline-primary float-right botonperron"
                 style="margin-top: 10px;"
+                disabled={{formulario_antecedentes_personales.invalid}}
                 (click)="readonlyAntecedentesPersonales = !readonlyAntecedentesPersonales; actualizarAntecedentesPersonales()">
                 {{!readonlyAntecedentesPersonales ? 'Guardar' : 'Editar'}}
               </button> 
@@ -1618,6 +1622,7 @@
               <button mat-raised-button
                 class="btn btn-outline-primary float-right botonperron"
                 style="margin-top: 10px;"
+                disabled={{formulario_habito_toxicologico_personal.invalid}}
                 (click)="readonlyHabitosToxicologicos = !readonlyHabitosToxicologicos; actualizarHabitosToxicologicos()">
                 {{!readonlyHabitosToxicologicos ? 'Guardar' : 'Editar'}}
               </button> 
@@ -1925,10 +1930,12 @@
                       <mat-radio-group formControlName="citologia" 
                       aria-labelledby="example-radio-group-label"
                       class="example-radio-group">        
-                        <mat-radio-button value="Si" (click)="csi17()">Si</mat-radio-button> &nbsp;   
-                        <mat-radio-button value="No" 
-                        (click)="cno17(); 
-                        borrarInputs([fecha_citologia, resultado_citologia])">No</mat-radio-button>
+                        <mat-radio-button value="Si" (click)="habilitarInputs([fecha_citologia, resultado_citologia])">
+                          Si
+                        </mat-radio-button> &nbsp;   
+                        <mat-radio-button value="No" (click)="borrarInputs([fecha_citologia, resultado_citologia])">
+                          No
+                        </mat-radio-button>
         
                       </mat-radio-group>  
                   </div>
@@ -1951,8 +1958,7 @@
                   <mat-form-field class="example-full-width" style="padding-left: 20px; width: 91%;">
                     <textarea matInput 
                     formControlName="resultado_citologia" 
-                    placeholder="Resultado Citología" 
-                    [readonly]="read17" 
+                    placeholder="Resultado Citología"  
                     ></textarea>
                   </mat-form-field>
                 </div>
@@ -2003,6 +2009,7 @@
               <button mat-raised-button
                 class="btn btn-outline-primary float-right botonperron"
                 style="margin-top: 10px;"
+                disabled={{formulario_antecedente_ginecologico.invalid}}
                 (click)="readonlyAntecedentesGinecologicos = !readonlyAntecedentesGinecologicos;
                 actualizarAntecedentesGinecologicos()">
                 {{!readonlyAntecedentesGinecologicos ? 'Guardar' : 'Editar'}}
@@ -2177,6 +2184,7 @@
               <button mat-raised-button
                 class="btn btn-outline-primary float-right botonperron"
                 style="margin-top: 10px;"
+                disabled={{formulario_antecedente_obstetrico.invalid}}
                 (click)="readonlyAntecedentesObstetricos = !readonlyAntecedentesObstetricos; actualizarAntecedentesObstetricos()">
                 {{!readonlyAntecedentesObstetricos ? 'Guardar' : 'Editar'}}
               </button> 
@@ -2214,7 +2222,7 @@
               </mat-panel-description>
               </mat-expansion-panel-header>
   
-              <div *ngIf="readonly">
+              <div *ngIf="readonlyPlanificacionFamiliar">
                 <form [formGroup]="formulario_planificacion_familiar">
                   <div class="row">
                    
@@ -2223,7 +2231,7 @@
                             <input matInput
                             formControlName= "planificacion_familiar"   
                             placeholder="Planificación familiar"
-                            [readonly]= "readonly"
+                            [readonly]= "readonlyPlanificacionFamiliar"
                             >
                         
                           </mat-form-field>
@@ -2234,7 +2242,7 @@
                           <input matInput
                           formControlName= "metodo_planificacion"   
                           placeholder="Método de planificación"
-                          [readonly]= "readonly"
+                          [readonly]= "readonlyPlanificacionFamiliar"
                           >
                       
                         </mat-form-field>
@@ -2245,7 +2253,7 @@
                           <textarea matInput
                           formControlName= "observacion_planificacion"   
                           placeholder="Observación"
-                          [readonly]= "readonly">
+                          [readonly]= "readonlyPlanificacionFamiliar">
                         </textarea>
                       
                         </mat-form-field>
@@ -2255,25 +2263,25 @@
                 <button mat-raised-button
                   class="btn btn-outline-primary float-right botonperron"
                   style="margin-top: 10px;"
-                  (click)="readonly = !readonly; culitoPelado()">
-                  {{!readonly ? 'Guardar' : 'Editar'}}
+                  (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar;">
+                  {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
                 </button> 
               </div>
 
 
-              <div *ngIf="!readonly">
+              <div *ngIf="!readonlyPlanificacionFamiliar">
                 <form [formGroup]="formulario_planificacion_familiar">
-                    <!-- <p><strong>Planificacion Familiar</strong></p> -->
                     <mat-error style="margin-inline-start: 5px;" *ngIf="planificacion_familiarr.hasError('required')">campo requerido!</mat-error>
                     <div>  
                       <p><mat-radio-group formControlName="planificacion_familiar" 
                         aria-labelledby="example-radio-group-label"
                         class="example-radio-group">        
-                        <mat-radio-button value="Si" (click)="csi16()">Si</mat-radio-button> &nbsp;   
-                        <mat-radio-button value="No" 
-                        (click)=
-                        "cno16();
-                        borrarInputs([metodo_planificacion, observacion_planificacion]);">No</mat-radio-button>
+                        <mat-radio-button value="Si" (click)="habilitarInputs([metodo_planificacion, observacion_planificacion])">
+                          Si
+                        </mat-radio-button> &nbsp;   
+                        <mat-radio-button value="No" (click)="borrarInputs([metodo_planificacion, observacion_planificacion]);">
+                          No
+                        </mat-radio-button>
             
                       </mat-radio-group></p> 
                     </div>
@@ -2281,7 +2289,7 @@
                     <div>
                       <mat-form-field>
                         <mat-label>Método de planificación</mat-label>
-                        <mat-select  formControlName="metodo_planificacion"  [disabled]="isDisabledB26">
+                        <mat-select  formControlName="metodo_planificacion">
                           <mat-option *ngFor="let metodo of metodos" [value]="metodo.value">
                             {{metodo.viewValue}}
                           </mat-option>
@@ -2291,7 +2299,7 @@
 
                     <mat-form-field class="medium-width">
                       <textarea matInput formControlName="observacion_planificacion"
-                      placeholder="Observación" [readonly]="read16"></textarea>
+                      placeholder="Observación"></textarea>
                       <mat-error *ngIf="observacion_planificacion.hasError('maxlength')">campo muy extenso!</mat-error>
                       <mat-error *ngIf="observacion_planificacion.hasError('minlength')">introduzca una observación valida!</mat-error>
                     </mat-form-field>
@@ -2299,8 +2307,9 @@
                 <button mat-raised-button
                   class="btn btn-outline-primary float-right botonperron"
                   style="margin-top: 10px;"
-                  (click)="readonly = !readonly; culitoPelado()">
-                  {{!readonly ? 'Guardar' : 'Editar'}}
+                  disabled={{formulario_planificacion_familiar.invalid}}
+                  (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; culitoPelado()">
+                  {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
                 </button> 
               </div>
 
