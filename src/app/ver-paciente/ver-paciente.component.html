@@ -1226,9 +1226,8 @@
                 &nbsp; &nbsp; &nbsp; &nbsp; 
 
                 <mat-form-field class="medium-width">
-                  <textarea matInput formControlName="observacion_convulsiones"
-                  placeholder="Detallar inicio de enfermedad y tratamiento">
-                  </textarea>
+                  <textarea matInput formControlName="observacion_convulsiones" placeholder="Detallar" 
+                  style="resize: none;overflow-y: hidden;" rows="1"></textarea>
                   <mat-error *ngIf="observacion_convulsiones_ap.hasError('maxlength')">campo muy extenso!</mat-error>
                   <mat-error *ngIf="observacion_convulsiones_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
                 </mat-form-field>
