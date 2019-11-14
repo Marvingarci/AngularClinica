@@ -178,7 +178,7 @@ export class DatoPacienteComponent implements OnInit {
 
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
           console.log(data);
-          alert('Perron no le chima una catracha XD, son pajas estamos en vivo');
+          alert('estamos en vivo');
         }, (error)=>{
           console.log(error);
           alert('se chorrio');

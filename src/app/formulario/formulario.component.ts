@@ -35,6 +35,16 @@ export interface select {
   viewValue: string;
 }
 
+export interface EstadosCiviles {
+  value: number;
+  viewValue: string;
+}
+
+export interface SegurosMedicos {
+  value: number;
+  viewValue: string;
+}
+
 export class MyErrorStateMatcher implements ErrorStateMatcher{
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -693,18 +703,18 @@ ocultar: boolean = true;
     {value: 'otro', viewValue: 'Otro'}
   ];
 
-  seguros_medicos: select[] = [
-    {value: 'Privado', viewValue: 'Privado'},
-    {value: 'IHSS', viewValue: 'IHSS'},
-    {value: 'No', viewValue: 'No'}
+  seguros_medicos: SegurosMedicos[] = [
+    {value: 1, viewValue: 'Privado'},
+    {value: 2, viewValue: 'IHSS'},
+    {value: 3, viewValue: 'No'}
   ];
 
-  estados_civiles: select[] = [
-    {value: 'Soltero', viewValue: 'Soltero'},
-    {value: 'Union Libre', viewValue: 'Union Libre'},
-    {value: 'Divorciado', viewValue: 'Divorciado'},
-    {value: 'Viudo', viewValue: 'Viudo'},
-    {value: 'Casado', viewValue: 'Casado'},
+  estados_civiles: EstadosCiviles[] = [
+    {value: 1, viewValue: 'Soltero'},
+    {value: 2, viewValue: 'Union Libre'},
+    {value: 3, viewValue: 'Divorciado'},
+    {value: 4, viewValue: 'Viudo'},
+    {value: 5, viewValue: 'Casado'},
    
   ];
 
@@ -936,7 +946,6 @@ ocultar: boolean = true;
         this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
         this.paciente.contrasenia=this.login.porMientras;
         console.log(this.login.porMientras);
-
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
@@ -991,7 +1000,7 @@ ocultar: boolean = true;
     }
      
 
-      if(this.formulario_antecedentes_familiares){
+      if(this.formulario_antecedentes_familiares.valid){
         // guardar datos del formulario en antecedente_familiar y enviarlo a la api
         this.antecedente_familiar.diabetes = this.diabetes.value;
         this.antecedente_familiar.parentesco_diabetes = this.parentesco_diabetes.value;
@@ -1034,24 +1043,24 @@ ocultar: boolean = true;
       if(this.formulario_antecedentes_personales.valid){
 
         // guardar datos del formulario en antecedente_personal y enviarlo a la api
-        this.antecedente_personal.diabetes = this.diabetes.value;
+        this.antecedente_personal.diabetes = this.diabetes_ap.value;
         this.antecedente_personal.observacion_diabetes = this.observacion_diabetes_ap.value;
-        this.antecedente_personal.tb_pulmonar = this.tb_pulmonar.value;
+        this.antecedente_personal.tb_pulmonar = this.tb_pulmonar_ap.value;
         this.antecedente_personal.observacion_tb_pulmonar = this.observacion_tb_pulmonar_ap.value;
         this.antecedente_personal.its = this.its.value;
         this.antecedente_personal.observacion_its = this.observacion_its.value;
-        this.antecedente_personal.desnutricion = this.desnutricion.value;
+        this.antecedente_personal.desnutricion = this.desnutricion_ap.value;
         this.antecedente_personal.observacion_desnutricion = this.observacion_desnutricion_ap.value;
         this.antecedente_personal.tipo_desnutricion = this.tipo_desnutricion_ap.value;
-        this.antecedente_personal.enfermedades_mentales = this.enfermedades_mentales.value;
+        this.antecedente_personal.enfermedades_mentales = this.enfermedades_mentales_ap.value;
         this.antecedente_personal.observacion_enfermedades_mentales = this.observacion_enfermedades_mentales_ap.value;
         this.antecedente_personal.tipo_enfermedad_mental = this.tipo_enfermedad_mental_ap.value;
-        this.antecedente_personal.convulsiones = this.convulsiones.value;
+        this.antecedente_personal.convulsiones = this.convulsiones_ap.value;
         this.antecedente_personal.observacion_convulsiones = this.observacion_convulsiones_ap.value;
-        this.antecedente_personal.alergias = this.alergias.value;
+        this.antecedente_personal.alergias = this.alergias_ap.value;
         this.antecedente_personal.observacion_alergias = this.observacion_alergias_ap.value;
         this.antecedente_personal.tipo_alergia = this.tipo_alergia_ap.value;
-        this.antecedente_personal.cancer = this.cancer.value;
+        this.antecedente_personal.cancer = this.cancer_ap.value;
         this.antecedente_personal.observacion_cancer = this.observacion_cancer_ap.value;
         this.antecedente_personal.tipo_cancer = this.tipo_cancer_ap.value;
         this.antecedente_personal.hospitalarias_quirurgicas = this.hospitalarias_quirurgicas.value;

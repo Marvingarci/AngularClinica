@@ -6,10 +6,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Inventario } from '../interfaces/inventario';
 
 export interface tablaInventario {
-  cantidad: number;
+  id_inventario?: number;
+  unidad: number;
   nombre: string;
   descripcion: string;
-  fecha_vencimiento: Date;
+  presentacion: string;
+  observacion: string;
+  //fecha_vencimiento: Date;
   ver: string;
 }
 
@@ -25,15 +28,18 @@ export class InventarioComponent implements OnInit {
   id: any;
 
   inventario: Inventario={
-    cantidad: null,
+    id_inventario:null,
+    unidad: null,
     nombre: null,
     descripcion: null,
-    fecha_vencimiento: null,
+    presentacion: null,
+    observacion: null,
+    //fecha_vencimiento: null,
     
   };
   
 
-  displayedColumns: string[] = ['cantidad', 'nombre', 'descripcion', 'fecha_vencimiento', 'ver'];
+  displayedColumns: string[] = ['id_inventario', 'nombre', 'descripcion', 'presentacion', 'observacion', 'unidad', 'ver'];
   
   dataSource:any;
   applyFilter(filterValue: string) {

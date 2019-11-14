@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormularioService } from "../services/formulario.service";
 import { Paciente } from "../interfaces/paciente";
 import { MatMonthView } from '@angular/material/datepicker';
 import { AppComponent } from '../app.component';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { select } from '../formulario/formulario.component';
 import { AntecedentesFamiliares } from '../interfaces/antecedentes-familiares';
 import { MatTableDataSource, MatSidenav } from '@angular/material';
@@ -36,6 +36,7 @@ export interface Element{
 
 @Component({
   selector: 'app-ver-paciente',
+  inputs:['cambios'],
   templateUrl: './ver-paciente.component.html',
   styleUrls: ['./ver-paciente.component.css']
 })
@@ -102,27 +103,27 @@ export class VerPacienteComponent implements OnInit {
   formulario_antecedentes_familiares = new FormGroup({
       
     diabetes : new FormControl('',[Validators.required]),
-    parentesco_diabetes : new FormControl({value:'', disabled: true},[]),
+    parentesco_diabetes : new FormControl('',[]),
     tb_pulmonar : new FormControl('',[Validators.required]),
-    parentesco_tb_pulmonar : new FormControl({value:'', disabled: true},[]),
+    parentesco_tb_pulmonar : new FormControl('',[]),
     desnutricion : new FormControl('',[Validators.required]),
-    parentesco_desnutricion : new FormControl({value:'', disabled: true},[]),
-    tipo_desnutricion: new FormControl({value:'', disabled: true},[]),
+    parentesco_desnutricion : new FormControl('',[]),
+    tipo_desnutricion: new FormControl('',[]),
     enfermedades_mentales : new FormControl('',[Validators.required]),
-    parentesco_enfermedades_mentales : new FormControl({value:'', disabled: true},[]),
-    tipo_enfermedad_mental: new FormControl({value:'', disabled: true},[]),
+    parentesco_enfermedades_mentales : new FormControl('',[]),
+    tipo_enfermedad_mental: new FormControl('',[]),
     convulsiones : new FormControl('',[Validators.required]),
-    parentesco_convulsiones : new FormControl({value:'', disabled: true},[]),
+    parentesco_convulsiones : new FormControl('',[]),
     alcoholismo_sustancias_psicoactivas : new FormControl('',[Validators.required]),
-    parentesco_alcoholismo_sustancias_psicoactivas: new FormControl({value:'', disabled: true},[]),    
+    parentesco_alcoholismo_sustancias_psicoactivas: new FormControl('',[]),    
     alergias : new FormControl('',[Validators.required]),
-    parentesco_alergias: new FormControl({value:'', disabled: true},[]),
-    tipo_alergia: new FormControl({value:'', disabled: true},[]),
+    parentesco_alergias: new FormControl('',[]),
+    tipo_alergia: new FormControl('',[]),
     cancer : new FormControl('',[Validators.required]),
-    parentesco_cancer: new FormControl({value:'', disabled: true},[]),
-    tipo_cancer: new FormControl({value:'', disabled: true},[]),
+    parentesco_cancer: new FormControl('',[]),
+    tipo_cancer: new FormControl('',[]),
     hipertension_arterial: new FormControl('',[Validators.required]),
-    parentesco_hipertension_arterial: new FormControl({value:'', disabled: true},[]),
+    parentesco_hipertension_arterial: new FormControl('',[]),
     otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]), 
     parentesco_otros : new FormControl('',[]),
       
@@ -179,6 +180,8 @@ export class VerPacienteComponent implements OnInit {
   formulario_actividad_sexual = new FormGroup({
 
     actividad_sexual : new FormControl('', Validators.required),
+
+    // hay que validar que si actividad sexual es true que sean requeridos estos 3 campos
     edad_inicio_sexual : new FormControl('', [ Validators.max(50)]),
     numero_parejas_sexuales : new FormControl('', [ Validators.max(99)]),
     practicas_sexuales_riesgo : new FormControl(''),
@@ -209,11 +212,11 @@ export class VerPacienteComponent implements OnInit {
 
   formulario_antecedente_obstetrico = new FormGroup({
 
-    partos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
-    abortos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
-    cesarias: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
-    hijos_vivos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
-    hijos_muertos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
+    partos: new FormControl('',[Validators.max(10),Validators.min(0)]),
+    abortos: new FormControl('',[Validators.max(10),Validators.min(0)]),
+    cesarias: new FormControl('',[Validators.max(10),Validators.min(0)]),
+    hijos_vivos: new FormControl('',[Validators.max(10),Validators.min(0)]),
+    hijos_muertos: new FormControl('',[Validators.max(10),Validators.min(0)]),
     fecha_termino_ult_embarazo : new FormControl(''),
     descripcion_termino_ult_embarazo : new FormControl(''),
     observaciones : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
@@ -238,250 +241,25 @@ export class VerPacienteComponent implements OnInit {
     this.step--;
   }
 
-  read1 = true;
-input1 : string = '';
-csi1() { this.read1 = false;}
-cno1() {this.read1 = true;
-        this.input1= null;}
 
-read2 = true;
-input2 : string = '';
-csi2() { this.read2 = false;}
-cno2() {this.read2 = true;this.input2= null;  }
-
-read3 = true;
-input3 : string = '';
-csi3() { this.read3 = false;}
-cno3() {this.read3 = true; this.input3= null; }
-
-read4 = true;
-input4 : string = '';
-isDisabled4 = true;
-csi4() { this.read4 = false;
-  this.isDisabled4 = false; }
-cno4() {this.read4 = true; 
-  this.isDisabled4 = true; this.input4= null; }
-
-read5 = true;
-isDisabled5 = true;
-input5 : string = '';
-csi5() { this.read5 = false;
-  this.isDisabled5 = false; }
-cno5() {this.read5 = true; 
-  this.isDisabled5 = true; this.input5= null; }
-
-read6 = true;
-input6 : string = '';
-csi6() { this.read6 = false;}
-cno6() {this.read6 = true;  this.input6= null;}
-
-
-read7 = true;
-isDisabled7 = true;
-input7 : string = '';
-csi7() { this.read7 = false;
-  this.isDisabled7 = false; }
-cno7() {this.read7 = true;
-  this.isDisabled7 = true;this.input7= null; }
-
-read8 = true;
-isDisabled8 = true;
-input8 : string = '';
-csi8() { this.read8 = false;
-  this.isDisabled8 = false;  }
-cno8() {this.read8 = true; 
-  this.isDisabled8 = true;this.input8= null; }
-
-read9 = true;
-input9 : string = '';
-csi9() { this.read9 = false;}
-cno9() {this.read9 = true;this.input9= null;  }
-
-read10 = true;
-input10 : string = '';
-csi10() { this.read10 = false;}
-cno10() {this.read10 = true; this.input10= null; }
-
-read11 = true;
-input11 : string = '';
-csi11() { this.read11 = false;}
-cno11() {this.read11 = true; this.input11= null; }
-
-read12 = true;
-input12 : string = '';
-csi12() { this.read12 = false;}
-cno12() {this.read12 = true; this.input12= null; }
-
-read13 = true;
-input13 : string = '';
-csi13() { this.read13 = false;}
-cno13() {this.read13 = true; this.input13= null; }
-
-read14 = true;
-input14 : string = '';
-csi14() { this.read14 = false;}
-cno14() {this.read14 = true; this.input14= null; }
-
-
-
-  read16 = true;
-isDisabledB26 = true;
-csi16() { this.read16 = false;
-          this.isDisabledB26 = false;}
-cno16() {this.read16 = true;  
-  this.isDisabledB26 = true;}
-
-  read17 = true;
-  input17 : string = '';
-csi17() { this.read17 = false;}
-cno17() {this.read17 = true; this.input17= null;  }
-
-ya(){
-  alert('macizo');
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-isDisabledB1 = true;
-triggerSomeEventSiB1() {      
-    this.isDisabledB1 = false;
-}
-triggerSomeEventNoB1() {  
-  this.isDisabledB1 = true; 
- }
-
- isDisabledB2 = true;
- triggerSomeEventSiB2() {      
-     this.isDisabledB2 = false;
- }
- triggerSomeEventNoB2() {  
-   this.isDisabledB2 = true; 
-  }
-   isDisabledB3 = true;
-triggerSomeEventSiB3() {      
-    this.isDisabledB3 = false;
-}
-triggerSomeEventNoB3() {  
-  this.isDisabledB3 = true; 
- }
-
-isDisabledB4 = true;
-triggerSomeEventSiB4() {      
-    this.isDisabledB4 = false;
-}
-triggerSomeEventNoB4() {  
-  this.isDisabledB4 = true; 
-  }
-
-  isDisabledB5 = true;
-triggerSomeEventSiB5() {      
-    this.isDisabledB5 = false;
-}
-triggerSomeEventNoB5() {  
-  this.isDisabledB5 = true; 
-  }
-
-  isDisabledB6 = true;
-triggerSomeEventSiB6() {      
-    this.isDisabledB6 = false;
-}
-triggerSomeEventNoB6() {  
-  this.isDisabledB6 = true; 
-  }
-
-
-  isDisabledB77 = true;
-  triggerSomeEventSiB77() {      
-    this.isDisabledB77 = false;
-}
-triggerSomeEventNoB77() {  
-  this.isDisabledB77 = true; 
-  }
-
-
-
-  isDisabledB8 = true;
-triggerSomeEventSiB8() {      
-    this.isDisabledB8 = false;
-}
-triggerSomeEventNoB8() {  
-  this.isDisabledB8 = true; 
-  }
-
-  isDisabledB9 = true;
-triggerSomeEventSiB9() {      
-    this.isDisabledB9 = false;
-}
-triggerSomeEventNoB9() {  
-  this.isDisabledB9 = true; 
-  }
-
+habilitarInputs(formControl : FormControl[]){
   
-
-  
-read15 = true;
-isDisabledB25 = true;
-input15 : string = '';
-
-csi15() { 
-  console.log(this.formulario_datos_generales.get('sexo').value);
-  
-  if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-    this.read15 = false;
-          this.isDisabledB25 = false;
-  }else{
-    this.read15 = false;
-          this.isDisabledB25 = false;
-    this.ocultar=false;
-  }
-  
-  
+  formControl.forEach(controlador => {
+    controlador.enable({onlySelf: true});
+    
+  });
 }
-cno15() {  
-   this.input15= null;
-  console.log(this.formulario_datos_generales.get('sexo').value);
+// hace esto melvin para que se te limpien los inputs
+borrarInputs(formControl : FormControl[]){
 
-  if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-    this.read15 = true;  
-  this.isDisabledB25 = true; 
-  }else{
-    this.read15 = true;  
-  this.isDisabledB25 = true;
-    this.ocultar=true;
-  }
- 
+  formControl.forEach(controlador => {
+    controlador.setValue('');
+    controlador.disable({onlySelf: true});
+  });
+
 }
 
-isDisabledB11 = true;
-inputB11 : string ;
-triggerSomeEventSiB11() {    
-  this.isDisabledB11 = false;
-}
-triggerSomeEventNoB11() {  
-  this.inputB11  =null ;
-  this.isDisabledB11 = true; 
-}
 
-isDisabledB12 = true;
-inputB12 : string ;
-triggerSomeEventSiB12() {      
-    this.isDisabledB12 = false;
-}
-triggerSomeEventNoB12() {             
-  this.inputB12  =null ;
-  this.isDisabledB12 = true; 
-}
 
 des = true;
 ingreso : string ;
@@ -690,8 +468,9 @@ ocultar: boolean = true;
 
 
 
-
-
+//date picker
+minDate = new Date(1950, 0, 1);
+maxDate = new Date();
 
 
 //select
@@ -819,15 +598,31 @@ ocultar: boolean = true;
   antecedentes_personales: AntecedentesPersonales[];
   habitos_toxicologicos: HabitosToxicologicosPersonales[];
   actividades_sexuales: ActividadSexual[];
+  antecedentes_ginecologicos: AntecedentesGinecologicos[];
+  antecedentes_obstetricos: AntecedentesObstetricos[];
+  planificaciones_familiares: PlanificacionesFamiliares[];
 
   //variable que identifica si un input es editable
-  readonly: boolean = true;
+  readonlyDatosGenerales: boolean = true;
+  readonlyAntecedentesFamiliares: boolean = true;
+  readonlyAntecedentesPersonales: boolean = true;
+  readonlyHabitosToxicologicos: boolean = true;
+  readonlyActividadSexual: boolean = true;
+  readonlyAntecedentesObstetricos: boolean = true;
+  readonlyAntecedentesGinecologicos: boolean = true;
+  readonlyPlanificacionFamiliar: boolean = true;
 
+
+
+
+  //variable que identifica si un paciente es un alumno
   esAlumno: boolean = true;
 
 
-  dataSource: any;
-  
+  //variable que identifica si un paciente tiene estos campos
+  mostrarAntecedenteGinecologico: boolean = false;
+  mostrarAntecedenteObstetrico: boolean = false;
+  mostrarPlanificacionFamiliar: boolean = false;  
 
 
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, activar: AppComponent ) { 
@@ -850,7 +645,7 @@ ocultar: boolean = true;
         if(this.paciente.categoria != "E"){
           this.esAlumno = false;
         }
-        console.log(this.esAlumno);
+        console.log('esAlumno: '+this.esAlumno);
 
         console.log(this.paciente.contrasenia);
         this.formularioService.idActualizar=this.paciente.id_paciente;
@@ -882,6 +677,7 @@ ocultar: boolean = true;
           //establesco el valor a los formcontrol para que se visualizen
           //en los respectivos inputs de los antecedentes familiares
           this.cargarInformacionAntecedentesFamiliares();
+
   
           
           console.log(this.antecedente_familiar);
@@ -903,6 +699,7 @@ ocultar: boolean = true;
           //establesco el valor a los formcontrol para que se visualizen
           //en los respectivos inputs de los antecedentes personales
           this.cargarInformacionAntecedentesPersonales();
+
   
           console.log(this.antecedente_personal);
         },(error)=>{
@@ -919,12 +716,12 @@ ocultar: boolean = true;
         this.cargarTablaHabitosToxicologicos();
         console.log(this.tablaHabitosToxicologicos);
 
-        //establesco el valor a los formcontrol para que se visualizen
+      //   //establesco el valor a los formcontrol para que se visualizen
           //en los respectivos inputs de los habitos toxicologicos
           this.cargarInformacionHabitosToxicologicos();
 
 
-      console.log(this.habito_toxicologico_personal);
+        console.log(this.habito_toxicologico_personal);
           
       }, (error)=>{
         console.log(error);
@@ -937,10 +734,74 @@ ocultar: boolean = true;
 
 
         //establesco el valor a los formcontrol para que se visualizen
-          //en los respectivos inputs de los habitos toxicologicos
+          //en los respectivos inputs de la actividad sexual
           this.cargarInformacionActividadSexual();
-      },(error)=>{
 
+
+      },(error)=>{
+        console.log(error);
+      });
+
+      this.formularioService.obtenerAntecedentesGinecologicos().subscribe((data : AntecedentesGinecologicos[])=>{
+        this.antecedentes_ginecologicos = data;
+        this.antecedente_ginecologico = this.antecedentes_ginecologicos.find((m)=>{return m.id_paciente == this.id});
+
+        if(this.antecedente_ginecologico != null){
+          this.mostrarAntecedenteGinecologico = true;
+
+          //establesco el valor a los formcontrol para que se visualizen
+          //en los respectivos inputs de los antecedentes ginecologicos
+          this.cargarInformacionAntecedentesGinecologicos();
+
+          console.log(this.antecedente_ginecologico);
+        }
+
+        console.log('mostrarAncedententeGinecologico: '+this.mostrarAntecedenteGinecologico);
+      }, (error)=>{
+        console.log(error);
+      });
+
+      this.formularioService.obtenerAntecedentesObstetricos().subscribe((data: AntecedentesObstetricos[])=>{
+        this.antecedentes_obstetricos = data;
+        this.antecedente_obstetrico = this.antecedentes_obstetricos.find((m)=>{return m.id_paciente == this.id});
+
+
+
+        if(this.antecedente_obstetrico!= null){
+          this.mostrarAntecedenteObstetrico = true;
+
+        //establesco el valor a los formcontrol para que se visualizen
+        //en los respectivos inputs de los antecedentes obstetricos
+        this.cargarInformacionAntecedentesObstetricos();
+
+          console.log(this.antecedente_obstetrico);
+        }
+
+        console.log('mostrarAntecedenteObstetrico: '+this.mostrarAntecedenteObstetrico);
+      },(error)=>{
+        console.log(error);
+        
+      });
+
+
+      this.formularioService.obtenerPlanificacionesFamiliares().subscribe((data: PlanificacionesFamiliares[])=>{
+        this.planificaciones_familiares = data;
+        this.planificacion_familiar = this.planificaciones_familiares.find((m)=>{return m.id_paciente == this.id});
+
+        if(this.planificacion_familiar!= null){
+          this.mostrarPlanificacionFamiliar = true;
+
+          //establesco el valor a los formcontrol para que se visualizen
+          //en los respectivos inputs de la planificacion familiar
+          this.cargarInformacionPlanificacionfamiliar();
+
+
+          console.log(this.planificacion_familiar);
+        }
+
+        console.log('mostrarPlanificacionFamiliar: '+this.mostrarPlanificacionFamiliar);
+      },(error)=>{
+        console.log(error);
       });
   
 
@@ -950,10 +811,253 @@ ocultar: boolean = true;
   }
 
     
-  culitoPelado(){
+  actualizarDatosGenerales(){
+
+    if(this.readonlyDatosGenerales === true){
+    
+      if(this.formulario_datos_generales.valid){
+
+        // guardar datos del formulario en paciente y enviarlo a la api
+        this.paciente.nombre_completo = this.nombre_completo.value;
+        this.paciente.numero_cuenta = this.numero_cuenta.value;
+        this.paciente.numero_identidad = this.numero_identidad.value;
+        this.paciente.lugar_procedencia = this.lugar_procedencia.value;
+        this.paciente.direccion = this.direccion.value;
+        this.paciente.carrera = this.carrera.value;
+        this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
+        this.paciente.sexo = this.sexo.value;
+        this.paciente.estado_civil = this.estado_civil.value;
+        this.paciente.seguro_medico = this.seguro_medico.value;
+        this.paciente.numero_telefono = this.numero_telefono.value;
+        this.paciente.emergencia_telefono = this.emergencia_telefono.value;
+        this.paciente.categoria = this.categoria.value;
+
+      
+        this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
+          alert('se actualizaron perron los datos generales');
+        }, (error)=>{
+          console.log(error);
+          alert('se chorriaron los datos generales');
+        });
+      } 
+    }
+     
+  }
+
+  actualizarAntecedentesFamiliares(){
+    if(this.readonlyAntecedentesFamiliares === true){
+
+      if(this.formulario_antecedentes_familiares.valid){
+        // guardar datos del formulario en antecedente_familiar y enviarlo a la api
+        this.antecedente_familiar.diabetes = this.diabetes.value;
+        this.antecedente_familiar.parentesco_diabetes = this.parentesco_diabetes.value;
+        this.antecedente_familiar.tb_pulmonar = this.tb_pulmonar.value;
+        this.antecedente_familiar.parentesco_tb_pulmonar = this.parentesco_tb_pulmonar.value;
+        this.antecedente_familiar.desnutricion = this.desnutricion.value;
+        this.antecedente_familiar.parentesco_desnutricion = this.parentesco_desnutricion.value;
+        this.antecedente_familiar.tipo_desnutricion = this.tipo_desnutricion.value;
+        this.antecedente_familiar.enfermedades_mentales = this.enfermedades_mentales.value;
+        this.antecedente_familiar.parentesco_enfermedades_mentales = this.parentesco_enfermedades_mentales.value;
+        this.antecedente_familiar.tipo_enfermedad_mental = this.tipo_enfermedad_mental.value;
+        this.antecedente_familiar.convulsiones = this.convulsiones.value;
+        this.antecedente_familiar.parentesco_convulsiones = this.parentesco_convulsiones.value;
+        this.antecedente_familiar.alcoholismo_sustancias_psicoactivas = this.alcoholismo_sustancias_psicoactivas.value;
+        this.antecedente_familiar.parentesco_alcoholismo_sustancias_psicoactivas = this.parentesco_alcoholismo_sustancias_psicoactivas.value;
+        this.antecedente_familiar.alergias = this.alergias.value;
+        this.antecedente_familiar.parentesco_alergias = this.parentesco_alergias.value;
+        this.antecedente_familiar.tipo_alergia = this.tipo_alergia.value;
+        this.antecedente_familiar.cancer = this.cancer.value;
+        this.antecedente_familiar.parentesco_cancer = this.parentesco_cancer.value;
+        this.antecedente_familiar.tipo_cancer = this.tipo_cancer.value;
+        this.antecedente_familiar.hipertension_arterial = this.hipertension_arterial.value;
+        this.antecedente_familiar.parentesco_hipertension_arterial = this.parentesco_hipertension_arterial.value;
+        this.antecedente_familiar.otros = this.otros.value;
+        this.antecedente_familiar.parentesco_otros = this.parentesco_otros.value;
+      
+            
+
+        this.formularioService.actualizarAntecedenteFamiliar(this.antecedente_familiar).subscribe( (data) =>{
+          this.cargarTablaAntecedentesFamiliares();
+
+          alert('se actualizaron perron los antecedentes familiares')
+        }, (error) => {
+          console.log(error);
+          alert('se chorriaron los antecedentes familiares')
+        });
+
+      }
+    }
+  }
+
+  actualizarAntecedentesPersonales(){
+
+    if(this.readonlyAntecedentesPersonales == true){
+      if(this.formulario_antecedentes_personales.valid){
+
+        // guardar datos del formulario en antecedente_personal y enviarlo a la api
+        this.antecedente_personal.diabetes = this.diabetes_ap.value;
+        this.antecedente_personal.observacion_diabetes = this.observacion_diabetes.value;
+        this.antecedente_personal.tb_pulmonar = this.tb_pulmonar_ap.value;
+        this.antecedente_personal.observacion_tb_pulmonar = this.observacion_tb_pulmonar_ap.value;
+        this.antecedente_personal.its = this.its.value;
+        this.antecedente_personal.observacion_its = this.observacion_its.value;
+        this.antecedente_personal.desnutricion = this.desnutricion_ap.value;
+        this.antecedente_personal.observacion_desnutricion = this.observacion_desnutricion_ap.value;
+        this.antecedente_personal.tipo_desnutricion = this.tipo_desnutricion_ap.value;
+        this.antecedente_personal.enfermedades_mentales = this.enfermedades_mentales_ap.value;
+        this.antecedente_personal.observacion_enfermedades_mentales = this.observacion_enfermedades_mentales_ap.value;
+        this.antecedente_personal.tipo_enfermedad_mental = this.tipo_enfermedad_mental_ap.value;
+        this.antecedente_personal.convulsiones = this.convulsiones_ap.value;
+        this.antecedente_personal.observacion_convulsiones = this.observacion_convulsiones_ap.value;
+        this.antecedente_personal.alergias = this.alergias_ap.value;
+        this.antecedente_personal.observacion_alergias = this.observacion_alergias_ap.value;
+        this.antecedente_personal.tipo_alergia = this.tipo_alergia_ap.value;
+        this.antecedente_personal.cancer = this.cancer_ap.value;
+        this.antecedente_personal.observacion_cancer = this.observacion_cancer_ap.value;
+        this.antecedente_personal.tipo_cancer = this.tipo_cancer_ap.value;
+        this.antecedente_personal.hospitalarias_quirurgicas = this.hospitalarias_quirurgicas.value;
+        this.antecedente_personal.fecha_antecedente_hospitalario = this.fecha_antecedente_hospitalario.value;
+        this.antecedente_personal.tratamiento = this.tratamiento.value;
+        this.antecedente_personal.diagnostico = this.diagnostico.value;
+        this.antecedente_personal.tiempo_hospitalizacion = this.tiempo_hospitalizacion.value;
+        this.antecedente_personal.traumaticos = this.traumaticos.value;
+        this.antecedente_personal.observacion_traumaticos = this.observacion_traumaticos.value;
+        this.antecedente_personal.otros = this.otros_ap.value;
+        this.antecedente_personal.observacion_otros = this.observacion_otros_ap.value;
+        
+
+        this.formularioService.actualizarAntecedentePersonal(this.antecedente_personal).subscribe((data)=>{
+          this.cargarTablaAntecedentesPersonales();
+          alert('se actualizaron perron los antecedentes personales')
+    
+        },(error)=>{
+          console.log(error)
+          alert('se chorriaron los antecedentes personales')
+    
+        });
+      }
+      
+    }
     
   }
+
+  actualizarHabitosToxicologicos(){
+    if(this.readonlyHabitosToxicologicos == true){
+      if(this.formulario_habito_toxicologico_personal.valid){
+
+        // guardar datos del formulario en habito_toxicologico y enviarlo a la api
+        this.habito_toxicologico_personal.alcohol = this.alcohol.value;
+        this.habito_toxicologico_personal.observacion_alcohol = this.observacion_alcohol.value;
+        this.habito_toxicologico_personal.tabaquismo = this.tabaquismo.value;
+        this.habito_toxicologico_personal.observacion_tabaquismo = this.observacion_tabaquismo.value;
+        this.habito_toxicologico_personal.marihuana = this.marihuana.value;
+        this.habito_toxicologico_personal.observacion_marihuana = this.observacion_marihuana.value;
+        this.habito_toxicologico_personal.cocaina = this.cocaina.value;
+        this.habito_toxicologico_personal.observacion_cocaina = this.observacion_cocaina.value;
+        this.habito_toxicologico_personal.otros = this.otros_ht.value;
+        this.habito_toxicologico_personal.observacion_otros = this.observacion_otros_ht.value;
+
+        this.formularioService.actualizarHabitoToxicologico(this.habito_toxicologico_personal).subscribe((data)=>{
+          
+          this.cargarTablaHabitosToxicologicos();
+
+          alert('se actualizaron perron los habitos toxicologicos');
+        }, (error)=>{
+          console.log(error);
+        });
+      }
+    }
+  }
+
+  actualizarActividadSexual(){
+    if(this.readonlyActividadSexual == true){
+      if(this.formulario_actividad_sexual.valid){
+         // guardar datos del formulario en actividad_sexual y enviarlo a la api
+
+         this.actividad_sexual.actividad_sexual = this.actividad_sexuall.value;
+         this.actividad_sexual.edad_inicio_sexual = this.edad_inicio_sexual.value;
+         this.actividad_sexual.numero_parejas_sexuales = this.numero_parejas_sexuales.value;
+         this.actividad_sexual.practicas_sexuales_riesgo = this.practicas_sexuales_riesgo.value;
+
+         this.formularioService.actualizarActividadSexual(this.actividad_sexual).subscribe((data)=>{
+          this.cargarInformacionActividadSexual();
+
+          alert('se actualizaron perron la actividad sexual');
+           
+         },(error)=>{
+           console.log(error);
+         });
+      }
+    }
+  }
+
+  actualizarAntecedentesGinecologicos(){
+
+    if(this.readonlyAntecedentesGinecologicos == true){
+      if(this.formulario_antecedente_ginecologico.valid){
+
+        // guardar datos del formulario en antecedente_genicologico y enviarlo a la api
+        this.antecedente_ginecologico.edad_inicio_menstruacion = this.edad_inicio_menstruacion.value;
+        this.antecedente_ginecologico.fum = this.fum.value;
+        this.antecedente_ginecologico.citologia = this.citologia.value;
+        this.antecedente_ginecologico.fecha_citologia = this.fecha_citologia.value;
+        this.antecedente_ginecologico.resultado_citologia = this.resultado_citologia.value;
+        this.antecedente_ginecologico.duracion_ciclo_menstrual = this.duracion_ciclo_menstrual.value;
+        this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
+        this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
+
+        this.formularioService.actualizarAntecedenteGinecologico(this.antecedente_ginecologico).subscribe((data)=>{
+          this.cargarInformacionAntecedentesGinecologicos();
+
+          alert('se actualizaron perron los antecedentes ginecologicos');
+
+        }, (error)=> {
+          console.log(error);
+        });
+
+      }
+    }
+  }
+
+  actualizarAntecedentesObstetricos(){
+    if(this.readonlyAntecedentesObstetricos == true){
+      if(this.formulario_antecedente_obstetrico.valid){
+
+        // guardar datos del formulario en antecedente_obstetrico y enviarlo a la api
+        this.antecedente_obstetrico.partos = this.partos.value;
+        this.antecedente_obstetrico.abortos = this.abortos.value;
+        this.antecedente_obstetrico.cesarias = this.cesarias.value;
+        this.antecedente_obstetrico.hijos_vivos = this.hijos_vivos.value;
+        this.antecedente_obstetrico.hijos_muertos = this.hijos_muertos.value;
+        this.antecedente_obstetrico.fecha_termino_ult_embarazo = this.fecha_termino_ult_embarazo.value;
+        this.antecedente_obstetrico.descripcion_termino_ult_embarazo = this.descripcion_termino_ult_embarazo.value;
+        this.antecedente_obstetrico.observaciones = this.observaciones.value;  
+
+        this.formularioService.actualizarAntecedenteObstetrico(this.antecedente_obstetrico).subscribe((data)=>{
+          this.cargarInformacionAntecedentesObstetricos();
+
+          alert('se actualizaron perron los antecedentes obstetricos');
+
+        }, (error)=>{
+          console.log(error);
+        });
+      }
+    }
+  }
+
   ngOnInit() {
+  }
+
+  
+  
+  @Input() cambios: string = this.otros.value;
+  ngOnChanges(changes: SimpleChanges) {
+
+    console.log('se ejecuto el onChanges')
+    // if (changes['cambios']) {
+    //   console.log(this.cambios);
+    // }
+      
     
   }
 
@@ -1121,7 +1225,7 @@ ocultar: boolean = true;
   }
 
   cargarTablaHabitosToxicologicos(){
-
+  
     // establesco los valores a el arreglo de interfaces "tablaHabitosToxicologicos"
     this.tablaHabitosToxicologicos = 
     [
@@ -1147,19 +1251,19 @@ ocultar: boolean = true;
       valor: this.habito_toxicologico_personal.cocaina,
       observacion: this.habito_toxicologico_personal.observacion_cocaina
       },
-      
 
     ];
 
     // verifico si otro tiene un valor para poder agregarlo a la tabla
-    if(this.habito_toxicologico_personal.otros != null){
+    if(this.habito_toxicologico_personal.otros){
       this.tablaHabitosToxicologicos.push(
         {
-          antecedente: this.habito_toxicologico_personal.otros,
+          antecedente: this.habito_toxicologico_personal.otros.trim(),
           valor: "Si",
           observacion: this.habito_toxicologico_personal.observacion_otros
-      });
+      }); 
     }
+    
   }
 
 
@@ -1190,29 +1294,78 @@ ocultar: boolean = true;
     //para que aparescan cargados en los inputs 
     this.diabetes.setValue(this.antecedente_familiar.diabetes);
     this.parentesco_diabetes.setValue(this.antecedente_familiar.parentesco_diabetes); 
+
+    if(this.diabetes.value == "No"){
+      this.parentesco_diabetes.disable({onlySelf: true})
+    }
+
     this.tb_pulmonar.setValue(this.antecedente_familiar.tb_pulmonar);
     this.parentesco_tb_pulmonar.setValue(this.antecedente_familiar.parentesco_tb_pulmonar);
+
+    if(this.tb_pulmonar.value == "No"){
+      this.parentesco_tb_pulmonar.disable({onlySelf: true})
+    }
+
     this.desnutricion.setValue(this.antecedente_familiar.desnutricion); 
     this.parentesco_desnutricion.setValue(this.antecedente_familiar.parentesco_desnutricion);
     this.tipo_desnutricion.setValue(this.antecedente_familiar.tipo_desnutricion);
+
+    if(this.desnutricion.value == "No"){
+      this.parentesco_desnutricion.disable({onlySelf: true});
+      this.tipo_desnutricion.disable({onlySelf: true})
+    }
+
     this.enfermedades_mentales.setValue(this.antecedente_familiar.enfermedades_mentales);
     this.parentesco_enfermedades_mentales.setValue(this.antecedente_familiar.parentesco_enfermedades_mentales);
     this.tipo_enfermedad_mental.setValue(this.antecedente_familiar.tipo_enfermedad_mental);
+   
+    if(this.enfermedades_mentales.value == "No"){
+      this.parentesco_enfermedades_mentales.disable({onlySelf: true});
+      this.tipo_enfermedad_mental.disable({onlySelf: true})
+    }
+
     this.convulsiones.setValue(this.antecedente_familiar.convulsiones);
     this.parentesco_convulsiones.setValue(this.antecedente_familiar.parentesco_convulsiones);
+
+    if(this.convulsiones.value == "No"){
+      this.parentesco_convulsiones.disable({onlySelf: true});
+    }
+
     this.alcoholismo_sustancias_psicoactivas.setValue(this.antecedente_familiar.alcoholismo_sustancias_psicoactivas);
     this.parentesco_alcoholismo_sustancias_psicoactivas.setValue(this.antecedente_familiar.parentesco_alcoholismo_sustancias_psicoactivas);
+    
+    if(this.alcoholismo_sustancias_psicoactivas.value == "No"){
+      this.parentesco_alcoholismo_sustancias_psicoactivas.disable({onlySelf: true});
+    }
+    
     this.alergias.setValue(this.antecedente_familiar.alergias);
     this.parentesco_alergias.setValue(this.antecedente_familiar.parentesco_alergias);
     this.tipo_alergia.setValue(this.antecedente_familiar.tipo_alergia);
+
+    if(this.alergias.value == "No"){
+      this.parentesco_alergias.disable({onlySelf: true});
+      this.tipo_alergia.disable({onlySelf: true});
+    }
+
     this.cancer.setValue(this.antecedente_familiar.cancer);
     this.parentesco_cancer.setValue(this.antecedente_familiar.parentesco_cancer);
     this.tipo_cancer.setValue(this.antecedente_familiar.tipo_cancer);
+
+    if(this.cancer.value == "No"){
+      this.parentesco_cancer.disable({onlySelf: true});
+      this.tipo_cancer.disable({onlySelf: true});
+    }
+
     this.hipertension_arterial.setValue(this.antecedente_familiar.hipertension_arterial);
     this.parentesco_hipertension_arterial.setValue(this.antecedente_familiar.parentesco_hipertension_arterial);
+
+    if(this.hipertension_arterial.value == "No"){
+      this.parentesco_hipertension_arterial.disable({onlySelf: true});
+    }
+
     this.otros.setValue(this.antecedente_familiar.otros);
     this.parentesco_otros.setValue(this.antecedente_familiar.parentesco_otros);
-
+    this.parentesco_otros.disable({onlySelf:true});
     
 
   }
@@ -1223,29 +1376,96 @@ ocultar: boolean = true;
     //para que aparescan cargados en los inputs 
     this.diabetes_ap.setValue(this.antecedente_personal.diabetes);
     this.observacion_diabetes.setValue(this.antecedente_personal.observacion_diabetes); 
+
+    if(this.diabetes_ap.value == "No"){
+      this.observacion_diabetes.disable({onlySelf: true});
+    }
+
     this.tb_pulmonar_ap.setValue(this.antecedente_personal.tb_pulmonar);
     this.observacion_tb_pulmonar_ap.setValue(this.antecedente_personal.observacion_tb_pulmonar);
+
+    if(this.tb_pulmonar_ap.value == "No"){
+      this.observacion_tb_pulmonar_ap.disable({onlySelf: true});
+    }
+
     this.its.setValue(this.antecedente_personal.its);
     this.observacion_its.setValue(this.antecedente_personal.observacion_its); 
+
+    if(this.its.value == "No"){
+      this.observacion_its.disable({onlySelf: true});
+    }
+
     this.desnutricion_ap.setValue(this.antecedente_personal.desnutricion);
     this.observacion_desnutricion_ap.setValue(this.antecedente_personal.observacion_desnutricion);
     this.tipo_desnutricion_ap.setValue(this.antecedente_personal.tipo_desnutricion);
+
+    if(this.desnutricion_ap.value == "No"){
+      this.observacion_desnutricion_ap.disable({onlySelf: true});
+      this.tipo_desnutricion_ap.disable({onlySelf: true});
+    }
+
     this.enfermedades_mentales_ap.setValue(this.antecedente_personal.enfermedades_mentales);
     this.observacion_enfermedades_mentales_ap.setValue(this.antecedente_personal.observacion_enfermedades_mentales);
     this.tipo_enfermedad_mental_ap.setValue(this.antecedente_personal.tipo_enfermedad_mental);
+
+    if(this.enfermedades_mentales_ap.value == "No"){
+      this.observacion_enfermedades_mentales_ap.disable({onlySelf: true});
+      this.tipo_enfermedad_mental_ap.disable({onlySelf: true});
+    }
+
     this.convulsiones_ap.setValue(this.antecedente_personal.convulsiones);
     this.observacion_convulsiones_ap.setValue(this.antecedente_personal.observacion_convulsiones);
+
+    if(this.convulsiones_ap.value == "No"){
+      this.observacion_convulsiones_ap.disable({onlySelf: true});
+    }
+
     this.alergias_ap.setValue(this.antecedente_personal.alergias);
     this.observacion_alergias_ap.setValue(this.antecedente_personal.observacion_alergias);
     this.tipo_alergia_ap.setValue(this.antecedente_personal.tipo_alergia);
+
+    if(this.alergias_ap.value == "No"){
+      this.observacion_alergias_ap.disable({onlySelf: true});
+      this.tipo_alergia_ap.disable({onlySelf: true});
+    }
+
     this.cancer_ap.setValue(this.antecedente_personal.cancer);
     this.observacion_cancer_ap.setValue(this.antecedente_personal.observacion_cancer);
     this.tipo_cancer_ap.setValue(this.antecedente_personal.tipo_cancer);
+
+    if(this.cancer_ap.value == "No"){
+      this.observacion_cancer_ap.disable({onlySelf: true});
+      this.tipo_cancer_ap.disable({onlySelf: true});
+    }
+
     this.hospitalarias_quirurgicas.setValue(this.antecedente_personal.hospitalarias_quirurgicas);
+    this.fecha_antecedente_hospitalario.setValue(this.antecedente_personal.fecha_antecedente_hospitalario);
+    this.tratamiento.setValue(this.antecedente_personal.tratamiento);
+    this.diagnostico.setValue(this.antecedente_personal.diagnostico);
+    this.tiempo_hospitalizacion.setValue(this.antecedente_personal.tiempo_hospitalizacion);
+
+    if(this.hospitalarias_quirurgicas.value == "No"){
+      this.fecha_antecedente_hospitalario.disable({onlySelf: true});
+      this.tratamiento.disable({onlySelf: true});
+      this.diagnostico.disable({onlySelf: true});
+      this.tiempo_hospitalizacion.disable({onlySelf: true});
+    }
+
+
+
     this.traumaticos.setValue(this.antecedente_personal.traumaticos);
     this.observacion_traumaticos.setValue(this.antecedente_personal.observacion_traumaticos);
+
+    if(this.traumaticos.value == "No"){
+      this.observacion_traumaticos.disable({onlySelf: true});    
+      
+    }
+
     this.otros_ap.setValue(this.antecedente_personal.otros);
     this.observacion_otros_ap.setValue(this.antecedente_personal.observacion_otros);
+
+
+  
 
   }
 
@@ -1254,12 +1474,35 @@ ocultar: boolean = true;
 
     this.alcohol.setValue(this.habito_toxicologico_personal.alcohol);
     this.observacion_alcohol.setValue(this.habito_toxicologico_personal.observacion_alcohol);
+    
+    if(this.alcohol.value == "No"){
+      this.observacion_alcohol.disable({onlySelf: true});    
+      
+    }
+
     this.tabaquismo.setValue(this.habito_toxicologico_personal.tabaquismo);
     this.observacion_tabaquismo.setValue(this.habito_toxicologico_personal.observacion_tabaquismo);
+
+    if(this.tabaquismo.value == "No"){
+      this.observacion_tabaquismo.disable({onlySelf: true});    
+      
+    }
     this.marihuana.setValue(this.habito_toxicologico_personal.marihuana);
     this.observacion_marihuana.setValue(this.habito_toxicologico_personal.observacion_marihuana);
+
+    if(this.marihuana.value == "No"){
+      this.observacion_marihuana.disable({onlySelf: true});    
+      
+    }
+
     this.cocaina.setValue(this.habito_toxicologico_personal.cocaina);
     this.observacion_cocaina.setValue(this.habito_toxicologico_personal.observacion_cocaina);
+
+    if(this.cocaina.value == "No"){
+      this.observacion_cocaina.disable({onlySelf: true});    
+      
+    }
+
     this.otros_ht.setValue(this.habito_toxicologico_personal.otros);
     this.observacion_otros_ht.setValue(this.habito_toxicologico_personal.observacion_otros);
 
@@ -1271,7 +1514,67 @@ ocultar: boolean = true;
     this.edad_inicio_sexual.setValue(this.actividad_sexual.edad_inicio_sexual);
     this.numero_parejas_sexuales.setValue(this.actividad_sexual.numero_parejas_sexuales);
     this.practicas_sexuales_riesgo.setValue(this.actividad_sexual.practicas_sexuales_riesgo);
+
+    if(this.actividad_sexuall.value == "No"){
+
+      this.edad_inicio_sexual.disable({onlySelf:true});
+      this.numero_parejas_sexuales.disable({onlySelf:true});
+      this.practicas_sexuales_riesgo.disable({onlySelf:true});
+
+    }else{
+      this.edad_inicio_sexual.setValidators([Validators.required]);
+      this.numero_parejas_sexuales.setValidators([Validators.required]);
+      this.practicas_sexuales_riesgo.setValidators([Validators.required]);
+    }
   }
+
+  cargarInformacionAntecedentesGinecologicos(){
+
+    this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);
+    this.fum.setValue(this.antecedente_ginecologico.fum);
+    this.citologia.setValue(this.antecedente_ginecologico.citologia);
+    this.fecha_citologia.setValue(this.antecedente_ginecologico.fecha_citologia);
+    this.resultado_citologia.setValue(this.antecedente_ginecologico.resultado_citologia);
+
+    if(this.citologia.value == "No"){
+      this.fecha_citologia.disable({onlySelf: true});
+      this.resultado_citologia.disable({onlySelf: true});
+    }
+
+    this.duracion_ciclo_menstrual.setValue(this.antecedente_ginecologico.duracion_ciclo_menstrual);
+    this.periocidad_ciclo_menstrual.setValue(this.antecedente_ginecologico.periocidad_ciclo_menstrual);
+    this.caracteristicas_ciclo_menstrual.setValue(this.antecedente_ginecologico.caracteristicas_ciclo_menstrual);
+
+
+  }
+
+  cargarInformacionAntecedentesObstetricos(){
+    
+    this.partos.setValue(this.antecedente_obstetrico.partos);
+    this.abortos.setValue(this.antecedente_obstetrico.abortos);
+    this.cesarias.setValue(this.antecedente_obstetrico.cesarias);
+    this.hijos_vivos.setValue(this.antecedente_obstetrico.hijos_vivos);
+    this.hijos_muertos.setValue(this.antecedente_obstetrico.hijos_muertos);
+    this.fecha_termino_ult_embarazo.setValue(this.antecedente_obstetrico.fecha_termino_ult_embarazo);
+    this.descripcion_termino_ult_embarazo.setValue(this.antecedente_obstetrico.descripcion_termino_ult_embarazo);
+    this.observaciones.setValue(this.antecedente_obstetrico.observaciones);
+        
+  }
+
+  cargarInformacionPlanificacionfamiliar(){
+
+    this.planificacion_familiarr.setValue(this.planificacion_familiar.planificacion_familiar);
+    this.metodo_planificacion.setValue(this.planificacion_familiar.metodo_planificacion);
+    this.observacion_planificacion.setValue(this.planificacion_familiar.observacion_planificacion);
+
+    if(this.planificacion_familiarr.value == "No"){
+      this.metodo_planificacion.disable({onlySelf: true});
+      this.observacion_planificacion.disable({onlySelf: true});
+    }
+
+  }
+
+
 
    //obtener los campos del formGroup: formulario_datos_generales
    get nombre_completo(){return this.formulario_datos_generales.get('nombre_completo')};

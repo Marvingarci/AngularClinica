@@ -6,11 +6,11 @@
         
                 <div class="col">
                 <mat-form-field class="example-full-width">
-                    <input  matInput placeholder="Cantidad" formControlName= "cantidad" required>
-                    <mat-error *ngIf="cantidad.hasError('required')">
+                    <input  matInput placeholder="Unidad" formControlName= "unidad" required>
+                    <mat-error *ngIf="unidad.hasError('required')">
                     <strong>campo requerido!</strong>
                     </mat-error>
-                    <mat-error *ngIf="cantidad.hasError('minLength') && cantidad.hasError('maxLength')">
+                    <mat-error *ngIf="unidad.hasError('minLength') && unidad.hasError('maxLength')">
                     <strong>campo requerido!</strong>
                     </mat-error>
                 </mat-form-field>
@@ -42,21 +42,43 @@
 
                 <div class="col">
                         <mat-form-field class="example-full-width">
-                          <input matInput [min]="minDate" [max]="maxDate"
-                          [matDatepicker]="picker1"
-                          formControlName= "fecha_vencimiento" placeholder="Fecha Vencimiento">
-                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                          <mat-datepicker #picker1></mat-datepicker>
-                        <mat-error *ngIf="fecha_vencimiento.hasError('required')">campo requerido!</mat-error>
-            
-                        </mat-form-field>
-                      </div>
+                            <input  matInput placeholder="Observacion" formControlName= "observacion" required>
+                                <mat-error *ngIf="observacion.hasError('required')">
+                                    <strong>campo requerido!</strong>
+                                </mat-error>
+                                <mat-error *ngIf="observacion.hasError('minLength')">
+                                    <strong>campo requerido!</strong>
+                                </mat-error>
+                        </mat-form-field>     
+                </div>
+
+               <!-- <div >
+                    <label  class="label">Presentacion</label>
+                    <p><select placeholder="Observacion" class="example-full-width" id = "select" name="miselect" formControlName= "presentacion">
+                        <option [value]="item" *ngFor="let item of lista">{{item}}</option>
+                    </select></p>           
+                </div>-->
+
+                <div class="col"> 
+                    <mat-form-field  class="example-full-width">
+                      <mat-label>Presentacion</mat-label>
+                      <mat-select formControlName= "presentacion" >
+                        <mat-option *ngFor="let presentacion of presentaciones" [value]="presentacion.value">
+                          {{presentacion.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="presentacion.hasError('required')">campo requerido!</mat-error>
+        
+                    </mat-form-field>
+                  </div>
+
+
             </form>
                         
         </div>
     </mat-card>
     
     <div >
-        <button  mat-raised-button (click)="comprobarDatos()"  class="btn btn-outline-primary float-right" style="margin-top: 20px;"> Guardar</button>  
+        <button  mat-raised-button (click)="comprobarDatos()"  class="btn btn-outline-primary float-right botonperron" style="margin-top: 20px;"> Guardar</button>  
     </div>
 </div>

@@ -1,0 +1,10 @@
+<div id="formstyle">
+    <span class="login100-form-title p-b-49">
+        Está seguro de eliminar a:
+        <p><strong>{{medico.usuarioM}}</strong></p>
+    </span> 
+    <div class="botones">
+    <button mat-raised-button color="primary" routerLink="/principal/medicos" >cancelar</button>  &nbsp; &nbsp; 
+    <button mat-raised-button color="warn" routerLink="/principal/medicos" (click)="borrar()">eliminar</button>
+    </div>            
+</div>

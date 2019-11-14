@@ -7,7 +7,7 @@
   }
   
   .mat-card{
-    margin-top: 40px;
+    /* margin-top: 10px; */
   }
   
  
@@ -32,8 +32,8 @@
     overflow: auto;
     position: absolute;
     overflow-x: hidden;   
-    top:30;
-    left:0;
+    /* top:30;
+    left:0; */
     
   }
 
@@ -101,6 +101,43 @@ tr.mat-footer-row {
   width: 100%;
   height: 100%;
   
+}
+
+.col {
+  text-align: left;
+  margin-left: 10px;
+  
+}
+.row{
+  
+  margin-left: 15px;
+}
+
+h2{
+  margin-bottom: 20px;
+}
+
+mat-divider {
+  margin-bottom: 16px;
+}
+
+
+/*radio buttons */
+.example-radio-group {
+  display: flex;
+  flex-direction: row;
+ margin-top: 20px;
+ 
+
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+/* label */
+#example-radio-group-label{
+  margin-top: 20px;
 }
 
   

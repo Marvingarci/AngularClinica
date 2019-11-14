@@ -1,69 +1,67 @@
 <div class="container">
-        <div><mat-form-field>
-           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">            
-        </mat-form-field>
-        <button mat-raised-button [routerLink]="['/principal/loginadmin']" 
-        style="width: 200px; height: 30px;float: right; margin-top: 15px;" routerLinkActive="router-link-active" class="botonperron">
-            Crear Nuevo Administrador</button></div>
+<div>
+    <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">            
+    </mat-form-field>
+    <button 
+    mat-raised-button [routerLink]="['/principal/loginadmin']" 
+    style="width: 200px; height: 30px;float: right; margin-top: 15px;" 
+    routerLinkActive="router-link-active" class="botonperron">Crear Nuevo Administrador
+    </button>
+    <button mat-raised-button [routerLink]="['/principal/medicos']" 
+    style="width: 200px; height: 30px;float: right; margin-top: 15px;margin-right: 15px;" 
+    routerLinkActive="router-link-active" class="botonperron">Medicos
+    </button>
+</div>
         
         <!--'id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'-->
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        
-            <!-- Position Column -->
-            <ng-container matColumnDef="id_loginAdmin">
-            <th mat-header-cell *matHeaderCellDef> # </th>
-            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-            </ng-container>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-            
+    <!-- Position Column -->
+    <ng-container matColumnDef="id_loginAdmin">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+   
+    <!-- Name Column -->
+    <ng-container matColumnDef="usuario_admin">
+        <th mat-header-cell *matHeaderCellDef> Usuario </th>
+        <td mat-cell *matCellDef="let element"> {{element.usuario_admin}} </td>
+    </ng-container>
 
-        
-            <!-- Name Column -->
-            <ng-container matColumnDef="usuario_admin">
-            <th mat-header-cell *matHeaderCellDef> Usuario </th>
-            <td mat-cell *matCellDef="let element"> {{element.usuario_admin}} </td>
-            </ng-container>
-        
-            <!-- Weight Column -->
-            <ng-container matColumnDef="contrasenia_admin">
-            <th mat-header-cell *matHeaderCellDef> Contraseña </th>
-            <td mat-cell *matCellDef="let element"> {{element.contrasenia_admin}} </td>
-            </ng-container>
-        
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="nombre_admin">
-            <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let element"> {{element.nombre_admin}} </td>
-            </ng-container>
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="identidad_admin">
-            <th mat-header-cell *matHeaderCellDef> Identidad </th>
-            <td mat-cell *matCellDef="let element"> {{element.identidad_admin}} </td>
-            </ng-container>
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="especialidad_admin">
-            <th mat-header-cell *matHeaderCellDef> Especialidad </th>
-            <td mat-cell *matCellDef="let element"> {{element.especialidad_admin}} </td>
-            </ng-container>
-            
+    <!-- Weight Column -->
+    <ng-container matColumnDef="contrasenia_admin">
+        <th mat-header-cell *matHeaderCellDef> Contraseña </th>
+        <td mat-cell *matCellDef="let element"> {{element.contrasenia_admin}} </td>
+    </ng-container>
 
-            <ng-container matColumnDef="nada">
-            <th mat-header-cell *matHeaderCellDef> </th>
-            <div mat-cell *matCellDef="let element">
-                
-        
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="nombre_admin">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre_admin}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="identidad_admin">
+        <th mat-header-cell *matHeaderCellDef> Identidad </th>
+        <td mat-cell *matCellDef="let element"> {{element.identidad_admin}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="especialidad_admin">
+        <th mat-header-cell *matHeaderCellDef> Especialidad </th>
+        <td mat-cell *matCellDef="let element"> {{element.especialidad_admin}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nada">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <div mat-cell *matCellDef="let element">
         <button mat-raised-button class="botonee" color="primary"  routerLink="/principal/loginadmin/{{element.id}}" > Editar</button> &nbsp;  
         <button mat-raised-button class="botonee" color="warn"  routerLink="/principal/borraradministradores/{{element.id}}"  >  Eliminar</button>        
-            </div>
-            </ng-container>
-            
-        
-            <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
-        </table>
-    
-    
-  
-    
+        </div>
+    </ng-container>
 
+    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+</table>  
 </div>

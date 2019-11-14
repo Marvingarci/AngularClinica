@@ -17,12 +17,9 @@ import { LoginadminService } from '../services/loginadmin.service';
   styleUrls: ['./login.component.css']  
 })
 
-
-
 export class LoginComponent implements OnInit {
  hide = true;
  loading: boolean =false;
- color = 'warn';
   //input
   // scrap: Paciente = {
   //   id_paciente: null,
@@ -77,24 +74,23 @@ export class LoginComponent implements OnInit {
 
   constructor(private LoginAdminService: LoginadminService,private loginService: LoginService,private router: Router,
      private activar: AppComponent,  Formulario: FormularioService, private mensaje: MatSnackBar){
-   activar.esconder();
+     activar.esconder();
 
- this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) =>{
-    this.login_admins = data;
-    console.log(this.login_admins);
-  }, (error: any)=>{
-    console.log(error);
-  }); 
+      this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) =>{
+      this.login_admins = data;
+      console.log(this.login_admins);
+      }, (error: any)=>{
+      console.log(error);
+      }); 
 
-   Formulario.obtenerPacientes().subscribe((data: Paciente[])=>{
-    this.pacientes = data;
-    console.log(this.pacientes);
-  }, (error)=>{
-    console.log(error);
-  }); 
-
-  
+      Formulario.obtenerPacientes().subscribe((data: Paciente[])=>{
+      this.pacientes = data;
+      console.log(this.pacientes);
+      }, (error)=>{
+      console.log(error);
+      }); 
   }
+
   showError(message: string) {
     const config = new MatSnackBarConfig();
     config.panelClass = ['background-red'];
@@ -102,12 +98,66 @@ export class LoginComponent implements OnInit {
     this.mensaje.open(message, null, config);
   }
 
+ ngOnInit() {  }
 
+ //EVENTO CUANDO SE DA ENTER
+  onKeydown(event) {
+    if (event.key === "Enter") {
+    this.hide = false;
+    this.loading=true;
+    this.login.cuenta = this.login_form.get('cuenta').value;
+    this.login.clave = this.login_form.get('clave').value;
+    this.loginService.porMientras = this.login_form.get('clave').value;
   
-  ngOnInit() {
+  //PACIENTES
+      for (let index = 0; index < this.pacientes.length; index++) {
+        if (this.pacientes[index].numero_cuenta == this.login.cuenta) {
+          this.pase=false;
+          this.paciente=this.pacientes[index];
+        }
+      }    
   
+      if (this.pase == true) {
+        this.loginService.guardarDatos(this.login).subscribe( (data) =>{
+          console.log(data);   
+          
+          this.showError('Llene el siguiente formulario'); 
+  
+           this.router.navigate(['/formulario']);
+        }, (error) => {
+          this.loading=false;
+          console.log(error);
+          this.showError('Usuario Incorrecto'); 
+        });
+        
+      }else{
+        if (this.paciente.contrasenia==this.login.clave) {
+          this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);  
+        }else{
+          this.loading=false;
+          this.showError('Contraseña Incorrecta'); 
+        }      
+      } 
+  
+     //ADMIINISTRADORES
+      for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
+        if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
+          this.login_admin=this.login_admins[indexx];
+        }
+      }
+     if (this.login_admin.contrasenia_admin  == this.login.clave) {
+   console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
+          this.router.navigate(['/principal/']);
+        }else{
+          
+   console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
+          this.loading=false;
+          this.showError('Contraseña Incorrecta'); 
+        } 
+    }
   }
 
+   //EVENTO CUANDO SE DA EN EL BOTON
   comprobarDatos(){
     this.loading=true;
     this.login.cuenta = this.login_form.get('cuenta').value;
@@ -150,8 +200,6 @@ export class LoginComponent implements OnInit {
         this.login_admin=this.login_admins[indexx];
       }
     }
-
-
    if (this.login_admin.contrasenia_admin  == this.login.clave) {
  console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
         this.router.navigate(['/principal/']);
@@ -161,16 +209,8 @@ export class LoginComponent implements OnInit {
         this.loading=false;
         this.showError('Contraseña Incorrecta'); 
       } 
-
-
-
-
-
-
-  }
-
-
-
+ }
+  
   get cuenta(){return this.login_form.get('cuenta')};
   get clave(){return this.login_form.get('clave')}; 
 }
