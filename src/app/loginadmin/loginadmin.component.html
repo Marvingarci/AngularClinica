@@ -62,13 +62,27 @@
     </mat-form-field>     
         
 
-    <div >
+    <!--<div >
     <label  class="label">Especialidad</label>
     <p><select class="example-full-width" id = "select" name="miselect" formControlName= "especialidad">
     <option [value]="item" *ngFor="let item of lista">{{item}}</option>
     </select></p>           
-    </div> 
-<div style="text-align: right;">
+    </div>-->
+
+    <div class="col"> 
+      <mat-form-field  class="example-full-width">
+        <mat-label>Especialidad</mat-label>
+        <mat-select formControlName= "especialidad" >
+          <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad.value">
+            {{especialidad.viewValue}}
+          </mat-option>
+        </mat-select>
+      <mat-error *ngIf="especialidad.hasError('required')">campo requerido!</mat-error>
+
+      </mat-form-field>
+    </div>
+
+  <div style="text-align: right;">
     <button  (click)="comprobarDatos()"  mat-raised-button class="boton" > Guardar</button>  
   </div>
 </mat-card>  
