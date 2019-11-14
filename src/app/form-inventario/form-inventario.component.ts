@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../app.component';
 
 export interface select {
-  value: string;
+  value: number;
   viewValue: string;
 }
 
@@ -46,11 +46,17 @@ export class FormInventarioComponent implements OnInit {
   };
 
   presentaciones: select[] = [
-    {value: 'Tabletas', viewValue: 'Tabletas'},
-    {value: 'Capsulas', viewValue: 'Capsulas'},
-    {value: 'Comprimidos', viewValue: 'Comprimidos'},
-    {value: 'Sobres', viewValue: 'Sobres'},
-    {value: 'Jarabe', viewValue: 'Casado'},
+    {value: 1, viewValue: 'Tabletas'},
+    {value: 2, viewValue: 'Cápsulas'},
+    {value: 3, viewValue: 'Comprimidos'},
+    {value: 4, viewValue: 'Sobres'},
+    {value: 5, viewValue: 'Jarabe'},
+    {value: 6, viewValue: 'Crema'},
+    {value: 7, viewValue: 'Supositorio'},
+    {value: 8, viewValue: 'Óvulo'},
+    {value: 9, viewValue: 'Suspencion'},
+    {value: 10, viewValue: 'Solución'},
+    {value: 11, viewValue: 'Inyectable'},
    
   ];
 
