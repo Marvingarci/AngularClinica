@@ -5,6 +5,11 @@ import { InventariosService } from '../services/inventarios.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../app.component';
 
+export interface select {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-form-inventario',
   templateUrl: './form-inventario.component.html',
@@ -40,18 +45,27 @@ export class FormInventarioComponent implements OnInit {
     
   };
 
-  lista:string[]=[
-    "Tabletas",
-    "Capsulas",
-    "Comprimidos",
-    "Sobres",
-    "Jarabe",
-    "Crema",
-    "Supositorio",
-    "Ovulo",
-    "Suspencion",
-    "Solucion",
-    "Inyectable"];
+  presentaciones: select[] = [
+    {value: 'Tabletas', viewValue: 'Tabletas'},
+    {value: 'Capsulas', viewValue: 'Capsulas'},
+    {value: 'Comprimidos', viewValue: 'Comprimidos'},
+    {value: 'Sobres', viewValue: 'Sobres'},
+    {value: 'Jarabe', viewValue: 'Casado'},
+   
+  ];
+
+  // lista:string[]=[
+   //"Tabletas",
+   // "Capsulas",
+   // "Comprimidos",
+   // "Sobres",
+   // "Jarabe",
+   // "Crema",
+   // "Supositorio",
+   // "Ovulo",
+   // "Suspencion",
+   // "Solucion",
+    //"Inyectable"];
 
 
 
