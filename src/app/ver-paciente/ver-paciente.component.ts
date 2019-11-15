@@ -630,9 +630,8 @@ maxDate = new Date();
     this.id = this.activatedRoute.snapshot.params['id'];
     
     if(this.id){
-      this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
-        this.pacientes = data;
-        this.paciente = this.pacientes.find((m)=>{return m.id_paciente == this.id});
+      this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) =>{
+        this.paciente = data;
 
         //establesco el valor a los formcontrol para que se visualizen
         //en los respectivos inputs de los datos generales
@@ -664,109 +663,98 @@ maxDate = new Date();
       });
 
 
-      // if(this.step === 2){
-        this.formularioService.obtenerAntecedentesFamiliares().subscribe((data: AntecedentesFamiliares[])=>{
-          this.antecedentes_familiares = data;
-          this.antecedente_familiar = this.antecedentes_familiares.find((m)=>{return m.id_paciente == this.id});
-          
-  
-          //cargo los datos de la tabla antecedentes familiares
-          this.cargarTablaAntecedentesFamiliares();
-          
-  
-          //establesco el valor a los formcontrol para que se visualizen
-          //en los respectivos inputs de los antecedentes familiares
-          this.cargarInformacionAntecedentesFamiliares();
-
-  
-          
-          console.log(this.antecedente_familiar);
-        }, (error)=>{
-          console.log(error);
-        });
-  
-      // }
       
-      // if(this.step === 3){
-        this.formularioService.obtenerAntecedentesPersonales().subscribe((data: AntecedentesPersonales[])=>{
-          this.antecedentes_personales = data;
-          this.antecedente_personal = this.antecedentes_personales.find((m)=>{return m.id_paciente == this.id});
-  
-          //cargo los datos de la tabla antecedentes personales
-          this.cargarTablaAntecedentesPersonales();
-          
-  
-          //establesco el valor a los formcontrol para que se visualizen
-          //en los respectivos inputs de los antecedentes personales
-          this.cargarInformacionAntecedentesPersonales();
+      this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
+        this.antecedente_familiar = data;        
 
-  
-          console.log(this.antecedente_personal);
-        },(error)=>{
-          console.log(error);
-        });
-      // }
-
-      this.formularioService.obtenerHabitosToxicologicos().subscribe((data: HabitosToxicologicosPersonales[])=>{
-        this.habitos_toxicologicos = data;
-        this.habito_toxicologico_personal = this.habitos_toxicologicos.find((m)=>{return m.id_paciente == this.id});
-
-
-        //cargo los datos de la tabla antecedentes personales
-        this.cargarTablaHabitosToxicologicos();
-        console.log(this.tablaHabitosToxicologicos);
-
-      //   //establesco el valor a los formcontrol para que se visualizen
-          //en los respectivos inputs de los habitos toxicologicos
-          this.cargarInformacionHabitosToxicologicos();
-
-
-        console.log(this.habito_toxicologico_personal);
-          
-      }, (error)=>{
-        console.log(error);
-      });
-
-
-      this.formularioService.obtenerActividadesSexuales().subscribe((data : ActividadSexual[])=>{
-        this.actividades_sexuales = data;
-        this.actividad_sexual = this.actividades_sexuales.find((m)=>{return m.id_paciente == this.id});
-
+        //cargo los datos de la tabla antecedentes familiares
+        this.cargarTablaAntecedentesFamiliares();
+        
 
         //establesco el valor a los formcontrol para que se visualizen
-          //en los respectivos inputs de la actividad sexual
-          this.cargarInformacionActividadSexual();
+        //en los respectivos inputs de los antecedentes familiares
+        this.cargarInformacionAntecedentesFamiliares();
 
 
-      },(error)=>{
-        console.log(error);
-      });
-
-      this.formularioService.obtenerAntecedentesGinecologicos().subscribe((data : AntecedentesGinecologicos[])=>{
-        this.antecedentes_ginecologicos = data;
-        this.antecedente_ginecologico = this.antecedentes_ginecologicos.find((m)=>{return m.id_paciente == this.id});
-
-        if(this.antecedente_ginecologico != null){
-          this.mostrarAntecedenteGinecologico = true;
-
-          //establesco el valor a los formcontrol para que se visualizen
-          //en los respectivos inputs de los antecedentes ginecologicos
-          this.cargarInformacionAntecedentesGinecologicos();
-
-          console.log(this.antecedente_ginecologico);
-        }
-
-        console.log('mostrarAncedententeGinecologico: '+this.mostrarAntecedenteGinecologico);
+        
+        console.log(this.antecedente_familiar);
       }, (error)=>{
         console.log(error);
       });
+  
 
-      this.formularioService.obtenerAntecedentesObstetricos().subscribe((data: AntecedentesObstetricos[])=>{
-        this.antecedentes_obstetricos = data;
-        this.antecedente_obstetrico = this.antecedentes_obstetricos.find((m)=>{return m.id_paciente == this.id});
+      this.formularioService.obtenerAntecedentePersonal(this.id).subscribe((data: AntecedentesPersonales)=>{
+      this.antecedente_personal = data;
+
+      //cargo los datos de la tabla antecedentes personales
+      this.cargarTablaAntecedentesPersonales();
+      
+
+      //establesco el valor a los formcontrol para que se visualizen
+      //en los respectivos inputs de los antecedentes personales
+      this.cargarInformacionAntecedentesPersonales();
 
 
+      console.log(this.antecedente_personal);
+    },(error)=>{
+      console.log(error);
+    });
+     
 
+    this.formularioService.obtenerHabitoToxicologico(this.id).subscribe((data: HabitosToxicologicosPersonales)=>{
+      this.habito_toxicologico_personal = data;
+
+      //cargo los datos de la tabla antecedentes personales
+      this.cargarTablaHabitosToxicologicos();
+      console.log(this.tablaHabitosToxicologicos);
+
+    //   //establesco el valor a los formcontrol para que se visualizen
+        //en los respectivos inputs de los habitos toxicologicos
+        this.cargarInformacionHabitosToxicologicos();
+
+
+      console.log(this.habito_toxicologico_personal);
+        
+    }, (error)=>{
+      console.log(error);
+    });
+
+
+    this.formularioService.obtenerActividadSexual(this.id).subscribe((data : ActividadSexual)=>{
+      this.actividad_sexual = data;
+
+      //establesco el valor a los formcontrol para que se visualizen
+        //en los respectivos inputs de la actividad sexual
+        this.cargarInformacionActividadSexual();
+
+
+    },(error)=>{
+      console.log(error);
+    });
+
+    this.formularioService.obtenerAntecedenteGinecologico(this.id).subscribe((data : AntecedentesGinecologicos)=>{
+      this.antecedente_ginecologico = data;
+
+      //verifico si el paciente tiene antecedentes ginecologicos para mostrarlos
+      if(this.antecedente_ginecologico != null){
+        this.mostrarAntecedenteGinecologico = true;
+
+        //establesco el valor a los formcontrol para que se visualizen
+        //en los respectivos inputs de los antecedentes ginecologicos
+        this.cargarInformacionAntecedentesGinecologicos();
+
+        console.log(this.antecedente_ginecologico);
+      }
+
+      console.log('mostrarAncedententeGinecologico: '+this.mostrarAntecedenteGinecologico);
+    }, (error)=>{
+      console.log(error);
+    });
+
+      this.formularioService.obtenerAntecedenteObstetrico(this.id).subscribe((data: AntecedentesObstetricos)=>{
+        this.antecedente_obstetrico = data;
+
+      //verifico si el paciente tiene antecedentes obstetricos para mostrarlos
         if(this.antecedente_obstetrico!= null){
           this.mostrarAntecedenteObstetrico = true;
 
@@ -784,9 +772,8 @@ maxDate = new Date();
       });
 
 
-      this.formularioService.obtenerPlanificacionesFamiliares().subscribe((data: PlanificacionesFamiliares[])=>{
-        this.planificaciones_familiares = data;
-        this.planificacion_familiar = this.planificaciones_familiares.find((m)=>{return m.id_paciente == this.id});
+      this.formularioService.obtenerPlanificacionFamiliar(this.id).subscribe((data: PlanificacionesFamiliares)=>{
+        this.planificacion_familiar = data;
 
         if(this.planificacion_familiar!= null){
           this.mostrarPlanificacionFamiliar = true;

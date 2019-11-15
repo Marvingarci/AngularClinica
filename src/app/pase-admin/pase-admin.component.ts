@@ -97,7 +97,7 @@ export class PaseAdminComponent implements OnInit {
       
     console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
       this.loading=false;
-      alert('Contraseña incorrecta')
+      this.showError('Contraseña Incorrecta');  
     }
   }
 
