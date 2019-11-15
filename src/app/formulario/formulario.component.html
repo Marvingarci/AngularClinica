@@ -56,9 +56,10 @@
             <div class="row">
               <div class="col">
                 <mat-form-field class="example-full-width">
-                  <input matInput formControlName= "direccion" name="direccion" id="" placeholder="Direccion">
+                  <input matInput formControlName= "direccion" name="direccion" id="" placeholder="Direccion exacta">
                 <mat-error *ngIf="direccion.hasError('required')">campo requerido!</mat-error>
                 <mat-error *ngIf="direccion.hasError('maxlength')">campo muy extenso!</mat-error>
+                <mat-error *ngIf="direccion.hasError('minlength')">sea especifico!</mat-error>
                 
     
                 </mat-form-field>
@@ -127,10 +128,17 @@
                   <input matInput matInput formControlName= "numero_telefono"  name="numero_telefono" id="telefono" placeholder="N° Telefono">
                   <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido!</mat-error>
                   <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un numero de telefono valido!</mat-error>
-    
-                
                 </mat-form-field>
               </div>
+
+              <div class="col">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName= "emergencia_persona" name="emergencia_persona" id="" placeholder="En caso de emergencia llamar a">
+                    <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido!</mat-error>
+                    <mat-error *ngIf="emergencia_persona.hasError('pattern')">introduzca un numero de telefono valido!</mat-error>
+                    </mat-form-field>
+                </div>
+
               <div class="col">
                 <mat-form-field class="example-full-width">
                   <input matInput formControlName= "emergencia_telefono" name="emergencia_telefono" id="" placeholder="Telefono de emergencia">
@@ -161,9 +169,9 @@
   <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1"  >
     <form [formGroup]="formulario_datos_generales">
     <ng-template matStepLabel >{{datosGenerales}}</ng-template>
-    <div class="containerdatogeneral">
-      <div class="row" style="padding-right:10px; padding-left: 0;margin-left: 0%;">
-        <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
+    <div class="container">
+      <div class="row" >
+        <div class="col" >
           <mat-form-field class="example-full-width" >
             <input matInput 
             formControlName= "nombre_completo"  
@@ -178,7 +186,7 @@
 
       </div>
 
-        <div class="row" style="padding-right:10px; padding-left: 0;margin-left: 0%;">
+        <div class="row" style=" padding-left: 0;margin-left: 0%;">
             <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
             <mat-form-field class="example-full-width">
               <input matInput 
@@ -206,7 +214,7 @@
           </div>
         </div>
           
-        <div class="row" style="padding-right:10px; padding-left: 0;margin-left: 0%;">
+        <div class="row" style=" padding-left: 0;margin-left: 0%;">
             <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
             <mat-form-field class="example-full-width">
               <input matInput formControlName= "lugar_procedencia" name="lugar_procedencia" placeholder="Lugar de Procedencia">
@@ -231,12 +239,13 @@
           </div>
         </div>
   
-        <div class="row" style="padding-right:10px; padding-left: 0;margin-left: 0%;">
+        <div class="row" style=" padding-left: 0;margin-left: 0%;">
             <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
             <mat-form-field class="example-full-width">
-              <input matInput formControlName= "direccion" name="direccion" id="" placeholder="Direccion">
+              <input matInput formControlName= "direccion" name="direccion" id="" placeholder="Direccion exacta">
             <mat-error *ngIf="direccion.hasError('required')">campo requerido!</mat-error>
             <mat-error *ngIf="direccion.hasError('maxlength')">campo muy extenso!</mat-error>
+            <mat-error *ngIf="direccion.hasError('minlength')">sea especifico!</mat-error>
             
 
             </mat-form-field>
@@ -257,7 +266,7 @@
   
          
         
-        <div class="row" style="padding-right:10px; padding-left: 0;margin-left: 0%;">
+        <div class="row" style=" padding-left: 0;margin-left: 0%;">
             <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
             <mat-form-field class="example-full-width">
               <mat-label>Sexo</mat-label>
@@ -299,23 +308,29 @@
           </div>
         </div>
   
-        <div class="row" style="padding-right:10px; padding-left: 0;margin-left: 0%;">
+        <div class="row" style=" padding-left: 0;margin-left: 0%;">
             <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
             <mat-form-field class="example-full-width">
               <input matInput matInput formControlName= "numero_telefono"  name="numero_telefono" id="telefono" placeholder="N° Telefono">
               <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido!</mat-error>
               <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un numero de telefono valido!</mat-error>
-
-            
             </mat-form-field>
           </div>
+
+          <div class="col">
+              <mat-form-field class="example-full-width">
+                <input matInput formControlName= "emergencia_persona" name="emergencia_persona" id="" placeholder="En caso de emergencia llamar a">
+                <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido!</mat-error>
+                <mat-error *ngIf="emergencia_persona.hasError('pattern')">introduzca un numero de telefono valido!</mat-error>
+                </mat-form-field>
+            </div>
+
           <div class="col">
             <mat-form-field class="example-full-width">
               <input matInput formControlName= "emergencia_telefono" name="emergencia_telefono" id="" placeholder="Telefono de emergencia">
               <mat-error *ngIf="emergencia_telefono.hasError('required')">campo requerido!</mat-error>
               <mat-error *ngIf="emergencia_telefono.hasError('pattern')">introduzca un numero de telefono valido!</mat-error>
-
-            </mat-form-field>
+              </mat-form-field>
           </div>
         </div>
     </div>
@@ -335,17 +350,16 @@
     <form [formGroup]="formulario_antecedentes_familiares">
       <ng-template matStepLabel>{{antecedentesFamiliares}}</ng-template>
       <div class="container">
-        <h2>Antecedente familiares</h2>
        
          
           <label id="example-radio-group-label">1. Diabetes</label>
-          <mat-error style="margin-inline-start: 5px;" *ngIf="diabetes.hasError('required')">campo requerido!</mat-error>   
-        <div class="row" >         
+          <mat-error style="margin-left: 0;" *ngIf="diabetes.hasError('required')">campo requerido!</mat-error>   
+        <div class="row" style="margin-left: 0;">         
           <mat-radio-group formControlName= "diabetes"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group" > 
                
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_diabetes])">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_diabetes])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
             <mat-radio-button value="No" (click)="borrarInputs([parentesco_diabetes])">No</mat-radio-button>
               
           </mat-radio-group>          
@@ -365,12 +379,12 @@
         <mat-divider></mat-divider>
 
         <label id="example-radio-group-label">2. Tuberculosis Pulmonar</label>
-         <mat-error style="margin-inline-start: 5px;" *ngIf="tb_pulmonar.hasError('required')">campo requerido!</mat-error>
-       <div class="row">  
+         <mat-error style="margin-left: 0;" *ngIf="tb_pulmonar.hasError('required')">campo requerido!</mat-error>
+       <div class="row" style="margin-left: 0;">  
           <mat-radio-group formControlName= "tb_pulmonar"
-            aria-labelledby="example-radio-group-label"
+            aria-labelledby="example-radio-group-label" 
             class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_tb_pulmonar])">Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_tb_pulmonar])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
               <mat-radio-button value="No" (click)="borrarInputs([parentesco_tb_pulmonar])">No</mat-radio-button>
              
             </mat-radio-group>
@@ -389,10 +403,10 @@
         
        
           <label id="example-radio-group-label">3. Desnutrición</label>
-                <mat-error style="margin-inline-start: 5px;" *ngIf="desnutricion.hasError('required')">campo requerido!</mat-error>
-            <div class="row">
+                <mat-error style="margin-left: 0;" *ngIf="desnutricion.hasError('required')">campo requerido!</mat-error>
+            <div class="row" style="margin-left: 0;">
               <mat-radio-group formControlName= "desnutricion" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-                <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_desnutricion,tipo_desnutricion])">Si</mat-radio-button> &nbsp;   
+                <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_desnutricion,tipo_desnutricion])">Si</mat-radio-button>&nbsp;&nbsp;&nbsp;   
                 <mat-radio-button value="No" (click)="borrarInputs([parentesco_desnutricion,tipo_desnutricion])">No</mat-radio-button>
               </mat-radio-group>
              &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -420,12 +434,12 @@
 
        
           <label id="example-radio-group-label">4. Enfermedades Mentales</label>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="enfermedades_mentales.hasError('required')">campo requerido!</mat-error>
-           <div class="row">
+            <mat-error style="margin-left: 0;" *ngIf="enfermedades_mentales.hasError('required')">campo requerido!</mat-error>
+           <div class="row" style="margin-left: 0;">
              <mat-radio-group formControlName= "enfermedades_mentales" 
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">   
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_enfermedades_mentales,tipo_enfermedad_mental])">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_enfermedades_mentales,tipo_enfermedad_mental])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;    
             <mat-radio-button value="No" (click)="borrarInputs([parentesco_enfermedades_mentales,tipo_enfermedad_mental])">No</mat-radio-button>
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -452,12 +466,12 @@
 
        
           <label id="example-radio-group-label">5. Convulsiones</label>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="convulsiones.hasError('required')">campo requerido!</mat-error>
-           <div class="row">
+            <mat-error style="margin-left: 0;"*ngIf="convulsiones.hasError('required')">campo requerido!</mat-error>
+           <div class="row" style="margin-left: 0;">
              <mat-radio-group formControlName= "convulsiones" 
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_convulsiones])">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_convulsiones])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;    
             <mat-radio-button value="No" (click)="borrarInputs([parentesco_convulsiones])">No</mat-radio-button>
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -475,10 +489,10 @@
 
         
           <label id="example-radio-group-label">6. Alcoholismo o Sustancias Psicoactivas</label>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="alcoholismo_sustancias_psicoactivas.hasError('required')">campo requerido!</mat-error>  
-          <div class="row">
+            <mat-error style="margin-left: 0;" *ngIf="alcoholismo_sustancias_psicoactivas.hasError('required')">campo requerido!</mat-error>  
+          <div class="row" style="margin-left: 0;">
             <mat-radio-group formControlName= "alcoholismo_sustancias_psicoactivas"  aria-labelledby="example-radio-group-label" class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_alcoholismo_sustancias_psicoactivas])">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_alcoholismo_sustancias_psicoactivas])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;    
             <mat-radio-button value="No" (click)="borrarInputs([parentesco_alcoholismo_sustancias_psicoactivas])">No</mat-radio-button>       
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -497,10 +511,10 @@
 
         
           <label id="example-radio-group-label">7. Alergias</label>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="alergias.hasError('required')">campo requerido!</mat-error> 
-         <div class="row"> 
+            <mat-error style="margin-left: 0;" *ngIf="alergias.hasError('required')">campo requerido!</mat-error> 
+         <div class="row" style="margin-left: 0;"> 
            <mat-radio-group formControlName= "alergias"  aria-labelledby="example-radio-group-label"  class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_alergias,tipo_alergia])" >Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_alergias,tipo_alergia])" >Si</mat-radio-button>&nbsp;&nbsp;&nbsp;    
             <mat-radio-button value="No" (click)="borrarInputs([parentesco_alergias,tipo_alergia])">No</mat-radio-button>     
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -527,10 +541,10 @@
 
        
           <label id="example-radio-group-label">8. Cáncer</label>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="cancer.hasError('required')">campo requerido!</mat-error>  
-          <div class="row"> 
+            <mat-error style="margin-left: 0;" *ngIf="cancer.hasError('required')">campo requerido!</mat-error>  
+          <div class="row" style="margin-left: 0;"> 
             <mat-radio-group formControlName= "cancer"  aria-labelledby="example-radio-group-label"  class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_cancer,tipo_cancer])">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_cancer,tipo_cancer])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
             <mat-radio-button value="No" (click)="borrarInputs([parentesco_cancer,tipo_cancer])">No</mat-radio-button>      
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -558,10 +572,10 @@
 
         
           <label id="example-radio-group-label">9. Hipertensión arterial</label>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="hipertension_arterial.hasError('required')">campo requerido!</mat-error>
-          <div class="row">
+            <mat-error style="margin-left: 0;"*ngIf="hipertension_arterial.hasError('required')">campo requerido!</mat-error>
+          <div class="row" style="margin-left: 0;">
             <mat-radio-group formControlName= "hipertension_arterial"  aria-labelledby="example-radio-group-label" class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_hipertension_arterial])">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_hipertension_arterial])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;    
             <mat-radio-button value="No" (click)="borrarInputs([parentesco_hipertension_arterial])">No</mat-radio-button>
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -577,8 +591,8 @@
 
         <mat-divider></mat-divider>
 
-        <div class="row">
-          <div class="col-md-3">
+        <div class="row" style="margin-left: 0;" >
+          <div class="col-md-2" style="margin-left: 0;padding-left: 0;">
             <mat-form-field>
               <input matInput formControlName= "otros" name="otros" id="" placeholder="Otros">
               <mat-error *ngIf="otros.hasError('maxlength')">campo muy extenso!</mat-error>
@@ -627,21 +641,20 @@
   <mat-step  [stepControl]="formulario_antecedentes_personales">
     <form [formGroup]= "formulario_antecedentes_personales">
       <ng-template matStepLabel> {{antecedentesPersonales}}</ng-template>
-      <div class="container">
-        <h2>Antecedente Personales</h2>     
+      <div class="container">    
 
         
           <label id="example-radio-group-label">1. Diabetes</label>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="diabetes_ap.hasError('required')">campo requerido!</mat-error>
-         <div class="row">
+            <mat-error style="margin-left: 0;" *ngIf="diabetes_ap.hasError('required')">campo requerido!</mat-error>
+         <div class="row" style="margin-left: 0;">
            <mat-radio-group  formControlName="diabetes"  aria-labelledby="example-radio-group-label" class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_diabetes_ap])">Si</mat-radio-button> &nbsp; &nbsp;   
+            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_diabetes_ap])">Si</mat-radio-button> &nbsp; &nbsp;&nbsp;   
             <mat-radio-button  value="No" (click)="borrarInputs([observacion_diabetes_ap])">No</mat-radio-button>
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
           <mat-form-field class="medium-width">
-          <textarea matInput  formControlName="observacion_diabetes"  
-          placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
+          <textarea matInput  formControlName="observacion_diabetes" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
          <mat-error style="margin-inline-start: 5px;"  *ngIf="observacion_diabetes_ap.hasError('maxlength')">campo muy extenso!</mat-error>
           <mat-error style="margin-inline-start: 5px;"  *ngIf="observacion_diabetes_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
@@ -650,16 +663,16 @@
        <mat-divider></mat-divider>
 
        <label id="example-radio-group-label">2. Tuberculosis Pulmonar</label>
-              <mat-error style="margin-inline-start: 5px;" *ngIf="tb_pulmonar_ap.hasError('required')">campo requerido!</mat-error>
-           <div class="row">
+              <mat-error style="margin-left: 0;" *ngIf="tb_pulmonar_ap.hasError('required')">campo requerido!</mat-error>
+           <div class="row" style="margin-left: 0;">
              <mat-radio-group formControlName="tb_pulmonar" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_tb_pulmonar_ap])">Si</mat-radio-button> &nbsp;  &nbsp;  
+              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_tb_pulmonar_ap])">Si</mat-radio-button> &nbsp; &nbsp;&nbsp;   
               <mat-radio-button value="No" (click)="borrarInputs([observacion_tb_pulmonar_ap])">No</mat-radio-button>
             </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
-        <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_tb_pulmonar"
-            placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+        <mat-form-field class="medium-width" >
+          <textarea matInput formControlName="observacion_tb_pulmonar"  cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
             <mat-error *ngIf="observacion_tb_pulmonar_ap.hasError('maxlength')">campo muy extenso!</mat-error>
             <mat-error *ngIf="observacion_tb_pulmonar_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
@@ -669,16 +682,16 @@
 
             
           <label id="example-radio-group-label">3. ITS/VIH</label>
-              <mat-error style="margin-inline-start: 5px;" *ngIf="its.hasError('required')">campo requerido!</mat-error>
-              <div class="row">  
+              <mat-error style="margin-left: 0;" *ngIf="its.hasError('required')">campo requerido!</mat-error>
+              <div class="row" style="margin-left: 0;">  
             <mat-radio-group formControlName="its" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_its])">Si</mat-radio-button> &nbsp;  &nbsp;  
+              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_its])">Si</mat-radio-button> &nbsp;  &nbsp; &nbsp;  
               <mat-radio-button value="No" (click)="borrarInputs([observacion_its])">No</mat-radio-button>
             </mat-radio-group>
             &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_its"
-            placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
+          <textarea matInput formControlName="observacion_its" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
             <mat-error *ngIf="observacion_its.hasError('maxlength')">campo muy extenso!</mat-error>
             <mat-error *ngIf="observacion_its.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
@@ -688,10 +701,10 @@
         
         
           <label id="example-radio-group-label">4. Desnutrición</label>
-              <mat-error style="margin-inline-start: 5px;" *ngIf="desnutricion_ap.hasError('required')">campo requerido!</mat-error>
-          <div class="row">
+              <mat-error style="margin-left: 0;" *ngIf="desnutricion_ap.hasError('required')">campo requerido!</mat-error>
+          <div class="row" style="margin-left: 0;">
             <mat-radio-group formControlName="desnutricion"  aria-labelledby="example-radio-group-label" class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_desnutricion_ap,tipo_desnutricion_ap])">Si</mat-radio-button> &nbsp;  &nbsp;  
+              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_desnutricion_ap,tipo_desnutricion_ap])">Si</mat-radio-button> &nbsp; &nbsp;  &nbsp;  
               <mat-radio-button value="No" (click)="borrarInputs([observacion_desnutricion_ap,tipo_desnutricion_ap])">No</mat-radio-button>
             </mat-radio-group>
             &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -705,8 +718,8 @@
           </mat-form-field>
           &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_desnutricion"
-            placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+          <textarea matInput formControlName="observacion_desnutricion"cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
             <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">campo muy extenso!</mat-error>
             <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
@@ -716,10 +729,10 @@
 
         
           <label id="example-radio-group-label">5. Enfermedades Mentales</label>
-              <mat-error style="margin-inline-start: 5px;" *ngIf="enfermedades_mentales_ap.hasError('required')">campo requerido!</mat-error>
-       <div class="row">
+              <mat-error style="margin-left: 0;" *ngIf="enfermedades_mentales_ap.hasError('required')">campo requerido!</mat-error>
+       <div class="row" style="margin-left: 0;">
           <mat-radio-group formControlName="enfermedades_mentales" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_enfermedades_mentales_ap,tipo_enfermedad_mental_ap])">Si</mat-radio-button> &nbsp;   &nbsp; 
+              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_enfermedades_mentales_ap,tipo_enfermedad_mental_ap])">Si</mat-radio-button> &nbsp;&nbsp; &nbsp; 
               <mat-radio-button value="No" (click)="borrarInputs([observacion_enfermedades_mentales_ap,tipo_enfermedad_mental_ap])">No</mat-radio-button>
             </mat-radio-group>
             &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -733,8 +746,8 @@
           </mat-form-field>
           &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_enfermedades_mentales"
-          placeholder="Detallar inicio de enfermedad y tratamiento"  ></textarea>
+          <textarea matInput formControlName="observacion_enfermedades_mentales" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"placeholder="Detallar inicio de enfermedad y tratamiento"  ></textarea>
           <mat-error *ngIf="observacion_enfermedades_mentales_ap.hasError('maxlength')">campo muy extenso!</mat-error>
           <mat-error *ngIf="observacion_enfermedades_mentales_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
@@ -744,16 +757,16 @@
 
                 
           <label id="example-radio-group-label">6. Convulsiones</label>
-              <mat-error style="margin-inline-start: 5px;" *ngIf="convulsiones_ap.hasError('required')">campo requerido!</mat-error>
-          <div class="row">  
+              <mat-error style="margin-left: 0;" *ngIf="convulsiones_ap.hasError('required')">campo requerido!</mat-error>
+          <div class="row" style="margin-left: 0;">  
             <mat-radio-group formControlName="convulsiones" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_convulsiones_ap])">Si</mat-radio-button> &nbsp;   &nbsp; 
+              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_convulsiones_ap])">Si</mat-radio-button> &nbsp;&nbsp; &nbsp; 
               <mat-radio-button value="No" (click)="borrarInputs([observacion_convulsiones_ap])">No</mat-radio-button>
             </mat-radio-group>
             &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_convulsiones"
-          placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
+          <textarea matInput formControlName="observacion_convulsiones"cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
           <mat-error *ngIf="observacion_convulsiones_ap.hasError('maxlength')">campo muy extenso!</mat-error>
           <mat-error *ngIf="observacion_convulsiones_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
@@ -763,10 +776,10 @@
 
                  
           <label id="example-radio-group-label">7. Alergias</label>
-              <mat-error style="margin-inline-start: 5px;" *ngIf="alergias_ap.hasError('required')">campo requerido!</mat-error>   
-          <div class="row">
+              <mat-error style="margin-left: 0;" *ngIf="alergias_ap.hasError('required')">campo requerido!</mat-error>   
+          <div class="row" style="margin-left: 0;">
              <mat-radio-group formControlName="alergias" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_alergias_ap,tipo_alergia_ap])">Si</mat-radio-button> &nbsp;  &nbsp;  
+              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_alergias_ap,tipo_alergia_ap])">Si</mat-radio-button> &nbsp;&nbsp; &nbsp;  
               <mat-radio-button value="No" (click)="borrarInputs([observacion_alergias_ap,tipo_alergia_ap])">No</mat-radio-button>         
             </mat-radio-group>
             &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -780,8 +793,8 @@
           </mat-form-field>
           &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_alergias"
-          placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+          <textarea matInput formControlName="observacion_alergias" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
           <mat-error *ngIf="observacion_alergias_ap.hasError('maxlength')">campo muy extenso!</mat-error>
           <mat-error *ngIf="observacion_alergias_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
@@ -791,10 +804,10 @@
 
         
           <label id="example-radio-group-label">8. Cáncer</label>
-              <mat-error style="margin-inline-start: 5px;" *ngIf="cancer_ap.hasError('required')">campo requerido!</mat-error>
-          <div class="row">
+              <mat-error style="margin-left: 0;" *ngIf="cancer_ap.hasError('required')">campo requerido!</mat-error>
+          <div class="row" style="margin-left: 0;">
             <mat-radio-group formControlName="cancer" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_cancer_ap,tipo_cancer_ap])">Si</mat-radio-button> &nbsp;   &nbsp; 
+              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_cancer_ap,tipo_cancer_ap])">Si</mat-radio-button> &nbsp;&nbsp;  &nbsp; 
               <mat-radio-button value="No" (click)="borrarInputs([observacion_cancer_ap,tipo_cancer_ap])" >No</mat-radio-button>
             </mat-radio-group>
             &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -808,8 +821,8 @@
           </mat-form-field>
           &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_cancer"
-            placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+          <textarea matInput formControlName="observacion_cancer" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
             <mat-error *ngIf="observacion_cancer_ap.hasError('maxlength')">campo muy extenso!</mat-error>
             <mat-error *ngIf="observacion_cancer_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
@@ -821,12 +834,12 @@
 
         <div >
           <label id="example-radio-group-label">9. Hospitalarias y Quirurgicas</label>
-              <mat-error style="margin-inline-start: 5px;" *ngIf="hospitalarias_quirurgicas.hasError('required')">campo requerido!</mat-error>
+              <mat-error style="margin-left: 0;" *ngIf="hospitalarias_quirurgicas.hasError('required')">campo requerido!</mat-error>
           <mat-radio-group formControlName="hospitalarias_quirurgicas"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
               <mat-radio-button value="Si" (click)="habilitarInputs([fecha_antecedente_hospitalario,tiempo_hospitalizacion,diagnostico,tratamiento])">
-                Si</mat-radio-button> &nbsp; &nbsp;   
+                Si</mat-radio-button> &nbsp; &nbsp;&nbsp;   
               <mat-radio-button value="No" (click)="borrarInputs([fecha_antecedente_hospitalario,tiempo_hospitalizacion,diagnostico,tratamiento])">No</mat-radio-button>
           </mat-radio-group> 
             
@@ -855,8 +868,8 @@
         <div class="row">
           <div class="col">
               <mat-form-field class="example-full-width">
-                <textarea matInput formControlName="diagnostico"  placeholder="Diagnóstico" 
-                ></textarea>
+                <textarea matInput formControlName="diagnostico"  placeholder="Diagnóstico" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" ></textarea>
                 <mat-error *ngIf="diagnostico.hasError('maxlength')">campo muy extenso!</mat-error>
                 <mat-error *ngIf="diagnostico.hasError('minlength')">introduzca una observación valida!</mat-error>
               </mat-form-field>
@@ -864,8 +877,8 @@
 
           <div class="col">
               <mat-form-field class="example-full-width">
-                <textarea matInput formControlName="tratamiento" 
-                placeholder="Tratamiento"  ></textarea>
+                <textarea matInput formControlName="tratamiento" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Tratamiento"  ></textarea>
                 <mat-error *ngIf="tratamiento.hasError('maxlength')">campo muy extenso!</mat-error>
                 <mat-error *ngIf="tratamiento.hasError('minlength')">introduzca una observación valida!</mat-error>
               </mat-form-field>
@@ -876,16 +889,16 @@
 
        
           <label id="example-radio-group-label">10. Traumáticos</label>
-              <mat-error style="margin-inline-start: 5px;" *ngIf="traumaticos.hasError('required')">campo requerido!</mat-error>
-          <div class="row">
+              <mat-error style="margin-left: 0;"*ngIf="traumaticos.hasError('required')">campo requerido!</mat-error>
+          <div class="row" style="margin-left: 0;">
             <mat-radio-group formControlName="traumaticos" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_traumaticos])">Si</mat-radio-button> &nbsp;  &nbsp;  
+              <mat-radio-button value="Si" (click)="habilitarInputs([observacion_traumaticos])">Si</mat-radio-button> &nbsp;&nbsp;  &nbsp;  
               <mat-radio-button value="No" (click)="borrarInputs([observacion_traumaticos])" >No</mat-radio-button>
             </mat-radio-group>
             &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_traumaticos"
-          placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
+          <textarea matInput formControlName="observacion_traumaticos" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
           <mat-error *ngIf="observacion_traumaticos.hasError('maxlength')">campo muy extenso!</mat-error>
           <mat-error *ngIf="observacion_traumaticos.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
@@ -894,7 +907,7 @@
         <mat-divider></mat-divider>
 
         
-        <div class="row">
+        <div class="row" style="margin-left: 0;">
           <mat-form-field>
             <input matInput formControlName="otros" name="otros" id="" placeholder="11. Otros">
             <mat-error *ngIf="otros.hasError('maxlength')">campo muy extenso!</mat-error>
@@ -902,7 +915,8 @@
           </mat-form-field>
           &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_otros" placeholder="Observacion"></textarea>
+          <textarea matInput formControlName="observacion_otros" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Observacion"></textarea>
           <mat-error *ngIf="observacion_otros_ap.hasError('maxlength')">campo muy extenso!</mat-error>
           <mat-error *ngIf="observacion_otros_ap.hasError('minlength')">introduzca una observación valida!</mat-error>
         </mat-form-field>
@@ -920,107 +934,7 @@
 
 
 
-  <!-- cuarto step -->
-  <mat-step [stepControl]="formulario_habito_toxicologico_personal">
-    <form [formGroup]="formulario_habito_toxicologico_personal">
-      <ng-template matStepLabel>{{habitosToxicologicosPersonales}}</ng-template>
-      <div class="container">
-        <h2>Habitos Toxicologicos Personales</h2>
-
-        
-          <label id="example-radio-group-label">1. Alcohol</label>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="alcohol.hasError('required')">campo requerido!</mat-error>
-         <div class="row"> 
-            <mat-radio-group formControlName="alcohol"  aria-labelledby="example-radio-group-label" class="example-radio-group">
-            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_alcohol])">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="borrarInputs([observacion_alcohol])">No</mat-radio-button>
-         </mat-radio-group>
-         &nbsp; &nbsp; &nbsp; &nbsp; 
-          <mat-form-field  class="medium-width">
-            <textarea matInput formControlName="observacion_alcohol" placeholder="Detallar tiempo de uso y frecuencia"></textarea>
-            <mat-error *ngIf="observacion_alcohol.hasError('maxlength')">campo muy extenso!</mat-error>
-            <mat-error *ngIf="observacion_alcohol.hasError('minlength')">introduzca una observación valida!</mat-error>
-        </mat-form-field>
-        </div>
   
-        <mat-divider></mat-divider>
-  
-        
-          <label id="example-radio-group-label">2. Tabaquismo</label>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="tabaquismo.hasError('required')"> campo requerido!</mat-error>
-         <div class="row"> 
-           <mat-radio-group formControlName="tabaquismo" aria-labelledby="example-radio-group-label" class="example-radio-group">
-            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_tabaquismo])">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="borrarInputs([observacion_tabaquismo])">No</mat-radio-button>
-          </mat-radio-group>
-          &nbsp; &nbsp; &nbsp; &nbsp; 
-        <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_tabaquismo"  placeholder="Detallar tiempo de uso y frecuencia"></textarea>
-          <mat-error *ngIf="observacion_tabaquismo.hasError('maxlength')">campo muy extenso!</mat-error>
-          <mat-error *ngIf="observacion_tabaquismo.hasError('minlength')">introduzca una observación valida!</mat-error>
-        </mat-form-field>
-        </div>
-  
-        <mat-divider></mat-divider>
-  
-        
-          <label id="example-radio-group-label">3. Marihuana</label>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="marihuana.hasError('required')">campo requerido!</mat-error>
-         <div class="row"> 
-           <mat-radio-group formControlName="marihuana" aria-labelledby="example-radio-group-label" class="example-radio-group" >
-            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_marihuana])">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="borrarInputs([observacion_marihuana])">No</mat-radio-button>
-           </mat-radio-group>
-           &nbsp; &nbsp; &nbsp; &nbsp; 
-        <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_marihuana" 
-           placeholder="Detallar tiempo de uso y frecuencia" ></textarea>
-           <mat-error *ngIf="observacion_marihuana.hasError('maxlength')">campo muy extenso!</mat-error>
-           <mat-error *ngIf="observacion_marihuana.hasError('minlength')">introduzca una observación valida!</mat-error>
-        </mat-form-field>
-        </div>
-  
-        <mat-divider></mat-divider>
-        
-        
-          <label id="example-radio-group-label">4. Cocaina</label>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="cocaina.hasError('required')">campo requerido!</mat-error>
-          <div class="row">
-          <mat-radio-group formControlName="cocaina" aria-labelledby="example-radio-group-label" class="example-radio-group" >
-            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_cocaina])">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No" (click)="borrarInputs([observacion_cocaina])">No</mat-radio-button>
-          </mat-radio-group>
-            &nbsp; &nbsp; &nbsp; &nbsp; 
-          <mat-form-field class="medium-width">
-            <textarea matInput formControlName="observacion_cocaina"  
-            placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
-            <mat-error *ngIf="observacion_cocaina.hasError('maxlength')">campo muy extenso!</mat-error>
-            <mat-error *ngIf="observacion_cocaina.hasError('minlength')">introduzca una observación valida!</mat-error>
-          </mat-form-field>
-        </div>
-  
-        <mat-divider></mat-divider>
-
-        <div class="row">
-          <mat-form-field>
-            <input matInput formControlName="otros" placeholder="5. Otros">
-            <mat-error *ngIf="otros_ht.hasError('maxlength')">campo muy extenso!</mat-error>
-            <mat-error *ngIf="otros_ht.hasError('minlength')">introduzca una observación valida!</mat-error>
-          </mat-form-field>
-          &nbsp; &nbsp; &nbsp; &nbsp; 
-        <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_otros" placeholder="Observacion"></textarea>
-          <mat-error *ngIf="observacion_otros_ht.hasError('maxlength')">campo muy extenso!</mat-error>
-          <mat-error *ngIf="observacion_otros_ht.hasError('minlength')">introduzca una observación valida!</mat-error>
-        </mat-form-field>
-        </div>
-     </div>
-       <div class="botonesstep">
-          <button mat-raised-button matStepperNext  class="btn btn-outline-primary float-right">Siguiente</button>
-          <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
-        </div>
-    </form>    
-  </mat-step>
 
 
 
@@ -1029,39 +943,46 @@
     <form [formGroup]= "formulario_actividad_sexual">
       <ng-template matStepLabel>{{actividadSexualYReproductiva}}</ng-template>
       <div class="container">
-        <h2>Actividad Sexual y Reproductiva</h2>
 
         
           <label id="example-radio-group-label">Actividad Sexual</label>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="actividad_sexuall.hasError('required')">campo requerido!</mat-error>
-         <div class="row">
+            <mat-error style="margin-left: 0;" *ngIf="actividad_sexuall.hasError('required')">campo requerido!</mat-error>
+        
+            <div class="row" style="margin-left: 0;">
             <mat-radio-group formControlName="actividad_sexual" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="csi15([edad_inicio_sexual,numero_parejas_sexuales,practicas_sexuales_riesgo])">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="Si" (click)="csi15([edad_inicio_sexual,numero_parejas_sexuales,practicas_sexuales_riesgo])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
             <mat-radio-button value="No" (click)="cno15([edad_inicio_sexual,numero_parejas_sexuales,practicas_sexuales_riesgo])">No</mat-radio-button>
          </mat-radio-group>
          &nbsp; &nbsp; &nbsp; &nbsp; 
-            <mat-form-field class="sexual">
+         </div>
+
+         <div class="row" style="margin-left: 0;">
+            <div class="col"  style="text-align: left;padding-left: 0;">
+            <mat-form-field class="example-full-width">
               <input matInput formControlName="edad_inicio_sexual" type= "number" 
               placeholder="Edad inicio vida sexual" >
               <mat-error *ngIf="edad_inicio_sexual.hasError('max')">edad invalida!</mat-error>
-            </mat-form-field>
+            </mat-form-field></div>
             &nbsp; &nbsp; &nbsp; &nbsp; 
-            <mat-form-field class="sexual">
+            <div class="col"  style="text-align: left;padding-left: 0;">
+            <mat-form-field class="example-full-width">
               <input matInput formControlName="numero_parejas_sexuales" type= "number" 
               placeholder="Numero de parejas sexuales" >
               <mat-error *ngIf="numero_parejas_sexuales.hasError('max')">muy extenso</mat-error>
-            </mat-form-field>
+            </mat-form-field></div>
             &nbsp; &nbsp; &nbsp; &nbsp; 
-          <mat-form-field class="sexual">
+            <div class="col"  style="text-align: left;padding-left: 0;">
+          <mat-form-field class="example-full-width">
             <mat-label>Practica sexual de riesgo</mat-label>
             <mat-select formControlName="practicas_sexuales_riesgo" name="practicas_sexuales_riesgo" >
               <mat-option *ngFor="let practica_sexual of practicas_sexuales" [value]="practica_sexual.value">
                 {{practica_sexual.viewValue}}
               </mat-option>
             </mat-select>
-          </mat-form-field>
+          </mat-form-field></div>
         </div>
-    </div>
+      </div>
+  
       <div class="botonesstep">
           <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
           <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
@@ -1076,14 +997,171 @@
 
 
 
-  <!-- sexto step -->
-  <mat-step *ngIf="ocultar==false" [stepControl]="formulario_antecedente_ginecologico">
+ 
+<!-- septimo step -->
+  <mat-step *ngIf="(ocultar==false)&&(ocultar1==false)"  [stepControl]="formulario_antecedente_obstetrico">
+    <form [formGroup]= "formulario_antecedente_obstetrico">
+      <ng-template matStepLabel>{{antecedentesObstetricos}}</ng-template>
+      <!-- <ng-template matStepLabel>Antecedentes Obstétricos</ng-template> -->
+      <div class="container">
+
+        <label>Historial Gine-obstétrico</label>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName= "partos" type= "number" placeholder="Numero de partos">
+              <mat-error *ngIf="partos.hasError('max')">invalido</mat-error>
+              <mat-error *ngIf="partos.hasError('min')">invalido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName= "abortos" type= "number" placeholder="Numero de abortos">
+              <mat-error *ngIf="abortos.hasError('max')">invalido</mat-error>
+              <mat-error *ngIf="abortos.hasError('min')">invalido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName= "cesarias" type= "number" placeholder="Numero de cesarias">
+              <mat-error *ngIf="cesarias.hasError('max')">invalido</mat-error>
+              <mat-error *ngIf="cesarias.hasError('min')">invalido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName= "hijos_vivos" type= "number" placeholder="Numero de hijos vivos">
+              <mat-error *ngIf="hijos_vivos.hasError('max')">invalido</mat-error>
+              <mat-error *ngIf="hijos_vivos.hasError('min')">invalido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName= "hijos_muertos" type= "number" placeholder="Numero de hijos muertos">
+              <mat-error *ngIf="hijos_muertos.hasError('max')">invalido</mat-error>
+              <mat-error *ngIf="hijos_muertos.hasError('min')">invalido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName= "fecha_termino_ult_embarazo" [min]="minDate" [max]="maxDate" [matDatepicker]="picker5" 
+              placeholder="Fecha ultimo embarazo" readonly="readonly"> 
+              <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+              <mat-datepicker #picker5></mat-datepicker>
+            </mat-form-field>            
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <mat-label>Resultado ultimo embarazo</mat-label>
+              <mat-select formControlName= "descripcion_termino_ult_embarazo" name="descripcion_termino_ult_embarazo">
+                <mat-option *ngFor="let resultado_embarazo of resultados_embarazos" [value]="resultado_embarazo.value">
+                  {{resultado_embarazo.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field class="example-full-width">
+              <textarea formControlName= "observaciones" matInput  placeholder="Observaciones"
+              cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+              <mat-error *ngIf="observaciones.hasError('maxlength')">campo muy extenso!</mat-error>
+              <mat-error *ngIf="observaciones.hasError('minlength')">introduzca una observación valida!</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+       </div>
+       <div class="botonesstep">
+          <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
+          <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
+        </div>
+    </form>        
+  </mat-step>
+
+
+
+
+
+
+
+  <!-- octavo step -->
+  <mat-step  *ngIf="(ocultar1==false)" [stepControl]="formulario_planificacion_familiar">
+    <form [formGroup]="formulario_planificacion_familiar">
+    <ng-template matStepLabel>{{planificacionFamiliar}}</ng-template>
+    <!-- <ng-template matStepLabel>Planificacion Familiar</ng-template> -->
+      <div class="container">
+            <mat-error style="margin-left: 0;" *ngIf="planificacion_familiarr.hasError('required')">campo requerido!</mat-error>
+        <div>  
+          <p><mat-radio-group formControlName="planificacion_familiar" 
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group">        
+            <mat-radio-button value="Si" (click)="habilitarInputs([metodo_planificacion,observacion_planificacion])">Si</mat-radio-button> &nbsp;   
+            <mat-radio-button value="No"  (click)="borrarInputs([metodo_planificacion,observacion_planificacion])">No</mat-radio-button>
+
+          </mat-radio-group></p> 
+        </div>
+
+        <div>
+          <mat-form-field class="medium-width">
+            <mat-label>Método de planificación</mat-label>
+            <mat-select name="metodo_planificacion" formControlName="metodo_planificacion">
+              <mat-option *ngFor="let metodo of metodos" [value]="metodo.value">
+                {{metodo.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <mat-form-field class="medium-width">
+          <textarea matInput formControlName="observacion_planificacion" placeholder="Observación"
+          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+           <mat-error *ngIf="observacion_planificacion.hasError('maxlength')">campo muy extenso!</mat-error>
+           <mat-error *ngIf="observacion_planificacion.hasError('minlength')">introduzca una observación valida!</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="botonesstep">
+          <button mat-raised-button matStepperNext  class="btn btn-outline-primary float-right">Siguiente</button>
+          <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
+        </div>
+    </form>
+    <div *ngIf="loading==true" id="spin"> <mat-spinner class="loading"></mat-spinner></div>
+ </mat-step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- sexto step -->
+ <mat-step *ngIf="ocultar==false"  [stepControl]="formulario_antecedente_ginecologico">
     <form [formGroup]="formulario_antecedente_ginecologico">
       <ng-template matStepLabel>{{antecedentesGinecologicos}}</ng-template>
       <div class="container">
-        <h2>Antecedentes Ginecológicos</h2>
 
-        <div class="row">
+        <div class="row" >
           <div class="col">
             <mat-form-field class="example-full-width">
               <input matInput formControlName="edad_inicio_menstruacion" name="edad_inicio_menstruacion" type= "number" placeholder="Edad inicio menstruacion">
@@ -1107,31 +1185,37 @@
 
         <mat-divider></mat-divider>
 
-        <div class="row">
-          <div class="col" style="text-align: left;">
+        <div class="row" style="margin-left: 0;" >
+          <div class="col"  style="text-align: left;padding-left: 0;">
             <label id="example-radio-group-label">Citologías</label>
-              <mat-error style="margin-inline-start: 5px;" *ngIf="citologia.hasError('required')">campo requerido!</mat-error>
+              <mat-error  style="margin-left: 0;" *ngIf="citologia.hasError('required')">campo requerido!</mat-error>
             <p><mat-radio-group formControlName="citologia" 
               aria-labelledby="example-radio-group-label"
               class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="habilitarInputs([fecha_citologia,resultado_citologia])">Si</mat-radio-button> &nbsp;   
+              <mat-radio-button value="Si" (click)="habilitarInputs([fecha_citologia,resultado_citologia])">Si</mat-radio-button> &nbsp; &nbsp; &nbsp;   
               <mat-radio-button value="No" (click)="borrarInputs([fecha_citologia,resultado_citologia])">No</mat-radio-button>
-
-            </mat-radio-group></p> 
+               </mat-radio-group></p> 
           </div>
-
-          <div class="col">
+          </div>
+          
+          <div class="row"  style="margin-left: 0;">
+            
+          <div class="col"  style="text-align: left;padding-left: 0;">
             <mat-form-field class="example-full-width">
               <input matInput formControlName="fecha_citologia" [min]="minDate" [max]="maxDate" 
               [matDatepicker]="picker4" placeholder="Fecha Citología" readonly="readonly">
               <mat-datepicker-toggle matSuffix [for]="picker4" ></mat-datepicker-toggle>
               <mat-datepicker #picker4></mat-datepicker>
             </mat-form-field>
-          </div>
-          <mat-form-field class="example-full-width">
-            <textarea matInput formControlName="resultado_citologia" placeholder="Resultado Citología" ></textarea>
+            </div>
+          <div class="col"  style="text-align: left;padding-left: 0;">
+         <mat-form-field class="example-full-width"  >
+            <textarea matInput formControlName="resultado_citologia" placeholder="Resultado Citología" 
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
           </mat-form-field>
+          </div>
         </div>
+        
 
         <mat-divider></mat-divider>
 
@@ -1204,186 +1288,111 @@
 
 
 
-
-  <!-- septimo step -->
-  <mat-step *ngIf="ocultar==false" [stepControl]="formulario_antecedente_obstetrico">
-    <form [formGroup]= "formulario_antecedente_obstetrico">
-      <ng-template matStepLabel>{{antecedentesObstetricos}}</ng-template>
-      <!-- <ng-template matStepLabel>Antecedentes Obstétricos</ng-template> -->
+<!-- cuarto step -->
+<mat-step [stepControl]="formulario_habito_toxicologico_personal">
+    <form [formGroup]="formulario_habito_toxicologico_personal">
+      <ng-template matStepLabel>{{habitosToxicologicosPersonales}}</ng-template>
       <div class="container">
-        <h2>Antecedentes Obstétricos</h2>
 
-        <label>Historial Gine-obstétrico</label>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <input matInput formControlName= "partos" type= "number" placeholder="Numero de partos">
-              <mat-error *ngIf="partos.hasError('max')">invalido</mat-error>
-              <mat-error *ngIf="partos.hasError('min')">invalido</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <input matInput formControlName= "abortos" type= "number" placeholder="Numero de abortos">
-              <mat-error *ngIf="abortos.hasError('max')">invalido</mat-error>
-              <mat-error *ngIf="abortos.hasError('min')">invalido</mat-error>
-            </mat-form-field>
-          </div>
+          <label id="example-radio-group-label">1. Alcohol</label>
+            <mat-error style="margin-left: 0;" *ngIf="alcohol.hasError('required')">campo requerido!</mat-error>
+         <div class="row" style="margin-left: 0;"> 
+            <mat-radio-group formControlName="alcohol"  aria-labelledby="example-radio-group-label" class="example-radio-group">
+            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_alcohol])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
+            <mat-radio-button value="No" (click)="borrarInputs([observacion_alcohol])">No</mat-radio-button>
+         </mat-radio-group>
+         &nbsp; &nbsp; &nbsp; &nbsp; 
+          <mat-form-field  class="medium-width">
+            <textarea matInput formControlName="observacion_alcohol" placeholder="Detallar tiempo de uso y frecuencia"
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize"cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+            <mat-error *ngIf="observacion_alcohol.hasError('maxlength')">campo muy extenso!</mat-error>
+            <mat-error *ngIf="observacion_alcohol.hasError('minlength')">introduzca una observación valida!</mat-error>
+        </mat-form-field>
         </div>
-
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <input matInput formControlName= "cesarias" type= "number" placeholder="Numero de cesarias">
-              <mat-error *ngIf="cesarias.hasError('max')">invalido</mat-error>
-              <mat-error *ngIf="cesarias.hasError('min')">invalido</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <input matInput formControlName= "hijos_vivos" type= "number" placeholder="Numero de hijos vivos">
-              <mat-error *ngIf="hijos_vivos.hasError('max')">invalido</mat-error>
-              <mat-error *ngIf="hijos_vivos.hasError('min')">invalido</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-
+  
+        <mat-divider></mat-divider>
+  
         
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <input matInput formControlName= "hijos_muertos" type= "number" placeholder="Numero de hijos muertos">
-              <mat-error *ngIf="hijos_muertos.hasError('max')">invalido</mat-error>
-              <mat-error *ngIf="hijos_muertos.hasError('min')">invalido</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <input matInput formControlName= "fecha_termino_ult_embarazo" [min]="minDate" [max]="maxDate" [matDatepicker]="picker5" 
-              placeholder="Fecha ultimo embarazo" readonly="readonly"> 
-              <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
-              <mat-datepicker #picker5></mat-datepicker>
-            </mat-form-field>            
-          </div>
+          <label id="example-radio-group-label">2. Tabaquismo</label>
+            <mat-error style="margin-left: 0;" *ngIf="tabaquismo.hasError('required')"> campo requerido!</mat-error>
+         <div class="row" style="margin-left: 0;"> 
+           <mat-radio-group formControlName="tabaquismo" aria-labelledby="example-radio-group-label" class="example-radio-group">
+            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_tabaquismo])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
+            <mat-radio-button value="No" (click)="borrarInputs([observacion_tabaquismo])">No</mat-radio-button>
+          </mat-radio-group>
+          &nbsp; &nbsp; &nbsp; &nbsp; 
+        <mat-form-field class="medium-width">
+          <textarea matInput formControlName="observacion_tabaquismo"  placeholder="Detallar tiempo de uso y frecuencia"
+          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+          <mat-error *ngIf="observacion_tabaquismo.hasError('maxlength')">campo muy extenso!</mat-error>
+          <mat-error *ngIf="observacion_tabaquismo.hasError('minlength')">introduzca una observación valida!</mat-error>
+        </mat-form-field>
         </div>
+  
+        <mat-divider></mat-divider>
+  
+        
+          <label id="example-radio-group-label">3. Marihuana</label>
+            <mat-error style="margin-left: 0;" *ngIf="marihuana.hasError('required')">campo requerido!</mat-error>
+         <div class="row" style="margin-left: 0;"> 
+           <mat-radio-group formControlName="marihuana" aria-labelledby="example-radio-group-label" class="example-radio-group" >
+            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_marihuana])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
+            <mat-radio-button value="No" (click)="borrarInputs([observacion_marihuana])">No</mat-radio-button>
+           </mat-radio-group>
+           &nbsp; &nbsp; &nbsp; &nbsp; 
+        <mat-form-field class="medium-width">
+          <textarea matInput formControlName="observacion_marihuana" placeholder="Detallar tiempo de uso y frecuencia" 
+          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+           <mat-error *ngIf="observacion_marihuana.hasError('maxlength')">campo muy extenso!</mat-error>
+           <mat-error *ngIf="observacion_marihuana.hasError('minlength')">introduzca una observación valida!</mat-error>
+        </mat-form-field>
+        </div>
+  
+        <mat-divider></mat-divider>
+        
+        
+          <label id="example-radio-group-label">4. Cocaina</label>
+            <mat-error style="margin-left: 0;" *ngIf="cocaina.hasError('required')">campo requerido!</mat-error>
+          <div class="row" style="margin-left: 0;">
+          <mat-radio-group formControlName="cocaina" aria-labelledby="example-radio-group-label" class="example-radio-group" >
+            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_cocaina])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
+            <mat-radio-button value="No" (click)="borrarInputs([observacion_cocaina])">No</mat-radio-button>
+          </mat-radio-group>
+            &nbsp; &nbsp; &nbsp; &nbsp; 
+          <mat-form-field class="medium-width">
+            <textarea matInput formControlName="observacion_cocaina" placeholder="Detallar inicio de enfermedad y tratamiento" 
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+            <mat-error *ngIf="observacion_cocaina.hasError('maxlength')">campo muy extenso!</mat-error>
+            <mat-error *ngIf="observacion_cocaina.hasError('minlength')">introduzca una observación valida!</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <mat-divider></mat-divider>
 
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <mat-label>Resultado ultimo embarazo</mat-label>
-              <mat-select formControlName= "descripcion_termino_ult_embarazo" name="descripcion_termino_ult_embarazo">
-                <mat-option *ngFor="let resultado_embarazo of resultados_embarazos" [value]="resultado_embarazo.value">
-                  {{resultado_embarazo.viewValue}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <textarea formControlName= "observaciones" matInput  placeholder="Observaciones"></textarea>
-              <mat-error *ngIf="observaciones.hasError('maxlength')">campo muy extenso!</mat-error>
-              <mat-error *ngIf="observaciones.hasError('minlength')">introduzca una observación valida!</mat-error>
-            </mat-form-field>
-          </div>
+        <div class="row" style="margin-left: 0;">
+          <mat-form-field>
+            <input matInput formControlName="otros" placeholder="5. Otros">
+            <mat-error *ngIf="otros_ht.hasError('maxlength')">campo muy extenso!</mat-error>
+            <mat-error *ngIf="otros_ht.hasError('minlength')">introduzca una observación valida!</mat-error>
+          </mat-form-field>
+          &nbsp; &nbsp; &nbsp; &nbsp; 
+        <mat-form-field class="medium-width">
+          <textarea matInput formControlName="observacion_otros" placeholder="Observacion" 
+          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+          <mat-error *ngIf="observacion_otros_ht.hasError('maxlength')">campo muy extenso!</mat-error>
+          <mat-error *ngIf="observacion_otros_ht.hasError('minlength')">introduzca una observación valida!</mat-error>
+        </mat-form-field>
         </div>
-       </div>
-       <div class="botonesstep">
-          <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button>
-          <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
-        </div>
-    </form>        
+     </div>
+     <div class="botonesstep">
+        <button  disabled="{{formulario_habito_toxicologico_personal.invalid}}" mat-raised-button matStepperNext class="btn btn-outline-primary float-right" (click)="enviarDatos()">Enviar</button>
+        <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
+    </div>
+       
+    </form>    
   </mat-step>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- octavo step -->
-  <mat-step [stepControl]="formulario_planificacion_familiar">
-    <form [formGroup]="formulario_planificacion_familiar">
-    <ng-template matStepLabel>{{planificacionFamiliar}}</ng-template>
-    <!-- <ng-template matStepLabel>Planificacion Familiar</ng-template> -->
-      <div class="container">
-        <h2>Planificacion Familiar</h2>
-            <mat-error style="margin-inline-start: 5px;" *ngIf="planificacion_familiarr.hasError('required')">campo requerido!</mat-error>
-        <div>  
-          <p><mat-radio-group formControlName="planificacion_familiar" 
-            aria-labelledby="example-radio-group-label"
-            class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="habilitarInputs([metodo_planificacion,observacion_planificacion])">Si</mat-radio-button> &nbsp;   
-            <mat-radio-button value="No"  (click)="borrarInputs([metodo_planificacion,observacion_planificacion])">No</mat-radio-button>
-
-          </mat-radio-group></p> 
-        </div>
-
-        <div>
-          <mat-form-field>
-            <mat-label>Método de planificación</mat-label>
-            <mat-select name="metodo_planificacion" formControlName="metodo_planificacion">
-              <mat-option *ngFor="let metodo of metodos" [value]="metodo.value">
-                {{metodo.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_planificacion"
-           placeholder="Observación"></textarea>
-           <mat-error *ngIf="observacion_planificacion.hasError('maxlength')">campo muy extenso!</mat-error>
-           <mat-error *ngIf="observacion_planificacion.hasError('minlength')">introduzca una observación valida!</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="botonesstep">
-          <button  disabled="{{formulario_planificacion_familiar.invalid}}" mat-raised-button matStepperNext class="btn btn-outline-primary float-right" (click)="enviarDatos()">Enviar</button>
-          <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
-      </div>
-    </form>
-    <div *ngIf="loading==true" id="spin"> <mat-spinner class="loading"></mat-spinner></div>
- </mat-step>
 
  
 </mat-horizontal-stepper>
