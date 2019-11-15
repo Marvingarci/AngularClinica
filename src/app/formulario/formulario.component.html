@@ -1,4 +1,4 @@
-<mat-horizontal-stepper class="title" linear #stepper  > 
+<mat-horizontal-stepper linear #stepper  > 
     <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
         <form [formGroup]="formulario_datos_generales">
         <ng-template matStepLabel >{{datosGenerales}}</ng-template>
@@ -160,9 +160,9 @@
   <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1"  >
     <form [formGroup]="formulario_datos_generales">
     <ng-template matStepLabel >{{datosGenerales}}</ng-template>
-    <div class="container">
-      <div class="row">
-        <div class="col">
+    <div class="containerdatogeneral">
+      <div class="row" style="padding-right:10px; padding-left: 0;margin-left: 0%;">
+        <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
           <mat-form-field class="example-full-width" >
             <input matInput 
             formControlName= "nombre_completo"  
@@ -177,8 +177,8 @@
 
       </div>
 
-        <div class="row">
-          <div class="col">
+        <div class="row" style="padding-right:10px; padding-left: 0;margin-left: 0%;">
+            <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
             <mat-form-field class="example-full-width">
               <input matInput 
               formControlName= "numero_cuenta" 
@@ -205,8 +205,8 @@
           </div>
         </div>
           
-        <div class="row">
-          <div class="col">
+        <div class="row" style="padding-right:10px; padding-left: 0;margin-left: 0%;">
+            <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
             <mat-form-field class="example-full-width">
               <input matInput formControlName= "lugar_procedencia" name="lugar_procedencia" placeholder="Lugar de Procedencia">
             <mat-error *ngIf="lugar_procedencia.hasError('required')">campo requerido!</mat-error>
@@ -230,8 +230,8 @@
           </div>
         </div>
   
-        <div class="row">
-          <div class="col">
+        <div class="row" style="padding-right:10px; padding-left: 0;margin-left: 0%;">
+            <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
             <mat-form-field class="example-full-width">
               <input matInput formControlName= "direccion" name="direccion" id="" placeholder="Direccion">
             <mat-error *ngIf="direccion.hasError('required')">campo requerido!</mat-error>
@@ -256,8 +256,8 @@
   
          
         
-        <div class="row">
-          <div class="col"> 
+        <div class="row" style="padding-right:10px; padding-left: 0;margin-left: 0%;">
+            <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
             <mat-form-field class="example-full-width">
               <mat-label>Sexo</mat-label>
                 <mat-select formControlName= "sexo">
@@ -298,8 +298,8 @@
           </div>
         </div>
   
-        <div class="row">
-          <div class="col">
+        <div class="row" style="padding-right:10px; padding-left: 0;margin-left: 0%;">
+            <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
             <mat-form-field class="example-full-width">
               <input matInput matInput formControlName= "numero_telefono"  name="numero_telefono" id="telefono" placeholder="N° Telefono">
               <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido!</mat-error>
