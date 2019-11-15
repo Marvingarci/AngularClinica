@@ -14,28 +14,15 @@ mat-horizontal-stepper{
    top: 50%;
    left: 50%;
 }
-.containerdatogeneral{
-  /* height: 450px; */
-  height: 80%;
-  min-width: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 40px;
-  padding-right: 40px;
-  overflow: auto;
-  position: absolute;
-  overflow-x: hidden;   
-  top:30;
-  left:0;  
-}
+
 .container{
   /* height: 450px; */
   height: 80%;
   min-width: 99%;
   padding-top: 20px;
   padding-bottom: 20px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 40px;
+  padding-right: 40px;
   overflow: auto;
   position: absolute;
   overflow-x: hidden;   
@@ -82,15 +69,6 @@ mat-horizontal-stepper{
      right: 40px;
 
 }
-
-
-
-
-
-
-
-
-
 .example-form {
   min-width: 150px;
   max-width: 500px;
@@ -101,15 +79,7 @@ mat-horizontal-stepper{
   width: 100%;
 }
 
-.col {
-  text-align: left;
-  margin-left: 10px;
-  
-}
-.row{
-  
-  margin-left: 15px;
-}
+
 
 h2{
   margin-bottom: 20px;
