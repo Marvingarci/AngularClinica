@@ -10,6 +10,7 @@ import { LoginService } from "../services/login.service";
 import { LoginComponent } from '../login/login.component';
 import { FormularioComponent } from '../formulario/formulario.component';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { PacienteComponent } from '../paciente/paciente.component';
 
 export interface select {
   value: string;
@@ -24,32 +25,6 @@ export interface select {
 export class DatoPacienteComponent implements OnInit {
 
   
-  
- paciente: Paciente = {
-    id_paciente: null,
-    numero_paciente: null,
-    contrasenia: null,
-    nombre_completo: null,
-    numero_cuenta: null,
-    numero_identidad: null,
-    imagen: null,
-    lugar_procedencia: null,
-    direccion: null,
-    carrera: null,
-    fecha_nacimiento: null,
-    sexo: null,
-    estado_civil: null,
-    seguro_medico: null,
-    numero_telefono: null,
-    emergencia_telefono: null,
-    peso: null,
-    talla: null,
-    imc: null,
-    temperatura: null,
-    presion: null,
-    pulso: null,
-    categoria: null  
-  }
 
   formulario_datos_generales = new FormGroup({
     
@@ -76,13 +51,43 @@ export class DatoPacienteComponent implements OnInit {
     // emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
 
 
-});
+  });
 
+  paciente: Paciente = {
+    id_paciente: null,
+    numero_paciente: null,
+    contrasenia: null,
+    nombre_completo: null,
+    numero_cuenta: null,
+    numero_identidad: null,
+    imagen: null,
+    lugar_procedencia: null,
+    direccion: null,
+    carrera: null,
+    fecha_nacimiento: null,
+    sexo: null,
+    estado_civil: null,
+    seguro_medico: null,
+    numero_telefono: null,
+    emergencia_telefono: null,
+    peso: null,
+    talla: null,
+    imc: null,
+    temperatura: null,
+    presion: null,
+    pulso: null,
+    categoria: null,
+  
+}
+
+
+  
 
 
   id: any;
   noImg: boolean = true;
   pacientes: Paciente[];
+  
 
   //variable que identifica si un input es editable
   readonly: boolean = true;
@@ -97,44 +102,38 @@ export class DatoPacienteComponent implements OnInit {
     this.dialog.closeAll;
 
     this.id = this.activatedRoute.snapshot.params['id'];
-    
+
     if(this.id){
-      this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
-        this.pacientes = data;
-        this.paciente = this.pacientes.find((m)=>{return m.id_paciente == this.id});
 
-        //establesco el valor a los formcontrol para que se visualizen en los respectivos inputs
-        this.nombre_completo.setValue(this.paciente.nombre_completo);
-        this.numero_identidad.setValue(this.paciente.numero_identidad);
-        this.numero_cuenta.setValue(this.paciente.numero_cuenta);
-        this.carrera.setValue(this.paciente.carrera);
-        this.sexo.setValue(this.paciente.sexo);
-        this.numero_telefono.setValue(this.paciente.numero_telefono);
+      this.formularioService.obtenerPaciente(this.id).subscribe((data : Paciente)=>{
+      this.paciente = data;
+      console.log(this.paciente);
 
-        console.log(this.paciente.contrasenia);
-        this.formularioService.idActualizar=this.paciente.id_paciente;
-       
+      //establesco el valor a los formcontrol para que se visualizen en los respectivos inputs
+      this.nombre_completo.setValue(this.paciente.nombre_completo);
+      this.numero_identidad.setValue(this.paciente.numero_identidad);
+      this.numero_cuenta.setValue(this.paciente.numero_cuenta);
+      this.carrera.setValue(this.paciente.carrera);
+      this.sexo.setValue(this.paciente.sexo);
+      this.numero_telefono.setValue(this.paciente.numero_telefono);
 
-        
-        // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
-        //si el paciente tiene imagen entonces esta variable cambiara a false
-        if(this.paciente.imagen != null){
-          this.noImg = false;
-        }
-
-
-        //Aqui se asegura si el alumno ya establecio una contrase;a y sino lanza el dialogo
-        
-        
-        
-        console.log(this.paciente);
+      console.log(this.paciente.contrasenia);
+      this.formularioService.idActualizar=this.paciente.id_paciente;
       
+
+      
+      // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
+      //si el paciente tiene imagen entonces esta variable cambiara a false
+      if(this.paciente.imagen != null){
+        this.noImg = false;
+      }
+
+
       },(error)=>{
-        console.log(error);
+        console.log(error)
       });
-
     }
-
+   
     principal.esconder();
 
 
@@ -142,6 +141,7 @@ export class DatoPacienteComponent implements OnInit {
    
     
   }
+
   
 
   getdato(){

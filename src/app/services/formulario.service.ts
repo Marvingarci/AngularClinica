@@ -99,39 +99,98 @@ export class FormularioService {
     );
   };
 
+  
+
   obtenerPacientes(){
     return this.httpClient.get(this.API_ENDPOINT+'pacientes');
   }
 
+  obtenerPaciente(id_paciente: any){
+    return this.httpClient.get(this.API_ENDPOINT+'pacientes/'+id_paciente);
+  }
+
+
+
+
   obtenerAntecedentesFamiliares(){
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_familiares');
   }
+
+  obtenerAntecedenteFamiliar(id_paciente: any){
+    return this.httpClient.get(this.API_ENDPOINT+'antecedentes_familiares/'+id_paciente);
+  }
+
+
+
 
   obtenerAntecedentesPersonales(){
     return this.httpClient.get(
       this.API_ENDPOINT+'antecedentes_personales');
   }
 
+  obtenerAntecedentePersonal($id_paciente: any){
+    return this.httpClient.get(
+      this.API_ENDPOINT+'antecedentes_personales/'+$id_paciente);
+  }
+
+
+
+
   obtenerHabitosToxicologicos(){
     return this.httpClient.get(this.API_ENDPOINT+'habitos_toxicologicos_personales');
   }
+
+  obtenerHabitoToxicologico(id_paciente: any){
+    return this.httpClient.get(this.API_ENDPOINT+'habitos_toxicologicos_personales/'+id_paciente);
+  }
+
+
+
 
   obtenerActividadesSexuales(){
     return this.httpClient.get(this.API_ENDPOINT+'actividad_sexual');
   }
 
+  obtenerActividadSexual($id_paciente: any){
+    return this.httpClient.get(this.API_ENDPOINT+'actividad_sexual/'+$id_paciente);
+  }
+
+
+
+
   obtenerAntecedentesGinecologicos(){
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_ginecologicos');
   }
+
+  obtenerAntecedenteGinecologico(id_paciente: any){
+    return this.httpClient.get(this.API_ENDPOINT+'antecedentes_ginecologicos/'+id_paciente);
+  }
+
+
+
 
   obtenerAntecedentesObstetricos(){
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_obstetricos');
   }
 
+  obtenerAntecedenteObstetrico(id_paciente: any){
+    return this.httpClient.get(this.API_ENDPOINT+'antecedentes_obstetricos/'+id_paciente);
+  }
+
+
+
+
   obtenerPlanificacionesFamiliares(){
     return this.httpClient.get(
       this.API_ENDPOINT+'planificaciones_familiares');
   }
+
+  obtenerPlanificacionFamiliar(id_paciente: any){
+    return this.httpClient.get(
+      this.API_ENDPOINT+'planificaciones_familiares/'+id_paciente);
+  }
+
+
 
 
   getUltimoID(){
@@ -142,10 +201,6 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT+'login');
   }
   
-  getUno(paciente: number){
-    return this.httpClient.get(this.API_ENDPOINT+'pacientes/'+paciente);
-  }
-
 
   guardarAntecedentesFamiliares(antecedente_familiar: AntecedentesFamiliares){
     return this.httpClient.post(
