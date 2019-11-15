@@ -1032,6 +1032,27 @@ maxDate = new Date();
     }
   }
 
+  actualizarPlanificacionFamiliar(){
+    if(this.readonlyPlanificacionFamiliar){
+      if(this.formulario_planificacion_familiar.valid){
+
+        // guardar datos del formulario en planificacion_familiar y enviarlo a la api
+        this.planificacion_familiar.planificacion_familiar = this.planificacion_familiarr.value;
+        this.planificacion_familiar.metodo_planificacion = this.metodo_planificacion.value;
+        this.planificacion_familiar.observacion_planificacion = this.observacion_planificacion.value;
+
+        this.formularioService.actualizarPlanificacionFamiliar(this.planificacion_familiar).subscribe((data)=>{
+            this.cargarInformacionPlanificacionfamiliar();
+            
+            alert('se actualizaron perron la Planificacion Familiar');
+
+          }, (error)=>{
+            console.log(error);
+          });
+      }
+    }
+  }
+
   ngOnInit() {
   }
 
