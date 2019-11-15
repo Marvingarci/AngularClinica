@@ -6,6 +6,11 @@ import { LoginadminService } from '../services/loginadmin.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
+export interface select {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-loginadmin',
   templateUrl: './loginadmin.component.html',
@@ -35,22 +40,41 @@ export class LoginadminComponent implements OnInit {
     identidad_admin:null,
     especialidad_admin:null
   };
+
+  especialidades: select[] = [
+    {value: 'Salud Pública', viewValue: 'Salud Pública'},
+    {value: 'Ginecología y Obstetricia', viewValue: 'Ginecología y Obstetricia'},
+    {value: 'Pediatría', viewValue: 'Pediatría'},
+    {value: 'Cirugía General', viewValue: 'Cirugía General'},
+    {value: 'Medicina Interna', viewValue: 'Medicina Interna'},
+    {value: 'Dermatología', viewValue: 'Dermatología'},
+    {value: 'Neurología', viewValue: 'Neurología'},
+    {value: 'Neurocirugía', viewValue: 'Neurocirugía'},
+    {value: 'Cirugía Plástica', viewValue: 'Cirugía Plástica'},
+    {value: 'Anestesiología, Reanimación y Dolor', viewValue: 'Anestesiología, Reanimación y Dolor'},
+    {value: 'Ortopedia', viewValue: 'Ortopedia'},
+    {value: 'Psiquiatría', viewValue: 'Psiquiatría'},
+    {value: 'Otorrinolaringología', viewValue: 'Otorrinolaringología'},
+    {value: 'Medicina Física y Rehabilitación', viewValue: 'Medicina Física y Rehabilitación'},
+    {value: 'Medicina General', viewValue: 'Medicina General'},
+   
+  ];
   
-  lista:string[]=[
-  "Salud Pública",
-  "Ginecología y Obstetricia",
-  "Pediatría",
-  "Cirugía General",
-  "Medicina Interna",
-  "Dermatología",
-  "Neurología",
-  "Neurocirugía",
-  "Cirugía Plástica",
-  "Anestesiología, Reanimación y Dolor",
-  "Ortopedia",
-  "Psiquiatría",
-  "Otorrinolaringología",
-  "Medicina Física y Rehabilitación"];
+  //lista:string[]=[
+  //"Salud Pública",
+  //"Ginecología y Obstetricia",
+  //"Pediatría",
+  //"Cirugía General",
+  //"Medicina Interna",
+  //"Dermatología",
+  //"Neurología",
+  //"Neurocirugía",
+  //"Cirugía Plástica",
+  //"Anestesiología, Reanimación y Dolor",
+  //"Ortopedia",
+  //"Psiquiatría",
+  //"Otorrinolaringología",
+  //"Medicina Física y Rehabilitación"];
  
   id:any;
   editing:boolean = false;

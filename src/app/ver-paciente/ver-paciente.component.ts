@@ -241,111 +241,6 @@ export class VerPacienteComponent implements OnInit {
     this.step--;
   }
 
-  read1 = true;
-input1 : string = '';
-csi1() { this.read1 = false;}
-cno1() {this.read1 = true;
-        this.input1= null;}
-
-read2 = true;
-input2 : string = '';
-csi2() { this.read2 = false;}
-cno2() {this.read2 = true;this.input2= null;  }
-
-read3 = true;
-input3 : string = '';
-csi3() { this.read3 = false;}
-cno3() {this.read3 = true; this.input3= null; }
-
-read4 = true;
-input4 : string = '';
-isDisabled4 = true;
-csi4() { this.read4 = false;
-  this.isDisabled4 = false; }
-cno4() {this.read4 = true; 
-  this.isDisabled4 = true; this.input4= null; }
-
-read5 = true;
-isDisabled5 = true;
-input5 : string = '';
-csi5() { this.read5 = false;
-  this.isDisabled5 = false; }
-cno5() {this.read5 = true; 
-  this.isDisabled5 = true; this.input5= null; }
-
-read6 = true;
-input6 : string = '';
-csi6() { this.read6 = false;}
-cno6() {this.read6 = true;  this.input6= null;}
-
-
-read7 = true;
-isDisabled7 = true;
-input7 : string = '';
-csi7() { this.read7 = false;
-  this.isDisabled7 = false; }
-cno7() {this.read7 = true;
-  this.isDisabled7 = true;this.input7= null; }
-
-read8 = true;
-isDisabled8 = true;
-input8 : string = '';
-csi8() { this.read8 = false;
-  this.isDisabled8 = false;  }
-cno8() {this.read8 = true; 
-  this.isDisabled8 = true;this.input8= null; }
-
-read9 = true;
-input9 : string = '';
-csi9() { this.read9 = false;}
-cno9() {this.read9 = true;this.input9= null;  }
-
-read10 = true;
-input10 : string = '';
-csi10() { this.read10 = false;}
-cno10() {this.read10 = true; this.input10= null; }
-
-read11 = true;
-input11 : string = '';
-csi11() { this.read11 = false;}
-cno11() {this.read11 = true; this.input11= null; }
-
-read12 = true;
-input12 : string = '';
-csi12() { this.read12 = false;}
-cno12() {this.read12 = true; this.input12= null; }
-
-read13 = true;
-input13 : string = '';
-csi13() { this.read13 = false;}
-cno13() {this.read13 = true; this.input13= null; }
-
-read14 = true;
-input14 : string = '';
-csi14() { this.read14 = false;}
-cno14() {this.read14 = true; this.input14= null; }
-
-
-
-  read16 = true;
-isDisabledB26 = true;
-csi16() { this.read16 = false;
-          this.isDisabledB26 = false;}
-cno16() {this.read16 = true;  
-  this.isDisabledB26 = true;}
-
-  read17 = true;
-  input17 : string = '';
-
-  
-csi17() { this.read17 = false;}
-cno17() {this.read17 = true; this.input17= null;  }
-
-ya(){
-  alert('macizo');
-}
-
-
 
 habilitarInputs(formControl : FormControl[]){
   
@@ -365,152 +260,6 @@ borrarInputs(formControl : FormControl[]){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-isDisabledB1 = true;
-triggerSomeEventSiB1() {      
-    this.isDisabledB1 = false;
-}
-triggerSomeEventNoB1() {  
-  this.isDisabledB1 = true; 
- }
-
- isDisabledB2 = true;
- triggerSomeEventSiB2() {      
-     this.isDisabledB2 = false;
- }
- triggerSomeEventNoB2() {  
-   this.isDisabledB2 = true; 
-  }
-   isDisabledB3 = true;
-triggerSomeEventSiB3() {      
-    this.isDisabledB3 = false;
-}
-triggerSomeEventNoB3() {  
-  this.isDisabledB3 = true; 
- }
-
-isDisabledB4 = true;
-triggerSomeEventSiB4() {      
-    this.isDisabledB4 = false;
-}
-triggerSomeEventNoB4() {  
-  this.isDisabledB4 = true; 
-  }
-
-  isDisabledB5 = true;
-triggerSomeEventSiB5() {      
-    this.isDisabledB5 = false;
-}
-triggerSomeEventNoB5() {  
-  this.isDisabledB5 = true; 
-  }
-
-  isDisabledB6 = true;
-triggerSomeEventSiB6() {      
-    this.isDisabledB6 = false;
-}
-triggerSomeEventNoB6() {  
-  this.isDisabledB6 = true; 
-  }
-
-
-  isDisabledB77 = true;
-  triggerSomeEventSiB77() {      
-    this.isDisabledB77 = false;
-}
-triggerSomeEventNoB77() {  
-  this.isDisabledB77 = true; 
-  }
-
-
-
-  isDisabledB8 = true;
-triggerSomeEventSiB8() {      
-    this.isDisabledB8 = false;
-}
-triggerSomeEventNoB8() {  
-  this.isDisabledB8 = true; 
-  }
-
-  isDisabledB9 = true;
-triggerSomeEventSiB9() {      
-    this.isDisabledB9 = false;
-}
-triggerSomeEventNoB9() {  
-  this.isDisabledB9 = true; 
-  }
-
-  
-
-  
-read15 = true;
-isDisabledB25 = true;
-input15 : string = '';
-
-csi15() { 
-  console.log(this.formulario_datos_generales.get('sexo').value);
-  
-  if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-    this.read15 = false;
-          this.isDisabledB25 = false;
-  }else{
-    this.read15 = false;
-          this.isDisabledB25 = false;
-    this.ocultar=false;
-  }
-  
-  
-}
-cno15() {  
-   this.input15= null;
-  console.log(this.formulario_datos_generales.get('sexo').value);
-
-  if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-    this.read15 = true;  
-  this.isDisabledB25 = true; 
-  }else{
-    this.read15 = true;  
-  this.isDisabledB25 = true;
-    this.ocultar=true;
-  }
- 
-}
-
-isDisabledB11 = true;
-inputB11 : string ;
-triggerSomeEventSiB11() {    
-  this.isDisabledB11 = false;
-}
-triggerSomeEventNoB11() {  
-  this.inputB11  =null ;
-  this.isDisabledB11 = true; 
-}
-
-isDisabledB12 = true;
-inputB12 : string ;
-triggerSomeEventSiB12() {      
-    this.isDisabledB12 = false;
-}
-triggerSomeEventNoB12() {             
-  this.inputB12  =null ;
-  this.isDisabledB12 = true; 
-}
 
 des = true;
 ingreso : string ;
@@ -1209,6 +958,7 @@ maxDate = new Date();
         this.habito_toxicologico_personal.observacion_otros = this.observacion_otros_ht.value;
 
         this.formularioService.actualizarHabitoToxicologico(this.habito_toxicologico_personal).subscribe((data)=>{
+          
           this.cargarTablaHabitosToxicologicos();
 
           alert('se actualizaron perron los habitos toxicologicos');
@@ -1237,6 +987,60 @@ maxDate = new Date();
          },(error)=>{
            console.log(error);
          });
+      }
+    }
+  }
+
+  actualizarAntecedentesGinecologicos(){
+
+    if(this.readonlyAntecedentesGinecologicos == true){
+      if(this.formulario_antecedente_ginecologico.valid){
+
+        // guardar datos del formulario en antecedente_genicologico y enviarlo a la api
+        this.antecedente_ginecologico.edad_inicio_menstruacion = this.edad_inicio_menstruacion.value;
+        this.antecedente_ginecologico.fum = this.fum.value;
+        this.antecedente_ginecologico.citologia = this.citologia.value;
+        this.antecedente_ginecologico.fecha_citologia = this.fecha_citologia.value;
+        this.antecedente_ginecologico.resultado_citologia = this.resultado_citologia.value;
+        this.antecedente_ginecologico.duracion_ciclo_menstrual = this.duracion_ciclo_menstrual.value;
+        this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
+        this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
+
+        this.formularioService.actualizarAntecedenteGinecologico(this.antecedente_ginecologico).subscribe((data)=>{
+          this.cargarInformacionAntecedentesGinecologicos();
+
+          alert('se actualizaron perron los antecedentes ginecologicos');
+
+        }, (error)=> {
+          console.log(error);
+        });
+
+      }
+    }
+  }
+
+  actualizarAntecedentesObstetricos(){
+    if(this.readonlyAntecedentesObstetricos == true){
+      if(this.formulario_antecedente_obstetrico.valid){
+
+        // guardar datos del formulario en antecedente_obstetrico y enviarlo a la api
+        this.antecedente_obstetrico.partos = this.partos.value;
+        this.antecedente_obstetrico.abortos = this.abortos.value;
+        this.antecedente_obstetrico.cesarias = this.cesarias.value;
+        this.antecedente_obstetrico.hijos_vivos = this.hijos_vivos.value;
+        this.antecedente_obstetrico.hijos_muertos = this.hijos_muertos.value;
+        this.antecedente_obstetrico.fecha_termino_ult_embarazo = this.fecha_termino_ult_embarazo.value;
+        this.antecedente_obstetrico.descripcion_termino_ult_embarazo = this.descripcion_termino_ult_embarazo.value;
+        this.antecedente_obstetrico.observaciones = this.observaciones.value;  
+
+        this.formularioService.actualizarAntecedenteObstetrico(this.antecedente_obstetrico).subscribe((data)=>{
+          this.cargarInformacionAntecedentesObstetricos();
+
+          alert('se actualizaron perron los antecedentes obstetricos');
+
+        }, (error)=>{
+          console.log(error);
+        });
       }
     }
   }
@@ -1421,7 +1225,6 @@ maxDate = new Date();
   }
 
   cargarTablaHabitosToxicologicos(){
-
   
     // establesco los valores a el arreglo de interfaces "tablaHabitosToxicologicos"
     this.tablaHabitosToxicologicos = 
@@ -1448,20 +1251,19 @@ maxDate = new Date();
       valor: this.habito_toxicologico_personal.cocaina,
       observacion: this.habito_toxicologico_personal.observacion_cocaina
       },
-      
 
     ];
 
     // verifico si otro tiene un valor para poder agregarlo a la tabla
-    if(this.habito_toxicologico_personal.otros != null){
-      this.tablaHabitosToxicologicos.unshift(
+    if(this.habito_toxicologico_personal.otros){
+      this.tablaHabitosToxicologicos.push(
         {
-          antecedente: this.habito_toxicologico_personal.otros,
+          antecedente: this.habito_toxicologico_personal.otros.trim(),
           valor: "Si",
           observacion: this.habito_toxicologico_personal.observacion_otros
-      });
-     
+      }); 
     }
+    
   }
 
 
@@ -1564,7 +1366,6 @@ maxDate = new Date();
     this.otros.setValue(this.antecedente_familiar.otros);
     this.parentesco_otros.setValue(this.antecedente_familiar.parentesco_otros);
     this.parentesco_otros.disable({onlySelf:true});
-
     
 
   }
@@ -1734,6 +1535,12 @@ maxDate = new Date();
     this.citologia.setValue(this.antecedente_ginecologico.citologia);
     this.fecha_citologia.setValue(this.antecedente_ginecologico.fecha_citologia);
     this.resultado_citologia.setValue(this.antecedente_ginecologico.resultado_citologia);
+
+    if(this.citologia.value == "No"){
+      this.fecha_citologia.disable({onlySelf: true});
+      this.resultado_citologia.disable({onlySelf: true});
+    }
+
     this.duracion_ciclo_menstrual.setValue(this.antecedente_ginecologico.duracion_ciclo_menstrual);
     this.periocidad_ciclo_menstrual.setValue(this.antecedente_ginecologico.periocidad_ciclo_menstrual);
     this.caracteristicas_ciclo_menstrual.setValue(this.antecedente_ginecologico.caracteristicas_ciclo_menstrual);
@@ -1759,6 +1566,11 @@ maxDate = new Date();
     this.planificacion_familiarr.setValue(this.planificacion_familiar.planificacion_familiar);
     this.metodo_planificacion.setValue(this.planificacion_familiar.metodo_planificacion);
     this.observacion_planificacion.setValue(this.planificacion_familiar.observacion_planificacion);
+
+    if(this.planificacion_familiarr.value == "No"){
+      this.metodo_planificacion.disable({onlySelf: true});
+      this.observacion_planificacion.disable({onlySelf: true});
+    }
 
   }
 

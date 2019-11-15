@@ -5,6 +5,11 @@ import { InventariosService } from '../services/inventarios.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../app.component';
 
+export interface select {
+  value: number;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-form-inventario',
   templateUrl: './form-inventario.component.html',
@@ -19,6 +24,7 @@ export class FormInventarioComponent implements OnInit {
     nombre: new FormControl('',[Validators.required,  Validators.minLength(4),Validators.maxLength(30)]),
     descripcion: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
     observacion: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
+    presentacion: new FormControl('',[Validators.required]),
     //fecha_vencimiento: new FormControl('', Validators.required),
     
     
@@ -38,6 +44,37 @@ export class FormInventarioComponent implements OnInit {
     //fecha_vencimiento: null,
     
   };
+
+  presentaciones: select[] = [
+    {value: 1, viewValue: 'Tabletas'},
+    {value: 2, viewValue: 'Cápsulas'},
+    {value: 3, viewValue: 'Comprimidos'},
+    {value: 4, viewValue: 'Sobres'},
+    {value: 5, viewValue: 'Jarabe'},
+    {value: 6, viewValue: 'Crema'},
+    {value: 7, viewValue: 'Supositorio'},
+    {value: 8, viewValue: 'Óvulo'},
+    {value: 9, viewValue: 'Suspencion'},
+    {value: 10, viewValue: 'Solución'},
+    {value: 11, viewValue: 'Inyectable'},
+   
+  ];
+
+  // lista:string[]=[
+   //"Tabletas",
+   // "Capsulas",
+   // "Comprimidos",
+   // "Sobres",
+   // "Jarabe",
+   // "Crema",
+   // "Supositorio",
+   // "Ovulo",
+   // "Suspencion",
+   // "Solucion",
+    //"Inyectable"];
+
+
+
   inventarios: Inventario[];
   id: any;
   editando: boolean= false;
@@ -59,6 +96,7 @@ export class FormInventarioComponent implements OnInit {
         this.nombre.setValue(this.inventario.nombre);
         this.descripcion.setValue(this.inventario.descripcion);
         this.observacion.setValue(this.inventario.observacion);
+        this.presentacion.setValue(this.inventario.presentacion);
         //this.fecha_vencimiento.setValue(this.inventario.fecha_vencimiento);
         
       },(error)=>{
@@ -81,6 +119,7 @@ export class FormInventarioComponent implements OnInit {
       this.inventario.nombre = this.nombre.value;
       this.inventario.descripcion = this.descripcion.value;
       this.inventario.observacion = this.observacion.value;
+      this.inventario.presentacion = this.presentacion.value;
       //this.inventario.fecha_vencimiento = this.fecha_vencimiento.value;
       
       if(this.editando == true){
@@ -109,6 +148,7 @@ export class FormInventarioComponent implements OnInit {
   get nombre(){return this.formInventario.get('nombre')};
   get descripcion(){return this.formInventario.get('descripcion')};
   get observacion(){return this.formInventario.get('observacion')};
+  get presentacion(){return this.formInventario.get('presentacion')};
   //get fecha_vencimiento(){return this.formInventario.get('fecha_vencimiento')};
   
   

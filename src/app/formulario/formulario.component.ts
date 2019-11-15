@@ -35,6 +35,16 @@ export interface select {
   viewValue: string;
 }
 
+export interface EstadosCiviles {
+  value: number;
+  viewValue: string;
+}
+
+export interface SegurosMedicos {
+  value: number;
+  viewValue: string;
+}
+
 export class MyErrorStateMatcher implements ErrorStateMatcher{
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -710,18 +720,18 @@ ocultar: boolean = true;
     {value: 'otro', viewValue: 'Otro'}
   ];
 
-  seguros_medicos: select[] = [
-    {value: 'Privado', viewValue: 'Privado'},
-    {value: 'IHSS', viewValue: 'IHSS'},
-    {value: 'No', viewValue: 'No'}
+  seguros_medicos: SegurosMedicos[] = [
+    {value: 1, viewValue: 'Privado'},
+    {value: 2, viewValue: 'IHSS'},
+    {value: 3, viewValue: 'No'}
   ];
 
-  estados_civiles: select[] = [
-    {value: 'Soltero', viewValue: 'Soltero'},
-    {value: 'Union Libre', viewValue: 'Union Libre'},
-    {value: 'Divorciado', viewValue: 'Divorciado'},
-    {value: 'Viudo', viewValue: 'Viudo'},
-    {value: 'Casado', viewValue: 'Casado'},
+  estados_civiles: EstadosCiviles[] = [
+    {value: 1, viewValue: 'Soltero'},
+    {value: 2, viewValue: 'Union Libre'},
+    {value: 3, viewValue: 'Divorciado'},
+    {value: 4, viewValue: 'Viudo'},
+    {value: 5, viewValue: 'Casado'},
    
   ];
 
