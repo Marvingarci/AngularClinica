@@ -76,7 +76,8 @@ const routes: Route[] = [
   {path: 'verPaciente/:id', component: VerPacienteComponent},
   {path: 'inventario', component: InventarioComponent},
   //{path: 'formInventario', component: FormInventarioComponent},
-  
+  {path: 'listadoEstudiantes/:id', component: ListadoEstudiantesComponent},
+
 
 
   {path: 'loginadmin', component: LoginadminComponent},
@@ -89,7 +90,6 @@ const routes: Route[] = [
     children: [
       {path: 'at1', component: At1Component},
       {path: 'registro', component: PacienteComponent},
-      {path: 'listadoEstudiantes', component: ListadoEstudiantesComponent},
       {path: 'listadotrabajadores', component: ListadoTrabajadoresComponent},
       {path: 'listadoVisitantes', component: ListadoVisitantesComponent},
       {path: 'listadoProsene', component: ListadoProseneComponent},

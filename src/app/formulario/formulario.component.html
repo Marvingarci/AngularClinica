@@ -1,4 +1,5 @@
 <mat-horizontal-stepper linear #stepper  > 
+
     <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
         <form [formGroup]="formulario_datos_generales">
         <ng-template matStepLabel >{{datosGenerales}}</ng-template>
@@ -146,7 +147,7 @@
           </div>
        
       </form>
-      </mat-step>
+      </mat-step> 
     
 
 
@@ -604,7 +605,15 @@
       </div>
     </form> 
     
-  </mat-step> 
+  </mat-step>  
+
+ 
+
+
+
+
+
+
 
  
 
