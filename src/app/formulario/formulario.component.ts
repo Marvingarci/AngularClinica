@@ -107,8 +107,7 @@ export class FormularioComponent implements OnInit {
   formulario_antecedentes_familiares = new FormGroup({
     
     diabetes : new FormControl('',[Validators.required]),
-    observacion_diabetes : new FormControl({value:'', disabled: true},[],),
-    parentesco_diabetes : new FormControl({value:'', disabled: true},[]),
+    parentesco_diabetes : new FormControl({value:''},[]),
     tb_pulmonar : new FormControl('',[Validators.required]),
     parentesco_tb_pulmonar : new FormControl({value:'', disabled: true},[]),
     desnutricion : new FormControl('',[Validators.required]),
@@ -232,6 +231,24 @@ export class FormularioComponent implements OnInit {
   
   
 // Aqui esta codificando MELVIN
+
+
+// hace esto melvin para que se te limpien los inputs
+
+habilitarInputs(formControl : FormControl[]){
+  
+  formControl.forEach(controlador => {
+    controlador.enable({onlySelf: true});
+    
+  });
+}
+
+borrarInputs(formControl : FormControl[]){
+  formControl.forEach(controlador => {
+    controlador.setValue('');
+    controlador.disable({onlySelf: true});
+  });
+7}
 
 
 read1 = true;
