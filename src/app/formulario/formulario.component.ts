@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Paciente } from '../interfaces/paciente';
 import { FormularioService } from '../services/formulario.service';
@@ -20,7 +20,8 @@ import { LoginService } from "../services/login.service";
 import { NgStyle } from '@angular/common';
 import { stringify } from 'querystring';
 import { Subscription } from 'rxjs';
-
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import {take} from 'rxjs/operators';
 
 export interface Loginadmin {
  // contrasenia_admin: any;
@@ -104,7 +105,7 @@ export class FormularioComponent implements OnInit {
       numero_identidad: new FormControl('', [Validators.required,Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
        // "\d" es lo mismo "[0-9]"
       lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
-      direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      direccion: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(20)]),
       carrera: new FormControl('', [Validators.required]),
       fecha_nacimiento: new FormControl('', Validators.required),
       sexo: new FormControl('', Validators.required),
@@ -112,6 +113,7 @@ export class FormularioComponent implements OnInit {
       estado_civil: new FormControl('', Validators.required),
       seguro_medico: new FormControl('', Validators.required),
       numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+      emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{3,30}$/)]),
       emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
   
   
@@ -278,38 +280,43 @@ read15 = true;
 isDisabledB25 = true;
 input15 : string = '';
 
-csi15(formControl : FormControl[]) { 
 
-  formControl.forEach(controlador => {
-    controlador.enable({onlySelf: true});    
+
+
+ocultar: boolean = true;
+ocultar1: boolean = true;
+
+mostrarS(){
+  this.ocultar=false;
+}
+mostrarN(){
+this.ocultar=true;
+}
+
+csi15(formControl : FormControl[]) { 
+formControl.forEach(controlador => {
+   controlador.enable({onlySelf: true});    
   });
   console.log(this.formulario_datos_generales.get('sexo').value);
-  
   if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-
-  }else{
-   
-    this.ocultar=false;
-  }
-  
-  
+    this.ocultar1=false;
+  }else{   
+    this.ocultar1=false;
+  }  
 }
+
 cno15(formControl : FormControl[]) {  
   formControl.forEach(controlador => {
     controlador.setValue('');
     controlador.disable({onlySelf: true});
   });
   console.log(this.formulario_datos_generales.get('sexo').value);
-
   if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-  
+    this.ocultar1=true;
   }else{
-   
-    this.ocultar=true;
+    this.ocultar1=true;
   } 
 }
-
-
 
 
 des = true;
@@ -354,14 +361,6 @@ this.des3 = true;
 }
 
 
-mostrarS(){
-  this.ocultar=false;
-}
-mostrarN(){
-this.ocultar=true;
-}
-
-ocultar: boolean = true;
 
 
   paciente: Paciente = {
@@ -378,6 +377,7 @@ ocultar: boolean = true;
     estado_civil: null,
     seguro_medico: null,
     numero_telefono: null,
+    emergencia_persona: null,
     emergencia_telefono: null,
     categoria:null
 
@@ -583,7 +583,7 @@ ocultar: boolean = true;
     {value: 'Testiculo' , viewValue: 'Testiculo'},
     {value: 'Pene' , viewValue: 'Pene'},
     {value: 'Leucemia' , viewValue: 'Leucemia'},
-
+    {value: 'Cervicouterino' , viewValue: 'Cervicouterino'}
   ];
 
   practicas_sexuales: select[] = [
@@ -645,13 +645,8 @@ ocultar: boolean = true;
       // }      
     }
     
-    if () {
-      
-    }
-    
-    compareWithFn(item1, item2) {
-      return item1 && item2 ? item1.nom === item2.nom : item1 === item2;
-    }
+    // para que se le quite la cosa fea al text area
+    @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
 
     
  
@@ -776,6 +771,7 @@ ocultar: boolean = true;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
         this.paciente.numero_telefono = this.numero_telefono.value;
+        this.paciente.emergencia_persona = this.emergencia_persona.value;
         this.paciente.emergencia_telefono = this.emergencia_telefono.value;
         this.paciente.categoria = this.categoria.value;
         
@@ -808,6 +804,7 @@ ocultar: boolean = true;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
         this.paciente.numero_telefono = this.numero_telefono.value;
+        this.paciente.emergencia_persona = this.emergencia_persona.value;
         this.paciente.emergencia_telefono = this.emergencia_telefono.value;
         this.paciente.categoria= this.categoria.value;
       
@@ -955,34 +952,10 @@ ocultar: boolean = true;
       }
 
 
-      if(this.ocultar == false){
+      if(this.ocultar1 == false){
 
-        if(this.formulario_antecedente_ginecologico.valid){
-
-          // guardar datos del formulario en antecedente_genicologico y enviarlo a la api
-          this.antecedente_ginecologico.edad_inicio_menstruacion = this.edad_inicio_menstruacion.value;
-          this.antecedente_ginecologico.fum = this.fum.value;
-          this.antecedente_ginecologico.citologia = this.citologia.value;
-          this.antecedente_ginecologico.fecha_citologia = this.fecha_citologia.value;
-          this.antecedente_ginecologico.resultado_citologia = this.resultado_citologia.value;
-          this.antecedente_ginecologico.duracion_ciclo_menstrual = this.duracion_ciclo_menstrual.value;
-          this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
-          this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
-          this.antecedente_ginecologico.id_paciente = this.datosScraping.id_login;
-
-          this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico).subscribe( (data) =>{
-            console.log(data);
-          }, (error) => {
-            this.error = true;
-            console.log(error);
-            alert('ocurrion un error');
-          });
-          
-          
-        }
 
         if(this.formulario_antecedente_obstetrico.valid){
-
           // guardar datos del formulario en antecedente_obstetrico y enviarlo a la api
           this.antecedente_obstetrico.partos = this.partos.value;
           this.antecedente_obstetrico.abortos = this.abortos.value;
@@ -1001,32 +974,55 @@ ocultar: boolean = true;
             console.log(error);
             alert('ocurrion un error');
           });
-         
-          
-        } 
+         } 
 
+
+         if(this.formulario_planificacion_familiar.valid){
+          // guardar datos del formulario en planificacion_familiar y enviarlo a la api
+          this.planificacion_familiar.planificacion_familiar = this.planificacion_familiarr.value;
+          this.planificacion_familiar.metodo_planificacion = this.metodo_planificacion.value;
+          this.planificacion_familiar.observacion_planificacion = this.observacion_planificacion.value;
+          this.planificacion_familiar.id_paciente = this.datosScraping.id_login;
+
+          this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiar).subscribe( (data) =>{
+            console.log(data);
+          }, (error) => {
+            this.error = true;
+            console.log(error);
+            alert('ocurrion un error');
+          });
+
+          }else{
+          this.error= true;
+          }
       }
 
+      
+      if(this.formulario_antecedente_ginecologico.valid){
 
-      if(this.formulario_planificacion_familiar.valid){
+        // guardar datos del formulario en antecedente_genicologico y enviarlo a la api
+        this.antecedente_ginecologico.edad_inicio_menstruacion = this.edad_inicio_menstruacion.value;
+        this.antecedente_ginecologico.fum = this.fum.value;
+        this.antecedente_ginecologico.citologia = this.citologia.value;
+        this.antecedente_ginecologico.fecha_citologia = this.fecha_citologia.value;
+        this.antecedente_ginecologico.resultado_citologia = this.resultado_citologia.value;
+        this.antecedente_ginecologico.duracion_ciclo_menstrual = this.duracion_ciclo_menstrual.value;
+        this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
+        this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
+        this.antecedente_ginecologico.id_paciente = this.datosScraping.id_login;
 
-          // guardar datos del formulario en planificacion_familiar y enviarlo a la api
-        this.planificacion_familiar.planificacion_familiar = this.planificacion_familiarr.value;
-        this.planificacion_familiar.metodo_planificacion = this.metodo_planificacion.value;
-        this.planificacion_familiar.observacion_planificacion = this.observacion_planificacion.value;
-        this.planificacion_familiar.id_paciente = this.datosScraping.id_login;
-        
-        this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiar).subscribe( (data) =>{
+        this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico).subscribe( (data) =>{
           console.log(data);
         }, (error) => {
           this.error = true;
           console.log(error);
           alert('ocurrion un error');
         });
+        
+       }
 
-      }else{
-        this.error= true;
-      }
+
+     
 
 
     // alert ('los datos se enviarion');      
@@ -1095,6 +1091,7 @@ ocultar: boolean = true;
   get seguro_medico(){return this.formulario_datos_generales.get('seguro_medico')};
   get numero_telefono(){return this.formulario_datos_generales.get('numero_telefono')};
   get emergencia_telefono(){return this.formulario_datos_generales.get('emergencia_telefono')};
+  get emergencia_persona(){return this.formulario_datos_generales.get('emergencia_persona')};
   get categoria(){return this.formulario_datos_generales.get('categoria')};
 
   
