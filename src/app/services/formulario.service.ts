@@ -8,6 +8,8 @@ import { ActividadSexual } from '../interfaces/actividad-sexual';
 import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologicos';
 import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familiares';
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
+import { PruebaPaciente } from '../interfaces/prueba-paciente';
+import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +27,22 @@ export class FormularioService {
   constructor(private httpClient :HttpClient) {
 
    }
+
+  enviarPruebaPaciente(paciente_antecedente_familiar: PacienteAntecedenteFamiliar){
+    return this.httpClient.post(this.API_ENDPOINT+'pacientes_antecedentes_familiares',
+    paciente_antecedente_familiar, 
+    {headers: this.headers});
+  }
+
+
+  enviarAntecedentes(){
+
+  }
+
+
+  enviarParentescos(){
+
+  }
 
    
    actualizarPaciente(paciente: Paciente){
