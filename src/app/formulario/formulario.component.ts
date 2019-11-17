@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, NgZone, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Paciente } from '../interfaces/paciente';
 import { FormularioService } from '../services/formulario.service';
@@ -19,11 +19,11 @@ import {MatDialog} from '@angular/material/dialog';
 import { LoginService } from "../services/login.service";
 import { NgStyle } from '@angular/common';
 import { stringify } from 'querystring';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import {take} from 'rxjs/operators';
-import { PruebaPaciente } from '../interfaces/prueba-paciente';
+import {take, startWith, map} from 'rxjs/operators';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
+import { MatChipInputEvent, MatAutocomplete } from '@angular/material';
 
 export interface Loginadmin {
  // contrasenia_admin: any;
@@ -666,6 +666,8 @@ this.des3 = true;
   constructor(private formularioService: FormularioService, 
     private router: Router, activar: AppComponent,public dialog: MatDialog, 
     public login: LoginService, private formulario: FormularioService) {
+
+      
       
       // if(this.esAlumno == true){
         this.getDatosScraping();
@@ -848,10 +850,27 @@ this.des3 = true;
 
       }
     }
-     
+      
 
       if(this.formulario_antecedentes_familiares.valid){
+        // var arreglo: string[];
+        // 
 
+
+        // parentescos = this.parentesco_diabetes.value[0]
+        // console.log('parentesco: '+parentescos);
+
+
+        // p_d.forEach(element => {
+        //   console.log(element);
+        // });
+        // arreglo = p_d.toString().split(",");
+
+        // arreglo.forEach(element => {
+        //   console.log('parentesco diabetes: '+element);
+        // });
+
+        var parentescos : any;
         for (let index = 0; index < this.formControlsAntecedentes.length; index++) {
           const element = this.formControlsAntecedentes[index];
 
@@ -860,10 +879,36 @@ this.des3 = true;
 
               this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
               this.paciente_antecedente_familiar.id_antecedente = element.value;
-              this.paciente_antecedente_familiar.id_parentesco = this.formControlsParentescos[index].value; //aqui mismo envio los datos del parentesco aprovechando la variable index
-                                                                                              // y me ubico en el parentesco de cada uno de los antecedentes "ojo" los dos 
-                                                                                              // arreglos deben estar ordenados en las mismas posiciones respectivamente 
-                                                                                              // el antecedente con su parentesco.    
+
+
+              //guardo el valor del controlador del parentesco y lo guardo en una variable de tipo any
+              parentescos = this.formControlsParentescos[index].value;
+
+              // si el valor guardado en la variable parentescos es un arreglo entonces por cada
+              //valor del arreglo se hara una insercion de ese parentesco
+              if(parentescos.length){
+
+                parentescos.forEach(element => {
+                  this.paciente_antecedente_familiar.id_parentesco = element;
+  
+                  this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                    console.log('se envio perron la prueba');
+                  }, (error)=>{
+                    console.log(error);
+                  });
+  
+                });
+
+              }else{
+
+                //si el valor de la variable parentescos no es un arreglo entonces
+                //envia el unico dato que se recibe y se hace la insercion.
+
+                //aqui mismo envio los datos del parentesco aprovechando la variable index
+                // y me ubico en el parentesco de cada uno de los antecedentes "ojo" los dos 
+                // arreglos deben estar ordenados en las mismas posiciones respectivamente 
+                // el antecedente con su parentesco.    
+                this.paciente_antecedente_familiar.id_parentesco = parentescos; 
   
               
   
@@ -873,6 +918,12 @@ this.des3 = true;
               }, (error)=>{
                 console.log(error);
               });
+              }
+              
+
+
+              
+              
             }
           
         }
