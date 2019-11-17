@@ -359,8 +359,8 @@
             aria-labelledby="example-radio-group-label"
             class="example-radio-group" > 
                
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_diabetes])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
-            <mat-radio-button value="No" (click)="borrarInputs([parentesco_diabetes])">No</mat-radio-button>
+            <mat-radio-button value={{1}} (click)="habilitarInputs([parentesco_diabetes])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
+            <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_diabetes])">No</mat-radio-button>
               
           </mat-radio-group>          
           &nbsp; &nbsp; &nbsp; &nbsp;      
@@ -384,8 +384,8 @@
           <mat-radio-group formControlName= "tb_pulmonar"
             aria-labelledby="example-radio-group-label" 
             class="example-radio-group">        
-              <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_tb_pulmonar])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
-              <mat-radio-button value="No" (click)="borrarInputs([parentesco_tb_pulmonar])">No</mat-radio-button>
+              <mat-radio-button value={{2}} (click)="habilitarInputs([parentesco_tb_pulmonar])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
+              <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_tb_pulmonar])">No</mat-radio-button>
              
             </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -406,8 +406,8 @@
                 <mat-error style="margin-left: 0;" *ngIf="desnutricion.hasError('required')">campo requerido!</mat-error>
             <div class="row" style="margin-left: 0;">
               <mat-radio-group formControlName= "desnutricion" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-                <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_desnutricion,tipo_desnutricion])">Si</mat-radio-button>&nbsp;&nbsp;&nbsp;   
-                <mat-radio-button value="No" (click)="borrarInputs([parentesco_desnutricion,tipo_desnutricion])">No</mat-radio-button>
+                <mat-radio-button value={{3}} (click)="habilitarInputs([parentesco_desnutricion,tipo_desnutricion])">Si</mat-radio-button>&nbsp;&nbsp;&nbsp;   
+                <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_desnutricion,tipo_desnutricion])">No</mat-radio-button>
               </mat-radio-group>
              &nbsp; &nbsp; &nbsp; &nbsp; 
              <mat-form-field>
@@ -439,8 +439,8 @@
              <mat-radio-group formControlName= "enfermedades_mentales" 
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">   
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_enfermedades_mentales,tipo_enfermedad_mental])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;    
-            <mat-radio-button value="No" (click)="borrarInputs([parentesco_enfermedades_mentales,tipo_enfermedad_mental])">No</mat-radio-button>
+            <mat-radio-button value={{4}} (click)="habilitarInputs([parentesco_enfermedades_mentales,tipo_enfermedad_mental])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;    
+            <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_enfermedades_mentales,tipo_enfermedad_mental])">No</mat-radio-button>
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
             <mat-form-field>
@@ -471,8 +471,8 @@
              <mat-radio-group formControlName= "convulsiones" 
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_convulsiones])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;    
-            <mat-radio-button value="No" (click)="borrarInputs([parentesco_convulsiones])">No</mat-radio-button>
+            <mat-radio-button value={{5}} (click)="habilitarInputs([parentesco_convulsiones])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;    
+            <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_convulsiones])">No</mat-radio-button>
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
           <mat-form-field>
@@ -492,8 +492,8 @@
             <mat-error style="margin-left: 0;" *ngIf="alcoholismo_sustancias_psicoactivas.hasError('required')">campo requerido!</mat-error>  
           <div class="row" style="margin-left: 0;">
             <mat-radio-group formControlName= "alcoholismo_sustancias_psicoactivas"  aria-labelledby="example-radio-group-label" class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_alcoholismo_sustancias_psicoactivas])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;    
-            <mat-radio-button value="No" (click)="borrarInputs([parentesco_alcoholismo_sustancias_psicoactivas])">No</mat-radio-button>       
+            <mat-radio-button value={{6}} (click)="habilitarInputs([parentesco_alcoholismo_sustancias_psicoactivas])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;    
+            <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_alcoholismo_sustancias_psicoactivas])">No</mat-radio-button>       
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field>
@@ -514,8 +514,8 @@
             <mat-error style="margin-left: 0;" *ngIf="alergias.hasError('required')">campo requerido!</mat-error> 
          <div class="row" style="margin-left: 0;"> 
            <mat-radio-group formControlName= "alergias"  aria-labelledby="example-radio-group-label"  class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_alergias,tipo_alergia])" >Si</mat-radio-button>&nbsp;&nbsp;&nbsp;    
-            <mat-radio-button value="No" (click)="borrarInputs([parentesco_alergias,tipo_alergia])">No</mat-radio-button>     
+            <mat-radio-button value={{7}} (click)="habilitarInputs([parentesco_alergias,tipo_alergia])" >Si</mat-radio-button>&nbsp;&nbsp;&nbsp;    
+            <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_alergias,tipo_alergia])">No</mat-radio-button>     
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
             <mat-form-field>
@@ -544,8 +544,8 @@
             <mat-error style="margin-left: 0;" *ngIf="cancer.hasError('required')">campo requerido!</mat-error>  
           <div class="row" style="margin-left: 0;"> 
             <mat-radio-group formControlName= "cancer"  aria-labelledby="example-radio-group-label"  class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_cancer,tipo_cancer])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
-            <mat-radio-button value="No" (click)="borrarInputs([parentesco_cancer,tipo_cancer])">No</mat-radio-button>      
+            <mat-radio-button value={{8}} (click)="habilitarInputs([parentesco_cancer,tipo_cancer])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
+            <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_cancer,tipo_cancer])">No</mat-radio-button>      
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
             <mat-form-field>
@@ -575,8 +575,8 @@
             <mat-error style="margin-left: 0;"*ngIf="hipertension_arterial.hasError('required')">campo requerido!</mat-error>
           <div class="row" style="margin-left: 0;">
             <mat-radio-group formControlName= "hipertension_arterial"  aria-labelledby="example-radio-group-label" class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_hipertension_arterial])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;    
-            <mat-radio-button value="No" (click)="borrarInputs([parentesco_hipertension_arterial])">No</mat-radio-button>
+            <mat-radio-button value={{9}} (click)="habilitarInputs([parentesco_hipertension_arterial])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;    
+            <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_hipertension_arterial])">No</mat-radio-button>
           </mat-radio-group>
           &nbsp; &nbsp; &nbsp; &nbsp; 
           <mat-form-field>

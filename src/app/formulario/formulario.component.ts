@@ -11,7 +11,7 @@ import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familia
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
 import { AppComponent } from "../app.component";
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Login } from '../interfaces/login';
 import { DialogContentExampleDialog, DatoPacienteComponent } from "../dato-paciente/dato-paciente.component";
@@ -22,6 +22,8 @@ import { stringify } from 'querystring';
 import { Subscription } from 'rxjs';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import {take} from 'rxjs/operators';
+import { PruebaPaciente } from '../interfaces/prueba-paciente';
+import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
 
 export interface Loginadmin {
  // contrasenia_admin: any;
@@ -36,12 +38,21 @@ export interface select {
   viewValue: string;
 }
 
+
+// todas estas interfaces hay que borrarlas despues y solo dejar una
+// por mientras son de prueba
+
 export interface EstadosCiviles {
   value: number;
   viewValue: string;
 }
 
 export interface SegurosMedicos {
+  value: number;
+  viewValue: string;
+}
+
+export interface Parentescos {
   value: number;
   viewValue: string;
 }
@@ -596,6 +607,12 @@ this.des3 = true;
   
   };
 
+  paciente_antecedente_familiar: PacienteAntecedenteFamiliar ={
+    id_paciente: null,
+    id_antecedente: null,
+    id_parentesco: null,
+  };
+
   error: boolean = false;
 
   //date picker
@@ -633,11 +650,12 @@ this.des3 = true;
    
   ];
 
-  parentescos: select[] = [
-    {value: 'Padre' , viewValue: 'Padre'},
-    {value: 'Madre' , viewValue: 'Madre'},
-    {value: 'Abuelos' , viewValue: 'Abuelos'},
-    {value: 'Tios' , viewValue: 'Tios'},
+  parentescos: Parentescos[] = [
+    {value: 1 , viewValue: 'Padre'},
+    {value: 2 , viewValue: 'Madre'},
+    {value: 4 , viewValue: 'Abuelos'},
+    {value: 3 , viewValue: 'Tios'},
+    {value: 5 , viewValue: 'Otros'},
 
   ];
 
@@ -722,13 +740,22 @@ this.des3 = true;
   id:any;
   esAlumno: boolean = true;
 
-  //radio buttons
-  opciones: string[] = ['Si', 'No' ];
 
- 
+  // creo estos arreglos de los cuales extraigo el valor de cada elemento y lo mando a la tabla de pacientes_antecedentes_familiares
+  // estos arreglos son de los controladores del formulario antecedentes familiares
+  formControlsAntecedentes: any[] = [this.diabetes, this.tb_pulmonar, this.desnutricion, this.enfermedades_mentales, this.convulsiones,
+    this.alcoholismo_sustancias_psicoactivas, this.alergias, this.cancer, this.hipertension_arterial
+  ];
+
+  formControlsParentescos: any[] = [this.parentesco_diabetes, this.parentesco_tb_pulmonar, this.parentesco_desnutricion,
+    this.parentesco_enfermedades_mentales, this.parentesco_convulsiones, this.parentesco_alcoholismo_sustancias_psicoactivas,
+    this.parentesco_alergias, this.parentesco_cancer, this.parentesco_hipertension_arterial
+  ];
 
   
- 
+
+
+
   constructor(private formularioService: FormularioService, 
     private router: Router, activar: AppComponent,public dialog: MatDialog, 
     public login: LoginService, private formulario: FormularioService) {
@@ -917,42 +944,31 @@ this.des3 = true;
      
 
       if(this.formulario_antecedentes_familiares.valid){
-        // guardar datos del formulario en antecedente_familiar y enviarlo a la api
-        this.antecedente_familiar.diabetes = this.diabetes.value;
-        this.antecedente_familiar.parentesco_diabetes = this.parentesco_diabetes.value;
-        this.antecedente_familiar.tb_pulmonar = this.tb_pulmonar.value;
-        this.antecedente_familiar.parentesco_tb_pulmonar = this.parentesco_tb_pulmonar.value;
-        this.antecedente_familiar.desnutricion = this.desnutricion.value;
-        this.antecedente_familiar.parentesco_desnutricion = this.parentesco_desnutricion.value;
-        this.antecedente_familiar.tipo_desnutricion = this.tipo_desnutricion.value;
-        this.antecedente_familiar.enfermedades_mentales = this.enfermedades_mentales.value;
-        this.antecedente_familiar.parentesco_enfermedades_mentales = this.parentesco_enfermedades_mentales.value;
-        this.antecedente_familiar.tipo_enfermedad_mental = this.tipo_enfermedad_mental.value;
-        this.antecedente_familiar.convulsiones = this.convulsiones.value;
-        this.antecedente_familiar.parentesco_convulsiones = this.parentesco_convulsiones.value;
-        this.antecedente_familiar.alcoholismo_sustancias_psicoactivas = this.alcoholismo_sustancias_psicoactivas.value;
-        this.antecedente_familiar.parentesco_alcoholismo_sustancias_psicoactivas = this.parentesco_alcoholismo_sustancias_psicoactivas.value;
-        this.antecedente_familiar.alergias = this.alergias.value;
-        this.antecedente_familiar.parentesco_alergias = this.parentesco_alergias.value;
-        this.antecedente_familiar.tipo_alergia = this.tipo_alergia.value;
-        this.antecedente_familiar.cancer = this.cancer.value;
-        this.antecedente_familiar.parentesco_cancer = this.parentesco_cancer.value;
-        this.antecedente_familiar.tipo_cancer = this.tipo_cancer.value;
-        this.antecedente_familiar.hipertension_arterial = this.hipertension_arterial.value;
-        this.antecedente_familiar.parentesco_hipertension_arterial = this.parentesco_hipertension_arterial.value;
-        this.antecedente_familiar.otros = this.otros.value;
-        this.antecedente_familiar.parentesco_otros = this.parentesco_otros.value;
-        this.antecedente_familiar.id_paciente = this.datosScraping.id_login;
-      
-            
 
-        this.formularioService.guardarAntecedentesFamiliares(this.antecedente_familiar).subscribe( (data) =>{
-          console.log(data);
-        }, (error) => {
-          console.log(error);
-          this.error = true;
-          alert('ocurrion un error');
-        });
+        for (let index = 0; index < this.formControlsAntecedentes.length; index++) {
+          const element = this.formControlsAntecedentes[index];
+
+             // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
+            if(element.value != 0){
+
+              this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
+              this.paciente_antecedente_familiar.id_antecedente = element.value;
+              this.paciente_antecedente_familiar.id_parentesco = this.formControlsParentescos[index].value; //aqui mismo envio los datos del parentesco aprovechando la variable index
+                                                                                              // y me ubico en el parentesco de cada uno de los antecedentes "ojo" los dos 
+                                                                                              // arreglos deben estar ordenados en las mismas posiciones respectivamente 
+                                                                                              // el antecedente con su parentesco.    
+  
+              
+  
+              // por cada vuelta que de el ciclo se hará un registro en la tabla, siendo cada registro un antecedente de los antecedentes familiares.
+              this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                console.log('se envio perron la prueba');
+              }, (error)=>{
+                console.log(error);
+              });
+            }
+          
+        }
 
       }
       
