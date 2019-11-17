@@ -22,7 +22,7 @@ import { stringify } from 'querystring';
 import { Subscription } from 'rxjs';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import {take} from 'rxjs/operators';
-import { PruebaPaciente } from '../interfaces/prueba-paciente';
+// import { PruebaPaciente } from '../interfaces/prueba-paciente';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
 
 export interface Loginadmin {
