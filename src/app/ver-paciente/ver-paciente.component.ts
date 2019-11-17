@@ -329,6 +329,7 @@ ocultar: boolean = true;
     estado_civil: null,
     seguro_medico: null,
     numero_telefono: null,
+    emergencia_persona: null,
     emergencia_telefono: null,
     categoria: null,
    
