@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, NgZone, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Paciente } from '../interfaces/paciente';
 import { FormularioService } from '../services/formulario.service';
@@ -19,11 +19,11 @@ import {MatDialog} from '@angular/material/dialog';
 import { LoginService } from "../services/login.service";
 import { NgStyle } from '@angular/common';
 import { stringify } from 'querystring';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import {take} from 'rxjs/operators';
-// import { PruebaPaciente } from '../interfaces/prueba-paciente';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
+import { MatChipInputEvent, MatAutocomplete } from '@angular/material';
 
 export interface Loginadmin {
  // contrasenia_admin: any;
@@ -95,17 +95,6 @@ export class FormularioComponent implements OnInit {
   antecedentesGinecologicos: string = '';
   antecedentesObstetricos: string = '';
   planificacionFamiliar: string = '';
-  // datosGenerales: string = 'Datos Generales';
-  // antecedentesFamiliares: string = 'Antecedentes Familiares';
-  // antecedentesPersonales: string = 'Antecedente Personales';
-  // habitosToxicologicosPersonales: string = 'Habitos Toxicologicos Personales';
-  // actividadSexualYReproductiva: string = 'Actividad Sexual Y Reproductiva';
-  // antecedentesGinecologicos: string = 'Antecedentes Ginecologicos';
-  // antecedentesObstetricos: string = 'Antecedentes Obstétricos';
-  // planificacionFamiliar: string = 'Planificacion Familiar';
-
-  
-
   
 
   datosScraping: Login = {
@@ -151,7 +140,7 @@ export class FormularioComponent implements OnInit {
   formulario_antecedentes_familiares = new FormGroup({
     
     diabetes : new FormControl('',[Validators.required]),
-    parentesco_diabetes : new FormControl({value:''},[]),
+    parentesco_diabetes : new FormControl('',[],),
     tb_pulmonar : new FormControl('',[Validators.required]),
     parentesco_tb_pulmonar : new FormControl({value:'', disabled: true},[]),
     desnutricion : new FormControl('',[Validators.required]),
@@ -350,11 +339,16 @@ cno15(formControl : FormControl[]) {
   } 
 }
 
+public onControlChange(event: any): void
+{
+  console.log(event.value);
+
+}
 
 public onStepChange(event: any): void {
   console.log(event.selectedIndex);
 
-    if (event.selectedIndex ==0) {   
+    if (event.selectedIndex == 0) {   
       this.datosGenerales = "Datos Generales"
     this.antecedentesFamiliares = '';
     this.antecedentesPersonales = '';
@@ -407,6 +401,7 @@ public onStepChange(event: any): void {
       this.antecedentesGinecologicos= '';
       this.antecedentesObstetricos= '';
       this.planificacionFamiliar = '';
+
       }if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
         this.datosGenerales = '';
         this.antecedentesFamiliares = '';
@@ -417,6 +412,7 @@ public onStepChange(event: any): void {
         this.antecedentesObstetricos= '';
         this.planificacionFamiliar = '';
       } 
+
       if(this.formulario_datos_generales.get('sexo').value == "Hombre" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
         this.datosGenerales = '';
       this.antecedentesFamiliares = '';
@@ -426,7 +422,9 @@ public onStepChange(event: any): void {
       this.antecedentesGinecologicos= '';
       this.antecedentesObstetricos= '';
       this.planificacionFamiliar = 'Planificacion Familiar';
-      }if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+      }
+      
+      if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
         this.datosGenerales = '';
         this.antecedentesFamiliares = '';
         this.antecedentesPersonales = '';
@@ -835,6 +833,8 @@ this.des3 = true;
   constructor(private formularioService: FormularioService, 
     private router: Router, activar: AppComponent,public dialog: MatDialog, 
     public login: LoginService, private formulario: FormularioService) {
+
+      
       
       // if(this.esAlumno == true){
         this.getDatosScraping();
@@ -1017,10 +1017,11 @@ this.des3 = true;
 
       }
     }
-     
+      
 
       if(this.formulario_antecedentes_familiares.valid){
 
+        var parentescos : any;
         for (let index = 0; index < this.formControlsAntecedentes.length; index++) {
           const element = this.formControlsAntecedentes[index];
 
@@ -1029,19 +1030,27 @@ this.des3 = true;
 
               this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
               this.paciente_antecedente_familiar.id_antecedente = element.value;
-              this.paciente_antecedente_familiar.id_parentesco = this.formControlsParentescos[index].value; //aqui mismo envio los datos del parentesco aprovechando la variable index
-                                                                                              // y me ubico en el parentesco de cada uno de los antecedentes "ojo" los dos 
-                                                                                              // arreglos deben estar ordenados en las mismas posiciones respectivamente 
-                                                                                              // el antecedente con su parentesco.    
-  
-              
-  
-              // por cada vuelta que de el ciclo se hará un registro en la tabla, siendo cada registro un antecedente de los antecedentes familiares.
-              this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
-                console.log('se envio perron la prueba');
-              }, (error)=>{
-                console.log(error);
+
+
+              //guardo el valor del controlador del parentesco y lo guardo en una variable de tipo any
+              // ahora el select como es multiple me devuelve un arreglo
+              parentescos = this.formControlsParentescos[index].value;
+
+              // por cada vuelta que de el ciclo se hará un registro en la tabla pacientes_antecedentes_familiares,
+              // siendo cada registro un antecedente de los antecedentes familiares y su parentesco
+              // si el antecedente tiene mas de un 1 parentesco entonces se insertara varias veces el mismo antecedente
+              // con los diferentes parentesco.
+              parentescos.forEach(element => {
+                this.paciente_antecedente_familiar.id_parentesco = element;
+
+                this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                  console.log('se envio perron la prueba');
+                }, (error)=>{
+                  console.log(error);
+                });
+
               });
+              
             }
           
         }
