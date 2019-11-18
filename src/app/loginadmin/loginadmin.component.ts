@@ -7,7 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 export interface select {
-  value: string;
+  value: number;
   viewValue: string;
 }
 
@@ -42,21 +42,21 @@ export class LoginadminComponent implements OnInit {
   };
 
   especialidades: select[] = [
-    {value: 'Salud Pública', viewValue: 'Salud Pública'},
-    {value: 'Ginecología y Obstetricia', viewValue: 'Ginecología y Obstetricia'},
-    {value: 'Pediatría', viewValue: 'Pediatría'},
-    {value: 'Cirugía General', viewValue: 'Cirugía General'},
-    {value: 'Medicina Interna', viewValue: 'Medicina Interna'},
-    {value: 'Dermatología', viewValue: 'Dermatología'},
-    {value: 'Neurología', viewValue: 'Neurología'},
-    {value: 'Neurocirugía', viewValue: 'Neurocirugía'},
-    {value: 'Cirugía Plástica', viewValue: 'Cirugía Plástica'},
-    {value: 'Anestesiología, Reanimación y Dolor', viewValue: 'Anestesiología, Reanimación y Dolor'},
-    {value: 'Ortopedia', viewValue: 'Ortopedia'},
-    {value: 'Psiquiatría', viewValue: 'Psiquiatría'},
-    {value: 'Otorrinolaringología', viewValue: 'Otorrinolaringología'},
-    {value: 'Medicina Física y Rehabilitación', viewValue: 'Medicina Física y Rehabilitación'},
-    {value: 'Medicina General', viewValue: 'Medicina General'},
+    {value: 1, viewValue: 'Salud Pública'},
+    {value: 2, viewValue: 'Ginecología y Obstetricia'},
+    {value: 3, viewValue: 'Pediatría'},
+    {value: 4, viewValue: 'Cirugía General'},
+    {value: 5, viewValue: 'Medicina Interna'},
+    {value: 6, viewValue: 'Dermatología'},
+    {value: 7, viewValue: 'Neurología'},
+    {value: 8, viewValue: 'Neurocirugía'},
+    {value: 9, viewValue: 'Cirugía Plástica'},
+    {value: 10, viewValue: 'Anestesiología, Reanimación y Dolor'},
+    {value: 11, viewValue: 'Ortopedia'},
+    {value: 12, viewValue: 'Psiquiatría'},
+    {value: 13, viewValue: 'Otorrinolaringología'},
+    {value: 14, viewValue: 'Medicina Física y Rehabilitación'},
+    {value: 15, viewValue: 'Medicina General'},
    
   ];
   
