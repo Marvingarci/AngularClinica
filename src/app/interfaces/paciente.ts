@@ -15,6 +15,7 @@ export interface Paciente {
     seguro_medico?: any;
     numero_telefono: string;
     emergencia_telefono: string;
+    emergencia_persona: string;
     peso?: string;
     talla?: string;
     imc?: string;

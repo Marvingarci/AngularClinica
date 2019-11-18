@@ -552,6 +552,7 @@ paciente: Paciente={
   estado_civil: null,
   seguro_medico: null,
   numero_telefono: null,
+  emergencia_persona: null,
   emergencia_telefono: null,
   categoria: null,
   peso: null,
@@ -579,7 +580,8 @@ paciente1: Paciente={
   sexo: null,
   estado_civil: null,
   seguro_medico: null,
-  numero_telefono: null,
+  numero_telefono: null,  
+  emergencia_persona: null,
   emergencia_telefono: null,
   categoria: null,
  

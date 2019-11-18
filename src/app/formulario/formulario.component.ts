@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Paciente } from '../interfaces/paciente';
 import { FormularioService } from '../services/formulario.service';
@@ -11,7 +11,7 @@ import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familia
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
 import { AppComponent } from "../app.component";
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Login } from '../interfaces/login';
 import { DialogContentExampleDialog, DatoPacienteComponent } from "../dato-paciente/dato-paciente.component";
@@ -20,7 +20,10 @@ import { LoginService } from "../services/login.service";
 import { NgStyle } from '@angular/common';
 import { stringify } from 'querystring';
 import { Subscription } from 'rxjs';
-
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import {take} from 'rxjs/operators';
+// import { PruebaPaciente } from '../interfaces/prueba-paciente';
+import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
 
 export interface Loginadmin {
  // contrasenia_admin: any;
@@ -34,6 +37,10 @@ export interface select {
   value: string;
   viewValue: string;
 }
+
+
+// todas estas interfaces hay que borrarlas despues y solo dejar una
+// por mientras son de prueba
 
 export interface EstadosCiviles {
   value: number;
@@ -51,6 +58,7 @@ export interface PracticasSexuales {
 }
 
 export interface MetodoPlanificacion {
+export interface Parentescos {
   value: number;
   viewValue: string;
 }
@@ -77,13 +85,21 @@ export class FormularioComponent implements OnInit {
 
 
   datosGenerales: string = 'Datos Generales';
-  antecedentesFamiliares: string = 'Antecedentes Familiares';
-  antecedentesPersonales: string = 'Antecedente Personales';
-  habitosToxicologicosPersonales: string = 'Habitos Toxicologicos Personales';
-  actividadSexualYReproductiva: string = 'Actividad Sexual Y Reproductiva';
-  antecedentesGinecologicos: string = 'Antecedentes Ginecologicos';
-  antecedentesObstetricos: string = 'Antecedentes Obstétricos';
-  planificacionFamiliar: string = 'Planificacion Familiar';
+  antecedentesFamiliares: string = '';
+  antecedentesPersonales: string = '';
+  habitosToxicologicosPersonales: string = '';
+  actividadSexualYReproductiva: string = '';
+  antecedentesGinecologicos: string = '';
+  antecedentesObstetricos: string = '';
+  planificacionFamiliar: string = '';
+  // datosGenerales: string = 'Datos Generales';
+  // antecedentesFamiliares: string = 'Antecedentes Familiares';
+  // antecedentesPersonales: string = 'Antecedente Personales';
+  // habitosToxicologicosPersonales: string = 'Habitos Toxicologicos Personales';
+  // actividadSexualYReproductiva: string = 'Actividad Sexual Y Reproductiva';
+  // antecedentesGinecologicos: string = 'Antecedentes Ginecologicos';
+  // antecedentesObstetricos: string = 'Antecedentes Obstétricos';
+  // planificacionFamiliar: string = 'Planificacion Familiar';
 
   
 
@@ -114,7 +130,7 @@ export class FormularioComponent implements OnInit {
       numero_identidad: new FormControl('', [Validators.required,Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
        // "\d" es lo mismo "[0-9]"
       lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
-      direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      direccion: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(20)]),
       carrera: new FormControl('', [Validators.required]),
       fecha_nacimiento: new FormControl('', Validators.required),
       sexo: new FormControl('', Validators.required),
@@ -122,6 +138,7 @@ export class FormularioComponent implements OnInit {
       estado_civil: new FormControl('', Validators.required),
       seguro_medico: new FormControl('', Validators.required),
       numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+      emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{3,30}$/)]),
       emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
   
   
@@ -288,38 +305,195 @@ read15 = true;
 isDisabledB25 = true;
 input15 : string = '';
 
-csi15(formControl : FormControl[]) { 
 
-  formControl.forEach(controlador => {
-    controlador.enable({onlySelf: true});    
+
+
+ocultar: boolean = true;
+ocultar1: boolean = true;
+
+mostrarS(){
+  this.ocultar=false;
+}
+mostrarN(){
+this.ocultar=true;
+}
+
+
+
+
+csi15(formControl : FormControl[]) { 
+formControl.forEach(controlador => {
+   controlador.enable({onlySelf: true});    
   });
   console.log(this.formulario_datos_generales.get('sexo').value);
-  
   if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-
-  }else{
-   
-    this.ocultar=false;
-  }
-  
-  
+    this.ocultar1=false;
+  }else{   
+    this.ocultar1=false;
+  }  
 }
+
 cno15(formControl : FormControl[]) {  
   formControl.forEach(controlador => {
     controlador.setValue('');
     controlador.disable({onlySelf: true});
   });
   console.log(this.formulario_datos_generales.get('sexo').value);
-
   if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-  
+    this.ocultar1=true;   
+    
   }else{
-   
-    this.ocultar=true;
+    this.ocultar1=true;
   } 
 }
 
 
+public onStepChange(event: any): void {
+  console.log(event.selectedIndex);
+
+    if (event.selectedIndex ==0) {   
+      this.datosGenerales = "Datos Generales"
+    this.antecedentesFamiliares = '';
+    this.antecedentesPersonales = '';
+    this.habitosToxicologicosPersonales = '';
+    this.actividadSexualYReproductiva = '';
+    this.antecedentesGinecologicos= '';
+    this.antecedentesObstetricos= '';
+    this.planificacionFamiliar = '';
+    }
+
+    if(event.selectedIndex ==1){
+      this.datosGenerales = '';
+      this.antecedentesFamiliares = 'Antecedentes Familiares';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+    }
+
+    if(event.selectedIndex ==2){
+      this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = 'Antecedentes Personales';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+    }
+    if(event.selectedIndex ==3){
+      this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = 'Actividad Sexual Y Reproductiva';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+    }
+
+    if(event.selectedIndex ==4){
+      if(this.formulario_datos_generales.get('sexo').value == "Hombre" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
+        this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = 'habitos Toxicologicos Personales';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+      }if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = '';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= 'antecedentes Ginecologicos';
+        this.antecedentesObstetricos= '';
+        this.planificacionFamiliar = '';
+      } 
+      if(this.formulario_datos_generales.get('sexo').value == "Hombre" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = 'Planificacion Familiar';
+      }if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = '';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= '';
+        this.antecedentesObstetricos= 'antecedentes Obstetricos';
+        this.planificacionFamiliar = '';
+      } 
+    }
+
+    if(event.selectedIndex ==5){
+    if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = 'habitos Toxicologicos Personales';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= '';
+        this.antecedentesObstetricos= '';
+        this.planificacionFamiliar = '';
+      } 
+      if(this.formulario_datos_generales.get('sexo').value == "Hombre" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = 'habitos Toxicologicos Personales';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+      }
+      if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = '';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= '';
+        this.antecedentesObstetricos= '';
+        this.planificacionFamiliar = 'planificacion Familiar';
+      } 
+    }
+
+    if(event.selectedIndex ==6){
+        if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = '';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= 'antecedentesGinecologicos';
+        this.antecedentesObstetricos= '';
+        this.planificacionFamiliar = '';
+      } 
+    }
+    
+    if(event.selectedIndex ==7){
+      if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+      this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = 'Habitos Toxicologicos Personales';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+    } 
+  }
+}
 
 
 des = true;
@@ -364,14 +538,6 @@ this.des3 = true;
 }
 
 
-mostrarS(){
-  this.ocultar=false;
-}
-mostrarN(){
-this.ocultar=true;
-}
-
-ocultar: boolean = true;
 
 
   paciente: Paciente = {
@@ -388,6 +554,7 @@ ocultar: boolean = true;
     estado_civil: null,
     seguro_medico: null,
     numero_telefono: null,
+    emergencia_persona: null,
     emergencia_telefono: null,
     categoria:null
 
@@ -513,6 +680,12 @@ ocultar: boolean = true;
   
   };
 
+  paciente_antecedente_familiar: PacienteAntecedenteFamiliar ={
+    id_paciente: null,
+    id_antecedente: null,
+    id_parentesco: null,
+  };
+
   error: boolean = false;
 
   //date picker
@@ -550,11 +723,12 @@ ocultar: boolean = true;
    
   ];
 
-  parentescos: select[] = [
-    {value: 'Padre' , viewValue: 'Padre'},
-    {value: 'Madre' , viewValue: 'Madre'},
-    {value: 'Abuelos' , viewValue: 'Abuelos'},
-    {value: 'Tios' , viewValue: 'Tios'},
+  parentescos: Parentescos[] = [
+    {value: 1 , viewValue: 'Padre'},
+    {value: 2 , viewValue: 'Madre'},
+    {value: 4 , viewValue: 'Abuelos'},
+    {value: 3 , viewValue: 'Tios'},
+    {value: 5 , viewValue: 'Otros'},
 
   ];
 
@@ -593,7 +767,7 @@ ocultar: boolean = true;
     {value: 'Testiculo' , viewValue: 'Testiculo'},
     {value: 'Pene' , viewValue: 'Pene'},
     {value: 'Leucemia' , viewValue: 'Leucemia'},
-
+    {value: 'Cervicouterino' , viewValue: 'Cervicouterino'}
   ];
 
   practicas_sexuales: PracticasSexuales[] = [
@@ -639,13 +813,22 @@ ocultar: boolean = true;
   id:any;
   esAlumno: boolean = true;
 
-  //radio buttons
-  opciones: string[] = ['Si', 'No' ];
 
- 
+  // creo estos arreglos de los cuales extraigo el valor de cada elemento y lo mando a la tabla de pacientes_antecedentes_familiares
+  // estos arreglos son de los controladores del formulario antecedentes familiares
+  formControlsAntecedentes: any[] = [this.diabetes, this.tb_pulmonar, this.desnutricion, this.enfermedades_mentales, this.convulsiones,
+    this.alcoholismo_sustancias_psicoactivas, this.alergias, this.cancer, this.hipertension_arterial
+  ];
+
+  formControlsParentescos: any[] = [this.parentesco_diabetes, this.parentesco_tb_pulmonar, this.parentesco_desnutricion,
+    this.parentesco_enfermedades_mentales, this.parentesco_convulsiones, this.parentesco_alcoholismo_sustancias_psicoactivas,
+    this.parentesco_alergias, this.parentesco_cancer, this.parentesco_hipertension_arterial
+  ];
 
   
- 
+
+
+
   constructor(private formularioService: FormularioService, 
     private router: Router, activar: AppComponent,public dialog: MatDialog, 
     public login: LoginService, private formulario: FormularioService) {
@@ -655,13 +838,8 @@ ocultar: boolean = true;
       // }      
     }
     
-    if () {
-      
-    }
-    
-    compareWithFn(item1, item2) {
-      return item1 && item2 ? item1.nom === item2.nom : item1 === item2;
-    }
+    // para que se le quite la cosa fea al text area
+    @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
 
     
  
@@ -786,6 +964,7 @@ ocultar: boolean = true;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
         this.paciente.numero_telefono = this.numero_telefono.value;
+        this.paciente.emergencia_persona = this.emergencia_persona.value;
         this.paciente.emergencia_telefono = this.emergencia_telefono.value;
         this.paciente.categoria = this.categoria.value;
         
@@ -818,6 +997,7 @@ ocultar: boolean = true;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
         this.paciente.numero_telefono = this.numero_telefono.value;
+        this.paciente.emergencia_persona = this.emergencia_persona.value;
         this.paciente.emergencia_telefono = this.emergencia_telefono.value;
         this.paciente.categoria= this.categoria.value;
       
@@ -837,42 +1017,31 @@ ocultar: boolean = true;
      
 
       if(this.formulario_antecedentes_familiares.valid){
-        // guardar datos del formulario en antecedente_familiar y enviarlo a la api
-        this.antecedente_familiar.diabetes = this.diabetes.value;
-        this.antecedente_familiar.parentesco_diabetes = this.parentesco_diabetes.value;
-        this.antecedente_familiar.tb_pulmonar = this.tb_pulmonar.value;
-        this.antecedente_familiar.parentesco_tb_pulmonar = this.parentesco_tb_pulmonar.value;
-        this.antecedente_familiar.desnutricion = this.desnutricion.value;
-        this.antecedente_familiar.parentesco_desnutricion = this.parentesco_desnutricion.value;
-        this.antecedente_familiar.tipo_desnutricion = this.tipo_desnutricion.value;
-        this.antecedente_familiar.enfermedades_mentales = this.enfermedades_mentales.value;
-        this.antecedente_familiar.parentesco_enfermedades_mentales = this.parentesco_enfermedades_mentales.value;
-        this.antecedente_familiar.tipo_enfermedad_mental = this.tipo_enfermedad_mental.value;
-        this.antecedente_familiar.convulsiones = this.convulsiones.value;
-        this.antecedente_familiar.parentesco_convulsiones = this.parentesco_convulsiones.value;
-        this.antecedente_familiar.alcoholismo_sustancias_psicoactivas = this.alcoholismo_sustancias_psicoactivas.value;
-        this.antecedente_familiar.parentesco_alcoholismo_sustancias_psicoactivas = this.parentesco_alcoholismo_sustancias_psicoactivas.value;
-        this.antecedente_familiar.alergias = this.alergias.value;
-        this.antecedente_familiar.parentesco_alergias = this.parentesco_alergias.value;
-        this.antecedente_familiar.tipo_alergia = this.tipo_alergia.value;
-        this.antecedente_familiar.cancer = this.cancer.value;
-        this.antecedente_familiar.parentesco_cancer = this.parentesco_cancer.value;
-        this.antecedente_familiar.tipo_cancer = this.tipo_cancer.value;
-        this.antecedente_familiar.hipertension_arterial = this.hipertension_arterial.value;
-        this.antecedente_familiar.parentesco_hipertension_arterial = this.parentesco_hipertension_arterial.value;
-        this.antecedente_familiar.otros = this.otros.value;
-        this.antecedente_familiar.parentesco_otros = this.parentesco_otros.value;
-        this.antecedente_familiar.id_paciente = this.datosScraping.id_login;
-      
-            
 
-        this.formularioService.guardarAntecedentesFamiliares(this.antecedente_familiar).subscribe( (data) =>{
-          console.log(data);
-        }, (error) => {
-          console.log(error);
-          this.error = true;
-          alert('ocurrion un error');
-        });
+        for (let index = 0; index < this.formControlsAntecedentes.length; index++) {
+          const element = this.formControlsAntecedentes[index];
+
+             // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
+            if(element.value != 0){
+
+              this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
+              this.paciente_antecedente_familiar.id_antecedente = element.value;
+              this.paciente_antecedente_familiar.id_parentesco = this.formControlsParentescos[index].value; //aqui mismo envio los datos del parentesco aprovechando la variable index
+                                                                                              // y me ubico en el parentesco de cada uno de los antecedentes "ojo" los dos 
+                                                                                              // arreglos deben estar ordenados en las mismas posiciones respectivamente 
+                                                                                              // el antecedente con su parentesco.    
+  
+              
+  
+              // por cada vuelta que de el ciclo se hará un registro en la tabla, siendo cada registro un antecedente de los antecedentes familiares.
+              this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                console.log('se envio perron la prueba');
+              }, (error)=>{
+                console.log(error);
+              });
+            }
+          
+        }
 
       }
       
@@ -965,34 +1134,10 @@ ocultar: boolean = true;
       }
 
 
-      if(this.ocultar == false){
+      if(this.ocultar1 == false){
 
-        if(this.formulario_antecedente_ginecologico.valid){
-
-          // guardar datos del formulario en antecedente_genicologico y enviarlo a la api
-          this.antecedente_ginecologico.edad_inicio_menstruacion = this.edad_inicio_menstruacion.value;
-          this.antecedente_ginecologico.fum = this.fum.value;
-          this.antecedente_ginecologico.citologia = this.citologia.value;
-          this.antecedente_ginecologico.fecha_citologia = this.fecha_citologia.value;
-          this.antecedente_ginecologico.resultado_citologia = this.resultado_citologia.value;
-          this.antecedente_ginecologico.duracion_ciclo_menstrual = this.duracion_ciclo_menstrual.value;
-          this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
-          this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
-          this.antecedente_ginecologico.id_paciente = this.datosScraping.id_login;
-
-          this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico).subscribe( (data) =>{
-            console.log(data);
-          }, (error) => {
-            this.error = true;
-            console.log(error);
-            alert('ocurrion un error');
-          });
-          
-          
-        }
 
         if(this.formulario_antecedente_obstetrico.valid){
-
           // guardar datos del formulario en antecedente_obstetrico y enviarlo a la api
           this.antecedente_obstetrico.partos = this.partos.value;
           this.antecedente_obstetrico.abortos = this.abortos.value;
@@ -1011,32 +1156,55 @@ ocultar: boolean = true;
             console.log(error);
             alert('ocurrion un error');
           });
-         
-          
-        } 
+         } 
 
+
+         if(this.formulario_planificacion_familiar.valid){
+          // guardar datos del formulario en planificacion_familiar y enviarlo a la api
+          this.planificacion_familiar.planificacion_familiar = this.planificacion_familiarr.value;
+          this.planificacion_familiar.metodo_planificacion = this.metodo_planificacion.value;
+          this.planificacion_familiar.observacion_planificacion = this.observacion_planificacion.value;
+          this.planificacion_familiar.id_paciente = this.datosScraping.id_login;
+
+          this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiar).subscribe( (data) =>{
+            console.log(data);
+          }, (error) => {
+            this.error = true;
+            console.log(error);
+            alert('ocurrion un error');
+          });
+
+          }else{
+          this.error= true;
+          }
       }
 
+      
+      if(this.formulario_antecedente_ginecologico.valid){
 
-      if(this.formulario_planificacion_familiar.valid){
+        // guardar datos del formulario en antecedente_genicologico y enviarlo a la api
+        this.antecedente_ginecologico.edad_inicio_menstruacion = this.edad_inicio_menstruacion.value;
+        this.antecedente_ginecologico.fum = this.fum.value;
+        this.antecedente_ginecologico.citologia = this.citologia.value;
+        this.antecedente_ginecologico.fecha_citologia = this.fecha_citologia.value;
+        this.antecedente_ginecologico.resultado_citologia = this.resultado_citologia.value;
+        this.antecedente_ginecologico.duracion_ciclo_menstrual = this.duracion_ciclo_menstrual.value;
+        this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
+        this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
+        this.antecedente_ginecologico.id_paciente = this.datosScraping.id_login;
 
-          // guardar datos del formulario en planificacion_familiar y enviarlo a la api
-        this.planificacion_familiar.planificacion_familiar = this.planificacion_familiarr.value;
-        this.planificacion_familiar.metodo_planificacion = this.metodo_planificacion.value;
-        this.planificacion_familiar.observacion_planificacion = this.observacion_planificacion.value;
-        this.planificacion_familiar.id_paciente = this.datosScraping.id_login;
-        
-        this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiar).subscribe( (data) =>{
+        this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico).subscribe( (data) =>{
           console.log(data);
         }, (error) => {
           this.error = true;
           console.log(error);
           alert('ocurrion un error');
         });
+        
+       }
 
-      }else{
-        this.error= true;
-      }
+
+     
 
 
     // alert ('los datos se enviarion');      
@@ -1105,6 +1273,7 @@ ocultar: boolean = true;
   get seguro_medico(){return this.formulario_datos_generales.get('seguro_medico')};
   get numero_telefono(){return this.formulario_datos_generales.get('numero_telefono')};
   get emergencia_telefono(){return this.formulario_datos_generales.get('emergencia_telefono')};
+  get emergencia_persona(){return this.formulario_datos_generales.get('emergencia_persona')};
   get categoria(){return this.formulario_datos_generales.get('categoria')};
 
   

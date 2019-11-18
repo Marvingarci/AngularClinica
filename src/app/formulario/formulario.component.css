@@ -1,6 +1,3 @@
-
-
-
 mat-tab-group {
   margin: 25px;
 }
@@ -24,14 +21,13 @@ mat-horizontal-stepper{
   min-width: 99%;
   padding-top: 20px;
   padding-bottom: 20px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 40px;
+  padding-right: 40px;
   overflow: auto;
   position: absolute;
   overflow-x: hidden;   
   top:30;
-  left:0;
-  
+  left:0;  
 }
 
 
@@ -73,15 +69,6 @@ mat-horizontal-stepper{
      right: 40px;
 
 }
-
-
-
-
-
-
-
-
-
 .example-form {
   min-width: 150px;
   max-width: 500px;
@@ -92,15 +79,7 @@ mat-horizontal-stepper{
   width: 100%;
 }
 
-.col {
-  text-align: left;
-  margin-left: 10px;
-  
-}
-.row{
-  
-  margin-left: 15px;
-}
+
 
 h2{
   margin-bottom: 20px;
