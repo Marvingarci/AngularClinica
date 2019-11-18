@@ -10,6 +10,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material/snack-bar';
 import { LoginAdmin } from '../interfaces/login_admin';
 import { LoginadminService } from '../services/loginadmin.service';
+import { Medicos } from '../interfaces/medicos';
+import { MedicosService } from '../services/medicos.service';
 
 @Component({
   selector: 'app-login',
@@ -48,48 +50,58 @@ export class LoginComponent implements OnInit {
   //   visitante: null,
   //   prosene: null,
   // }
-  scrap1: LoginAdmin = {  
-    id :null,
-    usuario_admin : null,
-    contrasenia_admin : null,
-    nombre_admin : null,
-    identidad_admin : null,
-    especialidad_admin : null,  
-  }
+scrap1: LoginAdmin = {  
+id :null,
+usuario_admin : null,
+contrasenia_admin : null,
+nombre_admin : null,
+identidad_admin : null,
+especialidad_admin : null,  
+}
 //,Validators.pattern(/^[2][0-9]{10}$/)
-  login_form = new FormGroup({
-    cuenta: new FormControl('',[Validators.required]),
-    clave: new FormControl('',[Validators.required]),
-  });
-  login: Login = {
-    cuenta: null,
-    clave: null
-  };
-  login_admin: LoginAdmin
-  login_admins: LoginAdmin[];
-  paciente: Paciente;
-  pacientes: Paciente[];
-  Formulario: FormularioService;
-  pase: boolean=true;
+login_form = new FormGroup({
+cuenta: new FormControl('',[Validators.required]),
+clave: new FormControl('',[Validators.required]),
+});
+login: Login = {
+cuenta: null,
+clave: null
+};
+login_admin: LoginAdmin;
+login_admins: LoginAdmin[];
+paciente: Paciente;
+pacientes: Paciente[];
+medico:Medicos;
+medicos:Medicos[];
 
-  constructor(private LoginAdminService: LoginadminService,private loginService: LoginService,private router: Router,
-     private activar: AppComponent,  Formulario: FormularioService, private mensaje: MatSnackBar){
-     activar.esconder();
+Formulario: FormularioService;
+pase: boolean=true;
 
-      this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) =>{
-      this.login_admins = data;
-      console.log(this.login_admins);
-      }, (error: any)=>{
-      console.log(error);
-      }); 
+constructor(private LoginAdminService: LoginadminService,private loginService: LoginService,private medicosService: MedicosService,private router: Router,
+  private activar: AppComponent,  Formulario: FormularioService, private mensaje: MatSnackBar){
+  activar.esconder();
 
-      Formulario.obtenerPacientes().subscribe((data: Paciente[])=>{
-      this.pacientes = data;
-      console.log(this.pacientes);
-      }, (error)=>{
-      console.log(error);
-      }); 
-  }
+  this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) =>{
+  this.login_admins = data;
+  console.log(this.login_admins);
+  }, (error: any)=>{
+  console.log(error);
+  }); 
+
+  this.medicosService.getMedico().subscribe((data: Medicos[]) =>{
+    this.medicos = data;
+    console.log(this.medicos);
+    }, (error: any)=>{
+    console.log(error);
+    }); 
+
+  Formulario.obtenerPacientes().subscribe((data: Paciente[])=>{
+  this.pacientes = data;
+  console.log(this.pacientes);
+  }, (error)=>{
+  console.log(error);
+  }); 
+}
 
   showError(message: string) {
     const config = new MatSnackBarConfig();
@@ -109,108 +121,135 @@ export class LoginComponent implements OnInit {
     this.login.clave = this.login_form.get('clave').value;
     this.loginService.porMientras = this.login_form.get('clave').value;
   
-  //PACIENTES
+  //pacientes
       for (let index = 0; index < this.pacientes.length; index++) {
         if (this.pacientes[index].numero_cuenta == this.login.cuenta) {
-          this.pase=false;
-          this.paciente=this.pacientes[index];
-        }
-      }    
-  
+            this.pase=false;
+            this.paciente=this.pacientes[index];
+          }       
+      } 
       if (this.pase == true) {
         this.loginService.guardarDatos(this.login).subscribe( (data) =>{
-          console.log(data);   
-          
-          this.showError('Llene el siguiente formulario'); 
-  
-           this.router.navigate(['/formulario']);
+        console.log(data);   
+        this.showError('Llene el siguiente formulario'); 
+        this.router.navigate(['/formulario']);
         }, (error) => {
           this.loading=false;
           console.log(error);
-          this.showError('Usuario Incorrecto'); 
-        });
-        
-      }else{
-        if (this.paciente.contrasenia==this.login.clave) {
-          this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);  
+          this.showError('Datos Incorrectos'); 
+        });        
         }else{
-          this.loading=false;
-          this.showError('Contraseña Incorrecta'); 
-        }      
-      } 
+          if (this.paciente.contrasenia==this.login.clave) {
+            this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);
+            this.showError('Bienvenido');   
+          }else{
+            this.loading=false;
+            this.showError('Contraseña Incorrecta'); 
+          }      
+        }   
   
-     //ADMIINISTRADORES
-      for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
-        if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
-          this.login_admin=this.login_admins[indexx];
-        }
+  //medicos
+    for (let indexx = 0; indexx < this.medicos.length; indexx++) {
+      if (this.medicos[indexx].usuarioM == this.login.cuenta) {        
+        this.medico=this.medicos[indexx];
+      if (this.medico.contraseniaM  == this.login.clave) {
+        console.log(this.medico.contraseniaM);console.log( this.login.cuenta);
+        this.showError('Bienvenido Medico'); 
+        this.router.navigate(['/principal/']);
+      }else{
+        console.log(this.medico.contraseniaM );console.log( this.login.cuenta);
+        this.loading=false;
+        this.showError('Contraseña Incorrecta'); 
+      } 
       }
-     if (this.login_admin.contrasenia_admin  == this.login.clave) {
-   console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
-          this.router.navigate(['/principal/']);
-        }else{
-          
-   console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
-          this.loading=false;
-          this.showError('Contraseña Incorrecta'); 
-        } 
+    }
+  
+  //administradores
+    for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
+      if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
+        this.login_admin=this.login_admins[indexx]; 
+      if (this.login_admin.contrasenia_admin  == this.login.clave) {
+        console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
+        this.showError('Bienvenido Administrador'); 
+        this.router.navigate(['/principal/']);
+      }else{
+        console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
+        this.loading=false;
+        this.showError('Contraseña Incorrecta'); 
+      } 
+      }
     }
   }
+  }
 
-   //EVENTO CUANDO SE DA EN EL BOTON
+
+
+//EVENTO CUANDO SE DA EN EL BOTON
   comprobarDatos(){
     this.loading=true;
     this.login.cuenta = this.login_form.get('cuenta').value;
     this.login.clave = this.login_form.get('clave').value;
     this.loginService.porMientras = this.login_form.get('clave').value;
 
-//PACIENTES
-    for (let index = 0; index < this.pacientes.length; index++) {
-      if (this.pacientes[index].numero_cuenta == this.login.cuenta) {
-        this.pase=false;
-        this.paciente=this.pacientes[index];
-      }
-    }    
-
-    if (this.pase == true) {
-      this.loginService.guardarDatos(this.login).subscribe( (data) =>{
-        console.log(data);   
-        
-        this.showError('Llene el siguiente formulario'); 
-
-         this.router.navigate(['/formulario']);
-      }, (error) => {
-        this.loading=false;
-        console.log(error);
-        this.showError('Usuario Incorrecto'); 
-      });
-      
+//pacientes
+for (let index = 0; index < this.pacientes.length; index++) {
+  if (this.pacientes[index].numero_cuenta == this.login.cuenta) {
+  this.pase=false;
+  this.paciente=this.pacientes[index];
+  } 
+} 
+if (this.pase == true) {
+    this.loginService.guardarDatos(this.login).subscribe( (data) =>{
+    console.log(data);  
+    this.showError('Llene el siguiente formulario');
+    this.router.navigate(['/formulario']);
+    }, (error) => {
+    this.loading=false;
+    console.log(error);
+    this.showError('Datos Incorrectos');
+    });
+  }else{
+    if (this.paciente.contrasenia==this.login.clave) {
+      this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);  
+      this.showError('Bienvenido'); 
     }else{
-      if (this.paciente.contrasenia==this.login.clave) {
-        this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);  
-      }else{
-        this.loading=false;
-        this.showError('Contraseña Incorrecta'); 
-      }      
+      this.loading=false;
+      this.showError('Contraseña Incorrecta'); 
+    }      
+  } 
+   
+//medicos
+  for (let indexx = 0; indexx < this.medicos.length; indexx++) {
+    if (this.medicos[indexx].usuarioM == this.login.cuenta) {        
+      this.medico=this.medicos[indexx];
+    if (this.medico.contraseniaM  == this.login.clave) {
+      console.log(this.medico.contraseniaM);console.log( this.login.cuenta);
+      this.showError('Bienvenido Medico'); 
+      this.router.navigate(['/principal/']);
+   }else{
+      console.log(this.medico.contraseniaM );console.log( this.login.cuenta);
+      this.loading=false;
+      this.showError('Contraseña Incorrecta'); 
     } 
-
-   //ADMIINISTRADORES
-    for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
-      if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
-        this.login_admin=this.login_admins[indexx];
-      }
     }
-   if (this.login_admin.contrasenia_admin  == this.login.clave) {
- console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
-        this.router.navigate(['/principal/']);
-      }else{
-        
- console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
-        this.loading=false;
-        this.showError('Contraseña Incorrecta'); 
-      } 
- }
-  
+  }
+
+  //administradores
+  for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
+    if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
+      this.login_admin=this.login_admins[indexx];
+    if (this.login_admin.contrasenia_admin  == this.login.clave) {
+      console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
+      this.showError('Bienvenido Administrador'); 
+      this.router.navigate(['/principal/']);
+    }else{
+      console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
+      this.loading=false;
+      this.showError('Contraseña Incorrecta'); 
+    }
+    }
+  }   
+}  
   get cuenta(){return this.login_form.get('cuenta')};
   get clave(){return this.login_form.get('clave')}; 
 }

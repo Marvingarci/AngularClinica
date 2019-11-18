@@ -8,7 +8,7 @@ import { ActividadSexual } from '../interfaces/actividad-sexual';
 import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologicos';
 import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familiares';
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
-import { PruebaPaciente } from '../interfaces/prueba-paciente';
+// import { PruebaPaciente } from '../interfaces/prueba-paciente';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
 
 @Injectable({

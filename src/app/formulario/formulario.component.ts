@@ -21,7 +21,7 @@ import { NgStyle } from '@angular/common';
 import { stringify } from 'querystring';
 import { Subscription, Observable } from 'rxjs';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import {take, startWith, map} from 'rxjs/operators';
+import {take} from 'rxjs/operators';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
 import { MatChipInputEvent, MatAutocomplete } from '@angular/material';
 
@@ -79,16 +79,13 @@ export class FormularioComponent implements OnInit {
 
 
   datosGenerales: string = 'Datos Generales';
-  antecedentesFamiliares: string = 'Antecedentes Familiares';
-  antecedentesPersonales: string = 'Antecedente Personales';
-  habitosToxicologicosPersonales: string = 'Habitos Toxicologicos Personales';
-  actividadSexualYReproductiva: string = 'Actividad Sexual Y Reproductiva';
-  antecedentesGinecologicos: string = 'Antecedentes Ginecologicos';
-  antecedentesObstetricos: string = 'Antecedentes Obstétricos';
-  planificacionFamiliar: string = 'Planificacion Familiar';
-
-  
-
+  antecedentesFamiliares: string = '';
+  antecedentesPersonales: string = '';
+  habitosToxicologicosPersonales: string = '';
+  actividadSexualYReproductiva: string = '';
+  antecedentesGinecologicos: string = '';
+  antecedentesObstetricos: string = '';
+  planificacionFamiliar: string = '';
   
 
   datosScraping: Login = {
@@ -134,7 +131,7 @@ export class FormularioComponent implements OnInit {
   formulario_antecedentes_familiares = new FormGroup({
     
     diabetes : new FormControl('',[Validators.required]),
-    parentesco_diabetes : new FormControl({value:''},[]),
+    parentesco_diabetes : new FormControl('',[],),
     tb_pulmonar : new FormControl('',[Validators.required]),
     parentesco_tb_pulmonar : new FormControl({value:'', disabled: true},[]),
     desnutricion : new FormControl('',[Validators.required]),
@@ -304,6 +301,9 @@ mostrarN(){
 this.ocultar=true;
 }
 
+
+
+
 csi15(formControl : FormControl[]) { 
 formControl.forEach(controlador => {
    controlador.enable({onlySelf: true});    
@@ -323,10 +323,168 @@ cno15(formControl : FormControl[]) {
   });
   console.log(this.formulario_datos_generales.get('sexo').value);
   if(this.formulario_datos_generales.get('sexo').value == "Hombre"){
-    this.ocultar1=true;
+    this.ocultar1=true;   
+    
   }else{
     this.ocultar1=true;
   } 
+}
+
+public onControlChange(event: any): void
+{
+  console.log(event.value);
+
+}
+
+public onStepChange(event: any): void {
+  console.log(event.selectedIndex);
+
+    if (event.selectedIndex == 0) {   
+      this.datosGenerales = "Datos Generales"
+    this.antecedentesFamiliares = '';
+    this.antecedentesPersonales = '';
+    this.habitosToxicologicosPersonales = '';
+    this.actividadSexualYReproductiva = '';
+    this.antecedentesGinecologicos= '';
+    this.antecedentesObstetricos= '';
+    this.planificacionFamiliar = '';
+    }
+
+    if(event.selectedIndex ==1){
+      this.datosGenerales = '';
+      this.antecedentesFamiliares = 'Antecedentes Familiares';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+    }
+
+    if(event.selectedIndex ==2){
+      this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = 'Antecedentes Personales';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+    }
+    if(event.selectedIndex ==3){
+      this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = 'Actividad Sexual Y Reproductiva';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+    }
+
+    if(event.selectedIndex ==4){
+      if(this.formulario_datos_generales.get('sexo').value == "Hombre" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
+        this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = 'habitos Toxicologicos Personales';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+
+      }if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = '';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= 'antecedentes Ginecologicos';
+        this.antecedentesObstetricos= '';
+        this.planificacionFamiliar = '';
+      } 
+
+      if(this.formulario_datos_generales.get('sexo').value == "Hombre" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = 'Planificacion Familiar';
+      }
+      
+      if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = '';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= '';
+        this.antecedentesObstetricos= 'antecedentes Obstetricos';
+        this.planificacionFamiliar = '';
+      } 
+    }
+
+    if(event.selectedIndex ==5){
+    if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = 'habitos Toxicologicos Personales';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= '';
+        this.antecedentesObstetricos= '';
+        this.planificacionFamiliar = '';
+      } 
+      if(this.formulario_datos_generales.get('sexo').value == "Hombre" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = 'habitos Toxicologicos Personales';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+      }
+      if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = '';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= '';
+        this.antecedentesObstetricos= '';
+        this.planificacionFamiliar = 'planificacion Familiar';
+      } 
+    }
+
+    if(event.selectedIndex ==6){
+        if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = '';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= 'antecedentesGinecologicos';
+        this.antecedentesObstetricos= '';
+        this.planificacionFamiliar = '';
+      } 
+    }
+    
+    if(event.selectedIndex ==7){
+      if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+      this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = 'Habitos Toxicologicos Personales';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+    } 
+  }
 }
 
 
@@ -853,22 +1011,6 @@ this.des3 = true;
       
 
       if(this.formulario_antecedentes_familiares.valid){
-        // var arreglo: string[];
-        // 
-
-
-        // parentescos = this.parentesco_diabetes.value[0]
-        // console.log('parentesco: '+parentescos);
-
-
-        // p_d.forEach(element => {
-        //   console.log(element);
-        // });
-        // arreglo = p_d.toString().split(",");
-
-        // arreglo.forEach(element => {
-        //   console.log('parentesco diabetes: '+element);
-        // });
 
         var parentescos : any;
         for (let index = 0; index < this.formControlsAntecedentes.length; index++) {
@@ -882,47 +1024,23 @@ this.des3 = true;
 
 
               //guardo el valor del controlador del parentesco y lo guardo en una variable de tipo any
+              // ahora el select como es multiple me devuelve un arreglo
               parentescos = this.formControlsParentescos[index].value;
 
-              // si el valor guardado en la variable parentescos es un arreglo entonces por cada
-              //valor del arreglo se hara una insercion de ese parentesco
-              if(parentescos.length){
+              // por cada vuelta que de el ciclo se hará un registro en la tabla pacientes_antecedentes_familiares,
+              // siendo cada registro un antecedente de los antecedentes familiares y su parentesco
+              // si el antecedente tiene mas de un 1 parentesco entonces se insertara varias veces el mismo antecedente
+              // con los diferentes parentesco.
+              parentescos.forEach(element => {
+                this.paciente_antecedente_familiar.id_parentesco = element;
 
-                parentescos.forEach(element => {
-                  this.paciente_antecedente_familiar.id_parentesco = element;
-  
-                  this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
-                    console.log('se envio perron la prueba');
-                  }, (error)=>{
-                    console.log(error);
-                  });
-  
+                this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                  console.log('se envio perron la prueba');
+                }, (error)=>{
+                  console.log(error);
                 });
 
-              }else{
-
-                //si el valor de la variable parentescos no es un arreglo entonces
-                //envia el unico dato que se recibe y se hace la insercion.
-
-                //aqui mismo envio los datos del parentesco aprovechando la variable index
-                // y me ubico en el parentesco de cada uno de los antecedentes "ojo" los dos 
-                // arreglos deben estar ordenados en las mismas posiciones respectivamente 
-                // el antecedente con su parentesco.    
-                this.paciente_antecedente_familiar.id_parentesco = parentescos; 
-  
-              
-  
-              // por cada vuelta que de el ciclo se hará un registro en la tabla, siendo cada registro un antecedente de los antecedentes familiares.
-              this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
-                console.log('se envio perron la prueba');
-              }, (error)=>{
-                console.log(error);
               });
-              }
-              
-
-
-              
               
             }
           

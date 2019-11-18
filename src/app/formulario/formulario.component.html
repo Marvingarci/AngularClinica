@@ -1,4 +1,4 @@
-<mat-horizontal-stepper linear #stepper  > 
+<mat-horizontal-stepper linear #stepper  (selectionChange)="onStepChange($event)" > 
 
     <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
         <form [formGroup]="formulario_datos_generales">
@@ -1133,7 +1133,6 @@
           <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
         </div>
     </form>
-    <div *ngIf="loading==true" id="spin"> <mat-spinner class="loading"></mat-spinner></div>
  </mat-step>
 
 
@@ -1389,7 +1388,8 @@
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
     </div>
        
-    </form>    
+    </form>   
+    <div *ngIf="loading==true" id="spin"> <mat-spinner class="loading"></mat-spinner></div> 
   </mat-step>
 
 
