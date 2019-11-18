@@ -1,6 +1,6 @@
 <mat-horizontal-stepper linear #stepper  (selectionChange)="onStepChange($event)" > 
 
-    <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
+    <!-- <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
         <form [formGroup]="formulario_datos_generales">
         <ng-template matStepLabel >{{datosGenerales}}</ng-template>
         <div class="container">
@@ -155,7 +155,7 @@
           </div>
        
       </form>
-      </mat-step> 
+      </mat-step>  -->
     
 
 
@@ -166,7 +166,7 @@
 
   <!-- primer step -->
   
-  <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1"  >
+  <!-- <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1"  >
     <form [formGroup]="formulario_datos_generales">
     <ng-template matStepLabel >{{datosGenerales}}</ng-template>
     <div class="container">
@@ -338,7 +338,7 @@
         <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right" >Siguiente</button>
      </div>
   </form>
-  </mat-step>
+  </mat-step> -->
 
 
 
@@ -357,7 +357,8 @@
         <div class="row" style="margin-left: 0;">         
           <mat-radio-group formControlName= "diabetes"
             aria-labelledby="example-radio-group-label"
-            class="example-radio-group" > 
+            class="example-radio-group" 
+            (selectionChange)="onControlChange($event)"> 
                
             <mat-radio-button value={{1}} (click)="habilitarInputs([parentesco_diabetes])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
             <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_diabetes])">No</mat-radio-button>
@@ -391,7 +392,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
           <mat-form-field>
             <mat-label>Parentesco</mat-label>
-            <mat-select formControlName= "parentesco_tb_pulmonar" name="parentesco_tb_pulmonar" >
+            <mat-select formControlName= "parentesco_tb_pulmonar" name="parentesco_tb_pulmonar" multiple>
               <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                 {{parentesco.viewValue}}
               </mat-option>
@@ -412,7 +413,7 @@
              &nbsp; &nbsp; &nbsp; &nbsp; 
              <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "parentesco_desnutricion" name="parentesco_desnutricion" >
+              <mat-select formControlName= "parentesco_desnutricion" name="parentesco_desnutricion" multiple>
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -445,7 +446,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "parentesco_enfermedades_mentales" name="parentesco_enfermedades_mentales" >
+              <mat-select formControlName= "parentesco_enfermedades_mentales" name="parentesco_enfermedades_mentales" multiple>
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -477,7 +478,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
           <mat-form-field>
             <mat-label>Parentesco</mat-label>
-            <mat-select formControlName= "parentesco_convulsiones" name="parentesco_convulsiones" >
+            <mat-select formControlName= "parentesco_convulsiones" name="parentesco_convulsiones" multiple>
               <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                 {{parentesco.viewValue}}
               </mat-option>
@@ -498,7 +499,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field>
             <mat-label>Parentesco</mat-label>
-            <mat-select formControlName= "parentesco_alcoholismo_sustancias_psicoactivas" name="parentesco_alcoholismo_sustancias_psicoactivas">
+            <mat-select formControlName= "parentesco_alcoholismo_sustancias_psicoactivas" multiple>
               <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                 {{parentesco.viewValue}}
               </mat-option>
@@ -520,7 +521,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "parentesco_alergias" name="parentesco_alergias"  >
+              <mat-select formControlName= "parentesco_alergias" multiple>
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -550,7 +551,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "parentesco_cancer" name="parentesco_cancer" >
+              <mat-select formControlName= "parentesco_cancer" multiple>
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
@@ -581,7 +582,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
           <mat-form-field>
             <mat-label>Parentesco</mat-label>
-            <mat-select formControlName= "parentesco_hipertension_arterial" name="parentesco_hipertension_arterial" >
+            <mat-select formControlName= "parentesco_hipertension_arterial" name="parentesco_hipertension_arterial" multiple>
               <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                 {{parentesco.viewValue}}
               </mat-option>
@@ -604,7 +605,7 @@
           <div class="col-md-3">
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "parentesco_otros" name="parentesco_otros">
+              <mat-select formControlName= "parentesco_otros" multiple>
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
