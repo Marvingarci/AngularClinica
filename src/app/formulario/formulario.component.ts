@@ -45,6 +45,16 @@ export interface SegurosMedicos {
   viewValue: string;
 }
 
+export interface PracticasSexuales {
+  value: number;
+  viewValue: string;
+}
+
+export interface MetodoPlanificacion {
+  value: number;
+  viewValue: string;
+}
+
 export class MyErrorStateMatcher implements ErrorStateMatcher{
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -586,10 +596,10 @@ ocultar: boolean = true;
 
   ];
 
-  practicas_sexuales: select[] = [
-    {value: 'Anal' , viewValue: 'Anal'},
-    {value: 'Vaginal' , viewValue: 'Vaginal'},
-    {value: 'Oral' , viewValue: 'Oral'},
+  practicas_sexuales: PracticasSexuales[] = [
+    {value: 1 , viewValue: 'Anal'},
+    {value: 2 , viewValue: 'Vaginal'},
+    {value: 3 , viewValue: 'Oral'},
   ];
 
   periocidades: select[] = [
@@ -605,16 +615,16 @@ ocultar: boolean = true;
 
   ];
 
-  metodos: select[] = [
-    {value: 'DIU' , viewValue: 'DIU'},
-    {value: 'Condón' , viewValue: 'Condón'},
-    {value: 'Pastilla' , viewValue: 'Pastilla'},
-    {value: 'Implante' , viewValue: 'Implante'},
-    {value: 'Inyección trimestral' , viewValue: 'Inyección trimestral'},
-    {value: 'Inyección trimestral' , viewValue: 'Inyección trimestral'},
-    {value: 'Inyección mensual' , viewValue: 'Inyección mensual'},
-    {value: 'Ritmo' , viewValue: 'Ritmo'},
-    {value: 'Esterilización' , viewValue: 'Esterilización'},
+  metodos: MetodoPlanificacion[] = [
+    {value: 1 , viewValue: 'DIU'},
+    {value: 2 , viewValue: 'Condón'},
+    {value: 3 , viewValue: 'Pastilla'},
+    {value: 4 , viewValue: 'Implante'},
+    {value: 5 , viewValue: 'Inyección trimestral'},
+    {value: 6 , viewValue: 'Inyección trimestral'},
+    {value: 7 , viewValue: 'Inyección mensual'},
+    {value: 8 , viewValue: 'Ritmo'},
+    {value: 9 , viewValue: 'Esterilización'},
 
   ];
 
