@@ -58,6 +58,9 @@ export interface PracticasSexuales {
 }
 
 export interface MetodoPlanificacion {
+  value: number;
+  viewValue: string;
+}
 export interface Parentescos {
   value: number;
   viewValue: string;
