@@ -16,6 +16,8 @@ import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologi
 import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familiares';
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
 import { PacienteAntecedenteFamiliar } from "../interfaces/paciente-antecedente-familiar";
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+
 
 export interface Select {
   value: string;
@@ -605,7 +607,7 @@ constructor(private formularioService: FormularioService, private activatedRoute
         this.ante_familiar = data;
 
         
-
+       
        for (let index = 0; index < this.ante_familiar.length; index++) {
          switch (this.ante_familiar[index].antecedente) {
            case "Convulsiones":
