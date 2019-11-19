@@ -1,6 +1,13 @@
 .intro{
   background-color: #fff;
 }
+
+.fondo2{
+
+background-color: rgb(225, 236, 250);
+}
+
+
   .example-container {
     position: absolute;
     top: 65px;
@@ -56,9 +63,7 @@ background-color: #fff;
 color: #fff;  
 }
 
-#contenidoPrincipal{
-margin-top: 20px;
-}
+
 
 
 /* Tamaño del scroll */
