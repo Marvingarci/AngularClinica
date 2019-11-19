@@ -27,7 +27,7 @@
                     <img *ngIf="noImg == false" class="img" src={{paciente.imagen}}/>
                 </div>
 
-                <div class="col">
+                <div class="col" style="padding-top: 20px;">
                     <mat-form-field class="example-full-width">
                         <input matInput placeholder="Nombre" 
                         formControlName="nombre_completo" 
@@ -54,7 +54,7 @@
                         
                     </mat-form-field>
                 </div>
-                <div class="col">
+                <div class="col" style="padding-top: 20px;">
                     <mat-form-field class="example-full-width">
                         <input matInput placeholder="Numero de telefono" 
                         formControlName="numero_telefono"
@@ -89,7 +89,12 @@
                             <!-- <mat-error *ngIf="sexo.hasError('required')">campo requerido!</mat-error> -->
               
                           </mat-form-field>
+                        </div>
+                
+                    </div> 
 
+                    <div class="row">
+                        <div class="col">
                         <div style="text-align: right;">
                             <button mat-raised-button
                                 class="botonperron"
@@ -101,8 +106,8 @@
                                 >
                                 {{!readonly ? 'Guardar' : 'Editar'}}
                             </button>
-                        </div>
-
+                        </div></div>
+                    </div>
                         <!-- <div style="text-align: right;">
                             <button mat-raised-button
                                 class="btn btn-outline-primary float-right"
@@ -113,9 +118,7 @@
                             </button>
                         </div> -->
 
-                </div>
-                
-            </div> 
+               
             
 
             
