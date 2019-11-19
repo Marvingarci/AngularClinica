@@ -15,6 +15,7 @@ import { ActividadSexual } from '../interfaces/actividad-sexual';
 import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologicos';
 import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familiares';
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 
 export interface Select {
   value: string;
@@ -689,6 +690,11 @@ constructor(private formularioService: FormularioService, private activatedRoute
    }
  }//fin del constructor
 
+  // para que se le quite la cosa fea al text area
+  @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
+
+  //para regresar para atras
+ 
     
   
  actualizarDatosGenerales(){
