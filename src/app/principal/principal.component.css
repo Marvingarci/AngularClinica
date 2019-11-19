@@ -17,11 +17,20 @@ background-color: rgb(225, 236, 250);
     background:rgb(253, 253, 253);
   margin-bottom: -2px; }
 
-    .router-link-active{ 
-       background-color: #B721FF;
-      background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%);
+    .router-link-active{
+      background-color: #B721FF;
+      /* background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%); */
       color: #fff;
-    }
+
+    } 
+
+    .router-link-active:hover{ 
+      color: #fff;
+      background-color: #21D4FD;
+      /* background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%);  */
+      transition: all 1s ease;
+
+   } 
  
   .example-fill-remaining-space {
       flex: 1 1 auto;    
@@ -48,10 +57,19 @@ background-color: rgb(225, 236, 250);
     width: 100%;
   }
 
+
+  /* .hoveritem{
+    color: rgb(109, 0, 160);
+
+  } */
+
+
   .hoveritem:hover{
     background-color: #21D4FD;
-    background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%);
+    /* background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%); */
     color: #fff;
+    transition: all 1s ease;
+
   }
 
 
