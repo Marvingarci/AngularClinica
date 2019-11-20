@@ -28,6 +28,10 @@ export class FormularioService {
 
    }
 
+   ultimoIdAntecedente(){
+     return this.httpClient.get(this.API_ENDPOINT+'ultimoIdAntecedente');
+   }
+
   enviarPruebaPaciente(paciente_antecedente_familiar: PacienteAntecedenteFamiliar){
     return this.httpClient.post(this.API_ENDPOINT+'pacientes_antecedentes_familiares',
     paciente_antecedente_familiar, 
@@ -35,9 +39,12 @@ export class FormularioService {
   }
 
 
-  enviarAntecedentes(){
+  enviarAntecedentes(antecedente: any){
+
+    return this.httpClient.post(this.API_ENDPOINT+'antecedentes', antecedente, {headers: this.headers});
 
   }
+
 
 
   enviarParentescos(){
