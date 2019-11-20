@@ -1,9 +1,9 @@
-<div class="titulo"><h2 >Registro Medicos</h2></div> 
+
         
 <div class="container">
 <form  id="form" [formGroup]= "medicos_form">
-<mat-card > 
-  
+<mat-card  style="margin-top: 15px;"> 
+  <div class="titulo"><h2 >Registro Medicos</h2></div> 
 
   <mat-form-field class="example-full-width">
           <input  matInput placeholder="Usuario" formControlName= "usuario" required>
@@ -85,6 +85,11 @@
 <div style="text-align: right;">
     <button  (click)="comprobarDatos()"  mat-raised-button class="boton" > Guardar</button>  
   </div>
+    </div> 
+
 </mat-card>  
+<div >
+    <button  mat-raised-button (click)="comprobarDatos()"  class="btn btn-outline-primary float-right botonperron" style="margin-top: 20px;margin-bottom: 15px;"> Guardar</button>  
+</div>
 </form>
 </div>

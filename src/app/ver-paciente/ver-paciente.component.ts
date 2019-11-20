@@ -5,9 +5,9 @@ import { Paciente } from "../interfaces/paciente";
 import { MatMonthView } from '@angular/material/datepicker';
 import { AppComponent } from '../app.component';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { select } from '../formulario/formulario.component';
+import { select, Parentescos, MyErrorStateMatcher } from '../formulario/formulario.component';
 import { AntecedentesFamiliares } from '../interfaces/antecedentes-familiares';
-import { MatTableDataSource, MatSidenav } from '@angular/material';
+import { MatTableDataSource, MatSidenav, MatDialog, MatSnackBar, MatDialogRef, MatSnackBarConfig, SimpleSnackBar } from '@angular/material';
 import { AntecedentesPersonales } from '../interfaces/antecedentes-personales';
 import { ThrowStmt } from '@angular/compiler';
 import { HabitosToxicologicosPersonales } from '../interfaces/habitos-toxicologicos-personales';
@@ -15,6 +15,14 @@ import { ActividadSexual } from '../interfaces/actividad-sexual';
 import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologicos';
 import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familiares';
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
+import { PacienteAntecedenteFamiliar } from "../interfaces/paciente-antecedente-familiar";
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { InventariosService } from '../services/inventarios.service';
+import { Cita } from '../interfaces/Cita';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+
+
 
 export interface Select {
   value: string;
@@ -28,16 +36,41 @@ export interface Element{
   parentesco?: string;
   observacion?: string;
 }
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+  description: string;
+}
+
+export interface familiar{
+  id_paciente?: number;
+  id_antecedente?: string;
+  id_parentesco?: string;
+}
+
+
 
 @Component({
   selector: 'app-ver-paciente',
   inputs:['cambios'],
   templateUrl: './ver-paciente.component.html',
-  styleUrls: ['./ver-paciente.component.css']
+  styleUrls: ['./ver-paciente.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 
 export class VerPacienteComponent implements OnInit {
   @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
+  dataSource1:any;
+  columnsToDisplay = ['fechayHora', 'observaciones', 'impresion', 'indicaciones'];
+  expandedElement: Cita | null;
 
   events: string[] = [];
   opened: boolean;
@@ -50,6 +83,9 @@ export class VerPacienteComponent implements OnInit {
   //   return this.transactions.map(t => t.cost).reduce((acc, value) => acc + value, 0);
   // }
 
+  
+
+  
   formulario_datos_faltantes = new FormGroup({  
     peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
     talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]), 
@@ -60,9 +96,10 @@ export class VerPacienteComponent implements OnInit {
      // "\d" es lo mismo "[0-9]"
     temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]),
     presion: new FormControl('', [Validators.required]),
-    pulso: new FormControl('', [Validators.required]),    
-  });
-
+    pulso: new FormControl('', [Validators.required]),
+    
+});
+matcher = new MyErrorStateMatcher();
   formulario_datos_generales = new FormGroup({      
     nombre_completo: new FormControl('', [Validators.required]),
     // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
@@ -229,6 +266,10 @@ des2 = true;
 ingreso2: string ;
 des3 = true;
 ingreso3: string ;
+
+///// Creacion de variables
+mostrarHisorias: boolean = false;
+citasPaciente: Cita[];
     
 Mostrar() {      
   this.des = false;
@@ -289,6 +330,7 @@ ocultar: boolean = true;
     emergencia_telefono: null,
     categoria: null,
   }
+  
 
   antecedente_familiar: AntecedentesFamiliares ={
     diabetes : null,
@@ -317,6 +359,9 @@ ocultar: boolean = true;
     parentesco_otros : null,
     id_paciente : null
   };
+
+  ante_familiar: any;
+  ante_familiar_filtrado:familiar[] ;
 
   antecedente_personal: AntecedentesPersonales = {
     diabetes : null,
@@ -405,12 +450,12 @@ ocultar: boolean = true;
   };
 
   //creo un arreglo de la interfaz en donde voy a mostrar los datos de la tabla
-  tablaAntecedentesFamiliares: Element[];
+  tablaAntecedentesFamiliares: any;
   tablaAntecedentesPersonales: Element[];
   tablaHabitosToxicologicos: Element[];
 
   //creo un arreglo en el cual se añaden las columnas que se van a mostrar en la tabla
-  columnasTablaAntecedentesFamiliares: string[] = ['antecedente', 'valor', 'tipo', 'parentesco', 'observacion'];
+  columnasTablaAntecedentesFamiliares: string[] = ['antecedente', 'valor', 'parentesco'];
   columnasTablaAntecedentesPersonales: string[] = ['antecedente', 'valor', 'tipo', 'observacion'];
   columnastablaHabitosToxicologicos: string[] = ['habito_toxicologico', 'valor', 'observacion'];
 
@@ -523,7 +568,6 @@ ocultar: boolean = true;
   
   //id que se recupera del paciente mandado a traer
   id: any;
-
   // variable que identifica si el paciente tiene imagen de perfil
   noImg: boolean = true;
 
@@ -557,7 +601,7 @@ ocultar: boolean = true;
   mostrarPlanificacionFamiliar: boolean = false;  
 
 
-constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, activar: AppComponent ) { 
+constructor(private formularioService: FormularioService, private mensaje: MatSnackBar,  private activatedRoute: ActivatedRoute, activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService ) { 
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
     
@@ -566,6 +610,10 @@ constructor(private formularioService: FormularioService, private activatedRoute
         this.paciente = data;
         //establesco el valor a los formcontrol para que se visualizen
         //en los respectivos inputs de los datos generales
+        if(this.paciente.peso == null){
+          console.log('faltan datos');
+          this.sidenav.toggle();
+        }
         this.cargarInformacionDatosGenerales();
         //si el paciente no es alumno, cambiamos
         //el valor de la variable "esAlumno" a false
@@ -588,15 +636,30 @@ constructor(private formularioService: FormularioService, private activatedRoute
 
       
 
-
+/////////////////////////////////////////////////////////////////
       this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
-        this.antecedente_familiar = data;
+        this.ante_familiar = data;
+
+        
+       
+       for (let index = 0; index < this.ante_familiar.length; index++) {
+         switch (this.ante_familiar[index].antecedente) {
+           case "Convulsiones":
+             
+             break;
+         
+           default:
+             break;
+         }
+         
+       }
+
         //cargo los datos de la tabla antecedentes familiares
-        this.cargarTablaAntecedentesFamiliares();
+        this.cargarTablaAntecedentesFamiliares();  
         //establesco el valor a los formcontrol para que se visualizen
         //en los respectivos inputs de los antecedentes familiares
         this.cargarInformacionAntecedentesFamiliares();        
-        console.log(this.antecedente_familiar);
+        console.log(this.ante_familiar);
       }, (error)=>{
         console.log(error);
       });
@@ -689,7 +752,10 @@ constructor(private formularioService: FormularioService, private activatedRoute
    }
  }//fin del constructor
 
-    
+ 
+ @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
+
+
   
  actualizarDatosGenerales(){
     if(this.readonlyDatosGenerales === true){    
@@ -941,78 +1007,13 @@ constructor(private formularioService: FormularioService, private activatedRoute
   }
 
  
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////
   cargarTablaAntecedentesFamiliares(){
     // establesco los valores a el arreglo de interfaces "tablaAntecedentesFamiliares"
-    this.tablaAntecedentesFamiliares = 
-    [
-      {antecedente: 'Diabetes',
-      valor: this.antecedente_familiar.diabetes,
-      parentesco: this.antecedente_familiar.parentesco_diabetes
-      },
     
-      {
-      antecedente: 'Tuberculosis Pulmonar',
-      valor: this.antecedente_familiar.tb_pulmonar,
-      parentesco: this.antecedente_familiar.parentesco_tb_pulmonar
-      },
-  
-      {
-      antecedente: 'Desnutrición',
-      valor: this.antecedente_familiar.desnutricion,
-      tipo: this.antecedente_familiar.tipo_desnutricion,
-      parentesco: this.antecedente_familiar.parentesco_desnutricion
-      },
-  
-      {
-      antecedente: 'Enfermedades Mentales',
-      valor: this.antecedente_familiar.enfermedades_mentales,
-      tipo: this.antecedente_familiar.tipo_enfermedad_mental,
-      parentesco: this.antecedente_familiar.parentesco_enfermedades_mentales
-      },
-  
-      {
-      antecedente: 'Convulsiones',
-      valor: this.antecedente_familiar.convulsiones,
-      parentesco: this.antecedente_familiar.parentesco_convulsiones
-      }, 
-  
-      {
-      antecedente: 'Alcoholismo o Sustancias Psicoactivas',
-      valor: this.antecedente_familiar.alcoholismo_sustancias_psicoactivas,
-      parentesco: this.antecedente_familiar.parentesco_alcoholismo_sustancias_psicoactivas
-      }, 
-  
-      { 
-      antecedente: 'Alergias',
-      valor: this.antecedente_familiar.alergias,
-      tipo: this.antecedente_familiar.tipo_alergia,
-      parentesco: this.antecedente_familiar.parentesco_alergias
-      }, 
-  
-      { 
-      antecedente: 'Cáncer',
-      valor: this.antecedente_familiar.cancer,
-      tipo: this.antecedente_familiar.tipo_cancer,
-      parentesco: this.antecedente_familiar.parentesco_cancer
-      },
-
-      {
-      antecedente: 'Hipertensión arterial',
-      valor: this.antecedente_familiar.hipertension_arterial,
-      parentesco: this.antecedente_familiar.parentesco_hipertension_arterial
-      },
-
-    ];
+    this.tablaAntecedentesFamiliares = new MatTableDataSource(this.ante_familiar);
     // verifico si otro tiene un valor para poder agregarlo a la tabla
-    if(this.antecedente_familiar.otros != null){
-      this.tablaAntecedentesFamiliares.push(
-        {
-          antecedente: this.antecedente_familiar.otros,
-          valor: 'Si',
-          parentesco: this.antecedente_familiar.parentesco_otros
-      });
-    }
+    
   }
 
   cargarTablaAntecedentesPersonales(){
@@ -1430,6 +1431,52 @@ constructor(private formularioService: FormularioService, private activatedRoute
     }
   }
 
+  anadirCita(){
+    const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, {disableClose:true, width:"70%"});
+    this.inven.idCita=this.id;
+  }
+  mostrarHistoriasSub(){
+    this.mostrarHisorias=true;
+
+    this.inven.obtenerCita(this.id).subscribe((data: Cita[])=>{
+      this.citasPaciente = data;
+      console.log(this.citasPaciente);
+      this.dataSource1= this.citasPaciente;
+    }, (error)=>{
+      
+      console.log(error);
+    });
+  }
+  cerrarHistorias(){
+    this.mostrarHisorias=false;
+  }
+
+
+  guardarDatos(){
+
+     if(this.formulario_datos_faltantes.valid){
+      this.paciente.imc = this.formulario_datos_faltantes.get('imc').value;
+      this.paciente.peso = this.formulario_datos_faltantes.get('peso').value;
+      this.paciente.presion = this.formulario_datos_faltantes.get('presion').value;
+      this.paciente.talla = this.formulario_datos_faltantes.get('talla').value;
+      this.paciente.temperatura = this.formulario_datos_faltantes.get('temperatura').value;
+      this.paciente.pulso = this.formulario_datos_faltantes.get('pulso').value;
+      
+      
+
+       this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
+         this.mensaje.open('Datos guardados', '', {duration:2000});
+         this.sidenav.toggle();
+
+       }, (error)=>{
+         console.log(error);
+         this.mensaje.open('there was an error!', '', {duration:2000});
+    });
+
+
+     }
+  }
+
 
 
    //obtener los campos del formGroup: formulario_datos_generales
@@ -1561,4 +1608,138 @@ constructor(private formularioService: FormularioService, private activatedRoute
   get presion(){return this.formulario_datos_faltantes.get('presion')};
   get pulso(){return this.formulario_datos_faltantes.get('pulso')};
 
+}
+
+
+@Component({
+  selector: 'historiaSubsiguiente1',
+  templateUrl: 'HistoriaSubsiguiente1.html',
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  }]
+})
+
+
+
+export class HistoriaSubsiguiente1{
+
+  constructor(private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente1>, private mensaje: MatSnackBar){//para cerrar el dialogo desde la misma interfaz
+    
+  }
+
+  
+  citaGuardar: Cita={
+    id_paciente: null,
+    peso:null,
+    imc:null,
+    presion:null,
+    pulso:null,
+     talla:null,
+     temperatura:null,
+    impresion:null,
+     indicaciones:null,
+     observaciones:null,
+     remitido:null,
+     siguiente_cita:null
+  }
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+
+  formulario_cita = new FormGroup({
+    
+      
+    peso: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
+    // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    talla: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]), 
+    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
+    // "/ /" indica el inicio y el final de la expresion regular
+    // "{10}" indica le numero de digitos de lo que lo antecede
+    IMC: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
+     // "\d" es lo mismo "[0-9]"
+    temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
+    observaciones_examen: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
+    impresion_diagnostica: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
+    indicaciones: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
+    presion: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
+    fecha_nacimiento: new FormControl('', Validators.required),
+    pulso: new FormControl('',[Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
+    remitir: new FormControl('', Validators.required),
+    cita: new FormControl('', Validators.required),
+    remitira: new FormControl('', Validators.required)
+    
+});
+  matcher = new MyErrorStateMatcher();
+
+  
+
+  parentescos: Parentescos[] = [
+    {value: 1 , viewValue: 'Psicologia'},
+    {value: 2 , viewValue: 'Nutricion'},
+    {value: 3 , viewValue: 'Odontologia'},
+    {value: 4 , viewValue: 'Terapia Funcional'},
+    {value: 5 , viewValue: 'CATFA'},
+    {value: 6 , viewValue: 'Trabajo Social'}
+  ];
+
+  habilitarInputs(formControl : FormControl[]){  
+    formControl.forEach(controlador => {
+      controlador.enable({onlySelf: true});    
+    });
+  }
+
+  borrarInputs(formControl : FormControl[]){
+    formControl.forEach(controlador => {
+      controlador.setValue('');
+      controlador.disable({onlySelf: true});
+    });
+  }
+
+  
+
+  guardarCita(){
+   if(this.formulario_cita.valid){
+      this.citaGuardar.id_paciente = this.form.idCita;
+      this.citaGuardar.peso= this.peso.value;
+      this.citaGuardar.imc=this.presion.value;
+      this.citaGuardar.presion=this.presion.value;
+      this.citaGuardar.pulso=this.pulso.value;
+      this.citaGuardar.talla= this.talla.value;
+      this.citaGuardar.temperatura=this.temperatura.value;
+      this.citaGuardar.impresion=this.impresion_diagnostica.value;
+      this.citaGuardar.indicaciones=this.indicaciones.value;
+      this.citaGuardar.observaciones=this.observaciones_examen.value;
+      this.citaGuardar.remitido=this.remitira.value;
+      this.citaGuardar.siguiente_cita= this.fecha_nacimiento.value;
+      
+      this.form.guardarCita(this.citaGuardar).subscribe( (data) =>{
+        console.log(data);
+        this.dialogRef.close();
+        this.showError('Cita guardada con exito');
+      }, (error) => {
+        console.log(error);
+        alert('ocurrion un error');
+      });
+    }
+  }
+
+
+  get peso(){return this.formulario_cita.get('peso')};
+  get talla(){return this.formulario_cita.get('talla')};
+  get IMC(){return this.formulario_cita.get('IMC')};
+  get temperatura(){return this.formulario_cita.get('temperatura')};
+  get remitir(){return this.formulario_cita.get('remitir')};
+  get remitira(){return this.formulario_cita.get('remitira')};
+  get pulso(){return this.formulario_cita.get('pulso')};
+  get observaciones_examen(){return this.formulario_cita.get('observaciones_examen')};
+  get impresion_diagnostica(){return this.formulario_cita.get('impresion_diagnostica')};
+  get fecha_nacimiento(){return this.formulario_cita.get('fecha_nacimiento')};
+  get indicaciones(){return this.formulario_cita.get('indicaciones')};
+  get presion(){return this.formulario_cita.get('presion')};
+  get cita(){return this.formulario_cita.get('cita')};
 }

@@ -23,13 +23,21 @@ import { Subscription, Observable } from 'rxjs';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import {take} from 'rxjs/operators';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
-import { MatChipInputEvent, MatAutocomplete } from '@angular/material';
+import { MatChipInputEvent, MatAutocomplete, MatTableDataSource } from '@angular/material';
 
 export interface Loginadmin {
  // contrasenia_admin: any;
   value: string;
   viewValue: string;
 
+}
+
+export interface Element{
+
+  numero: number;
+  antecedente: string;
+  parentesco: string;
+  
 }
 
 
@@ -99,6 +107,7 @@ export class FormularioComponent implements OnInit {
   antecedentesGinecologicos: string = '';
   antecedentesObstetricos: string = '';
   planificacionFamiliar: string = '';
+
   
 
   datosScraping: Login = {
@@ -107,14 +116,11 @@ export class FormularioComponent implements OnInit {
     nombre: null,
     carrera : null,
     centro : null,
-    numero_identidad : null,
-     
+    numero_identidad : null,     
   }
   
 
-  formulario_datos_generales = new FormGroup({
-    
-      
+  formulario_datos_generales = new FormGroup({     
       nombre_completo: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-z\s]{0,100}$/)]),
       // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
       // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
@@ -135,14 +141,11 @@ export class FormularioComponent implements OnInit {
       seguro_medico: new FormControl('', Validators.required),
       numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
       emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{3,30}$/)]),
-      emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
-  
-  
+      emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]) 
   });
 
 
-  formulario_antecedentes_familiares = new FormGroup({
-    
+  formulario_antecedentes_familiares = new FormGroup({    
     diabetes : new FormControl('',[Validators.required]),
     parentesco_diabetes : new FormControl('',[],),
     tb_pulmonar : new FormControl('',[Validators.required]),
@@ -166,13 +169,11 @@ export class FormularioComponent implements OnInit {
     hipertension_arterial: new FormControl('',[Validators.required]),
     parentesco_hipertension_arterial: new FormControl({value:'', disabled: true},[]),
     otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]), 
-    parentesco_otros : new FormControl('',[]),
-      
+    parentesco_otros : new FormControl('',[]),      
   });
 
 
-  formulario_antecedentes_personales = new FormGroup({
-  
+  formulario_antecedentes_personales = new FormGroup({  
     diabetes : new FormControl('',[Validators.required]),
     observacion_diabetes : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),  
     tb_pulmonar : new FormControl('',[Validators.required]),
@@ -204,8 +205,8 @@ export class FormularioComponent implements OnInit {
     observacion_otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
   });
 
-  formulario_habito_toxicologico_personal = new FormGroup({
 
+  formulario_habito_toxicologico_personal = new FormGroup({
     alcohol : new FormControl('',[Validators.required]),
     observacion_alcohol : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     tabaquismo : new FormControl('',[Validators.required]),
@@ -216,20 +217,18 @@ export class FormularioComponent implements OnInit {
     observacion_cocaina : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     observacion_otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
-
   });
 
-  formulario_actividad_sexual = new FormGroup({
 
+  formulario_actividad_sexual = new FormGroup({
     actividad_sexual : new FormControl('', Validators.required),
     edad_inicio_sexual : new FormControl('', [ Validators.max(50)]),
     numero_parejas_sexuales : new FormControl('', [ Validators.max(99)]),
-    practicas_sexuales_riesgo : new FormControl(''),
-  
+    practicas_sexuales_riesgo : new FormControl(''),  
   });
 
-  formulario_antecedente_ginecologico = new FormGroup ({
 
+  formulario_antecedente_ginecologico = new FormGroup ({
     edad_inicio_menstruacion : new FormControl('',[Validators.required,Validators.max(15),Validators.min(7)]),
     fum : new FormControl('',[Validators.required]),
     citologia : new FormControl('',[Validators.required]),
@@ -238,20 +237,17 @@ export class FormularioComponent implements OnInit {
     duracion_ciclo_menstrual : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     periocidad_ciclo_menstrual : new FormControl('',[Validators.required]),
     caracteristicas_ciclo_menstrual : new FormControl('',[Validators.required])
-
-
   });
+
 
   formulario_planificacion_familiar = new FormGroup({
-
     planificacion_familiar : new FormControl('',Validators.required),
     metodo_planificacion : new FormControl(''),
-    observacion_planificacion : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
-    
+    observacion_planificacion : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),    
   });
 
-  formulario_antecedente_obstetrico = new FormGroup({
 
+  formulario_antecedente_obstetrico = new FormGroup({
     partos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
     abortos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
     cesarias: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
@@ -259,40 +255,28 @@ export class FormularioComponent implements OnInit {
     hijos_muertos: new FormControl('',[Validators.required,Validators.max(10),Validators.min(0)]),
     fecha_termino_ult_embarazo : new FormControl(''),
     descripcion_termino_ult_embarazo : new FormControl(''),
-    observaciones : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
-  
+    observaciones : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),  
   });
   
 
   matcher = new MyErrorStateMatcher();
-  
-  
-// Aqui esta codificando MELVIN
 
+  habilitarInputs(formControl : FormControl[]){  
+    formControl.forEach(controlador => {
+      controlador.enable({onlySelf: true});    
+    });
+  }
 
-// hace esto melvin para que se te limpien los inputs
+  borrarInputs(formControl : FormControl[]){
+    formControl.forEach(controlador => {
+      controlador.setValue('');
+      controlador.disable({onlySelf: true});
+    });
+  }
 
-
-
-
-habilitarInputs(formControl : FormControl[]){
-  
-  formControl.forEach(controlador => {
-    controlador.enable({onlySelf: true});
-    
-  });
-}
-
-borrarInputs(formControl : FormControl[]){
-  formControl.forEach(controlador => {
-    controlador.setValue('');
-    controlador.disable({onlySelf: true});
-  });
-}
-
-ya(){
-  alert('macizo');
-}
+  ya(){
+    alert('macizo');
+  }
 
 
 
@@ -300,9 +284,6 @@ readonly=true;
 read15 = true;
 isDisabledB25 = true;
 input15 : string = '';
-
-
-
 
 ocultar: boolean = true;
 ocultar1: boolean = true;
@@ -313,9 +294,6 @@ mostrarS(){
 mostrarN(){
 this.ocultar=true;
 }
-
-
-
 
 csi15(formControl : FormControl[]) { 
 formControl.forEach(controlador => {
@@ -518,7 +496,6 @@ this.ingreso  =null ;
 this.des = true;      
 }
 
-
 Mostrar1() {      
 this.des1 = false;
 }
@@ -534,6 +511,7 @@ Esconder2() {
 this.ingreso2  =null ;
 this.des2 = true;      
 }
+
 Mostrar3() {      
 this.des3 = false;
 }
@@ -541,8 +519,6 @@ Esconder3() {
 this.ingreso3  =null ;
 this.des3 = true;      
 }
-
-
 
 
   paciente: Paciente = {
@@ -562,11 +538,9 @@ this.des3 = true;
     emergencia_persona: null,
     emergencia_telefono: null,
     categoria:null
-
   };
 
   antecedente_familiar: AntecedentesFamiliares ={
-
     diabetes : null,
     parentesco_diabetes : null,
     tb_pulmonar : null,
@@ -592,8 +566,6 @@ this.des3 = true;
     otros : null,
     parentesco_otros : null,
     id_paciente : null
-    
-
   };
 
   antecedente_personal: AntecedentesPersonales = {
@@ -641,7 +613,6 @@ this.des3 = true;
     otros : null,
     observacion_otros : null,
     id_paciente : null,
-
   }
 
   actividad_sexual: ActividadSexual = {
@@ -668,8 +639,7 @@ this.des3 = true;
     planificacion_familiar : null,
     metodo_planificacion : null,
     observacion_planificacion : null,
-    id_paciente : null
-    
+    id_paciente : null    
   };
 
   antecedente_obstetrico: AntecedentesObstetricos = {
@@ -681,8 +651,7 @@ this.des3 = true;
     fecha_termino_ult_embarazo : null,
     descripcion_termino_ult_embarazo : null,
     observaciones : null,
-    id_paciente : null
-  
+    id_paciente : null  
   };
 
   paciente_antecedente_familiar: PacienteAntecedenteFamiliar ={
@@ -695,11 +664,7 @@ this.des3 = true;
 
   //date picker
   minDate = new Date(1950, 0, 1);
-  maxDate = new Date();
-  
-
-
-  
+  maxDate = new Date(); 
 
   //select
   categorias: select[] = [
@@ -725,7 +690,6 @@ this.des3 = true;
     {value: 3, viewValue: 'Divorciado'},
     {value: 4, viewValue: 'Viudo'},
     {value: 5, viewValue: 'Casado'},
-   
   ];
 
   parentescos: Parentescos[] = [
@@ -734,13 +698,11 @@ this.des3 = true;
     {value: 4 , viewValue: 'Abuelos'},
     {value: 3 , viewValue: 'Tios'},
     {value: 5 , viewValue: 'Otros'},
-
   ];
 
   desnutriciones: select[] = [
     {value: 'Obecidad' , viewValue: 'Obecidad'},
     {value: 'Muy degaldo' , viewValue: 'Muy delgado'},
-
   ];
 
   enfermedades_mentaless: select[] = [
@@ -751,7 +713,6 @@ this.des3 = true;
     {value: 'Trastorno de pánico' , viewValue: 'Trastorno de pánico'},
     {value: 'Estrés' , viewValue: 'Estrés'},
     {value: 'Bipolar' , viewValue: 'Bipolar'},
-
   ];
   
   tipos_alergias: select[] = [
@@ -761,7 +722,6 @@ this.des3 = true;
     {value: 'Tipo de tela' , viewValue: 'Tipos de tela'},
     {value: 'Animales' , viewValue: 'Animales'},
     {value: 'Otros' , viewValue: 'Otros'},
-
   ];
 
   canceres: select[] = [
@@ -784,15 +744,24 @@ this.des3 = true;
   periocidades: select[] = [
     {value: 'Regular' , viewValue: 'Regular'},
     {value: 'Irregular' , viewValue: 'Irregular'},
-
   ];
   
   caracteristicas: select[] = [
     {value: 'Abundante' , viewValue: 'Abundante'},
     {value: 'Normal' , viewValue: 'Normal'},
     {value: 'Escasa' , viewValue: 'Escasa'},
-
   ];
+
+  // metodos: select[] = [
+  //   {value: 'DIU' , viewValue: 'DIU'},
+  //   {value: 'Condón' , viewValue: 'Condón'},
+  //   {value: 'Pastilla' , viewValue: 'Pastilla'},
+  //   {value: 'Implante' , viewValue: 'Implante'},
+  //   {value: 'Inyección trimestral' , viewValue: 'Inyección trimestral'},
+  //   {value: 'Inyección trimestral' , viewValue: 'Inyección trimestral'},
+  //   {value: 'Inyección mensual' , viewValue: 'Inyección mensual'},
+  //   {value: 'Ritmo' , viewValue: 'Ritmo'},
+  //   {value: 'Esterilización' , viewValue: 'Esterilización'}];
 
   metodos: MetodoPlanificacion[] = [
     {value: 1 , viewValue: 'DIU'},
@@ -809,14 +778,17 @@ this.des3 = true;
 
   resultados_embarazos: select[] = [
     {value: 'Sin complicaciones' , viewValue: 'Sin complicaciones'},
-    {value: 'Con complicaciones' , viewValue: 'Con complicaciones'},
-    
+    {value: 'Con complicaciones' , viewValue: 'Con complicaciones'},    
   ];
-
 
   resultado:any;
   id:any;
   esAlumno: boolean = true;
+
+  tablaOtros: Element[] = [];
+
+  dataSource : any;
+  columnasTabla: string[] = ['numero','antecedente','parentesco'];
 
 
   // creo estos arreglos de los cuales extraigo el valor de cada elemento y lo mando a la tabla de pacientes_antecedentes_familiares
@@ -876,7 +848,8 @@ this.des3 = true;
       this.formularioService.getScrap().subscribe((data: Login) =>{
         this.datosScraping = data;
   
-  
+        console.log(this.maxDate);
+
         if(this.esAlumno === true){
 
           // si el paciente es un alumno 
@@ -943,6 +916,30 @@ this.des3 = true;
       });    
     
     
+  }
+
+  agregar(){
+
+    if(this.otros.value && this.otros.valid && this.parentesco_otros.value){
+      
+      this.tablaOtros.push(
+        {
+          numero:this.tablaOtros.length + 1,
+          antecedente: this.otros.value,
+          parentesco: this.parentesco_otros.value,
+        }
+
+      );
+
+      this.dataSource =  new MatTableDataSource(this.tablaOtros);
+  
+      console.log(this.tablaOtros);
+  
+      this.otros.setValue('');
+      this.parentesco_otros.setValue('');
+    }
+    
+
   }
 
 

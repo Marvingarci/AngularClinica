@@ -1,12 +1,11 @@
 .example-full-width{
-    width: 60%;
+    width: 80%;
     margin-top: 10px;
-    text-align: center;
+    text-align: left;
   }
   .titulo{
     text-align: center;
-  }
-  
+  }  
   #label{
     font-size: 10dp;
     color: rgb(35, 35, 36);

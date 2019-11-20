@@ -284,8 +284,11 @@ export class DialogContentExampleDialog {
     nuevaContraRep: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)])
 });
 
-guardar(){
-  
+//EVENTO CUANDO SE DA ENTER
+onKeydown(event) {
+  if (event.key === "Enter") {
+  this.hide = false;
+
   this.formularioService.getUltimoID().subscribe((data)=>{
     this.resultado = data;
     console.log(this.resultado);
@@ -319,7 +322,44 @@ guardar(){
     }
   }
 
+  }
+}
+
+//EVENTO BOTON GUARDAR
+guardar(){
   
+  this.formularioService.getUltimoID().subscribe((data)=>{
+    this.resultado = data;
+    console.log(this.resultado);
+    if(this.resultado!=null){
+      if(this.resultado[0].ultimoId!=null){
+        this.paciente1.id_paciente=this.resultado[0].ultimoId;
+        console.log(this.paciente1.id_paciente);    
+        
+    }
+     }
+  }, (error)=>{
+    console.log(error);
+  }); 
+
+  
+  if(this.Nueva.valid){
+    // guardar datos del formulario en paciente y enviarlo a la api
+    this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
+    if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
+      this.formularioService.actualizarPaciente(this.paciente1).subscribe((data)=>{
+        this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
+        this.showError('Contraseña Guardada'); 
+        this.Listo = true;
+      }, (error)=>{
+        console.log(error);
+        this.showError('Existe un error'); 
+      });
+    }else{
+      this.showError('La contraseña no coincide'); 
+      
+    }
+  }  
 }
 
 

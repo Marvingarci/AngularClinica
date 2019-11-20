@@ -5,7 +5,7 @@
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">            
         </mat-form-field>
         <button mat-raised-button [routerLink]="['/principal/registromedicos']" 
-        style="width: 200px; height: 30px;float: right; margin-top: 15px;" routerLinkActive="router-link-active"
+        style="float: right; margin-top: 15px;" routerLinkActive="router-link-active"
         class="botonperron"> Crear Nuevo Médico</button>
     </div>
 
@@ -51,8 +51,8 @@
         <ng-container matColumnDef="nada">
         <th mat-header-cell *matHeaderCellDef> </th>
             <div mat-cell *matCellDef="let element">
-                <button mat-raised-button class="botonee" color="primary"  routerLink="/principal/registromedicos/{{element.id}}" > Editar</button> &nbsp;  
-                <button mat-raised-button class="botonee" color="warn"  routerLink="/principal/borrarmedico/{{element.id}}"  >  Eliminar</button>        
+                <button mat-raised-button class="botonee" color="primary"  routerLink="/principal/registromedicos/{{element.id}}" > <mat-label><mat-icon>create</mat-icon></mat-label></button> &nbsp;  
+                <button mat-raised-button class="botonee" color="warn"  routerLink="/principal/borrarmedico/{{element.id}}"  > <mat-label><mat-icon>delete</mat-icon></mat-label> </button>        
             </div>
         </ng-container>
 

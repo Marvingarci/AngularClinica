@@ -1,12 +1,13 @@
 <div *ngIf="Listo==false" > 
 <h2 mat-dialog-title disableClose >Cambio de contraseña</h2>
 <mat-dialog-content class="mat-typography">
-  <h3>Una vez finalizado esto podras ingresar a la pagina usando tu numero de cuenta de la UNAH y la contraseña que a continuacion ingresaras</h3>
+  <h3>Una vez finalizado esto, podrás ingresar a la página usando tu número de cuenta de la UNAH y la contraseña que a continuación ingresarás</h3>
 
-  <h3>Recuerda usar caracteres y numero para hacer tu contraseña mas confiable</h3>
+  <h3>Recuerda usar caracteres y números para hacer tu contraseña más confiable</h3>
   <form [formGroup]="Nueva">
+
           <mat-form-field class="example-full-width">                
-              <input matInput  
+              <input matInput  (keydown)="onKeydown($event)" 
               placeholder="Ingrese su nueva contraseña" [type]="hide ? 'password' : 'text'"
               formControlName="nuevaContra">
               <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
@@ -17,7 +18,7 @@
 
 <br>
             <mat-form-field class="example-full-width">                
-                <input matInput  
+                <input matInput (keydown)="onKeydown($event)" 
                 placeholder="Repita su contraseña" [type]="hide ? 'password' : 'text'"
                 formControlName="nuevaContraRep">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
