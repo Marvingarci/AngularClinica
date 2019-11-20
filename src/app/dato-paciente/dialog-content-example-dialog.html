@@ -7,11 +7,11 @@
   <form [formGroup]="Nueva">
 
           <mat-form-field class="example-full-width">                
-              <input matInput  (keydown)="onKeydown($event)" 
-              placeholder="Ingrese su nueva contraseña" [type]="hide ? 'password' : 'text'"
+              <input matInput  (keydown)="onKeydown1($event)" 
+              placeholder="Ingrese su nueva contraseña" [type]="hide1 ? 'text' : 'password'"
               formControlName="nuevaContra">
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                   </button>
               <mat-error *ngIf="nuevaContra.hasError('required') ">ingrese la contraseña!</mat-error>
             </mat-form-field>

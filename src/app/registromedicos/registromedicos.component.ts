@@ -17,6 +17,7 @@ export interface select {
   styleUrls: ['./registromedicos.component.css']
 })
 export class RegistromedicosComponent implements OnInit {
+  hide1 = false;
   hide = true; 
 
   medicos_form = new FormGroup({
@@ -133,6 +134,14 @@ export class RegistromedicosComponent implements OnInit {
     this.getdato();
   }
 
+  onKeydown(event1) {
+    if (event1.key === "Enter") {
+    this.hide1=true;
+    this.hide = true;
+  
+    }
+  }
+  
   comprobarDatos(){
     if(this.editing){  
     if(this.medicos_form.valid){

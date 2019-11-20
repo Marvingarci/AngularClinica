@@ -9,8 +9,8 @@
   padding-right: 30px;
   overflow: auto;
   position: absolute;
-  overflow-x: hidden;  
-  
+  overflow-x: hidden;    
+  background-color: rgb(225, 236, 250);
 }
 
 .mat-icon-button{
@@ -24,7 +24,7 @@
 }
 
 .mat-card{
-  /* margin-top: 10px; */
+  margin-top: 10px;
 }
 
 
@@ -33,7 +33,7 @@
   width: 100%;
   background-size: cover;
   background-position: center;
-  background-color: khaki;
+  padding: 20px;
 
 }
 
@@ -54,4 +54,36 @@
 #new-color{
   background-color: #21D4FD;
   background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%);
+}
+
+/* Tamaño del scroll */
+.container::-webkit-scrollbar {
+  width: 12px;
+  height: 10px;
+}
+
+ /* Estilos barra (thumb) de scroll */
+.container::-webkit-scrollbar-thumb {
+  background: rgb(104, 71, 250);
+  border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-thumb:active {
+  background-color: #1fb7f3;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: #1100fd;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+ /* Estilos track de scroll */
+.container::-webkit-scrollbar-track {
+  background: #a7a0ff;
+  border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-track:hover, 
+.container::-webkit-scrollbar-track:active {
+  background: #787bff;
 }

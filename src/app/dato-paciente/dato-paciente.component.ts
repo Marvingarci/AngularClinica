@@ -220,6 +220,7 @@ export class DatoPacienteComponent implements OnInit {
 })
 export class DialogContentExampleDialog {
   hide = true;
+  hide1= false;
   resultado:any;
 
    paciente1: Paciente = {
@@ -285,9 +286,15 @@ export class DialogContentExampleDialog {
 });
 
 //EVENTO CUANDO SE DA ENTER
+onKeydown1(event) {
+  if (event.key === "Enter") {
+    this.hide1 = true;
+  }
+}
+
 onKeydown(event) {
   if (event.key === "Enter") {
-  this.hide = false;
+  this.hide = true;
 
   this.formularioService.getUltimoID().subscribe((data)=>{
     this.resultado = data;
