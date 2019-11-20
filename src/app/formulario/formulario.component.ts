@@ -1137,19 +1137,24 @@ this.des3 = true;
             }
 
             this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
-            this.paciente_antecedente_familiar.id_parentesco = parentesco;
 
+           
             this.formularioService.ultimoIdAntecedente().subscribe((data: number)=>{
               antecedente = data;   
-              this.paciente_antecedente_familiar.id_antecedente = antecedente;         
+
+              this.paciente_antecedente_familiar.id_parentesco = parentesco;
+              this.paciente_antecedente_familiar.id_antecedente = antecedente;   
+              
+              this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                console.log('se enviaron perron los nuevos antecedentes');
+              }, (error)=>{
+                console.log(error);
+              });
+
             });
             
 
-            this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
-              console.log('se enviaron perron los nuevos antecedentes');
-            }, (error)=>{
-              console.log(error);
-            });
+           
           
           
           }
