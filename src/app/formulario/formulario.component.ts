@@ -831,7 +831,8 @@ this.des3 = true;
       this.formularioService.getScrap().subscribe((data: Login) =>{
         this.datosScraping = data;
   
-  
+        console.log(this.maxDate);
+
         if(this.esAlumno === true){
 
           // si el paciente es un alumno 
