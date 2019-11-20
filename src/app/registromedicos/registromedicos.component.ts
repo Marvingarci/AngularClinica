@@ -6,6 +6,11 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Medicos } from '../interfaces/medicos';
 import { MedicosService } from '../services/medicos.service';
 
+export interface select {
+  value: number;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-registromedicos',
   templateUrl: './registromedicos.component.html',
@@ -36,22 +41,41 @@ export class RegistromedicosComponent implements OnInit {
     identidadM:null,
     especialidadM:null
   };
+
+  especialidades: select[] = [
+    {value: 1, viewValue: 'Salud Pública'},
+    {value: 2, viewValue: 'Ginecología y Obstetricia'},
+    {value: 3, viewValue: 'Pediatría'},
+    {value: 4, viewValue: 'Cirugía General'},
+    {value: 5, viewValue: 'Medicina Interna'},
+    {value: 6, viewValue: 'Dermatología'},
+    {value: 7, viewValue: 'Neurología'},
+    {value: 8, viewValue: 'Neurocirugía'},
+    {value: 9, viewValue: 'Cirugía Plástica'},
+    {value: 10, viewValue: 'Anestesiología, Reanimación y Dolor'},
+    {value: 11, viewValue: 'Ortopedia'},
+    {value: 12, viewValue: 'Psiquiatría'},
+    {value: 13, viewValue: 'Otorrinolaringología'},
+    {value: 14, viewValue: 'Medicina Física y Rehabilitación'},
+    {value: 15, viewValue: 'Medicina General'},
    
-  lista:string[]=[
-    "Salud Pública",
-    "Ginecología y Obstetricia",
-    "Pediatría",
-    "Cirugía General",
-    "Medicina Interna",
-    "Dermatología",
-    "Neurología",
-    "Neurocirugía",
-    "Cirugía Plástica",
-    "Anestesiología, Reanimación y Dolor",
-    "Ortopedia",
-    "Psiquiatría",
-    "Otorrinolaringología",
-    "Medicina Física y Rehabilitación"];
+  ];
+   
+  //lista:string[]=[
+   // "Salud Pública",
+  //  "Ginecología y Obstetricia",
+    //"Pediatría",
+   // "Cirugía General",
+   // "Medicina Interna",
+   // "Dermatología",
+   // "Neurología",
+  //  "Neurocirugía",
+  //  "Cirugía Plástica",
+  //  "Anestesiología, Reanimación y Dolor",
+  //  "Ortopedia",
+  //  "Psiquiatría",
+  //  "Otorrinolaringología",
+  //  "Medicina Física y Rehabilitación"];
 
 
     id:any;
