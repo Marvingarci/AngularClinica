@@ -1,15 +1,95 @@
-<div class="intro">
+<mat-sidenav-container class="example-container" *ngIf="!shouldRun">
+  <mat-sidenav  #sidenav mode="over" [(opened)]="opened"  disableClose="true" position="end" (opened)="events.push('open!')"
+               (closed)="events.push('close!')">
+    
+<div class="container">
+
+  <form [formGroup]="formulario_datos_faltantes">
+      <div class="container">
+        <br>
+        <h2>Ingreso datos restantes</h2>
+          <div class="row" >
+            <mat-form-field  class="example-full-width" >
+              <input  matInput formControlName="peso"  placeholder="Peso(en Kg)" >
+              
+              <mat-error *ngIf="peso.hasError('required')">campo requerido!</mat-error> 
+              <mat-error *ngIf="peso.hasError('pattern')">No es un peso aceptable</mat-error>    
+ 
+            </mat-form-field>
+          </div>
+          <div class="row">
+              <mat-form-field class="example-full-width" >
+                <input matInput formControlName="talla"  placeholder="Talla" >
+                
+                <mat-error *ngIf="talla.hasError('required')">campo requerido!</mat-error>  
+                <mat-error *ngIf="peso.hasError('pattern')">No es ballena</mat-error>    
+
+              </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="example-full-width" >
+                  <input matInput formControlName="imc"  placeholder="IMC" >
+                  
+                  <mat-error *ngIf="imc.hasError('required')">campo requerido!</mat-error>
+                  <mat-error *ngIf="peso.hasError('pattern')">Ni que se estuvise muriendo</mat-error>    
+  
+                </mat-form-field>
+              </div>
+              <div class="row">
+                  <mat-form-field class="example-full-width" >
+                    <input matInput formControlName="temperatura"  placeholder="Temperatura" >
+                    
+                    <mat-error *ngIf="temperatura.hasError('required')">campo requerido!</mat-error> 
+                    <mat-error *ngIf="peso.hasError('pattern')">No es una temperatura aceptable</mat-error>    
+ 
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field class="example-full-width" >
+                      <input matInput formControlName="presion"  placeholder="Presion" >
+                      
+                      <mat-error *ngIf="presion.hasError('required')">campo requerido!</mat-error>    
+                    </mat-form-field>
+                  </div>
+
+                  <div class="row">
+                      <mat-form-field class="example-full-width" >
+                        <input matInput formControlName="pulso"  placeholder="Pulso" >
+                        
+                        <mat-error *ngIf="pulso.hasError('required')">campo requerido!</mat-error>    
+                      </mat-form-field>
+                    </div>
+
+                    <button  mat-raised-button (click)="sidenav.toggle()" class="btn btn-outline-primary float-right botonperron" >Cerrar</button>
+                    
+                    <button  mat-raised-button  class="btn btn-outline-primary float-right botonperron" (click)="guardarDatos()">Guardar</button>
+
+
+          </div>
+
+      </form>
+
+      
+
+
+</div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+<!--desde aqui es lo normal-->
   
 <mat-toolbar class="toolbar">
     <span style="cursor: pointer;margin-top: 5px;" [routerLink]="['/principal/registro']" ><mat-icon>arrow_back</mat-icon> </span>
     <span class="title"><strong> Clinica UNAH-TEC Danlí</strong></span>
+    <span class="example-fill-remaining-space"></span>
+        <span class="example-spacer"></span>
     <button mat-icon-button [matMenuTriggerFor]="menu" 
     style="outline:none;  
           display:block;">
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="anadirCita()">
             <mat-icon >dialpad</mat-icon>
             <span>Añadir cita</span>
         </button>
@@ -17,7 +97,7 @@
             <mat-icon > voicemail</mat-icon>
             <span>Historia clinica</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="mostrarHistoriasSub()">
             <mat-icon >notifications_off</mat-icon>
             <span>Ver citas</span>
         </button>
@@ -70,7 +150,8 @@
 
 
 
-
+<!--Condicion hecha para mostrar solo cuando no se este viendo las citas-->
+<div *ngIf="mostrarHisorias==false">
 <mat-accordion class="example-headers-align">
 
   <mat-expansion-panel [expanded]="step===0" (opened)="setStep(0)" hideToggle>
@@ -787,11 +868,6 @@ style="margin-top: 10px;"
 </form>
 </div>
 </mat-expansion-panel>
-
-
-
-
-
 
 
 
@@ -1937,5 +2013,60 @@ style="margin-top: 10px;"
 
 
 </mat-accordion>
-</div>   
 </div>
+
+
+
+<!--Esto se muestra al selecciona ver citas-->
+<div class="container" *ngIf="mostrarHisorias==true">
+  <mat-card style="margin-bottom: 30px;">
+    <table mat-table
+ [dataSource]="dataSource1" multiTemplateDataRows
+ class="mat-elevation-z8">
+<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+<th mat-header-cell *matHeaderCellDef> {{column}} </th>
+<td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+</ng-container>
+
+<!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+<ng-container matColumnDef="expandedDetail">
+<td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+<div class="example-element-detail"
+     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+  <div class="example-element-diagram">
+    <div class="example-element-position"> {{element.fechayHora}} </div>
+    <div class="example-element-symbol"> {{element.Observaciones}} </div>
+    <div class="example-element-name"> {{element.impresion}} </div>
+    <div class="example-element-weight"> {{element.indicaciones}} </div>
+  </div>
+  <div class="example-element-description">
+    {{element.description}}
+    <span class="example-element-description-attribution"> -- Wikipedia </span>
+  </div>
+</div>
+</td>
+</ng-container>
+
+<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+<tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+class="example-element-row"
+[class.example-expanded-row]="expandedElement === element"
+(click)="expandedElement = expandedElement === element ? null : element">
+</tr>
+<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table> 
+<button class="botonperron" (click)="cerrarHistorias()">Volver</button>
+
+  </mat-card>
+
+
+
+
+</div>
+
+</div>   
+  
+</mat-sidenav-content>
+    
+</mat-sidenav-container>
+
