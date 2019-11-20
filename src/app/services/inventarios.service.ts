@@ -9,14 +9,18 @@ import { Cita } from "../interfaces/Cita";
 export class InventariosService {
   idCita: any;
   API_ENDPOINT = 'http://127.0.0.1:8000/api'
-  getInventario(){
-    return this.httpClient.get(this.API_ENDPOINT+'/inventarios');
+  getInventario(id_inventario: any){
+    return this.httpClient.get(this.API_ENDPOINT+'/inventarios/'+id_inventario);
   }
 
   constructor(private httpClient :HttpClient,invenService: InventariosService) { }
   save(inventario_form:Inventario){
     const headers = new HttpHeaders({'Content-Type':'application/json'});
     return this.httpClient.post(this.API_ENDPOINT+'/inventarios',inventario_form,{headers:headers});
+  }
+
+  getInventarios(){
+    return this.httpClient.get(this.API_ENDPOINT+'/inventarios');
   }
 
   actualizarInventario(inventario){

@@ -87,10 +87,9 @@ export class FormInventarioComponent implements OnInit {
     if(this.id){
       this.editando = true;
       console.log(this.editando);
-      this.inventariosService.getInventario().subscribe((data: Inventario[]) =>{
-        this.inventarios = data;
-        this.inventario = this.inventarios.find((m)=>{return m.id_inventario == this.id});
-
+      this.inventariosService.getInventario(this.id).subscribe((data: Inventario) =>{
+        this.inventario = data;
+       
         //establesco el valor a los formcontrol para que se visualizen en los respectivos inputs
         this.unidad.setValue(this.inventario.unidad);
         this.nombre.setValue(this.inventario.nombre);

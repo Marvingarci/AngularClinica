@@ -49,6 +49,10 @@ export interface select {
 
 // todas estas interfaces hay que borrarlas despues y solo dejar una
 // por mientras son de prueba
+export interface sexos {
+  value: number;
+  viewValue: string;
+}
 
 export interface EstadosCiviles {
   value: number;
@@ -676,10 +680,10 @@ this.des3 = true;
     {value: 'V', viewValue: 'Visitante'},
     {value: 'P', viewValue: 'Prosene'}
   ];
-  sexos: select[] = [
-    {value: 'hombre', viewValue: 'Hombre'},
-    {value: 'mujer', viewValue: 'Mujer'},
-    {value: 'otro', viewValue: 'Otro'}
+  sexos: sexos[] = [
+    {value: 1, viewValue: 'Hombre'},
+    {value: 2, viewValue: 'Mujer'},
+    //{value: 'otro', viewValue: 'Otro'}
   ];
 
   seguros_medicos: SegurosMedicos[] = [
