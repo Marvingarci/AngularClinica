@@ -536,33 +536,45 @@ this.des3 = true;
     categoria:null
   };
 
-  antecedente_familiar: AntecedentesFamiliares ={
-    diabetes : null,
-    parentesco_diabetes : null,
-    tb_pulmonar : null,
-    parentesco_tb_pulmonar : null,
-    desnutricion : null,
-    parentesco_desnutricion : null,
-    tipo_desnutricion: null,
-    enfermedades_mentales : null,
-    parentesco_enfermedades_mentales : null,
-    tipo_enfermedad_mental: null,
-    convulsiones : null,
-    parentesco_convulsiones : null,
-    alcoholismo_sustancias_psicoactivas : null,
-    parentesco_alcoholismo_sustancias_psicoactivas: null,
-    alergias : null,
-    parentesco_alergias: null,
-    tipo_alergia: null,
-    cancer : null,
-    parentesco_cancer: null,
-    tipo_cancer: null,
-    hipertension_arterial: null,
-    parentesco_hipertension_arterial: null,
-    otros : null,
-    parentesco_otros : null,
-    id_paciente : null
+  antecedente: Element = {
+    numero: null,
+    antecedente: null,
+    parentesco: null,
+  }
+
+  paciente_antecedente_familiar: PacienteAntecedenteFamiliar ={
+    id_paciente: null,
+    id_antecedente: null,
+    id_parentesco: null,
   };
+
+  // antecedente_familiar: AntecedentesFamiliares ={
+  //   diabetes : null,
+  //   parentesco_diabetes : null,
+  //   tb_pulmonar : null,
+  //   parentesco_tb_pulmonar : null,
+  //   desnutricion : null,
+  //   parentesco_desnutricion : null,
+  //   tipo_desnutricion: null,
+  //   enfermedades_mentales : null,
+  //   parentesco_enfermedades_mentales : null,
+  //   tipo_enfermedad_mental: null,
+  //   convulsiones : null,
+  //   parentesco_convulsiones : null,
+  //   alcoholismo_sustancias_psicoactivas : null,
+  //   parentesco_alcoholismo_sustancias_psicoactivas: null,
+  //   alergias : null,
+  //   parentesco_alergias: null,
+  //   tipo_alergia: null,
+  //   cancer : null,
+  //   parentesco_cancer: null,
+  //   tipo_cancer: null,
+  //   hipertension_arterial: null,
+  //   parentesco_hipertension_arterial: null,
+  //   otros : null,
+  //   parentesco_otros : null,
+  //   id_paciente : null
+  // };
 
   antecedente_personal: AntecedentesPersonales = {
     diabetes : null,
@@ -650,11 +662,7 @@ this.des3 = true;
     id_paciente : null  
   };
 
-  paciente_antecedente_familiar: PacienteAntecedenteFamiliar ={
-    id_paciente: null,
-    id_antecedente: null,
-    id_parentesco: null,
-  };
+  
 
   error: boolean = false;
 
@@ -806,7 +814,9 @@ this.des3 = true;
     private router: Router, activar: AppComponent,public dialog: MatDialog, 
     public login: LoginService, private formulario: FormularioService) {
 
-      
+      this.formularioService.ultimoIdAntecedente().subscribe((data)=>{
+        console.log(data);
+      });
       
       // if(this.esAlumno == true){
         this.getDatosScraping();
@@ -831,6 +841,7 @@ this.des3 = true;
 
 
   modificaciones(){
+
     if (this.esAlumno==false) {
       this.numero_cuenta.valid;
       this.numero_identidad.valid;
@@ -916,20 +927,39 @@ this.des3 = true;
 
   agregar(){
 
-    if(this.otros.value && this.otros.valid && this.parentesco_otros.value){
-      
+    if(this.otros.value.toString().trim() && this.otros.valid && this.parentesco_otros.value){
+      var stringParentesco: string;
+
+      switch (this.parentesco_otros.value) {
+        case 1:
+          stringParentesco = "Padre"
+          break;
+        case 2:
+          stringParentesco = "Madre"
+          break;
+        case 3:
+          stringParentesco = "Tios"
+          break;
+        case 4:
+          stringParentesco = "Abuelos"
+          break;
+
+        default:
+          stringParentesco = "Otros"
+          break;
+      }
+    
       this.tablaOtros.push(
         {
-          numero:this.tablaOtros.length + 1,
+          numero: this.tablaOtros.length + 1,
           antecedente: this.otros.value,
-          parentesco: this.parentesco_otros.value,
+          parentesco: stringParentesco,
+          
         }
 
       );
 
       this.dataSource =  new MatTableDataSource(this.tablaOtros);
-  
-      console.log(this.tablaOtros);
   
       this.otros.setValue('');
       this.parentesco_otros.setValue('');
@@ -937,7 +967,6 @@ this.des3 = true;
     
 
   }
-
 
 
   enviarDatos(){
@@ -1050,6 +1079,63 @@ this.des3 = true;
               
             }
           
+        }
+
+        if(this.tablaOtros.length){
+
+          for (let index = 0; index < this.tablaOtros.length; index++) {
+            const element = this.tablaOtros[index];
+
+            //  var antecedente = element.antecedente;
+            this.antecedente.antecedente = element.antecedente;
+
+            console.log('antecedente: '+element.antecedente);
+
+            this.formularioService.enviarAntecedentes(this.antecedente).subscribe((data)=>{
+              console.log('todo perron');
+            },(error)=>{
+              console.log(error);
+
+            });
+
+            var parentesco: number;
+            var antecedente: number;
+
+            switch (element.parentesco) {
+              case 'Padre':
+                parentesco = 1;
+                break;
+              case 'Madre':
+                parentesco = 2;
+                break;
+              case 'Tios':
+                parentesco = 3;
+                break;
+              case 'Abuelos':
+                parentesco = 4;
+                break;
+              default:
+                parentescos = 5;
+                break;
+            }
+
+            this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
+            this.paciente_antecedente_familiar.id_parentesco = parentesco;
+
+            this.formularioService.ultimoIdAntecedente().subscribe((data: number)=>{
+              antecedente = data;   
+              this.paciente_antecedente_familiar.id_antecedente = antecedente;         
+            });
+            
+
+            this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+              console.log('se enviaron perron los nuevos antecedentes');
+            }, (error)=>{
+              console.log(error);
+            });
+          
+          
+          }
         }
 
       }
