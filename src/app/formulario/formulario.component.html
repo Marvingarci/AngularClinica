@@ -1,6 +1,6 @@
 <mat-horizontal-stepper linear #stepper  (selectionChange)="onStepChange($event)" > 
 
-    <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
+    <!-- <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
         <form [formGroup]="formulario_datos_generales">
         <ng-template matStepLabel >{{datosGenerales}}</ng-template>
         <div class="container1">
@@ -156,7 +156,7 @@
        
       </form>
       </mat-step> 
-    
+     -->
 
 
 
@@ -166,7 +166,7 @@
 
  <!-- primer step -->
   
-   <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1"  >
+   <!-- <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1"  >
     <form [formGroup]="formulario_datos_generales">
     <ng-template matStepLabel >{{datosGenerales}}</ng-template>
     <div class="container">
@@ -338,7 +338,7 @@
         <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right" >Siguiente</button>
      </div>
   </form>
-  </mat-step>
+  </mat-step> -->
 
 
 
@@ -352,8 +352,8 @@
       <div class="container">
        
          
-          <label id="example-radio-group-label">1. Diabetes</label>
-          <mat-error style="margin-left: 0;" *ngIf="diabetes.hasError('required')">campo requerido!</mat-error>   
+        <label id="example-radio-group-label">1. Diabetes</label>
+        <mat-error style="margin-left: 0;" *ngIf="diabetes.hasError('required')">campo requerido!</mat-error>   
         <div class="row" style="margin-left: 0;">         
           <mat-radio-group formControlName= "diabetes"
             aria-labelledby="example-radio-group-label"
@@ -374,7 +374,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>     
-      </div>
+        </div>
    
 
         <mat-divider></mat-divider>
@@ -548,7 +548,9 @@
             <mat-radio-button value={{8}} (click)="habilitarInputs([parentesco_cancer,tipo_cancer])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
             <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_cancer,tipo_cancer])">No</mat-radio-button>      
           </mat-radio-group>
-          &nbsp; &nbsp; &nbsp; &nbsp; 
+
+            &nbsp; &nbsp; &nbsp; &nbsp; 
+
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
               <mat-select formControlName= "parentesco_cancer" multiple>
@@ -557,7 +559,9 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
+
             &nbsp; &nbsp; &nbsp; &nbsp; 
+
             <mat-form-field>
               <mat-label>Tipo cáncer</mat-label>
               <mat-select formControlName= "tipo_cancer" name="tipo_cancer" >
@@ -592,30 +596,76 @@
 
         <mat-divider></mat-divider>
 
+        <label id="example-radio-group-label">10. Otros</label>
         <div class="row" style="margin-left: 0;" >
-          <div class="col-md-2" style="margin-left: 0;padding-left: 0;">
             <mat-form-field>
-              <input matInput formControlName= "otros" name="otros" id="" placeholder="Otros">
+              <input matInput formControlName= "otros" placeholder="Antecedente">
               <mat-error *ngIf="otros.hasError('maxlength')">campo muy extenso!</mat-error>
               <mat-error *ngIf="otros.hasError('minlength')">introduzca una observación valida!</mat-error>
 
             </mat-form-field>
-          </div>
 
-          <div class="col-md-3">
+            &nbsp; &nbsp; &nbsp; &nbsp;
+
             <mat-form-field>
               <mat-label>Parentesco</mat-label>
-              <mat-select formControlName= "parentesco_otros" multiple>
+              <mat-select formControlName= "parentesco_otros" >
                 <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                   {{parentesco.viewValue}}
                 </mat-option>
-              </mat-select>
-            </mat-form-field>
+              </mat-select> 
+            </mat-form-field> 
+
+
+          &nbsp; &nbsp; &nbsp; &nbsp;
+
+          <div style="position: relative;">
+            <button mat-raised-button (click)="agregar();">agregar</button>
           </div>
+
+          &nbsp; &nbsp; &nbsp; &nbsp;
+
+
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  *ngIf="dataSource != null">
+                                
+              <!-- Position Column -->
+              <ng-container matColumnDef="numero">
+                <th mat-header-cell *matHeaderCellDef> # </th>
+                <a>eliminar</a>
+                <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+            
+              <!-- Name Column -->
+              <ng-container matColumnDef="antecedente">
+                <th mat-header-cell *matHeaderCellDef> Antecedente </th>
+                <td mat-cell *matCellDef="let element"> {{element.antecedente}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+            
+              <!-- Weight Column -->
+              <ng-container matColumnDef="parentesco">
+                <th mat-header-cell *matHeaderCellDef> Parentesco </th>
+                <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+                
+              </ng-container>
+            
+              <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
+              <mat-cell *matCellDef="let row" >
+                  <button mat-button >Edit</button>
+             </mat-cell>
+              <tr mat-row *matRowDef="let row; columns: columnasTabla;"></tr>
+            </table>
+
         </div>
-        </div>
-        <div class="botonesstep"> 
-        <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right">Siguiente</button> 
+
+        
+
+      </div>
+
+      <div class="botonesstep"> 
+        <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron">Siguiente</button> 
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>  
       </div>
     </form> 
