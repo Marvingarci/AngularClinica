@@ -1613,7 +1613,8 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
 @Component({
   selector: 'historiaSubsiguiente1',
-  templateUrl: 'HistoriaSubsiguiente1.html',
+  templateUrl: 'HistoriaSubsiguiente1.html',  
+  styleUrls: ['HistoriaSubsiguiente1.css'],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
   }]
