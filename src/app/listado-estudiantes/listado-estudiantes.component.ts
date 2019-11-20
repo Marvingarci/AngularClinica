@@ -4,12 +4,12 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { FormularioService } from '../services/formulario.service';
 import { Paciente } from "../interfaces/paciente";
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatSnackBar, MatSidenav } from '@angular/material';
+import { MatSnackBar, MatSidenav, MatDialog, MatDialogRef } from '@angular/material';
 import { asLiteral } from '@angular/compiler/src/render3/view/util';
 import { AntecedentesPersonales } from '../interfaces/antecedentes-personales';
 import { MatMonthView } from '@angular/material/datepicker';
 import { AppComponent } from '../app.component';
-import { select } from '../formulario/formulario.component';
+import { select, Parentescos } from '../formulario/formulario.component';
 import { AntecedentesFamiliares } from '../interfaces/antecedentes-familiares';
 import { MatTableDataSource } from '@angular/material';
 import { ThrowStmt } from '@angular/compiler';
@@ -18,11 +18,22 @@ import { ActividadSexual } from '../interfaces/actividad-sexual';
 import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologicos';
 import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familiares';
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { InventariosService } from '../services/inventarios.service';
+import { Cita } from '../interfaces/Cita';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 
 export interface Select {
   value: string;
   viewValue: string;
+}
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+  description: string;
 }
 
 
@@ -33,7 +44,9 @@ export interface Element{
   parentesco?: string;
   observacion?: string;
 
+
 }
+
 export class MyErrorStateMatcher implements ErrorStateMatcher{
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -44,12 +57,26 @@ export class MyErrorStateMatcher implements ErrorStateMatcher{
 @Component({
   selector: 'app-listado-estudiantes',
   templateUrl: './listado-estudiantes.component.html',
-  styleUrls: ['./listado-estudiantes.component.css']
+  styleUrls: ['./listado-estudiantes.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
+
 })
+
+
 
 
 export class ListadoEstudiantesComponent implements OnInit {
   @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
+  dataSource1:any;
+  columnsToDisplay = ['fechayHora', 'observaciones', 'impresion', 'indicaciones'];
+  expandedElement: Cita | null;
+
 
   
   events: string[] = [];
@@ -226,6 +253,9 @@ formulario_antecedente_obstetrico = new FormGroup({
 
 // variable que hace cambien los acordiones
 step;
+//variable que esconde el acorden para mostrar la tabla de historias
+mostrarHisorias: boolean = false;
+citasPaciente: Cita[];
 
 setStep(index: number) {
   this.step = index;
@@ -857,7 +887,7 @@ esAlumno: boolean = true;
 
 
 dataSource: any;
-  constructor(private formularioService: FormularioService, private router: Router, private mensaje: MatSnackBar, private activatedRoute: ActivatedRoute, activar: AppComponent) { 
+  constructor(private formularioService: FormularioService, private router: Router, private mensaje: MatSnackBar, private activatedRoute: ActivatedRoute, activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService) { 
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
     
@@ -1299,6 +1329,11 @@ dataSource: any;
     this.practicas_sexuales_riesgo.setValue(this.actividad_sexual.practicas_sexuales_riesgo);
   }
 
+  anadirCita(){
+    const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente, {disableClose:true, width:"70%"});
+    this.inven.idCita=this.id;
+  }
+
    //obtener los campos del formGroup: formulario_datos_generales
    get nombre_completo(){return this.formulario_datos_generales.get('nombre_completo')};
    get numero_cuenta(){return this.formulario_datos_generales.get('numero_cuenta')};
@@ -1428,6 +1463,22 @@ dataSource: any;
   get presion(){return this.formulario_datos_faltantes.get('presion')};
   get pulso(){return this.formulario_datos_faltantes.get('pulso')};
 
+  mostrarHistoriasSub(){
+    this.mostrarHisorias=true;
+
+    this.inven.obtenerCita(this.id).subscribe((data: Cita[])=>{
+      this.citasPaciente = data;
+      console.log(this.citasPaciente);
+      this.dataSource1= this.citasPaciente;
+    }, (error)=>{
+      
+      console.log(error);
+    });
+  }
+  cerrarHistorias(){
+    this.mostrarHisorias=false;
+  }
+
 
   guardarDatos(){
 
@@ -1470,5 +1521,131 @@ dataSource: any;
   // get emergencia_telefono(){return this.formulario_datos_generales.get('emergencia_telefono')};
   // get categoria(){return this.formulario_datos_generales.get('categoria')};
 
+}
+
+@Component({
+  selector: 'historiaSubsiguiente',
+  templateUrl: 'HistoriaSubsiguiente.html',
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  }]
+})
+
+
+
+export class HistoriaSubsiguiente{
+
+  constructor(private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente>){//para cerrar el dialogo desde la misma interfaz
+    
+  }
+
+  
+  citaGuardar: Cita={
+    id_paciente: null,
+    peso:null,
+    imc:null,
+    presion:null,
+    pulso:null,
+     talla:null,
+     temperatura:null,
+    impresion:null,
+     indicaciones:null,
+     observaciones:null,
+     remitido:null,
+     siguiente_cita:null
+  }
+
+  formulario_cita = new FormGroup({
+    
+      
+    peso: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
+    // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    talla: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]), 
+    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
+    // "/ /" indica el inicio y el final de la expresion regular
+    // "{10}" indica le numero de digitos de lo que lo antecede
+    IMC: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
+     // "\d" es lo mismo "[0-9]"
+    temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
+    observaciones_examen: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
+    impresion_diagnostica: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
+    indicaciones: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
+    presion: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
+    fecha_nacimiento: new FormControl('', Validators.required),
+    pulso: new FormControl('',[Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
+    remitir: new FormControl('', Validators.required),
+    cita: new FormControl('', Validators.required),
+    remitira: new FormControl('', Validators.required)
+    
+});
+  matcher = new MyErrorStateMatcher();
+
+  
+
+  parentescos: Parentescos[] = [
+    {value: 1 , viewValue: 'Psicologia'},
+    {value: 2 , viewValue: 'Nutricion'},
+    {value: 3 , viewValue: 'Odontologia'},
+    {value: 4 , viewValue: 'Terapia Funcional'},
+    {value: 5 , viewValue: 'CATFA'},
+    {value: 6 , viewValue: 'Trabajo Social'}
+  ];
+
+  habilitarInputs(formControl : FormControl[]){  
+    formControl.forEach(controlador => {
+      controlador.enable({onlySelf: true});    
+    });
+  }
+
+  borrarInputs(formControl : FormControl[]){
+    formControl.forEach(controlador => {
+      controlador.setValue('');
+      controlador.disable({onlySelf: true});
+    });
+  }
+
+  
+
+  guardarCita(){
+   if(this.formulario_cita.valid){
+      this.citaGuardar.id_paciente = this.form.idCita;
+      this.citaGuardar.peso= this.peso.value;
+      this.citaGuardar.imc=this.presion.value;
+      this.citaGuardar.presion=this.presion.value;
+      this.citaGuardar.pulso=this.pulso.value;
+      this.citaGuardar.talla= this.talla.value;
+      this.citaGuardar.temperatura=this.temperatura.value;
+      this.citaGuardar.impresion=this.impresion_diagnostica.value;
+      this.citaGuardar.indicaciones=this.indicaciones.value;
+      this.citaGuardar.observaciones=this.observaciones_examen.value;
+      this.citaGuardar.remitido=this.remitira.value;
+      this.citaGuardar.siguiente_cita= this.fecha_nacimiento.value;
+      
+      this.form.guardarCita(this.citaGuardar).subscribe( (data) =>{
+        console.log(data);
+        this.dialogRef.close();
+      }, (error) => {
+        console.log(error);
+        alert('ocurrion un error');
+      });
+    }
+  }
+
+
+  get peso(){return this.formulario_cita.get('peso')};
+  get talla(){return this.formulario_cita.get('talla')};
+  get IMC(){return this.formulario_cita.get('IMC')};
+  get temperatura(){return this.formulario_cita.get('temperatura')};
+  get remitir(){return this.formulario_cita.get('remitir')};
+  get remitira(){return this.formulario_cita.get('remitira')};
+  get pulso(){return this.formulario_cita.get('pulso')};
+  get observaciones_examen(){return this.formulario_cita.get('observaciones_examen')};
+  get impresion_diagnostica(){return this.formulario_cita.get('impresion_diagnostica')};
+  get fecha_nacimiento(){return this.formulario_cita.get('fecha_nacimiento')};
+  get indicaciones(){return this.formulario_cita.get('indicaciones')};
+  get presion(){return this.formulario_cita.get('presion')};
+  get cita(){return this.formulario_cita.get('cita')};
 }
 
