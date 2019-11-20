@@ -267,7 +267,7 @@ export class FormularioComponent implements OnInit {
   }
 
 
-
+  hidden1 = true;
 readonly=true;
 read15 = true;
 isDisabledB25 = true;
@@ -319,17 +319,19 @@ public onStepChange(event: any): void {
   console.log(event.selectedIndex);
 
     if (event.selectedIndex == 0) {   
-      this.datosGenerales = "Datos Generales"
-    this.antecedentesFamiliares = '';
-    this.antecedentesPersonales = '';
-    this.habitosToxicologicosPersonales = '';
-    this.actividadSexualYReproductiva = '';
-    this.antecedentesGinecologicos= '';
-    this.antecedentesObstetricos= '';
-    this.planificacionFamiliar = '';
+     // this.hidden1 = false;
+      this.datosGenerales = 'Datos Generales';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+     
     }
 
-    if(event.selectedIndex ==1){
+    if(event.selectedIndex ==1){ 
       this.datosGenerales = '';
       this.antecedentesFamiliares = 'Antecedentes Familiares';
       this.antecedentesPersonales = '';
@@ -338,6 +340,17 @@ public onStepChange(event: any): void {
       this.antecedentesGinecologicos= '';
       this.antecedentesObstetricos= '';
       this.planificacionFamiliar = '';
+      //this.hidden1=true;
+
+      // this.antecedentesFamiliares = 'Antecedentes Familiares';  
+      // var div = document.getElementById('labelDatosGenerales');
+     
+      // div.innerHTML = "culito pelado"
+      // this.hidden1 = true;
+      // document.getElementById('labelDatosGenerales').hidden = true;
+      // console.log(document.getElementById('labelDatosGenerales'));
+
+      // console.log(document.getElementById('labelDatosGenerales'))
     }
 
     if(event.selectedIndex ==2){
