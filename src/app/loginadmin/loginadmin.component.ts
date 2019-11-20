@@ -17,6 +17,7 @@ export interface select {
   styleUrls: ['./loginadmin.component.css']
 })
 export class LoginadminComponent implements OnInit {
+  hide1 = false;
   hide = true; 
 
   loginadmin_form = new FormGroup({
@@ -132,6 +133,19 @@ showError(message: string) {
 ngOnInit() {
   this.getdato();
 }
+
+
+
+onKeydown(event) {
+  if (event.key === "Enter") {
+  this.hide = true;
+  this.hide1=true;
+  }
+}
+
+
+
+
 
   comprobarDatos(){
   if(this.editing){  
