@@ -85,8 +85,8 @@
                 <mat-form-field class="example-full-width">
                   <mat-label>Sexo</mat-label>
                     <mat-select formControlName= "sexo">
-                      <mat-option (click)="mostrarN()"  value="Hombre">Hombre</mat-option>
-                      <mat-option (click)="mostrarS()" value="Mujer">Mujer</mat-option>
+                      <mat-option (click)="mostrarN()"  value={{1}}>Hombre</mat-option>
+                      <mat-option (click)="mostrarS()" value={{2}}>Mujer</mat-option>
                       
                   </mat-select>
                   <mat-error *ngIf="sexo.hasError('required')">campo requerido!</mat-error>
@@ -271,8 +271,8 @@
             <mat-form-field class="example-full-width">
               <mat-label>Sexo</mat-label>
                 <mat-select formControlName= "sexo">
-                  <mat-option (click)="mostrarN()"  value="Hombre">Hombre</mat-option>
-                  <mat-option (click)="mostrarS()" value="Mujer">Mujer</mat-option>
+                  <mat-option (click)="mostrarN()"  value={{1}}>Hombre</mat-option>
+                  <mat-option (click)="mostrarS()" value={{2}}>Mujer</mat-option>
                   
               </mat-select>
               <mat-error *ngIf="sexo.hasError('required')">campo requerido!</mat-error>
