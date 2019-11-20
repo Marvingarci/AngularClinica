@@ -55,7 +55,7 @@ export class InventarioComponent implements OnInit {
   }
 
   getDatos(){
-    this.inventariosService.getInventario().subscribe((data: tablaInventario[])=>{
+    this.inventariosService.getInventarios().subscribe((data: tablaInventario[])=>{
       this.tablaInventario = data;
       this.dataSource = new MatTableDataSource(this.tablaInventario);
     
