@@ -2,7 +2,8 @@
 
     <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
         <form [formGroup]="formulario_datos_generales">
-        <ng-template matStepLabel >{{datosGenerales}}</ng-template>
+        <ng-template matStepLabel ><p id="labelDatosGenerales">{{datosGenerales}}</p></ng-template>
+        <!-- <ng-template matStepLabel id="labelDatosGenerales">{{datosGenerales}}</ng-template> -->
         <div class="container1">
           <div class="row">
             <div class="col">
@@ -168,10 +169,13 @@
   
    <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1"  >
     <form [formGroup]="formulario_datos_generales">
-    <ng-template matStepLabel >{{datosGenerales}}</ng-template>
+    
+          <ng-template matStepLabel >{{datosGenerales}}</ng-template>
+
+      
     <div class="container">
       <div class="row" >
-        <div class="col" >
+        <div class="col" id="columna">
           <mat-form-field class="example-full-width" >
             <input matInput 
             formControlName= "nombre_completo"  
@@ -348,7 +352,7 @@
   <!-- segundo step --> 
    <mat-step [stepControl]= "formulario_antecedentes_familiares">
     <form [formGroup]="formulario_antecedentes_familiares">
-      <ng-template matStepLabel>{{antecedentesFamiliares}}</ng-template>
+      <ng-template matStepLabel hidden>{{antecedentesFamiliares}}</ng-template>
       <div class="container">
        
          
