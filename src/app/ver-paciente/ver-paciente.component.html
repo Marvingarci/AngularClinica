@@ -2,10 +2,10 @@
   <mat-sidenav  #sidenav mode="over" [(opened)]="opened"  disableClose="true" position="end" (opened)="events.push('open!')"
                (closed)="events.push('close!')">
     
-<div class="container">
+<div class="container" style="overflow-y:scroll;">
 
   <form [formGroup]="formulario_datos_faltantes">
-      <div class="container">
+      <div class="container" style="overflow-y:scroll;">
         <br>
         <h2>Ingreso datos restantes</h2>
           <div class="row" >
@@ -80,7 +80,7 @@
   
 <mat-toolbar class="toolbar">
     <span style="cursor: pointer;margin-top: 5px;" [routerLink]="['/principal/registro']" ><mat-icon>arrow_back</mat-icon> </span>
-    <span class="title"><strong> Clinica UNAH-TEC Danlí</strong></span>
+    <span class="title"><strong> Clínica UNAH-TEC Danlí</strong></span>
     <span class="example-fill-remaining-space"></span>
         <span class="example-spacer"></span>
     <button mat-icon-button [matMenuTriggerFor]="menu" 
@@ -109,9 +109,9 @@
 </mat-toolbar>
 
 
-<div class="container">
+<div class="container1" >
 
-    <mat-card style="margin-bottom: 30px;">
+    <mat-card style="margin-bottom: 30px;" >
       <div class="row">
 
         <div class="col-2" >
