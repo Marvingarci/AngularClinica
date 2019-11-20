@@ -114,12 +114,12 @@
     <mat-card style="margin-bottom: 30px;">
       <div class="row">
 
-        <div class="col-2" style="padding: 30px;">
+        <div class="col-2" >
           <img *ngIf="noImg==true" class="sinImg"/>
           <img *ngIf="noImg == false" class="img" src={{paciente.imagen}}/>
         </div>
 
-            <div class="col" style="padding-top: 50px; padding-bottom: 30px;">
+            <div class="col" style="padding-top: 20px;">
                 <mat-form-field class="example-full-width">
                     <input matInput value={{paciente.nombre_completo}} placeholder="Nombre"  [readonly]="readonly">
                 </mat-form-field>
@@ -130,7 +130,7 @@
                     <input matInput value="{{paciente.numero_cuenta}}" placeholder="Numero de cuenta"  [readonly]="readonly" >
                 </mat-form-field>
             </div>
-            <div class="col" style="padding-top: 50px; padding-bottom: 30px;">
+            <div class="col" style="padding-top: 20px;" >
                 <mat-form-field class="example-full-width">
                     <input matInput value={{paciente.numero_identidad}} placeholder="Numero identidad" [readonly]="readonly">
                 </mat-form-field>

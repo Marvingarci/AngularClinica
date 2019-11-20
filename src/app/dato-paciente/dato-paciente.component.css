@@ -29,10 +29,11 @@
 
 
 .img{
-  height: 140px;
-  width: 115px;
+  height: 100%;
+  width: 100%;
   background-size: cover;
   background-position: center;
+  background-color: khaki;
 
 }
 

@@ -229,14 +229,23 @@
     
 
 
-        <mat-action-list class="intro">
+        <!-- <mat-action-list class="intro">
             <button mat-list-item style="color:rgb(109, 0, 160)" [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Pacientes</strong> </button>
             <button mat-list-item style="color:rgb(109, 0, 160)" [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"><strong>  At1</strong>  </button>
             <button mat-list-item style="color:rgb(109, 0, 160)" (click)="undo()" class="hoveritem"> <strong> Consolidado Diario </strong> </button>
             <button mat-list-item style="color:rgb(109, 0, 160)" [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Inventario </strong> </button>
             <button mat-list-item style="color:rgb(109, 0, 160)" [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Administradores </strong> </button>
             <button mat-list-item style="color:rgb(109, 0, 160)" (click)="undo()" class="hoveritem"> <strong> Ayuda? </strong> </button>
-        </mat-action-list>
+        </mat-action-list> -->
+
+        <mat-action-list class="intro">
+          <button mat-list-item  [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"> <a class="hoveritem"><strong> Pacientes</strong></a> </button>
+          <button mat-list-item  [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"><strong>  At1</strong>  </button>
+          <button mat-list-item  (click)="undo()" class="hoveritem"><a class="hoveritem"><strong> Consolidado Diario </strong></a></button>
+          <button mat-list-item  [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Inventario </strong> </button>
+          <button mat-list-item  [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Administradores </strong> </button>
+          <button mat-list-item  (click)="undo()" class="hoveritem"> <strong> Ayuda? </strong> </button>
+      </mat-action-list>
         
 
     
@@ -247,8 +256,8 @@
   </div>  
 
   </mat-sidenav>
-
-  <mat-sidenav-content id="contenidoPrincipal">
+  
+  <mat-sidenav-content class="fondo2" >
 
         
 
@@ -261,6 +270,7 @@
     
 
   </mat-sidenav-content>
+
 
 </mat-sidenav-container>
 
