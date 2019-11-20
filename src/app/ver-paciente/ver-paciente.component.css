@@ -6,6 +6,30 @@
   right: 0;
 }
 
+.container1{
+  height: 90%;
+  min-width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  overflow: auto;
+  position: absolute;
+  overflow-x: hidden;  
+  background-color: rgb(225, 236, 250);
+}
+
+
+.title {
+  display: block;
+  font-family: Poppins-Regular,sans-serif;
+  font-size: 30px;
+  color: #fff;
+  line-height: 1.2;
+  text-align: center;
+  padding: 20px;
+}
+
 .example-events {
   width: 300px;
   height: 200px;
@@ -17,9 +41,9 @@
   justify-content: center;
 }
 .img{
-  height: 140px;
-  width: 115px;
-  background-color: khaki;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
 }
 .example-fill-remaining-space {
   /* This fills the remaining space, by using flexbox. 
@@ -74,7 +98,6 @@ tr.example-element-row:not(.example-expanded-row):active {
 .example-element-description-attribution {
   opacity: 0.5;
 }
-
 .example-fill-remaining-space {
   /* This fills the remaining space, by using flexbox. 
      Every toolbar row uses a flexbox row layout. */
@@ -83,9 +106,38 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 
 
-  
-  
 
-  
-  
-  
+
+
+
+/* Tamaño del scroll */
+.container1::-webkit-scrollbar {
+  width: 12px;
+  height: 10px;
+}
+
+ /* Estilos barra (thumb) de scroll */
+.container1::-webkit-scrollbar-thumb {
+  background: rgb(104, 71, 250);
+  border-radius: 4px;
+}
+
+.container1::-webkit-scrollbar-thumb:active {
+  background-color: #1fb7f3;
+}
+
+.container1::-webkit-scrollbar-thumb:hover {
+  background: #1100fd;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+ /* Estilos track de scroll */
+.container1::-webkit-scrollbar-track {
+  background: #a7a0ff;
+  border-radius: 4px;
+}
+
+.container1::-webkit-scrollbar-track:hover, 
+.container1::-webkit-scrollbar-track:active {
+  background: #787bff;
+}
