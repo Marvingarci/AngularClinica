@@ -16,9 +16,9 @@
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-            <input  matInput placeholder="Ingrese la contraseña" formControlName= "contrasenia" [type]="hide ? 'password' : 'text'" required>
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input matInput (keydown)="onKeydown($event)"   placeholder="Ingrese la contraseña" formControlName= "contrasenia" [type]="hide1 ? 'text' : 'password'" required>
+            <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide1">
+                <mat-icon>{{hide1 ? 'visibility' : 'visibility_off '}}</mat-icon>
                 </button>
             <mat-error *ngIf="contrasenia.hasError('required')">
                 <strong>ingrese la contrasenia</strong>
@@ -29,7 +29,7 @@
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-            <input  matInput placeholder="Confirme la contraseña" formControlName= "contraseniaC" [type]="hide ? 'password' : 'text'" required>
+            <input  matInput (keydown)="onKeydown($event)"  placeholder="Confirme la contraseña" formControlName= "contraseniaC" [type]="hide ? 'password' : 'text'" required>
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
@@ -42,7 +42,7 @@
     </mat-form-field>     
     
     <mat-form-field class="example-full-width">
-            <input  matInput placeholder="Ingrese nombre completo" formControlName= "nombre" required>
+            <input  matInput  placeholder="Ingrese nombre completo" formControlName= "nombre" required>
             <mat-error *ngIf="nombre.hasError('required')">
                 <strong>Escriba su nombre completo</strong>
               </mat-error>
