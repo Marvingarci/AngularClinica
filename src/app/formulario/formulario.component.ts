@@ -23,13 +23,21 @@ import { Subscription, Observable } from 'rxjs';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import {take} from 'rxjs/operators';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
-import { MatChipInputEvent, MatAutocomplete } from '@angular/material';
+import { MatChipInputEvent, MatAutocomplete, MatTableDataSource } from '@angular/material';
 
 export interface Loginadmin {
  // contrasenia_admin: any;
   value: string;
   viewValue: string;
 
+}
+
+export interface Element{
+
+  numero: number;
+  antecedente: string;
+  parentesco: string;
+  
 }
 
 
@@ -773,6 +781,11 @@ this.des3 = true;
   id:any;
   esAlumno: boolean = true;
 
+  tablaOtros: Element[] = [];
+
+  dataSource : any;
+  columnasTabla: string[] = ['numero','antecedente','parentesco'];
+
 
   // creo estos arreglos de los cuales extraigo el valor de cada elemento y lo mando a la tabla de pacientes_antecedentes_familiares
   // estos arreglos son de los controladores del formulario antecedentes familiares
@@ -898,6 +911,30 @@ this.des3 = true;
       });    
     
     
+  }
+
+  agregar(){
+
+    if(this.otros.value && this.otros.valid && this.parentesco_otros.value){
+      
+      this.tablaOtros.push(
+        {
+          numero:this.tablaOtros.length + 1,
+          antecedente: this.otros.value,
+          parentesco: this.parentesco_otros.value,
+        }
+
+      );
+
+      this.dataSource =  new MatTableDataSource(this.tablaOtros);
+  
+      console.log(this.tablaOtros);
+  
+      this.otros.setValue('');
+      this.parentesco_otros.setValue('');
+    }
+    
+
   }
 
 
