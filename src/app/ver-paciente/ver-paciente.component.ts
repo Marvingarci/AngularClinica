@@ -43,8 +43,7 @@ export interface PeriodicElement {
   symbol: string;
   description: string;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
 export interface familiar{
   id_paciente?: number;
@@ -53,10 +52,6 @@ export interface familiar{
 }
 
 
-=======
->>>>>>> parent of 5306877... Update ver-paciente.component.ts
-=======
->>>>>>> parent of 5306877... Update ver-paciente.component.ts
 
 @Component({
   selector: 'app-ver-paciente',
