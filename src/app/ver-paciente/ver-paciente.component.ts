@@ -44,10 +44,6 @@ export interface PeriodicElement {
   description: string;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of f29f48a... Update ver-paciente.component.ts
 export interface familiar{
   id_paciente?: number;
   id_antecedente?: string;
