@@ -11,8 +11,8 @@ export interface Paciente {
     carrera: string;
     fecha_nacimiento: Date;
     sexo: string;
-    estado_civil: any;
-    seguro_medico?: any;
+    estado_civil: string;
+    seguro_medico?: string;
     numero_telefono: string;
     emergencia_telefono: string;
     emergencia_persona: string;

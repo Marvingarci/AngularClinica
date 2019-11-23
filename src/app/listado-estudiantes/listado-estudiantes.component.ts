@@ -555,13 +555,6 @@ paciente: Paciente={
   emergencia_persona: null,
   emergencia_telefono: null,
   categoria: null,
-  peso: null,
-  presion: null,
-  imc:null,
-  temperatura:null,
-  pulso:null,
-  talla: null
-
  
 
 }
@@ -857,14 +850,17 @@ esAlumno: boolean = true;
 
 
 dataSource: any;
+
+  
+
   constructor(private formularioService: FormularioService, private router: Router, private mensaje: MatSnackBar, private activatedRoute: ActivatedRoute, activar: AppComponent) { 
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
     
     if(this.id){
-      this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) =>{
-        this.paciente = data;
-        //this.paciente = this.pacientes.find((m)=>{return m.id_paciente == this.id});
+      this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
+        this.pacientes = data;
+        this.paciente = this.pacientes.find((m)=>{return m.id_paciente == this.id});
 
         if(this.paciente.peso == null){
           console.log('faltan datos');
