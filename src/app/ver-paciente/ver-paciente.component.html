@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <mat-sidenav-container class="example-container" *ngIf="!shouldRun">
   <mat-sidenav  #sidenav mode="over" [(opened)]="opened"  disableClose="true" position="end" (opened)="events.push('open!')"
                (closed)="events.push('close!')">
@@ -83,13 +84,20 @@
     <span class="title"><strong> Clínica UNAH-TEC Danlí</strong></span>
     <span class="example-fill-remaining-space"></span>
         <span class="example-spacer"></span>
+=======
+<div class="intro">
+  
+<mat-toolbar class="toolbar">
+    <span style="cursor: pointer;margin-top: 5px;" [routerLink]="['/principal/registro']" ><mat-icon>arrow_back</mat-icon> </span>
+    <span class="title"><strong> Clinica UNAH-TEC Danlí</strong></span>
+>>>>>>> parent of 4452834... insercion de listadestudiantes en verpaciente
     <button mat-icon-button [matMenuTriggerFor]="menu" 
     style="outline:none;  
           display:block;">
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="anadirCita()">
+        <button mat-menu-item>
             <mat-icon >dialpad</mat-icon>
             <span>Añadir cita</span>
         </button>
@@ -97,7 +105,7 @@
             <mat-icon > voicemail</mat-icon>
             <span>Historia clinica</span>
         </button>
-        <button mat-menu-item (click)="mostrarHistoriasSub()">
+        <button mat-menu-item>
             <mat-icon >notifications_off</mat-icon>
             <span>Ver citas</span>
         </button>
@@ -150,8 +158,7 @@
 
 
 
-<!--Condicion hecha para mostrar solo cuando no se este viendo las citas-->
-<div *ngIf="mostrarHisorias==false">
+
 <mat-accordion class="example-headers-align">
 
   <mat-expansion-panel [expanded]="step===0" (opened)="setStep(0)" hideToggle>
@@ -877,6 +884,73 @@ style="margin-top: 10px;"
 
 
 
+
+
+
+
+
+        
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+            <mat-expansion-panel-header>
+            <mat-panel-title>
+              Antecedentes familiares              
+            </mat-panel-title>
+            <mat-panel-description>
+              Visualiazar Antecedentes familiares del paciente
+                <!-- <mat-icon>map</mat-icon> -->
+            </mat-panel-description>
+            </mat-expansion-panel-header>
+
+
+            <div *ngIf="readonlyAntecedentesFamiliares == true">
+              <div>
+                <table mat-table id="tabla1" [dataSource]="tablaAntecedentesFamiliares" class="mat-elevation-z8">
+
+                  <!-- columna antecedente --> 
+                  <ng-container matColumnDef="antecedente">
+                    <th mat-header-cell *matHeaderCellDef> Antecedente </th>
+                    <td mat-cell *matCellDef="let elemento"> {{elemento.antecedente}} </td>
+
+                    <!-- este mat-footer siempre tiene que ir en cada columna -->
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+                
+                  <!-- columna valor -->
+                  <ng-container matColumnDef="valor">
+                    <th mat-header-cell *matHeaderCellDef> Valor </th>
+                    <td mat-cell *matCellDef="let elemento"> </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                    
+                    <!-- <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td> -->
+  
+                  </ng-container>
+
+                  <!-- columna tipo -->
+                 
+
+                  <!-- columna parentesco -->
+                  <ng-container matColumnDef="parentesco">
+                      <th mat-header-cell *matHeaderCellDef> Parentesco </th>
+                      <td mat-cell *matCellDef="let elemento"> {{elemento.parentesco}}</td>
+                      <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+  
+                
+                
+                  <tr mat-header-row *matHeaderRowDef="columnasTablaAntecedentesFamiliares"></tr>
+                  <tr mat-row *matRowDef="let row; columns: columnasTablaAntecedentesFamiliares;"></tr>
+                  <tr mat-footer-row *matFooterRowDef="columnasTablaAntecedentesFamiliares"></tr>
+                </table>
+      
+              
+                <button mat-raised-button
+                  class="btn btn-outline-primary float-right botonperron"
+                  style="margin-top: 10px;"
+                  (click)="readonlyAntecedentesFamiliares = !readonlyAntecedentesFamiliares;">
+                  {{!readonlyAntecedentesFamiliares ? 'Guardar' : 'Editar'}}
+                </button> 
+              </div>
+            </div>
 
 
 
@@ -2013,60 +2087,5 @@ style="margin-top: 10px;"
 
 
 </mat-accordion>
-</div>
-
-
-
-<!--Esto se muestra al selecciona ver citas-->
-<div class="container" *ngIf="mostrarHisorias==true">
-  <mat-card style="margin-bottom: 30px;">
-    <table mat-table
- [dataSource]="dataSource1" multiTemplateDataRows
- class="mat-elevation-z8">
-<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-<th mat-header-cell *matHeaderCellDef> {{column}} </th>
-<td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-</ng-container>
-
-<!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-<ng-container matColumnDef="expandedDetail">
-<td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-<div class="example-element-detail"
-     [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-  <div class="example-element-diagram">
-    <div class="example-element-position"> {{element.fechayHora}} </div>
-    <div class="example-element-symbol"> {{element.Observaciones}} </div>
-    <div class="example-element-name"> {{element.impresion}} </div>
-    <div class="example-element-weight"> {{element.indicaciones}} </div>
-  </div>
-  <div class="example-element-description">
-    {{element.description}}
-    <span class="example-element-description-attribution"> -- Wikipedia </span>
-  </div>
-</div>
-</td>
-</ng-container>
-
-<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-<tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
-class="example-element-row"
-[class.example-expanded-row]="expandedElement === element"
-(click)="expandedElement = expandedElement === element ? null : element">
-</tr>
-<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-</table> 
-<button class="botonperron" (click)="cerrarHistorias()">Volver</button>
-
-  </mat-card>
-
-
-
-
-</div>
-
 </div>   
-  
-</mat-sidenav-content>
-    
-</mat-sidenav-container>
-
+</div>
