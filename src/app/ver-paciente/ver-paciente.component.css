@@ -162,7 +162,6 @@ tr.mat-footer-row {
   border: 1px solid #555;
 }
 .example-full-width {
-<<<<<<< HEAD
   width: 85%;
   justify-content: center;
 }
@@ -178,8 +177,6 @@ tr.mat-footer-row {
 }
 
 table {
-=======
->>>>>>> parent of 4452834... insercion de listadestudiantes en verpaciente
   width: 100%;
 }
 
@@ -216,16 +213,10 @@ mat-divider {
  
 
 }
-<<<<<<< HEAD
 .example-fill-remaining-space {
   /* This fills the remaining space, by using flexbox. 
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
-=======
-
-.example-radio-button {
-  margin: 5px;
->>>>>>> parent of 4452834... insercion de listadestudiantes en verpaciente
 }
 
 /* label */
