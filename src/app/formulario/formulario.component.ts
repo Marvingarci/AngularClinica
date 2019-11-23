@@ -36,7 +36,7 @@ export interface Element{
 
   numero: number;
   antecedente: string;
-  parentesco: string;
+  parentesco: any;
   
 }
 
@@ -944,27 +944,63 @@ this.des3 = true;
   agregar(){
 
     if(this.otros.value.toString().trim() && this.otros.valid && this.parentesco_otros.value){
-      var stringParentesco: string;
+      var stringParentesco: string = "";
 
-      switch (this.parentesco_otros.value) {
-        case 1:
-          stringParentesco = "Padre"
-          break;
-        case 2:
-          stringParentesco = "Madre"
-          break;
-        case 3:
-          stringParentesco = "Tios"
-          break;
-        case 4:
-          stringParentesco = "Abuelos"
-          break;
+      
 
-        default:
-          stringParentesco = "Otros"
-          break;
+      if(this.parentesco_otros.value.length == 1){
+
+        switch (this.parentesco_otros.value[0]) {
+          case 1:
+            stringParentesco = "Padre"
+            break;
+          case 2:
+            stringParentesco = "Madre"
+            break;
+          case 3:
+            stringParentesco = "Tios"
+            break;
+          case 4:
+            stringParentesco = "Abuelos"
+            break;
+          default:
+            stringParentesco = "Otros"
+            break;
+        }
+      }else{
+
+        this.parentesco_otros.value.forEach(element => {
+
+          switch (element) {
+            case 1:
+              element = "Padre"           
+              break;
+            case 2:
+              element = "Madre"
+              break;
+            case 3:
+              element = "Tios"
+              break;
+            case 4:
+              element = "Abuelos"
+              break;
+            default:
+              element = "Otros"
+              break;
+          }
+          
+          stringParentesco += element+" ";       
+        });
+
+        stringParentesco = stringParentesco.trim();
+        // var parentescosVarios: string[] = stringParentesco.trim().split(' ');
+        
+        // console.log(parentescosVarios);
+
+        
       }
     
+  
       this.tablaOtros.push(
         {
           numero: this.tablaOtros.length + 1,
@@ -976,9 +1012,10 @@ this.des3 = true;
       );
 
       this.dataSource =  new MatTableDataSource(this.tablaOtros);
-  
+
       this.otros.setValue('');
       this.parentesco_otros.setValue('');
+
     }
     
 
@@ -1097,66 +1134,109 @@ this.des3 = true;
           
         }
 
+        var stringParentesco: string[];
+        var NumeroParentesco: number;
+        var antecedente: number;
+
+        //establezco primero el id del paciente por que si no no se guarda.
+        this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
+
         if(this.tablaOtros.length){
 
           for (let index = 0; index < this.tablaOtros.length; index++) {
             const element = this.tablaOtros[index];
 
-            //  var antecedente = element.antecedente;
+            // le establezco el valor del antecedente que se guarda en la tabla al atributo antecedente
+            // de la interfaz de antecedente.
             this.antecedente.antecedente = element.antecedente;
 
             console.log('antecedente: '+element.antecedente);
 
-            this.formularioService.enviarAntecedentes(this.antecedente).subscribe((data)=>{
-              console.log('todo perron');
-            },(error)=>{
-              console.log(error);
+            // guardo cada uno de los antecedentes de la tabla en el html a la tabla antecedentes de la base de datos
+            // OJO si recupero la data se vuelve mas lenta las transaccion y no llega a tiempo la insersion para 
+            // despues recuperar el ultimo id de antecedentes.
+            this.formularioService.enviarAntecedentes(this.antecedente).subscribe();
 
-            });
-
-            var parentesco: number;
-            var antecedente: number;
-
-            switch (element.parentesco) {
-              case 'Padre':
-                parentesco = 1;
-                break;
-              case 'Madre':
-                parentesco = 2;
-                break;
-              case 'Tios':
-                parentesco = 3;
-                break;
-              case 'Abuelos':
-                parentesco = 4;
-                break;
-              default:
-                parentescos = 5;
-                break;
-            }
-
-            this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
-
-           
+            //busco el ultimo id del ultimo antecedente ingresado a la base de datos
+            // que se supone que es la consulta que se realizo arriba el ulitimo antecedente
+            // por ende tengo que recuperar ese id.
             this.formularioService.ultimoIdAntecedente().subscribe((data: number)=>{
-              antecedente = data;   
+              antecedente = data;
 
-              this.paciente_antecedente_familiar.id_parentesco = parentesco;
+              // this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
               this.paciente_antecedente_familiar.id_antecedente = antecedente;   
-              
-              this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
-                console.log('se enviaron perron los nuevos antecedentes');
-              }, (error)=>{
-                console.log(error);
+
+
+              // separo el string de parentesco que se guarda en la tabla
+              // y lo convierto en un arreglo.
+              stringParentesco = element.parentesco.split(' ');
+
+              console.log("ultimo antecedente: "+antecedente);
+              console.log(stringParentesco);
+
+
+              // comparo cada string del arreglo de parentesco que se recupera de la tabla
+              // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
+              stringParentesco.forEach(element => {
+                switch (element) {
+                  case 'Padre':
+                    NumeroParentesco = 1;
+                    break;
+                  case 'Madre':
+                    NumeroParentesco = 2;
+                    break;
+                  case 'Tios':
+                    NumeroParentesco = 3;
+                    break;
+                  case 'Abuelos':
+                    NumeroParentesco = 4;
+                    break;
+                  default:
+                    NumeroParentesco = 5;
+                    break;
+                }
+                
+                // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
+                // para ser enviado a la base de datos.
+                this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+
+                //envio el antecedente familiar del paciente por cada vuelto del ciclo o por cada fila de la tablaOtros.
+                this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                  console.log('se enviaron perron los nuevos antecedentes');
+                }, (error)=>{
+                  console.log(error);
+                });
+
               });
 
             });
+
+
+
+
             
 
-           
-          
-          
+            // this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
+
+            
+            // this.formularioService.ultimoIdAntecedente().subscribe((data: number)=>{
+            //   antecedente = data;   
+
+            //   this.paciente_antecedente_familiar.id_parentesco = parentesco;
+            //   this.paciente_antecedente_familiar.id_antecedente = antecedente;   
+              
+            //   this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+            //     console.log('se enviaron perron los nuevos antecedentes');
+            //   }, (error)=>{
+            //     console.log(error);
+            //   });
+
+            // });
+
+
+
           }
+
         }
 
       }
