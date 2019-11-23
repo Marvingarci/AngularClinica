@@ -5,9 +5,9 @@ import { Paciente } from "../interfaces/paciente";
 import { MatMonthView } from '@angular/material/datepicker';
 import { AppComponent } from '../app.component';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { select } from '../formulario/formulario.component';
+import { select, Parentescos, MyErrorStateMatcher } from '../formulario/formulario.component';
 import { AntecedentesFamiliares } from '../interfaces/antecedentes-familiares';
-import { MatTableDataSource, MatSidenav } from '@angular/material';
+import { MatTableDataSource, MatSidenav, MatDialog, MatSnackBar, MatDialogRef, MatSnackBarConfig, SimpleSnackBar } from '@angular/material';
 import { AntecedentesPersonales } from '../interfaces/antecedentes-personales';
 import { ThrowStmt } from '@angular/compiler';
 import { HabitosToxicologicosPersonales } from '../interfaces/habitos-toxicologicos-personales';
@@ -18,6 +18,11 @@ import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos'
 <<<<<<< HEAD
 import { PacienteAntecedenteFamiliar } from "../interfaces/paciente-antecedente-familiar";
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { InventariosService } from '../services/inventarios.service';
+import { Cita } from '../interfaces/Cita';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+
 
 =======
 >>>>>>> parent of 05aa51d... Update ver-paciente.component.ts
@@ -34,16 +39,33 @@ export interface Element{
   parentesco?: string;
   observacion?: string;
 }
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+  description: string;
+}
 
 @Component({
   selector: 'app-ver-paciente',
   inputs:['cambios'],
   templateUrl: './ver-paciente.component.html',
-  styleUrls: ['./ver-paciente.component.css']
+  styleUrls: ['./ver-paciente.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 
 export class VerPacienteComponent implements OnInit {
   @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
+  dataSource1:any;
+  columnsToDisplay = ['fechayHora', 'observaciones', 'impresion', 'indicaciones'];
+  expandedElement: Cita | null;
 
   events: string[] = [];
   opened: boolean;
@@ -56,6 +78,9 @@ export class VerPacienteComponent implements OnInit {
   //   return this.transactions.map(t => t.cost).reduce((acc, value) => acc + value, 0);
   // }
 
+  
+
+  
   formulario_datos_faltantes = new FormGroup({  
     peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
     talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]), 
@@ -66,9 +91,10 @@ export class VerPacienteComponent implements OnInit {
      // "\d" es lo mismo "[0-9]"
     temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]),
     presion: new FormControl('', [Validators.required]),
-    pulso: new FormControl('', [Validators.required]),    
-  });
-
+    pulso: new FormControl('', [Validators.required]),
+    
+});
+matcher = new MyErrorStateMatcher();
   formulario_datos_generales = new FormGroup({      
     nombre_completo: new FormControl('', [Validators.required]),
     // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
@@ -235,6 +261,10 @@ des2 = true;
 ingreso2: string ;
 des3 = true;
 ingreso3: string ;
+
+///// Creacion de variables
+mostrarHisorias: boolean = false;
+citasPaciente: Cita[];
     
 Mostrar() {      
   this.des = false;
@@ -295,6 +325,7 @@ ocultar: boolean = true;
     emergencia_telefono: null,
     categoria: null,
   }
+  
 
   antecedente_familiar: AntecedentesFamiliares ={
     diabetes : null,
@@ -529,7 +560,6 @@ ocultar: boolean = true;
   
   //id que se recupera del paciente mandado a traer
   id: any;
-
   // variable que identifica si el paciente tiene imagen de perfil
   noImg: boolean = true;
 
@@ -563,7 +593,7 @@ ocultar: boolean = true;
   mostrarPlanificacionFamiliar: boolean = false;  
 
 
-constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, activar: AppComponent ) { 
+constructor(private formularioService: FormularioService, private mensaje: MatSnackBar,  private activatedRoute: ActivatedRoute, activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService ) { 
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
     
@@ -572,6 +602,10 @@ constructor(private formularioService: FormularioService, private activatedRoute
         this.paciente = data;
         //establesco el valor a los formcontrol para que se visualizen
         //en los respectivos inputs de los datos generales
+        if(this.paciente.peso == null){
+          console.log('faltan datos');
+          this.sidenav.toggle();
+        }
         this.cargarInformacionDatosGenerales();
         //si el paciente no es alumno, cambiamos
         //el valor de la variable "esAlumno" a false
@@ -715,7 +749,10 @@ constructor(private formularioService: FormularioService, private activatedRoute
    }
  }//fin del constructor
 
-    
+ 
+ @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
+
+
   
  actualizarDatosGenerales(){
     if(this.readonlyDatosGenerales === true){    
@@ -1456,6 +1493,52 @@ constructor(private formularioService: FormularioService, private activatedRoute
     }
   }
 
+  anadirCita(){
+    const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, {disableClose:true, width:"70%"});
+    this.inven.idCita=this.id;
+  }
+  mostrarHistoriasSub(){
+    this.mostrarHisorias=true;
+
+    this.inven.obtenerCita(this.id).subscribe((data: Cita[])=>{
+      this.citasPaciente = data;
+      console.log(this.citasPaciente);
+      this.dataSource1= this.citasPaciente;
+    }, (error)=>{
+      
+      console.log(error);
+    });
+  }
+  cerrarHistorias(){
+    this.mostrarHisorias=false;
+  }
+
+
+  guardarDatos(){
+
+     if(this.formulario_datos_faltantes.valid){
+      this.paciente.imc = this.formulario_datos_faltantes.get('imc').value;
+      this.paciente.peso = this.formulario_datos_faltantes.get('peso').value;
+      this.paciente.presion = this.formulario_datos_faltantes.get('presion').value;
+      this.paciente.talla = this.formulario_datos_faltantes.get('talla').value;
+      this.paciente.temperatura = this.formulario_datos_faltantes.get('temperatura').value;
+      this.paciente.pulso = this.formulario_datos_faltantes.get('pulso').value;
+      
+      
+
+       this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
+         this.mensaje.open('Datos guardados', '', {duration:2000});
+         this.sidenav.toggle();
+
+       }, (error)=>{
+         console.log(error);
+         this.mensaje.open('there was an error!', '', {duration:2000});
+    });
+
+
+     }
+  }
+
 
 
    //obtener los campos del formGroup: formulario_datos_generales
@@ -1587,7 +1670,6 @@ constructor(private formularioService: FormularioService, private activatedRoute
   get presion(){return this.formulario_datos_faltantes.get('presion')};
   get pulso(){return this.formulario_datos_faltantes.get('pulso')};
 
-<<<<<<< HEAD
 }
 
 
@@ -1724,6 +1806,3 @@ export class HistoriaSubsiguiente1{
   get presion(){return this.formulario_cita.get('presion')};
   get cita(){return this.formulario_cita.get('cita')};
 }
-=======
-}
->>>>>>> parent of 4452834... insercion de listadestudiantes en verpaciente
