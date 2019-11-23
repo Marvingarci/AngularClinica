@@ -142,7 +142,7 @@ export class FormularioService {
   }
 
   obtenerAntecedenteFamiliar(id_paciente: any){
-    return this.httpClient.get(this.API_ENDPOINT+'pacientes_antecedentes_familiares/'+id_paciente);
+    return this.httpClient.get(this.API_ENDPOINT+'antecedentes_familiares/'+id_paciente);
   }
 
 
