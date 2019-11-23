@@ -13,11 +13,11 @@ import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
 import { DatoPacienteComponent, DialogContentExampleDialog } from './dato-paciente/dato-paciente.component';
 import { PacienteComponent } from './paciente/paciente.component';
-import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-estudiantes/listado-estudiantes.component';
+import { ListadoEstudiantesComponent } from './listado-estudiantes/listado-estudiantes.component';
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
-import { VerPacienteComponent , HistoriaSubsiguiente1} from './ver-paciente/ver-paciente.component';
+import { VerPacienteComponent } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
@@ -135,8 +135,6 @@ const routes: Route[] = [
     DialogContentExampleDialog,
     InventarioComponent,
     DialogContentExampleDialog1,
-    HistoriaSubsiguiente,
-    HistoriaSubsiguiente1,
 
 
 
@@ -194,9 +192,7 @@ const routes: Route[] = [
   ],
   entryComponents: [
     DialogContentExampleDialog,
-    DialogContentExampleDialog1,
-    HistoriaSubsiguiente,
-    HistoriaSubsiguiente1
+    DialogContentExampleDialog1
   ],
   providers: [],
   bootstrap: [AppComponent]
