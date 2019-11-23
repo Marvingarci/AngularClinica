@@ -15,7 +15,6 @@ import { ActividadSexual } from '../interfaces/actividad-sexual';
 import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologicos';
 import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familiares';
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
-<<<<<<< HEAD
 import { PacienteAntecedenteFamiliar } from "../interfaces/paciente-antecedente-familiar";
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { InventariosService } from '../services/inventarios.service';
@@ -24,8 +23,6 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 
-=======
->>>>>>> parent of 05aa51d... Update ver-paciente.component.ts
 
 export interface Select {
   value: string;
@@ -46,6 +43,14 @@ export interface PeriodicElement {
   symbol: string;
   description: string;
 }
+
+export interface familiar{
+  id_paciente?: number;
+  id_antecedente?: string;
+  id_parentesco?: string;
+}
+
+
 
 @Component({
   selector: 'app-ver-paciente',
@@ -355,6 +360,9 @@ ocultar: boolean = true;
     id_paciente : null
   };
 
+  ante_familiar: any;
+  ante_familiar_filtrado:familiar[] ;
+
   antecedente_personal: AntecedentesPersonales = {
     diabetes : null,
     observacion_diabetes : null,
@@ -442,12 +450,12 @@ ocultar: boolean = true;
   };
 
   //creo un arreglo de la interfaz en donde voy a mostrar los datos de la tabla
-  tablaAntecedentesFamiliares: Element[];
+  tablaAntecedentesFamiliares: any;
   tablaAntecedentesPersonales: Element[];
   tablaHabitosToxicologicos: Element[];
 
   //creo un arreglo en el cual se añaden las columnas que se van a mostrar en la tabla
-  columnasTablaAntecedentesFamiliares: string[] = ['antecedente', 'valor', 'tipo', 'parentesco', 'observacion'];
+  columnasTablaAntecedentesFamiliares: string[] = ['antecedente', 'valor', 'parentesco'];
   columnasTablaAntecedentesPersonales: string[] = ['antecedente', 'valor', 'tipo', 'observacion'];
   columnastablaHabitosToxicologicos: string[] = ['habito_toxicologico', 'valor', 'observacion'];
 
@@ -628,7 +636,6 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
       
 
-<<<<<<< HEAD
 /////////////////////////////////////////////////////////////////
       this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
         this.ante_familiar = data;
@@ -646,17 +653,13 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
          }
          
        }
-=======
->>>>>>> parent of 05aa51d... Update ver-paciente.component.ts
 
-      this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
-        this.antecedente_familiar = data;
         //cargo los datos de la tabla antecedentes familiares
-        this.cargarTablaAntecedentesFamiliares();
+        this.cargarTablaAntecedentesFamiliares();  
         //establesco el valor a los formcontrol para que se visualizen
         //en los respectivos inputs de los antecedentes familiares
         this.cargarInformacionAntecedentesFamiliares();        
-        console.log(this.antecedente_familiar);
+        console.log(this.ante_familiar);
       }, (error)=>{
         console.log(error);
       });
@@ -1004,78 +1007,13 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
   }
 
  
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////
   cargarTablaAntecedentesFamiliares(){
     // establesco los valores a el arreglo de interfaces "tablaAntecedentesFamiliares"
-    this.tablaAntecedentesFamiliares = 
-    [
-      {antecedente: 'Diabetes',
-      valor: this.antecedente_familiar.diabetes,
-      parentesco: this.antecedente_familiar.parentesco_diabetes
-      },
     
-      {
-      antecedente: 'Tuberculosis Pulmonar',
-      valor: this.antecedente_familiar.tb_pulmonar,
-      parentesco: this.antecedente_familiar.parentesco_tb_pulmonar
-      },
-  
-      {
-      antecedente: 'Desnutrición',
-      valor: this.antecedente_familiar.desnutricion,
-      tipo: this.antecedente_familiar.tipo_desnutricion,
-      parentesco: this.antecedente_familiar.parentesco_desnutricion
-      },
-  
-      {
-      antecedente: 'Enfermedades Mentales',
-      valor: this.antecedente_familiar.enfermedades_mentales,
-      tipo: this.antecedente_familiar.tipo_enfermedad_mental,
-      parentesco: this.antecedente_familiar.parentesco_enfermedades_mentales
-      },
-  
-      {
-      antecedente: 'Convulsiones',
-      valor: this.antecedente_familiar.convulsiones,
-      parentesco: this.antecedente_familiar.parentesco_convulsiones
-      }, 
-  
-      {
-      antecedente: 'Alcoholismo o Sustancias Psicoactivas',
-      valor: this.antecedente_familiar.alcoholismo_sustancias_psicoactivas,
-      parentesco: this.antecedente_familiar.parentesco_alcoholismo_sustancias_psicoactivas
-      }, 
-  
-      { 
-      antecedente: 'Alergias',
-      valor: this.antecedente_familiar.alergias,
-      tipo: this.antecedente_familiar.tipo_alergia,
-      parentesco: this.antecedente_familiar.parentesco_alergias
-      }, 
-  
-      { 
-      antecedente: 'Cáncer',
-      valor: this.antecedente_familiar.cancer,
-      tipo: this.antecedente_familiar.tipo_cancer,
-      parentesco: this.antecedente_familiar.parentesco_cancer
-      },
-
-      {
-      antecedente: 'Hipertensión arterial',
-      valor: this.antecedente_familiar.hipertension_arterial,
-      parentesco: this.antecedente_familiar.parentesco_hipertension_arterial
-      },
-
-    ];
+    this.tablaAntecedentesFamiliares = new MatTableDataSource(this.ante_familiar);
     // verifico si otro tiene un valor para poder agregarlo a la tabla
-    if(this.antecedente_familiar.otros != null){
-      this.tablaAntecedentesFamiliares.push(
-        {
-          antecedente: this.antecedente_familiar.otros,
-          valor: 'Si',
-          parentesco: this.antecedente_familiar.parentesco_otros
-      });
-    }
+    
   }
 
   cargarTablaAntecedentesPersonales(){
