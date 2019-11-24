@@ -1137,7 +1137,7 @@ this.des3 = true;
 
         var stringParentesco: string[];
         var NumeroParentesco: number;
-        var antecedente: number;
+        var id_antecedente: number;
 
         //establezco primero el id del paciente por que si no no se guarda.
         this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
@@ -1154,25 +1154,22 @@ this.des3 = true;
             console.log('antecedente: '+element.antecedente);
 
             // guardo cada uno de los antecedentes de la tabla en el html a la tabla antecedentes de la base de datos
-            // OJO si recupero la data se vuelve mas lenta las transaccion y no llega a tiempo la insersion para 
-            // despues recuperar el ultimo id de antecedentes.
-            this.formularioService.enviarAntecedentes(this.antecedente).subscribe();
+            // cuando se va insertar un antecedente se hace por medio de una funcion en mysql que inserta y a la vez 
+            // devuelve el id de el antecedente, si el antecedente ya existe en la base de datos entonces solo devuelve 
+            // el id de ese antecedemte.
+            this.formularioService.enviarAntecedentes(this.antecedente).subscribe((data)=>{
 
-            //busco el ultimo id del ultimo antecedente ingresado a la base de datos
-            // que se supone que es la consulta que se realizo arriba el ulitimo antecedente
-            // por ende tengo que recuperar ese id.
-            this.formularioService.ultimoIdAntecedente().subscribe((data: number)=>{
-              antecedente = data;
-
-              // this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
-              this.paciente_antecedente_familiar.id_antecedente = antecedente;   
+              // asigno el id del antecedente que me devuelve la funcion de mysql en el id_antecedente
+              // de la interfaz de antecedente que se va enviar a paciente_antecedentes_familiares.
+              this.paciente_antecedente_familiar.id_antecedente = data[0].id_antecedente;   
+             
+              console.log("ultimo antecedente: "+data[0].id_antecedente);
+              
 
 
               // separo el string de parentesco que se guarda en la tabla
               // y lo convierto en un arreglo.
               stringParentesco = element.parentesco.split(' ');
-
-              console.log("ultimo antecedente: "+antecedente);
               console.log(stringParentesco);
 
 
@@ -1201,7 +1198,7 @@ this.des3 = true;
                 // para ser enviado a la base de datos.
                 this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
 
-                //envio el antecedente familiar del paciente por cada vuelto del ciclo o por cada fila de la tablaOtros.
+                //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                 this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
                   console.log('se enviaron perron los nuevos antecedentes');
                 }, (error)=>{
@@ -1210,7 +1207,20 @@ this.des3 = true;
 
               });
 
+            },(error)=>{
+
             });
+
+            //busco el ultimo id del ultimo antecedente ingresado a la base de datos
+            // que se supone que es la consulta que se realizo arriba el ulitimo antecedente
+            // por ende tengo que recuperar ese id.
+           
+            // this.formularioService.ultimoIdAntecedente().subscribe((data: number)=>{
+            //   id_antecedente = data;
+
+              
+
+            // });
 
 
 
