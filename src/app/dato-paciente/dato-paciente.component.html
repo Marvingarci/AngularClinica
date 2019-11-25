@@ -19,7 +19,7 @@
 <div class="container">
 
    <form [formGroup]="formulario_datos_generales">
-        <mat-card style="margin-top:0px;">
+        <mat-card style="margin-top:0px;" [class.mat-elevation-z20]="true">
             
             <div class="row">
                 <div class="col-2">
@@ -129,7 +129,7 @@
     
     <br/>
     <div>
-        <mat-card> 
+        <mat-card [class.mat-elevation-z10]="true"> 
             <mat-tab-group>
             <mat-tab label="Citas"></mat-tab>
             <mat-tab label="Tratamientos"> Content 2 </mat-tab>

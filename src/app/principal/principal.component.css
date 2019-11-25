@@ -1,11 +1,11 @@
 .intro{
   background-color: #fff;
+  color: #000;
 }
 
-.fondo2{
-
+/* .fondo2{
 background-color: rgb(225, 236, 250);
-}
+} */
 
 
   .example-container {
@@ -18,20 +18,25 @@ background-color: rgb(225, 236, 250);
   margin-bottom: -2px; }
 
     .router-link-active{
-      background-color: #B721FF;
-      /* background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%); */
       color: #fff;
-
+      background-color: #B721FF;
+      outline:none;  
+  display:block;
     } 
 
-    .router-link-active:hover{ 
+    mat-action-list{
+      width: 200px;
+      height: 70%;
+    }
+
+   
+
+    /* .router-link-active:hover{ 
       color: #fff;
       background-color: #21D4FD;
-      /* background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%);  */
       transition: all 1s ease;
-
    } 
- 
+  */
   .example-fill-remaining-space {
       flex: 1 1 auto;    
   }
@@ -57,20 +62,21 @@ background-color: rgb(225, 236, 250);
     width: 100%;
   }
 
-
-  /* .hoveritem{
-    color: rgb(109, 0, 160);
-
-  } */
-
+.hoveritem{
+  width: 226px;
+  height: 48px;
+  padding-left: 16px;
+  padding-right: 16px;
+  outline:none;  
+  display:block;
+}
 
   .hoveritem:hover{
     background-color: #21D4FD;
-    /* background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%); */
     color: #fff;
     transition: all 1s ease;
-
   }
+ 
 
 
 .container{
@@ -117,11 +123,17 @@ height: 8px;
 }
 
 .logoU{
-
   background: url('src\imagenes\logoUperron.jpg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;  
- 
+ }
+
+#spin{
+  position: absolute;
+   top: 50%;
+   left: 50%;
+   width: 100%;
+   height: 100%;
 }

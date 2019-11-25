@@ -42,6 +42,7 @@ export interface Paciente {
   templateUrl: './paciente.component.html',
   styleUrls: ['./paciente.component.css']
 })
+
 export class PacienteComponent implements OnInit {
   
   API_ENDPOINT = 'http://apiclinicaunah.test/api/';
@@ -58,14 +59,20 @@ export class PacienteComponent implements OnInit {
   
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-
+ 
+ loading:boolean;
   constructor( private pacienteService: FormularioService, private httpClient: HttpClient, private router:Router ) { 
     this.getPacientes();
-
-
-
-   
+    this.loading = false;
   }
+
+
+// esto es para mandar string de un componente a atro
+//  loading:boolean;  
+
+//   receiveMessage($event) {
+//     this.loading = $event;
+//   }
   
   getPacientes(){
     this.pacienteService.obtenerPacientes().subscribe((data: Paciente[]) =>{
