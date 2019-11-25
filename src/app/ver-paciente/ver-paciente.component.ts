@@ -111,19 +111,19 @@ export class VerPacienteComponent implements OnInit {
   
 
   
-  formulario_datos_faltantes = new FormGroup({  
-    peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
-    talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]), 
-    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
-    // "/ /" indica el inicio y el final de la expresion regular
-    // "{10}" indica le numero de digitos de lo que lo antecede
-    imc: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
-     // "\d" es lo mismo "[0-9]"
-    temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]),
-    presion: new FormControl('', [Validators.required]),
-    pulso: new FormControl('', [Validators.required]),
+//   formulario_datos_faltantes = new FormGroup({  
+//     peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
+//     talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]), 
+//     // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
+//     // "/ /" indica el inicio y el final de la expresion regular
+//     // "{10}" indica le numero de digitos de lo que lo antecede
+//     imc: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
+//      // "\d" es lo mismo "[0-9]"
+//     temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]),
+//     presion: new FormControl('', [Validators.required]),
+//     pulso: new FormControl('', [Validators.required]),
     
-});
+// });
 matcher = new MyErrorStateMatcher();
   formulario_datos_generales = new FormGroup({      
     nombre_completo: new FormControl('', [Validators.required]),
@@ -145,7 +145,19 @@ matcher = new MyErrorStateMatcher();
     estado_civil: new FormControl('', Validators.required),
     seguro_medico: new FormControl('', Validators.required),
     numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
-    emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])  
+    emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+    //datos restantes
+    peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
+    talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]), 
+    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
+    // "/ /" indica el inicio y el final de la expresion regular
+    // "{10}" indica le numero de digitos de lo que lo antecede
+    imc: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
+     // "\d" es lo mismo "[0-9]"
+    temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]),
+    presion: new FormControl('', [Validators.required]),
+    pulso: new FormControl('', [Validators.required]),
+    
   });
 
   formulario_antecedentes_familiares = new FormGroup({      
@@ -636,8 +648,13 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         //establesco el valor a los formcontrol para que se visualizen
         //en los respectivos inputs de los datos generales
         if(this.paciente.peso == null){
-          //console.log('faltan datos');
-          //this.sidenav.toggle();
+          this.paciente.temperatura="0";
+          this.paciente.pulso="0";
+          this.paciente.presion="0";
+          this.paciente.imc="0";
+          this.paciente.talla="0";
+          this.paciente.peso="0";
+
         }
         this.cargarInformacionDatosGenerales();
         //si el paciente no es alumno, cambiamos
@@ -799,6 +816,13 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         this.paciente.numero_telefono = this.numero_telefono.value;
         this.paciente.emergencia_telefono = this.emergencia_telefono.value;
         this.paciente.categoria = this.categoria.value;
+        this.paciente.imc = this.imc.value;
+        this.paciente.peso = this.peso.value;
+        this.paciente.presion = this.presion.value;
+        this.paciente.talla = this.talla.value;
+        this.paciente.temperatura = this.temperatura.value;
+        this.paciente.pulso = this.pulso.value;
+
       
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
           alert('se actualizaron perron los datos generales');
@@ -1178,6 +1202,14 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.numero_telefono.setValue(this.paciente.numero_telefono);
     this.emergencia_telefono.setValue(this.paciente.emergencia_telefono);
     this.categoria.setValue(this.paciente.categoria);
+    this.temperatura.setValue(this.paciente.temperatura);
+    this.pulso.setValue(this.paciente.pulso);
+    this.presion.setValue(this.paciente.presion);
+    this.imc.setValue(this.paciente.imc);
+    this.talla.setValue(this.paciente.talla);
+    this.peso.setValue(this.paciente.peso);
+    
+    
   }
 
 
@@ -1583,27 +1615,27 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
   guardarDatos(){
 
-     if(this.formulario_datos_faltantes.valid){
-      this.paciente.imc = this.formulario_datos_faltantes.get('imc').value;
-      this.paciente.peso = this.formulario_datos_faltantes.get('peso').value;
-      this.paciente.presion = this.formulario_datos_faltantes.get('presion').value;
-      this.paciente.talla = this.formulario_datos_faltantes.get('talla').value;
-      this.paciente.temperatura = this.formulario_datos_faltantes.get('temperatura').value;
-      this.paciente.pulso = this.formulario_datos_faltantes.get('pulso').value;
+    //  if(this.formulario_datos_faltantes.valid){
+    //   this.paciente.imc = this.formulario_datos_faltantes.get('imc').value;
+    //   this.paciente.peso = this.formulario_datos_faltantes.get('peso').value;
+    //   this.paciente.presion = this.formulario_datos_faltantes.get('presion').value;
+    //   this.paciente.talla = this.formulario_datos_faltantes.get('talla').value;
+    //   this.paciente.temperatura = this.formulario_datos_faltantes.get('temperatura').value;
+    //   this.paciente.pulso = this.formulario_datos_faltantes.get('pulso').value;
       
       
 
-       this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
-         this.mensaje.open('Datos guardados', '', {duration:2000});
-         this.sidenav.toggle();
+    //    this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
+    //      this.mensaje.open('Datos guardados', '', {duration:2000});
+    //      this.sidenav.toggle();
 
-       }, (error)=>{
-         console.log(error);
-         this.mensaje.open('there was an error!', '', {duration:2000});
-    });
+    //    }, (error)=>{
+    //      console.log(error);
+    //      this.mensaje.open('there was an error!', '', {duration:2000});
+    // });
 
 
-     }
+    //  }
   }
 
 
@@ -1730,12 +1762,12 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
 
   // obtener los campos del formGroup formulario_datos_faltantes
-  get peso(){return this.formulario_datos_faltantes.get('peso')};
-  get talla(){return this.formulario_datos_faltantes.get('talla')};
-  get imc(){return this.formulario_datos_faltantes.get('imc')};
-  get temperatura(){return this.formulario_datos_faltantes.get('temperatura')};
-  get presion(){return this.formulario_datos_faltantes.get('presion')};
-  get pulso(){return this.formulario_datos_faltantes.get('pulso')};
+  get peso(){return this.formulario_datos_generales.get('peso')};
+  get talla(){return this.formulario_datos_generales.get('talla')};
+  get imc(){return this.formulario_datos_generales.get('imc')};
+  get temperatura(){return this.formulario_datos_generales.get('temperatura')};
+  get presion(){return this.formulario_datos_generales.get('presion')};
+  get pulso(){return this.formulario_datos_generales.get('pulso')};
 
 }
 
