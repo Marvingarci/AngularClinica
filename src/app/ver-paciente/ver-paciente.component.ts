@@ -611,8 +611,8 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         //establesco el valor a los formcontrol para que se visualizen
         //en los respectivos inputs de los datos generales
         if(this.paciente.peso == null){
-          console.log('faltan datos');
-          this.sidenav.toggle();
+          //console.log('faltan datos');
+          //this.sidenav.toggle();
         }
         this.cargarInformacionDatosGenerales();
         //si el paciente no es alumno, cambiamos
