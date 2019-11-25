@@ -55,6 +55,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { MedicosComponent } from './medicos/medicos.component';
 import { RegistromedicosComponent } from './registromedicos/registromedicos.component';
 import { BorrarMedicoComponent } from './borrar-medico/borrar-medico.component';
+import { Principal1Component } from './principal1/principal1.component';
 
 
 
@@ -105,7 +106,8 @@ const routes: Route[] = [
       {path: 'formInventario/:id', component: FormInventarioComponent},
       {path: 'medicos', component: MedicosComponent},      
       {path: 'registromedicos', component: RegistromedicosComponent},
-      {path: 'registromedicos/:id', component: RegistromedicosComponent}
+      {path: 'registromedicos/:id', component: RegistromedicosComponent},
+      {path: 'principal1', component: Principal1Component},
       // {path: 'verPaciente', component: VerPacienteComponent},
       // {path: 'verPaciente/:id', component: VerPacienteComponent}
 
@@ -152,6 +154,7 @@ const routes: Route[] = [
     MedicosComponent,
     RegistromedicosComponent,
     BorrarMedicoComponent,
+    Principal1Component,
 
     
   ],

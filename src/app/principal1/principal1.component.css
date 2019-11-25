@@ -1,0 +1,11 @@
+#imagen{
+    margin-top: 120px;
+    margin-left: 150px;
+    height: 350px;
+    width:800px;     
+    background: url('src\imagenes\voaesalud.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
+  }
