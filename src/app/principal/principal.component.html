@@ -219,8 +219,7 @@
       <div >
           <div style="width: 226px; height: 155px;" class="logoU" alt="User picture"></div>
             <div class="sidebar-brand">
-                  <a style="text-align: center; color:rgb(109, 0, 160)" [routerLink]="['/principal']" routerLinkActive="router-link-active" ><h5>Principal</h5></a>
-                  <div id="close-sidebar">
+                 <div id="close-sidebar">
                     <i class="fas fa-times"></i>
                   </div>
                 </div>
@@ -239,32 +238,32 @@
         </mat-action-list> -->
 
         <mat-action-list class="intro">
-          <button mat-list-item  [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"><strong> Pacientes</strong></button>
-          <button mat-list-item  [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"><strong>  At1</strong>  </button>
-          <button mat-list-item  (click)="undo()" class="hoveritem"><strong> Consolidado Diario </strong></button>
-          <button mat-list-item  [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Inventario </strong> </button>
-          <button mat-list-item  [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Administradores </strong> </button>
-          <button mat-list-item  (click)="undo()" class="hoveritem"> <strong> Ayuda? </strong> </button>
+          <button (click)="principal()" class="hoveritem "[routerLink]="['/principal/principal1']" routerLinkActive="router-link-active" ><strong> Principal</strong></button>
+          <button (click)="pacientes()" [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"><strong> Pacientes</strong></button>
+          <button (click)="at1()"  [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"><strong>  At1</strong>  </button>
+          <button (click)="consolidariodiario()" class="hoveritem"><strong> Consolidado Diario </strong></button>
+          <button (click)="inventario()" [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Inventario </strong> </button>
+          <button (click)="admininstradores()" [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Administradores </strong> </button>
+          <button (click)="ayuda()"  class="hoveritem"> <strong> Ayuda? </strong> </button>
       </mat-action-list>
         
 
-    
         
 
 
   
   </div>  
 
+    
   </mat-sidenav>
   
-  <mat-sidenav-content class="fondo2" >
-
-        
-
+  <mat-sidenav-content class="fondo2" > 
  
+    
 
-
-        <router-outlet></router-outlet>
+        <router-outlet >
+         <mat-spinner *ngIf="isSpinnerVisible==true" id="spin" class="loading"></mat-spinner>
+      </router-outlet>
 
 
     
