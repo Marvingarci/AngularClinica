@@ -1,4 +1,5 @@
-<mat-sidenav-container class="example-container" *ngIf="!shouldRun">
+<div>
+  <mat-sidenav-container class="example-container" *ngIf="!shouldRun">
   <mat-sidenav  #sidenav mode="over" [(opened)]="opened"  disableClose="true" position="end" (opened)="events.push('open!')"
                (closed)="events.push('close!')">
     
@@ -111,7 +112,7 @@
 
 <div class="container1" >
 
-    <mat-card style="margin-bottom: 30px;" >
+    <mat-card style="margin-bottom: 30px;" [class.mat-elevation-z20]="true">
       <div class="row">
 
         <div class="col-2" >
@@ -152,9 +153,9 @@
 
 <!--Condicion hecha para mostrar solo cuando no se este viendo las citas-->
 <div *ngIf="mostrarHisorias==false">
-<mat-accordion class="example-headers-align">
+<mat-accordion class="example-headers-align"  >
 
-  <mat-expansion-panel [expanded]="step===0" (opened)="setStep(0)" hideToggle>
+  <mat-expansion-panel [expanded]="step===0" (opened)="setStep(0)" hideToggle [class.mat-elevation-z10]="true">
     <mat-expansion-panel-header>
         <mat-panel-title>Datos Generales</mat-panel-title>
         <mat-panel-description>Visualiazar datos generales del paciente<!-- <mat-icon>account_circle</mat-icon> --></mat-panel-description>
@@ -493,7 +494,7 @@
 
 
         
-<mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+<mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle [class.mat-elevation-z10]="true">
 <mat-expansion-panel-header>
 <mat-panel-title>
 Antecedentes familiares              
@@ -881,7 +882,7 @@ style="margin-top: 10px;"
 
 
         
-    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle [class.mat-elevation-z10]="true">
     
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -1280,7 +1281,7 @@ style="margin-top: 10px;"
 
 
 
-<mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+<mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle [class.mat-elevation-z10]="true">
   <mat-expansion-panel-header>
     <mat-panel-title>
     Habitos Toxicologicos Personales
@@ -1485,7 +1486,7 @@ style="margin-top: 10px;"
 
 
 
-<mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+<mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle [class.mat-elevation-z10]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
         Actividad Sexual y Reproductiva
@@ -1599,7 +1600,7 @@ style="margin-top: 10px;"
 
 
 
-<mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle *ngIf="mostrarAntecedenteGinecologico == true">
+<mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle *ngIf="mostrarAntecedenteGinecologico == true" [class.mat-elevation-z10]="true">
  
   <mat-expansion-panel-header>
     <mat-panel-title>
@@ -1805,7 +1806,7 @@ style="margin-top: 10px;"
 
 
 
-<mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle *ngIf="mostrarAntecedenteObstetrico == true">
+<mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle *ngIf="mostrarAntecedenteObstetrico == true" [class.mat-elevation-z10]="true">
 
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -1931,7 +1932,7 @@ style="margin-top: 10px;"
 
 
 
-<mat-expansion-panel [expanded]="step === 7" (opened)="setStep(7)" hideToggle>
+<mat-expansion-panel [expanded]="step === 7" (opened)="setStep(7)" hideToggle [class.mat-elevation-z10]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
         Planificación Familiar
