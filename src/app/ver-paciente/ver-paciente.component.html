@@ -254,8 +254,8 @@
           <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
           <mat-label>Sexo</mat-label>
           <mat-select formControlName= "sexo" readonly="readonly">
-          <mat-option value="Hombre">Hombre</mat-option>
-          <mat-option value="Mujer">Mujer</mat-option>
+          <mat-option value={{1}}>Hombre</mat-option>
+          <mat-option value={{2}}>Mujer</mat-option>
           </mat-select>
           <mat-error *ngIf="sexo.hasError('required')">campo requerido!</mat-error>
           </mat-form-field>
@@ -319,7 +319,7 @@
       </div>
 
         <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
-        disabled={{formulario_datos_generales.invalid}} (click)="readonlyDatosGenerales = !readonlyDatosGenerales; actualizar()">
+        disabled={{formulario_datos_generales.invalid}} (click)="readonlyDatosGenerales = !readonlyDatosGenerales;  actualizarDatosGenerales()">
         {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
         </button>
 
@@ -412,8 +412,8 @@
         <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
         <mat-label>Sexo</mat-label>
         <mat-select formControlName= "sexo" readonly="readonly">
-        <mat-option value="Hombre">Hombre</mat-option>
-        <mat-option value="Mujer">Mujer</mat-option>
+        <mat-option value={{1}}>Hombre</mat-option>
+        <mat-option value={{2}}>Mujer</mat-option>
         </mat-select>
         <mat-error *ngIf="sexo.hasError('required')">campo requerido!</mat-error>
         </mat-form-field>
@@ -1967,7 +1967,7 @@ style="margin-top: 10px;"
         </div>
       </form>
 
-          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar;">
+          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; cambiarInformacion();">
           {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
           </button> 
     </div>
@@ -2004,7 +2004,7 @@ style="margin-top: 10px;"
           </mat-form-field>
       </form>
           <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_planificacion_familiar.invalid}}
-          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; actualizarPlanificacionFamiliar()">
+          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; actualizarPlanificacionFamiliar(); cambiarInformacion()">
           {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
           </button> 
     </div>           
