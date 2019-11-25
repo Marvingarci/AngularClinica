@@ -1967,7 +1967,8 @@ style="margin-top: 10px;"
         </div>
       </form>
 
-          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; cambiarInformacion();">
+          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar;   cargarInformacionPlanificacionfamiliar(){
+            ();">
           {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
           </button> 
     </div>
@@ -2004,7 +2005,8 @@ style="margin-top: 10px;"
           </mat-form-field>
       </form>
           <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_planificacion_familiar.invalid}}
-          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; actualizarPlanificacionFamiliar(); cambiarInformacion()">
+          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; actualizarPlanificacionFamiliar();   cargarInformacionPlanificacionfamiliar(){
+            ()">
           {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
           </button> 
     </div>           
