@@ -179,6 +179,18 @@ export class DatoPacienteComponent implements OnInit {
 
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
           console.log(data);
+
+        this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente)=>{
+          this.paciente = data;
+
+          this.nombre_completo.setValue(this.paciente.nombre_completo);
+          this.numero_identidad.setValue(this.paciente.numero_identidad);
+          this.numero_cuenta.setValue(this.paciente.numero_cuenta);
+          this.carrera.setValue(this.paciente.carrera);
+          this.sexo.setValue(this.paciente.sexo);
+          this.numero_telefono.setValue(this.paciente.numero_telefono);
+        });
+
           alert('estamos en vivo');
         }, (error)=>{
           console.log(error);
