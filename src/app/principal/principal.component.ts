@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AppComponent } from "../app.component";
 import {Location} from '@angular/common';
+import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.component.html',
@@ -11,16 +12,51 @@ export class PrincipalComponent implements OnInit {
   panelOpenState = false;
   typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
   
+  public isSpinnerVisible:boolean; 
+  // @Output() messageEvent = new EventEmitter<boolean>();  esto es para mandar string de un componente a otro
 
-  constructor(mostrar: AppComponent,private _location: Location) {
+  constructor(mostrar: AppComponent,private _location: Location,private router: Router) {
     mostrar.mostrar();
+   
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+          this.isSpinnerVisible = true;
+
+      } else if ( event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
+          this.isSpinnerVisible = false;
+      }
+  }, () => {
+      this.isSpinnerVisible = false;
+  });
+
+    
    }
 
     atras() {
-        this._location.back();
+        this._location.back();        
     }
 
-  ngOnInit() {
+    
+    
+   
+    ngOnInit() {
   }
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

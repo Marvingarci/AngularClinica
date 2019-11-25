@@ -10,7 +10,7 @@
   overflow: auto;
   position: absolute;
   overflow-x: hidden;    
-  background-color: rgb(225, 236, 250);
+  /* background-color: rgb(225, 236, 250); */
 }
 
 .mat-icon-button{

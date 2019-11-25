@@ -29,6 +29,31 @@ export interface Select {
   viewValue: string;
 }
 
+export interface Sexos {
+  value: number;
+  viewValue: string;
+}
+
+export interface EstadosCiviles{
+  value: number;
+  viewValue: string;
+}
+
+export interface SegurosMedicos{
+  value: number;
+  viewValue: string;
+}
+
+export interface PracticasSexuales {
+  value: number;
+  viewValue: string;
+}
+
+export interface MetodoPlanificacion{
+  value: number;
+  viewValue: string;
+}
+
 export interface Element{
   antecedente: string;
   valor: string;
@@ -470,24 +495,24 @@ ocultar: boolean = true;
     {value: 'P', viewValue: 'Prosene'}
   ];
 
-  sexos: select[] = [
-    {value: 'hombre', viewValue: 'Hombre'},
-    {value: 'mujer', viewValue: 'Mujer'},
-    {value: 'otro', viewValue: 'Otro'}
+  sexos: Sexos[] = [
+    {value: 1, viewValue: 'Hombre'},
+    {value: 2, viewValue: 'Mujer'},
+    //{value: 3, viewValue: 'Otro'}
   ];
 
-  seguros_medicos: select[] = [
-    {value: 'Privado', viewValue: 'Privado'},
-    {value: 'IHSS', viewValue: 'IHSS'},
-    {value: 'No', viewValue: 'No'}
+  seguros_medicos: SegurosMedicos[] = [
+    {value: 1, viewValue: 'Privado'},
+    {value: 2, viewValue: 'IHSS'},
+    {value: 3, viewValue: 'No'}
   ];
 
-  estados_civiles: select[] = [
-    {value: 'Soltero', viewValue: 'Soltero'},
-    {value: 'Union Libre', viewValue: 'Union Libre'},
-    {value: 'Divorciado', viewValue: 'Divorciado'},
-    {value: 'Viudo', viewValue: 'Viudo'},
-    {value: 'Casado', viewValue: 'Casado'},   
+  estados_civiles: EstadosCiviles[] = [
+    {value: 1, viewValue: 'Soltero'},
+    {value: 2, viewValue: 'Union Libre'},
+    {value: 3, viewValue: 'Divorciado'},
+    {value: 4, viewValue: 'Viudo'},
+    {value: 5, viewValue: 'Casado'},   
   ];
 
   parentescos: select[] = [
@@ -531,10 +556,10 @@ ocultar: boolean = true;
     {value: 'Leucemia' , viewValue: 'Leucemia'},
   ];
 
-  practicas_sexuales: select[] = [
-    {value: 'Anal' , viewValue: 'Anal'},
-    {value: 'Vaginal' , viewValue: 'Vaginal'},
-    {value: 'Oral' , viewValue: 'Oral'},
+  practicas_sexuales: PracticasSexuales[] = [
+    {value: 1 , viewValue: 'Anal'},
+    {value: 2 , viewValue: 'Vaginal'},
+    {value: 3 , viewValue: 'Oral'},
   ];
 
   periocidades: select[] = [
@@ -548,16 +573,16 @@ ocultar: boolean = true;
     {value: 'Escasa' , viewValue: 'Escasa'},
   ];
 
-  metodos: select[] = [
-    {value: 'DIU' , viewValue: 'DIU'},
-    {value: 'Condón' , viewValue: 'Condón'},
-    {value: 'Pastilla' , viewValue: 'Pastilla'},
-    {value: 'Implante' , viewValue: 'Implante'},
-    {value: 'Inyección trimestral' , viewValue: 'Inyección trimestral'},
-    {value: 'Inyección trimestral' , viewValue: 'Inyección trimestral'},
-    {value: 'Inyección mensual' , viewValue: 'Inyección mensual'},
-    {value: 'Ritmo' , viewValue: 'Ritmo'},
-    {value: 'Esterilización' , viewValue: 'Esterilización'},
+  metodos: MetodoPlanificacion[] = [
+    {value: 1 , viewValue: 'DIU'},
+    {value: 2 , viewValue: 'Condón'},
+    {value: 3 , viewValue: 'Pastilla'},
+    {value: 4 , viewValue: 'Implante'},
+    {value: 5 , viewValue: 'Inyección trimestral'},
+    {value: 6 , viewValue: 'Inyección trimestral'},
+    {value: 7 , viewValue: 'Inyección mensual'},
+    {value: 8 , viewValue: 'Ritmo'},
+    {value: 9 , viewValue: 'Esterilización'},
   ];
 
   resultados_embarazos: select[] = [
@@ -1418,10 +1443,114 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
   }
 
 
+  cambiarInformacionPlanificacionFamiliar(){
+    if(this.readonlyPlanificacionFamiliar){
+      switch(this.metodo_planificacion.value){
+        case 1:
+            this.metodo_planificacion.setValue("DIU");
+            break;
+        case 2:
+            this.metodo_planificacion.setValue("Condón");
+              break;
+        case 3:
+            this.metodo_planificacion.setValue("Pastilla");
+            break;
+        case 4:
+            this.metodo_planificacion.setValue("Implante");
+            break;
+        case 5:
+            this.metodo_planificacion.setValue("Inyección trimestral");
+            break;
+        case 6:
+            this.metodo_planificacion.setValue("Inyección trimestral");
+            break;
+        case 7:
+            this.metodo_planificacion.setValue("Inyección mensual");
+            break;
+        case 8:
+            this.metodo_planificacion.setValue("Ritmo");
+            break;
+        default:
+            this.metodo_planificacion.setValue("Esterilización");
+            break;
+        
+  
+      }
+    }else{
+      switch(this.metodo_planificacion.value){
+        case "DIU":
+            this.metodo_planificacion.setValue(1);
+            break;
+        case "Condón":
+            this.metodo_planificacion.setValue(2);
+              break;
+        case "Pastilla":
+            this.metodo_planificacion.setValue(3);
+            break;
+        case "Implante":
+            this.metodo_planificacion.setValue(4);
+            break;
+        case "Inyección trimestral":
+            this.metodo_planificacion.setValue(5);
+            break;
+        case "Inyección trimestral":
+            this.metodo_planificacion.setValue(6);
+            break;
+        case "Inyección mensual":
+            this.metodo_planificacion.setValue(7);
+            break;
+        case "Ritmo":
+            this.metodo_planificacion.setValue(8);
+            break;
+        default:
+            this.metodo_planificacion.setValue(9);
+            break;
+        
+  
+      }
+    }
+  }
+
 
   cargarInformacionPlanificacionfamiliar(){
-
+ 
+    
     this.planificacion_familiarr.setValue(this.planificacion_familiar.planificacion_familiar);
+
+    
+    switch(this.planificacion_familiar.metodo_planificacion){
+      case 1:
+          this.planificacion_familiar.metodo_planificacion = "DIU";
+          break;
+      case 2:
+            this.planificacion_familiar.metodo_planificacion = "Condón";
+            break;
+      case 3:
+          this.planificacion_familiar.metodo_planificacion = "Pastilla";
+          break;
+      case 4:
+          this.planificacion_familiar.metodo_planificacion = "Implante";
+          break;
+      case 5:
+          this.planificacion_familiar.metodo_planificacion = "Inyección trimestral";
+          break;
+      case 6:
+          this.planificacion_familiar.metodo_planificacion = "Inyección trimestral";
+          break;
+      case 7:
+          this.planificacion_familiar.metodo_planificacion = "Inyección mensual";
+          break;
+      case 8:
+          this.planificacion_familiar.metodo_planificacion = "Ritmo";
+          break;
+      default:
+          this.planificacion_familiar.metodo_planificacion = "Esterilización";
+          break;
+      
+
+    }
+  
+
     this.metodo_planificacion.setValue(this.planificacion_familiar.metodo_planificacion);
     this.observacion_planificacion.setValue(this.planificacion_familiar.observacion_planificacion);
 

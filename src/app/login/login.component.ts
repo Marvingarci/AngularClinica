@@ -155,7 +155,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
       if (this.medico.contraseniaM  == this.login.clave) {
         console.log(this.medico.contraseniaM);console.log( this.login.cuenta);
         this.showError('Bienvenido Medico'); 
-        this.router.navigate(['/principal/']);
+        this.router.navigate(['/principal/principal1']);
       }else{
         console.log(this.medico.contraseniaM );console.log( this.login.cuenta);
         this.loading=false;
@@ -171,7 +171,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
       if (this.login_admin.contrasenia_admin  == this.login.clave) {
         console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
         this.showError('Bienvenido Administrador'); 
-        this.router.navigate(['/principal/']);
+        this.router.navigate(['/principal/principal1']);
       }else{
         console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
         this.loading=false;
@@ -225,7 +225,7 @@ if (this.pase == true) {
     if (this.medico.contraseniaM  == this.login.clave) {
       console.log(this.medico.contraseniaM);console.log( this.login.cuenta);
       this.showError('Bienvenido Medico'); 
-      this.router.navigate(['/principal/']);
+      this.router.navigate(['/principal/principal1']);
    }else{
       console.log(this.medico.contraseniaM );console.log( this.login.cuenta);
       this.loading=false;
@@ -241,7 +241,7 @@ if (this.pase == true) {
     if (this.login_admin.contrasenia_admin  == this.login.clave) {
       console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
       this.showError('Bienvenido Administrador'); 
-      this.router.navigate(['/principal/']);
+      this.router.navigate(['/principal/principal1']);
     }else{
       console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
       this.loading=false;

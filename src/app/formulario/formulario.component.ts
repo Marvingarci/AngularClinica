@@ -35,7 +35,8 @@ export interface Loginadmin {
 export interface Element{
 
   numero: number;
-  antecedente: string;
+  antecedente?: string;
+  tipo_desnutricion?: string;
   parentesco: any;
   
 }
@@ -265,6 +266,10 @@ export class FormularioComponent implements OnInit {
     formControl.forEach(controlador => {
       controlador.enable({onlySelf: true});    
     });
+
+    //muestro el contenido de este div si el usuario hace click en "si"
+    document.getElementById("divAgregarTiposDesnutricion").style.display = "block";
+    
   }
 
   borrarInputs(formControl : FormControl[]){
@@ -272,6 +277,14 @@ export class FormularioComponent implements OnInit {
       controlador.setValue('');
       controlador.disable({onlySelf: true});
     });
+
+    //oculto el contenido de este div si el usuario hace click en "no" y establezco
+    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
+    // limpio la tablaDesnutriciones para que quede en blanco.
+    document.getElementById("divAgregarTiposDesnutricion").style.display = "none";
+    this.dataSourceTablaDesnutriciones = null;
+    this.tablaDesnutriciones = [];
+
   }
 
   ya(){
@@ -807,8 +820,10 @@ this.des3 = true;
   esAlumno: boolean = true;
 
   tablaOtros: Element[] = [];
+  tablaDesnutriciones: Element[] = [];
 
-  dataSource : any;
+  dataSourceTablaOtros : any;
+  dataSourceTablaDesnutriciones : any;
   columnasTabla: string[] = ['numero','antecedente','parentesco'];
 
 
@@ -942,7 +957,7 @@ this.des3 = true;
     
   }
 
-  agregar(){
+  agregarOtros(){
 
     if(this.otros.value.toString().trim() && this.otros.valid && this.parentesco_otros.value){
       var stringParentesco: string = "";
@@ -1012,10 +1027,93 @@ this.des3 = true;
 
       );
 
-      this.dataSource =  new MatTableDataSource(this.tablaOtros);
+      this.dataSourceTablaOtros =  new MatTableDataSource(this.tablaOtros);
 
       this.otros.setValue('');
       this.parentesco_otros.setValue('');
+
+    }
+    
+
+  }
+
+  agregarDesnutriciones(){
+
+    if(this.tipo_desnutricion.value && this.tipo_desnutricion.valid && this.parentesco_desnutricion.value){
+      
+      var stringParentesco: string = "";      
+
+      // comparo si solo se selecciono un valor en el select de parentesco_desnutricion
+      if(this.parentesco_desnutricion.value.length == 1){
+
+        switch (this.parentesco_desnutricion.value[0]) {
+          case 1:
+            stringParentesco = "Padre"
+            break;
+          case 2:
+            stringParentesco = "Madre"
+            break;
+          case 3:
+            stringParentesco = "Tios"
+            break;
+          case 4:
+            stringParentesco = "Abuelos"
+            break;
+          default:
+            stringParentesco = "Otros"
+            break;
+        }
+      }else{
+
+        this.parentesco_desnutricion.value.forEach(element => {
+
+          switch (element) {
+            case 1:
+              element = "Padre"           
+              break;
+            case 2:
+              element = "Madre"
+              break;
+            case 3:
+              element = "Tios"
+              break;
+            case 4:
+              element = "Abuelos"
+              break;
+            default:
+              element = "Otros"
+              break;
+          }
+          
+          //si se selecciono mas de un valor del select de parentesco_desnutricion
+          //los guardo cada uno en una variable de tipo string y los separo con un espacio.
+          stringParentesco += element+" ";       
+        });
+
+        //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
+        stringParentesco = stringParentesco.trim();
+        // var parentescosVarios: string[] = stringParentesco.trim().split(' ');
+        
+        // console.log(parentescosVarios);
+
+        
+      }
+    
+      //agrego a la tabla el parentesco y el tipo de desnutricion.
+      this.tablaDesnutriciones.push(
+        {
+          numero: this.tablaDesnutriciones.length + 1,
+          tipo_desnutricion: this.tipo_desnutricion.value,
+          parentesco: stringParentesco,
+          
+        }
+
+      );
+
+      this.dataSourceTablaDesnutriciones =  new MatTableDataSource(this.tablaDesnutriciones);
+
+      this.tipo_desnutricion.setValue('');
+      this.parentesco_desnutricion.setValue('');
 
     }
     
