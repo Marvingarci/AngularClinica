@@ -1,127 +1,27 @@
+/* EN GENERAL */
 .intro{
   background-color: #fff;
   color: #000;
 }
-
-/* .fondo2{
-background-color: rgb(225, 236, 250);
-} */
-
-
-  .example-container {
-    position: absolute;
-    top: 65px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background:rgb(253, 253, 253);
-  margin-bottom: -2px; }
-
-    .router-link-active{
-      color: #fff;
-      background-color: #B721FF;
-      outline:none;  
-  display:block;
-    } 
-
-    mat-action-list{
-      width: 200px;
-      height: 70%;
-    }
-
-   
-
-    /* .router-link-active:hover{ 
-      color: #fff;
-      background-color: #21D4FD;
-      transition: all 1s ease;
-   } 
-  */
-  .example-fill-remaining-space {
-      flex: 1 1 auto;    
-  }
-
-  .title {
-    display: block;
-    font-family: Poppins-Regular,sans-serif;
-    font-size: 30px;
-    color: #fff;
-    line-height: 1.2;
-    text-align: center;
-    padding: 20px;
+.example-full-width {
+  width: 100%;
 }
 
-  .example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-    font-size: 16px;
-  }
-  
-  .example-full-width {
-    width: 100%;
-  }
-
-.hoveritem{
-  width: 226px;
-  height: 48px;
-  padding-left: 16px;
-  padding-right: 16px;
-  outline:none;  
-  display:block;
-}
-
-  .hoveritem:hover{
-    background-color: #21D4FD;
-    color: #fff;
-    transition: all 1s ease;
-  }
- 
-
-
-.container{
-overflow: auto;
-height: 100%;
-min-width: 100px;  
-background-color: #fff;
-color: #fff;  
+/* PARA EL TOOLBAR */
+.title {
+  display: block;
+  font-family: Poppins-Regular,sans-serif;
+  font-size: 30px;
+  color: #fff;
+  line-height: 1.2;
+  text-align: center;
+  padding: 20px;
 }
 
 
 
 
-/* Tamaño del scroll */
-.container::-webkit-scrollbar {
-width: 8px;
-height: 8px;
-}
-
- /* Estilos barra (thumb) de scroll */
-.container::-webkit-scrollbar-thumb {
-  background: rgb(104, 71, 250);
-  border-radius: 4px;
-}
-
-.container::-webkit-scrollbar-thumb:active {
-  background-color: #1fb7f3;
-}
-
-.container::-webkit-scrollbar-thumb:hover {
-  background: #1100fd;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-}
-
- /* Estilos track de scroll */
-.container::-webkit-scrollbar-track {
-  background: #a7a0ff;
-  border-radius: 4px;
-}
-
-.container::-webkit-scrollbar-track:hover, 
-.container::-webkit-scrollbar-track:active {
-  background: #787bff;
-}
-
+/* PARA EL SIDENAV */
 .logoU{
   background: url('src\imagenes\logoUperron.jpg');
   -webkit-background-size: cover;
@@ -129,11 +29,89 @@ height: 8px;
   -o-background-size: cover;
   background-size: cover;  
  }
-
-#spin{
+  .example-container {
   position: absolute;
-   top: 50%;
-   left: 50%;
-   width: 100%;
-   height: 100%;
+  top: 65px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background:rgb(253, 253, 253);
+  margin-bottom: -2px; 
+  }
+
+  .router-link-active{
+  color: #fff;
+  background-color: #B721FF;
+  outline:none;  
+  display:block;
+  } 
+
+  mat-action-list{
+  width: 200px;
+  height: 70%;
+  }
+
+  .example-fill-remaining-space {
+  flex: 1 1 auto;    
+  }
+
+  .example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  font-size: 16px;
+  } 
+
+  .hoveritem{
+  width: 226px;
+  height: 48px;
+  padding-left: 16px;
+  padding-right: 16px;
+  outline:none;  
+  display:block;
+  }
+
+  .hoveritem:hover{
+  background-color: #21D4FD;
+  color: #fff;
+  transition: all 1s ease;
+  }
+
+  .container{
+  overflow: auto;
+  height: 100%;
+  min-width: 100px;  
+  background-color: #fff;
+  color: #fff;  
+  }
+
+  
+
+
+/* PARA EL SCROLL */
+/* Tamaño del scroll */
+.container::-webkit-scrollbar {
+width: 8px;
+height: 8px;
+}
+ /* Estilos barra (thumb) de scroll */
+.container::-webkit-scrollbar-thumb {
+  background: rgb(104, 71, 250);
+  border-radius: 4px;
+}
+.container::-webkit-scrollbar-thumb:active {
+  background-color: #1fb7f3;
+}
+.container::-webkit-scrollbar-thumb:hover {
+  background: #1100fd;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+ /* Estilos track de scroll */
+.container::-webkit-scrollbar-track {
+  background: #a7a0ff;
+  border-radius: 4px;
+}
+.container::-webkit-scrollbar-track:hover, 
+.container::-webkit-scrollbar-track:active {
+  background: #787bff;
 }
