@@ -123,7 +123,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
   
   //pacientes
       for (let index = 0; index < this.pacientes.length; index++) {
-        if (this.pacientes[index].numero_cuenta == this.login.cuenta) {
+        if (this.pacientes[index].numero_cuenta == this.login.cuenta || this.pacientes[index].numero_identidad == this.login.cuenta ) {
             this.pase=false;
             this.paciente=this.pacientes[index];
           }       

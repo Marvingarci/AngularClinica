@@ -201,7 +201,7 @@
   <mat-toolbar>        
       <mat-toolbar-row class="toolbar"> 
         <span (click)="drawer.toggle()" style="cursor: pointer;margin-top: 5px;"><mat-icon>reorder</mat-icon> </span>
-        <span class="title"><strong> Clinica UNAH-TEC Danlí</strong></span>
+        <span class="title"><strong> Clínica UNAH-TEC Danlí</strong></span>
 
         <span class="example-spacer"></span>
         <span class="example-fill-remaining-space"></span>
@@ -224,13 +224,20 @@
           </div>
         
           <mat-action-list class="intro">
-            <button (click)="principal()" class="hoveritem "[routerLink]="['/principal/principal1']" routerLinkActive="router-link-active" ><strong> Principal</strong></button>
-            <button (click)="pacientes()" [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"><strong> Pacientes</strong></button>
-            <button (click)="at1()"  [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"><strong>  At1</strong>  </button>
-            <button (click)="consolidariodiario()" class="hoveritem"><strong> Consolidado Diario </strong></button>
-            <button (click)="inventario()" [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Inventario </strong> </button>
-            <button (click)="admininstradores()" [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Administradores </strong> </button>
-            <button (click)="ayuda()"  class="hoveritem"> <strong> Ayuda? </strong> </button>
+            <button (click)="principal()" class="hoveritem "[routerLink]="['/principal/principal1']" routerLinkActive="router-link-active" >
+              <mat-icon style="vertical-align: middle;">home</mat-icon><strong> Principal </strong></button>
+            <button (click)="pacientes()" [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem">
+              <mat-icon style="vertical-align: middle;">folder_shared</mat-icon><strong> Pacientes</strong></button>
+            <button (click)="at1()"  [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"> 
+              <mat-icon style="vertical-align: middle;">    receipt    </mat-icon><strong>At1</strong></button>
+            <button (click)="consolidariodiario()" class="hoveritem">
+                <mat-icon style="vertical-align: middle;">     today       </mat-icon><strong> Consolidado Diario </strong></button>
+            <button (click)="inventario()" [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> 
+              <mat-icon style="vertical-align: middle;">   healing      </mat-icon><strong> Inventario </strong> </button>
+            <button (click)="admininstradores()" [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem">
+              <mat-icon style="vertical-align: middle;">    assignment_ind    </mat-icon> <strong> Administradores </strong> </button>
+            <button (click)="ayuda()"  class="hoveritem">
+                <mat-icon style="vertical-align: middle;">   help       </mat-icon><strong>Ayuda</strong> </button>
           </mat-action-list>  
     </div>     
   </mat-sidenav>

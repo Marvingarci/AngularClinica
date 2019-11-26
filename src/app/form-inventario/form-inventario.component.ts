@@ -4,6 +4,7 @@ import { Inventario } from '../interfaces/inventario';
 import { InventariosService } from '../services/inventarios.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../app.component';
+import { MatSnackBarConfig, MatSnackBar } from '@angular/material';
 
 export interface select {
   value: number;
@@ -79,7 +80,8 @@ export class FormInventarioComponent implements OnInit {
   id: any;
   editando: boolean= false;
 
-  constructor(private router: Router, activar: AppComponent, private inventariosService:InventariosService, private activatedRoute: ActivatedRoute,) {
+  constructor(private router: Router, activar: AppComponent, private inventariosService:InventariosService, 
+    private activatedRoute: ActivatedRoute, private mensaje: MatSnackBar) {
     activar.esconder();
 
     this.id = this.activatedRoute.snapshot.params['id'];
@@ -106,6 +108,12 @@ export class FormInventarioComponent implements OnInit {
     
    }
 
+   showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
   ngOnInit() {
   }
 
@@ -124,21 +132,23 @@ export class FormInventarioComponent implements OnInit {
       if(this.editando == true){
         this.inventariosService.actualizarInventario(this.inventario).subscribe((data)=>{
           console.log(data);
-          alert('Actualizada');
+          this.showError('Medicamento actualizado exitósamente'); 
           this.router.navigate(['/principal/inventario']);
         });
         
       }else{
         this.inventariosService.save(this.inventario).subscribe((data) =>{
           console.log(data);   
-          alert('todo perron');  
+          this.showError('Medicamento ingresado exitósamente');  
           this.router.navigate(['/principal/inventario']);
         }, (error) => {
           console.log(error);
-          alert('se chorrio');
+          this.showError('Ocurrió un error'); 
         });
       }
       
+    }else{
+      this.showError('Ingrese los datos correctamente'); 
     }
     
   }
