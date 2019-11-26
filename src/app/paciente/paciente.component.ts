@@ -100,8 +100,8 @@ export class PacienteComponent implements OnInit {
   
  
 
-  displayedColumns: string[] = ['id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono', 'nada'];
-  displayedColumns2: string[] = ['id_paciente', 'nombre_completo', 'numero_cuenta', 'sexo', 'numero_telefono', 'nada'];
+  displayedColumns: string[] = ['id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'];
+  displayedColumns2: string[] = ['id_paciente', 'nombre_completo', 'numero_cuenta', 'sexo', 'numero_telefono'];
 
 
   applyFilter(filterValue: string) {

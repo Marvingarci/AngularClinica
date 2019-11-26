@@ -1,8 +1,8 @@
 <mat-card style="margin: 15px;" [class.mat-elevation-z20]="true"> 
 <div class="container">
 <div>
-    <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">            
+    <mat-form-field class="medium-width">
+    <input matInput (keyup)="applyFilter($event.target.value)"  ><mat-label><mat-icon>search</mat-icon> &nbsp;   <b>Buscar Administrador</b> </mat-label>            
     </mat-form-field>
     <button 
     mat-raised-button [routerLink]="['/principal/loginadmin']" 
