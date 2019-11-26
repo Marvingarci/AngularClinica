@@ -95,7 +95,46 @@ export class FormInventarioComponent implements OnInit {
         this.nombre.setValue(this.inventario.nombre);
         this.descripcion.setValue(this.inventario.descripcion);
         this.observacion.setValue(this.inventario.observacion);
-        this.presentacion.setValue(this.inventario.presentacion);
+
+        switch(this.inventario.presentacion){
+          case "Tabletas":
+              this.presentacion.setValue(1);
+              break;
+          case "Cápsulas":
+              this.presentacion.setValue(2);
+                break;
+          case "Comprimidos":
+            this.presentacion.setValue(3);
+              break;
+          case "Sobres":
+            this.presentacion.setValue(4);
+              break;
+          case "Jarabe":
+            this.presentacion.setValue(5);
+              break;
+          case "Crema":
+            this.presentacion.setValue(6);
+              break;
+          case "Supositorio":
+            this.presentacion.setValue(7);
+              break;
+          case "Óvulo":
+            this.presentacion.setValue(8);
+              break;
+          case "Suspencion":
+            this.presentacion.setValue(9);
+               break;
+          case "Solución":
+            this.presentacion.setValue(10);
+              break;
+                    
+          default:
+              this.presentacion.setValue(11);
+              break;
+          
+    
+        }
+        //this.presentacion.setValue(this.inventario.presentacion);
         //this.fecha_vencimiento.setValue(this.inventario.fecha_vencimiento);
         
       },(error)=>{
@@ -105,6 +144,90 @@ export class FormInventarioComponent implements OnInit {
     }
     
    }
+
+   //cambiarInformacionInventario(){
+     
+     //if(!this.editando){
+    //switch(this.presentacion.value){
+      //case 1:
+         // this.presentacion.setValue("Tabletas");
+         // break;
+     // case 2:
+       //   this.presentacion.setValue("Cápsulas");
+         //   break;
+     // case 3:
+       // this.presentacion.setValue("Comprimidos");
+        //  break;
+     // case 4:
+      //  this.presentacion.setValue("Sobres");
+       //   break;
+      //case 5:
+        //this.presentacion.setValue("Jarabe");
+         // break;
+      //case 6:
+       // this.presentacion.setValue("Crema");
+         // break;
+      //case 7:
+       // this.presentacion.setValue("Supositorio");
+        //  break;
+     // case 8:
+       // this.presentacion.setValue("Óvulo");
+        //  break;
+     // case 9:
+       // this.presentacion.setValue("Suspencion");
+         //  break;
+     // case 10:
+       // this.presentacion.setValue("Solución");
+        //  break;
+                
+     // default:
+       //   this.presentacion.setValue("Inyectable");
+     //     break;
+      
+
+   // }
+ // }else{
+   // switch(this.presentacion.value){
+     // case "Tabletas":
+       //   this.presentacion.setValue(1);
+         // break;
+     // case "Cápsulas":
+       //   this.presentacion.setValue(2);
+         //   break;
+      //case "Comprimidos":
+        //this.presentacion.setValue(3);
+         // break;
+     // case "Sobres":
+       // this.presentacion.setValue(4);
+         // break;
+     // case "Jarabe":
+       // this.presentacion.setValue(5);
+         // break;
+      //case "Crema":
+       // this.presentacion.setValue(6);
+         // break;
+      //case "Supositorio":
+       // this.presentacion.setValue(7);
+         // break;
+     // case "Óvulo":
+       // this.presentacion.setValue(8);
+         // break;
+     // case "Suspencion":
+       // this.presentacion.setValue(9);
+         //  break;
+      //case "Solución":
+        //this.presentacion.setValue(10);
+          //break;
+                
+     // default:
+       //   this.presentacion.setValue(11);
+         // break;
+      
+
+    //}
+ // }
+//}
+   
 
   ngOnInit() {
   }
