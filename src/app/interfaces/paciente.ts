@@ -10,7 +10,7 @@ export interface Paciente {
     direccion: string;
     carrera: string;
     fecha_nacimiento: Date;
-    sexo: string;
+    sexo: any;
     estado_civil: any;
     seguro_medico?: any;
     numero_telefono: string;

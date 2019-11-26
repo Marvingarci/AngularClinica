@@ -1184,6 +1184,31 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     
   }
 
+  cambiarInformacionDatos(){
+    if(this.readonlyDatosGenerales){
+      switch(this.sexo.value){
+        case 1:
+            this.sexo.setValue("Hombre");
+            break;
+        default:
+            this.sexo.setValue("Mujer");
+            break;
+        
+  
+      }
+    }else{
+      switch(this.sexo.value){
+        case "Hombre":
+            this.sexo.setValue(1);
+            break;
+        default:
+            this.sexo.setValue(2);
+            break;
+        
+  
+      }
+    }
+  }
 
 
   cargarInformacionDatosGenerales(){
@@ -1193,11 +1218,53 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.numero_identidad.setValue(this.paciente.numero_identidad);
     this.numero_cuenta.setValue(this.paciente.numero_cuenta);
     this.carrera.setValue(this.paciente.carrera);
+
+    switch(this.paciente.sexo){
+      case 1:
+        this.paciente.sexo = "Hombre";
+          break;
+      default:
+        this.paciente.sexo = "Mujer";
+          break;
+    }   
+
     this.sexo.setValue(this.paciente.sexo);
     this.lugar_procedencia.setValue(this.paciente.lugar_procedencia);
     this.direccion.setValue(this.paciente.direccion);
     this.fecha_nacimiento.setValue(this.paciente.fecha_nacimiento);
+
+    switch(this.paciente.estado_civil){
+      case 1:
+        this.paciente.estado_civil = "Soltero";
+          break;
+      case 2:
+        this.paciente.estado_civil = "Union Libre";
+          break;
+      case 3:
+        this.paciente.estado_civil = "Divorciado";
+          break;
+      case 4:
+        this.paciente.estado_civil = "Viudo";
+          break;
+
+      default:
+        this.paciente.estado_civil = "Casado";
+          break;
+    }
+
     this.estado_civil.setValue(this.paciente.estado_civil);
+
+    switch(this.paciente.seguro_medico){
+      case 1:
+        this.paciente.seguro_medico = "Privado";
+          break;
+      case 2:
+        this.paciente.seguro_medico = "IHSS";
+          break;
+      default:
+        this.paciente.seguro_medico = "No";
+          break;
+    }
     this.seguro_medico.setValue(this.paciente.seguro_medico);
     this.numero_telefono.setValue(this.paciente.numero_telefono);
     this.emergencia_telefono.setValue(this.paciente.emergencia_telefono);
@@ -1420,6 +1487,38 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.observacion_otros_ht.setValue(this.habito_toxicologico_personal.observacion_otros);
   }
 
+  cambiarInformacionActividadSexual(){
+    if(this.readonlyActividadSexual){
+      switch(this.practicas_sexuales_riesgo.value){
+        case 1:
+            this.practicas_sexuales_riesgo.setValue("Anal");
+            break;
+        case 2:
+            this.practicas_sexuales_riesgo.setValue("Vaginal");
+              break;
+        default:
+            this.practicas_sexuales_riesgo.setValue("Oral");
+            break;
+        
+  
+      }
+    }else{
+      switch(this.practicas_sexuales_riesgo.value){
+        case "Anal":
+            this.practicas_sexuales_riesgo.setValue(1);
+            break;
+        case "Vaginal":
+            this.practicas_sexuales_riesgo.setValue(2);
+              break;
+        default:
+            this.practicas_sexuales_riesgo.setValue(3);
+            break;
+        
+  
+      }
+    }
+  }
+
 
 
   cargarInformacionActividadSexual(){
@@ -1427,6 +1526,20 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.actividad_sexuall.setValue(this.actividad_sexual.actividad_sexual);
     this.edad_inicio_sexual.setValue(this.actividad_sexual.edad_inicio_sexual);
     this.numero_parejas_sexuales.setValue(this.actividad_sexual.numero_parejas_sexuales);
+
+    switch(this.actividad_sexual.practicas_sexuales_riesgo){
+      case 1:
+        this.actividad_sexual.practicas_sexuales_riesgo = "Anal";
+          break;
+      case 2:
+        this.actividad_sexual.practicas_sexuales_riesgo = "Vaginal";
+            break;
+
+      default:
+        this.actividad_sexual.practicas_sexuales_riesgo = "Oral";
+          break;
+    }      
+
     this.practicas_sexuales_riesgo.setValue(this.actividad_sexual.practicas_sexuales_riesgo);
 
     if(this.actividad_sexuall.value == "No"){
