@@ -1,13 +1,11 @@
-.example-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.intro{
+  background-color: #fff;
+  color: #000;
 }
 
+/* contenido principal */
 .container1{
-  height: 90%;
+  height: 100%;
   min-width: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -16,9 +14,58 @@
   overflow: auto;
   position: absolute;
   overflow-x: hidden;  
-  /* background-color: rgb(225, 236, 250); */
 }
 
+
+
+/* para el sidenav */
+.example-container {
+  position: absolute;
+  top: 65px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background:rgb(253, 253, 253);
+margin-bottom: -2px; 
+}
+
+.router-link-active{
+  color: #fff;
+  background-color: #B721FF;
+  outline:none;  
+display:block;
+} 
+
+mat-action-list{
+  width: 200px;
+  height: 70%;
+}
+
+.example-fill-remaining-space {
+  flex: 1 1 auto;    
+}
+
+.hoveritem{
+  width: 226px;
+  height: 48px;
+  padding-left: 16px;
+  padding-right: 16px;
+  outline:none;  
+  display:block;
+}
+
+  .hoveritem:hover{
+    background-color: #21D4FD;
+    color: #fff;
+    transition: all 1s ease;
+  }
+
+  .container{
+    height: 100%;
+    min-width: 100px;  
+    background-color: #fff;
+    color: #fff;  
+    }
 
 .title {
   display: block;
@@ -105,38 +152,39 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 
+.logoU{
+  background: url('src\imagenes\logoUperron.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+ }
 
 
 
-
-
+/* PARA EL SCROLL */
 /* Tamaño del scroll */
 .container1::-webkit-scrollbar {
   width: 12px;
   height: 10px;
 }
-
  /* Estilos barra (thumb) de scroll */
 .container1::-webkit-scrollbar-thumb {
   background: rgb(104, 71, 250);
   border-radius: 4px;
 }
-
 .container1::-webkit-scrollbar-thumb:active {
   background-color: #1fb7f3;
 }
-
 .container1::-webkit-scrollbar-thumb:hover {
   background: #1100fd;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
 }
-
  /* Estilos track de scroll */
 .container1::-webkit-scrollbar-track {
   background: #a7a0ff;
   border-radius: 4px;
 }
-
 .container1::-webkit-scrollbar-track:hover, 
 .container1::-webkit-scrollbar-track:active {
   background: #787bff;
