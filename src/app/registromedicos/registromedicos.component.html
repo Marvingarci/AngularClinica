@@ -82,12 +82,11 @@
       </mat-form-field>
     </div>
 
-<div style="text-align: right;">
-    <button  (click)="comprobarDatos()"  mat-raised-button class="boton" > Guardar</button>  
-</div> 
+
 
 </mat-card>  
 <div >
+    <button  mat-raised-button [routerLink]="['/principal/medicos']" class="btn btn-outline-primary float-right botonperron" style="margin-top: 20px;margin-left: 10px;"> Cancelar</button> 
     <button  mat-raised-button (click)="comprobarDatos()"  class="btn btn-outline-primary float-right botonperron" style="margin-top: 20px;margin-bottom: 15px;"> Guardar</button>  
 </div>
 </form>

@@ -9,9 +9,7 @@ table {
     line-height:10px;
     text-transform: uppercase;
     float: right;
-    margin-top: 15px;
-    
-     
+    margin-top: 15px;     
     }
     /* .boton:hover{
         background: azure;
@@ -25,4 +23,8 @@ table {
       height: 25px;
       margin-top: 7px;
       padding: 0%;
+      }
+
+      .medium-width {
+        width: 50%;
       }

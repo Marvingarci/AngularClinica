@@ -4,7 +4,7 @@
     <div class="container">
         <div>
           <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+            <input matInput (keyup)="applyFilter($event.target.value)" ><mat-label><mat-icon>search</mat-icon> &nbsp;   <b>Buscar Medicamento</b> </mat-label>
           </mat-form-field>
 
           <button mat-raised-button [routerLink]="['/principal/formInventario']" routerLinkActive="router-link-active" class="boton botonperron">
@@ -48,7 +48,9 @@
 
             <ng-container matColumnDef="ver">
               <th mat-header-cell *matHeaderCellDef> </th>
-              <td mat-cell *matCellDef="let element"> <a class="btn" routerLink="/principal/formInventario/{{element.id_inventario}}"> <mat-label><mat-icon>create</mat-icon></mat-label></a></td>
+              <td mat-cell *matCellDef="let element">
+                  <button mat-raised-button class="botonee" color="primary" routerLink="/principal/formInventario/{{element.id_inventario}}"  > <mat-label><mat-icon>create</mat-icon></mat-label></button> &nbsp; 
+                </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
