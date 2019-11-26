@@ -1785,7 +1785,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
 export class HistoriaSubsiguiente1{
 
-  constructor(private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente1>, private mensaje: MatSnackBar){//para cerrar el dialogo desde la misma interfaz
+  constructor( private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente1>, private mensaje: MatSnackBar){//para cerrar el dialogo desde la misma interfaz
     
   }
 
