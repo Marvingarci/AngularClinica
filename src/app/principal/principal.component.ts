@@ -12,28 +12,16 @@ export class PrincipalComponent implements OnInit {
   panelOpenState = false;
   typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
   
+  public opened:boolean =true; 
   public isSpinnerVisible:boolean; 
   // @Output() messageEvent = new EventEmitter<boolean>();  esto es para mandar string de un componente a otro
 
-  constructor(mostrar: AppComponent,private _location: Location,private router: Router) {
-    mostrar.mostrar();
-   
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-          this.isSpinnerVisible = true;
+  constructor(mostrar: AppComponent,private router: Router) {
+    mostrar.mostrar();  
+}
 
-      } else if ( event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
-          this.isSpinnerVisible = false;
-      }
-  }, () => {
-      this.isSpinnerVisible = false;
-  });
-
-    
-   }
-
-    atras() {
-        this._location.back();        
+abrirside() {
+      this.opened != this.opened;         
     }
 
     
