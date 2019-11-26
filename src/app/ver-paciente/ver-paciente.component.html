@@ -1,5 +1,4 @@
-<div>
-  <mat-sidenav-container class="example-container" *ngIf="!shouldRun">
+<mat-sidenav-container class="example-container" *ngIf="!shouldRun">
   <mat-sidenav  #sidenav mode="over" [(opened)]="opened"  disableClose="true" position="end" (opened)="events.push('open!')"
                (closed)="events.push('close!')">
     
@@ -112,7 +111,7 @@
 
 <div class="container1" >
 
-    <mat-card style="margin-bottom: 30px;" [class.mat-elevation-z20]="true">
+    <mat-card style="margin-bottom: 30px;" >
       <div class="row">
 
         <div class="col-2" >
@@ -153,9 +152,9 @@
 
 <!--Condicion hecha para mostrar solo cuando no se este viendo las citas-->
 <div *ngIf="mostrarHisorias==false">
-<mat-accordion class="example-headers-align"  >
+<mat-accordion class="example-headers-align">
 
-  <mat-expansion-panel [expanded]="step===0" (opened)="setStep(0)" hideToggle [class.mat-elevation-z10]="true">
+  <mat-expansion-panel [expanded]="step===0" (opened)="setStep(0)" hideToggle>
     <mat-expansion-panel-header>
         <mat-panel-title>Datos Generales</mat-panel-title>
         <mat-panel-description>Visualiazar datos generales del paciente<!-- <mat-icon>account_circle</mat-icon> --></mat-panel-description>
@@ -320,7 +319,9 @@
       </div>
 
         <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
-        disabled={{formulario_datos_generales.invalid}} (click)="readonlyDatosGenerales = !readonlyDatosGenerales;  actualizarDatosGenerales()">
+        disabled={{formulario_datos_generales.invalid}} 
+        (click)="readonlyDatosGenerales = !readonlyDatosGenerales;
+          actualizarDatosGenerales(); cambiarInformacionDatos();">
         {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
         </button>
 
@@ -477,7 +478,7 @@
       </div>
     </div>
     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_datos_generales.invalid}}
-    (click)="readonlyDatosGenerales = !readonlyDatosGenerales; actualizarDatosGenerales()">
+    (click)="readonlyDatosGenerales = !readonlyDatosGenerales; actualizarDatosGenerales(); cambiarInformacionDatos();">
     {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
     </button>
 
@@ -494,7 +495,7 @@
 
 
         
-<mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle [class.mat-elevation-z10]="true">
+<mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
 <mat-expansion-panel-header>
 <mat-panel-title>
 Antecedentes familiares              
@@ -882,7 +883,7 @@ style="margin-top: 10px;"
 
 
         
-    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle [class.mat-elevation-z10]="true">
+    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
     
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -1281,7 +1282,7 @@ style="margin-top: 10px;"
 
 
 
-<mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle [class.mat-elevation-z10]="true">
+<mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
   <mat-expansion-panel-header>
     <mat-panel-title>
     Habitos Toxicologicos Personales
@@ -1486,7 +1487,7 @@ style="margin-top: 10px;"
 
 
 
-<mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle [class.mat-elevation-z10]="true">
+<mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
         Actividad Sexual y Reproductiva
@@ -1533,7 +1534,7 @@ style="margin-top: 10px;"
 
       </div>
       </form>
-      <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyActividadSexual = !readonlyActividadSexual">
+      <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyActividadSexual = !readonlyActividadSexual; cambiarInformacionActividadSexual();">
       {{!readonlyActividadSexual ? 'Guardar' : 'Editar'}}
       </button> 
       </div>
@@ -1576,7 +1577,7 @@ style="margin-top: 10px;"
       </div>
     </form>
 
-      <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyActividadSexual = !readonlyActividadSexual; actualizarActividadSexual()"
+      <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyActividadSexual = !readonlyActividadSexual; actualizarActividadSexual(); cambiarInformacionActividadSexual()"
       disabled={{formulario_actividad_sexual.invalid}}>
       {{!readonlyActividadSexual ? 'Guardar' : 'Editar'}}
       </button> 
@@ -1600,7 +1601,7 @@ style="margin-top: 10px;"
 
 
 
-<mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle *ngIf="mostrarAntecedenteGinecologico == true" [class.mat-elevation-z10]="true">
+<mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle *ngIf="mostrarAntecedenteGinecologico == true">
  
   <mat-expansion-panel-header>
     <mat-panel-title>
@@ -1806,7 +1807,7 @@ style="margin-top: 10px;"
 
 
 
-<mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle *ngIf="mostrarAntecedenteObstetrico == true" [class.mat-elevation-z10]="true">
+<mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle *ngIf="mostrarAntecedenteObstetrico == true">
 
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -1932,7 +1933,7 @@ style="margin-top: 10px;"
 
 
 
-<mat-expansion-panel [expanded]="step === 7" (opened)="setStep(7)" hideToggle [class.mat-elevation-z10]="true">
+<mat-expansion-panel [expanded]="step === 7" (opened)="setStep(7)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
         Planificación Familiar
@@ -1968,8 +1969,7 @@ style="margin-top: 10px;"
         </div>
       </form>
 
-          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar;   cargarInformacionPlanificacionfamiliar(){
-            ();">
+          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar;   cambiarInformacionPlanificacionFamiliar();">
           {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
           </button> 
     </div>
@@ -2006,8 +2006,7 @@ style="margin-top: 10px;"
           </mat-form-field>
       </form>
           <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_planificacion_familiar.invalid}}
-          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; actualizarPlanificacionFamiliar();   cargarInformacionPlanificacionfamiliar(){
-            ()">
+          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; actualizarPlanificacionFamiliar();   cambiarInformacionPlanificacionFamiliar()">
           {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
           </button> 
     </div>           
