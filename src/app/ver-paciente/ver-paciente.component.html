@@ -1,8 +1,8 @@
 
 <!--desde aqui es lo normal-->
-  
+  <div>
 <mat-toolbar class="toolbar">
-    <span style="cursor: pointer;margin-top: 5px;" [routerLink]="['/principal/registro']" ><mat-icon>arrow_back</mat-icon> </span>
+    <span (click)="drawer.toggle()" style="cursor: pointer;margin-top: 5px;"><mat-icon>reorder</mat-icon> </span>
     <span class="title"><strong> Clínica UNAH-TEC Danlí</strong></span>
     <span class="example-fill-remaining-space"></span>
         <span class="example-spacer"></span>
@@ -32,7 +32,36 @@
 </mat-toolbar>
 
 
-<div class="container1" >
+<mat-sidenav-container  class="example-container"  >
+  
+    <mat-sidenav #drawer mode="side" opened >
+    <div class="container"> 
+          <div >
+              <div style="width: 226px; height: 155px;" class="logoU" alt="User picture"></div>
+                <div class="sidebar-brand">
+                     <div id="close-sidebar">
+                        <i class="fas fa-times"></i>
+                      </div>
+                    </div>
+            </div>
+          
+            <mat-action-list class="intro">
+              <button (click)="principal()" class="hoveritem "[routerLink]="['/principal/principal1']" routerLinkActive="router-link-active" ><strong> Principal</strong></button>
+              <button (click)="pacientes()" [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"><strong> Pacientes</strong></button>
+              <button (click)="at1()"  [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"><strong>  At1</strong>  </button>
+              <button (click)="consolidariodiario()" class="hoveritem"><strong> Consolidado Diario </strong></button>
+              <button (click)="inventario()" [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Inventario </strong> </button>
+              <button (click)="admininstradores()" [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Administradores </strong> </button>
+              <button (click)="ayuda()"  class="hoveritem"> <strong> Ayuda? </strong> </button>
+          </mat-action-list>  
+      </div>     
+      </mat-sidenav>
+      
+
+ <mat-sidenav-content class="fondo2" >   
+            <router-outlet ></router-outlet>
+   
+  <div class="container1" >
 
     <mat-card style="margin-bottom: 30px;" [class.mat-elevation-z20]="true">
       <div class="row">
@@ -2100,3 +2129,7 @@ class="example-element-row"
 </div>
 
 </div>   
+</mat-sidenav-content>
+</mat-sidenav-container>
+
+</div>
