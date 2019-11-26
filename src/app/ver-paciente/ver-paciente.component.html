@@ -24,62 +24,10 @@
                 <mat-error *ngIf="talla.hasError('required')">campo requerido!</mat-error>  
                 <mat-error *ngIf="peso.hasError('pattern')">No es ballena</mat-error>    
 
-              </mat-form-field>
-            </div>
-            <div class="row">
-                <mat-form-field class="example-full-width" >
-                  <input matInput formControlName="imc"  placeholder="IMC" >
-                  
-                  <mat-error *ngIf="imc.hasError('required')">campo requerido!</mat-error>
-                  <mat-error *ngIf="peso.hasError('pattern')">Ni que se estuvise muriendo</mat-error>    
-  
-                </mat-form-field>
-              </div>
-              <div class="row">
-                  <mat-form-field class="example-full-width" >
-                    <input matInput formControlName="temperatura"  placeholder="Temperatura" >
-                    
-                    <mat-error *ngIf="temperatura.hasError('required')">campo requerido!</mat-error> 
-                    <mat-error *ngIf="peso.hasError('pattern')">No es una temperatura aceptable</mat-error>    
- 
-                  </mat-form-field>
-                </div>
-                <div class="row">
-                    <mat-form-field class="example-full-width" >
-                      <input matInput formControlName="presion"  placeholder="Presion" >
-                      
-                      <mat-error *ngIf="presion.hasError('required')">campo requerido!</mat-error>    
-                    </mat-form-field>
-                  </div>
-
-                  <div class="row">
-                      <mat-form-field class="example-full-width" >
-                        <input matInput formControlName="pulso"  placeholder="Pulso" >
-                        
-                        <mat-error *ngIf="pulso.hasError('required')">campo requerido!</mat-error>    
-                      </mat-form-field>
-                    </div>
-
-                    <button  mat-raised-button (click)="sidenav.toggle()" class="btn btn-outline-primary float-right botonperron" >Cerrar</button>
-                    
-                    <button  mat-raised-button  class="btn btn-outline-primary float-right botonperron" (click)="guardarDatos()">Guardar</button>
-
-
-          </div>
-
-      </form>
-
-      
-
-
-</div>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
 <!--desde aqui es lo normal-->
-  
+  <div>
 <mat-toolbar class="toolbar">
-    <span style="cursor: pointer;margin-top: 5px;" [routerLink]="['/principal/registro']" ><mat-icon>arrow_back</mat-icon> </span>
+    <span (click)="drawer.toggle()" style="cursor: pointer;margin-top: 5px;"><mat-icon>reorder</mat-icon> </span>
     <span class="title"><strong> Clínica UNAH-TEC Danlí</strong></span>
     <span class="example-fill-remaining-space"></span>
         <span class="example-spacer"></span>
@@ -109,7 +57,36 @@
 </mat-toolbar>
 
 
-<div class="container1" >
+<mat-sidenav-container  class="example-container"  >
+  
+    <mat-sidenav #drawer mode="side" opened >
+    <div class="container"> 
+          <div >
+              <div style="width: 226px; height: 155px;" class="logoU" alt="User picture"></div>
+                <div class="sidebar-brand">
+                     <div id="close-sidebar">
+                        <i class="fas fa-times"></i>
+                      </div>
+                    </div>
+            </div>
+          
+            <mat-action-list class="intro">
+              <button (click)="principal()" class="hoveritem "[routerLink]="['/principal/principal1']" routerLinkActive="router-link-active" ><strong> Principal</strong></button>
+              <button (click)="pacientes()" [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"><strong> Pacientes</strong></button>
+              <button (click)="at1()"  [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"><strong>  At1</strong>  </button>
+              <button (click)="consolidariodiario()" class="hoveritem"><strong> Consolidado Diario </strong></button>
+              <button (click)="inventario()" [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Inventario </strong> </button>
+              <button (click)="admininstradores()" [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Administradores </strong> </button>
+              <button (click)="ayuda()"  class="hoveritem"> <strong> Ayuda? </strong> </button>
+          </mat-action-list>  
+      </div>     
+      </mat-sidenav>
+      
+
+ <mat-sidenav-content class="fondo2" >   
+            <router-outlet ></router-outlet>
+   
+  <div class="container1" >
 
     <mat-card style="margin-bottom: 30px;" >
       <div class="row">
@@ -243,7 +220,6 @@
       </div>    
 
 
-
       <div class="row">
         <div class="col"> 
           <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
@@ -317,6 +293,61 @@
           </mat-form-field>
         </div>
       </div>
+       <!--Datos restantes-->
+       <div class="row">
+       <div class="col" >
+        <mat-form-field  class="example-full-width" >
+          <input  matInput formControlName="peso"  placeholder="Peso(en Kg)" [readonly]="readonlyDatosGenerales">
+          
+          <mat-error *ngIf="peso.hasError('required')">campo requerido!</mat-error> 
+          <mat-error *ngIf="peso.hasError('pattern')">No es un peso aceptable</mat-error>    
+
+        </mat-form-field>
+      </div>
+      <div class="col">
+          <mat-form-field class="example-full-width" >
+            <input matInput formControlName="talla"  placeholder="Talla" [readonly]="readonlyDatosGenerales">
+            
+            <mat-error *ngIf="talla.hasError('required')">campo requerido!</mat-error>  
+            <mat-error *ngIf="peso.hasError('pattern')">No es ballena</mat-error>    
+
+          </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field class="example-full-width" >
+              <input matInput formControlName="imc"  placeholder="IMC" [readonly]="readonlyDatosGenerales">
+              
+              <mat-error *ngIf="imc.hasError('required')">campo requerido!</mat-error>
+              <mat-error *ngIf="peso.hasError('pattern')">Ni que se estuvise muriendo</mat-error>    
+
+            </mat-form-field>
+          </div>
+          <div class="col">
+              <mat-form-field class="example-full-width" >
+                <input matInput formControlName="temperatura"  placeholder="Temperatura"[readonly]="readonlyDatosGenerales">
+                
+                <mat-error *ngIf="temperatura.hasError('required')">campo requerido!</mat-error> 
+                <mat-error *ngIf="peso.hasError('pattern')">No es una temperatura aceptable</mat-error>    
+
+              </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="example-full-width" >
+                  <input matInput formControlName="presion"  placeholder="Presion" [readonly]="readonlyDatosGenerales">
+                  
+                  <mat-error *ngIf="presion.hasError('required')">campo requerido!</mat-error>    
+                </mat-form-field>
+              </div>
+
+              <div class="col">
+                  <mat-form-field class="example-full-width" >
+                    <input matInput formControlName="pulso"  placeholder="Pulso" [readonly]="readonlyDatosGenerales">
+                    
+                    <mat-error *ngIf="pulso.hasError('required')">campo requerido!</mat-error>    
+                  </mat-form-field>
+                </div>
+              </div>
+      
 
         <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
         disabled={{formulario_datos_generales.invalid}} 
@@ -477,6 +508,63 @@
       </mat-form-field>
       </div>
     </div>
+
+      
+<!--Datos restantes-->
+<div class="row">
+  <div class="col" >
+   <mat-form-field  class="example-full-width" >
+     <input  matInput formControlName="peso"  placeholder="Peso(en Kg)" [readonly]="readonlyDatosGenerales">
+     
+     <mat-error *ngIf="peso.hasError('required')">campo requerido!</mat-error> 
+     <mat-error *ngIf="peso.hasError('pattern')">No es un peso aceptable</mat-error>    
+
+   </mat-form-field>
+ </div>
+ <div class="col">
+     <mat-form-field class="example-full-width" >
+       <input matInput formControlName="talla"  placeholder="Talla" [readonly]="readonlyDatosGenerales">
+       
+       <mat-error *ngIf="talla.hasError('required')">campo requerido!</mat-error>  
+       <mat-error *ngIf="peso.hasError('pattern')">No es ballena</mat-error>    
+
+     </mat-form-field>
+   </div>
+   <div class="col">
+       <mat-form-field class="example-full-width" >
+         <input matInput formControlName="imc"  placeholder="IMC" [readonly]="readonlyDatosGenerales">
+         
+         <mat-error *ngIf="imc.hasError('required')">campo requerido!</mat-error>
+         <mat-error *ngIf="peso.hasError('pattern')">Ni que se estuvise muriendo</mat-error>    
+
+       </mat-form-field>
+     </div>
+     <div class="col">
+         <mat-form-field class="example-full-width" >
+           <input matInput formControlName="temperatura"  placeholder="Temperatura"[readonly]="readonlyDatosGenerales">
+           
+           <mat-error *ngIf="temperatura.hasError('required')">campo requerido!</mat-error> 
+           <mat-error *ngIf="peso.hasError('pattern')">No es una temperatura aceptable</mat-error>    
+
+         </mat-form-field>
+       </div>
+       <div class="col">
+           <mat-form-field class="example-full-width" >
+             <input matInput formControlName="presion"  placeholder="Presion" [readonly]="readonlyDatosGenerales">
+             
+             <mat-error *ngIf="presion.hasError('required')">campo requerido!</mat-error>    
+           </mat-form-field>
+         </div>
+
+         <div class="col">
+             <mat-form-field class="example-full-width" >
+               <input matInput formControlName="pulso"  placeholder="Pulso" [readonly]="readonlyDatosGenerales">
+               
+               <mat-error *ngIf="pulso.hasError('required')">campo requerido!</mat-error>    
+             </mat-form-field>
+           </div>
+         </div>
+
     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_datos_generales.invalid}}
     (click)="readonlyDatosGenerales = !readonlyDatosGenerales; actualizarDatosGenerales(); cambiarInformacionDatos();">
     {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
@@ -1323,6 +1411,7 @@ style="margin-top: 10px;"
       <td mat-footer-cell *matFooterCellDef></td>
       </ng-container> -->
 
+
       <!-- columna parentesco -->
       <!-- <ng-container matColumnDef="parentesco">
       <th mat-header-cell *matHeaderCellDef> Parentesco </th>
@@ -2067,8 +2156,7 @@ class="example-element-row"
 </div>
 
 </div>   
-  
 </mat-sidenav-content>
-    
 </mat-sidenav-container>
 
+</div>
