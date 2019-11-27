@@ -140,8 +140,7 @@ login_admin:LoginAdmin = {
   usuario_admin:null,
   contrasenia_admin:null,
   nombre_admin:null,
-  identidad_admin:null,
-  especialidad_admin:null
+  identidad_admin:null
 };
 
 admins: LoginAdmin[];
