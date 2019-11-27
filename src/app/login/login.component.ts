@@ -55,8 +55,7 @@ id :null,
 usuario_admin : null,
 contrasenia_admin : null,
 nombre_admin : null,
-identidad_admin : null,
-especialidad_admin : null,  
+identidad_admin : null, 
 }
 //,Validators.pattern(/^[2][0-9]{10}$/)
 login_form = new FormGroup({
