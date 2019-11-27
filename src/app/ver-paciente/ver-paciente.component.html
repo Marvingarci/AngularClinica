@@ -268,16 +268,18 @@
           </mat-form-field>
         </div>
       </div>
+
+
        <!--Datos restantes-->
        <div class="row">
        <div class="col" >
         <mat-form-field  class="example-full-width" >
           <input  matInput formControlName="peso"  placeholder="Peso(en Kg)" [readonly]="readonlyDatosGenerales">
           
-          <mat-error *ngIf="peso.hasError('required')">campo requerido!</mat-error> 
+          <mat-error *ngIf="peso.hasError('required')">campo requerido</mat-error> 
           <mat-error *ngIf="peso.hasError('pattern')">No es un peso aceptable</mat-error>    
 
-        </mat-form-field>
+        </mat-form-field> 
       </div>
       <div class="col">
           <mat-form-field class="example-full-width" >
@@ -306,14 +308,20 @@
 
               </mat-form-field>
             </div>
-            <div class="col">
+          </div>
+             
+          
+
+
+            <div class="row">
+           
+              <div class="col">
                 <mat-form-field class="example-full-width" >
                   <input matInput formControlName="presion"  placeholder="Presion" [readonly]="readonlyDatosGenerales">
                   
                   <mat-error *ngIf="presion.hasError('required')">campo requerido!</mat-error>    
                 </mat-form-field>
               </div>
-
               <div class="col">
                   <mat-form-field class="example-full-width" >
                     <input matInput formControlName="pulso"  placeholder="Pulso" [readonly]="readonlyDatosGenerales">
@@ -321,6 +329,16 @@
                     <mat-error *ngIf="pulso.hasError('required')">campo requerido!</mat-error>    
                   </mat-form-field>
                 </div>
+
+                <div class="col">
+                  <div style="padding-top: 20px;">
+                    <label id="example-radio-group-label" style="margin-right: 40px;">Prosene</label>
+                <mat-radio-group  formControlName="prosene"  aria-labelledby="example-radio-group-label" class="example-radio-group" >        
+                  <mat-radio-button  value="Si" >Si</mat-radio-button> &nbsp; &nbsp;&nbsp;   
+                  <mat-radio-button  value="No" >No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              </div>
               </div>
       
 
@@ -1841,7 +1859,7 @@ style="margin-top: 10px;"
         {{caracteristica.viewValue}}
         </mat-option>
         </mat-select>
-        <mat-error *ngIf="caracteristicas_ciclo_menstrual.hasError('required')">campo requerido!</mat-error>
+        <mat-error *ngIf="caracteristicas_ciclo_menstrual.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
       </div>
 
