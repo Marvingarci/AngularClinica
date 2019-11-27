@@ -22,6 +22,7 @@ export interface Paciente {
     temperatura?: string;
     presion?: string;
     pulso?: string;
+    prosene?:string;
     categoria?:string;
     created_at?:string;
     updated_at?:string;
