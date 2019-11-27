@@ -4,7 +4,7 @@ export interface Medicos {
     contraseniaM : string;
     nombreM : string;
     identidadM : string;
-    especialidadM : string;
+    especialidadM : any;
     created_at? : string;
     updated_at? : string;
 }

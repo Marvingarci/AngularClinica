@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { InventariosService } from '../services/inventarios.service';
 import { ActivatedRoute } from '@angular/router';
 import { Inventario } from '../interfaces/inventario';
+import { FormInventarioComponent } from '../form-inventario/form-inventario.component';
 
 export interface tablaInventario {
   id_inventario?: number;
@@ -46,7 +47,12 @@ export class InventarioComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   
-  constructor(private inventariosService: InventariosService, private httpClient: HttpClient,private activatedRoute: ActivatedRoute, ) { 
+  constructor(private inventariosService: InventariosService, 
+    private httpClient: HttpClient, 
+    private activatedRoute: ActivatedRoute,
+    ) { 
+
+      //console.log(this.formularioInventario.cambiarInformacionInventario());
 
   }
 

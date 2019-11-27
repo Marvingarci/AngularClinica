@@ -4,7 +4,7 @@ export interface Inventario{
     nombre: string,
     descripcion: string,
     //fecha_vencimiento: Date,
-    presentacion: string,
+    presentacion: any,
     observacion: string,
     created_at? : string;
     updated_at? : string;

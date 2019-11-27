@@ -100,7 +100,54 @@ export class RegistromedicosComponent implements OnInit {
       this.contraseniaC.setValue(this.medico.contraseniaM);
       this.nombre.setValue(this.medico.nombreM);
       this.identidad.setValue(this.medico.identidadM);
-      this.especialidad.setValue(this.medico.especialidadM);
+
+      switch(this.medico.especialidadM){
+        case "Salud Públicabletas":
+            this.especialidad.setValue(1);
+            break;
+        case "Ginecología y Obstetricia":
+            this.especialidad.setValue(2);
+              break;
+        case "Pediatría":
+          this.especialidad.setValue(3);
+            break;
+        case "Cirugía General":
+          this.especialidad.setValue(4);
+            break;
+        case "Medicina Interna":
+          this.especialidad.setValue(5);
+            break;
+        case "Dermatología":
+          this.especialidad.setValue(6);
+            break;
+        case "Neurología":
+          this.especialidad.setValue(7);
+            break;
+        case "Neurocirugía ":
+          this.especialidad.setValue(8);
+            break;
+        case "Cirugía Plástica ":
+          this.especialidad.setValue(9);
+             break;
+        case "Anestesiología, Reanimación y Dolor":
+          this.especialidad.setValue(10);
+            break;
+        case "Ortopedia":
+          this.especialidad.setValue(11);
+            break;
+        case "Psiquiatría":
+          this.especialidad.setValue(12);
+            break; 
+        case "Otorrinolaringología":
+          this.especialidad.setValue(13);
+            break;          
+        default:
+            this.especialidad.setValue(14);
+            break;
+        
+  
+      }
+      //this.especialidad.setValue(this.medico.especialidadM);
 
       console.log(this.medico.usuarioM);
       this.medicoService.idActualizar=this.medico.id;  
