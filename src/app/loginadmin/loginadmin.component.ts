@@ -26,7 +26,6 @@ export class LoginadminComponent implements OnInit {
     contraseniaC: new FormControl('',[Validators.required,  Validators.minLength(8),Validators.maxLength(30)]),
     nombre: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
     identidad: new FormControl('',[Validators.required,  Validators.minLength(13),Validators.maxLength(13)]),
-    especialidad: new FormControl('',[Validators.required]),
   });
  
   getErrorMessage() {
@@ -38,44 +37,8 @@ export class LoginadminComponent implements OnInit {
     usuario_admin:null,
     contrasenia_admin:null,
     nombre_admin:null,
-    identidad_admin:null,
-    especialidad_admin:null
-  };
-
-  especialidades: select[] = [
-    {value: 1, viewValue: 'Salud Pública'},
-    {value: 2, viewValue: 'Ginecología y Obstetricia'},
-    {value: 3, viewValue: 'Pediatría'},
-    {value: 4, viewValue: 'Cirugía General'},
-    {value: 5, viewValue: 'Medicina Interna'},
-    {value: 6, viewValue: 'Dermatología'},
-    {value: 7, viewValue: 'Neurología'},
-    {value: 8, viewValue: 'Neurocirugía'},
-    {value: 9, viewValue: 'Cirugía Plástica'},
-    {value: 10, viewValue: 'Anestesiología, Reanimación y Dolor'},
-    {value: 11, viewValue: 'Ortopedia'},
-    {value: 12, viewValue: 'Psiquiatría'},
-    {value: 13, viewValue: 'Otorrinolaringología'},
-    {value: 14, viewValue: 'Medicina Física y Rehabilitación'},
-    {value: 15, viewValue: 'Medicina General'},
-   
-  ];
-  
-  //lista:string[]=[
-  //"Salud Pública",
-  //"Ginecología y Obstetricia",
-  //"Pediatría",
-  //"Cirugía General",
-  //"Medicina Interna",
-  //"Dermatología",
-  //"Neurología",
-  //"Neurocirugía",
-  //"Cirugía Plástica",
-  //"Anestesiología, Reanimación y Dolor",
-  //"Ortopedia",
-  //"Psiquiatría",
-  //"Otorrinolaringología",
-  //"Medicina Física y Rehabilitación"];
+    identidad_admin:null
+  }; 
  
   id:any;
   editing:boolean = false;
@@ -98,7 +61,6 @@ export class LoginadminComponent implements OnInit {
       this.contraseniaC.setValue(this.login_admin.contrasenia_admin);
       this.nombre.setValue(this.login_admin.nombre_admin);
       this.identidad.setValue(this.login_admin.identidad_admin);
-      this.especialidad.setValue(this.login_admin.especialidad_admin);
 
       console.log(this.login_admin.usuario_admin);
       this.login_adminservice.idActualizar=this.login_admin.id;  
@@ -157,7 +119,6 @@ onKeydown(event) {
     this.login_admin.contrasenia_admin = this.contraseniaC.value;
     this.login_admin.nombre_admin = this.nombre.value;
     this.login_admin.identidad_admin = this.identidad.value;
-    this.login_admin.especialidad_admin = this.especialidad.value;
 
     this.login_adminservice.put(this.login_admin).subscribe( (data) =>{
     console.log(data);
@@ -183,7 +144,6 @@ onKeydown(event) {
       this.login_admin.contrasenia_admin = this.loginadmin_form.get('contraseniaC').value;
       this.login_admin.nombre_admin = this.loginadmin_form.get('nombre').value;
       this.login_admin.identidad_admin = this.loginadmin_form.get('identidad').value;
-      this.login_admin.especialidad_admin = this.loginadmin_form.get('especialidad').value;
 
       if(this.loginadmin_form.valid){
       this.login_adminservice.saveloginadmin(this.login_admin).subscribe( (data) =>{
@@ -209,6 +169,5 @@ onKeydown(event) {
       get contraseniaC(){return this.loginadmin_form.get('contraseniaC')};
       get nombre(){return this.loginadmin_form.get('nombre')};
       get identidad(){return this.loginadmin_form.get('identidad')};
-      get especialidad(){return this.loginadmin_form.get('especialidad')};
 
 }
