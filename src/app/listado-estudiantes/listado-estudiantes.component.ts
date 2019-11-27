@@ -1584,14 +1584,14 @@ export class HistoriaSubsiguiente{
 
   
 
-  parentescos: Parentescos[] = [
-    {value: 1 , viewValue: 'Psicologia'},
-    {value: 2 , viewValue: 'Nutricion'},
-    {value: 3 , viewValue: 'Odontologia'},
-    {value: 4 , viewValue: 'Terapia Funcional'},
-    {value: 5 , viewValue: 'CATFA'},
-    {value: 6 , viewValue: 'Trabajo Social'}
-  ];
+  // parentescos: Parentescos[] = [
+  //   {value: 1 , viewValue: 'Psicologia'},
+  //   {value: 2 , viewValue: 'Nutricion'},
+  //   {value: 3 , viewValue: 'Odontologia'},
+  //   {value: 4 , viewValue: 'Terapia Funcional'},
+  //   {value: 5 , viewValue: 'CATFA'},
+  //   {value: 6 , viewValue: 'Trabajo Social'}
+  // ];
 
   habilitarInputs(formControl : FormControl[]){  
     formControl.forEach(controlador => {
