@@ -507,16 +507,22 @@ ocultar: boolean = true;
     {value: 'P', viewValue: 'Prosene'}
   ];
 
-  sexos: Sexos[] = [
-    {value: 1, viewValue: 'Hombre'},
-    {value: 2, viewValue: 'Mujer'},
+  //sexos: Sexos[] = [
+    //{value: 1, viewValue: 'Hombre'},
+    //{value: 2, viewValue: 'Mujer'},
     //{value: 3, viewValue: 'Otro'}
-  ];
+  //];
 
   seguros_medicos: SegurosMedicos[] = [
     {value: 1, viewValue: 'Privado'},
     {value: 2, viewValue: 'IHSS'},
     {value: 3, viewValue: 'No'}
+  ];
+
+  sexos: Sexos[] = [
+    {value: 1, viewValue: 'Hombre'},
+    {value: 2, viewValue: 'Mujer'},
+  
   ];
 
   estados_civiles: EstadosCiviles[] = [
@@ -1186,31 +1192,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     
   }
 
-  cambiarInformacionDatos(){
-    if(this.readonlyDatosGenerales){
-      switch(this.sexo.value){
-        case 1:
-            this.sexo.setValue("Hombre");
-            break;
-        default:
-            this.sexo.setValue("Mujer");
-            break;
-        
-  
-      }
-    }else{
-      switch(this.sexo.value){
-        case "Hombre":
-            this.sexo.setValue(1);
-            break;
-        default:
-            this.sexo.setValue(2);
-            break;
-        
-  
-      }
-    }
-  }
+ 
 
 
   cargarInformacionDatosGenerales(){
@@ -1222,51 +1204,68 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.carrera.setValue(this.paciente.carrera);
 
     switch(this.paciente.sexo){
-      case 1:
-        this.paciente.sexo = "Hombre";
+      case "Hombre":
+        this.sexo.setValue(1);
           break;
-      default:
-        this.paciente.sexo = "Mujer";
+     default:
+        this.sexo.setValue(2);
           break;
-    }   
-
+    } 
+   
     this.sexo.setValue(this.paciente.sexo);
     this.lugar_procedencia.setValue(this.paciente.lugar_procedencia);
     this.direccion.setValue(this.paciente.direccion);
     this.fecha_nacimiento.setValue(this.paciente.fecha_nacimiento);
-
+/*
     switch(this.paciente.estado_civil){
-      case 1:
-        this.paciente.estado_civil = "Soltero";
+      case "Soltero":
+        this.estado_civil.setValue(1);
           break;
-      case 2:
-        this.paciente.estado_civil = "Union Libre";
-          break;
-      case 3:
-        this.paciente.estado_civil = "Divorciado";
-          break;
-      case 4:
-        this.paciente.estado_civil = "Viudo";
-          break;
+      case "Union Libre":
+       this.estado_civil.setValue(2);
+         break;
+      case "Divorciado":
+        this.estado_civil.setValue(3);
+         break;
+      case "Viudo":
+       this.estado_civil.setValue(4);
+         break;
 
       default:
-        this.paciente.estado_civil = "Casado";
-          break;
-    }
+        this.estado_civil.setValue(5);
+         break;
+    }*/
+
 
     this.estado_civil.setValue(this.paciente.estado_civil);
 
-    switch(this.paciente.seguro_medico){
-      case 1:
-        this.paciente.seguro_medico = "Privado";
+    //switch(this.paciente.seguro_medico){
+      //case 1:
+        //this.paciente.seguro_medico = "Privado";
+         // break;
+     // case 2:
+       // this.paciente.seguro_medico = "IHSS";
+        //  break;
+     // default:
+       // this.paciente.seguro_medico = "No";
+         // break;
+   // }
+
+   /*switch(this.paciente.seguro_medico){
+    case "Privado":
+      this.seguro_medico.setValue(1);
+        break;
+    case "IHSS":
+      this.seguro_medico.setValue(2);
           break;
-      case 2:
-        this.paciente.seguro_medico = "IHSS";
-          break;
-      default:
-        this.paciente.seguro_medico = "No";
-          break;
-    }
+    
+    default:
+      this.seguro_medico.setValue(3);
+        break;
+    
+
+  } */
+
     this.seguro_medico.setValue(this.paciente.seguro_medico);
     this.numero_telefono.setValue(this.paciente.numero_telefono);
     this.emergencia_telefono.setValue(this.paciente.emergencia_telefono);

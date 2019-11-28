@@ -1,28 +1,3 @@
-<mat-sidenav-container class="example-container" *ngIf="!shouldRun">
-  <mat-sidenav  #sidenav mode="over" [(opened)]="opened"  disableClose="true" position="end" (opened)="events.push('open!')"
-               (closed)="events.push('close!')">
-    
-<div class="container" style="overflow-y:scroll;">
-
-  <form [formGroup]="formulario_datos_faltantes">
-      <div class="container" style="overflow-y:scroll;">
-        <br>
-        <h2>Ingreso datos restantes</h2>
-          <div class="row" >
-            <mat-form-field  class="example-full-width" >
-              <input  matInput formControlName="peso"  placeholder="Peso(en Kg)" >
-              
-              <mat-error *ngIf="peso.hasError('required')">campo requerido!</mat-error> 
-              <mat-error *ngIf="peso.hasError('pattern')">No es un peso aceptable</mat-error>    
- 
-            </mat-form-field>
-          </div>
-          <div class="row">
-              <mat-form-field class="example-full-width" >
-                <input matInput formControlName="talla"  placeholder="Talla" >
-                
-                <mat-error *ngIf="talla.hasError('required')">campo requerido!</mat-error>  
-                <mat-error *ngIf="peso.hasError('pattern')">No es ballena</mat-error>    
 
 <!--desde aqui es lo normal-->
   <div>
@@ -370,7 +345,7 @@
         <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
         disabled={{formulario_datos_generales.invalid}} 
         (click)="readonlyDatosGenerales = !readonlyDatosGenerales;
-          actualizarDatosGenerales(); cambiarInformacionDatos();">
+          actualizarDatosGenerales();">
         {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
         </button>
 
@@ -584,7 +559,7 @@
          </div>
 
     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_datos_generales.invalid}}
-    (click)="readonlyDatosGenerales = !readonlyDatosGenerales; actualizarDatosGenerales(); cambiarInformacionDatos();">
+    (click)="readonlyDatosGenerales = !readonlyDatosGenerales; actualizarDatosGenerales(); ">
     {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
     </button>
 
