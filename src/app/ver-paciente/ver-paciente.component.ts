@@ -157,7 +157,7 @@ matcher = new MyErrorStateMatcher();
     temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]),
     presion: new FormControl('', [Validators.required]),
     pulso: new FormControl('', [Validators.required]),
-    
+    prosene: new FormControl('', [Validators.required]),    
   });
 
   formulario_antecedentes_familiares = new FormGroup({      
@@ -660,6 +660,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
           this.paciente.imc="0";
           this.paciente.talla="0";
           this.paciente.peso="0";
+          this.paciente.prosene="";
 
         }
         this.cargarInformacionDatosGenerales();
@@ -828,6 +829,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         this.paciente.talla = this.talla.value;
         this.paciente.temperatura = this.temperatura.value;
         this.paciente.pulso = this.pulso.value;
+        this.paciente.prosene = this.prosene.value;
 
       
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
@@ -1274,6 +1276,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.imc.setValue(this.paciente.imc);
     this.talla.setValue(this.paciente.talla);
     this.peso.setValue(this.paciente.peso);
+    this.prosene.setValue(this.paciente.prosene);
     
     
   }
@@ -1880,7 +1883,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
   get temperatura(){return this.formulario_datos_generales.get('temperatura')};
   get presion(){return this.formulario_datos_generales.get('presion')};
   get pulso(){return this.formulario_datos_generales.get('pulso')};
-
+  get prosene(){return this.formulario_datos_generales.get('prosene')};
 }
 
 

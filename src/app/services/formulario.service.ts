@@ -39,9 +39,15 @@ export class FormularioService {
   }
 
 
-  enviarAntecedentes(antecedente: any){
+  enviarEnfermedad(enfermedad: any){
 
-    return this.httpClient.post(this.API_ENDPOINT+'antecedentes', antecedente, {headers: this.headers});
+    return this.httpClient.post(this.API_ENDPOINT+'enfermedades', enfermedad, {headers: this.headers});
+
+  }
+
+  enviarTipoEnfermedad(tipo_enfermedad: any){
+
+    return this.httpClient.post(this.API_ENDPOINT+'tipos_enfermedades', tipo_enfermedad, {headers: this.headers});
 
   }
 
@@ -135,6 +141,9 @@ export class FormularioService {
   }
 
 
+  obtenerParentescos(){
+    return this.httpClient.get(this.API_ENDPOINT+'parentescos');
+  }
 
 
   obtenerAntecedentesFamiliares(){

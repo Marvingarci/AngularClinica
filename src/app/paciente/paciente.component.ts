@@ -31,6 +31,7 @@ export interface Paciente {
   presion?: string;
   pulso?: string;
   categoria?: any;
+  prosene?:any;
  
 }
 
@@ -80,10 +81,10 @@ export class PacienteComponent implements OnInit {
 
       console.log(this.pacientes);
       this.alumnos = this.pacientes.filter(paciente => paciente.categoria === 'E');
-      this.prosene = this.pacientes.filter(paciente => paciente.categoria === 'P');
-      this.visitantes = this.pacientes.filter(paciente => paciente.categoria === 'V');
       this.empleados = this.pacientes.filter(paciente => paciente.categoria === 'T');
-
+      this.visitantes = this.pacientes.filter(paciente => paciente.categoria === 'V');
+      this.prosene = this.pacientes.filter(paciente => paciente.prosene === 'Si');
+console.log(this.pacientes[0].prosene);
 
       this.dataSource =  new MatTableDataSource(this.alumnos);
      this.dataSource2 =  new MatTableDataSource(this.empleados);
@@ -107,9 +108,8 @@ export class PacienteComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.paginator = this.paginator;
-
   }
-  
+   
 
 
 

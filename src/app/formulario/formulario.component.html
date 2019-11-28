@@ -432,14 +432,17 @@
   
               &nbsp; &nbsp; &nbsp; &nbsp; 
   
-               <mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName= "tipo_desnutricion" placeholder="Tipo Desnutricion">
+              </mat-form-field>
+               <!-- <mat-form-field>
                 <mat-label>Tipo Desnutricion</mat-label>
                 <mat-select formControlName= "tipo_desnutricion" name="tipo_desnutricion" >
                   <mat-option *ngFor="let desnutricion of desnutriciones" [value]="desnutricion.value">
                     {{desnutricion.viewValue}}
                   </mat-option>
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field> -->
   
               &nbsp; &nbsp; &nbsp; &nbsp;
   

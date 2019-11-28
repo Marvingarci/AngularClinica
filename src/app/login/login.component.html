@@ -22,8 +22,8 @@
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Ingrese su cuenta" formControlName= "cuenta" required>
                     <mat-label><mat-icon>person</mat-icon>&nbsp;    <b>Cuenta</b> </mat-label>
-                    <mat-error *ngIf="cuenta.hasError('required')">ingrese la cuenta!</mat-error>
-                    <mat-error *ngIf="cuenta.hasError('pattern')">ingrese un numero de cuenta valido!</mat-error>
+                    <mat-error *ngIf="cuenta.hasError('required')">ingrese la cuenta</mat-error>
+                    <mat-error *ngIf="cuenta.hasError('pattern')">ingrese un numero de cuenta valido</mat-error>
                   </mat-form-field>
                 </div>
               <div>
@@ -35,7 +35,7 @@
                   <button  mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                       </button>
-                  <mat-error *ngIf="clave.hasError('required') ">ingrese la contraseña!</mat-error>
+                  <mat-error *ngIf="clave.hasError('required') ">ingrese la contraseña</mat-error>
                 </mat-form-field>
               </div>
             </form>
