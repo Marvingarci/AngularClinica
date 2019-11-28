@@ -1453,96 +1453,174 @@ this.des3 = true;
       if(this.formulario_antecedentes_familiares.valid){
 
         var parentescos : any;
+        var stringParentesco: string[];
+        var NumeroParentesco: number;
+        var id_antecedente: number;
+
         for (let index = 0; index < this.formControlsAntecedentes.length; index++) {
           const element = this.formControlsAntecedentes[index];
 
           // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
           if(element.value != 0){
 
+            console.log('valor del elemento: '+ element.value);
             this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
-            this.paciente_antecedente_familiar.id_enfermedad = element.value;
 
+             
+            if(element.value == 9){
 
-            if(this.tablaDesnutriciones.length){
+              if(this.tablaDesnutriciones.length){
 
-              for (let index = 0; index < this.tablaDesnutriciones.length; index++) {
-                const element = this.tablaDesnutriciones[index];
-
-                // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
-                // de la interfaz de enfermedad.
-                this.enfermedad.enfermedad = element.enfermedad;
-                this.enfermedad.id_grupo_enfermedad = 1;
-
-
-                this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
-
-
-                  // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_tipo_enfermedad
-                  // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
-                  this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;   
-                
-                  console.log("ultimo antecedente: "+data[0].id_enfermedad);
-                               
-
-
-                  // separo el string de parentesco que se guarda en la tabla
-                  // y lo convierto en un arreglo.
-                  stringParentesco = element.parentesco.split(' ');
-                  console.log(stringParentesco);
-
-
-                  // comparo cada string del arreglo de parentesco que se recupera de la tabla
-                  // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
-                  stringParentesco.forEach(element => {
-
-                    switch (element) {
-                      case 'Padre':
-                        NumeroParentesco = 1;
-                        break;
-                      case 'Madre':
-                        NumeroParentesco = 2;
-                        break;
-                      case 'Tios':
-                        NumeroParentesco = 3;
-                        break;
-                      case 'Abuelos':
-                        NumeroParentesco = 4;
-                        break;
-                      default:
-                        NumeroParentesco = 5;
-                        break;
-                    }
-                    
-                    // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
-                    // para ser enviado a la base de datos.
-                    this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
-
-                    //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
-                    this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
-                      console.log('se enviaron perron los nuevos antecedentes');
-                    }, (error)=>{
-                      console.log(error);
+                for (let index = 0; index < this.tablaDesnutriciones.length; index++) {
+                  const element = this.tablaDesnutriciones[index];
+  
+                  // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                  // de la interfaz de enfermedad.
+                  this.enfermedad.enfermedad = element.enfermedad;
+                  this.enfermedad.id_grupo_enfermedad = 1;
+  
+  
+                  this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+  
+  
+                    // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_tipo_enfermedad
+                    // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
+                    this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;   
+                  
+                    console.log("ultimo antecedente: "+data[0].id_enfermedad);
+                                  
+  
+  
+                    // separo el string de parentesco que se guarda en la tabla
+                    // y lo convierto en un arreglo.
+                    stringParentesco = element.parentesco.split(' ');
+                    console.log(stringParentesco);
+  
+  
+                    // comparo cada string del arreglo de parentesco que se recupera de la tabla
+                    // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
+                    stringParentesco.forEach(element => {
+  
+                      switch (element) {
+                        case 'Padre':
+                          NumeroParentesco = 1;
+                          break;
+                        case 'Madre':
+                          NumeroParentesco = 2;
+                          break;
+                        case 'Tios':
+                          NumeroParentesco = 3;
+                          break;
+                        case 'Abuelos':
+                          NumeroParentesco = 4;
+                          break;
+                        default:
+                          NumeroParentesco = 5;
+                          break;
+                      }
+                      
+                      // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
+                      // para ser enviado a la base de datos.
+                      this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+  
+                      //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                      this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                        console.log('se enviaron perron los nuevos antecedentes');
+                      }, (error)=>{
+                        console.log(error);
+                      });
+  
                     });
-
+  
                   });
-
-                });
+                }
+              
               }
-            
+            }else if(element.value == 10){
+
+              if(this.tablaEnfermedadesMentales.length){
+
+                for (let index = 0; index < this.tablaEnfermedadesMentales.length; index++) {
+                  const element = this.tablaEnfermedadesMentales[index];
+  
+                  // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                  // de la interfaz de enfermedad.
+                  this.enfermedad.enfermedad = element.enfermedad;
+                  this.enfermedad.id_grupo_enfermedad = 2;
+  
+  
+                  this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+  
+  
+                    // asigno el id de la enfermedad que me devuelve la funcion de mysql en el id_enfermedad
+                    // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
+                    this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;   
+                  
+                    console.log("ultimo antecedente: "+data[0].id_enfermedad);
+                                  
+  
+  
+                    // separo el string de parentesco que se guarda en la tabla
+                    // y lo convierto en un arreglo.
+                    stringParentesco = element.parentesco.split(' ');
+                    console.log(stringParentesco);
+  
+  
+                    // comparo cada string del arreglo de parentesco que se recupera de la tabla
+                    // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
+                    stringParentesco.forEach(element => {
+  
+                      switch (element) {
+                        case 'Padre':
+                          NumeroParentesco = 1;
+                          break;
+                        case 'Madre':
+                          NumeroParentesco = 2;
+                          break;
+                        case 'Tios':
+                          NumeroParentesco = 3;
+                          break;
+                        case 'Abuelos':
+                          NumeroParentesco = 4;
+                          break;
+                        default:
+                          NumeroParentesco = 5;
+                          break;
+                      }
+                      
+                      // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
+                      // para ser enviado a la base de datos.
+                      this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+  
+                      //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                      this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                        console.log('se enviaron perron los nuevos antecedentes');
+                      }, (error)=>{
+                        console.log(error);
+                      });
+  
+                    });
+  
+                  });
+                }
+  
+              }
             }else{
 
               //guardo el valor del controlador del parentesco y lo guardo en una variable de tipo any
               // ahora el select como es multiple me devuelve un arreglo
               parentescos = this.formControlsParentescos[index].value;
+              this.paciente_antecedente_familiar.id_enfermedad = element.value;
+
 
               // por cada vuelta que de el ciclo se hará un registro en la tabla pacientes_antecedentes_familiares,
               // siendo cada registro un antecedente de los antecedentes familiares y su parentesco
               // si el antecedente tiene mas de un 1 parentesco entonces se insertara varias veces el mismo antecedente
               // con los diferentes parentesco.
-              parentescos.forEach(element => {
+              parentescos.forEach(parentesco => {
 
                 //establezco el valor del arreglo en el atributo id_parentesco de la interfaz paciente_antecedente_familiar.
-                this.paciente_antecedente_familiar.id_parentesco = element;
+                this.paciente_antecedente_familiar.id_parentesco = parentesco;
 
                 this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
                   console.log('se envio perron la prueba');
@@ -1551,107 +1629,11 @@ this.des3 = true;
                 });
 
               });
-              
             }
-            
-            if(this.tablaEnfermedadesMentales.length){
-
-              for (let index = 0; index < this.tablaEnfermedadesMentales.length; index++) {
-                const element = this.tablaEnfermedadesMentales[index];
-
-                // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
-                // de la interfaz de enfermedad.
-                this.enfermedad.enfermedad = element.enfermedad;
-                this.enfermedad.id_grupo_enfermedad = 2;
-
-
-                this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
-
-
-                  // asigno el id de la enfermedad que me devuelve la funcion de mysql en el id_enfermedad
-                  // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
-                  this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;   
-                
-                  console.log("ultimo antecedente: "+data[0].id_enfermedad);
-                               
-
-
-                  // separo el string de parentesco que se guarda en la tabla
-                  // y lo convierto en un arreglo.
-                  stringParentesco = element.parentesco.split(' ');
-                  console.log(stringParentesco);
-
-
-                  // comparo cada string del arreglo de parentesco que se recupera de la tabla
-                  // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
-                  stringParentesco.forEach(element => {
-
-                    switch (element) {
-                      case 'Padre':
-                        NumeroParentesco = 1;
-                        break;
-                      case 'Madre':
-                        NumeroParentesco = 2;
-                        break;
-                      case 'Tios':
-                        NumeroParentesco = 3;
-                        break;
-                      case 'Abuelos':
-                        NumeroParentesco = 4;
-                        break;
-                      default:
-                        NumeroParentesco = 5;
-                        break;
-                    }
-                    
-                    // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
-                    // para ser enviado a la base de datos.
-                    this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
-
-                    //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
-                    this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
-                      console.log('se enviaron perron los nuevos antecedentes');
-                    }, (error)=>{
-                      console.log(error);
-                    });
-
-                  });
-
-                });
-              }
-
-            }else{
-
-              //guardo el valor del controlador del parentesco y lo guardo en una variable de tipo any
-              // ahora el select como es multiple me devuelve un arreglo
-              parentescos = this.formControlsParentescos[index].value;
-
-              // por cada vuelta que de el ciclo se hará un registro en la tabla pacientes_antecedentes_familiares,
-              // siendo cada registro un antecedente de los antecedentes familiares y su parentesco
-              // si el antecedente tiene mas de un 1 parentesco entonces se insertara varias veces el mismo antecedente
-              // con los diferentes parentesco.
-              parentescos.forEach(element => {
-
-                //establezco el valor del arreglo en el atributo id_parentesco de la interfaz paciente_antecedente_familiar.
-                this.paciente_antecedente_familiar.id_parentesco = element;
-
-                this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
-                  console.log('se envio perron la prueba');
-                }, (error)=>{
-                  console.log(error);
-                });
-
-              });
-              
-            }
-            
           }
-
         }
 
-        var stringParentesco: string[];
-        var NumeroParentesco: number;
-        var id_antecedente: number;
+       
 
         //establezco primero el id del paciente por que si no no se guarda.
         this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
