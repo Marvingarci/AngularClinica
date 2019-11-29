@@ -153,18 +153,6 @@ tr.example-element-row:not(.example-expanded-row):active {
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
 }
-
-
-.logoU{
-  background: url('src\imagenes\logoUperron.jpg');
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;  
- }
-
-
-
 /* PARA EL SCROLL */
 /* Tamaño del scroll */
 .container1::-webkit-scrollbar {
