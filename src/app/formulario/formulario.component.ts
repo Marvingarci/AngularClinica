@@ -1605,6 +1605,144 @@ this.des3 = true;
                 }
   
               }
+            }else if(element.value == 11){
+
+              if(this.tablaAlergias.length){
+
+                for (let index = 0; index < this.tablaAlergias.length; index++) {
+                  const element = this.tablaAlergias[index];
+  
+                  // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                  // de la interfaz de enfermedad.
+                  this.enfermedad.enfermedad = element.enfermedad;
+                  this.enfermedad.id_grupo_enfermedad = 3;
+  
+  
+                  this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+  
+  
+                    // asigno el id de la enfermedad que me devuelve la funcion de mysql en el id_enfermedad
+                    // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
+                    this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;   
+                  
+                    console.log("ultimo antecedente: "+data[0].id_enfermedad);
+                                  
+  
+  
+                    // separo el string de parentesco que se guarda en la tabla
+                    // y lo convierto en un arreglo.
+                    stringParentesco = element.parentesco.split(' ');
+                    console.log(stringParentesco);
+  
+  
+                    // comparo cada string del arreglo de parentesco que se recupera de la tabla
+                    // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
+                    stringParentesco.forEach(element => {
+  
+                      switch (element) {
+                        case 'Padre':
+                          NumeroParentesco = 1;
+                          break;
+                        case 'Madre':
+                          NumeroParentesco = 2;
+                          break;
+                        case 'Tios':
+                          NumeroParentesco = 3;
+                          break;
+                        case 'Abuelos':
+                          NumeroParentesco = 4;
+                          break;
+                        default:
+                          NumeroParentesco = 5;
+                          break;
+                      }
+                      
+                      // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
+                      // para ser enviado a la base de datos.
+                      this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+  
+                      //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                      this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                        console.log('se enviaron perron los nuevos antecedentes');
+                      }, (error)=>{
+                        console.log(error);
+                      });
+  
+                    });
+  
+                  });
+                }
+  
+              }
+            }else if(element.value == 12){
+
+              if(this.tablaCanceres.length){
+
+                for (let index = 0; index < this.tablaCanceres.length; index++) {
+                  const element = this.tablaCanceres[index];
+  
+                  // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                  // de la interfaz de enfermedad.
+                  this.enfermedad.enfermedad = element.enfermedad;
+                  this.enfermedad.id_grupo_enfermedad = 3;
+  
+  
+                  this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+  
+  
+                    // asigno el id de la enfermedad que me devuelve la funcion de mysql en el id_enfermedad
+                    // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
+                    this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;   
+                  
+                    console.log("ultimo antecedente: "+data[0].id_enfermedad);
+                                  
+  
+  
+                    // separo el string de parentesco que se guarda en la tabla
+                    // y lo convierto en un arreglo.
+                    stringParentesco = element.parentesco.split(' ');
+                    console.log(stringParentesco);
+  
+  
+                    // comparo cada string del arreglo de parentesco que se recupera de la tabla
+                    // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
+                    stringParentesco.forEach(element => {
+  
+                      switch (element) {
+                        case 'Padre':
+                          NumeroParentesco = 1;
+                          break;
+                        case 'Madre':
+                          NumeroParentesco = 2;
+                          break;
+                        case 'Tios':
+                          NumeroParentesco = 3;
+                          break;
+                        case 'Abuelos':
+                          NumeroParentesco = 4;
+                          break;
+                        default:
+                          NumeroParentesco = 5;
+                          break;
+                      }
+                      
+                      // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
+                      // para ser enviado a la base de datos.
+                      this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+  
+                      //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                      this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                        console.log('se enviaron perron los nuevos antecedentes');
+                      }, (error)=>{
+                        console.log(error);
+                      });
+  
+                    });
+  
+                  });
+                }
+  
+              }
             }else{
 
               //guardo el valor del controlador del parentesco y lo guardo en una variable de tipo any
