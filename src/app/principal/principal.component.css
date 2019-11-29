@@ -2,6 +2,7 @@
 .intro{
   background-color: #fff;
   color: #000;
+  padding-top:20px ;
 }
 .example-full-width {
   width: 100%;
@@ -25,7 +26,7 @@
 
 /* PARA EL SIDENAV */
 .logoU{
-  background: url('src\imagenes\logoUperron.jpg');
+  background: url('src\imagenes\logouuu.png');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
