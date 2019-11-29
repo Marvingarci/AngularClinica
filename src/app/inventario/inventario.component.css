@@ -12,7 +12,8 @@ table {
     height:30px;    
     line-height:10px;
     float: right;
-    margin-top: 15px;     
+    margin-top: 15px;   
+      
     }
 
     .botonee{
@@ -20,5 +21,6 @@ table {
       height: 25px;
       margin-top: 7px;
       padding: 0%;
+      background: #B721FF;
       }
   
