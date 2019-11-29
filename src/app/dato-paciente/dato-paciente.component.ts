@@ -231,8 +231,9 @@ export class DatoPacienteComponent implements OnInit {
 
 })
 export class DialogContentExampleDialog {
-  hide = true;
   hide1= false;
+  hide = true;
+  
   resultado:any;
 
    paciente1: Paciente = {
@@ -293,54 +294,17 @@ export class DialogContentExampleDialog {
 
   Nueva = new FormGroup({
 
-    nuevaContra: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    nuevaContraRep: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)])
+    nuevaContra: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s!@#$%&?*()_+=0-9]{2,15}$/)]),
+    nuevaContraRep: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s!@#$%&?*()_+=0-9]{2,15}$/)])
 });
 
 //EVENTO CUANDO SE DA ENTER
-onKeydown1(event) {
-  if (event.key === "Enter") {
-    this.hide1 = true;
-  }
-}
+
 
 onKeydown(event) {
   if (event.key === "Enter") {
-  this.hide = true;
-
-  this.formularioService.getUltimoID().subscribe((data)=>{
-    this.resultado = data;
-    console.log(this.resultado);
-    if(this.resultado!=null){
-      if(this.resultado[0].ultimoId!=null){
-        this.paciente1.id_paciente=this.resultado[0].ultimoId;
-        console.log(this.paciente1.id_paciente);    
-        
-    }
-     }
-  }, (error)=>{
-    console.log(error);
-  }); 
-
-  
-  if(this.Nueva.valid){
-    // guardar datos del formulario en paciente y enviarlo a la api
-    this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
-    if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
-      this.formularioService.actualizarPaciente(this.paciente1).subscribe((data)=>{
-        this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
-        this.showError('Contraseña Guardada'); 
-        this.Listo = true;
-      }, (error)=>{
-        console.log(error);
-        this.showError('Existe un error'); 
-      });
-    }else{
-      this.showError('La contraseña no coincide'); 
-      
-    }
-  }
-
+    this.hide = true;
+    this.hide1=true;
   }
 }
 
