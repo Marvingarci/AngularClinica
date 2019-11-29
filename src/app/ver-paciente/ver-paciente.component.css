@@ -84,13 +84,16 @@ mat-action-list{
   border: 1px solid #555;
 }
 .example-full-width {
-  width: 85%;
+  width: 95%;
   justify-content: center;
 }
+
+
 .img{
   height: 100%;
   width: 100%;
-  padding: 20px;
+  padding: 35px;
+  margin-left:20px ;
 }
 .example-fill-remaining-space {
   /* This fills the remaining space, by using flexbox. 

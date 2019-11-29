@@ -157,7 +157,7 @@ matcher = new MyErrorStateMatcher();
     temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]),
     presion: new FormControl('', [Validators.required]),
     pulso: new FormControl('', [Validators.required]),
-    prosene: new FormControl('', [Validators.required]),    
+    prosene: new FormControl('', []),    
   });
 
   formulario_antecedentes_familiares = new FormGroup({      
@@ -628,6 +628,7 @@ ocultar: boolean = true;
 
   //variable que identifica si un input es editable
   readonlyDatosGenerales: boolean = true;
+  disabledDatosGenerales: boolean = true;
   readonlyAntecedentesFamiliares: boolean = true;
   readonlyAntecedentesPersonales: boolean = true;
   readonlyHabitosToxicologicos: boolean = true;
@@ -645,7 +646,8 @@ ocultar: boolean = true;
   mostrarPlanificacionFamiliar: boolean = false;  
 
 
-constructor(private formularioService: FormularioService, private mensaje: MatSnackBar,  private activatedRoute: ActivatedRoute, activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService ) { 
+constructor(private formularioService: FormularioService, private mensaje: MatSnackBar,  private activatedRoute: ActivatedRoute, 
+  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, ) { 
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
     
@@ -802,6 +804,13 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
    }
  }//fin del constructor
 
+ showError(message: string) {
+  const config = new MatSnackBarConfig();
+  config.panelClass = ['background-red'];
+  config.duration = 2000;
+  this.mensaje.open(message, null, config);
+}
+
  
  @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
 
@@ -905,7 +914,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
         }, (error)=>{
           console.log(error);
-          alert('se chorriaron los datos generales');
+          this.showError('Error al actualizar los datos generales'); 
         });
 
         

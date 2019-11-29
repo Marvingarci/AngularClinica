@@ -20,7 +20,7 @@
 
 
 .example-full-width {
-  width: 100%;
+  width: 88%;
 }
 
 .mat-card{
@@ -31,9 +31,8 @@
 .img{
   height: 100%;
   width: 100%;
-  background-size: cover;
-  background-position: center;
-  padding: 20px;
+  padding: 35px;
+  margin-left:20px ;
 
 }
 
