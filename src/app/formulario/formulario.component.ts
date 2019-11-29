@@ -2084,15 +2084,12 @@ this.des3 = true;
     }); 
 
   }
-  openDialog() {
-    
+
+
+  openDialog() {    
     index: Number;
     const index = this.paciente.id_paciente;
-    const dialogRef = this.dialog.open(DialogContentExampleDialog, {disableClose:true});
-    
-
-    
-    
+    const dialogRef = this.dialog.open(DialogContentExampleDialog, {disableClose:true,panelClass: 'custom-dialog-container'});
   }
   
 
