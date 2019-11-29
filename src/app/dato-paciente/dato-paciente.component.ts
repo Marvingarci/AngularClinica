@@ -293,9 +293,8 @@ export class DialogContentExampleDialog {
   
 
   Nueva = new FormGroup({
-
-    nuevaContra: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s!@#$%&?*()_+=0-9]{2,15}$/)]),
-    nuevaContraRep: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s!@#$%&?*()_+=0-9]{2,15}$/)])
+    nuevaContra: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.minLength(6)]),
+    nuevaContraRep: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.minLength(6)])
 });
 
 //EVENTO CUANDO SE DA ENTER
