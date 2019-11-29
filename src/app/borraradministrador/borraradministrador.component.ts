@@ -15,8 +15,7 @@ export class BorraradministradorComponent implements OnInit {
     usuario_admin:null,
     contrasenia_admin:null,
     nombre_admin:null,
-    identidad_admin:null,
-    especialidad_admin:null
+    identidad_admin:null
   };
   pacientes: LoginAdmin[];
   id: any;

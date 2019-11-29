@@ -10,7 +10,7 @@ export interface Paciente {
     direccion: string;
     carrera: string;
     fecha_nacimiento: Date;
-    sexo: string;
+    sexo: any;
     estado_civil: any;
     seguro_medico?: any;
     numero_telefono: string;
@@ -22,6 +22,7 @@ export interface Paciente {
     temperatura?: string;
     presion?: string;
     pulso?: string;
+    prosene?:string;
     categoria?:string;
     created_at?:string;
     updated_at?:string;

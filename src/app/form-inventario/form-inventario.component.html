@@ -8,10 +8,10 @@
                 <mat-form-field class="example-full-width">
                     <input  matInput placeholder="Unidad" formControlName= "unidad" required>
                     <mat-error *ngIf="unidad.hasError('required')">
-                    <strong>campo requerido!</strong>
+                    <strong>campo requerido</strong>
                     </mat-error>
                     <mat-error *ngIf="unidad.hasError('minLength') && unidad.hasError('maxLength')">
-                    <strong>campo requerido!</strong>
+                    <strong>campo requerido</strong>
                     </mat-error>
                 </mat-form-field>
                 </div>
@@ -20,10 +20,10 @@
                     <mat-form-field class="example-full-width">
                         <input  matInput placeholder="Ingrese el nombre" formControlName= "nombre" required>
                             <mat-error *ngIf="nombre.hasError('required')">
-                                <strong>campo requerido!</strong>
+                                <strong>campo requerido</strong>
                                 </mat-error>
                             <mat-error *ngIf="nombre.hasError('minLength') && nombre.hasError('maxLength')">
-                                <strong>campo requerido!</strong>
+                                <strong>campo requerido</strong>
                             </mat-error>
                     </mat-form-field>     
                 </div>
@@ -32,10 +32,10 @@
                     <mat-form-field class="example-full-width">
                         <input  matInput placeholder="Descripcion" formControlName= "descripcion" required>
                             <mat-error *ngIf="descripcion.hasError('required')">
-                                <strong>campo requerido!</strong>
+                                <strong>campo requerido</strong>
                             </mat-error>
                             <mat-error *ngIf="descripcion.hasError('minLength')">
-                                <strong>campo requerido!</strong>
+                                <strong>campo requerido</strong>
                             </mat-error>
                     </mat-form-field>     
                 </div>
@@ -44,10 +44,10 @@
                         <mat-form-field class="example-full-width">
                             <input  matInput placeholder="Observacion" formControlName= "observacion" required>
                                 <mat-error *ngIf="observacion.hasError('required')">
-                                    <strong>campo requerido!</strong>
+                                    <strong>campo requerido</strong>
                                 </mat-error>
                                 <mat-error *ngIf="observacion.hasError('minLength')">
-                                    <strong>campo requerido!</strong>
+                                    <strong>campo requerido</strong>
                                 </mat-error>
                         </mat-form-field>     
                 </div>
@@ -67,7 +67,7 @@
                           {{presentacion.viewValue}}
                         </mat-option>
                       </mat-select>
-                    <mat-error *ngIf="presentacion.hasError('required')">campo requerido!</mat-error>
+                    <mat-error *ngIf="presentacion.hasError('required')"> <strong>campo requerido</strong></mat-error>
         
                     </mat-form-field>
                   </div>

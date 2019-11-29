@@ -157,7 +157,7 @@ matcher = new MyErrorStateMatcher();
     temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]),
     presion: new FormControl('', [Validators.required]),
     pulso: new FormControl('', [Validators.required]),
-    
+    prosene: new FormControl('', [Validators.required]),    
   });
 
   formulario_antecedentes_familiares = new FormGroup({      
@@ -507,16 +507,22 @@ ocultar: boolean = true;
     {value: 'P', viewValue: 'Prosene'}
   ];
 
-  sexos: Sexos[] = [
-    {value: 1, viewValue: 'Hombre'},
-    {value: 2, viewValue: 'Mujer'},
+  //sexos: Sexos[] = [
+    //{value: 1, viewValue: 'Hombre'},
+    //{value: 2, viewValue: 'Mujer'},
     //{value: 3, viewValue: 'Otro'}
-  ];
+  //];
 
   seguros_medicos: SegurosMedicos[] = [
     {value: 1, viewValue: 'Privado'},
     {value: 2, viewValue: 'IHSS'},
     {value: 3, viewValue: 'No'}
+  ];
+
+  sexos: Sexos[] = [
+    {value: 1, viewValue: 'Hombre'},
+    {value: 2, viewValue: 'Mujer'},
+  
   ];
 
   estados_civiles: EstadosCiviles[] = [
@@ -654,6 +660,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
           this.paciente.imc="0";
           this.paciente.talla="0";
           this.paciente.peso="0";
+          this.paciente.prosene="";
 
         }
         this.cargarInformacionDatosGenerales();
@@ -822,6 +829,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         this.paciente.talla = this.talla.value;
         this.paciente.temperatura = this.temperatura.value;
         this.paciente.pulso = this.pulso.value;
+        this.paciente.prosene = this.prosene.value;
 
       
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
@@ -1184,6 +1192,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     
   }
 
+ 
 
 
   cargarInformacionDatosGenerales(){
@@ -1193,11 +1202,70 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.numero_identidad.setValue(this.paciente.numero_identidad);
     this.numero_cuenta.setValue(this.paciente.numero_cuenta);
     this.carrera.setValue(this.paciente.carrera);
+
+    switch(this.paciente.sexo){
+      case "Hombre":
+        this.sexo.setValue(1);
+          break;
+     default:
+        this.sexo.setValue(2);
+          break;
+    } 
+   
     this.sexo.setValue(this.paciente.sexo);
     this.lugar_procedencia.setValue(this.paciente.lugar_procedencia);
     this.direccion.setValue(this.paciente.direccion);
     this.fecha_nacimiento.setValue(this.paciente.fecha_nacimiento);
+/*
+    switch(this.paciente.estado_civil){
+      case "Soltero":
+        this.estado_civil.setValue(1);
+          break;
+      case "Union Libre":
+       this.estado_civil.setValue(2);
+         break;
+      case "Divorciado":
+        this.estado_civil.setValue(3);
+         break;
+      case "Viudo":
+       this.estado_civil.setValue(4);
+         break;
+
+      default:
+        this.estado_civil.setValue(5);
+         break;
+    }*/
+
+
     this.estado_civil.setValue(this.paciente.estado_civil);
+
+    //switch(this.paciente.seguro_medico){
+      //case 1:
+        //this.paciente.seguro_medico = "Privado";
+         // break;
+     // case 2:
+       // this.paciente.seguro_medico = "IHSS";
+        //  break;
+     // default:
+       // this.paciente.seguro_medico = "No";
+         // break;
+   // }
+
+   /*switch(this.paciente.seguro_medico){
+    case "Privado":
+      this.seguro_medico.setValue(1);
+        break;
+    case "IHSS":
+      this.seguro_medico.setValue(2);
+          break;
+    
+    default:
+      this.seguro_medico.setValue(3);
+        break;
+    
+
+  } */
+
     this.seguro_medico.setValue(this.paciente.seguro_medico);
     this.numero_telefono.setValue(this.paciente.numero_telefono);
     this.emergencia_telefono.setValue(this.paciente.emergencia_telefono);
@@ -1208,6 +1276,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.imc.setValue(this.paciente.imc);
     this.talla.setValue(this.paciente.talla);
     this.peso.setValue(this.paciente.peso);
+    this.prosene.setValue(this.paciente.prosene);
     
     
   }
@@ -1420,6 +1489,38 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.observacion_otros_ht.setValue(this.habito_toxicologico_personal.observacion_otros);
   }
 
+  cambiarInformacionActividadSexual(){
+    if(this.readonlyActividadSexual){
+      switch(this.practicas_sexuales_riesgo.value){
+        case 1:
+            this.practicas_sexuales_riesgo.setValue("Anal");
+            break;
+        case 2:
+            this.practicas_sexuales_riesgo.setValue("Vaginal");
+              break;
+        default:
+            this.practicas_sexuales_riesgo.setValue("Oral");
+            break;
+        
+  
+      }
+    }else{
+      switch(this.practicas_sexuales_riesgo.value){
+        case "Anal":
+            this.practicas_sexuales_riesgo.setValue(1);
+            break;
+        case "Vaginal":
+            this.practicas_sexuales_riesgo.setValue(2);
+              break;
+        default:
+            this.practicas_sexuales_riesgo.setValue(3);
+            break;
+        
+  
+      }
+    }
+  }
+
 
 
   cargarInformacionActividadSexual(){
@@ -1427,6 +1528,20 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.actividad_sexuall.setValue(this.actividad_sexual.actividad_sexual);
     this.edad_inicio_sexual.setValue(this.actividad_sexual.edad_inicio_sexual);
     this.numero_parejas_sexuales.setValue(this.actividad_sexual.numero_parejas_sexuales);
+
+    switch(this.actividad_sexual.practicas_sexuales_riesgo){
+      case 1:
+        this.actividad_sexual.practicas_sexuales_riesgo = "Anal";
+          break;
+      case 2:
+        this.actividad_sexual.practicas_sexuales_riesgo = "Vaginal";
+            break;
+
+      default:
+        this.actividad_sexual.practicas_sexuales_riesgo = "Oral";
+          break;
+    }      
+
     this.practicas_sexuales_riesgo.setValue(this.actividad_sexual.practicas_sexuales_riesgo);
 
     if(this.actividad_sexuall.value == "No"){
@@ -1768,7 +1883,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
   get temperatura(){return this.formulario_datos_generales.get('temperatura')};
   get presion(){return this.formulario_datos_generales.get('presion')};
   get pulso(){return this.formulario_datos_generales.get('pulso')};
-
+  get prosene(){return this.formulario_datos_generales.get('prosene')};
 }
 
 

@@ -39,8 +39,7 @@ export class VerAdministradoresComponent implements OnInit {
     usuario_admin:null,
     contrasenia_admin:null,
     nombre_admin:null,
-    identidad_admin:null,
-    especialidad_admin:null
+    identidad_admin:null
   };
   
 
@@ -79,8 +78,7 @@ export class VerAdministradoresComponent implements OnInit {
   }
 
 
-  displayedColumns: string[] = ['id_loginAdmin', 'usuario_admin', 'contrasenia_admin', 'nombre_admin', 'identidad_admin', 'especialidad_admin','nada'];
-  displayedColumns2: string[] = ['id_loginAdmin', 'usuario_admin', 'contrasenia_admin', 'nombre_admin', 'identidad_admin', 'especialidad_admin','nada'];
+  displayedColumns2: string[] = ['id_loginAdmin', 'usuario_admin', 'contrasenia_admin', 'nombre_admin', 'identidad_admin', 'nada'];
 
 
   applyFilter(filterValue: string) {
@@ -142,8 +140,7 @@ login_admin:LoginAdmin = {
   usuario_admin:null,
   contrasenia_admin:null,
   nombre_admin:null,
-  identidad_admin:null,
-  especialidad_admin:null
+  identidad_admin:null
 };
 
 admins: LoginAdmin[];

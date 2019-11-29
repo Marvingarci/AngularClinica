@@ -35,8 +35,9 @@ export interface Loginadmin {
 export interface Element{
 
   numero: number;
-  antecedente?: string;
-  tipo_desnutricion?: string;
+  enfermedad?: string;
+  tipo_enfermedad?: string;
+  id_grupo_enfermedad?: number
   parentesco: any;
   
 }
@@ -150,25 +151,25 @@ export class FormularioComponent implements OnInit {
     diabetes : new FormControl('',[Validators.required]),
     parentesco_diabetes : new FormControl('',[],),
     tb_pulmonar : new FormControl('',[Validators.required]),
-    parentesco_tb_pulmonar : new FormControl({value:'', disabled: true},[]),
+    parentesco_tb_pulmonar : new FormControl('',[]),
     desnutricion : new FormControl('',[Validators.required]),
-    parentesco_desnutricion : new FormControl({value:'', disabled: true},[]),
-    tipo_desnutricion: new FormControl({value:'', disabled: true},[]),
+    parentesco_desnutricion : new FormControl('',[]),
+    tipo_desnutricion: new FormControl('',[]),
     enfermedades_mentales : new FormControl('',[Validators.required]),
-    parentesco_enfermedades_mentales : new FormControl({value:'', disabled: true},[]),
-    tipo_enfermedad_mental: new FormControl({value:'', disabled: true},[]),
+    parentesco_enfermedades_mentales : new FormControl('',[]),
+    tipo_enfermedad_mental: new FormControl('',[]),
     convulsiones : new FormControl('',[Validators.required]),
-    parentesco_convulsiones : new FormControl({value:'', disabled: true},[]),
+    parentesco_convulsiones : new FormControl('',[]),
     alcoholismo_sustancias_psicoactivas : new FormControl('',[Validators.required]),
-    parentesco_alcoholismo_sustancias_psicoactivas: new FormControl({value:'', disabled: true},[]),    
+    parentesco_alcoholismo_sustancias_psicoactivas: new FormControl('',[]),    
     alergias : new FormControl('',[Validators.required]),
-    parentesco_alergias: new FormControl({value:'', disabled: true},[]),
-    tipo_alergia: new FormControl({value:'', disabled: true},[]),
+    parentesco_alergias: new FormControl('',[]),
+    tipo_alergia: new FormControl('',[]),
     cancer : new FormControl('',[Validators.required]),
-    parentesco_cancer: new FormControl({value:'', disabled: true},[]),
-    tipo_cancer: new FormControl({value:'', disabled: true},[]),
+    parentesco_cancer: new FormControl('',[]),
+    tipo_cancer: new FormControl('',[]),
     hipertension_arterial: new FormControl('',[Validators.required]),
-    parentesco_hipertension_arterial: new FormControl({value:'', disabled: true},[]),
+    parentesco_hipertension_arterial: new FormControl('',[]),
     otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]), 
     parentesco_otros : new FormControl('',[]),      
   });
@@ -266,9 +267,6 @@ export class FormularioComponent implements OnInit {
     formControl.forEach(controlador => {
       controlador.enable({onlySelf: true});    
     });
-
-    //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById("divAgregarTiposDesnutricion").style.display = "block";
     
   }
 
@@ -278,21 +276,97 @@ export class FormularioComponent implements OnInit {
       controlador.disable({onlySelf: true});
     });
 
+  }
+
+
+  mostrarCamposDesnutricion(){
+
+    //muestro el contenido de este div si el usuario hace click en "si"
+    document.getElementById('divAgregarTiposDesnutricion').style.display = "block";
+
+  }
+
+  mostrarCamposEnfermedadesMentales(){
+
+    //muestro el contenido de este div si el usuario hace click en "si"
+    document.getElementById('divAgregarTiposEnfermedadesMentales').style.display = "block";
+
+  }
+
+  mostrarCamposAlergias(){
+
+    //muestro el contenido de este div si el usuario hace click en "si"
+    document.getElementById('divAgregarTiposAlergias').style.display = "block";
+
+  }
+
+  mostrarCamposCancer(){
+
+    //muestro el contenido de este div si el usuario hace click en "si"
+    document.getElementById('divAgregarTiposCancer').style.display = "block";
+
+  }
+
+
+  
+  
+
+
+  ocultarCamposDesnutricion(){
+
     //oculto el contenido de este div si el usuario hace click en "no" y establezco
     // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
     // limpio la tablaDesnutriciones para que quede en blanco.
-    document.getElementById("divAgregarTiposDesnutricion").style.display = "none";
+
+    document.getElementById('divAgregarTiposDesnutricion').style.display = "none";
     this.dataSourceTablaDesnutriciones = null;
     this.tablaDesnutriciones = [];
 
   }
+
+  ocultarCamposEnfermedadesMentales(){
+
+    //oculto el contenido de este div si el usuario hace click en "no" y establezco
+    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
+    // limpio la tablaDesnutriciones para que quede en blanco.
+
+    document.getElementById('divAgregarTiposEnfermedadesMentales').style.display = "none";
+    //this.dataSourceTablaEnfermedadesMentales = null;
+    this.tablaEnfermedadesMentales = [];
+
+  }
+
+  ocultarCamposAlergias(){
+
+    //oculto el contenido de este div si el usuario hace click en "no" y establezco
+    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
+    // limpio la tablaDesnutriciones para que quede en blanco.
+    
+    document.getElementById('divAgregarTiposAlergias').style.display = "none";
+    this.dataSourceTablaAlergias = null;
+    this.tablaAlergias = [];
+
+  }
+
+  ocultarCamposCancer(){
+
+    //oculto el contenido de este div si el usuario hace click en "no" y establezco
+    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
+    // limpio la tablaDesnutriciones para que quede en blanco.
+    
+    document.getElementById('divAgregarTiposCancer').style.display = "none";
+    this.dataSourceTablaCanceres = null;
+    this.tablaCanceres = [];
+
+  }
+
 
   ya(){
     alert('macizo');
   }
 
 
-  hidden1 = true;
+hidden1 = true;
 readonly=true;
 read15 = true;
 isDisabledB25 = true;
@@ -343,50 +417,52 @@ public onControlChange(event: any): void
 public onStepChange(event: any): void {
   console.log(event.selectedIndex);
 
-    if (event.selectedIndex == 0) {   
-     // this.hidden1 = false;
-      this.datosGenerales = 'Datos Generales';
-      this.antecedentesFamiliares = '';
-      this.antecedentesPersonales = '';
-      this.habitosToxicologicosPersonales = '';
-      this.actividadSexualYReproductiva = '';
-      this.antecedentesGinecologicos= '';
-      this.antecedentesObstetricos= '';
-      this.planificacionFamiliar = '';
+    // if (event.selectedIndex == 0) {   
+    //  // this.hidden1 = false;
+    //   this.datosGenerales = 'Datos Generales';
+    //   this.antecedentesFamiliares = '';
+    //   this.antecedentesPersonales = '';
+    //   this.habitosToxicologicosPersonales = '';
+    //   this.actividadSexualYReproductiva = '';
+    //   this.antecedentesGinecologicos= '';
+    //   this.antecedentesObstetricos= '';
+    //   this.planificacionFamiliar = '';
      
-    }
+    // }
 
-    if(event.selectedIndex ==1){ 
-      this.datosGenerales = '';
-      this.antecedentesFamiliares = 'Antecedentes Familiares';
-      this.antecedentesPersonales = '';
-      this.habitosToxicologicosPersonales = '';
-      this.actividadSexualYReproductiva = '';
-      this.antecedentesGinecologicos= '';
-      this.antecedentesObstetricos= '';
-      this.planificacionFamiliar = '';
-      //this.hidden1=true;
+    // if(event.selectedIndex ==1){ 
+    //   this.datosGenerales = '';
+    //   this.antecedentesFamiliares = 'Antecedentes Familiares';
+    //   this.antecedentesPersonales = '';
+    //   this.habitosToxicologicosPersonales = '';
+    //   this.actividadSexualYReproductiva = '';
+    //   this.antecedentesGinecologicos= '';
+    //   this.antecedentesObstetricos= '';
+    //   this.planificacionFamiliar = '';
+    //   //this.hidden1=true;
 
-      // this.antecedentesFamiliares = 'Antecedentes Familiares';  
-      // var div = document.getElementById('labelDatosGenerales');
+    //   // this.antecedentesFamiliares = 'Antecedentes Familiares';  
+    //   // var div = document.getElementById('labelDatosGenerales');
      
-      // div.innerHTML = "culito pelado"
-      // this.hidden1 = true;
-      // document.getElementById('labelDatosGenerales').hidden = true;
-      // console.log(document.getElementById('labelDatosGenerales'));
+    //   // div.innerHTML = "culito pelado"
+    //   // this.hidden1 = true;
+    //   // document.getElementById('labelDatosGenerales').hidden = true;
+    //   // console.log(document.getElementById('labelDatosGenerales'));
 
-      // console.log(document.getElementById('labelDatosGenerales'))
-    }
+    //   // console.log(document.getElementById('labelDatosGenerales'))
+    // }
 
     if(event.selectedIndex ==2){
-      this.datosGenerales = '';
-      this.antecedentesFamiliares = '';
-      this.antecedentesPersonales = 'Antecedentes Personales';
-      this.habitosToxicologicosPersonales = '';
-      this.actividadSexualYReproductiva = '';
-      this.antecedentesGinecologicos= '';
-      this.antecedentesObstetricos= '';
-      this.planificacionFamiliar = '';
+      // this.datosGenerales = '';
+      // this.antecedentesFamiliares = '';
+      // this.antecedentesPersonales = 'Antecedentes Personales';
+      // this.habitosToxicologicosPersonales = '';
+      // this.actividadSexualYReproductiva = '';
+      // this.antecedentesGinecologicos= '';
+      // this.antecedentesObstetricos= '';
+      // this.planificacionFamiliar = '';
+
+      document.getElementById('labelAntecedentesFamiliares').style.display = "none";
     }
     if(event.selectedIndex ==3){
       this.datosGenerales = '';
@@ -566,15 +642,16 @@ this.des3 = true;
     categoria:null
   };
 
-  antecedente: Element = {
+  enfermedad: Element = {
     numero: null,
-    antecedente: null,
+    enfermedad: null,
     parentesco: null,
+    id_grupo_enfermedad: null,
   }
 
   paciente_antecedente_familiar: PacienteAntecedenteFamiliar ={
     id_paciente: null,
-    id_antecedente: null,
+    id_enfermedad: null,
     id_parentesco: null,
   };
 
@@ -726,13 +803,15 @@ this.des3 = true;
     {value: 5, viewValue: 'Casado'},
   ];
 
-  parentescos: Parentescos[] = [
-    {value: 1 , viewValue: 'Padre'},
-    {value: 2 , viewValue: 'Madre'},
-    {value: 4 , viewValue: 'Abuelos'},
-    {value: 3 , viewValue: 'Tios'},
-    {value: 5 , viewValue: 'Otros'},
-  ];
+  // parentescos: Parentescos[] = [
+  //   {value: 1 , viewValue: 'Padre'},
+  //   {value: 2 , viewValue: 'Madre'},
+  //   {value: 4 , viewValue: 'Abuelos'},
+  //   {value: 3 , viewValue: 'Tios'},
+  //   {value: 5 , viewValue: 'Otros'},
+  // ];
+
+  parentescos: Parentescos[]=[];
 
   desnutriciones: select[] = [
     {value: 'Obecidad' , viewValue: 'Obecidad'},
@@ -786,16 +865,6 @@ this.des3 = true;
     {value: 'Escasa' , viewValue: 'Escasa'},
   ];
 
-  // metodos: select[] = [
-  //   {value: 'DIU' , viewValue: 'DIU'},
-  //   {value: 'Condón' , viewValue: 'Condón'},
-  //   {value: 'Pastilla' , viewValue: 'Pastilla'},
-  //   {value: 'Implante' , viewValue: 'Implante'},
-  //   {value: 'Inyección trimestral' , viewValue: 'Inyección trimestral'},
-  //   {value: 'Inyección trimestral' , viewValue: 'Inyección trimestral'},
-  //   {value: 'Inyección mensual' , viewValue: 'Inyección mensual'},
-  //   {value: 'Ritmo' , viewValue: 'Ritmo'},
-  //   {value: 'Esterilización' , viewValue: 'Esterilización'}];
 
   metodos: MetodoPlanificacion[] = [
     {value: 1 , viewValue: 'DIU'},
@@ -821,9 +890,19 @@ this.des3 = true;
 
   tablaOtros: Element[] = [];
   tablaDesnutriciones: Element[] = [];
+  tablaEnfermedadesMentales: Element[] = [];
+  tablaAlergias: Element[] = [];
+  tablaCanceres: Element[] = [];
 
   dataSourceTablaOtros : any;
   dataSourceTablaDesnutriciones : any;
+  dataSourceTablaEnfermedadesMentales : any;
+  dataSourceTablaAlergias : any;
+  dataSourceTablaCanceres : any;
+
+
+  
+
   columnasTabla: string[] = ['numero','antecedente','parentesco'];
 
 
@@ -845,14 +924,9 @@ this.des3 = true;
   constructor(private formularioService: FormularioService, 
     private router: Router, activar: AppComponent,public dialog: MatDialog, 
     public login: LoginService, private formulario: FormularioService) {
-
-      this.formularioService.ultimoIdAntecedente().subscribe((data)=>{
-        console.log(data);
-      });
-      
-      // if(this.esAlumno == true){
-        this.getDatosScraping();
-      // }      
+      // this.obtenerDatosFormulario();
+      this.getDatosScraping();
+        
     }
     
     // para que se le quite la cosa fea al text area
@@ -862,11 +936,25 @@ this.des3 = true;
  
 
   
-     
+  
   ngOnInit() {
+    this.obtenerDatosFormulario();
     this.getDatosScraping();
     this.esAlumno = this.formulario.esAlumno; 
   
+  }
+
+
+  obtenerDatosFormulario(){
+
+    this.formularioService.obtenerParentescos().subscribe((data: any[])=>{
+
+      data.forEach(element => {
+        this.parentescos.push({value:element.id_parentesco, viewValue:element.parentesco});  
+      });
+    
+    });
+
   }
   
 
@@ -883,7 +971,6 @@ this.des3 = true;
 
   getDatosScraping(){
 
-    // if(this.esAlumno === true){
       this.formularioService.getScrap().subscribe((data: Login) =>{
         this.datosScraping = data;
   
@@ -959,6 +1046,11 @@ this.des3 = true;
 
   agregarOtros(){
 
+    console.log('el puto valor');
+    // console.log(this.parentesco_otros.value);
+    // console.log(this.parentescos[(this.parentesco_otros.value[0] - 1)].viewValue);
+
+
     if(this.otros.value.toString().trim() && this.otros.valid && this.parentesco_otros.value){
       var stringParentesco: string = "";
 
@@ -966,44 +1058,51 @@ this.des3 = true;
 
       if(this.parentesco_otros.value.length == 1){
 
-        switch (this.parentesco_otros.value[0]) {
-          case 1:
-            stringParentesco = "Padre"
-            break;
-          case 2:
-            stringParentesco = "Madre"
-            break;
-          case 3:
-            stringParentesco = "Tios"
-            break;
-          case 4:
-            stringParentesco = "Abuelos"
-            break;
-          default:
-            stringParentesco = "Otros"
-            break;
-        }
+        //le establezco a la variable stringParentesco el valor en string del arreglo parentesco
+        // en donde el index es igual a el valor que se guarda en el formControl menos 1
+        stringParentesco = this.parentescos[this.parentesco_otros.value[0] - 1].viewValue;
+
+        // switch (this.parentesco_otros.value[0]) {
+        //   case 1:
+        //     stringParentesco = "Padre"
+        //     break;
+        //   case 2:
+        //     stringParentesco = "Madre"
+        //     break;
+        //   case 3:
+        //     stringParentesco = "Tios"
+        //     break;
+        //   case 4:
+        //     stringParentesco = "Abuelos"
+        //     break;
+        //   default:
+        //     stringParentesco = "Otros"
+        //     break;
+        // }
+
       }else{
 
         this.parentesco_otros.value.forEach(element => {
 
-          switch (element) {
-            case 1:
-              element = "Padre"           
-              break;
-            case 2:
-              element = "Madre"
-              break;
-            case 3:
-              element = "Tios"
-              break;
-            case 4:
-              element = "Abuelos"
-              break;
-            default:
-              element = "Otros"
-              break;
-          }
+          element = this.parentescos[element - 1].viewValue;
+
+          // switch (element) {
+          //   case 1:
+          //     element = "Padre"           
+          //     break;
+          //   case 2:
+          //     element = "Madre"
+          //     break;
+          //   case 3:
+          //     element = "Tios"
+          //     break;
+          //   case 4:
+          //     element = "Abuelos"
+          //     break;
+          //   default:
+          //     element = "Otros"
+          //     break;
+          // }
           
           stringParentesco += element+" ";       
         });
@@ -1020,7 +1119,7 @@ this.des3 = true;
       this.tablaOtros.push(
         {
           numero: this.tablaOtros.length + 1,
-          antecedente: this.otros.value,
+          enfermedad: this.otros.value,
           parentesco: stringParentesco,
           
         }
@@ -1046,44 +1145,49 @@ this.des3 = true;
       // comparo si solo se selecciono un valor en el select de parentesco_desnutricion
       if(this.parentesco_desnutricion.value.length == 1){
 
-        switch (this.parentesco_desnutricion.value[0]) {
-          case 1:
-            stringParentesco = "Padre"
-            break;
-          case 2:
-            stringParentesco = "Madre"
-            break;
-          case 3:
-            stringParentesco = "Tios"
-            break;
-          case 4:
-            stringParentesco = "Abuelos"
-            break;
-          default:
-            stringParentesco = "Otros"
-            break;
-        }
+        stringParentesco = this.parentescos[this.parentesco_desnutricion.value[0] - 1].viewValue;
+
+        // switch (this.parentesco_desnutricion.value[0]) {
+        //   case 1:
+        //     stringParentesco = "Padre"
+        //     break;
+        //   case 2:
+        //     stringParentesco = "Madre"
+        //     break;
+        //   case 3:
+        //     stringParentesco = "Tios"
+        //     break;
+        //   case 4:
+        //     stringParentesco = "Abuelos"
+        //     break;
+        //   default:
+        //     stringParentesco = "Otros"
+        //     break;
+        // }
       }else{
 
         this.parentesco_desnutricion.value.forEach(element => {
 
-          switch (element) {
-            case 1:
-              element = "Padre"           
-              break;
-            case 2:
-              element = "Madre"
-              break;
-            case 3:
-              element = "Tios"
-              break;
-            case 4:
-              element = "Abuelos"
-              break;
-            default:
-              element = "Otros"
-              break;
-          }
+          element = this.parentescos[element - 1].viewValue;
+
+
+          // switch (element) {
+          //   case 1:
+          //     element = "Padre"           
+          //     break;
+          //   case 2:
+          //     element = "Madre"
+          //     break;
+          //   case 3:
+          //     element = "Tios"
+          //     break;
+          //   case 4:
+          //     element = "Abuelos"
+          //     break;
+          //   default:
+          //     element = "Otros"
+          //     break;
+          // }
           
           //si se selecciono mas de un valor del select de parentesco_desnutricion
           //los guardo cada uno en una variable de tipo string y los separo con un espacio.
@@ -1103,7 +1207,7 @@ this.des3 = true;
       this.tablaDesnutriciones.push(
         {
           numero: this.tablaDesnutriciones.length + 1,
-          tipo_desnutricion: this.tipo_desnutricion.value,
+          enfermedad: this.tipo_desnutricion.value,
           parentesco: stringParentesco,
           
         }
@@ -1114,6 +1218,155 @@ this.des3 = true;
 
       this.tipo_desnutricion.setValue('');
       this.parentesco_desnutricion.setValue('');
+
+    }
+    
+
+  }
+
+
+  agregarEnfermedadesMentales(){
+
+    if(this.tipo_enfermedad_mental.value && this.tipo_enfermedad_mental.valid && this.parentesco_enfermedades_mentales.value){
+      
+      var stringParentesco: string = "";      
+
+      // comparo si solo se selecciono un valor en el select de parentesco_desnutricion
+      if(this.parentesco_enfermedades_mentales.value.length == 1){
+
+        stringParentesco = this.parentescos[this.parentesco_enfermedades_mentales.value[0] - 1].viewValue;
+
+      }else{
+
+        this.parentesco_enfermedades_mentales.value.forEach(element => {
+
+          element = this.parentescos[element - 1].viewValue;
+          
+          //si se selecciono mas de un valor del select de parentesco_desnutricion
+          //los guardo cada uno en una variable de tipo string y los separo con un espacio.
+          stringParentesco += element+" ";       
+        });
+
+        //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
+        stringParentesco = stringParentesco.trim();
+
+        
+      }
+    
+      //agrego a la tabla el parentesco y el tipo de desnutricion.
+      this.tablaEnfermedadesMentales.push(
+        {
+          numero: this.tablaEnfermedadesMentales.length + 1,
+          enfermedad: this.tipo_enfermedad_mental.value,
+          parentesco: stringParentesco,
+          
+        }
+
+      );
+
+      this.dataSourceTablaEnfermedadesMentales =  new MatTableDataSource(this.tablaEnfermedadesMentales);
+
+      this.tipo_enfermedad_mental.setValue('');
+      this.parentesco_enfermedades_mentales.setValue('');
+
+    }
+    
+
+  }
+
+  agregarAlergias(){
+
+    if(this.tipo_alergia.value && this.tipo_alergia.valid && this.parentesco_alergias.value){
+      
+      var stringParentesco: string = "";      
+
+      // comparo si solo se selecciono un valor en el select de parentesco_desnutricion
+      if(this.parentesco_alergias.value.length == 1){
+
+        stringParentesco = this.parentescos[this.parentesco_alergias.value[0] - 1].viewValue;
+
+      }else{
+
+        this.parentesco_alergias.value.forEach(element => {
+
+          element = this.parentescos[element - 1].viewValue;
+          
+          //si se selecciono mas de un valor del select de parentesco_desnutricion
+          //los guardo cada uno en una variable de tipo string y los separo con un espacio.
+          stringParentesco += element+" ";       
+        });
+
+        //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
+        stringParentesco = stringParentesco.trim();
+
+        
+      }
+    
+      //agrego a la tabla el parentesco y el tipo de desnutricion.
+      this.tablaAlergias.push(
+        {
+          numero: this.tablaAlergias.length + 1,
+          enfermedad: this.tipo_alergia.value,
+          parentesco: stringParentesco,
+          
+        }
+
+      );
+
+      this.dataSourceTablaAlergias =  new MatTableDataSource(this.tablaAlergias);
+
+      this.tipo_alergia.setValue('');
+      this.parentesco_alergias.setValue('');
+
+    }
+    
+
+  }
+
+
+  agregarCanceres(){
+
+    if(this.tipo_cancer.value && this.tipo_cancer.valid && this.parentesco_cancer.value){
+      
+      var stringParentesco: string = "";      
+
+      // comparo si solo se selecciono un valor en el select de parentesco_desnutricion
+      if(this.parentesco_cancer.value.length == 1){
+
+        stringParentesco = this.parentescos[this.parentesco_cancer.value[0] - 1].viewValue;
+
+      }else{
+
+        this.parentesco_cancer.value.forEach(element => {
+
+          element = this.parentescos[element - 1].viewValue;
+          
+          //si se selecciono mas de un valor del select de parentesco_desnutricion
+          //los guardo cada uno en una variable de tipo string y los separo con un espacio.
+          stringParentesco += element+" ";       
+        });
+
+        //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
+        stringParentesco = stringParentesco.trim();
+
+        
+      }
+    
+      //agrego a la tabla el parentesco y el tipo de desnutricion.
+      this.tablaCanceres.push(
+        {
+          numero: this.tablaAlergias.length + 1,
+          enfermedad: this.tipo_cancer.value,
+          parentesco: stringParentesco,
+          
+        }
+
+      );
+
+      this.dataSourceTablaCanceres =  new MatTableDataSource(this.tablaCanceres);
+
+      this.tipo_cancer.setValue('');
+      this.parentesco_cancer.setValue('');
 
     }
     
@@ -1200,26 +1453,312 @@ this.des3 = true;
       if(this.formulario_antecedentes_familiares.valid){
 
         var parentescos : any;
+        var stringParentesco: string[];
+        var NumeroParentesco: number;
+        var id_antecedente: number;
+
         for (let index = 0; index < this.formControlsAntecedentes.length; index++) {
           const element = this.formControlsAntecedentes[index];
 
-             // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
-            if(element.value != 0){
+          // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
+          if(element.value != 0){
 
-              this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
-              this.paciente_antecedente_familiar.id_antecedente = element.value;
+            console.log('valor del elemento: '+ element.value);
+            this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
 
+             
+            if(element.value == 9){
+
+              if(this.tablaDesnutriciones.length){
+
+                for (let index = 0; index < this.tablaDesnutriciones.length; index++) {
+                  const element = this.tablaDesnutriciones[index];
+  
+                  // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                  // de la interfaz de enfermedad.
+                  this.enfermedad.enfermedad = element.enfermedad;
+                  this.enfermedad.id_grupo_enfermedad = 1;
+  
+  
+                  this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+  
+  
+                    // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_tipo_enfermedad
+                    // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
+                    this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;   
+                  
+                    console.log("ultimo antecedente: "+data[0].id_enfermedad);
+                                  
+  
+  
+                    // separo el string de parentesco que se guarda en la tabla
+                    // y lo convierto en un arreglo.
+                    stringParentesco = element.parentesco.split(' ');
+                    console.log(stringParentesco);
+  
+  
+                    // comparo cada string del arreglo de parentesco que se recupera de la tabla
+                    // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
+                    stringParentesco.forEach(element => {
+  
+                      switch (element) {
+                        case 'Padre':
+                          NumeroParentesco = 1;
+                          break;
+                        case 'Madre':
+                          NumeroParentesco = 2;
+                          break;
+                        case 'Tios':
+                          NumeroParentesco = 3;
+                          break;
+                        case 'Abuelos':
+                          NumeroParentesco = 4;
+                          break;
+                        default:
+                          NumeroParentesco = 5;
+                          break;
+                      }
+                      
+                      // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
+                      // para ser enviado a la base de datos.
+                      this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+  
+                      //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                      this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                        console.log('se enviaron perron los nuevos antecedentes');
+                      }, (error)=>{
+                        console.log(error);
+                      });
+  
+                    });
+  
+                  });
+                }
+              
+              }
+            }else if(element.value == 10){
+
+              if(this.tablaEnfermedadesMentales.length){
+
+                for (let index = 0; index < this.tablaEnfermedadesMentales.length; index++) {
+                  const element = this.tablaEnfermedadesMentales[index];
+  
+                  // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                  // de la interfaz de enfermedad.
+                  this.enfermedad.enfermedad = element.enfermedad;
+                  this.enfermedad.id_grupo_enfermedad = 2;
+  
+  
+                  this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+  
+  
+                    // asigno el id de la enfermedad que me devuelve la funcion de mysql en el id_enfermedad
+                    // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
+                    this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;   
+                  
+                    console.log("ultimo antecedente: "+data[0].id_enfermedad);
+                                  
+  
+  
+                    // separo el string de parentesco que se guarda en la tabla
+                    // y lo convierto en un arreglo.
+                    stringParentesco = element.parentesco.split(' ');
+                    console.log(stringParentesco);
+  
+  
+                    // comparo cada string del arreglo de parentesco que se recupera de la tabla
+                    // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
+                    stringParentesco.forEach(element => {
+  
+                      switch (element) {
+                        case 'Padre':
+                          NumeroParentesco = 1;
+                          break;
+                        case 'Madre':
+                          NumeroParentesco = 2;
+                          break;
+                        case 'Tios':
+                          NumeroParentesco = 3;
+                          break;
+                        case 'Abuelos':
+                          NumeroParentesco = 4;
+                          break;
+                        default:
+                          NumeroParentesco = 5;
+                          break;
+                      }
+                      
+                      // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
+                      // para ser enviado a la base de datos.
+                      this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+  
+                      //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                      this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                        console.log('se enviaron perron los nuevos antecedentes');
+                      }, (error)=>{
+                        console.log(error);
+                      });
+  
+                    });
+  
+                  });
+                }
+  
+              }
+            }else if(element.value == 11){
+
+              if(this.tablaAlergias.length){
+
+                for (let index = 0; index < this.tablaAlergias.length; index++) {
+                  const element = this.tablaAlergias[index];
+  
+                  // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                  // de la interfaz de enfermedad.
+                  this.enfermedad.enfermedad = element.enfermedad;
+                  this.enfermedad.id_grupo_enfermedad = 3;
+  
+  
+                  this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+  
+  
+                    // asigno el id de la enfermedad que me devuelve la funcion de mysql en el id_enfermedad
+                    // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
+                    this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;   
+                  
+                    console.log("ultimo antecedente: "+data[0].id_enfermedad);
+                                  
+  
+  
+                    // separo el string de parentesco que se guarda en la tabla
+                    // y lo convierto en un arreglo.
+                    stringParentesco = element.parentesco.split(' ');
+                    console.log(stringParentesco);
+  
+  
+                    // comparo cada string del arreglo de parentesco que se recupera de la tabla
+                    // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
+                    stringParentesco.forEach(element => {
+  
+                      switch (element) {
+                        case 'Padre':
+                          NumeroParentesco = 1;
+                          break;
+                        case 'Madre':
+                          NumeroParentesco = 2;
+                          break;
+                        case 'Tios':
+                          NumeroParentesco = 3;
+                          break;
+                        case 'Abuelos':
+                          NumeroParentesco = 4;
+                          break;
+                        default:
+                          NumeroParentesco = 5;
+                          break;
+                      }
+                      
+                      // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
+                      // para ser enviado a la base de datos.
+                      this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+  
+                      //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                      this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                        console.log('se enviaron perron los nuevos antecedentes');
+                      }, (error)=>{
+                        console.log(error);
+                      });
+  
+                    });
+  
+                  });
+                }
+  
+              }
+            }else if(element.value == 12){
+
+              if(this.tablaCanceres.length){
+
+                for (let index = 0; index < this.tablaCanceres.length; index++) {
+                  const element = this.tablaCanceres[index];
+  
+                  // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                  // de la interfaz de enfermedad.
+                  this.enfermedad.enfermedad = element.enfermedad;
+                  this.enfermedad.id_grupo_enfermedad = 3;
+  
+  
+                  this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+  
+  
+                    // asigno el id de la enfermedad que me devuelve la funcion de mysql en el id_enfermedad
+                    // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
+                    this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;   
+                  
+                    console.log("ultimo antecedente: "+data[0].id_enfermedad);
+                                  
+  
+  
+                    // separo el string de parentesco que se guarda en la tabla
+                    // y lo convierto en un arreglo.
+                    stringParentesco = element.parentesco.split(' ');
+                    console.log(stringParentesco);
+  
+  
+                    // comparo cada string del arreglo de parentesco que se recupera de la tabla
+                    // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
+                    stringParentesco.forEach(element => {
+  
+                      switch (element) {
+                        case 'Padre':
+                          NumeroParentesco = 1;
+                          break;
+                        case 'Madre':
+                          NumeroParentesco = 2;
+                          break;
+                        case 'Tios':
+                          NumeroParentesco = 3;
+                          break;
+                        case 'Abuelos':
+                          NumeroParentesco = 4;
+                          break;
+                        default:
+                          NumeroParentesco = 5;
+                          break;
+                      }
+                      
+                      // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
+                      // para ser enviado a la base de datos.
+                      this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+  
+                      //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                      this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                        console.log('se enviaron perron los nuevos antecedentes');
+                      }, (error)=>{
+                        console.log(error);
+                      });
+  
+                    });
+  
+                  });
+                }
+  
+              }
+            }else{
 
               //guardo el valor del controlador del parentesco y lo guardo en una variable de tipo any
               // ahora el select como es multiple me devuelve un arreglo
               parentescos = this.formControlsParentescos[index].value;
+              this.paciente_antecedente_familiar.id_enfermedad = element.value;
+
 
               // por cada vuelta que de el ciclo se hará un registro en la tabla pacientes_antecedentes_familiares,
               // siendo cada registro un antecedente de los antecedentes familiares y su parentesco
               // si el antecedente tiene mas de un 1 parentesco entonces se insertara varias veces el mismo antecedente
               // con los diferentes parentesco.
-              parentescos.forEach(element => {
-                this.paciente_antecedente_familiar.id_parentesco = element;
+              parentescos.forEach(parentesco => {
+
+                //establezco el valor del arreglo en el atributo id_parentesco de la interfaz paciente_antecedente_familiar.
+                this.paciente_antecedente_familiar.id_parentesco = parentesco;
 
                 this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
                   console.log('se envio perron la prueba');
@@ -1228,14 +1767,11 @@ this.des3 = true;
                 });
 
               });
-              
             }
-          
+          }
         }
 
-        var stringParentesco: string[];
-        var NumeroParentesco: number;
-        var id_antecedente: number;
+       
 
         //establezco primero el id del paciente por que si no no se guarda.
         this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
@@ -1245,24 +1781,24 @@ this.des3 = true;
           for (let index = 0; index < this.tablaOtros.length; index++) {
             const element = this.tablaOtros[index];
 
-            // le establezco el valor del antecedente que se guarda en la tabla al atributo antecedente
+            // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
             // de la interfaz de antecedente.
-            this.antecedente.antecedente = element.antecedente;
+            this.enfermedad.enfermedad = element.enfermedad;
 
-            console.log('antecedente: '+element.antecedente);
+            console.log('enfermedad: '+element.enfermedad);
 
             // guardo cada uno de los antecedentes de la tabla en el html a la tabla antecedentes de la base de datos
             // cuando se va insertar un antecedente se hace por medio de una funcion en mysql que inserta y a la vez 
             // devuelve el id de el antecedente, si el antecedente ya existe en la base de datos entonces solo devuelve 
             // el id de ese antecedemte.
-            this.formularioService.enviarAntecedentes(this.antecedente).subscribe((data)=>{
+            this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
 
               // asigno el id del antecedente que me devuelve la funcion de mysql en el id_antecedente
               // de la interfaz de antecedente que se va enviar a paciente_antecedentes_familiares.
-              this.paciente_antecedente_familiar.id_antecedente = data[0].id_antecedente;   
+              this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;   
              
-              console.log("ultimo antecedente: "+data[0].id_antecedente);
-              
+              console.log("ultimo antecedente: "+data[0].id_enfermedad);
+              // console.log(data);              
 
 
               // separo el string de parentesco que se guarda en la tabla
