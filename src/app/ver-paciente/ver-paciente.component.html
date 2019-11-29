@@ -344,8 +344,7 @@
 
         <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
         disabled={{formulario_datos_generales.invalid}} 
-        (click)="readonlyDatosGenerales = !readonlyDatosGenerales;
-          actualizarDatosGenerales();">
+        (click)="actualizarDatosGenerales();">
         {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
         </button>
 
@@ -559,7 +558,7 @@
          </div>
 
     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_datos_generales.invalid}}
-    (click)="readonlyDatosGenerales = !readonlyDatosGenerales; actualizarDatosGenerales(); ">
+    (click)="actualizarDatosGenerales(); ">
     {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
     </button>
 
