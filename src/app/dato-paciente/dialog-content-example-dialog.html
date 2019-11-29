@@ -1,7 +1,7 @@
 <div *ngIf="Listo==false" > 
 <h2 mat-dialog-title disableClose >Cambio de contraseña</h2>
 <mat-dialog-content class="mat-typography">
-  <p>Una vez finalizado esto, podrás ingresar al Portal de la clinica UNAH-TEC </p>
+  <p>Una vez finalizado esto, podrás ingresar al Portal de la clínica UNAH-TEC </p>
   <p> usando número de cuenta y la contraseña que a continuación ingresarás</p> 
   <p>Usa caracteres y números para hacer tu contraseña más confiable</p>
   <form [formGroup]="Nueva">
@@ -13,7 +13,9 @@
               <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                   <mat-icon>{{hide1 ? 'visibility' : 'visibility_off'}}</mat-icon>
                   </button>
-              <mat-error *ngIf="nuevaContra.hasError('required') ">ingrese la contraseña!</mat-error>
+              <mat-error *ngIf="nuevaContra.hasError('required') ">ingrese la contraseña</mat-error>
+              <mat-error *ngIf="nuevaContra.hasError('maxLength') ">contraseña muy extensa</mat-error>
+              <mat-error *ngIf="nuevaContra.hasError('minLength') ">contraseña muy corta</mat-error>
             </mat-form-field>
 
 <br>
@@ -25,6 +27,8 @@
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 <mat-error *ngIf="nuevaContraRep.hasError('required') ">ingrese la contraseña!</mat-error>
+                <mat-error *ngIf="nuevaContraRep.hasError('maxLength') ">contraseña muy extensa</mat-error>
+                <mat-error *ngIf="nuevaContraRep.hasError('minLength') ">contraseña muy corta</mat-error>
               </mat-form-field>
 
     </form>
@@ -45,6 +49,6 @@
         
     </mat-dialog-content>
     <mat-dialog-actions align="end" style="bottom: 0px;">
-      <button mat-button class="botonperron" style=" bottom: 0px;right: 0px;margin-top:120px ;" mat-dialog-close>Comenzar</button>
+      <button mat-button class="botonperron" style=" bottom: 0px;right: 0px;margin-top:110px ;" mat-dialog-close>Comenzar</button>
     </mat-dialog-actions>
     </div>
