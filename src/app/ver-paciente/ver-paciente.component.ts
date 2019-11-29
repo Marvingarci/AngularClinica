@@ -614,6 +614,7 @@ ocultar: boolean = true;
   // variable que identifica si el paciente tiene imagen de perfil
   noImg: boolean = true;
 
+
   // arreglos de cada tipo de interfaz en los que se guardan los datos que se mandan  
   // a traer todos los datos respectivos desde la api
   pacientes: Paciente[]; 
@@ -687,7 +688,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
       
 
-/////////////////////////////////////////////////////////////////
+
       this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
         this.ante_familiar = data;
 
@@ -814,10 +815,68 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
  @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
 
 
+ perron(){
+   console.log('dio perron');
+ }
+
   
- actualizarDatosGenerales(){
-    if(this.readonlyDatosGenerales === true && this.disabledDatosGenerales === true ){    
+ actualizarDatosGenerales()
+ {
+
+  this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
+
+  switch(this.paciente.estado_civil){
+    case "Soltero":
+      this.estado_civil.setValue(1);
+        break;
+    case "Union Libre":
+     this.estado_civil.setValue(2);
+       break;
+    case "Divorciado":
+      this.estado_civil.setValue(3);
+       break;
+    case "Viudo":
+     this.estado_civil.setValue(4);
+       break;
+
+    default:
+      this.estado_civil.setValue(5);
+       break;
+  }
+
+ switch(this.paciente.seguro_medico){
+    case "Privado":
+      this.seguro_medico.setValue(1);
+        break;
+    case "IHSS":
+      this.seguro_medico.setValue(2);
+          break;
+    
+    default:
+      this.seguro_medico.setValue(3);
+        break;
+    
+
+  }
+
+  console.log(this.paciente.sexo);
+
+  switch (this.paciente.sexo) {
+    case 'Hombre':
+      this.sexo.setValue(1);
+      
+      break;
+  
+    default:
+        this.sexo.setValue(2);
+
+      break;
+  }
+
+
+    if(this.readonlyDatosGenerales === true){    
       if(this.formulario_datos_generales.valid){
+
         // guardar datos del formulario en paciente y enviarlo a la api
         this.paciente.nombre_completo = this.nombre_completo.value;
         this.paciente.numero_cuenta = this.numero_cuenta.value;
@@ -842,11 +901,23 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
       
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
-          this.showError('Se actualizaron los datos generales'); 
+
+          this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente)=>{
+            this.paciente = data;
+  
+            this.cargarInformacionDatosGenerales();
+          });
+
+          // alert('se actualizaron perron los datos generales');
+
+          
+
         }, (error)=>{
           console.log(error);
           this.showError('Error al actualizar los datos generales'); 
         });
+
+        
       } 
     }     
   }
@@ -1212,14 +1283,14 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.numero_cuenta.setValue(this.paciente.numero_cuenta);
     this.carrera.setValue(this.paciente.carrera);
 
-    switch(this.paciente.sexo){
+   /* switch(this.paciente.sexo){
       case "Hombre":
         this.sexo.setValue(1);
           break;
      default:
         this.sexo.setValue(2);
           break;
-    } 
+      }*/ 
    
     this.sexo.setValue(this.paciente.sexo);
     this.lugar_procedencia.setValue(this.paciente.lugar_procedencia);
@@ -1909,7 +1980,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
 export class HistoriaSubsiguiente1{
 
-  constructor( private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente1>, private mensaje: MatSnackBar){//para cerrar el dialogo desde la misma interfaz
+  constructor(private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente1>, private mensaje: MatSnackBar){//para cerrar el dialogo desde la misma interfaz
     
   }
 
