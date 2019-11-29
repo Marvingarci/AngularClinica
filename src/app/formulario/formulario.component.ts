@@ -123,17 +123,14 @@ export class FormularioComponent implements OnInit {
   
 
   formulario_datos_generales = new FormGroup({     
-      nombre_completo: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-z\s]{0,100}$/)]),
-      // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-      // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-      // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+      nombre_completo: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,100}$/)]),
       numero_cuenta: new FormControl('', [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]), 
       // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
       // "/ /" indica el inicio y el final de la expresion regular
       // "{10}" indica le numero de digitos de lo que lo antecede
       numero_identidad: new FormControl('', [Validators.required,Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
        // "\d" es lo mismo "[0-9]"
-      lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
+      lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,20}$/)]),
       direccion: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(20)]),
       carrera: new FormControl('', [Validators.required]),
       fecha_nacimiento: new FormControl('', Validators.required),
@@ -142,7 +139,7 @@ export class FormularioComponent implements OnInit {
       estado_civil: new FormControl('', Validators.required),
       seguro_medico: new FormControl('', Validators.required),
       numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
-      emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{3,30}$/)]),
+      emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
       emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]) 
   });
 
@@ -231,12 +228,12 @@ export class FormularioComponent implements OnInit {
 
 
   formulario_antecedente_ginecologico = new FormGroup ({
-    edad_inicio_menstruacion : new FormControl('',[Validators.required,Validators.max(15),Validators.min(7)]),
+    edad_inicio_menstruacion : new FormControl('',[Validators.required,Validators.max(18),Validators.min(6)]),
     fum : new FormControl('',[Validators.required]),
     citologia : new FormControl('',[Validators.required]),
     fecha_citologia : new FormControl(''),
     resultado_citologia : new FormControl('', [ Validators.maxLength(60),Validators.minLength(3)]),
-    duracion_ciclo_menstrual : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    duracion_ciclo_menstrual : new FormControl('', [ Validators.maxLength(60),Validators.minLength(5)]),
     periocidad_ciclo_menstrual : new FormControl('',[Validators.required]),
     caracteristicas_ciclo_menstrual : new FormControl('',[Validators.required])
   });
@@ -424,34 +421,29 @@ public onStepChange(event: any): void {
 
 
 
-    if (event.selectedIndex == 0) {   
+    if (event.selectedIndex == 0) {        
 
-      
-      // event.selectedStep.
-
-      // this.mostrarLabelDatosGenerales = true;
-      // this.datosGenerales = 'Datos Generales';
-      // this.antecedentesFamiliares = '';
-      // this.antecedentesPersonales = '';
-      // this.habitosToxicologicosPersonales = '';
-      // this.actividadSexualYReproductiva = '';
-      // this.antecedentesGinecologicos= '';
-      // this.antecedentesObstetricos= '';
-      // this.planificacionFamiliar = '';
+      this.datosGenerales = 'Datos Generales';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
      
     }
 
     if(event.selectedIndex ==1){ 
 
-      event.selectedStep.stepLabel.hidden();
-      // this.datosGenerales = '';
-      // this.antecedentesFamiliares = 'Antecedentes Familiares';
-      // this.antecedentesPersonales = '';
-      // this.habitosToxicologicosPersonales = '';
-      // this.actividadSexualYReproductiva = '';
-      // this.antecedentesGinecologicos= '';
-      // this.antecedentesObstetricos= '';
-      // this.planificacionFamiliar = '';
+      this.datosGenerales = '';
+      this.antecedentesFamiliares = 'Antecedentes Familiares';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
 
       // this.antecedentesFamiliares = 'Antecedentes Familiares';  
       // var div = document.getElementById('labelDatosGenerales');
@@ -465,129 +457,128 @@ public onStepChange(event: any): void {
     }
 
     if(event.selectedIndex ==2){
-      // this.datosGenerales = '';
-      // this.antecedentesFamiliares = '';
-      // this.antecedentesPersonales = 'Antecedentes Personales';
-      // this.habitosToxicologicosPersonales = '';
-      // this.actividadSexualYReproductiva = '';
-      // this.antecedentesGinecologicos= '';
-      // this.antecedentesObstetricos= '';
-      // this.planificacionFamiliar = '';
-
-      document.getElementById('labelAntecedentesFamiliares').style.display = "none";
+      this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = 'Antecedentes Personales';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
+      // document.getElementById('labelAntecedentesFamiliares').style.display = "none";
     }
     if(event.selectedIndex ==3){
-      // this.datosGenerales = '';
-      // this.antecedentesFamiliares = '';
-      // this.antecedentesPersonales = '';
-      // this.habitosToxicologicosPersonales = '';
-      // this.actividadSexualYReproductiva = 'Actividad Sexual Y Reproductiva';
-      // this.antecedentesGinecologicos= '';
-      // this.antecedentesObstetricos= '';
-      // this.planificacionFamiliar = '';
+      this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = 'Actividad Sexual Y Reproductiva';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
     }
 
     if(event.selectedIndex ==4){
-      if(this.formulario_datos_generales.get('sexo').value == "Hombre" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
-      //   this.datosGenerales = '';
-      // this.antecedentesFamiliares = '';
-      // this.antecedentesPersonales = '';
-      // this.habitosToxicologicosPersonales = 'habitos Toxicologicos Personales';
-      // this.actividadSexualYReproductiva = '';
-      // this.antecedentesGinecologicos= '';
-      // this.antecedentesObstetricos= '';
-      // this.planificacionFamiliar = '';
+      if(this.formulario_datos_generales.get('sexo').value == "1" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
+        this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = 'Hábitos Toxicológicos Personales';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
 
-      }if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = '';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos= 'antecedentes Ginecologicos';
-        // this.antecedentesObstetricos= '';
-        // this.planificacionFamiliar = '';
+      }if(this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = '';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= 'Antecedentes Ginecológicos';
+        this.antecedentesObstetricos= '';
+        this.planificacionFamiliar = '';
       } 
 
-      if(this.formulario_datos_generales.get('sexo').value == "Hombre" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
-      //   this.datosGenerales = '';
-      // this.antecedentesFamiliares = '';
-      // this.antecedentesPersonales = '';
-      // this.habitosToxicologicosPersonales = '';
-      // this.actividadSexualYReproductiva = '';
-      // this.antecedentesGinecologicos= '';
-      // this.antecedentesObstetricos= '';
-      // this.planificacionFamiliar = 'Planificacion Familiar';
+      if(this.formulario_datos_generales.get('sexo').value == "1" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = '';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = 'Planificación Familiar';
       }
       
-      if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = '';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos= '';
-        // this.antecedentesObstetricos= 'antecedentes Obstetricos';
-        // this.planificacionFamiliar = '';
+      if(this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = '';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= '';
+        this.antecedentesObstetricos= 'Antecedentes Obstétricos';
+        this.planificacionFamiliar = '';
       } 
     }
 
     if(event.selectedIndex ==5){
-    if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = 'habitos Toxicologicos Personales';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos= '';
-        // this.antecedentesObstetricos= '';
-        // this.planificacionFamiliar = '';
+    if(this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = 'Hábitos Toxicológicos Personales';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= '';
+        this.antecedentesObstetricos= '';
+        this.planificacionFamiliar = '';
       } 
-      if(this.formulario_datos_generales.get('sexo').value == "Hombre" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
-      //   this.datosGenerales = '';
-      // this.antecedentesFamiliares = '';
-      // this.antecedentesPersonales = '';
-      // this.habitosToxicologicosPersonales = 'habitos Toxicologicos Personales';
-      // this.actividadSexualYReproductiva = '';
-      // this.antecedentesGinecologicos= '';
-      // this.antecedentesObstetricos= '';
-      // this.planificacionFamiliar = '';
+      if(this.formulario_datos_generales.get('sexo').value == "1" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = 'Hábitos Toxicológicos Personales';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
       }
-      if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = '';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos= '';
-        // this.antecedentesObstetricos= '';
-        // this.planificacionFamiliar = 'planificacion Familiar';
+      if(this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = '';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= '';
+        this.antecedentesObstetricos= '';
+        this.planificacionFamiliar = 'Planificación Familiar';
       } 
     }
 
     if(event.selectedIndex ==6){
-        if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = '';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos= 'antecedentesGinecologicos';
-        // this.antecedentesObstetricos= '';
-        // this.planificacionFamiliar = '';
+        if(this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+        this.datosGenerales = '';
+        this.antecedentesFamiliares = '';
+        this.antecedentesPersonales = '';
+        this.habitosToxicologicosPersonales = '';
+        this.actividadSexualYReproductiva = '';
+        this.antecedentesGinecologicos= 'Antecedentes Ginecológicos';
+        this.antecedentesObstetricos= '';
+        this.planificacionFamiliar = '';
       } 
     }
     
     if(event.selectedIndex ==7){
-      if(this.formulario_datos_generales.get('sexo').value == "Mujer" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
-      // this.datosGenerales = '';
-      // this.antecedentesFamiliares = '';
-      // this.antecedentesPersonales = '';
-      // this.habitosToxicologicosPersonales = 'Habitos Toxicologicos Personales';
-      // this.actividadSexualYReproductiva = '';
-      // this.antecedentesGinecologicos= '';
-      // this.antecedentesObstetricos= '';
-      // this.planificacionFamiliar = '';
+      if(this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si"){
+      this.datosGenerales = '';
+      this.antecedentesFamiliares = '';
+      this.antecedentesPersonales = '';
+      this.habitosToxicologicosPersonales = 'Hábitos Toxicológicos Personales';
+      this.actividadSexualYReproductiva = '';
+      this.antecedentesGinecologicos= '';
+      this.antecedentesObstetricos= '';
+      this.planificacionFamiliar = '';
     } 
   }
 }
@@ -782,7 +773,7 @@ this.des3 = true;
 
   estados_civiles: EstadosCiviles[] = [
     {value: 1, viewValue: 'Soltero'},
-    {value: 2, viewValue: 'Union Libre'},
+    {value: 2, viewValue: 'Unión Libre'},
     {value: 3, viewValue: 'Divorciado'},
     {value: 4, viewValue: 'Viudo'},
     {value: 5, viewValue: 'Casado'},
