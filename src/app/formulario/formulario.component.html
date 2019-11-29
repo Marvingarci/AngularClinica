@@ -1,9 +1,8 @@
 <mat-horizontal-stepper linear #stepper  (selectionChange)="onStepChange($event)" > 
 
-    <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
+    <!-- <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
         <form [formGroup]="formulario_datos_generales">
-        <ng-template matStepLabel ><p id="labelDatosGenerales">{{datosGenerales}}</p></ng-template>
-        <ng-template matStepLabel id="labelDatosGenerales">{{datosGenerales}}</ng-template>
+        <div style="display: none;" id="labelDatosGenerales"><ng-template matStepLabel >Datos generales</ng-template></div>
         <div class="container1">
           <div class="row">
             <div class="col">
@@ -156,7 +155,7 @@
           </div>
        
       </form>
-    </mat-step>   
+    </mat-step>    -->
     
 
 
@@ -167,10 +166,12 @@
 
  <!-- primer step -->
   
-  <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1"  >
+  <!-- <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1" label="hola">
     <form [formGroup]="formulario_datos_generales">
     
-          <ng-template matStepLabel >{{datosGenerales}}</ng-template>
+    <ng-template matStepLabel >Datos generales</ng-template>
+
+
 
       
     <div class="container">
@@ -342,7 +343,7 @@
         <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right" >Siguiente</button>
      </div>
   </form>
-  </mat-step>  
+  </mat-step> -->
 
 
 
@@ -352,7 +353,8 @@
   <!-- segundo step --> 
    <mat-step [stepControl]= "formulario_antecedentes_familiares">
     <form [formGroup]="formulario_antecedentes_familiares">
-      <p style="display: block;" id="labelAntecedentesFamiliares"><ng-template matStepLabel>Antecedentes Familiares</ng-template></p>
+      
+      <ng-template matStepLabel>Antecedentes Familiares</ng-template>
       <div class="container">
        
          
@@ -476,11 +478,17 @@
               <td mat-footer-cell *matFooterCellDef></td>
               
             </ng-container>
+
+            <ng-container matColumnDef="botones">
+              <th mat-header-cell *matHeaderCellDef></th>
+                <div mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button (click)="eliminarDesnutriciones(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>      
+                </div>
+            </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
-            <mat-cell *matCellDef="let row" >
-                <button mat-button >Edit</button>
-            </mat-cell>
             <tr mat-row *matRowDef="let row; columns: columnasTabla;"></tr>
           </table>
 
@@ -562,11 +570,17 @@
               <td mat-footer-cell *matFooterCellDef></td>
               
             </ng-container>
+
+            <ng-container matColumnDef="botones">
+              <th mat-header-cell *matHeaderCellDef></th>
+                <div mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button (click)="eliminarEnfermedadesMentales(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>      
+                </div>
+            </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
-            <mat-cell *matCellDef="let row" >
-                <button mat-button >Edit</button>
-           </mat-cell>
             <tr mat-row *matRowDef="let row; columns: columnasTabla;"></tr>
           </table>
 
@@ -689,11 +703,17 @@
               <td mat-footer-cell *matFooterCellDef></td>
               
             </ng-container>
+
+            <ng-container matColumnDef="botones">
+              <th mat-header-cell *matHeaderCellDef></th>
+                <div mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button (click)="eliminarAlergias(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>      
+                </div>
+            </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
-            <mat-cell *matCellDef="let row" >
-                <button mat-button >Edit</button>
-           </mat-cell>
             <tr mat-row *matRowDef="let row; columns: columnasTabla;"></tr>
           </table>
 
@@ -769,11 +789,17 @@
               <td mat-footer-cell *matFooterCellDef></td>
               
             </ng-container>
+
+            <ng-container matColumnDef="botones">
+              <th mat-header-cell *matHeaderCellDef></th>
+                <div mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button (click)="eliminarCanceres(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>      
+                </div>
+            </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
-            <mat-cell *matCellDef="let row" >
-                <button mat-button >Edit</button>
-           </mat-cell>
             <tr mat-row *matRowDef="let row; columns: columnasTabla;"></tr>
           </table>
 
@@ -865,11 +891,18 @@
                 <td mat-footer-cell *matFooterCellDef></td>
                 
               </ng-container>
+
+
+              <ng-container matColumnDef="botones">
+                <th mat-header-cell *matHeaderCellDef></th>
+                  <div mat-cell *matCellDef="let element; index as i;">
+                    <button mat-icon-button (click)="eliminarOtros(i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>      
+                  </div>
+              </ng-container>
             
               <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
-              <mat-cell *matCellDef="let row" >
-                  <button mat-button >Edit</button>
-             </mat-cell>
               <tr mat-row *matRowDef="let row; columns: columnasTabla;"></tr>
             </table>
         </div>
