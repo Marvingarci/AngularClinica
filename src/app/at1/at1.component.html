@@ -1,50 +1,83 @@
 <mat-card style="margin: 15px;" [class.mat-elevation-z20]="true"> 
-                  <div class="container" style="margin:0px;margin-right: 0px;">
-                    <div class="container" style="margin:0;margin-right: 0px;">
                         
                       <div style="text-align: center">
                       <h6>Universidad Nacional de Honduras</h6>
                       <h6>Vicerrectoria de Orientacion y Asuntos Estudiantiles</h6>
-                      <h6>Dr:_____________________________ Fecha____________</h6>
+                      <h6></h6>
                     </div>
-                  </div>
   
   
-                        <hr>
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                              <tr>
-                                  <th rowspan="2">No.</th>
-                                  <th scope="col">No. Cuenta</th>
-                                  <th scope="col">Carrera</th>
-                                  <th scope="col">Sexo</th>
-                                  <th scope="col">Edad</th>
-                                  <th scope="col">Paciente</th>
-                                  <th scope="col">Diagnostico 1</th>
-                                  <th scope="col">N/S</th>
-                                  <th scope="col">Diagnostico 2</th>
-                                  <th scope="col">N/S</th>
-                                  <th scope="col">Observacion</th>
-                              </tr>
-                              <tbody>
-                                <tr>
-                                  <td ></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                </tr>
-                                  
-                              </tbody>
-                            </table>
-                        </div>
+                          <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                          </mat-form-field>
+                          
+                          <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
+
+                            <ng-container matColumnDef="id_paciente">
+                              <th mat-header-cell *matHeaderCellDef> Id Paciente </th>
+                              <td mat-cell *matCellDef="let element"> {{element.id_paciente}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="nombre_completo">
+                              <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                              <td mat-cell *matCellDef="let element"> {{element.nombre_completo}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="numero_cuenta">
+                              <th mat-header-cell *matHeaderCellDef> Numero de Cuenta </th>
+                              <td mat-cell *matCellDef="let element"> {{element.numero_cuenta}} </td>
+                            </ng-container>
+
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="carrera">
+                              <th mat-header-cell *matHeaderCellDef> Carrera </th>
+                              <td mat-cell *matCellDef="let element"> {{element.carrera}} </td>
+                            </ng-container>
+                          
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="sexo">
+                              <th mat-header-cell *matHeaderCellDef> Sexo </th>
+                              <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
+                            </ng-container>
+                          
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="categoria">
+                              <th mat-header-cell *matHeaderCellDef> Categoria </th>
+                              <td mat-cell *matCellDef="let element"> {{element.categoria}} </td>
+                            </ng-container>
                       
-                  </div>
+
+                            <ng-container matColumnDef="remitidoa">
+                              <th mat-header-cell *matHeaderCellDef> Remitido </th>
+                              <td mat-cell *matCellDef="let element"> {{element.seccion}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="diagnostico1">
+                                <th mat-header-cell *matHeaderCellDef> Diagnostico 1 </th>
+                                <td mat-cell *matCellDef="let element"> <input type="text" matInput></td>
+                              </ng-container>
+                            
+                              <ng-container matColumnDef="sn1">
+                                  <th mat-header-cell *matHeaderCellDef> Diagnostico 1 </th>
+                                  <td mat-cell *matCellDef="let element"> <input type="text" matInput></td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="diagnostico2">
+                                    <th mat-header-cell *matHeaderCellDef> Diagnostico 1 </th>
+                                    <td mat-cell *matCellDef="let element"> <input type="text" matInput></td>
+                                  </ng-container>
+                            
+                                  <ng-container matColumnDef="sn2">
+                                      <th mat-header-cell *matHeaderCellDef> Diagnostico 1 </th>
+                                      <td mat-cell *matCellDef="let element"> <input type="text" matInput></td>
+                                    </ng-container>
+                         
+                          
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          </table>
+                          
+                      
 </mat-card>
 
     

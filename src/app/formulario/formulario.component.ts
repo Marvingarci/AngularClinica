@@ -704,7 +704,7 @@ this.des3 = true;
   categorias: select[] = [
     {value: 'T', viewValue: 'Empleado'},
     {value: 'V', viewValue: 'Visitante'},
-    {value: 'P', viewValue: 'Prosene'}
+    {value: 'E', viewValue: 'Estudiante'}
   ];
   sexos: sexos[] = [
     {value: 1, viewValue: 'Hombre'},

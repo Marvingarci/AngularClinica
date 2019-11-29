@@ -308,7 +308,16 @@
   }
   
   /*--------------------------side-footer------------------------------*/
-  
+  /* Structure */
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
   .sidebar-footer {
     position: absolute;
     width: 100%;

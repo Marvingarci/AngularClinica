@@ -36,5 +36,8 @@ export class InventariosService {
   obtenerCita(id_paciente: any){
     return this.httpClient.get(this.API_ENDPOINT+'/citas/'+id_paciente);
   }
+  obtenerTodasCita(){
+    return this.httpClient.get(this.API_ENDPOINT+'/citas');
+  }
 
 }
