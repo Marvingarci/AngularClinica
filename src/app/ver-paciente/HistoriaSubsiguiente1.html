@@ -107,7 +107,33 @@
                       </mat-form-field>
                     </div>
                     
-                  </div>  
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col"> 
+                      <mat-form-field  style=" width: 100%;">
+                        <mat-select formControlName= "nombre" placeholder="nombre">
+                          <mat-option *ngFor="let nombre of nombres" [value]="nombre.value">
+                            {{nombre.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      <mat-error *ngIf="nombre.hasError('required')"> <strong>campo requerido</strong></mat-error>
+          
+                      </mat-form-field>
+                    </div>
+                    <div class="col">
+                      <mat-form-field style=" width: 100%;">
+                          <input  matInput placeholder="Unidad" formControlName= "unidad" required>
+                          <mat-error *ngIf="unidad.hasError('required')">
+                          <strong>campo requerido</strong>
+                          </mat-error>
+                          <mat-error *ngIf="unidad.hasError('minLength') && unidad.hasError('maxLength')">
+                          <strong>campo requerido</strong>
+                          </mat-error>
+                      </mat-form-field>
+                      </div>
+                  </div>
+                  
                   <div class="row">
                     <div class="col">
                       <mat-form-field style=" width: 100%;">
@@ -147,7 +173,9 @@
                     </mat-select>
                     <mat-error *ngIf="remitira.hasError('required')">campo requerido!</mat-error>
 
-                  </mat-form-field>     
+                  </mat-form-field>
+                  
+                  
               </div>
 
             <!--Aqui van las citas-->
