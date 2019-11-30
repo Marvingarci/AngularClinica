@@ -815,32 +815,10 @@ this.des3 = true;
     {value: 2, viewValue: 'Mujer'},
     //{value: 'otro', viewValue: 'Otro'}
   ];
-
-  /*seguros_medicos: SegurosMedicos[] = [
-    {value: 1, viewValue: 'Privado'},
-    {value: 2, viewValue: 'IHSS'},
-    {value: 3, viewValue: 'No'}
-  ];*/
   
   seguros_medicos: SegurosMedicos[]=[];
 
-  /*estados_civiles: EstadosCiviles[] = [
-    {value: 1, viewValue: 'Soltero'},
-    {value: 2, viewValue: 'Unión Libre'},
-    {value: 3, viewValue: 'Divorciado'},
-    {value: 4, viewValue: 'Viudo'},
-    {value: 5, viewValue: 'Casado'},
-  ];*/
-
   estados_civiles: EstadosCiviles[]=[];
-
-  // parentescos: Parentescos[] = [
-  //   {value: 1 , viewValue: 'Padre'},
-  //   {value: 2 , viewValue: 'Madre'},
-  //   {value: 4 , viewValue: 'Abuelos'},
-  //   {value: 3 , viewValue: 'Tios'},
-  //   {value: 5 , viewValue: 'Otros'},
-  // ];
 
   parentescos: Parentescos[]= [];
 
@@ -879,11 +857,13 @@ this.des3 = true;
     {value: 'Cervicouterino' , viewValue: 'Cervicouterino'}
   ];
 
-  practicas_sexuales: PracticasSexuales[] = [
+  /*practicas_sexuales: PracticasSexuales[] = [
     {value: 1 , viewValue: 'Anal'},
     {value: 2 , viewValue: 'Vaginal'},
     {value: 3 , viewValue: 'Oral'},
-  ];
+  ];*/
+
+  practicas_sexuales: PracticasSexuales[]=[];
 
   periocidades: select[] = [
     {value: 'Regular' , viewValue: 'Regular'},
@@ -897,7 +877,7 @@ this.des3 = true;
   ];
 
 
-  metodos: MetodoPlanificacion[] = [
+  /*metodos: MetodoPlanificacion[] = [
     {value: 1 , viewValue: 'DIU'},
     {value: 2 , viewValue: 'Condón'},
     {value: 3 , viewValue: 'Pastilla'},
@@ -908,7 +888,9 @@ this.des3 = true;
     {value: 8 , viewValue: 'Ritmo'},
     {value: 9 , viewValue: 'Esterilización'},
 
-  ];
+  ];*/
+
+  metodos: MetodoPlanificacion[]=[];
 
   resultados_embarazos: select[] = [
     {value: 'Sin complicaciones' , viewValue: 'Sin complicaciones'},
@@ -1014,6 +996,22 @@ this.des3 = true;
 
       data.forEach(element => {
         this.seguros_medicos.push({value:element.id_seguro_medico, viewValue:element.seguro_medico});  
+      });
+    
+    });
+
+    this.formularioService.obtenerPracticasSexuales().subscribe((data: any[])=>{
+
+      data.forEach(element => {
+        this.practicas_sexuales.push({value:element.id_practica_sexual, viewValue:element.practicas_sexuales_riesgo});  
+      });
+    
+    });
+
+    this.formularioService.obtenerMetodosPlanificaciones().subscribe((data: any[])=>{
+
+      data.forEach(element => {
+        this.metodos.push({value:element.id_metodo_planificacion, viewValue:element.metodo_planificacion});  
       });
     
     });
