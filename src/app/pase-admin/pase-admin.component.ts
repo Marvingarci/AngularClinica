@@ -53,7 +53,7 @@ export class PaseAdminComponent implements OnInit {
 
   ngOnInit() { }
 
-  //CLICK BOTON
+  //CLICK ENTER
   onKeydown(event) {
     if (event.key === "Enter") {
       this.hide = false;
@@ -64,6 +64,9 @@ export class PaseAdminComponent implements OnInit {
       for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
         if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
             this.login_admin=this.login_admins[indexx];
+        }else{
+          
+        this.showError('Usuario no existe');
         }
       } 
   
@@ -74,8 +77,9 @@ export class PaseAdminComponent implements OnInit {
         
       console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
         this.loading=false;
-        this.showError('Cuenta no existente');  
+        this.showError('Contraseña incorrecta');
       }
+        
     }
   }
 
@@ -88,7 +92,10 @@ export class PaseAdminComponent implements OnInit {
     for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
       if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
         this.login_admin=this.login_admins[indexx];
-      }
+      }else{
+          
+        this.showError('Usuario no existe');
+        }
     }
     if (this.login_admin.contrasenia_admin  == this.login.clave) {
     console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
@@ -97,8 +104,9 @@ export class PaseAdminComponent implements OnInit {
       
     console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
       this.loading=false;
-      this.showError('Contraseña Incorrecta');  
+      this.showError('Contraseña incorrecta');  
     }
+
   }
 
   get cuenta(){return this.login_form.get('cuenta')};

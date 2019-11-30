@@ -1,65 +1,6 @@
 
 <!--desde aqui es lo normal-->
-  <div>
-<mat-toolbar class="toolbar">
-    <span (click)="drawer.toggle()" style="cursor: pointer;margin-top: 5px;"><mat-icon>reorder</mat-icon> </span>
-    <span class="title"><strong> Clínica UNAH-TEC Danlí</strong></span>
-    <span class="example-fill-remaining-space"></span>
-        <span class="example-spacer"></span>
-    <button mat-icon-button [matMenuTriggerFor]="menu" 
-    style="outline:none;  
-          display:block;">
-        <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="anadirCita()">
-            <mat-icon >dialpad</mat-icon>
-            <span>Añadir cita</span>
-        </button>
-        <button mat-menu-item disabled>
-            <mat-icon > voicemail</mat-icon>
-            <span>Historia clinica</span>
-        </button>
-        <button mat-menu-item (click)="mostrarHistoriasSub()">
-            <mat-icon >notifications_off</mat-icon>
-            <span>Ver citas</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon >notifications_off</mat-icon>
-            <span>Añadir historia subsiguiente</span>
-        </button>
-    </mat-menu>    
-</mat-toolbar>
-
-
-<mat-sidenav-container  class="example-container"  >
-  
-    <mat-sidenav #drawer mode="side" opened >
-    <div class="container"> 
-          <div >
-              <div style="width: 226px; height: 155px;" class="logoU" alt="User picture"></div>
-                <div class="sidebar-brand">
-                     <div id="close-sidebar">
-                        <i class="fas fa-times"></i>
-                      </div>
-                    </div>
-            </div>
-          
-            <mat-action-list class="intro">
-              <button (click)="principal()" class="hoveritem "[routerLink]="['/principal/principal1']" routerLinkActive="router-link-active" ><strong> Principal</strong></button>
-              <button (click)="pacientes()" [routerLink]="['/principal/registro']" routerLinkActive="router-link-active" class="hoveritem"><strong> Pacientes</strong></button>
-              <button (click)="at1()"  [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"><strong>  At1</strong>  </button>
-              <button (click)="consolidariodiario()" class="hoveritem"><strong> Consolidado Diario </strong></button>
-              <button (click)="inventario()" [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Inventario </strong> </button>
-              <button (click)="admininstradores()" [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem"> <strong> Administradores </strong> </button>
-              <button (click)="ayuda()"  class="hoveritem"> <strong> Ayuda? </strong> </button>
-          </mat-action-list>  
-      </div>     
-      </mat-sidenav>
-      
-
- <mat-sidenav-content class="fondo2" >   
-            <router-outlet ></router-outlet>
+  <div> 
    
   <div class="container1" >
 
@@ -83,6 +24,9 @@
                 </mat-form-field>
             </div>
             <div class="col" style="padding-top: 20px;" >
+
+             
+
                 <mat-form-field class="example-full-width">
                     <input matInput value={{paciente.numero_identidad}} placeholder="Numero identidad" readonly>
                 </mat-form-field>
@@ -92,6 +36,33 @@
                 <mat-form-field class="example-full-width">
                     <input matInput value={{paciente.sexo}} placeholder="Sexo" readonly>
                 </mat-form-field>
+            </div>
+            
+            <div class="col-xs-2 " >
+              <button mat-icon-button [matMenuTriggerFor]="menu" 
+              style="outline:none;  
+                    display:block;">
+                  <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="anadirCita()">
+                      <mat-icon >dialpad</mat-icon>
+                      <span>Añadir cita</span>
+                  </button>
+                  <button mat-menu-item disabled>
+                      <mat-icon > voicemail</mat-icon>
+                      <span>Historia clinica</span>
+                  </button>
+                  <button mat-menu-item (click)="mostrarHistoriasSub()">
+                      <mat-icon >notifications_off</mat-icon>
+                      <span>Ver citas</span>
+                  </button>
+                  <button mat-menu-item>
+                      <mat-icon >notifications_off</mat-icon>
+                      <span>Añadir historia subsiguiente</span>
+                  </button>
+              </mat-menu> 
+
             </div>
         </div>  
     </mat-card>
@@ -333,7 +304,7 @@
                 <div class="col">
                   <div style="padding-top: 20px;">
                     <label id="example-radio-group-label" style="margin-right: 40px;">Prosene</label>
-                <mat-radio-group  formControlName="prosene"  aria-labelledby="example-radio-group-label" class="example-radio-group" >        
+                <mat-radio-group  formControlName="prosene"  aria-labelledby="example-radio-group-label" class="example-radio-group" [disabled]="disabledDatosGenerales" >        
                   <mat-radio-button  value="Si" >Si</mat-radio-button> &nbsp; &nbsp;&nbsp;   
                   <mat-radio-button  value="No" >No</mat-radio-button>
                 </mat-radio-group>
@@ -344,8 +315,7 @@
 
         <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
         disabled={{formulario_datos_generales.invalid}} 
-        (click)="readonlyDatosGenerales = !readonlyDatosGenerales;
-          actualizarDatosGenerales();">
+        (click)="actualizarDatosGenerales();">
         {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
         </button>
 
@@ -559,7 +529,7 @@
          </div>
 
     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_datos_generales.invalid}}
-    (click)="readonlyDatosGenerales = !readonlyDatosGenerales; actualizarDatosGenerales(); ">
+    (click)="actualizarDatosGenerales(); ">
     {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
     </button>
 
@@ -2149,7 +2119,6 @@ class="example-element-row"
 </div>
 
 </div>   
-</mat-sidenav-content>
-</mat-sidenav-container>
+
 
 </div>

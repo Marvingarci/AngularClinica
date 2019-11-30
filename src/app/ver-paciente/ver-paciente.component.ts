@@ -157,7 +157,7 @@ matcher = new MyErrorStateMatcher();
     temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]),
     presion: new FormControl('', [Validators.required]),
     pulso: new FormControl('', [Validators.required]),
-    prosene: new FormControl('', [Validators.required]),    
+    prosene: new FormControl('', []),    
   });
 
   formulario_antecedentes_familiares = new FormGroup({      
@@ -507,6 +507,8 @@ ocultar: boolean = true;
     {value: 'P', viewValue: 'Prosene'}
   ];
 
+  
+
   //sexos: Sexos[] = [
     //{value: 1, viewValue: 'Hombre'},
     //{value: 2, viewValue: 'Mujer'},
@@ -614,6 +616,7 @@ ocultar: boolean = true;
   // variable que identifica si el paciente tiene imagen de perfil
   noImg: boolean = true;
 
+
   // arreglos de cada tipo de interfaz en los que se guardan los datos que se mandan  
   // a traer todos los datos respectivos desde la api
   pacientes: Paciente[]; 
@@ -627,6 +630,7 @@ ocultar: boolean = true;
 
   //variable que identifica si un input es editable
   readonlyDatosGenerales: boolean = true;
+  disabledDatosGenerales: boolean = true;
   readonlyAntecedentesFamiliares: boolean = true;
   readonlyAntecedentesPersonales: boolean = true;
   readonlyHabitosToxicologicos: boolean = true;
@@ -644,7 +648,8 @@ ocultar: boolean = true;
   mostrarPlanificacionFamiliar: boolean = false;  
 
 
-constructor(private formularioService: FormularioService, private mensaje: MatSnackBar,  private activatedRoute: ActivatedRoute, activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService ) { 
+constructor(private formularioService: FormularioService, private mensaje: MatSnackBar,  private activatedRoute: ActivatedRoute, 
+  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, ) { 
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
     
@@ -685,7 +690,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
       
 
-/////////////////////////////////////////////////////////////////
+
       this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
         this.ante_familiar = data;
 
@@ -801,14 +806,79 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
    }
  }//fin del constructor
 
+ showError(message: string) {
+  const config = new MatSnackBarConfig();
+  config.panelClass = ['background-red'];
+  config.duration = 2000;
+  this.mensaje.open(message, null, config);
+}
+
  
  @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
 
 
+ perron(){
+   console.log('dio perron');
+ }
+
   
- actualizarDatosGenerales(){
+ actualizarDatosGenerales()
+ {
+
+  this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
+
+  switch(this.paciente.estado_civil){
+    case "Soltero":
+      this.estado_civil.setValue(1);
+        break;
+    case "Union Libre":
+     this.estado_civil.setValue(2);
+       break;
+    case "Divorciado":
+      this.estado_civil.setValue(3);
+       break;
+    case "Viudo":
+     this.estado_civil.setValue(4);
+       break;
+
+    default:
+      this.estado_civil.setValue(5);
+       break;
+  }
+
+ switch(this.paciente.seguro_medico){
+    case "Privado":
+      this.seguro_medico.setValue(1);
+        break;
+    case "IHSS":
+      this.seguro_medico.setValue(2);
+          break;
+    
+    default:
+      this.seguro_medico.setValue(3);
+        break;
+    
+
+  }
+
+  console.log(this.paciente.sexo);
+
+  switch (this.paciente.sexo) {
+    case 'Hombre':
+      this.sexo.setValue(1);
+      
+      break;
+  
+    default:
+        this.sexo.setValue(2);
+
+      break;
+  }
+
+
     if(this.readonlyDatosGenerales === true){    
       if(this.formulario_datos_generales.valid){
+
         // guardar datos del formulario en paciente y enviarlo a la api
         this.paciente.nombre_completo = this.nombre_completo.value;
         this.paciente.numero_cuenta = this.numero_cuenta.value;
@@ -833,11 +903,23 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
       
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
-          alert('se actualizaron perron los datos generales');
+
+          this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente)=>{
+            this.paciente = data;
+  
+            this.cargarInformacionDatosGenerales();
+          });
+
+          // alert('se actualizaron perron los datos generales');
+
+          
+
         }, (error)=>{
           console.log(error);
-          alert('se chorriaron los datos generales');
+          this.showError('Error al actualizar los datos generales'); 
         });
+
+        
       } 
     }     
   }
@@ -1203,14 +1285,14 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.numero_cuenta.setValue(this.paciente.numero_cuenta);
     this.carrera.setValue(this.paciente.carrera);
 
-    switch(this.paciente.sexo){
+   /* switch(this.paciente.sexo){
       case "Hombre":
         this.sexo.setValue(1);
           break;
      default:
         this.sexo.setValue(2);
           break;
-    } 
+      }*/ 
    
     this.sexo.setValue(this.paciente.sexo);
     this.lugar_procedencia.setValue(this.paciente.lugar_procedencia);
@@ -1900,7 +1982,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
 export class HistoriaSubsiguiente1{
 
-  constructor( private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente1>, private mensaje: MatSnackBar){//para cerrar el dialogo desde la misma interfaz
+  constructor(private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente1>, private mensaje: MatSnackBar){//para cerrar el dialogo desde la misma interfaz
     
   }
 
@@ -1948,7 +2030,9 @@ export class HistoriaSubsiguiente1{
     pulso: new FormControl('',[Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
     remitir: new FormControl('', Validators.required),
     cita: new FormControl('', Validators.required),
-    remitira: new FormControl('', Validators.required)
+    remitira: new FormControl('', Validators.required),
+    nombre: new FormControl('',Validators.required),
+    unidad: new FormControl('',Validators.required)
     
 });
   matcher = new MyErrorStateMatcher();
@@ -1962,6 +2046,11 @@ export class HistoriaSubsiguiente1{
     {value: 4 , viewValue: 'Terapia Funcional'},
     {value: 5 , viewValue: 'CATFA'},
     {value: 6 , viewValue: 'Trabajo Social'}
+  ];
+  nombres: select[] = [
+    {value: "Tabletas", viewValue: 'Tabletas'},
+    {value: "Cápsulas", viewValue: 'Cápsulas'},
+    {value: "Comprimidos", viewValue: 'Comprimidos'},
   ];
 
   habilitarInputs(formControl : FormControl[]){  
@@ -2018,5 +2107,8 @@ export class HistoriaSubsiguiente1{
   get fecha_nacimiento(){return this.formulario_cita.get('fecha_nacimiento')};
   get indicaciones(){return this.formulario_cita.get('indicaciones')};
   get presion(){return this.formulario_cita.get('presion')};
+  get nombre(){return this.formulario_cita.get('nombre')};
+  get unidad(){return this.formulario_cita.get('unidad')};
   get cita(){return this.formulario_cita.get('cita')};
+  
 }

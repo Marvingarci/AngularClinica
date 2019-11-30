@@ -10,6 +10,7 @@ import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familia
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
 // import { PruebaPaciente } from '../interfaces/prueba-paciente';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
+import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +33,15 @@ export class FormularioService {
      return this.httpClient.get(this.API_ENDPOINT+'ultimoIdAntecedente');
    }
 
-  enviarPruebaPaciente(paciente_antecedente_familiar: PacienteAntecedenteFamiliar){
+  enviarPacienteAntecedenteFamiliar(paciente_antecedente_familiar: PacienteAntecedenteFamiliar){
     return this.httpClient.post(this.API_ENDPOINT+'pacientes_antecedentes_familiares',
     paciente_antecedente_familiar, 
+    {headers: this.headers});
+  }
+
+  enviarPacienteAntecedentePersonal(paciente_antecedente_personal: PacienteAntecedentePersonal){
+    return this.httpClient.post(this.API_ENDPOINT+'pacientes_antecedentes_personales',
+    paciente_antecedente_personal, 
     {headers: this.headers});
   }
 
@@ -145,6 +152,13 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT+'parentescos');
   }
 
+  obtenerEstadosCiviles(){
+    return this.httpClient.get(this.API_ENDPOINT+'estados_civiles');
+  }
+
+  obtenerSegurosMedicos(){
+    return this.httpClient.get(this.API_ENDPOINT+'seguros_medicos');
+  }
 
   obtenerAntecedentesFamiliares(){
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_familiares');

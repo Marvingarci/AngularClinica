@@ -1,19 +1,21 @@
 <div *ngIf="Listo==false" > 
 <h2 mat-dialog-title disableClose >Cambio de contraseña</h2>
 <mat-dialog-content class="mat-typography">
-  <h3>Una vez finalizado esto, podrás ingresar a la página usando tu número de cuenta de la UNAH y la contraseña que a continuación ingresarás</h3>
-
-  <h3>Recuerda usar caracteres y números para hacer tu contraseña más confiable</h3>
+  <p>Una vez finalizado esto, podrás ingresar al Portal de la clínica UNAH-TEC </p>
+  <p> usando número de cuenta y la contraseña que a continuación ingresarás</p> 
+  <p>Usa caracteres y números para hacer tu contraseña más confiable</p>
   <form [formGroup]="Nueva">
 
-          <mat-form-field class="example-full-width">                
-              <input matInput  (keydown)="onKeydown1($event)" 
+          <mat-form-field class="example-full-width" style="margin-top: 5px;" >                
+              <input matInput  (keydown)="onKeydown($event)" 
               placeholder="Ingrese su nueva contraseña" [type]="hide1 ? 'text' : 'password'"
               formControlName="nuevaContra">
               <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                  <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                  <mat-icon>{{hide1 ? 'visibility' : 'visibility_off'}}</mat-icon>
                   </button>
-              <mat-error *ngIf="nuevaContra.hasError('required') ">ingrese la contraseña!</mat-error>
+              <mat-error *ngIf="nuevaContra.hasError('required') ">ingrese la contraseña</mat-error>
+              <mat-error *ngIf="nuevaContra.hasError('maxLength') ">contraseña muy extensa</mat-error>
+              <mat-error *ngIf="nuevaContra.hasError('minLength') ">contraseña muy corta</mat-error>
             </mat-form-field>
 
 <br>
@@ -25,32 +27,28 @@
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 <mat-error *ngIf="nuevaContraRep.hasError('required') ">ingrese la contraseña!</mat-error>
+                <mat-error *ngIf="nuevaContraRep.hasError('maxLength') ">contraseña muy extensa</mat-error>
+                <mat-error *ngIf="nuevaContraRep.hasError('minLength') ">contraseña muy corta</mat-error>
               </mat-form-field>
 
     </form>
     
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button (click)="guardar()">guardar</button>
+<mat-dialog-actions align='end'>
+  <button mat-button (click)="guardar()" class="botonperron" style="bottom: 0px;right: 0px;" >guardar</button>
 </mat-dialog-actions>
 </div>
 
 <div *ngIf="Listo==true"> 
     <h1 mat-dialog-title disableClose >Bienvenido al Portal de la clinica UNAH</h1>
     <mat-dialog-content class="mat-typography">
-      <div class="view" id="check" style="
-        height: 200px;
-        width:200px;
-        margin:0px;
-        background: url('src\imagenes\pumitafinal.jpg');
-        "></div>
-      <h3>Ahora tienes que avocarte a la Clinica de manera personal para terminar tu expediente </h3>
-    
-      <h3>Aqui veras tus tratamientos, citas, indicaciones y ayuda que te brindaran una vez vez que visites la Clinica</h3>
+      
+      <p>Ahora tienes que avocarte a la Clínica de manera personal para terminar tu expediente </p>    
+      <p>Aquí verás tus tratamientos, citas, indicaciones y ayuda que te brindaran una vez que visites la Clínica</p>
       
         
     </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-button  mat-dialog-close>Comenzar</button>
+    <mat-dialog-actions align="end" style="bottom: 0px;">
+      <button mat-button class="botonperron" style=" bottom: 0px;right: 0px;margin-top:110px ;" mat-dialog-close>Comenzar</button>
     </mat-dialog-actions>
     </div>

@@ -231,8 +231,9 @@ export class DatoPacienteComponent implements OnInit {
 
 })
 export class DialogContentExampleDialog {
-  hide = true;
   hide1= false;
+  hide = true;
+  
   resultado:any;
 
    paciente1: Paciente = {
@@ -292,17 +293,12 @@ export class DialogContentExampleDialog {
   
 
   Nueva = new FormGroup({
-
-    nuevaContra: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{2,15}$/)]),
-    nuevaContraRep: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{2,15}$/)])
+    nuevaContra: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.minLength(6)]),
+    nuevaContraRep: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.minLength(6)])
 });
 
 //EVENTO CUANDO SE DA ENTER
-onKeydown1(event) {
-  if (event.key === "Enter") {
-    this.hide1 = true;
-  }
-}
+
 
 onKeydown(event) {
   if (event.key === "Enter") {
@@ -350,6 +346,8 @@ onKeydown(event) {
     }
   }
 
+    this.hide = true;
+    this.hide1=true;
   }
 }
 

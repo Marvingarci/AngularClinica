@@ -2,6 +2,8 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AppComponent } from "../app.component";
 import {Location} from '@angular/common';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { DialogContentExampleDialog } from '../dato-paciente/dato-paciente.component';
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.component.html',
@@ -13,10 +15,11 @@ export class PrincipalComponent implements OnInit {
   typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
   
   public opened:boolean =true; 
-  public isSpinnerVisible:boolean; 
+  public isSpinnerVisible:boolean;   
+  icon : string='home';
   // @Output() messageEvent = new EventEmitter<boolean>();  esto es para mandar string de un componente a otro
 
-  constructor(mostrar: AppComponent,private router: Router) {
+  constructor(mostrar: AppComponent,private router: Router,public dialog: MatDialog) {
     mostrar.mostrar();  
 }
 
@@ -24,11 +27,32 @@ abrirside() {
       this.opened != this.opened;         
     }
 
-    
-    
-   
-    ngOnInit() {
+    principal(){      
+      this.icon = 'home';
+    }
+    pacientes(){      
+      this.icon = 'folder_shared';
+    }
+    at1(){      
+      this.icon = 'receipt';
+    }
+    consolidariodiario(){      
+      this.icon = 'today';
+    }
+    inventario(){      
+      this.icon = 'healing';
+    }
+    admininstradores(){      
+      this.icon = 'assignment_ind';
+    }
+    ayuda(){      
+      this.icon = 'help';
+  const dialogRef = this.dialog.open(DialogContentExampleDialog1, {disableClose:false,panelClass: 'custom-dialog-container1'});
   }
+      
+      
+   
+    ngOnInit() {}
   
 }
 
@@ -48,3 +72,13 @@ abrirside() {
 
 
 
+@Component({
+  selector: 'dialog-content-example-dialog1',
+  templateUrl: 'dialog-content-example-dialog1.html',
+})
+
+export class DialogContentExampleDialog1 {
+ 
+  constructor( ){   
+   }
+}

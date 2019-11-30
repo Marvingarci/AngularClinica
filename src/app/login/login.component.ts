@@ -111,6 +111,11 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
 
  ngOnInit() {  }
 
+ onKeydown1(event){
+    if (event.key === "Enter") {
+      this.hide = false;
+    }
+ }
  //EVENTO CUANDO SE DA ENTER
   onKeydown(event) {
     if (event.key === "Enter") {
@@ -135,7 +140,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
         }, (error) => {
           this.loading=false;
           console.log(error);
-          this.showError('Datos Incorrectos'); 
+          this.showError('Cuenta incorrecta'); 
         });        
         }else{
           if (this.paciente.contrasenia==this.login.clave) {
@@ -205,7 +210,7 @@ if (this.pase == true) {
     }, (error) => {
     this.loading=false;
     console.log(error);
-    this.showError('Datos Incorrectos');
+    this.showError('Cuenta incorrecta');
     });
   }else{
     if (this.paciente.contrasenia==this.login.clave) {
@@ -225,11 +230,17 @@ if (this.pase == true) {
       console.log(this.medico.contraseniaM);console.log( this.login.cuenta);
       this.showError('Bienvenido Medico'); 
       this.router.navigate(['/principal/principal1']);
+
+
+
    }else{
       console.log(this.medico.contraseniaM );console.log( this.login.cuenta);
       this.loading=false;
       this.showError('Contraseña Incorrecta'); 
     } 
+    }else{
+      
+      this.showError('Usuario incorrecta'); 
     }
   }
 
@@ -246,6 +257,8 @@ if (this.pase == true) {
       this.loading=false;
       this.showError('Contraseña Incorrecta'); 
     }
+    }else{      
+      this.showError('Usuario incorrecta'); 
     }
   }   
 }  
