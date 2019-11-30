@@ -145,6 +145,13 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT+'parentescos');
   }
 
+  obtenerEstadosCiviles(){
+    return this.httpClient.get(this.API_ENDPOINT+'estados_civiles');
+  }
+
+  obtenerSegurosMedicos(){
+    return this.httpClient.get(this.API_ENDPOINT+'seguros_medicos');
+  }
 
   obtenerAntecedentesFamiliares(){
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_familiares');
