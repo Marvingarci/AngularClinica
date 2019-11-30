@@ -3,7 +3,7 @@ import { FormularioService } from '../services/formulario.service';
 import { Paciente } from "../interfaces/paciente";
 import { ActivatedRoute, Route } from '@angular/router';
 import { AppComponent } from "../app.component";
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from "../services/login.service";
@@ -262,7 +262,7 @@ export class DialogContentExampleDialog {
   }
   id:any;
   Listo:boolean = false;
-  constructor( private formularioService: FormularioService,private activatedRoute: ActivatedRoute,
+  constructor( private formularioService: FormularioService, private dialogRef:MatDialogRef<DialogContentExampleDialog>,private activatedRoute: ActivatedRoute,
    public login: LoginService, private router: Router, private mensaje: MatSnackBar ){
     this.paciente1.id_paciente = this.formularioService.idActualizar;
     console.log(this.paciente1.id_paciente);
@@ -293,8 +293,8 @@ export class DialogContentExampleDialog {
 
   Nueva = new FormGroup({
 
-    nuevaContra: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    nuevaContraRep: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)])
+    nuevaContra: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{2,15}$/)]),
+    nuevaContraRep: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{2,15}$/)])
 });
 
 //EVENTO CUANDO SE DA ENTER
@@ -328,9 +328,18 @@ onKeydown(event) {
     this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
     if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
       this.formularioService.actualizarPaciente(this.paciente1).subscribe((data)=>{
-        this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
-        this.showError('Contraseña Guardada'); 
-        this.Listo = true;
+        if(this.formularioService.esAlumno==true){
+          this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
+          this.showError('Contraseña Guardada'); 
+          this.Listo = true;
+        }else{
+          this.router.navigate(['verPaciente/'+this.paciente1.id_paciente]);
+          this.showError('Contraseña Guardada'); 
+          this.dialogRef.close();
+
+          this.Listo = true;
+        }
+        
       }, (error)=>{
         console.log(error);
         this.showError('Existe un error'); 
@@ -367,9 +376,16 @@ guardar(){
     this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
     if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
       this.formularioService.actualizarPaciente(this.paciente1).subscribe((data)=>{
-        this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
-        this.showError('Contraseña Guardada'); 
-        this.Listo = true;
+        if(this.formularioService.esAlumno==true){
+          this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
+          this.showError('Contraseña Guardada'); 
+          this.Listo = true;
+        }else{
+          this.router.navigate(['verPaciente/'+this.paciente1.id_paciente]);
+          this.showError('Contraseña Guardada'); 
+          this.dialogRef.close();
+          this.Listo = true;
+        }
       }, (error)=>{
         console.log(error);
         this.showError('Existe un error'); 
