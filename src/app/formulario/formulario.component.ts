@@ -765,19 +765,23 @@ this.des3 = true;
     //{value: 'otro', viewValue: 'Otro'}
   ];
 
-  seguros_medicos: SegurosMedicos[] = [
+  /*seguros_medicos: SegurosMedicos[] = [
     {value: 1, viewValue: 'Privado'},
     {value: 2, viewValue: 'IHSS'},
     {value: 3, viewValue: 'No'}
-  ];
+  ];*/
+  
+  seguros_medicos: SegurosMedicos[]=[];
 
-  estados_civiles: EstadosCiviles[] = [
+  /*estados_civiles: EstadosCiviles[] = [
     {value: 1, viewValue: 'Soltero'},
     {value: 2, viewValue: 'Unión Libre'},
     {value: 3, viewValue: 'Divorciado'},
     {value: 4, viewValue: 'Viudo'},
     {value: 5, viewValue: 'Casado'},
-  ];
+  ];*/
+
+  estados_civiles: EstadosCiviles[]=[];
 
   // parentescos: Parentescos[] = [
   //   {value: 1 , viewValue: 'Padre'},
@@ -927,6 +931,22 @@ this.des3 = true;
 
       data.forEach(element => {
         this.parentescos.push({value:element.id_parentesco, viewValue:element.parentesco});  
+      });
+    
+    });
+
+    this.formularioService.obtenerEstadosCiviles().subscribe((data: any[])=>{
+
+      data.forEach(element => {
+        this.estados_civiles.push({value:element.id_estado_civil, viewValue:element.estado_civil});  
+      });
+    
+    });
+
+    this.formularioService.obtenerSegurosMedicos().subscribe((data: any[])=>{
+
+      data.forEach(element => {
+        this.seguros_medicos.push({value:element.id_seguro_medico, viewValue:element.seguro_medico});  
       });
     
     });
