@@ -507,6 +507,8 @@ ocultar: boolean = true;
     {value: 'P', viewValue: 'Prosene'}
   ];
 
+  
+
   //sexos: Sexos[] = [
     //{value: 1, viewValue: 'Hombre'},
     //{value: 2, viewValue: 'Mujer'},
@@ -2028,7 +2030,9 @@ export class HistoriaSubsiguiente1{
     pulso: new FormControl('',[Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
     remitir: new FormControl('', Validators.required),
     cita: new FormControl('', Validators.required),
-    remitira: new FormControl('', Validators.required)
+    remitira: new FormControl('', Validators.required),
+    nombre: new FormControl('',Validators.required),
+    unidad: new FormControl('',Validators.required)
     
 });
   matcher = new MyErrorStateMatcher();
@@ -2042,6 +2046,11 @@ export class HistoriaSubsiguiente1{
     {value: 4 , viewValue: 'Terapia Funcional'},
     {value: 5 , viewValue: 'CATFA'},
     {value: 6 , viewValue: 'Trabajo Social'}
+  ];
+  nombres: select[] = [
+    {value: "Tabletas", viewValue: 'Tabletas'},
+    {value: "Cápsulas", viewValue: 'Cápsulas'},
+    {value: "Comprimidos", viewValue: 'Comprimidos'},
   ];
 
   habilitarInputs(formControl : FormControl[]){  
@@ -2098,5 +2107,8 @@ export class HistoriaSubsiguiente1{
   get fecha_nacimiento(){return this.formulario_cita.get('fecha_nacimiento')};
   get indicaciones(){return this.formulario_cita.get('indicaciones')};
   get presion(){return this.formulario_cita.get('presion')};
+  get nombre(){return this.formulario_cita.get('nombre')};
+  get unidad(){return this.formulario_cita.get('unidad')};
   get cita(){return this.formulario_cita.get('cita')};
+  
 }
