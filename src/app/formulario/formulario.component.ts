@@ -24,6 +24,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import {take} from 'rxjs/operators';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
 import { MatChipInputEvent, MatAutocomplete, MatTableDataSource } from '@angular/material';
+import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
 
 export interface Loginadmin {
  // contrasenia_admin: any;
@@ -36,9 +37,9 @@ export interface Element{
 
   numero: number;
   enfermedad?: string;
-  tipo_enfermedad?: string;
   id_grupo_enfermedad?: number
-  parentesco: any;
+  observacion?: string;
+  parentesco?: any;
   
 }
 
@@ -276,31 +277,59 @@ export class FormularioComponent implements OnInit {
   }
 
 
-  mostrarCamposDesnutricion(){
+  mostrarCamposDesnutricionAF(){
 
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposDesnutricion').style.display = "block";
+    document.getElementById('divAgregarTiposDesnutricionAF').style.display = "block";
 
   }
 
-  mostrarCamposEnfermedadesMentales(){
+  mostrarCamposEnfermedadesMentalesAF(){
 
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposEnfermedadesMentales').style.display = "block";
+    document.getElementById('divAgregarTiposEnfermedadesMentalesAF').style.display = "block";
 
   }
 
-  mostrarCamposAlergias(){
+  mostrarCamposAlergiasAF(){
 
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposAlergias').style.display = "block";
+    document.getElementById('divAgregarTiposAlergiasAF').style.display = "block";
 
   }
 
-  mostrarCamposCancer(){
+  mostrarCamposCancerAF(){
 
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposCancer').style.display = "block";
+    document.getElementById('divAgregarTiposCancerAF').style.display = "block";
+
+  }
+
+  mostrarCamposDesnutricionAP(){
+
+    //muestro el contenido de este div si el usuario hace click en "si"
+    document.getElementById('divAgregarTiposDesnutricionAP').style.display = "block";
+
+  }
+
+  mostrarCamposEnfermedadesMentalesAP(){
+
+    //muestro el contenido de este div si el usuario hace click en "si"
+    document.getElementById('divAgregarTiposEnfermedadesMentalesAP').style.display = "block";
+
+  }
+
+  mostrarCamposAlergiasAP(){
+
+    //muestro el contenido de este div si el usuario hace click en "si"
+    document.getElementById('divAgregarTiposAlergiasAP').style.display = "block";
+
+  }
+
+  mostrarCamposCancerAP(){
+
+    //muestro el contenido de este div si el usuario hace click en "si"
+    document.getElementById('divAgregarTiposCanceresAP').style.display = "block";
 
   }
 
@@ -309,51 +338,99 @@ export class FormularioComponent implements OnInit {
   
 
 
-  ocultarCamposDesnutricion(){
+  ocultarCamposDesnutricionAF(){
 
     //oculto el contenido de este div si el usuario hace click en "no" y establezco
     // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
     // limpio la tablaDesnutriciones para que quede en blanco.
 
-    document.getElementById('divAgregarTiposDesnutricion').style.display = "none";
-    this.dataSourceTablaDesnutriciones = null;
-    this.tablaDesnutriciones = [];
+    document.getElementById('divAgregarTiposDesnutricionAF').style.display = "none";
+    this.dataSourceTablaDesnutricionesAF = null;
+    this.tablaDesnutricionesAF = [];
 
   }
 
-  ocultarCamposEnfermedadesMentales(){
+  ocultarCamposEnfermedadesMentalesAF(){
 
     //oculto el contenido de este div si el usuario hace click en "no" y establezco
     // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
     // limpio la tablaDesnutriciones para que quede en blanco.
 
-    document.getElementById('divAgregarTiposEnfermedadesMentales').style.display = "none";
-    //this.dataSourceTablaEnfermedadesMentales = null;
-    this.tablaEnfermedadesMentales = [];
+    document.getElementById('divAgregarTiposEnfermedadesMentalesAF').style.display = "none";
+    this.dataSourceTablaEnfermedadesMentalesAF = null;
+    this.tablaEnfermedadesMentalesAF = [];
 
   }
 
-  ocultarCamposAlergias(){
+  ocultarCamposAlergiasAF(){
 
     //oculto el contenido de este div si el usuario hace click en "no" y establezco
     // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
     // limpio la tablaDesnutriciones para que quede en blanco.
     
-    document.getElementById('divAgregarTiposAlergias').style.display = "none";
-    this.dataSourceTablaAlergias = null;
-    this.tablaAlergias = [];
+    document.getElementById('divAgregarTiposAlergiasAF').style.display = "none";
+    this.dataSourceTablaAlergiasAF = null;
+    this.tablaAlergiasAF = [];
 
   }
 
-  ocultarCamposCancer(){
+  ocultarCamposCancerAF(){
 
     //oculto el contenido de este div si el usuario hace click en "no" y establezco
     // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
     // limpio la tablaDesnutriciones para que quede en blanco.
     
-    document.getElementById('divAgregarTiposCancer').style.display = "none";
-    this.dataSourceTablaCanceres = null;
-    this.tablaCanceres = [];
+    document.getElementById('divAgregarTiposCancerAF').style.display = "none";
+    this.dataSourceTablaCanceresAF = null;
+    this.tablaCanceresAF = [];
+
+  }
+
+  ocultarCamposDesnutricionAP(){
+
+    //oculto el contenido de este div si el usuario hace click en "no" y establezco
+    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
+    // limpio la tablaDesnutriciones para que quede en blanco.
+
+    document.getElementById('divAgregarTiposDesnutricionAP').style.display = "none";
+    this.dataSourceTablaDesnutricionesAP = null;
+    this.tablaDesnutricionesAP = [];
+
+  }
+
+  ocultarCamposEnfermedadesMentalesAP(){
+
+    //oculto el contenido de este div si el usuario hace click en "no" y establezco
+    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
+    // limpio la tablaDesnutriciones para que quede en blanco.
+
+    document.getElementById('divAgregarTiposEnfermedadesMentalesAP').style.display = "none";
+    this.dataSourceTablaEnfermedadesMentalesAP = null;
+    this.tablaEnfermedadesMentalesAP = [];
+
+  }
+
+  ocultarCamposAlergiasAP(){
+
+    //oculto el contenido de este div si el usuario hace click en "no" y establezco
+    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
+    // limpio la tablaDesnutriciones para que quede en blanco.
+    
+    document.getElementById('divAgregarTiposAlergiasAP').style.display = "none";
+    this.dataSourceTablaAlergiasAP = null;
+    this.tablaAlergiasAP = [];
+
+  }
+
+  ocultarCamposCancerAP(){
+
+    //oculto el contenido de este div si el usuario hace click en "no" y establezco
+    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
+    // limpio la tablaDesnutriciones para que quede en blanco.
+    
+    document.getElementById('divAgregarTiposCanceresAP').style.display = "none";
+    this.dataSourceTablaCanceresAP = null;
+    this.tablaCanceresAP = [];
 
   }
 
@@ -434,7 +511,7 @@ public onStepChange(event: any): void {
      
     }
 
-    if(event.selectedIndex ==1){ 
+    if(event.selectedIndex == 1){ 
 
       this.datosGenerales = '';
       this.antecedentesFamiliares = 'Antecedentes Familiares';
@@ -659,38 +736,12 @@ this.des3 = true;
   };
 
 
-  antecedente_personal: AntecedentesPersonales = {
-    diabetes : null,
-    observacion_diabetes : null,
-    tb_pulmonar : null,
-    observacion_tb_pulmonar : null,
-    its : null,
-    observacion_its : null,
-    desnutricion : null,
-    observacion_desnutricion : null,
-    tipo_desnutricion: null,
-    enfermedades_mentales : null,
-    observacion_enfermedades_mentales : null,
-    tipo_enfermedad_mental: null,
-    convulsiones : null,
-    observacion_convulsiones : null,
-    alergias : null,
-    observacion_alergias : null,
-    tipo_alergia: null,
-    cancer : null,
-    observacion_cancer : null,
-    tipo_cancer: null,
-    hospitalarias_quirurgicas : null,
-    fecha_antecedente_hospitalario: null,
-    tratamiento: null,
-    diagnostico: null,
-    tiempo_hospitalizacion: null,
-    traumaticos : null,
-    observacion_traumaticos : null,
-    otros : null,
-    observacion_otros : null,
-    id_paciente : null
-  };
+  paciente_antecedente_personal: PacienteAntecedentePersonal = {
+    id_paciente: null,
+    id_enfermedad: null,
+    observacion: null,
+  }
+
 
   habito_toxicologico_personal: HabitosToxicologicosPersonales = {
     alcohol : null,
@@ -787,7 +838,7 @@ this.des3 = true;
   //   {value: 5 , viewValue: 'Otros'},
   // ];
 
-  parentescos: Parentescos[]=[];
+  parentescos: Parentescos[]= [];
 
   desnutriciones: select[] = [
     {value: 'Obecidad' , viewValue: 'Obecidad'},
@@ -864,28 +915,44 @@ this.des3 = true;
   id:any;
   esAlumno: boolean = true;
 
-  tablaOtros: Element[] = [];
-  tablaDesnutriciones: Element[] = [];
-  tablaEnfermedadesMentales: Element[] = [];
-  tablaAlergias: Element[] = [];
-  tablaCanceres: Element[] = [];
+  tablaOtrosAF: Element[] = [];
+  tablaDesnutricionesAF: Element[] = [];
+  tablaEnfermedadesMentalesAF: Element[] = [];
+  tablaAlergiasAF: Element[] = [];
+  tablaCanceresAF: Element[] = [];
 
-  dataSourceTablaOtros : any;
-  dataSourceTablaDesnutriciones : any;
-  dataSourceTablaEnfermedadesMentales : any;
-  dataSourceTablaAlergias : any;
-  dataSourceTablaCanceres : any;
+  dataSourceTablaOtrosAF : any;
+  dataSourceTablaDesnutricionesAF : any;
+  dataSourceTablaEnfermedadesMentalesAF : any;
+  dataSourceTablaAlergiasAF : any;
+  dataSourceTablaCanceresAF : any;
 
 
-  
+  tablaOtrosAP: Element[] = [];
+  tablaDesnutricionesAP: Element[] = [];
+  tablaEnfermedadesMentalesAP: Element[] = [];
+  tablaAlergiasAP: Element[] = [];
+  tablaCanceresAP: Element[] = [];
 
-  columnasTabla: string[] = ['numero','antecedente','parentesco','botones'];
+  dataSourceTablaOtrosAP : any;
+  dataSourceTablaDesnutricionesAP : any;
+  dataSourceTablaEnfermedadesMentalesAP : any;
+  dataSourceTablaAlergiasAP : any;
+  dataSourceTablaCanceresAP : any;
+
+
+  columnasTablaAF: string[] = ['numero','antecedente','parentesco','botones'];
+  columnasTablaAP: string[] = ['numero','antecedente','observacion','botones'];
 
 
   // creo estos arreglos de los cuales extraigo el valor de cada elemento y lo mando a la tabla de pacientes_antecedentes_familiares
   // estos arreglos son de los controladores del formulario antecedentes familiares
-  formControlsAntecedentes: any[] = [this.diabetes, this.tb_pulmonar, this.desnutricion, this.enfermedades_mentales, this.convulsiones,
+  formControlsAntecedentesFamiliares: any[] = [this.diabetes, this.tb_pulmonar, this.desnutricion, this.enfermedades_mentales, this.convulsiones,
     this.alcoholismo_sustancias_psicoactivas, this.alergias, this.cancer, this.hipertension_arterial
+  ];
+
+  formControlsAntecedentesPersonales: any[] = [this.diabetes_ap, this.tb_pulmonar_ap, this.its, this.desnutricion_ap, this.enfermedades_mentales_ap,
+    this.convulsiones_ap, this.alergias_ap, this.cancer_ap, this.hospitalarias_quirurgicas
   ];
 
   formControlsParentescos: any[] = [this.parentesco_diabetes, this.parentesco_tb_pulmonar, this.parentesco_desnutricion,
@@ -1022,11 +1089,6 @@ this.des3 = true;
 
   agregarOtros(){
 
-    console.log('el puto valor');
-    // console.log(this.parentesco_otros.value);
-    // console.log(this.parentescos[(this.parentesco_otros.value[0] - 1)].viewValue);
-
-
     if(this.otros.value.toString().trim() && this.otros.valid && this.parentesco_otros.value){
       var stringParentesco: string = "";
 
@@ -1038,48 +1100,12 @@ this.des3 = true;
         // en donde el index es igual a el valor que se guarda en el formControl menos 1
         stringParentesco = this.parentescos[this.parentesco_otros.value[0] - 1].viewValue;
 
-        // switch (this.parentesco_otros.value[0]) {
-        //   case 1:
-        //     stringParentesco = "Padre"
-        //     break;
-        //   case 2:
-        //     stringParentesco = "Madre"
-        //     break;
-        //   case 3:
-        //     stringParentesco = "Tios"
-        //     break;
-        //   case 4:
-        //     stringParentesco = "Abuelos"
-        //     break;
-        //   default:
-        //     stringParentesco = "Otros"
-        //     break;
-        // }
-
       }else{
 
         this.parentesco_otros.value.forEach(element => {
 
           element = this.parentescos[element - 1].viewValue;
 
-          // switch (element) {
-          //   case 1:
-          //     element = "Padre"           
-          //     break;
-          //   case 2:
-          //     element = "Madre"
-          //     break;
-          //   case 3:
-          //     element = "Tios"
-          //     break;
-          //   case 4:
-          //     element = "Abuelos"
-          //     break;
-          //   default:
-          //     element = "Otros"
-          //     break;
-          // }
-          
           stringParentesco += element+" ";       
         });
 
@@ -1092,9 +1118,9 @@ this.des3 = true;
       }
     
   
-      this.tablaOtros.push(
+      this.tablaOtrosAF.push(
         {
-          numero: this.tablaOtros.length + 1,
+          numero: this.tablaOtrosAF.length + 1,
           enfermedad: this.otros.value,
           parentesco: stringParentesco,
           
@@ -1102,7 +1128,7 @@ this.des3 = true;
 
       );
 
-      this.dataSourceTablaOtros =  new MatTableDataSource(this.tablaOtros);
+      this.dataSourceTablaOtrosAF =  new MatTableDataSource(this.tablaOtrosAF);
 
       this.otros.setValue('');
       this.parentesco_otros.setValue('');
@@ -1114,21 +1140,22 @@ this.des3 = true;
 
   eliminarOtros(index){
     //borro el elemento de la tabla estableciendo el index.
-    this.tablaOtros.splice(index, 1);
+    this.tablaOtrosAF.splice(index, 1);
 
     //refresco el datasouerce con los elemento que quedaron para que se resfresque
     // tambien la tabla html.
-    this.dataSourceTablaOtros = new MatTableDataSource(this.tablaOtros);
+    this.dataSourceTablaOtrosAF = new MatTableDataSource(this.tablaOtrosAF);
+
 
     //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
     // para que no se muestre en el html.
-    if(!this.tablaOtros.length){
-      this.dataSourceTablaOtros = null;
+    if(!this.tablaOtrosAF.length){
+      this.dataSourceTablaOtrosAF = null;
     }
 
   }
 
-  agregarDesnutriciones(){
+  agregarDesnutricionesAF(){
 
     if(this.tipo_desnutricion.value && this.tipo_desnutricion.valid && this.parentesco_desnutricion.value){
       
@@ -1139,47 +1166,13 @@ this.des3 = true;
 
         stringParentesco = this.parentescos[this.parentesco_desnutricion.value[0] - 1].viewValue;
 
-        // switch (this.parentesco_desnutricion.value[0]) {
-        //   case 1:
-        //     stringParentesco = "Padre"
-        //     break;
-        //   case 2:
-        //     stringParentesco = "Madre"
-        //     break;
-        //   case 3:
-        //     stringParentesco = "Tios"
-        //     break;
-        //   case 4:
-        //     stringParentesco = "Abuelos"
-        //     break;
-        //   default:
-        //     stringParentesco = "Otros"
-        //     break;
-        // }
+        
       }else{
 
         this.parentesco_desnutricion.value.forEach(element => {
 
           element = this.parentescos[element - 1].viewValue;
 
-
-          // switch (element) {
-          //   case 1:
-          //     element = "Padre"           
-          //     break;
-          //   case 2:
-          //     element = "Madre"
-          //     break;
-          //   case 3:
-          //     element = "Tios"
-          //     break;
-          //   case 4:
-          //     element = "Abuelos"
-          //     break;
-          //   default:
-          //     element = "Otros"
-          //     break;
-          // }
           
           //si se selecciono mas de un valor del select de parentesco_desnutricion
           //los guardo cada uno en una variable de tipo string y los separo con un espacio.
@@ -1188,17 +1181,15 @@ this.des3 = true;
 
         //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
         stringParentesco = stringParentesco.trim();
-        // var parentescosVarios: string[] = stringParentesco.trim().split(' ');
         
-        // console.log(parentescosVarios);
 
         
       }
     
       //agrego a la tabla el parentesco y el tipo de desnutricion.
-      this.tablaDesnutriciones.push(
+      this.tablaDesnutricionesAF.push(
         {
-          numero: this.tablaDesnutriciones.length + 1,
+          numero: this.tablaDesnutricionesAF.length + 1,
           enfermedad: this.tipo_desnutricion.value,
           parentesco: stringParentesco,
           
@@ -1206,7 +1197,7 @@ this.des3 = true;
 
       );
 
-      this.dataSourceTablaDesnutriciones =  new MatTableDataSource(this.tablaDesnutriciones);
+      this.dataSourceTablaDesnutricionesAF =  new MatTableDataSource(this.tablaDesnutricionesAF);
 
       this.tipo_desnutricion.setValue('');
       this.parentesco_desnutricion.setValue('');
@@ -1218,16 +1209,16 @@ this.des3 = true;
 
   eliminarDesnutriciones(index){
     //borro el elemento de la tabla estableciendo el index.
-    this.tablaDesnutriciones.splice(index, 1);
+    this.tablaDesnutricionesAF.splice(index, 1);
 
     //refresco el datasouerce con los elemento que quedaron para que se resfresque
     // tambien la tabla html.
-    this.dataSourceTablaDesnutriciones = new MatTableDataSource(this.tablaDesnutriciones);
+    this.dataSourceTablaDesnutricionesAF = new MatTableDataSource(this.tablaDesnutricionesAF);
 
     //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
     // para que no se muestre en el html.
-    if(!this.tablaDesnutriciones.length){
-      this.dataSourceTablaDesnutriciones = null;
+    if(!this.tablaDesnutricionesAF.length){
+      this.dataSourceTablaDesnutricionesAF = null;
     }
   }
 
@@ -1261,9 +1252,9 @@ this.des3 = true;
       }
     
       //agrego a la tabla el parentesco y el tipo de desnutricion.
-      this.tablaEnfermedadesMentales.push(
+      this.tablaEnfermedadesMentalesAF.push(
         {
-          numero: this.tablaEnfermedadesMentales.length + 1,
+          numero: this.tablaEnfermedadesMentalesAF.length + 1,
           enfermedad: this.tipo_enfermedad_mental.value,
           parentesco: stringParentesco,
           
@@ -1271,7 +1262,7 @@ this.des3 = true;
 
       );
 
-      this.dataSourceTablaEnfermedadesMentales =  new MatTableDataSource(this.tablaEnfermedadesMentales);
+      this.dataSourceTablaEnfermedadesMentalesAF =  new MatTableDataSource(this.tablaEnfermedadesMentalesAF);
 
       this.tipo_enfermedad_mental.setValue('');
       this.parentesco_enfermedades_mentales.setValue('');
@@ -1283,16 +1274,16 @@ this.des3 = true;
 
   eliminarEnfermedadesMentales(index){
     //borro el elemento de la tabla estableciendo el index.
-    this.tablaEnfermedadesMentales.splice(index, 1);
+    this.tablaEnfermedadesMentalesAF.splice(index, 1);
 
     //refresco el datasouerce con los elemento que quedaron para que se resfresque
     // tambien la tabla html.
-    this.dataSourceTablaEnfermedadesMentales = new MatTableDataSource(this.tablaEnfermedadesMentales);
+    this.dataSourceTablaEnfermedadesMentalesAF = new MatTableDataSource(this.tablaEnfermedadesMentalesAF);
 
     //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
     // para que no se muestre en el html.
-    if(!this.tablaEnfermedadesMentales.length){
-      this.dataSourceTablaEnfermedadesMentales = null;
+    if(!this.tablaEnfermedadesMentalesAF.length){
+      this.dataSourceTablaEnfermedadesMentalesAF = null;
     }
   }
 
@@ -1325,9 +1316,9 @@ this.des3 = true;
       }
     
       //agrego a la tabla el parentesco y el tipo de desnutricion.
-      this.tablaAlergias.push(
+      this.tablaAlergiasAF.push(
         {
-          numero: this.tablaAlergias.length + 1,
+          numero: this.tablaAlergiasAF.length + 1,
           enfermedad: this.tipo_alergia.value,
           parentesco: stringParentesco,
           
@@ -1335,7 +1326,7 @@ this.des3 = true;
 
       );
 
-      this.dataSourceTablaAlergias =  new MatTableDataSource(this.tablaAlergias);
+      this.dataSourceTablaAlergiasAF =  new MatTableDataSource(this.tablaAlergiasAF);
 
       this.tipo_alergia.setValue('');
       this.parentesco_alergias.setValue('');
@@ -1347,16 +1338,16 @@ this.des3 = true;
 
   eliminarAlergias(index){
     //borro el elemento de la tabla estableciendo el index.
-    this.tablaAlergias.splice(index, 1);
+    this.tablaAlergiasAF.splice(index, 1);
 
     //refresco el datasouerce con los elemento que quedaron para que se resfresque
     // tambien la tabla html.
-    this.dataSourceTablaAlergias = new MatTableDataSource(this.tablaAlergias);
+    this.dataSourceTablaAlergiasAF = new MatTableDataSource(this.tablaAlergiasAF);
 
     //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
     // para que no se muestre en el html.
-    if(!this.tablaAlergias.length){
-      this.dataSourceTablaAlergias = null;
+    if(!this.tablaAlergiasAF.length){
+      this.dataSourceTablaAlergiasAF = null;
     }
   }
 
@@ -1390,9 +1381,9 @@ this.des3 = true;
       }
     
       //agrego a la tabla el parentesco y el tipo de desnutricion.
-      this.tablaCanceres.push(
+      this.tablaCanceresAF.push(
         {
-          numero: this.tablaAlergias.length + 1,
+          numero: this.tablaCanceresAF.length + 1,
           enfermedad: this.tipo_cancer.value,
           parentesco: stringParentesco,
           
@@ -1400,7 +1391,7 @@ this.des3 = true;
 
       );
 
-      this.dataSourceTablaCanceres =  new MatTableDataSource(this.tablaCanceres);
+      this.dataSourceTablaCanceresAF =  new MatTableDataSource(this.tablaCanceresAF);
 
       this.tipo_cancer.setValue('');
       this.parentesco_cancer.setValue('');
@@ -1411,20 +1402,146 @@ this.des3 = true;
 
   eliminarCanceres(index){
     //borro el elemento de la tabla estableciendo el index.
-    this.tablaCanceres.splice(index, 1);
+    this.tablaCanceresAF.splice(index, 1);
 
     //refresco el datasouerce con los elemento que quedaron para que se resfresque
     // tambien la tabla html.
-    this.dataSourceTablaCanceres = new MatTableDataSource(this.tablaCanceres);
+    this.dataSourceTablaCanceresAF = new MatTableDataSource(this.tablaCanceresAF);
 
     //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
     // para que no se muestre en el html.
-    if(!this.tablaCanceres.length){
-      this.dataSourceTablaCanceres = null;
+    if(!this.tablaCanceresAF.length){
+      this.dataSourceTablaCanceresAF = null;
     }
 
   }
 
+
+  agregarDesnutricionesAP(){
+
+    if(this.tipo_desnutricion_ap.value && this.tipo_desnutricion_ap.valid && this.observacion_desnutricion_ap.valid){
+
+      //agrego a la tabla el parentesco y el tipo de desnutricion.
+      this.tablaDesnutricionesAP.push(
+        {
+          numero: this.tablaDesnutricionesAP.length + 1,
+          enfermedad: this.tipo_desnutricion_ap.value,
+          observacion: this.observacion_desnutricion_ap.value,
+ 
+        }
+
+      );
+
+      this.dataSourceTablaDesnutricionesAP =  new MatTableDataSource(this.tablaDesnutricionesAP);
+
+      this.tipo_desnutricion_ap.setValue('');
+      this.observacion_desnutricion_ap.setValue('');
+
+    }
+    
+
+  }
+
+  agregarEnfermedadesMentalesAP(){
+
+    if(this.tipo_enfermedad_mental_ap.value && this.tipo_enfermedad_mental_ap.valid && this.observacion_enfermedades_mentales_ap.valid){
+
+      //agrego a la tabla el parentesco y el tipo de desnutricion.
+      this.tablaEnfermedadesMentalesAP.push(
+        {
+          numero: this.tablaEnfermedadesMentalesAP.length + 1,
+          enfermedad: this.tipo_enfermedad_mental_ap.value,
+          observacion: this.observacion_enfermedades_mentales_ap.value,
+ 
+        }
+
+      );
+
+      this.dataSourceTablaEnfermedadesMentalesAP =  new MatTableDataSource(this.tablaEnfermedadesMentalesAP);
+
+      this.tipo_enfermedad_mental_ap.setValue('');
+      this.observacion_enfermedades_mentales_ap.setValue('');
+
+    }
+    
+
+  }
+
+
+  agregarAlergiasAP(){
+
+    if(this.tipo_alergia_ap.value && this.tipo_alergia_ap.valid && this.observacion_alergias_ap.valid){
+
+      //agrego a la tabla el parentesco y el tipo de desnutricion.
+      this.tablaAlergiasAP.push(
+        {
+          numero: this.tablaAlergiasAP.length + 1,
+          enfermedad: this.tipo_alergia_ap.value,
+          observacion: this.observacion_alergias_ap.value,
+ 
+        }
+
+      );
+
+      this.dataSourceTablaAlergiasAP =  new MatTableDataSource(this.tablaAlergiasAP);
+
+      this.tipo_alergia_ap.setValue('');
+      this.observacion_alergias_ap.setValue('');
+
+    }
+    
+
+  }
+
+  agregarCanceresAP(){
+
+    if(this.tipo_cancer_ap.value && this.tipo_cancer_ap.valid && this.observacion_cancer_ap.valid){
+
+      //agrego a la tabla el parentesco y el tipo de desnutricion.
+      this.tablaCanceresAP.push(
+        {
+          numero: this.tablaCanceresAP.length + 1,
+          enfermedad: this.tipo_cancer_ap.value,
+          observacion: this.observacion_cancer_ap.value,
+ 
+        }
+
+      );
+
+      this.dataSourceTablaCanceresAP =  new MatTableDataSource(this.tablaCanceresAP);
+
+      this.tipo_cancer_ap.setValue('');
+      this.observacion_cancer_ap.setValue('');
+
+    }
+    
+
+  }
+
+
+  agregarOtrosAP(){
+
+    if(this.otros_ap.value.toString().trim() && this.otros_ap.valid && this.observacion_otros_ap.valid){    
+  
+      this.tablaOtrosAP.push(
+        {
+          numero: this.tablaOtrosAP.length + 1,
+          enfermedad: this.otros_ap.value,
+          observacion: this.observacion_otros_ap.value,
+          
+        }
+
+      );
+
+      this.dataSourceTablaOtrosAP =  new MatTableDataSource(this.tablaOtrosAP);
+
+      this.otros_ap.setValue('');
+      this.observacion_otros_ap.setValue('');
+
+    }
+    
+
+  }
 
   enviarDatos(){
     this.loading = true;
@@ -1509,8 +1626,8 @@ this.des3 = true;
         var NumeroParentesco: number;
         var id_antecedente: number;
 
-        for (let index = 0; index < this.formControlsAntecedentes.length; index++) {
-          const element = this.formControlsAntecedentes[index];
+        for (let index = 0; index < this.formControlsAntecedentesFamiliares.length; index++) {
+          const element = this.formControlsAntecedentesFamiliares[index];
 
           // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
           if(element.value != 0){
@@ -1521,10 +1638,10 @@ this.des3 = true;
              
             if(element.value == 9){
 
-              if(this.tablaDesnutriciones.length){
+              if(this.tablaDesnutricionesAF.length){
 
-                for (let index = 0; index < this.tablaDesnutriciones.length; index++) {
-                  const element = this.tablaDesnutriciones[index];
+                for (let index = 0; index < this.tablaDesnutricionesAF.length; index++) {
+                  const element = this.tablaDesnutricionesAF[index];
   
                   // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
                   // de la interfaz de enfermedad.
@@ -1576,7 +1693,7 @@ this.des3 = true;
                       this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
   
                       //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
-                      this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                      this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data)=>{
                         console.log('se enviaron perron los nuevos antecedentes');
                       }, (error)=>{
                         console.log(error);
@@ -1590,10 +1707,10 @@ this.des3 = true;
               }
             }else if(element.value == 10){
 
-              if(this.tablaEnfermedadesMentales.length){
+              if(this.tablaEnfermedadesMentalesAF.length){
 
-                for (let index = 0; index < this.tablaEnfermedadesMentales.length; index++) {
-                  const element = this.tablaEnfermedadesMentales[index];
+                for (let index = 0; index < this.tablaEnfermedadesMentalesAF.length; index++) {
+                  const element = this.tablaEnfermedadesMentalesAF[index];
   
                   // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
                   // de la interfaz de enfermedad.
@@ -1645,7 +1762,7 @@ this.des3 = true;
                       this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
   
                       //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
-                      this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                      this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data)=>{
                         console.log('se enviaron perron los nuevos antecedentes');
                       }, (error)=>{
                         console.log(error);
@@ -1659,10 +1776,10 @@ this.des3 = true;
               }
             }else if(element.value == 11){
 
-              if(this.tablaAlergias.length){
+              if(this.tablaAlergiasAF.length){
 
-                for (let index = 0; index < this.tablaAlergias.length; index++) {
-                  const element = this.tablaAlergias[index];
+                for (let index = 0; index < this.tablaAlergiasAF.length; index++) {
+                  const element = this.tablaAlergiasAF[index];
   
                   // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
                   // de la interfaz de enfermedad.
@@ -1714,7 +1831,7 @@ this.des3 = true;
                       this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
   
                       //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
-                      this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                      this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data)=>{
                         console.log('se enviaron perron los nuevos antecedentes');
                       }, (error)=>{
                         console.log(error);
@@ -1728,10 +1845,10 @@ this.des3 = true;
               }
             }else if(element.value == 12){
 
-              if(this.tablaCanceres.length){
+              if(this.tablaCanceresAF.length){
 
-                for (let index = 0; index < this.tablaCanceres.length; index++) {
-                  const element = this.tablaCanceres[index];
+                for (let index = 0; index < this.tablaCanceresAF.length; index++) {
+                  const element = this.tablaCanceresAF[index];
   
                   // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
                   // de la interfaz de enfermedad.
@@ -1783,7 +1900,7 @@ this.des3 = true;
                       this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
   
                       //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
-                      this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                      this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data)=>{
                         console.log('se enviaron perron los nuevos antecedentes');
                       }, (error)=>{
                         console.log(error);
@@ -1812,7 +1929,7 @@ this.des3 = true;
                 //establezco el valor del arreglo en el atributo id_parentesco de la interfaz paciente_antecedente_familiar.
                 this.paciente_antecedente_familiar.id_parentesco = parentesco;
 
-                this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data)=>{
                   console.log('se envio perron la prueba');
                 }, (error)=>{
                   console.log(error);
@@ -1827,15 +1944,17 @@ this.des3 = true;
 
         //establezco primero el id del paciente por que si no no se guarda.
         this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
+        
 
-        if(this.tablaOtros.length){
+        if(this.tablaOtrosAF.length){
 
-          for (let index = 0; index < this.tablaOtros.length; index++) {
-            const element = this.tablaOtros[index];
+          for (let index = 0; index < this.tablaOtrosAF.length; index++) {
+            const element = this.tablaOtrosAF[index];
 
             // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
             // de la interfaz de antecedente.
             this.enfermedad.enfermedad = element.enfermedad;
+            this.enfermedad.id_grupo_enfermedad= 5;
 
             console.log('enfermedad: '+element.enfermedad);
 
@@ -1885,7 +2004,7 @@ this.des3 = true;
                 this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
 
                 //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
-                this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
+                this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data)=>{
                   console.log('se enviaron perron los nuevos antecedentes');
                 }, (error)=>{
                   console.log(error);
@@ -1894,42 +2013,9 @@ this.des3 = true;
               });
 
             },(error)=>{
+              console.log(error);
 
             });
-
-            //busco el ultimo id del ultimo antecedente ingresado a la base de datos
-            // que se supone que es la consulta que se realizo arriba el ulitimo antecedente
-            // por ende tengo que recuperar ese id.
-           
-            // this.formularioService.ultimoIdAntecedente().subscribe((data: number)=>{
-            //   id_antecedente = data;
-
-              
-
-            // });
-
-
-
-
-            
-
-            // this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
-
-            
-            // this.formularioService.ultimoIdAntecedente().subscribe((data: number)=>{
-            //   antecedente = data;   
-
-            //   this.paciente_antecedente_familiar.id_parentesco = parentesco;
-            //   this.paciente_antecedente_familiar.id_antecedente = antecedente;   
-              
-            //   this.formularioService.enviarPruebaPaciente(this.paciente_antecedente_familiar).subscribe((data)=>{
-            //     console.log('se enviaron perron los nuevos antecedentes');
-            //   }, (error)=>{
-            //     console.log(error);
-            //   });
-
-            // });
-
 
 
           }
@@ -1940,71 +2026,252 @@ this.des3 = true;
       
       if(this.formulario_antecedentes_personales.valid){
 
-        // guardar datos del formulario en antecedente_personal y enviarlo a la api
-        this.antecedente_personal.diabetes = this.diabetes_ap.value;
-        this.antecedente_personal.observacion_diabetes = this.observacion_diabetes_ap.value;
-        this.antecedente_personal.tb_pulmonar = this.tb_pulmonar_ap.value;
-        this.antecedente_personal.observacion_tb_pulmonar = this.observacion_tb_pulmonar_ap.value;
-        this.antecedente_personal.its = this.its.value;
-        this.antecedente_personal.observacion_its = this.observacion_its.value;
-        this.antecedente_personal.desnutricion = this.desnutricion_ap.value;
-        this.antecedente_personal.observacion_desnutricion = this.observacion_desnutricion_ap.value;
-        this.antecedente_personal.tipo_desnutricion = this.tipo_desnutricion_ap.value;
-        this.antecedente_personal.enfermedades_mentales = this.enfermedades_mentales_ap.value;
-        this.antecedente_personal.observacion_enfermedades_mentales = this.observacion_enfermedades_mentales_ap.value;
-        this.antecedente_personal.tipo_enfermedad_mental = this.tipo_enfermedad_mental_ap.value;
-        this.antecedente_personal.convulsiones = this.convulsiones_ap.value;
-        this.antecedente_personal.observacion_convulsiones = this.observacion_convulsiones_ap.value;
-        this.antecedente_personal.alergias = this.alergias_ap.value;
-        this.antecedente_personal.observacion_alergias = this.observacion_alergias_ap.value;
-        this.antecedente_personal.tipo_alergia = this.tipo_alergia_ap.value;
-        this.antecedente_personal.cancer = this.cancer_ap.value;
-        this.antecedente_personal.observacion_cancer = this.observacion_cancer_ap.value;
-        this.antecedente_personal.tipo_cancer = this.tipo_cancer_ap.value;
-        this.antecedente_personal.hospitalarias_quirurgicas = this.hospitalarias_quirurgicas.value;
-        this.antecedente_personal.fecha_antecedente_hospitalario = this.fecha_antecedente_hospitalario.value;
-        this.antecedente_personal.tratamiento = this.tratamiento.value;
-        this.antecedente_personal.diagnostico = this.diagnostico.value;
-        this.antecedente_personal.tiempo_hospitalizacion = this.tiempo_hospitalizacion.value;
-        this.antecedente_personal.traumaticos = this.traumaticos.value;
-        this.antecedente_personal.observacion_traumaticos = this.observacion_traumaticos.value;
-        this.antecedente_personal.otros = this.otros_ap.value;
-        this.antecedente_personal.observacion_otros = this.observacion_otros_ap.value;
-        this.antecedente_personal.id_paciente = this.datosScraping.id_login;
+
+        for (let index = 0; index < this.formControlsAntecedentesPersonales.length; index++) {
+          const element = this.formControlsAntecedentesPersonales[index];
+
+          // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
+          if(element.value != 0){
+
+            console.log('valor del elemento: '+ element.value);
         
-        this.formularioService.guardarAntecedentesPersonales(this.antecedente_personal).subscribe( (data) =>{
-          console.log(data);
-        }, (error) => {
-          this.error = true;
-          console.log(error);
-          alert('ocurrion un error');
-        });
-    
-      }
+            this.paciente_antecedente_personal.id_paciente = this.datosScraping.id_login;
 
-        
-      if(this.formulario_habito_toxicologico_personal.valid){
+             
+            if(element.value == 9){
 
-        // guardar datos del formulario en habito_toxicologico y enviarlo a la api
-        this.habito_toxicologico_personal.alcohol = this.alcohol.value;
-        this.habito_toxicologico_personal.observacion_alcohol = this.observacion_alcohol.value;
-        this.habito_toxicologico_personal.tabaquismo = this.tabaquismo.value;
-        this.habito_toxicologico_personal.observacion_tabaquismo = this.observacion_tabaquismo.value;
-        this.habito_toxicologico_personal.marihuana = this.marihuana.value;
-        this.habito_toxicologico_personal.observacion_marihuana = this.observacion_marihuana.value;
-        this.habito_toxicologico_personal.cocaina = this.cocaina.value;
-        this.habito_toxicologico_personal.observacion_cocaina = this.observacion_cocaina.value;
-        this.habito_toxicologico_personal.otros = this.otros_ht.value;
-        this.habito_toxicologico_personal.observacion_otros = this.observacion_otros_ht.value;
-        this.habito_toxicologico_personal.id_paciente = this.datosScraping.id_login;
+              if(this.tablaDesnutricionesAP.length){
 
-        this.formularioService.guardarHabitosToxicologicosPersonales(this.habito_toxicologico_personal).subscribe( (data) =>{
-          console.log(data);
-        }, (error) => {
-          this.error = true;
-          console.log(error);
-          alert('ocurrion un error');
-        });
+                for (let index = 0; index < this.tablaDesnutricionesAP.length; index++) {
+                  const element = this.tablaDesnutricionesAP[index];
+              
+                // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                // de la interfaz de enfermedad.
+                this.enfermedad.enfermedad = element.enfermedad;
+                this.enfermedad.id_grupo_enfermedad = 1;
+
+
+                this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+
+
+                  // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_enfermedad
+                  // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.
+                  this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;   
+                
+                  console.log("ultimo antecedente: "+data[0].id_enfermedad);
+                  
+                  // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
+                  // para ser enviado a la base de datos.
+                  this.paciente_antecedente_personal.observacion = element.observacion;
+
+                  //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                  this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data)=>{
+                    console.log('se enviaron perron los nuevos antecedentes personales');
+
+                  }, (error)=>{
+                    console.log(error);
+
+                  });
+
+                  
+
+                });
+              
+              } 
+              
+            }
+
+            }else if(element.value == 10){
+
+              if(this.tablaEnfermedadesMentalesAP.length){
+
+                for (let index = 0; index < this.tablaEnfermedadesMentalesAP.length; index++) {
+                  const element = this.tablaEnfermedadesMentalesAP[index];
+
+                  // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                  // de la interfaz de enfermedad.
+                  this.enfermedad.enfermedad = element.enfermedad;
+                  this.enfermedad.id_grupo_enfermedad = 2;
+
+
+                  this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+
+
+                    // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_enfermedad
+                    // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.
+                    this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;   
+                  
+                    console.log("ultimo antecedente: "+data[0].id_enfermedad);
+                    
+                    // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
+                    // para ser enviado a la base de datos.
+                    this.paciente_antecedente_personal.observacion = element.observacion;
+
+                    //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                    this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data)=>{
+                      console.log('se enviaron perron los nuevos antecedentes personales');
+
+                    }, (error)=>{
+                      console.log(error);
+
+                    });
+
+                  
+
+                  });
+                
+                }
+                
+              }
+
+            }else if(element.value == 11){
+
+              if(this.tablaAlergiasAP.length){
+
+                for (let index = 0; index < this.tablaAlergiasAP.length; index++) {
+                  const element = this.tablaAlergiasAP[index];
+
+                  // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                  // de la interfaz de enfermedad.
+                  this.enfermedad.enfermedad = element.enfermedad;
+                  this.enfermedad.id_grupo_enfermedad = 3;
+
+
+                  this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+
+
+                    // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_enfermedad
+                    // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.
+                    this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;   
+                  
+                    console.log("ultimo antecedente: "+data[0].id_enfermedad);
+                    
+                    // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
+                    // para ser enviado a la base de datos.
+                    this.paciente_antecedente_personal.observacion = element.observacion;
+
+                    //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                    this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data)=>{
+                      console.log('se enviaron perron los nuevos antecedentes personales');
+
+                    }, (error)=>{
+                      console.log(error);
+
+                    });
+
+                    
+
+                  });
+                
+                }
+              
+              }
+
+            }else if(element.value == 12){
+
+              if(this.tablaCanceresAP.length){
+
+                for (let index = 0; index < this.tablaCanceresAP.length; index++) {
+                  const element = this.tablaCanceresAP[index];
+
+                  // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                  // de la interfaz de enfermedad.
+                  this.enfermedad.enfermedad = element.enfermedad;
+                  this.enfermedad.id_grupo_enfermedad = 4;
+
+
+                  this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+
+                    // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_enfermedad
+                    // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.
+                    this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;   
+                  
+                    console.log("ultimo antecedente: "+data[0].id_enfermedad);
+                    
+                    // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
+                    // para ser enviado a la base de datos.
+                    this.paciente_antecedente_personal.observacion = element.observacion;
+
+                    //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                    this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data)=>{
+                      console.log('se enviaron perron los nuevos antecedentes personales');
+
+                    }, (error)=>{
+                      console.log(error);
+
+                    });
+
+                    
+
+                  });
+               
+                }
+              
+              }
+
+            }else{
+
+              // guardo el id de la enfermedad que tiene el fomcontrol en el arreglo.
+              this.paciente_antecedente_personal.id_enfermedad = element.value;
+              this.paciente_antecedente_personal.observacion = this.observacion_desnutricion_ap.value;
+
+
+              this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data)=>{
+                console.log('se envio perron el antecedente personal');
+              }, (error)=>{
+                console.log(error);
+              });
+
+            }
+
+          }
+         
+        }
+
+
+        //establezco primero el id del paciente por que si no no se guarda.
+        this.paciente_antecedente_personal.id_paciente = this.datosScraping.id_login;
+
+        if(this.tablaOtrosAP.length){
+
+          for (let index = 0; index < this.tablaOtrosAP.length; index++) {
+            const element = this.tablaOtrosAP[index];
+
+            // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+            // de la interfaz de enfermedad.
+            this.enfermedad.enfermedad = element.enfermedad;
+            this.enfermedad.id_grupo_enfermedad= 5;
+
+
+            this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data)=>{
+
+              // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_enfermedad
+              // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.
+              this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;   
+            
+              console.log("ultimo antecedente: "+data[0].id_enfermedad);
+              
+              // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
+              // para ser enviado a la base de datos.
+              this.paciente_antecedente_personal.observacion = element.observacion;
+
+              //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+              this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data)=>{
+                console.log('se enviaron perron los nuevos antecedentes personales');
+
+              }, (error)=>{
+                console.log(error);
+
+              });
+
+              
+
+            });
+
+
+          }
+
+        }
 
       }
 
