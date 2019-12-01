@@ -515,11 +515,13 @@ ocultar: boolean = true;
     //{value: 3, viewValue: 'Otro'}
   //];
 
-  seguros_medicos: SegurosMedicos[] = [
+  /*seguros_medicos: SegurosMedicos[] = [
     {value: 1, viewValue: 'Privado'},
     {value: 2, viewValue: 'IHSS'},
     {value: 3, viewValue: 'No'}
-  ];
+  ];*/
+
+  seguros_medicos: SegurosMedicos[]=[];
 
   sexos: Sexos[] = [
     {value: 1, viewValue: 'Hombre'},
@@ -527,13 +529,7 @@ ocultar: boolean = true;
   
   ];
 
-  estados_civiles: EstadosCiviles[] = [
-    {value: 1, viewValue: 'Soltero'},
-    {value: 2, viewValue: 'Union Libre'},
-    {value: 3, viewValue: 'Divorciado'},
-    {value: 4, viewValue: 'Viudo'},
-    {value: 5, viewValue: 'Casado'},   
-  ];
+  estados_civiles: EstadosCiviles[] = [];
 
   parentescos: select[] = [
     {value: 'Padre' , viewValue: 'Padre'},
@@ -576,11 +572,7 @@ ocultar: boolean = true;
     {value: 'Leucemia' , viewValue: 'Leucemia'},
   ];
 
-  practicas_sexuales: PracticasSexuales[] = [
-    {value: 1 , viewValue: 'Anal'},
-    {value: 2 , viewValue: 'Vaginal'},
-    {value: 3 , viewValue: 'Oral'},
-  ];
+  practicas_sexuales: PracticasSexuales[] = [];
 
   periocidades: select[] = [
     {value: 'Regular' , viewValue: 'Regular'},
@@ -593,17 +585,7 @@ ocultar: boolean = true;
     {value: 'Escasa' , viewValue: 'Escasa'},
   ];
 
-  metodos: MetodoPlanificacion[] = [
-    {value: 1 , viewValue: 'DIU'},
-    {value: 2 , viewValue: 'Condón'},
-    {value: 3 , viewValue: 'Pastilla'},
-    {value: 4 , viewValue: 'Implante'},
-    {value: 5 , viewValue: 'Inyección trimestral'},
-    {value: 6 , viewValue: 'Inyección trimestral'},
-    {value: 7 , viewValue: 'Inyección mensual'},
-    {value: 8 , viewValue: 'Ritmo'},
-    {value: 9 , viewValue: 'Esterilización'},
-  ];
+  metodos: MetodoPlanificacion[] = [];
 
   resultados_embarazos: select[] = [
     {value: 'Sin complicaciones' , viewValue: 'Sin complicaciones'},
@@ -805,6 +787,42 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
    }
  }//fin del constructor
+
+ obtenerDatosFormulario(){
+
+  this.formularioService.obtenerEstadosCiviles().subscribe((data: any[])=>{
+
+    data.forEach(element => {
+      this.estados_civiles.push({value:element.id_estado_civil, viewValue:element.estado_civil});  
+    });
+  
+  });
+
+  this.formularioService.obtenerSegurosMedicos().subscribe((data: any[])=>{
+
+    data.forEach(element => {
+      this.seguros_medicos.push({value:element.id_seguro_medico, viewValue:element.seguro_medico});  
+    });
+  
+  });
+
+  this.formularioService.obtenerPracticasSexuales().subscribe((data: any[])=>{
+
+    data.forEach(element => {
+      this.practicas_sexuales.push({value:element.id_practica_sexual, viewValue:element.practicas_sexuales_riesgo});  
+    });
+  
+  });
+
+  this.formularioService.obtenerMetodosPlanificaciones().subscribe((data: any[])=>{
+
+    data.forEach(element => {
+      this.metodos.push({value:element.id_metodo_planificacion, viewValue:element.metodo_planificacion});  
+    });
+  
+  });
+
+  }
 
  showError(message: string) {
   const config = new MatSnackBarConfig();
@@ -1133,6 +1151,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
 
   ngOnInit() {
+    this.obtenerDatosFormulario();
   }
 
   
@@ -2008,6 +2027,22 @@ export class HistoriaSubsiguiente1{
     this.mensaje.open(message, null, config);
   }
 
+  ngOnInit() {
+    this.obtenerMedicamentos();
+  }
+
+  obtenerMedicamentos(){
+
+    this.form.obtenerMedicamento().subscribe((data: any[])=>{
+
+      data.forEach(element => {
+        this.nombres.push({value:element.id_inventario, viewValue:element.medicamento});  
+      });
+    
+    });
+
+  }
+
   formulario_cita = new FormGroup({
     
       
@@ -2047,11 +2082,7 @@ export class HistoriaSubsiguiente1{
     {value: 5 , viewValue: 'CATFA'},
     {value: 6 , viewValue: 'Trabajo Social'}
   ];
-  nombres: select[] = [
-    {value: "Tabletas", viewValue: 'Tabletas'},
-    {value: "Cápsulas", viewValue: 'Cápsulas'},
-    {value: "Comprimidos", viewValue: 'Comprimidos'},
-  ];
+  nombres: select[]=[];
 
   habilitarInputs(formControl : FormControl[]){  
     formControl.forEach(controlador => {

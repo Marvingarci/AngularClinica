@@ -39,5 +39,8 @@ export class InventariosService {
   obtenerTodasCita(){
     return this.httpClient.get(this.API_ENDPOINT+'/citas');
   }
+  obtenerMedicamento(){
+    return this.httpClient.get(this.API_ENDPOINT+'medicamentos');
+  }
 
 }
