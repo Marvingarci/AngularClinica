@@ -1,6 +1,6 @@
 <mat-horizontal-stepper linear #stepper  (selectionChange)="onStepChange($event)" > 
 
-  <!-- <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
+   <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
       <form [formGroup]="formulario_datos_generales">
       <div style="display: none;" id="labelDatosGenerales"><ng-template matStepLabel >{{datosGenerales}}</ng-template></div>
       <div class="container1">
@@ -155,7 +155,7 @@
         </div>
       
     </form>
-  </mat-step>    -->
+  </mat-step>    
     
 
 
@@ -166,7 +166,7 @@
 
  <!-- primer step -->
   
-  <!-- <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1" label="hola">
+   <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1" label="hola">
     <form [formGroup]="formulario_datos_generales">
     
     <ng-template matStepLabel >{{datosGenerales}}</ng-template>
@@ -343,8 +343,7 @@
         <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right" >Siguiente</button>
      </div>
   </form>
-  </mat-step> -->
-
+  </mat-step> 
 
 
 
