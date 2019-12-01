@@ -11,7 +11,7 @@ import { PrincipalComponent, DialogContentExampleDialog1} from './principal/prin
 import { LoginadminComponent } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
-import { DatoPacienteComponent, DialogContentExampleDialog } from './dato-paciente/dato-paciente.component';
+import { DatoPacienteComponent, DialogContentExampleDialog,DialogContentExampleDialog2 } from './dato-paciente/dato-paciente.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-estudiantes/listado-estudiantes.component';
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
@@ -138,6 +138,7 @@ const routes: Route[] = [
     DialogContentExampleDialog,
     InventarioComponent,
     DialogContentExampleDialog1,
+    DialogContentExampleDialog2,
     HistoriaSubsiguiente,
     HistoriaSubsiguiente1,
 
@@ -199,6 +200,7 @@ const routes: Route[] = [
   entryComponents: [
     DialogContentExampleDialog,
     DialogContentExampleDialog1,
+    DialogContentExampleDialog2,
     HistoriaSubsiguiente,
     HistoriaSubsiguiente1
   ],
