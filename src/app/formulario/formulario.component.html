@@ -1055,7 +1055,7 @@
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
                 <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarDesnutriciones(i)">
+                  <button mat-icon-button (click)="eliminarDesnutricionesAP(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
                 </div>
@@ -1140,7 +1140,7 @@
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
                 <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarDesnutriciones(i)">
+                  <button mat-icon-button (click)="eliminarEnfermedadesMentalesAP(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
                 </div>
@@ -1244,7 +1244,7 @@
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
                 <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarDesnutriciones(i)">
+                  <button mat-icon-button (click)="eliminarAlergiasAP(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
                 </div>
@@ -1329,7 +1329,7 @@
               <ng-container matColumnDef="botones">
                 <th mat-header-cell *matHeaderCellDef></th>
                   <div mat-cell *matCellDef="let element; index as i;">
-                    <button mat-icon-button (click)="eliminarDesnutriciones(i)">
+                    <button mat-icon-button (click)="eliminarCanceresAP(i)">
                       <mat-icon>delete</mat-icon>
                     </button>      
                   </div>
@@ -1353,52 +1353,128 @@
           <mat-radio-group formControlName="hospitalarias_quirurgicas"
             aria-labelledby="example-radio-group-label"
             class="example-radio-group">        
-              <mat-radio-button value={{7}} (click)="habilitarInputs([fecha_antecedente_hospitalario,tiempo_hospitalizacion,diagnostico,tratamiento])">
+              <mat-radio-button value={{7}} 
+                (click)="habilitarInputs([fecha_antecedente_hospitalario,tiempo_hospitalizacion,diagnostico,tratamiento]);
+                        mostrarCamposHospitalariasQuirurgicas()">
                 Si</mat-radio-button> &nbsp; &nbsp;&nbsp;   
-              <mat-radio-button value={{0}} (click)="borrarInputs([fecha_antecedente_hospitalario,tiempo_hospitalizacion,diagnostico,tratamiento])">No</mat-radio-button>
+              <mat-radio-button value={{0}} 
+                (click)="borrarInputs([fecha_antecedente_hospitalario,tiempo_hospitalizacion,diagnostico,tratamiento]);
+                        ocultarCamposHospitalariaQuirurgica()">No</mat-radio-button>
           </mat-radio-group> 
             
 
         </div>
 
+        <div style="display: none;" id="divAgregarTiposHospitalariasQ">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="example-full-width">
+                <input matInput formControlName="fecha_antecedente_hospitalario" [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" placeholder="Fecha"   >
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2 ></mat-datepicker>
+              </mat-form-field>            
+            </div>
+
+            <div class="col">
+              <mat-form-field class="example-full-width">
+                <input matInput formControlName="tiempo_hospitalizacion" placeholder="Tiempo Hospitalización">
+                <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso</mat-error>
+                <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación válida</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+                <mat-form-field class="example-full-width">
+                  <textarea matInput formControlName="diagnostico"  placeholder="Diagnóstico" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" ></textarea>
+                  <mat-error *ngIf="diagnostico.hasError('maxlength')">campo muy extenso</mat-error>
+                  <mat-error *ngIf="diagnostico.hasError('minlength')">introduzca una observación válida</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col">
+
+                <mat-form-field class="example-full-width">
+                  <textarea matInput formControlName="tratamiento" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Tratamiento"  ></textarea>
+                  <mat-error *ngIf="tratamiento.hasError('maxlength')">campo muy extenso</mat-error>
+                  <mat-error *ngIf="tratamiento.hasError('minlength')">introduzca una observación válida</mat-error>
+                </mat-form-field>
+
+                
+                <button mat-raised-button class="float-right" (click)="agregarHospitalariasQuirurgicas();">agregar</button>
         
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <input matInput formControlName="fecha_antecedente_hospitalario" [min]="minDate" [max]="maxDate" [matDatepicker]="picker2" placeholder="Fecha"   >
-              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-              <mat-datepicker #picker2 ></mat-datepicker>
-            </mat-form-field>            
-          </div>
-
-          <div class="col">
-            <mat-form-field class="example-full-width">
-              <input matInput formControlName="tiempo_hospitalizacion" placeholder="Tiempo Hospitalización">
-              <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso</mat-error>
-              <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación válida</mat-error>
-            </mat-form-field>
+              
+            </div>
+            
           </div>
         </div>
+        
 
-        <div class="row">
-          <div class="col">
-              <mat-form-field class="example-full-width">
-                <textarea matInput formControlName="diagnostico"  placeholder="Diagnóstico" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" ></textarea>
-                <mat-error *ngIf="diagnostico.hasError('maxlength')">campo muy extenso</mat-error>
-                <mat-error *ngIf="diagnostico.hasError('minlength')">introduzca una observación válida</mat-error>
-              </mat-form-field>
+        &nbsp; &nbsp; &nbsp; &nbsp;
+
+
+        <div class="row exampel-full-width" style="margin-left: 0;">
+
+            <table mat-table [dataSource]="dataSourceTablaHospitalariasQuirurgicas" 
+            class="mat-elevation-z8"  
+            *ngIf="dataSourceTablaHospitalariasQuirurgicas != null">
+                                  
+              <ng-container matColumnDef="numero">
+                <th mat-header-cell *matHeaderCellDef> # </th>
+                <a>eliminar</a>
+                <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+            
+              <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+            
+              <ng-container matColumnDef="tiempo">
+                <th mat-header-cell *matHeaderCellDef> Tiempo hospitalización </th>
+                <td mat-cell *matCellDef="let element"> {{element.tiempo_hospitalizacion}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+                
+              </ng-container>
+
+              <ng-container matColumnDef="diagnostico">
+                  <th mat-header-cell *matHeaderCellDef> Diagnóstico </th>
+                  <td mat-cell *matCellDef="let element"> {{element.diagnostico}} </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                  
+                </ng-container>
+
+
+                <ng-container matColumnDef="tratamiento">
+                    <th mat-header-cell *matHeaderCellDef> Tratamiento </th>
+                    <td mat-cell *matCellDef="let element"> {{element.tratamiento}} </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                    
+                  </ng-container>
+  
+  
+              <ng-container matColumnDef="botones">
+                <th mat-header-cell *matHeaderCellDef></th>
+                  <div mat-cell *matCellDef="let element; index as i;">
+                    <button mat-icon-button (click)="eliminarOtrosAP(i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>      
+                  </div>
+              </ng-container>
+            
+              <tr mat-header-row *matHeaderRowDef="columnasTablaHospitalarias"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnasTablaHospitalarias;"></tr>
+            </table>
           </div>
 
-          <div class="col">
-              <mat-form-field class="example-full-width">
-                <textarea matInput formControlName="tratamiento" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Tratamiento"  ></textarea>
-                <mat-error *ngIf="tratamiento.hasError('maxlength')">campo muy extenso</mat-error>
-                <mat-error *ngIf="tratamiento.hasError('minlength')">introduzca una observación válida</mat-error>
-              </mat-form-field>
-          </div>
-        </div>
+
+        &nbsp; &nbsp; &nbsp; &nbsp;
+        
 
         <mat-divider></mat-divider>
 
@@ -1480,7 +1556,7 @@
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
                 <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarOtros(i)">
+                  <button mat-icon-button (click)="eliminarOtrosAP(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
                 </div>
@@ -2009,7 +2085,7 @@
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
                 <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarDesnutriciones(i)">
+                  <button mat-icon-button (click)="eliminarOtrosHT(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
                 </div>
