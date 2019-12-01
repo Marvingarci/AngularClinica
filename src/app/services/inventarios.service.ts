@@ -40,7 +40,11 @@ export class InventariosService {
     return this.httpClient.get(this.API_ENDPOINT+'/citas');
   }
   obtenerMedicamento(){
-    return this.httpClient.get(this.API_ENDPOINT+'medicamentos');
+    return this.httpClient.get(this.API_ENDPOINT+'/medicamentos');
+  }
+  EgresoMedicamentos(medicamento){
+    const headers = new HttpHeaders({'Content-Type':'application/json'});
+    return this.httpClient.post(this.API_ENDPOINT+'/medicamentos/egreso',medicamento,{headers:headers});
   }
 
 }
