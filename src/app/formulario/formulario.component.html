@@ -1,6 +1,6 @@
 <mat-horizontal-stepper linear #stepper  (selectionChange)="onStepChange($event)" > 
 
-  <!-- <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
+  <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
       <form [formGroup]="formulario_datos_generales">
       <div style="display: none;" id="labelDatosGenerales"><ng-template matStepLabel >{{datosGenerales}}</ng-template></div>
       <div class="container1">
@@ -155,7 +155,7 @@
         </div>
       
     </form>
-  </mat-step>    -->
+  </mat-step>   
     
 
 
@@ -166,7 +166,7 @@
 
  <!-- primer step -->
   
-  <!-- <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1" label="hola">
+  <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1" label="hola">
     <form [formGroup]="formulario_datos_generales">
     
     <ng-template matStepLabel >{{datosGenerales}}</ng-template>
@@ -343,7 +343,7 @@
         <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right" >Siguiente</button>
      </div>
   </form>
-  </mat-step> -->
+  </mat-step>
 
 
 
@@ -1446,20 +1446,7 @@
             <button mat-raised-button (click)="agregarOtrosAP();">agregar</button>
   
           </div>
-          <!-- <mat-form-field>
-            <input matInput formControlName="otros" name="otros" id="" placeholder="11. Otros">
-            <mat-error *ngIf="otros.hasError('maxlength')">campo muy extenso</mat-error>
-            <mat-error *ngIf="otros.hasError('minlength')">introduzca una observación válida</mat-error>
-          </mat-form-field>
-
-          &nbsp; &nbsp; &nbsp; &nbsp; 
-
-          <mat-form-field class="medium-width">
-            <textarea matInput formControlName="observacion_otros" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Observacion"></textarea>
-            <mat-error *ngIf="observacion_otros_ap.hasError('maxlength')">campo muy extenso</mat-error>
-            <mat-error *ngIf="observacion_otros_ap.hasError('minlength')">introduzca una observación válida</mat-error>
-          </mat-form-field> -->
+          
 
         </div>
 
@@ -1877,74 +1864,83 @@
       <ng-template matStepLabel>{{habitosToxicologicosPersonales}}</ng-template>
       <div class="container">
 
-          <label id="example-radio-group-label">1. Alcohol</label>
-            <mat-error style="margin-left: 0;" *ngIf="alcohol.hasError('required')">campo requerido</mat-error>
-         <div class="row" style="margin-left: 0;"> 
-            <mat-radio-group formControlName="alcohol"  aria-labelledby="example-radio-group-label" class="example-radio-group">
-            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_alcohol])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
-            <mat-radio-button value="No" (click)="borrarInputs([observacion_alcohol])">No</mat-radio-button>
-         </mat-radio-group>
-         &nbsp; &nbsp; &nbsp; &nbsp; 
+        <label id="example-radio-group-label">1. Alcohol</label>
+          <mat-error style="margin-left: 0;" *ngIf="alcohol.hasError('required')">campo requerido</mat-error>
+        <div class="row" style="margin-left: 0;"> 
+          <mat-radio-group formControlName="alcohol"  aria-labelledby="example-radio-group-label" class="example-radio-group">
+            <mat-radio-button value={{1}} (click)="habilitarInputs([observacion_alcohol])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
+            <mat-radio-button value={{0}} (click)="borrarInputs([observacion_alcohol])">No</mat-radio-button>
+          </mat-radio-group>
+
+          &nbsp; &nbsp; &nbsp; &nbsp; 
+
           <mat-form-field  class="medium-width">
             <textarea matInput formControlName="observacion_alcohol" placeholder="Detallar tiempo de uso y frecuencia"
             cdkTextareaAutosize #autosize="cdkTextareaAutosize"cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
             <mat-error *ngIf="observacion_alcohol.hasError('maxlength')">campo muy extenso</mat-error>
             <mat-error *ngIf="observacion_alcohol.hasError('minlength')">introduzca una observación válida</mat-error>
             <mat-error *ngIf="observacion_alcohol.hasError('pattern')">introduzca una observación válida</mat-error>
-        </mat-form-field>
+          </mat-form-field>
         </div>
   
         <mat-divider></mat-divider>
   
         
-          <label id="example-radio-group-label">2. Tabaquismo</label>
-            <mat-error style="margin-left: 0;" *ngIf="tabaquismo.hasError('required')"> campo requerido</mat-error>
-         <div class="row" style="margin-left: 0;"> 
+        <label id="example-radio-group-label">2. Tabaquismo</label>
+          <mat-error style="margin-left: 0;" *ngIf="tabaquismo.hasError('required')"> campo requerido</mat-error>
+        <div class="row" style="margin-left: 0;"> 
            <mat-radio-group formControlName="tabaquismo" aria-labelledby="example-radio-group-label" class="example-radio-group">
-            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_tabaquismo])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
-            <mat-radio-button value="No" (click)="borrarInputs([observacion_tabaquismo])">No</mat-radio-button>
+            <mat-radio-button value={{2}} (click)="habilitarInputs([observacion_tabaquismo])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
+            <mat-radio-button value={{0}} (click)="borrarInputs([observacion_tabaquismo])">No</mat-radio-button>
           </mat-radio-group>
+
           &nbsp; &nbsp; &nbsp; &nbsp; 
-        <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_tabaquismo"  placeholder="Detallar tiempo de uso y frecuencia"
-          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
-          <mat-error *ngIf="observacion_tabaquismo.hasError('maxlength')">campo muy extenso</mat-error>
-          <mat-error *ngIf="observacion_tabaquismo.hasError('minlength')">introduzca una observación válida</mat-error>
-          <mat-error *ngIf="observacion_tabaquismo.hasError('pattern')">introduzca una observación válida</mat-error>
-        </mat-form-field>
+
+          <mat-form-field class="medium-width">
+            <textarea matInput formControlName="observacion_tabaquismo"  placeholder="Detallar tiempo de uso y frecuencia"
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+            <mat-error *ngIf="observacion_tabaquismo.hasError('maxlength')">campo muy extenso</mat-error>
+            <mat-error *ngIf="observacion_tabaquismo.hasError('minlength')">introduzca una observación válida</mat-error>
+            <mat-error *ngIf="observacion_tabaquismo.hasError('pattern')">introduzca una observación válida</mat-error>
+          </mat-form-field>
+
         </div>
   
         <mat-divider></mat-divider>
   
         
-          <label id="example-radio-group-label">3. Marihuana</label>
-            <mat-error style="margin-left: 0;" *ngIf="marihuana.hasError('required')">campo requerido</mat-error>
-         <div class="row" style="margin-left: 0;"> 
-           <mat-radio-group formControlName="marihuana" aria-labelledby="example-radio-group-label" class="example-radio-group" >
-            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_marihuana])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
-            <mat-radio-button value="No" (click)="borrarInputs([observacion_marihuana])">No</mat-radio-button>
-           </mat-radio-group>
-           &nbsp; &nbsp; &nbsp; &nbsp; 
-        <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_marihuana" placeholder="Detallar tiempo de uso y frecuencia" 
-          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
-           <mat-error *ngIf="observacion_marihuana.hasError('maxlength')">campo muy extenso</mat-error>
-           <mat-error *ngIf="observacion_marihuana.hasError('minlength')">introduzca una observación válida</mat-error>
-           <mat-error *ngIf="observacion_marihuana.hasError('pattern')">introduzca una observación válida</mat-error>
-        </mat-form-field>
-        </div>
-  
-        <mat-divider></mat-divider>
-        
-        
-          <label id="example-radio-group-label">4. Cocaína</label>
-            <mat-error style="margin-left: 0;" *ngIf="cocaina.hasError('required')">campo requerido</mat-error>
-          <div class="row" style="margin-left: 0;">
-          <mat-radio-group formControlName="cocaina" aria-labelledby="example-radio-group-label" class="example-radio-group" >
-            <mat-radio-button value="Si" (click)="habilitarInputs([observacion_cocaina])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
-            <mat-radio-button value="No" (click)="borrarInputs([observacion_cocaina])">No</mat-radio-button>
+        <label id="example-radio-group-label">3. Marihuana</label>
+          <mat-error style="margin-left: 0;" *ngIf="marihuana.hasError('required')">campo requerido</mat-error>
+        <div class="row" style="margin-left: 0;"> 
+          <mat-radio-group formControlName="marihuana" aria-labelledby="example-radio-group-label" class="example-radio-group" >
+            <mat-radio-button value={{3}} (click)="habilitarInputs([observacion_marihuana])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
+            <mat-radio-button value={{0}} (click)="borrarInputs([observacion_marihuana])">No</mat-radio-button>
           </mat-radio-group>
-            &nbsp; &nbsp; &nbsp; &nbsp; 
+
+           &nbsp; &nbsp; &nbsp; &nbsp; 
+
+          <mat-form-field class="medium-width">
+            <textarea matInput formControlName="observacion_marihuana" placeholder="Detallar tiempo de uso y frecuencia" 
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+            <mat-error *ngIf="observacion_marihuana.hasError('maxlength')">campo muy extenso</mat-error>
+            <mat-error *ngIf="observacion_marihuana.hasError('minlength')">introduzca una observación válida</mat-error>
+            <mat-error *ngIf="observacion_marihuana.hasError('pattern')">introduzca una observación válida</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <mat-divider></mat-divider>
+        
+        
+        <label id="example-radio-group-label">4. Cocaína</label>
+          <mat-error style="margin-left: 0;" *ngIf="cocaina.hasError('required')">campo requerido</mat-error>
+        <div class="row" style="margin-left: 0;">
+          <mat-radio-group formControlName="cocaina" aria-labelledby="example-radio-group-label" class="example-radio-group" >
+            <mat-radio-button value={{4}} (click)="habilitarInputs([observacion_cocaina])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
+            <mat-radio-button value={{0}} (click)="borrarInputs([observacion_cocaina])">No</mat-radio-button>
+          </mat-radio-group>
+
+          &nbsp; &nbsp; &nbsp; &nbsp;
+
           <mat-form-field class="medium-width">
             <textarea matInput formControlName="observacion_cocaina" placeholder="Detallar inicio de enfermedad y tratamiento" 
             cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
@@ -1956,28 +1952,83 @@
   
         <mat-divider></mat-divider>
 
+        <label id="example-radio-group-label">5. Otros</label>
         <div class="row" style="margin-left: 0;">
-          <mat-form-field>
-            <input matInput formControlName="otros" placeholder="5. Otros">
-            <mat-error *ngIf="otros_ht.hasError('maxlength')">campo muy extenso</mat-error>
-            <mat-error *ngIf="otros_ht.hasError('minlength')">introduzca una observación válida</mat-error>
-          </mat-form-field>
-          &nbsp; &nbsp; &nbsp; &nbsp; 
-        <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_otros" placeholder="Observación" 
-          cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
-          <mat-error *ngIf="observacion_otros_ht.hasError('maxlength')">campo muy extenso</mat-error>
-          <mat-error *ngIf="observacion_otros_ht.hasError('minlength')">introduzca una observación válida</mat-error>
-          <mat-error *ngIf="observacion_otros_ht.hasError('pattern')">introduzca una observación válida</mat-error>
-        </mat-form-field>
+
+          <div class="col" style="margin-left: 0; padding-left: 0%;">
+
+            <mat-form-field>
+              <input matInput formControlName="otros" placeholder="Hábito toxicólogico">
+              <mat-error *ngIf="otros_ht.hasError('maxlength')">campo muy extenso</mat-error>
+              <mat-error *ngIf="otros_ht.hasError('minlength')">introduzca una observación válida</mat-error>
+            </mat-form-field>
+
+              &nbsp; &nbsp; &nbsp; &nbsp; 
+
+            <mat-form-field class="medium-width">
+              <textarea matInput formControlName="observacion_otros" placeholder="Observación" 
+              cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+              <mat-error *ngIf="observacion_otros_ht.hasError('maxlength')">campo muy extenso</mat-error>
+              <mat-error *ngIf="observacion_otros_ht.hasError('minlength')">introduzca una observación válida</mat-error>
+              <mat-error *ngIf="observacion_otros_ht.hasError('pattern')">introduzca una observación válida</mat-error>
+            </mat-form-field>
+
+            &nbsp; &nbsp; &nbsp; &nbsp;
+
+            <button mat-raised-button (click)="agregarOtrosHT();">agregar</button>
+
+          </div>
         </div>
-     </div>
-     <div class="botonesstep">
+
+
+        <div class="row medium-width" style="margin-left: 0;">
+          <table mat-table [dataSource]="dataSourceTablaOtrosHT" 
+          class="mat-elevation-z8"  
+          *ngIf="dataSourceTablaOtrosHT != null">
+                              
+            <ng-container matColumnDef="numero">
+              <th mat-header-cell *matHeaderCellDef> # </th>
+              <a>eliminar</a>
+              <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+              <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+          
+            <ng-container matColumnDef="antecedente">
+              <th mat-header-cell *matHeaderCellDef> Hábito toxicólogico </th>
+              <td mat-cell *matCellDef="let element"> {{element.habito_toxicologico}} </td>
+              <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+          
+            <ng-container matColumnDef="observacion">
+              <th mat-header-cell *matHeaderCellDef> Observación </th>
+              <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+              <td mat-footer-cell *matFooterCellDef></td>
+              
+            </ng-container>
+
+            <ng-container matColumnDef="botones">
+              <th mat-header-cell *matHeaderCellDef></th>
+                <div mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button (click)="eliminarDesnutriciones(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>      
+                </div>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="columnasTablaAP"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnasTablaAP;"></tr>
+          </table>
+
+
+        </div>
+      </div>
+
+      <div class="botonesstep">
         <button  disabled="{{formulario_habito_toxicologico_personal.invalid}}" 
           mat-raised-button matStepperNext 
           class="btn btn-outline-primary float-right botonperron" (click)="enviarDatos()">Enviar</button>
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
-    </div>
+      </div>
        
     </form>   
     <div *ngIf="loading==true" id="spin"> <mat-spinner class="loading"></mat-spinner></div> 
