@@ -9,7 +9,7 @@ import { select, Parentescos, MyErrorStateMatcher } from '../formulario/formular
 import { AntecedentesFamiliares } from '../interfaces/antecedentes-familiares';
 import { MatTableDataSource, MatSidenav, MatDialog, MatSnackBar, MatDialogRef, MatSnackBarConfig, SimpleSnackBar } from '@angular/material';
 import { AntecedentesPersonales } from '../interfaces/antecedentes-personales';
-import { ThrowStmt } from '@angular/compiler';
+import { ThrowStmt, analyzeAndValidateNgModules } from '@angular/compiler';
 import { HabitosToxicologicosPersonales } from '../interfaces/habitos-toxicologicos-personales';
 import { ActividadSexual } from '../interfaces/actividad-sexual';
 import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologicos';
@@ -1988,6 +1988,12 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 }
 
 
+export interface Inventario{
+  id_inventario?: number,
+  unidades?: number,
+  medicamento?: string,
+}
+
 @Component({
   selector: 'historiaSubsiguiente1',
   templateUrl: 'HistoriaSubsiguiente1.html',  
@@ -2002,7 +2008,6 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 export class HistoriaSubsiguiente1{
 
   constructor(private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente1>, private mensaje: MatSnackBar){//para cerrar el dialogo desde la misma interfaz
-    
   }
 
   
@@ -2020,6 +2025,13 @@ export class HistoriaSubsiguiente1{
      remitido:null,
      siguiente_cita:null
   }
+  medicamento: any={
+    id: null,
+    cantidad: null
+  }
+  
+
+
   showError(message: string) {
     const config = new MatSnackBarConfig();
     config.panelClass = ['background-red'];
@@ -2028,16 +2040,22 @@ export class HistoriaSubsiguiente1{
   }
 
   ngOnInit() {
+    
     this.obtenerMedicamentos();
   }
 
   obtenerMedicamentos(){
 
-    this.form.obtenerMedicamento().subscribe((data: any[])=>{
-
-      data.forEach(element => {
+    this.form.obtenerMedicamento().subscribe((data: Inventario[])=>{
+      this.datos = data;
+      this.inventario = data;
+      this.datos.forEach(element => {
         this.nombres.push({value:element.id_inventario, viewValue:element.medicamento});  
       });
+      console.log(this.nombres);
+      console.log(this.inventario);
+      console.log(this.unidad.value);
+      
     
     });
 
@@ -2072,7 +2090,10 @@ export class HistoriaSubsiguiente1{
 });
   matcher = new MyErrorStateMatcher();
 
-  
+  datos: any;
+  demas: boolean = true;
+  inventario: Inventario[];
+
 
   parentescos: Parentescos[] = [
     {value: 1 , viewValue: 'Psicologia'},
@@ -2100,6 +2121,9 @@ export class HistoriaSubsiguiente1{
   
 
   guardarCita(){
+    
+      
+    
    if(this.formulario_cita.valid){
       this.citaGuardar.id_paciente = this.form.idCita;
       this.citaGuardar.peso= this.peso.value;
@@ -2122,7 +2146,18 @@ export class HistoriaSubsiguiente1{
         console.log(error);
         alert('ocurrion un error');
       });
+      this.medicamento.id = this.nombre.value;
+      this.medicamento.cantidad = this.unidad.value;
+      console.log(this.medicamento);
+      this.form.EgresoMedicamentos(this.medicamento).subscribe( (data) =>{
+        console.log(data);
+        this.showError('medicamento guardado con exito');
+      }, (error) => {
+        console.log(error);
+        alert('ocurrion un error en medicamento');
+      });
     }
+    
   }
 
 

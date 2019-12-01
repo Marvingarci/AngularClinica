@@ -3,7 +3,7 @@ import { FormularioService } from '../services/formulario.service';
 import { Paciente } from "../interfaces/paciente";
 import { ActivatedRoute, Route } from '@angular/router';
 import { AppComponent } from "../app.component";
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from "../services/login.service";
@@ -263,7 +263,7 @@ export class DialogContentExampleDialog {
   }
   id:any;
   Listo:boolean = false;
-  constructor( private formularioService: FormularioService,private activatedRoute: ActivatedRoute,
+  constructor( private formularioService: FormularioService, private dialogRef:MatDialogRef<DialogContentExampleDialog>,private activatedRoute: ActivatedRoute,
    public login: LoginService, private router: Router, private mensaje: MatSnackBar ){
     this.paciente1.id_paciente = this.formularioService.idActualizar;
     console.log(this.paciente1.id_paciente);
@@ -302,6 +302,52 @@ export class DialogContentExampleDialog {
 
 onKeydown(event) {
   if (event.key === "Enter") {
+  this.hide = true;
+
+  this.formularioService.getUltimoID().subscribe((data)=>{
+    this.resultado = data;
+    console.log(this.resultado);
+    if(this.resultado!=null){
+      if(this.resultado[0].ultimoId!=null){
+        this.paciente1.id_paciente=this.resultado[0].ultimoId;
+        console.log(this.paciente1.id_paciente);    
+        
+    }
+     }
+  }, (error)=>{
+    console.log(error);
+  }); 
+
+  
+
+  
+  if(this.Nueva.valid){
+    // guardar datos del formulario en paciente y enviarlo a la api
+    this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
+    if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
+      this.formularioService.actualizarPaciente(this.paciente1).subscribe((data)=>{
+        if(this.formularioService.esAlumno==true){
+          this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
+          this.showError('Contraseña Guardada'); 
+          this.Listo = true;
+        }else{
+          this.router.navigate(['verPaciente/'+this.paciente1.id_paciente]);
+          this.showError('Contraseña Guardada'); 
+          this.dialogRef.close();
+
+          this.Listo = true;
+        }
+        
+      }, (error)=>{
+        console.log(error);
+        this.showError('Existe un error'); 
+      });
+    }else{
+      this.showError('La contraseña no coincide'); 
+      
+    }
+  }
+
     this.hide = true;
     this.hide1=true;
   }
@@ -330,9 +376,16 @@ guardar(){
     this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
     if(this.paciente1.contrasenia==this.Nueva.get('nuevaContraRep').value ){
       this.formularioService.actualizarPaciente(this.paciente1).subscribe((data)=>{
-        this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
-        this.showError('Contraseña Guardada'); 
-        this.Listo = true;
+        if(this.formularioService.esAlumno==true){
+          this.router.navigate(['datoPaciente/'+this.paciente1.id_paciente]);
+          this.showError('Contraseña Guardada'); 
+          this.Listo = true;
+        }else{
+          this.router.navigate(['verPaciente/'+this.paciente1.id_paciente]);
+          this.showError('Contraseña Guardada'); 
+          this.dialogRef.close();
+          this.Listo = true;
+        }
       }, (error)=>{
         console.log(error);
         this.showError('Existe un error'); 

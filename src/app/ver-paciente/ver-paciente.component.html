@@ -564,8 +564,8 @@ Visualiazar Antecedentes familiares del paciente
 
 <!-- columna antecedente -->
 <ng-container matColumnDef="antecedente">
-<th mat-header-cell *matHeaderCellDef> Antecedente </th>
-<td mat-cell *matCellDef="let elemento"> {{elemento.antecedente}} </td>
+<th mat-header-cell *matHeaderCellDef> Grupo Enfermedad </th>
+<td mat-cell *matCellDef="let elemento"> {{elemento.grupo_enfermedad}} </td>
 
 <!-- este mat-footer siempre tiene que ir en cada columna -->
 <td mat-footer-cell *matFooterCellDef></td>
@@ -573,8 +573,8 @@ Visualiazar Antecedentes familiares del paciente
 
 <!-- columna valor -->
 <ng-container matColumnDef="valor">
-<th mat-header-cell *matHeaderCellDef> Valor </th>
-<td mat-cell *matCellDef="let elemento"> {{elemento.valor}} </td>
+<th mat-header-cell *matHeaderCellDef> Enfermedad </th>
+<td mat-cell *matCellDef="let elemento"> {{elemento.enfermedad}} </td>
 <td mat-footer-cell *matFooterCellDef></td>
 
 <!-- <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td> -->
@@ -582,11 +582,7 @@ Visualiazar Antecedentes familiares del paciente
 </ng-container>
 
 <!-- columna tipo -->
-<ng-container matColumnDef="tipo">
-<th mat-header-cell *matHeaderCellDef> Tipo </th>
-<td mat-cell *matCellDef="let elemento"> {{elemento.tipo}}</td>
-<td mat-footer-cell *matFooterCellDef></td>
-</ng-container>
+
 
 <!-- columna parentesco -->
 <ng-container matColumnDef="parentesco">
@@ -596,11 +592,7 @@ Visualiazar Antecedentes familiares del paciente
 </ng-container>
 
 <!-- columna observaccion -->
-<ng-container matColumnDef="observacion">
-<th mat-header-cell *matHeaderCellDef> Observación </th>
-<td mat-cell *matCellDef="let elemento"> {{elemento.observacion}}</td>
-<td mat-footer-cell *matFooterCellDef></td>
-</ng-container>
+
 
 <tr mat-header-row *matHeaderRowDef="columnasTablaAntecedentesFamiliares"></tr>
 <tr mat-row *matRowDef="let row; columns: columnasTablaAntecedentesFamiliares;"></tr>
