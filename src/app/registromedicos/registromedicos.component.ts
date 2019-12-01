@@ -60,25 +60,8 @@ export class RegistromedicosComponent implements OnInit {
     {value: 15, viewValue: 'Medicina General'},
    
   ];
-   
-  //lista:string[]=[
-   // "Salud Pública",
-  //  "Ginecología y Obstetricia",
-    //"Pediatría",
-   // "Cirugía General",
-   // "Medicina Interna",
-   // "Dermatología",
-   // "Neurología",
-  //  "Neurocirugía",
-  //  "Cirugía Plástica",
-  //  "Anestesiología, Reanimación y Dolor",
-  //  "Ortopedia",
-  //  "Psiquiatría",
-  //  "Otorrinolaringología",
-  //  "Medicina Física y Rehabilitación"];
 
-
-    id:any;
+  id:any;
   editing:boolean = false;
   meds: Medicos[];
   constructor(private activatedRoute:ActivatedRoute,private router: Router,activar: AppComponent,
