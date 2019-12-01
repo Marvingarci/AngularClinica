@@ -11,6 +11,8 @@ import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos'
 // import { PruebaPaciente } from '../interfaces/prueba-paciente';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
 import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
+import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
+import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
 
 @Injectable({
   providedIn: 'root'
@@ -45,12 +47,31 @@ export class FormularioService {
     {headers: this.headers});
   }
 
+  enviarPacienteHabitoToxicologico(paciente_habito_toxicologico: PacienteHabitoToxicologico){
+    return this.httpClient.post(this.API_ENDPOINT+'pacientes_habitos_toxicologicos',
+    paciente_habito_toxicologico, 
+    {headers: this.headers});
+  }
+
+  enviarPacienteHospitalariaQuirurgica(paciente_hospitalaria_quirurgica: PacienteHospitalariaQuirurgica){
+    return this.httpClient.post(this.API_ENDPOINT+'p_hospitalarias_quirurgicas',
+    paciente_hospitalaria_quirurgica, 
+    {headers: this.headers});
+  }
+ 
 
   enviarEnfermedad(enfermedad: any){
 
     return this.httpClient.post(this.API_ENDPOINT+'enfermedades', enfermedad, {headers: this.headers});
 
   }
+
+  enviarHabitoToxicologico(habito_toxicologico: any){
+    return this.httpClient.post(this.API_ENDPOINT+'habitos_toxicologicos',
+    habito_toxicologico, 
+    {headers: this.headers});
+  }
+
 
   enviarTipoEnfermedad(tipo_enfermedad: any){
 
