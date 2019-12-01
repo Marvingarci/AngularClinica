@@ -130,6 +130,9 @@
                           <mat-error *ngIf="unidad.hasError('minLength') && unidad.hasError('maxLength')">
                           <strong>campo requerido</strong>
                           </mat-error>
+                          <mat-error *ngIf="demas==false">
+                            <strong>Solo hay en existencia</strong>
+                            </mat-error>
                       </mat-form-field>
                       </div>
                   </div>
