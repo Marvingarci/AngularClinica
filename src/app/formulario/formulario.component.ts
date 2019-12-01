@@ -40,6 +40,7 @@ export interface Element{
   id_grupo_enfermedad?: number
   observacion?: string;
   parentesco?: any;
+  habito_toxicologico?: string;
   
 }
 
@@ -54,6 +55,13 @@ export interface antecedentesFamiliares{
 
   antecedente: number;
   parentesco: number;
+  
+}
+
+export interface habitosToxicologicos{
+
+  habito_toxicologico: number;
+  observacion: string;
   
 }
 
@@ -939,6 +947,11 @@ this.des3 = true;
   dataSourceTablaAlergiasAP : any;
   dataSourceTablaCanceresAP : any;
 
+  tablaOtrosHT: Element[] = [];
+  dataSourceTablaOtrosHT : any;
+
+
+
 
   columnasTablaAF: string[] = ['numero','antecedente','parentesco','botones'];
   columnasTablaAP: string[] = ['numero','antecedente','observacion','botones'];
@@ -946,29 +959,32 @@ this.des3 = true;
 
   // creo estos arreglos de los cuales extraigo el valor de cada elemento y lo mando a la tabla de pacientes_antecedentes_familiares
   // estos arreglos son de los controladores del formulario antecedentes familiares
-  formControlsAntecedentesFamiliares: any[] = [this.diabetes, this.tb_pulmonar, this.desnutricion, this.enfermedades_mentales, this.convulsiones,
-    this.alcoholismo_sustancias_psicoactivas, this.alergias, this.cancer, this.hipertension_arterial
-  ];
+  
+  // formControlsAntecedentesFamiliares: any[] = [this.diabetes, this.tb_pulmonar, this.desnutricion, this.enfermedades_mentales, this.convulsiones,
+  //   this.alcoholismo_sustancias_psicoactivas, this.alergias, this.cancer, this.hipertension_arterial
+  // ];
 
   antecedentesF: antecedentesFamiliares[];
-
-  formControlsAntecedentesPersonales: any[] = [this.diabetes_ap, this.tb_pulmonar_ap, this.its, this.desnutricion_ap, this.enfermedades_mentales_ap,
-    this.convulsiones_ap, this.alergias_ap, this.cancer_ap, this.traumaticos, this.hospitalarias_quirurgicas,
-  ];
-
   antecedentesP: antecedentesPersonales[];
+  habitosT: habitosToxicologicos[];
 
-  formControlsObservacionesAP: any[] = [this.observacion_diabetes_ap, this.observacion_tb_pulmonar_ap, this.observacion_its,
-    this.observacion_desnutricion_ap, this.observacion_enfermedades_mentales_ap, this.observacion_convulsiones_ap,
-    this.observacion_alergias_ap, this.observacion_cancer_ap, this.observacion_traumaticos,
-  ];
+
+  // formControlsAntecedentesPersonales: any[] = [this.diabetes_ap, this.tb_pulmonar_ap, this.its, this.desnutricion_ap, this.enfermedades_mentales_ap,
+  //   this.convulsiones_ap, this.alergias_ap, this.cancer_ap, this.traumaticos, this.hospitalarias_quirurgicas,
+  // ];
+
+
+  // formControlsObservacionesAP: any[] = [this.observacion_diabetes_ap, this.observacion_tb_pulmonar_ap, this.observacion_its,
+  //   this.observacion_desnutricion_ap, this.observacion_enfermedades_mentales_ap, this.observacion_convulsiones_ap,
+  //   this.observacion_alergias_ap, this.observacion_cancer_ap, this.observacion_traumaticos,
+  // ];
 
   formControlsHabitosToxicologicos: any[] = [this.alcohol, this.tabaquismo, this.marihuana, this.cocaina];
 
-  formControlsParentescos: any[] = [this.parentesco_diabetes, this.parentesco_tb_pulmonar, this.parentesco_desnutricion,
-    this.parentesco_enfermedades_mentales, this.parentesco_convulsiones, this.parentesco_alcoholismo_sustancias_psicoactivas,
-    this.parentesco_alergias, this.parentesco_cancer, this.parentesco_hipertension_arterial
-  ];
+  // formControlsParentescos: any[] = [this.parentesco_diabetes, this.parentesco_tb_pulmonar, this.parentesco_desnutricion,
+  //   this.parentesco_enfermedades_mentales, this.parentesco_convulsiones, this.parentesco_alcoholismo_sustancias_psicoactivas,
+  //   this.parentesco_alergias, this.parentesco_cancer, this.parentesco_hipertension_arterial
+  // ];
 
   
 
@@ -1585,6 +1601,30 @@ this.des3 = true;
 
   }
 
+  agregarOtrosHT(){
+
+    if(this.otros_ht.value.toString().trim() && this.otros_ht.valid && this.observacion_otros_ht.valid){    
+  
+      this.tablaOtrosHT.push(
+        {
+          numero: this.tablaOtrosHT.length + 1,
+          habito_toxicologico: this.otros_ht.value,
+          observacion: this.observacion_otros_ht.value,
+          
+        }
+
+      );
+
+      this.dataSourceTablaOtrosHT =  new MatTableDataSource(this.tablaOtrosHT);
+
+      this.otros_ht.setValue('');
+      this.observacion_otros_ht.setValue('');
+
+    }
+    
+
+  }
+
   enviarDatos(){
     this.loading = true;
 
@@ -1676,6 +1716,29 @@ this.des3 = true;
         observacion:this.observacion_traumaticos.value
       },
   
+    ];
+
+    this.habitosT = [
+      {
+        habito_toxicologico: this.alcohol.value,
+        observacion: this.observacion_alcohol.value
+      },
+  
+      {
+        habito_toxicologico: this.tabaquismo.value,
+        observacion: this.observacion_tabaquismo.value
+      },
+  
+      {
+        habito_toxicologico: this.marihuana.value,
+        observacion: this.observacion_marihuana.value
+      },
+  
+      {
+        habito_toxicologico: this.cocaina.value,
+        observacion: this.observacion_cocaina.value
+      }
+
     ];
 
 
@@ -2409,43 +2472,79 @@ this.des3 = true;
 
       }
 
-      // if(this.formulario_habito_toxicologico_personal.valid){
+      if(this.formulario_habito_toxicologico_personal.valid){
 
-      //   for (let index = 0; index < this.formControlsAntecedentesFamiliares.length; index++) {
-      //     const element = this.formControlsAntecedentesFamiliares[index];
+        for (let index = 0; index < this.habitosT.length; index++) {
+          const element = this.habitosT[index];
 
-      //     // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
-      //     if(element.value != 0){
+          // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
+          if(element.habito_toxicologico != 0){
 
-      //       // guardo el id de la enfermedad que tiene el fomcontrol en el arreglo.
-      //       this.paciente_habito_toxicologico.id_habito_toxicologico = element.value;
-      //       this.paciente_habito_toxicologico.observacion = this.observacion_desnutricion_ap.value;
+            // guardo el id de la enfermedad que tiene el fomcontrol en el arreglo.
+            this.paciente_habito_toxicologico.id_paciente = this.datosScraping.id_login;
+            this.paciente_habito_toxicologico.id_habito_toxicologico = element.habito_toxicologico;
+            this.paciente_habito_toxicologico.observacion = element.observacion;
 
 
-      //       this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data)=>{
-      //         console.log('se envio perron el antecedente personal');
-      //       }, (error)=>{
-      //         console.log(error);
-      //       });
+            this.formularioService.enviarHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data)=>{
+              console.log('se envio perron el habito toxicologico');
+            }, (error)=>{
+              console.log(error);
+            });
 
 
           
-      //     }
+          }
 
-      //   }
+        }
 
-      
+        //establezco primero el id del paciente por que si no no se guarda.
+        this.paciente_habito_toxicologico.id_paciente = this.datosScraping.id_login;
+
+        if(this.tablaOtrosHT.length){
+
+          console.log('los datos que se van a guardar');
+          console.log(this.paciente_habito_toxicologico);
+
+          for (let index = 0; index < this.tablaOtrosHT.length; index++) {
+            const element = this.tablaOtrosHT[index];
+
+            // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+            // de la interfaz de enfermedad.
+            this.habito_toxicologico.habito_toxicologico = element.habito_toxicologico;
 
 
-                 
+            this.formularioService.enviarHabitoToxicologico(this.habito_toxicologico).subscribe((data)=>{
 
-                    
+              // asigno el id del habito toxicologico que me devuelve la funcion de mysql en el id_habito_toxicologico
+              // de la interfaz de habito_toxicologico que se va enviar a paciente_habito_toxicologico.
+              this.paciente_habito_toxicologico.id_habito_toxicologico = data[0].id_habito_toxicologico;   
+            
+              console.log("ultimo habito: "+data[0].id_habito_toxicologico);
+              
+              // establezco el valor al atributo observacion de la interfaz paciente_habito_toxicologico
+              // para ser enviado a la base de datos.
+              this.paciente_habito_toxicologico.observacion = element.observacion;
 
-                    
+              //envio el habito toxicologico del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+              this.formularioService.enviarPacienteHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data)=>{
+                console.log('se enviaron perron los nuevos habitos toxicologicos');
 
-                
+              }, (error)=>{
+                console.log(error);
 
-      // }
+              });
+
+              
+
+            });
+
+
+          }
+
+        }
+
+      }
 
       if(this.formulario_actividad_sexual.valid){
           // guardar datos del formulario en actividad_sexual y enviarlo a la api
