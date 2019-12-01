@@ -351,7 +351,7 @@
 
 
   <!-- segundo step --> 
-   <mat-step [stepControl]= "formulario_antecedentes_familiares">
+  <mat-step [stepControl]= "formulario_antecedentes_familiares">
     <form [formGroup]="formulario_antecedentes_familiares">
       
       <ng-template matStepLabel>{{antecedentesFamiliares}}</ng-template>
@@ -425,7 +425,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
 
           <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
-           <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAF"> 
+          <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAF"> 
 
             <mat-form-field>
               <input matInput formControlName= "tipo_desnutricion" placeholder="Tipo Desnutricion">
@@ -515,7 +515,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
 
           <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
-           <div class="col" style="display: none;" id="divAgregarTiposEnfermedadesMentalesAF"> 
+          <div class="col" style="display: none;" id="divAgregarTiposEnfermedadesMentalesAF"> 
 
             <mat-form-field>
               <input matInput formControlName= "tipo_enfermedad_mental" placeholder="Tipo enfermedad mental">
@@ -902,7 +902,7 @@
       </div>
     </form> 
     
-  </mat-step> 
+  </mat-step>
 
  
 

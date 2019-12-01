@@ -2,8 +2,6 @@ import { Component, OnInit, Input, ViewChild, NgZone, ElementRef } from '@angula
 import { Router } from '@angular/router';
 import { Paciente } from '../interfaces/paciente';
 import { FormularioService } from '../services/formulario.service';
-import { AntecedentesFamiliares } from '../interfaces/antecedentes-familiares';
-import { AntecedentesPersonales } from '../interfaces/antecedentes-personales';
 import { HabitosToxicologicosPersonales } from '../interfaces/habitos-toxicologicos-personales';
 import { ActividadSexual } from '../interfaces/actividad-sexual';
 import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologicos';
@@ -25,6 +23,8 @@ import {take} from 'rxjs/operators';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
 import { MatChipInputEvent, MatAutocomplete, MatTableDataSource } from '@angular/material';
 import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
+import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
+import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
 
 export interface Loginadmin {
  // contrasenia_admin: any;
@@ -40,6 +40,20 @@ export interface Element{
   id_grupo_enfermedad?: number
   observacion?: string;
   parentesco?: any;
+  
+}
+
+export interface antecedentesPersonales{
+
+  antecedente: number;
+  observacion: string;
+  
+}
+
+export interface antecedentesFamiliares{
+
+  antecedente: number;
+  parentesco: number;
   
 }
 
@@ -729,6 +743,10 @@ this.des3 = true;
     id_grupo_enfermedad: null,
   }
 
+  habito_toxicologico: HabitoToxicologico = {
+    habito_toxicologico: null,
+  }
+
   paciente_antecedente_familiar: PacienteAntecedenteFamiliar ={
     id_paciente: null,
     id_enfermedad: null,
@@ -742,20 +760,15 @@ this.des3 = true;
     observacion: null,
   }
 
+  paciente_habito_toxicologico: PacienteHabitoToxicologico = {
 
-  habito_toxicologico_personal: HabitosToxicologicosPersonales = {
-    alcohol : null,
-    observacion_alcohol : null,
-    tabaquismo : null,
-    observacion_tabaquismo : null,
-    marihuana : null,
-    observacion_marihuana : null,
-    cocaina : null,
-    observacion_cocaina : null,
-    otros : null,
-    observacion_otros : null,
-    id_paciente : null,
+    id_paciente: null,
+    id_habito_toxicologico: null,
+    observacion: null,
+
   }
+
+
 
   actividad_sexual: ActividadSexual = {
     actividad_sexual : null,
@@ -815,32 +828,10 @@ this.des3 = true;
     {value: 2, viewValue: 'Mujer'},
     //{value: 'otro', viewValue: 'Otro'}
   ];
-
-  /*seguros_medicos: SegurosMedicos[] = [
-    {value: 1, viewValue: 'Privado'},
-    {value: 2, viewValue: 'IHSS'},
-    {value: 3, viewValue: 'No'}
-  ];*/
   
   seguros_medicos: SegurosMedicos[]=[];
 
-  /*estados_civiles: EstadosCiviles[] = [
-    {value: 1, viewValue: 'Soltero'},
-    {value: 2, viewValue: 'Unión Libre'},
-    {value: 3, viewValue: 'Divorciado'},
-    {value: 4, viewValue: 'Viudo'},
-    {value: 5, viewValue: 'Casado'},
-  ];*/
-
   estados_civiles: EstadosCiviles[]=[];
-
-  // parentescos: Parentescos[] = [
-  //   {value: 1 , viewValue: 'Padre'},
-  //   {value: 2 , viewValue: 'Madre'},
-  //   {value: 4 , viewValue: 'Abuelos'},
-  //   {value: 3 , viewValue: 'Tios'},
-  //   {value: 5 , viewValue: 'Otros'},
-  // ];
 
   parentescos: Parentescos[]= [];
 
@@ -879,11 +870,13 @@ this.des3 = true;
     {value: 'Cervicouterino' , viewValue: 'Cervicouterino'}
   ];
 
-  practicas_sexuales: PracticasSexuales[] = [
+  /*practicas_sexuales: PracticasSexuales[] = [
     {value: 1 , viewValue: 'Anal'},
     {value: 2 , viewValue: 'Vaginal'},
     {value: 3 , viewValue: 'Oral'},
-  ];
+  ];*/
+
+  practicas_sexuales: PracticasSexuales[]=[];
 
   periocidades: select[] = [
     {value: 'Regular' , viewValue: 'Regular'},
@@ -897,7 +890,7 @@ this.des3 = true;
   ];
 
 
-  metodos: MetodoPlanificacion[] = [
+  /*metodos: MetodoPlanificacion[] = [
     {value: 1 , viewValue: 'DIU'},
     {value: 2 , viewValue: 'Condón'},
     {value: 3 , viewValue: 'Pastilla'},
@@ -908,7 +901,9 @@ this.des3 = true;
     {value: 8 , viewValue: 'Ritmo'},
     {value: 9 , viewValue: 'Esterilización'},
 
-  ];
+  ];*/
+
+  metodos: MetodoPlanificacion[]=[];
 
   resultados_embarazos: select[] = [
     {value: 'Sin complicaciones' , viewValue: 'Sin complicaciones'},
@@ -955,9 +950,20 @@ this.des3 = true;
     this.alcoholismo_sustancias_psicoactivas, this.alergias, this.cancer, this.hipertension_arterial
   ];
 
+  antecedentesF: antecedentesFamiliares[];
+
   formControlsAntecedentesPersonales: any[] = [this.diabetes_ap, this.tb_pulmonar_ap, this.its, this.desnutricion_ap, this.enfermedades_mentales_ap,
-    this.convulsiones_ap, this.alergias_ap, this.cancer_ap, this.hospitalarias_quirurgicas
+    this.convulsiones_ap, this.alergias_ap, this.cancer_ap, this.traumaticos, this.hospitalarias_quirurgicas,
   ];
+
+  antecedentesP: antecedentesPersonales[];
+
+  formControlsObservacionesAP: any[] = [this.observacion_diabetes_ap, this.observacion_tb_pulmonar_ap, this.observacion_its,
+    this.observacion_desnutricion_ap, this.observacion_enfermedades_mentales_ap, this.observacion_convulsiones_ap,
+    this.observacion_alergias_ap, this.observacion_cancer_ap, this.observacion_traumaticos,
+  ];
+
+  formControlsHabitosToxicologicos: any[] = [this.alcohol, this.tabaquismo, this.marihuana, this.cocaina];
 
   formControlsParentescos: any[] = [this.parentesco_diabetes, this.parentesco_tb_pulmonar, this.parentesco_desnutricion,
     this.parentesco_enfermedades_mentales, this.parentesco_convulsiones, this.parentesco_alcoholismo_sustancias_psicoactivas,
@@ -1014,6 +1020,22 @@ this.des3 = true;
 
       data.forEach(element => {
         this.seguros_medicos.push({value:element.id_seguro_medico, viewValue:element.seguro_medico});  
+      });
+    
+    });
+
+    this.formularioService.obtenerPracticasSexuales().subscribe((data: any[])=>{
+
+      data.forEach(element => {
+        this.practicas_sexuales.push({value:element.id_practica_sexual, viewValue:element.practicas_sexuales_riesgo});  
+      });
+    
+    });
+
+    this.formularioService.obtenerMetodosPlanificaciones().subscribe((data: any[])=>{
+
+      data.forEach(element => {
+        this.metodos.push({value:element.id_metodo_planificacion, viewValue:element.metodo_planificacion});  
       });
     
     });
@@ -1566,6 +1588,97 @@ this.des3 = true;
   enviarDatos(){
     this.loading = true;
 
+    this.antecedentesF = [
+
+      { antecedente: this.diabetes.value,
+        parentesco: this.parentesco_diabetes.value
+      },
+  
+      { antecedente: this.tb_pulmonar.value,
+        parentesco: this.parentesco_tb_pulmonar.value
+      },
+  
+      { antecedente: this.desnutricion.value,
+        parentesco: this.parentesco_desnutricion.value
+      },
+  
+      { antecedente: this.enfermedades_mentales.value,
+        parentesco: this.parentesco_enfermedades_mentales.value
+      },
+  
+      { antecedente: this.convulsiones.value,
+        parentesco: this.parentesco_convulsiones.value
+      },
+  
+      { antecedente: this.alcoholismo_sustancias_psicoactivas.value,
+        parentesco: this.parentesco_alcoholismo_sustancias_psicoactivas.value
+      },
+  
+      { antecedente: this.alergias.value,
+        parentesco: this.parentesco_alergias.value
+      },
+  
+      { antecedente: this.cancer.value,
+        parentesco: this.parentesco_cancer.value
+      },
+  
+      { antecedente: this.hipertension_arterial.value,
+        parentesco: this.parentesco_hipertension_arterial.value
+      },
+  
+    ];
+
+    this.antecedentesP = [
+
+      {
+        antecedente:this.diabetes_ap.value,
+        observacion:this.observacion_diabetes_ap.value
+      },
+  
+      {
+        antecedente:this.tb_pulmonar_ap.value,
+        observacion:this.observacion_tb_pulmonar_ap.value
+      },
+      
+      {
+        antecedente:this.its.value,
+        observacion:this.observacion_its.value
+      },
+  
+      {
+        antecedente:this.desnutricion_ap.value,
+        observacion:this.observacion_desnutricion_ap.value
+      },
+  
+      {
+        antecedente:this.enfermedades_mentales_ap.value,
+        observacion:this.observacion_enfermedades_mentales_ap.value
+      },
+  
+      {
+        antecedente:this.convulsiones_ap.value,
+        observacion:this.observacion_convulsiones_ap.value
+      },
+  
+  
+      {
+        antecedente:this.alergias_ap.value,
+        observacion:this.observacion_alergias_ap.value
+      },
+  
+      {
+        antecedente:this.cancer_ap.value,
+        observacion:this.observacion_cancer_ap.value
+      },
+  
+      {
+        antecedente:this.traumaticos.value,
+        observacion:this.observacion_traumaticos.value
+      },
+  
+    ];
+
+
 
     if (this.esAlumno==true) {
      
@@ -1646,17 +1759,17 @@ this.des3 = true;
         var NumeroParentesco: number;
         var id_antecedente: number;
 
-        for (let index = 0; index < this.formControlsAntecedentesFamiliares.length; index++) {
-          const element = this.formControlsAntecedentesFamiliares[index];
+        for (let index = 0; index < this.antecedentesF.length; index++) {
+          const element = this.antecedentesF[index];
 
           // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
-          if(element.value != 0){
+          if(element.antecedente != 0){
 
-            console.log('valor del elemento: '+ element.value);
+            console.log('valor del elemento: '+ element.antecedente);
             this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
 
              
-            if(element.value == 9){
+            if(element.antecedente == 9){
 
               if(this.tablaDesnutricionesAF.length){
 
@@ -1725,7 +1838,7 @@ this.des3 = true;
                 }
               
               }
-            }else if(element.value == 10){
+            }else if(element.antecedente == 10){
 
               if(this.tablaEnfermedadesMentalesAF.length){
 
@@ -1794,7 +1907,7 @@ this.des3 = true;
                 }
   
               }
-            }else if(element.value == 11){
+            }else if(element.antecedente == 11){
 
               if(this.tablaAlergiasAF.length){
 
@@ -1863,7 +1976,7 @@ this.des3 = true;
                 }
   
               }
-            }else if(element.value == 12){
+            }else if(element.antecedente == 12){
 
               if(this.tablaCanceresAF.length){
 
@@ -1936,8 +2049,8 @@ this.des3 = true;
 
               //guardo el valor del controlador del parentesco y lo guardo en una variable de tipo any
               // ahora el select como es multiple me devuelve un arreglo
-              parentescos = this.formControlsParentescos[index].value;
-              this.paciente_antecedente_familiar.id_enfermedad = element.value;
+              this.paciente_antecedente_familiar.id_enfermedad = element.antecedente;
+              parentescos = element.parentesco;
 
 
               // por cada vuelta que de el ciclo se hará un registro en la tabla pacientes_antecedentes_familiares,
@@ -2047,18 +2160,18 @@ this.des3 = true;
       if(this.formulario_antecedentes_personales.valid){
 
 
-        for (let index = 0; index < this.formControlsAntecedentesPersonales.length; index++) {
-          const element = this.formControlsAntecedentesPersonales[index];
+        for (let index = 0; index < this.antecedentesP.length; index++) {
+          const element = this.antecedentesP[index];
 
           // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
-          if(element.value != 0){
+          if(element.antecedente != 0){
 
-            console.log('valor del elemento: '+ element.value);
+            console.log('valor del elemento: '+ element.antecedente);
         
             this.paciente_antecedente_personal.id_paciente = this.datosScraping.id_login;
 
              
-            if(element.value == 9){
+            if(element.antecedente == 9){
 
               if(this.tablaDesnutricionesAP.length){
 
@@ -2101,7 +2214,7 @@ this.des3 = true;
               
             }
 
-            }else if(element.value == 10){
+            }else if(element.antecedente == 10){
 
               if(this.tablaEnfermedadesMentalesAP.length){
 
@@ -2144,7 +2257,7 @@ this.des3 = true;
                 
               }
 
-            }else if(element.value == 11){
+            }else if(element.antecedente == 11){
 
               if(this.tablaAlergiasAP.length){
 
@@ -2187,7 +2300,7 @@ this.des3 = true;
               
               }
 
-            }else if(element.value == 12){
+            }else if(element.antecedente == 12){
 
               if(this.tablaCanceresAP.length){
 
@@ -2232,8 +2345,9 @@ this.des3 = true;
             }else{
 
               // guardo el id de la enfermedad que tiene el fomcontrol en el arreglo.
-              this.paciente_antecedente_personal.id_enfermedad = element.value;
-              this.paciente_antecedente_personal.observacion = this.observacion_desnutricion_ap.value;
+              this.paciente_antecedente_personal.id_enfermedad = element.antecedente;
+              this.paciente_antecedente_personal.observacion = element.observacion;
+
 
 
               this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data)=>{
@@ -2294,6 +2408,44 @@ this.des3 = true;
         }
 
       }
+
+      // if(this.formulario_habito_toxicologico_personal.valid){
+
+      //   for (let index = 0; index < this.formControlsAntecedentesFamiliares.length; index++) {
+      //     const element = this.formControlsAntecedentesFamiliares[index];
+
+      //     // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
+      //     if(element.value != 0){
+
+      //       // guardo el id de la enfermedad que tiene el fomcontrol en el arreglo.
+      //       this.paciente_habito_toxicologico.id_habito_toxicologico = element.value;
+      //       this.paciente_habito_toxicologico.observacion = this.observacion_desnutricion_ap.value;
+
+
+      //       this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data)=>{
+      //         console.log('se envio perron el antecedente personal');
+      //       }, (error)=>{
+      //         console.log(error);
+      //       });
+
+
+          
+      //     }
+
+      //   }
+
+      
+
+
+                 
+
+                    
+
+                    
+
+                
+
+      // }
 
       if(this.formulario_actividad_sexual.valid){
           // guardar datos del formulario en actividad_sexual y enviarlo a la api
@@ -2382,15 +2534,6 @@ this.des3 = true;
         });
         
        }
-
-
-     
-
-
-    // alert ('los datos se enviarion');      
-    // this.router.navigate(['datoPaciente/'+this.datosScraping.id_login]);
-   
-
      
 
      //borro los datos que se habian recuperado del scraping 
