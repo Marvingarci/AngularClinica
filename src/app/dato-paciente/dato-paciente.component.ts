@@ -11,6 +11,7 @@ import { LoginComponent } from '../login/login.component';
 import { FormularioComponent } from '../formulario/formulario.component';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { PacienteComponent } from '../paciente/paciente.component';
+import { DialogContentExampleDialog1 } from '../principal/principal.component';
 
 export interface select {
   value: string;
@@ -94,14 +95,12 @@ export class DatoPacienteComponent implements OnInit {
   readonly: boolean = true;
   
   
-  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, 
+  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, private router: Router,
               principal: AppComponent, public dialog: MatDialog, login: LoginService, private formBuilder: FormBuilder, private mensaje: MatSnackBar) 
 
               
   {    
-
     this.dialog.closeAll;
-
     this.id = this.activatedRoute.snapshot.params['id'];
 
     if(this.id){
@@ -118,7 +117,6 @@ export class DatoPacienteComponent implements OnInit {
       this.sexo.setValue(this.paciente.sexo);
       this.numero_telefono.setValue(this.paciente.numero_telefono);
 
-      console.log(this.paciente.contrasenia);
       this.formularioService.idActualizar=this.paciente.id_paciente;
       
 
@@ -163,6 +161,14 @@ export class DatoPacienteComponent implements OnInit {
     this.readonly = !this.readonly;
 
     // this.nombre_completo.setValue('hola');
+  }
+
+  cerrarsesion(){  
+    const dialogRef = this.dialog.open(DialogContentExampleDialog2, {disableClose:false,panelClass: 'cambiarcontrasenia'});
+  }
+
+  cambiarcontra(){
+    const dialogRef = this.dialog.open(DialogCerrarSesion, {disableClose:false,panelClass: 'cerrarsesion'});  
   }
 
   actualizar(){
@@ -298,8 +304,6 @@ export class DialogContentExampleDialog {
 });
 
 //EVENTO CUANDO SE DA ENTER
-
-
 onKeydown(event) {
   if (event.key === "Enter") {
   this.hide = true;
@@ -398,9 +402,186 @@ guardar(){
 }
 
 
+
+
 get nuevaContra(){return this.Nueva.get('nuevaContra')};
 get nuevaContraRep(){return this.Nueva.get('nuevaContraRep')};
+}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@Component({
+  selector: 'dialog-content-example-dialog2',
+  templateUrl: 'dialog-content-example-dialog2.html',
+})
+ 
+export class DialogContentExampleDialog2 {
+  hide1= false;
+  hide = true;
+
+  paciente2: Paciente = {
+    id_paciente: null,
+    numero_paciente: null,
+    contrasenia: null,
+    nombre_completo: null,
+    numero_cuenta: null,
+    numero_identidad: null,
+    lugar_procedencia: null,
+    direccion: null,
+    carrera: null,
+    fecha_nacimiento: null,
+    sexo: null,
+    estado_civil: null,
+    seguro_medico: null,
+    numero_telefono: null,
+    emergencia_persona: null,
+    emergencia_telefono: null,
+    peso: null,
+    talla: null,
+    imc: null,
+    temperatura: null,
+    presion: null,
+    pulso: null,
+    categoria:null
+  }
+  id:any;
+  resultado:any;
+  pac:Paciente[];
+  constructor(private formularioService: FormularioService,private activatedRoute: ActivatedRoute,
+    public login: LoginService, private router: Router, private mensaje: MatSnackBar,public dialog: MatDialog ){   
+      this.getContra();
+      
+      this.paciente2.id_paciente = this.formularioService.idActualizar;
+
+      if(this.paciente2.id_paciente){
+        this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
+        this.pac = data;
+        this.paciente2 = this.pac.find((m)=>{return m.id_paciente == this.paciente2.id_paciente});
+        //establesco el valor al los formcontrol para que se visualizen en los respectivos inputs
+        this.nuevaContraCambio.setValue(this.paciente2.contrasenia);
+        this.nuevaContraRepCambio.setValue(this.paciente2.contrasenia);
+  
+        
+        //this.especialidad.setValue(this.medico.especialidadM);  
+        this.formularioService.idActualizar=this.paciente2.id_paciente;    
+        },(error)=>{
+        console.log(error);
+        });
+  
+        }
+    }//fin del constructor
+
+
+    getContra(){
+      this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
+      this.pac = data;
+      },(error)=>{
+      console.log(error);
+      alert('Ocurrio un error');
+      });
+    }
+  
+
+
+
+   showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+  
+  ngOnInit() {
+    this.getContra();
+  }
+
+  CambioContrasenia = new FormGroup({
+    nuevaContraCambio: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.minLength(6)]),
+    nuevaContraRepCambio: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.minLength(6)])
+});
+
+
+//EVENTO CUANDO SE DA ENTER
+onKeydown(event) {
+  if (event.key === "Enter") {
+    this.hide = true;
+    this.hide1=true;
+  }
+}
+
+//EVENTO BOTON GUARDAR
+guardarCambio(){   
+  if(this.CambioContrasenia.valid){
+    // guardar datos del formulario en paciente y enviarlo a la api
+    this.paciente2.contrasenia = this.CambioContrasenia.get('nuevaContraCambio').value;
+     
+    if(this.paciente2.contrasenia==this.CambioContrasenia.get('nuevaContraRepCambio').value ){
+      this.formularioService.actualizarPaciente(this.paciente2).subscribe((data)=>{
+        this.router.navigate(['datoPaciente/'+this.paciente2.id_paciente]);
+        this.showError('Cambio de contraseña exitoso');        
+      }, (error)=>{
+        console.log(error);
+        this.showError('Existe un error'); 
+        this.router.navigate(['datoPaciente/'+this.paciente2.id_paciente]);
+      });
+    }else{
+      this.showError('La contraseña no coincide'); 
+      
+    }
+  } 
+}
+
+get nuevaContraCambio(){return this.CambioContrasenia.get('nuevaContraCambio')};
+get nuevaContraRepCambio(){return this.CambioContrasenia.get('nuevaContraRepCambio')};
+}
+
+
+
+
+
+
+
+
+
+
+
+@Component({
+  selector: 'dialog-cerrar-sesion',
+  templateUrl: 'dialog-cerrar-sesion.html',
+})
+ 
+export class DialogCerrarSesion {
+constructor( public dialog: MatDialog,private router: Router){
+  
+  this.dialog.closeAll;
+}
+  salir(){
+    this.router.navigate(['']);
+  }
 }
