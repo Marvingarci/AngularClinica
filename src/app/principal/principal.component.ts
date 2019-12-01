@@ -15,7 +15,8 @@ export class PrincipalComponent implements OnInit {
   typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
   
   public opened:boolean =true; 
-  public isSpinnerVisible:boolean; 
+  public isSpinnerVisible:boolean;   
+  icon : string='home';
   // @Output() messageEvent = new EventEmitter<boolean>();  esto es para mandar string de un componente a otro
 
   constructor(mostrar: AppComponent,private router: Router,public dialog: MatDialog) {
@@ -26,7 +27,26 @@ abrirside() {
       this.opened != this.opened;         
     }
 
-    ayuda(){
+    principal(){      
+      this.icon = 'home';
+    }
+    pacientes(){      
+      this.icon = 'folder_shared';
+    }
+    at1(){      
+      this.icon = 'receipt';
+    }
+    consolidariodiario(){      
+      this.icon = 'today';
+    }
+    inventario(){      
+      this.icon = 'healing';
+    }
+    admininstradores(){      
+      this.icon = 'assignment_ind';
+    }
+    ayuda(){      
+      this.icon = 'help';
   const dialogRef = this.dialog.open(DialogContentExampleDialog1, {disableClose:false,panelClass: 'custom-dialog-container1'});
   }
       
