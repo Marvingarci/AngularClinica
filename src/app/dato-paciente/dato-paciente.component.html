@@ -5,15 +5,17 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
+        
         <button  mat-menu-item (click)="cerrarsesion()">
-            <mat-icon >power_settings_new</mat-icon>
-            <span>Cerrar secion</span>             
-        </button> 
-         <button mat-menu-item (click)="cambiarcontra()">
             <mat-icon >loop</mat-icon>
-            <span>Cambiar contraseña</span>
-             
+            <span>Cambiar contraseña</span>                        
+        </button> 
+        
+         <button mat-menu-item (click)="cambiarcontra()">
+          <mat-icon >power_settings_new</mat-icon>
+            <span>Cerrar secion</span>              
         </button>
+        
     </mat-menu> 
       
         
