@@ -25,6 +25,7 @@ import { MatChipInputEvent, MatAutocomplete, MatTableDataSource } from '@angular
 import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
 import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
+import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
 
 export interface Loginadmin {
  // contrasenia_admin: any;
@@ -44,10 +45,20 @@ export interface Element{
   
 }
 
+export interface HospitalariaQuirurgica{
+
+  numero: number;
+  fecha: string;
+  tiempo_hospitalizacion: string
+  diagnostico: string;
+  tratamiento: string;
+  
+}
+
 export interface antecedentesPersonales{
 
   antecedente: number;
-  observacion: string;
+  observacion?: string;
   
 }
 
@@ -354,6 +365,13 @@ export class FormularioComponent implements OnInit {
     document.getElementById('divAgregarTiposCanceresAP').style.display = "block";
 
   }
+  
+  mostrarCamposHospitalariasQuirurgicas(){
+
+    //muestro el contenido de este div si el usuario hace click en "si"
+    document.getElementById('divAgregarTiposHospitalariasQ').style.display = "block";
+
+  }
 
 
   
@@ -453,6 +471,18 @@ export class FormularioComponent implements OnInit {
     document.getElementById('divAgregarTiposCanceresAP').style.display = "none";
     this.dataSourceTablaCanceresAP = null;
     this.tablaCanceresAP = [];
+
+  }
+
+  ocultarCamposHospitalariaQuirurgica(){
+
+    //oculto el contenido de este div si el usuario hace click en "no" y establezco
+    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
+    // limpio la tablaDesnutriciones para que quede en blanco.
+    
+    document.getElementById('divAgregarTiposHospitalariasQ').style.display = "none";
+    this.dataSourceTablaHospitalariasQuirurgicas = null;
+    this.tablaHospitalariasQuirurgicas = [];
 
   }
 
@@ -776,6 +806,15 @@ this.des3 = true;
 
   }
 
+  paciente_hospitalaria_quirurgica: PacienteHospitalariaQuirurgica = {
+
+    id_paciente: null,
+    fecha: null,
+    tiempo_hospitalizacion: null,
+    diagnostico: null,
+    tratamiento: null,
+
+  }
 
 
   actividad_sexual: ActividadSexual = {
@@ -951,44 +990,24 @@ this.des3 = true;
   dataSourceTablaOtrosHT : any;
 
 
+  tablaHospitalariasQuirurgicas: HospitalariaQuirurgica[] = [];
+  dataSourceTablaHospitalariasQuirurgicas : any;
+  
+
 
 
   columnasTablaAF: string[] = ['numero','antecedente','parentesco','botones'];
   columnasTablaAP: string[] = ['numero','antecedente','observacion','botones'];
+  columnasTablaHospitalarias: string[] = ['numero','fecha','tiempo','diagnostico','tratamiento','botones'];
 
 
-  // creo estos arreglos de los cuales extraigo el valor de cada elemento y lo mando a la tabla de pacientes_antecedentes_familiares
-  // estos arreglos son de los controladores del formulario antecedentes familiares
-  
-  // formControlsAntecedentesFamiliares: any[] = [this.diabetes, this.tb_pulmonar, this.desnutricion, this.enfermedades_mentales, this.convulsiones,
-  //   this.alcoholismo_sustancias_psicoactivas, this.alergias, this.cancer, this.hipertension_arterial
-  // ];
+  // creo estos arreglos de los cuales extraigo el valor de cada elemento y lo mando a la tabla de la base de datos respectiva
+  // estos arreglos son de los controladores del formulario.
 
   antecedentesF: antecedentesFamiliares[];
   antecedentesP: antecedentesPersonales[];
   habitosT: habitosToxicologicos[];
-
-
-  // formControlsAntecedentesPersonales: any[] = [this.diabetes_ap, this.tb_pulmonar_ap, this.its, this.desnutricion_ap, this.enfermedades_mentales_ap,
-  //   this.convulsiones_ap, this.alergias_ap, this.cancer_ap, this.traumaticos, this.hospitalarias_quirurgicas,
-  // ];
-
-
-  // formControlsObservacionesAP: any[] = [this.observacion_diabetes_ap, this.observacion_tb_pulmonar_ap, this.observacion_its,
-  //   this.observacion_desnutricion_ap, this.observacion_enfermedades_mentales_ap, this.observacion_convulsiones_ap,
-  //   this.observacion_alergias_ap, this.observacion_cancer_ap, this.observacion_traumaticos,
-  // ];
-
-  formControlsHabitosToxicologicos: any[] = [this.alcohol, this.tabaquismo, this.marihuana, this.cocaina];
-
-  // formControlsParentescos: any[] = [this.parentesco_diabetes, this.parentesco_tb_pulmonar, this.parentesco_desnutricion,
-  //   this.parentesco_enfermedades_mentales, this.parentesco_convulsiones, this.parentesco_alcoholismo_sustancias_psicoactivas,
-  //   this.parentesco_alergias, this.parentesco_cancer, this.parentesco_hipertension_arterial
-  // ];
-
   
-
-
 
   constructor(private formularioService: FormularioService, 
     private router: Router, activar: AppComponent,public dialog: MatDialog, 
@@ -1500,6 +1519,22 @@ this.des3 = true;
 
   }
 
+  eliminarDesnutricionesAP(index){
+    //borro el elemento de la tabla estableciendo el index.
+    this.tablaDesnutricionesAP.splice(index, 1);
+
+    //refresco el datasouerce con los elemento que quedaron para que se resfresque
+    // tambien la tabla html.
+    this.dataSourceTablaDesnutricionesAP = new MatTableDataSource(this.tablaDesnutricionesAP);
+
+    //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
+    // para que no se muestre en el html.
+    if(!this.tablaDesnutricionesAP.length){
+      this.dataSourceTablaDesnutricionesAP = null;
+    }
+
+  }
+
   agregarEnfermedadesMentalesAP(){
 
     if(this.tipo_enfermedad_mental_ap.value && this.tipo_enfermedad_mental_ap.valid && this.observacion_enfermedades_mentales_ap.valid){
@@ -1523,6 +1558,21 @@ this.des3 = true;
     }
     
 
+  }
+
+  eliminarEnfermedadesMentalesAP(index){
+    //borro el elemento de la tabla estableciendo el index.
+    this.tablaEnfermedadesMentalesAP.splice(index, 1);
+
+    //refresco el datasouerce con los elemento que quedaron para que se resfresque
+    // tambien la tabla html.
+    this.dataSourceTablaEnfermedadesMentalesAP = new MatTableDataSource(this.tablaEnfermedadesMentalesAP);
+
+    //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
+    // para que no se muestre en el html.
+    if(!this.tablaEnfermedadesMentalesAP.length){
+      this.dataSourceTablaEnfermedadesMentalesAP = null;
+    }
   }
 
 
@@ -1551,6 +1601,21 @@ this.des3 = true;
 
   }
 
+  eliminarAlergiasAP(index){
+    //borro el elemento de la tabla estableciendo el index.
+    this.tablaAlergiasAP.splice(index, 1);
+
+    //refresco el datasouerce con los elemento que quedaron para que se resfresque
+    // tambien la tabla html.
+    this.dataSourceTablaAlergiasAP = new MatTableDataSource(this.tablaAlergiasAP);
+
+    //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
+    // para que no se muestre en el html.
+    if(!this.tablaAlergiasAP.length){
+      this.dataSourceTablaAlergiasAP = null;
+    }
+  }
+
   agregarCanceresAP(){
 
     if(this.tipo_cancer_ap.value && this.tipo_cancer_ap.valid && this.observacion_cancer_ap.valid){
@@ -1573,6 +1638,22 @@ this.des3 = true;
 
     }
     
+
+  }
+
+  eliminarCanceresAP(index){
+    //borro el elemento de la tabla estableciendo el index.
+    this.tablaCanceresAP.splice(index, 1);
+
+    //refresco el datasouerce con los elemento que quedaron para que se resfresque
+    // tambien la tabla html.
+    this.dataSourceTablaCanceresAP = new MatTableDataSource(this.tablaCanceresAP);
+
+    //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
+    // para que no se muestre en el html.
+    if(!this.tablaCanceresAP.length){
+      this.dataSourceTablaCanceresAP = null;
+    }
 
   }
 
@@ -1601,6 +1682,23 @@ this.des3 = true;
 
   }
 
+  eliminarOtrosAP(index){
+    //borro el elemento de la tabla estableciendo el index.
+    this.tablaOtrosAP.splice(index, 1);
+
+    //refresco el datasouerce con los elemento que quedaron para que se resfresque
+    // tambien la tabla html.
+    this.dataSourceTablaOtrosAP = new MatTableDataSource(this.tablaOtrosAP);
+
+
+    //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
+    // para que no se muestre en el html.
+    if(!this.tablaOtrosAP.length){
+      this.dataSourceTablaOtrosAP = null;
+    }
+
+  }
+
   agregarOtrosHT(){
 
     if(this.otros_ht.value.toString().trim() && this.otros_ht.valid && this.observacion_otros_ht.valid){    
@@ -1619,6 +1717,58 @@ this.des3 = true;
 
       this.otros_ht.setValue('');
       this.observacion_otros_ht.setValue('');
+
+    }
+    
+
+  }
+
+
+  eliminarOtrosHT(index){
+    //borro el elemento de la tabla estableciendo el index.
+    this.tablaOtrosHT.splice(index, 1);
+
+    //refresco el datasouerce con los elemento que quedaron para que se resfresque
+    // tambien la tabla html.
+    this.dataSourceTablaOtrosHT = new MatTableDataSource(this.tablaOtrosHT);
+
+
+    //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
+    // para que no se muestre en el html.
+    if(!this.tablaOtrosHT.length){
+      this.dataSourceTablaOtrosHT = null;
+    }
+
+  }
+
+  agregarHospitalariasQuirurgicas(){
+
+    console.log('agregado');
+
+    if(this.fecha_antecedente_hospitalario.value && this.fecha_antecedente_hospitalario.valid
+       && this.tratamiento.value && this.tratamiento.valid && this.tiempo_hospitalizacion.value 
+       && this.tiempo_hospitalizacion.valid && this.diagnostico.value && this.diagnostico.valid)
+    {
+
+      //agrego a la tabla el parentesco y el tipo de desnutricion.
+      this.tablaHospitalariasQuirurgicas.push(
+        {
+          numero: this.tablaHospitalariasQuirurgicas.length + 1,
+          fecha: this.fecha_antecedente_hospitalario.value,
+          tiempo_hospitalizacion: this.tiempo_hospitalizacion.value,
+          diagnostico: this.diagnostico.value,
+          tratamiento: this.tratamiento.value
+ 
+        }
+
+      );
+
+      this.dataSourceTablaHospitalariasQuirurgicas =  new MatTableDataSource(this.tablaHospitalariasQuirurgicas);
+
+      this.fecha_antecedente_hospitalario.setValue('');
+      this.tiempo_hospitalizacion.setValue('');
+      this.diagnostico.setValue('');
+      this.tratamiento.setValue('');
 
     }
     
@@ -1709,6 +1859,10 @@ this.des3 = true;
       {
         antecedente:this.cancer_ap.value,
         observacion:this.observacion_cancer_ap.value
+      },
+
+      {
+        antecedente:this.hospitalarias_quirurgicas.value,
       },
   
       {
@@ -2228,13 +2382,35 @@ this.des3 = true;
 
           // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
           if(element.antecedente != 0){
-
-            console.log('valor del elemento: '+ element.antecedente);
         
             this.paciente_antecedente_personal.id_paciente = this.datosScraping.id_login;
 
-             
-            if(element.antecedente == 9){
+            if(element.antecedente == 7){
+
+              if(this.tablaHospitalariasQuirurgicas.length){
+
+                for (let index = 0; index < this.tablaHospitalariasQuirurgicas.length; index++) {
+                  const element = this.tablaHospitalariasQuirurgicas[index];
+
+                  this.paciente_hospitalaria_quirurgica.id_paciente = this.datosScraping.id_login;
+                  this.paciente_hospitalaria_quirurgica.fecha = element.fecha; 
+                  this.paciente_hospitalaria_quirurgica.tiempo_hospitalizacion = element.tiempo_hospitalizacion; 
+                  this.paciente_hospitalaria_quirurgica.diagnostico = element.diagnostico; 
+                  this.paciente_hospitalaria_quirurgica.tratamiento = element.tratamiento; 
+
+                  this.formularioService.enviarPacienteHospitalariaQuirurgica(this.paciente_hospitalaria_quirurgica).subscribe(
+                    (data)=>{
+                      console.log('perron');
+                    }
+                  );
+
+
+
+                }
+
+              }
+
+            }else if(element.antecedente == 9){
 
               if(this.tablaDesnutricionesAP.length){
 
@@ -2480,18 +2656,16 @@ this.des3 = true;
           // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
           if(element.habito_toxicologico != 0){
 
-            // guardo el id de la enfermedad que tiene el fomcontrol en el arreglo.
+
             this.paciente_habito_toxicologico.id_paciente = this.datosScraping.id_login;
             this.paciente_habito_toxicologico.id_habito_toxicologico = element.habito_toxicologico;
             this.paciente_habito_toxicologico.observacion = element.observacion;
 
-
-            this.formularioService.enviarHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data)=>{
-              console.log('se envio perron el habito toxicologico');
-            }, (error)=>{
+            this.formularioService.enviarPacienteHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data)=>{
+              console.log('todo cheke con los pacientes_habitos_toxicologico');
+            },(error)=>{
               console.log(error);
             });
-
 
           
           }
@@ -2502,9 +2676,6 @@ this.des3 = true;
         this.paciente_habito_toxicologico.id_paciente = this.datosScraping.id_login;
 
         if(this.tablaOtrosHT.length){
-
-          console.log('los datos que se van a guardar');
-          console.log(this.paciente_habito_toxicologico);
 
           for (let index = 0; index < this.tablaOtrosHT.length; index++) {
             const element = this.tablaOtrosHT[index];
