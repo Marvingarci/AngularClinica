@@ -11,6 +11,7 @@ import { LoginComponent } from '../login/login.component';
 import { FormularioComponent } from '../formulario/formulario.component';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { PacienteComponent } from '../paciente/paciente.component';
+import { DialogContentExampleDialog1 } from '../principal/principal.component';
 
 export interface select {
   value: string;
@@ -165,6 +166,13 @@ export class DatoPacienteComponent implements OnInit {
     // this.nombre_completo.setValue('hola');
   }
 
+  cerrarsesion(){  
+    const dialogRef = this.dialog.open(DialogContentExampleDialog2, {disableClose:false,panelClass: 'custom-dialog-container1'});
+  }
+  cambiarcontra(){
+  
+  }
+
   actualizar(){
     if(this.readonly === true){
     
@@ -264,7 +272,7 @@ export class DialogContentExampleDialog {
   id:any;
   Listo:boolean = false;
   constructor( private formularioService: FormularioService,private activatedRoute: ActivatedRoute,
-   public login: LoginService, private router: Router, private mensaje: MatSnackBar ){
+   public login: LoginService, private router: Router, private mensaje: MatSnackBar,public dialog: MatDialog ){
     this.paciente1.id_paciente = this.formularioService.idActualizar;
     console.log(this.paciente1.id_paciente);
     ///////
@@ -298,8 +306,6 @@ export class DialogContentExampleDialog {
 });
 
 //EVENTO CUANDO SE DA ENTER
-
-
 onKeydown(event) {
   if (event.key === "Enter") {
     this.hide = true;
@@ -345,9 +351,145 @@ guardar(){
 }
 
 
+
+
 get nuevaContra(){return this.Nueva.get('nuevaContra')};
 get nuevaContraRep(){return this.Nueva.get('nuevaContraRep')};
+}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@Component({
+  selector: 'dialog-content-example-dialog2',
+  templateUrl: 'dialog-content-example-dialog2.html',
+})
+ 
+export class DialogContentExampleDialog2 {
+  hide1= false;
+  hide = true;
+
+  paciente1: Paciente = {
+    id_paciente: null,
+    numero_paciente: null,
+    contrasenia: null,
+    nombre_completo: null,
+    numero_cuenta: null,
+    numero_identidad: null,
+    lugar_procedencia: null,
+    direccion: null,
+    carrera: null,
+    fecha_nacimiento: null,
+    sexo: null,
+    estado_civil: null,
+    seguro_medico: null,
+    numero_telefono: null,
+    emergencia_persona: null,
+    emergencia_telefono: null,
+    peso: null,
+    talla: null,
+    imc: null,
+    temperatura: null,
+    presion: null,
+    pulso: null,
+    categoria:null
+  }
+  id:any;
+  resultado:any;
+  pac:Paciente[];
+  constructor(private formularioService: FormularioService,private activatedRoute: ActivatedRoute,
+    public login: LoginService, private router: Router, private mensaje: MatSnackBar,public dialog: MatDialog ){   
+      this.getContra();
+      this.id = this.activatedRoute.snapshot.params['id'];
+
+      if(this.id){
+        this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
+        this.pac = data;
+        this.paciente1 = this.pac.find((m)=>{return m.id_paciente == this.id});
+  
+          //establesco el valor al los formcontrol para que se visualizen en los respectivos inputs
+        this.nuevaContraCambio.setValue(this.paciente1.contrasenia);
+        this.nuevaContraRepCambio.setValue(this.paciente1.contrasenia);
+  
+        
+        //this.especialidad.setValue(this.medico.especialidadM);  
+        console.log(this.paciente1.nombre_completo);
+        this.formularioService.idActualizar=this.paciente1.id_paciente;  
+        console.log(this.paciente1);      
+        },(error)=>{
+        console.log(error);
+        });
+  
+        }
+    }//fin del constructor
+
+
+    getContra(){
+      this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
+      this.pac = data;
+      },(error)=>{
+      console.log(error);
+      alert('Ocurrio un error');
+      });
+    }
+  
+
+
+
+   showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+  
+  ngOnInit() {
+    this.getContra();
+  }
+
+  CambioContrasenia = new FormGroup({
+    nuevaContraCambio: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.minLength(6)]),
+    nuevaContraRepCambio: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.minLength(6)])
+});
+
+
+//EVENTO CUANDO SE DA ENTER
+onKeydown(event) {
+  if (event.key === "Enter") {
+    this.hide = true;
+    this.hide1=true;
+  }
+}
+
+//EVENTO BOTON GUARDAR
+guardar(){
+}
+
+get nuevaContraCambio(){return this.CambioContrasenia.get('nuevaContraCambio')};
+get nuevaContraRepCambio(){return this.CambioContrasenia.get('nuevaContraRepCambio')};
 }
