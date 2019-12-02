@@ -7,15 +7,26 @@ mat-horizontal-stepper{
   width: 100%;
   padding: 15px;
   justify-content: center;
+  
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected{
+  background: #B721FF;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-state-done{
+  background: #B721FF;
+
 }
 
 #spin{
   position: absolute;
    top: 50%;
    left: 50%;
+   background: #B721FF;
 }
 
-.container{
+.containerScroll{
   /* height: 450px; */
   height: 80%;
   min-width: 99%;
@@ -32,36 +43,37 @@ mat-horizontal-stepper{
 
 
 /* Tamaño del scroll */
-.container::-webkit-scrollbar {
+/* .container::-webkit-scrollbar {
   width: 12px;
   height: 10px;
-}
+} */
 
  /* Estilos barra (thumb) de scroll */
-.container::-webkit-scrollbar-thumb {
-  background: rgb(104, 71, 250);
+/* .container::-webkit-scrollbar-thumb {
+  background: #B721FF;
   border-radius: 4px;
-}
+} */
 
-.container::-webkit-scrollbar-thumb:active {
-  background-color: #1fb7f3;
-}
+/* .container::-webkit-scrollbar-thumb:active {
+  background-color: #B721FF;
+} */
 
-.container::-webkit-scrollbar-thumb:hover {
-  background: #1100fd;
+/* .container::-webkit-scrollbar-thumb:hover {
+  background: #B721FF;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-}
+} */
 
  /* Estilos track de scroll */
-.container::-webkit-scrollbar-track {
+/* .container::-webkit-scrollbar-track {
   background: #a7a0ff;
   border-radius: 4px;
-}
+} */
 
-.container::-webkit-scrollbar-track:hover, 
+/* .container::-webkit-scrollbar-track:hover, 
 .container::-webkit-scrollbar-track:active {
-  background: #787bff;
-}
+
+  background: #a7a0ff;
+} */
 
 .botonesstep{
   position: fixed;
