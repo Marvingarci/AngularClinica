@@ -56,6 +56,7 @@ import { MedicosComponent } from './medicos/medicos.component';
 import { RegistromedicosComponent } from './registromedicos/registromedicos.component';
 import { BorrarMedicoComponent } from './borrar-medico/borrar-medico.component';
 import { Principal1Component } from './principal1/principal1.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 
@@ -194,7 +195,8 @@ const routes: Route[] = [
     MatBottomSheetModule,
     MatSnackBarModule
     ,MatSidenavModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatAutocompleteModule
   
     
   ],
