@@ -335,7 +335,7 @@ onKeydown(event) {
           this.showError('Contraseña Guardada'); 
           this.Listo = true;
         }else{
-          this.router.navigate(['verPaciente/'+this.paciente1.id_paciente]);
+          this.router.navigate(['principal/verPaciente/'+this.paciente1.id_paciente]);
           this.showError('Contraseña Guardada'); 
           this.dialogRef.close();
 
@@ -385,7 +385,7 @@ guardar(){
           this.showError('Contraseña Guardada'); 
           this.Listo = true;
         }else{
-          this.router.navigate(['verPaciente/'+this.paciente1.id_paciente]);
+          this.router.navigate(['principal/verPaciente/'+this.paciente1.id_paciente]);
           this.showError('Contraseña Guardada'); 
           this.dialogRef.close();
           this.Listo = true;
