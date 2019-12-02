@@ -56,6 +56,7 @@ import { MedicosComponent } from './medicos/medicos.component';
 import { RegistromedicosComponent } from './registromedicos/registromedicos.component';
 import { BorrarMedicoComponent } from './borrar-medico/borrar-medico.component';
 import { Principal1Component } from './principal1/principal1.component';
+import { ConsolidadodiarioComponent } from './consolidadodiario/consolidadodiario.component';
 
 
 
@@ -84,6 +85,7 @@ const routes: Route[] = [
   {path: 'loginadmin', component: LoginadminComponent},
   {path: 'paseadmin', component: PaseAdminComponent},  
   {path: 'veradministradores', component: VerAdministradoresComponent},
+  {path: 'consolidadodiario', component: ConsolidadodiarioComponent},
 
   {
     path: 'principal',
@@ -158,6 +160,7 @@ const routes: Route[] = [
     RegistromedicosComponent,
     BorrarMedicoComponent,
     Principal1Component,
+    ConsolidadodiarioComponent,
 
     
   ],
