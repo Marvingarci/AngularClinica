@@ -189,6 +189,12 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT+'metodos_planificaciones');
   }
 
+  obtenerColumnaEnfermedades(){
+    return this.httpClient.get(this.API_ENDPOINT+'columna_enfermedades');
+  }
+
+
+
   obtenerAntecedentesFamiliares(){
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_familiares');
   }
