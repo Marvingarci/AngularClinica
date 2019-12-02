@@ -488,13 +488,13 @@ ocultar: boolean = true;
 
   //creo un arreglo de la interfaz en donde voy a mostrar los datos de la tabla
   tablaAntecedentesFamiliares: any;
-  tablaAntecedentesPersonales: Element[];
-  tablaHabitosToxicologicos: Element[];
+  tablaAntecedentesPersonales: any;
+  tablaHabitosToxicologicos: any;
 
   //creo un arreglo en el cual se añaden las columnas que se van a mostrar en la tabla
   columnasTablaAntecedentesFamiliares: string[] = ['antecedente', 'valor', 'parentesco'];
-  columnasTablaAntecedentesPersonales: string[] = ['antecedente', 'valor', 'tipo', 'observacion'];
-  columnastablaHabitosToxicologicos: string[] = ['habito_toxicologico', 'valor', 'observacion'];
+  columnasTablaAntecedentesPersonales: string[] = ['antecedente', 'valor', 'observacion'];
+  columnastablaHabitosToxicologicos: string[] = ['habito_toxicologico', 'observacion'];
 
   //date picker
   minDate = new Date(1950, 0, 1);
@@ -1176,70 +1176,74 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
   cargarTablaAntecedentesPersonales(){
     // establesco los valores a el arreglo de interfaces "tablaAntecedentesPersonales"
-    this.tablaAntecedentesPersonales = 
-    [
-      {antecedente: 'Diabetes',
-      valor: this.antecedente_personal.diabetes,
-      observacion: this.antecedente_personal.observacion_diabetes
-      },
+    this.formularioService.obtenerAntecedentePersonal(this.id).subscribe((data)=>{
+      this.tablaAntecedentesPersonales = data;            
+    }, (error)=>{
+      console.log(error);
+    });
+    // [
+    //   {antecedente: 'Diabetes',
+    //   valor: this.antecedente_personal.diabetes,
+    //   observacion: this.antecedente_personal.observacion_diabetes
+    //   },
     
-      {
-      antecedente: 'Tuberculosis Pulmonar',
-      valor: this.antecedente_personal.tb_pulmonar,
-      observacion: this.antecedente_personal.observacion_tb_pulmonar
-      },
+    //   {
+    //   antecedente: 'Tuberculosis Pulmonar',
+    //   valor: this.antecedente_personal.tb_pulmonar,
+    //   observacion: this.antecedente_personal.observacion_tb_pulmonar
+    //   },
   
-      {
-      antecedente: 'ITSs',
-      valor: this.antecedente_personal.its,
-      observacion: this.antecedente_personal.observacion_its
-      },
+    //   {
+    //   antecedente: 'ITSs',
+    //   valor: this.antecedente_personal.its,
+    //   observacion: this.antecedente_personal.observacion_its
+    //   },
       
-      {
-      antecedente: 'Desnutrición',
-      valor: this.antecedente_personal.desnutricion,
-      tipo: this.antecedente_personal.tipo_desnutricion,
-      observacion: this.antecedente_personal.observacion_desnutricion
-      },
+    //   {
+    //   antecedente: 'Desnutrición',
+    //   valor: this.antecedente_personal.desnutricion,
+    //   tipo: this.antecedente_personal.tipo_desnutricion,
+    //   observacion: this.antecedente_personal.observacion_desnutricion
+    //   },
   
-      {
-      antecedente: 'Enfermedades Mentales',
-      valor: this.antecedente_personal.enfermedades_mentales,
-      tipo: this.antecedente_personal.tipo_enfermedad_mental,
-      observacion: this.antecedente_personal.observacion_enfermedades_mentales
-      },
+    //   {
+    //   antecedente: 'Enfermedades Mentales',
+    //   valor: this.antecedente_personal.enfermedades_mentales,
+    //   tipo: this.antecedente_personal.tipo_enfermedad_mental,
+    //   observacion: this.antecedente_personal.observacion_enfermedades_mentales
+    //   },
   
-      {
-      antecedente: 'Convulsiones',
-      valor: this.antecedente_personal.convulsiones,
-      observacion: this.antecedente_personal.observacion_convulsiones
-      }, 
+    //   {
+    //   antecedente: 'Convulsiones',
+    //   valor: this.antecedente_personal.convulsiones,
+    //   observacion: this.antecedente_personal.observacion_convulsiones
+    //   }, 
   
-      { 
-      antecedente: 'Alergias',
-      valor: this.antecedente_personal.alergias,
-      tipo:this.antecedente_personal.tipo_alergia,
-      observacion: this.antecedente_personal.observacion_alergias
-      }, 
+    //   { 
+    //   antecedente: 'Alergias',
+    //   valor: this.antecedente_personal.alergias,
+    //   tipo:this.antecedente_personal.tipo_alergia,
+    //   observacion: this.antecedente_personal.observacion_alergias
+    //   }, 
   
-      { 
-      antecedente: 'Cáncer',
-      valor:this.antecedente_personal.cancer,
-      tipo: this.antecedente_personal.tipo_cancer,
-      observacion: this.antecedente_personal.observacion_cancer
-      },
+    //   { 
+    //   antecedente: 'Cáncer',
+    //   valor:this.antecedente_personal.cancer,
+    //   tipo: this.antecedente_personal.tipo_cancer,
+    //   observacion: this.antecedente_personal.observacion_cancer
+    //   },
 
-      {
-      antecedente: 'Hospitalarios y Quirurgicos',
-      valor: this.antecedente_personal.hospitalarias_quirurgicas,
-      },
+    //   {
+    //   antecedente: 'Hospitalarios y Quirurgicos',
+    //   valor: this.antecedente_personal.hospitalarias_quirurgicas,
+    //   },
 
-      {
-        antecedente: 'Traumáticos',
-        valor: this.antecedente_personal.traumaticos,
-        observacion: this.antecedente_personal.observacion_traumaticos
-      },   
-    ];
+    //   {
+    //     antecedente: 'Traumáticos',
+    //     valor: this.antecedente_personal.traumaticos,
+    //     observacion: this.antecedente_personal.observacion_traumaticos
+    //   },   
+    // ];
     // verifico si otro tiene un valor para poder agregarlo a la tabla
     if(this.antecedente_personal.otros != null){
       this.tablaAntecedentesPersonales.push(
@@ -1256,31 +1260,36 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
   cargarTablaHabitosToxicologicos(){  
     // establesco los valores a el arreglo de interfaces "tablaHabitosToxicologicos"
-    this.tablaHabitosToxicologicos = 
-    [
-      {antecedente: 'Alcohol',
-      valor: this.habito_toxicologico_personal.alcohol,
-      observacion: this.habito_toxicologico_personal.observacion_alcohol
-      },
+    this.formularioService.obtenerHabitoToxicologico(this.id).subscribe((data)=>{
+      this.tablaHabitosToxicologicos = data;            
+    }, (error)=>{
+      console.log(error);
+    });
+     
+    // [
+    //   {antecedente: 'Alcohol',
+    //   valor: this.habito_toxicologico_personal.alcohol,
+    //   observacion: this.habito_toxicologico_personal.observacion_alcohol
+    //   },
     
-      {
-      antecedente: 'Tabaquismo',
-      valor: this.habito_toxicologico_personal.tabaquismo,
-      observacion: this.habito_toxicologico_personal.observacion_tabaquismo
-      },
+    //   {
+    //   antecedente: 'Tabaquismo',
+    //   valor: this.habito_toxicologico_personal.tabaquismo,
+    //   observacion: this.habito_toxicologico_personal.observacion_tabaquismo
+    //   },
   
-      {
-      antecedente: 'Marihuana',
-      valor: this.habito_toxicologico_personal.marihuana,
-      observacion: this.habito_toxicologico_personal.observacion_marihuana
-      },
+    //   {
+    //   antecedente: 'Marihuana',
+    //   valor: this.habito_toxicologico_personal.marihuana,
+    //   observacion: this.habito_toxicologico_personal.observacion_marihuana
+    //   },
 
-      {
-      antecedente: 'Cocaina',
-      valor: this.habito_toxicologico_personal.cocaina,
-      observacion: this.habito_toxicologico_personal.observacion_cocaina
-      },
-    ];
+    //   {
+    //   antecedente: 'Cocaina',
+    //   valor: this.habito_toxicologico_personal.cocaina,
+    //   observacion: this.habito_toxicologico_personal.observacion_cocaina
+    //   },
+    // ];
     // verifico si otro tiene un valor para poder agregarlo a la tabla
     if(this.habito_toxicologico_personal.otros){
       this.tablaHabitosToxicologicos.push(

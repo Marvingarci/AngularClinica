@@ -189,6 +189,12 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT+'metodos_planificaciones');
   }
 
+  obtenerColumnaEnfermedades(){
+    return this.httpClient.get(this.API_ENDPOINT+'columna_enfermedades');
+  }
+
+
+
   obtenerAntecedentesFamiliares(){
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_familiares');
   }
@@ -207,7 +213,7 @@ export class FormularioService {
 
   obtenerAntecedentePersonal($id_paciente: any){
     return this.httpClient.get(
-      this.API_ENDPOINT+'antecedentes_personales/'+$id_paciente);
+      this.API_ENDPOINT+'pacientes_antecedentes_personales/'+$id_paciente);
   }
 
 
@@ -218,7 +224,7 @@ export class FormularioService {
   }
 
   obtenerHabitoToxicologico(id_paciente: any){
-    return this.httpClient.get(this.API_ENDPOINT+'habitos_toxicologicos_personales/'+id_paciente);
+    return this.httpClient.get(this.API_ENDPOINT+'pacientes_habitos_toxicologicos/'+id_paciente);
   }
 
 
