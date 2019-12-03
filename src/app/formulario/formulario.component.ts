@@ -122,6 +122,11 @@ export interface State {
   population: string;
 }
 
+export interface Categorias {
+  value: number;
+  viewValue: string;
+}
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -350,6 +355,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     formControl.forEach(controlador => {
       controlador.enable({ onlySelf: true });
     });
+
+    this.eliminarLabelStep(4);
 
   }
 
@@ -602,15 +609,20 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     console.log('step index seleccionado');
     console.log(event.selectedIndex);
     
+    this.eliminarLabelStep(event.selectedIndex);
+      
 
+
+/*
     if(event.selectedIndex == 0){
       
       this.step = 0;
 
       
-      this.element = document.getElementsByClassName('mat-step-label')[0];
-      this.element.innerHTML = "Datos Generales";
-      this.eliminarLabelStep([1,2,3,4,5,6,7]);
+      // this.element = document.getElementsByClassName('mat-step-label')[0];
+      // this.element.innerHTML = "Datos Generales";
+
+      this.eliminarLabelStep(0);
       
 
       // this.datosGenerales = 'Datos Generales';
@@ -636,10 +648,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       // var element1: any =  document.getElementsByClassName('mat-step-label')[0];
       // element1.style.display = "none";
 
-      this.element = document.getElementsByClassName('mat-step-label')[1];
-      this.element.innerHTML = "Antecedentes Familiares";
+      //this.element = document.getElementsByClassName('mat-step-label')[1];
+      //this.element.innerHTML = "Antecedentes Familiares";
 
-      this.eliminarLabelStep([0,2,3,4,5,6,7]);
+      this.eliminarLabelStep(1);
 
       // this.datosGenerales = '';
       // this.antecedentesFamiliares = 'Antecedentes Familiares';
@@ -657,10 +669,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.step = 2;
 
 
-      this.element = document.getElementsByClassName('mat-step-label')[2];
-      this.element.innerHTML = "Antecedentes Personales";
+      //this.element = document.getElementsByClassName('mat-step-label')[2];
+      //this.element.innerHTML = "Antecedentes Personales";
 
-      this.eliminarLabelStep([0,1,3,4,5,6,7]);
+      this.eliminarLabelStep(2);
 
 
       // this.datosGenerales = '';
@@ -681,7 +693,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       // var element: any = document.getElementsByClassName('mat-step-label')[3];
       // element.innerHTML = "Actividad Sexual y Reproductiva";
 
-      // this.eliminarLabelStep([0,2,1,4,5,6,7]);
+      this.eliminarLabelStep(3);
 
       // this.datosGenerales = '';
       // this.antecedentesFamiliares = '';
@@ -704,7 +716,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.element = document.getElementsByClassName('mat-step-label')[4];
         this.element.innerHTML = "Hábitos Toxicológicos Personales";
 
-        this.eliminarLabelStep([0,2,3,1,5,6,7]);
+        this.eliminarLabelStep(4);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -722,7 +734,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.element = document.getElementsByClassName('mat-step-label')[4];
         this.element.innerHTML = "Antecedentes Ginecológicos";
 
-        this.eliminarLabelStep([0,2,3,1,5,6,7]);
+        this.eliminarLabelStep(4);
 
 
         // this.datosGenerales = '';
@@ -741,7 +753,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.element = document.getElementsByClassName('mat-step-label')[4];
         this.element.innerHTML = "Planificación Familiar";
 
-        this.eliminarLabelStep([0,2,3,1,5,6,7]);
+        this.eliminarLabelStep(4);
 
 
         // this.datosGenerales = '';
@@ -759,7 +771,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.element = document.getElementsByClassName('mat-step-label')[4];
         this.element.innerHTML = "Antecedentes Obstétricos";
 
-        this.eliminarLabelStep([0,2,3,1,5,6,7]);
+        this.eliminarLabelStep(4);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -778,7 +790,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.element = document.getElementsByClassName('mat-step-label')[5];
         this.element.innerHTML = "Hábitos Toxicológicos Personales";
 
-        this.eliminarLabelStep([0,2,6,1,4,7,3]);
+        this.eliminarLabelStep(5);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -794,7 +806,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.element = document.getElementsByClassName('mat-step-label')[5];
         this.element.innerHTML = "Hábitos Toxicológicos Personales";
 
-        this.eliminarLabelStep([0,2,6,1,4,7,3]);
+        this.eliminarLabelStep(5);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -810,7 +822,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.element = document.getElementsByClassName('mat-step-label')[5];
         this.element.innerHTML = "Planificación Familiar";
 
-        this.eliminarLabelStep([0,2,6,1,4,7,3]);
+        this.eliminarLabelStep(5);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -830,7 +842,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.element = document.getElementsByClassName('mat-step-label')[6];
         this.element.innerHTML = "Antecedentes Ginecológicos";
 
-        this.eliminarLabelStep([0,2,5,1,4,3,7]);
+        this.eliminarLabelStep(6);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -850,7 +862,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.element = document.getElementsByClassName('mat-step-label')[6];
         this.element.innerHTML = "Hábitos Toxicológicos Personales";
 
-        this.eliminarLabelStep([0,2,5,1,4,3,6]);
+        this.eliminarLabelStep(7);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -865,18 +877,35 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         
       }
     }
-    
+*/
+
   }
 
-  eliminarLabelStep(index: any[]){
+  eliminarLabelStep(index: number){
+    this.step = index;
+    let elementos: any = document.getElementsByClassName('mat-step-label');
 
+    for (let i = 0; i < elementos.length; i++) {
+      const element: any= elementos[i];
+      element.style.display= "none";
+      console.log(element);
+    }
+    console.log(index);
+
+    elementos[index].style.display = "";
+
+/*
     index.forEach(i=> {
 
-      this.element = document.getElementsByClassName('mat-step-label')[i];
-      this.element.style.display= "none";
+      let element: any  = document.getElementsByClassName('mat-step-label')[i];
+      element.style.display= "none";
+
+
+      console.log(element);
+      console.log(i);
 
       
-    });
+    });*/
 
   }
 
@@ -1033,10 +1062,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   maxDate = new Date();
 
   //select
-  categorias: select[] = [
-    { value: 'T', viewValue: 'Empleado' },
-    { value: 'V', viewValue: 'Visitante' },
-    { value: 'E', viewValue: 'Estudiante' }
+  categorias: Categorias[] = [
+    { value: 1, viewValue: 'Empleado' },
+    { value: 2, viewValue: 'Visitante' },
+    { value: 3, viewValue: 'Estudiante' }
   ];
   sexos: sexos[] = [
     { value: 1, viewValue: 'Hombre' },
@@ -1191,7 +1220,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void{  
 
-    // this.eliminarLabelStep([1,2,3,4]);
+    this.eliminarLabelStep(0);
 
     // console.log('step: '+this.step);
 
@@ -1447,7 +1476,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.numero_cuenta.setValue(this.datosScraping.cuenta);
         this.numero_identidad.setValue(this.datosScraping.numero_identidad);
         this.carrera.setValue(this.datosScraping.carrera);
-        this.categoria.setValue('E');
+        this.categoria.setValue(3);
 
       } else {
         //si el paciente no es un alumno

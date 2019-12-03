@@ -11,35 +11,38 @@ export class TelefonoUnicoDirective implements AsyncValidator{
 
   constructor(private FormularioService: FormularioService) {}
 
-  // validate(control: import("@angular/forms").AbstractControl): Promise<import("@angular/forms").ValidationErrors> | import("rxjs").Observable<import("@angular/forms").ValidationErrors> {
-  //   const telefono = control.value;
-  //   return this.FormularioService.obtenerColumnaTelefono(telefono).pipe(
-  //     map(telefonoArr => {
-  //       if (telefonoArr[0].numero_telefono == telefono){
-  //         return {TelefonoUnico: true};
-  //       }
-  //       return null;
-  //     })
-  //   );
-  // }
-
-
   validate(control: import("@angular/forms").AbstractControl): Promise<import("@angular/forms").ValidationErrors> | import("rxjs").Observable<import("@angular/forms").ValidationErrors> {
     const telefono = control.value;
-
     return this.FormularioService.obtenerColumnaTelefono(telefono).pipe(
-      map(valor => {
-        if (valor == telefono){
+      map((valor:any) => {
+
+        console.log(valor);
+        if ( valor && valor.numero_telefono == telefono){
+          console.log('esto si funciona');
           return {telefonoUnico: true};
-        }
-
+        } else
         return null;
-
       })
-
     );
-            
   }
+
+
+  // validate(control: import("@angular/forms").AbstractControl): Promise<import("@angular/forms").ValidationErrors> | import("rxjs").Observable<import("@angular/forms").ValidationErrors> {
+  //   const telefono = control.value;
+
+  //   return this.FormularioService.obtenerColumnaTelefono(telefono).pipe(
+  //     map(valor  => {
+  //       if(valor == telefono) {
+  //         return {telefonoUnico: true};
+  //       }
+
+  //       return null;
+
+  //     })
+
+  //   );
+            
+  // }
   
 
 
