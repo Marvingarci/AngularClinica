@@ -2241,7 +2241,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       {
         habito_toxicologico: this.cocaina.value,
         observacion: this.observacion_cocaina.value
-      }
+      },
 
     ];
 
