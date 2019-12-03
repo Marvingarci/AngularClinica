@@ -478,7 +478,7 @@ export class DialogContentExampleDialog2 {
       this.getContra();
       
       this.paciente2.id_paciente = this.formularioService.idActualizar;
-
+      console.log(this.paciente2.id_paciente);
       if(this.paciente2.id_paciente){
         this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
         this.pac = data;
@@ -489,7 +489,7 @@ export class DialogContentExampleDialog2 {
   
         
         //this.especialidad.setValue(this.medico.especialidadM);  
-        this.formularioService.idActualizar=this.paciente2.id_paciente;    
+        // this.formularioService.idActualizar=this.paciente2.id_paciente;    
         },(error)=>{
         console.log(error);
         });
