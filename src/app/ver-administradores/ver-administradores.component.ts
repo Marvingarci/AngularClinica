@@ -6,7 +6,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { LoginadminService } from '../services/loginadmin.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Paciente } from '../interfaces/paciente';
 import { LoginService } from '../services/login.service';
 import { LoginAdmin } from '../interfaces/login_admin';
@@ -78,7 +78,7 @@ export class VerAdministradoresComponent implements OnInit {
   }
 
 
-  displayedColumns2: string[] = ['id_loginAdmin', 'usuario_admin', 'contrasenia_admin', 'nombre_admin', 'identidad_admin', 'nada'];
+  displayedColumns2: string[] = ['id_loginAdmin', 'usuario_admin', 'nombre_admin', 'identidad_admin', 'nada'];
 
 
   applyFilter(filterValue: string) {
@@ -87,7 +87,106 @@ export class VerAdministradoresComponent implements OnInit {
 
   }  
 
+  borraradministrador(){
+    const dialogRef = this.dialog.open(Borraradministrador, {disableClose:false,panelClass: 'cerrarsesion'});  
+  }
+
   ngOnInit() {
     this.getAdministrador();
   }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @Component({
+    selector: 'dialog-borrar-administrador',
+    templateUrl: 'dialog-borrar-administrador.html',
+  })
+   
+  export class Borraradministrador {
+    login_admin:LoginAdmin = { 
+      id:null  ,
+      usuario_admin:null,
+      contrasenia_admin:null,
+      nombre_admin:null,
+      identidad_admin:null
+    };
+    pacientes: LoginAdmin[];
+    id: any;
+    admins: LoginAdmin[];
+
+ 
+  constructor(public dialog: MatDialog,private router: Router,private mensaje: MatSnackBar,private login_adminservice:LoginadminService,
+             private LoginAdminService: LoginadminService,private activatedRoute: ActivatedRoute) {    
+  this.dialog.closeAll;   
+  this.getPacientes();
+  }
+
+   showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+
+  getPacientes(){
+    this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) =>{
+      this.pacientes=data;
+      console.log(this.pacientes);
+    },(error)=>{
+      console.log(error);
+      alert('Ocurrio un error');
+    });
+  }
+
+  poneid(){
+   
+  }
+
+  ngOnInit() {
+    this.getPacientes();
+  }
+
+    salir(){
+
+      this.login_admin.id  = this.login_adminservice.idActualizar;
+    
+      if(this.login_admin.id){
+      this.login_adminservice.getAdmin().subscribe((data: LoginAdmin[]) =>{
+        this.admins = data;
+        this.login_admin = this.admins.find((m)=>{return m.id == this.login_admin.id});
+        //console.log(this.login_admin.usuario_admin);
+        // this.login_adminservice.idActualizar=this.login_admin.id;  
+       console.log(this.login_admin.id);      
+      },(error)=>{
+        console.log(error);
+      });
+    }
+    console.log(this.login_admin.id);
+
+
+
+
+       this.LoginAdminService.delete(this.login_admin.id).subscribe((data)=>{       
+      this.showError('Administrador eliminado correctamente'); 
+      console.log(data);
+      
+    this.router.navigate(['/principal/veradministradores']);
+      
+     
+  },(error)=>{console.log(error);
+    });
+    }
   }
