@@ -13,7 +13,7 @@ export class At1Component implements OnInit {
 
   dataSource1:any;
 
-  displayedColumns: string[] = ['id_paciente','numero_cuenta', 'nombre_completo', 'carrera', 'sexo', 
+  displayedColumns: string[] = ['numero_cuenta', 'nombre_completo', 'carrera', 'sexo', 
                                 'categoria', 'remitidoa'];
 
   applyFilter(filterValue: string) {
