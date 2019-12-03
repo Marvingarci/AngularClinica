@@ -121,6 +121,11 @@ export interface State {
   population: string;
 }
 
+export interface Categorias {
+  value: number;
+  viewValue: string;
+}
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -964,10 +969,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   maxDate = new Date();
 
   //select
-  categorias: select[] = [
-    { value: 'T', viewValue: 'Empleado' },
-    { value: 'V', viewValue: 'Visitante' },
-    { value: 'E', viewValue: 'Estudiante' }
+  categorias: Categorias[] = [
+    { value: 1, viewValue: 'Empleado' },
+    { value: 2, viewValue: 'Visitante' },
+    { value: 3, viewValue: 'Estudiante' }
   ];
   sexos: sexos[] = [
     { value: 1, viewValue: 'Hombre' },
@@ -1407,7 +1412,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.numero_cuenta.setValue(this.datosScraping.cuenta);
         this.numero_identidad.setValue(this.datosScraping.numero_identidad);
         this.carrera.setValue(this.datosScraping.carrera);
-        this.categoria.setValue('E');
+        this.categoria.setValue(3);
 
       } else {
         //si el paciente no es un alumno
