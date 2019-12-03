@@ -194,9 +194,12 @@ export class FormularioService {
   }
 
   obtenerColumnaHabitoToxicologico(){
-    return this.httpClient.get(this.API_ENDPOINT+'columna_habito_toxicologico/');
+    return this.httpClient.get(this.API_ENDPOINT+'columna_habito_toxicologico');
   }
 
+  obtenerColumnaTelefono(numero_telefono){
+    return this.httpClient.get(this.API_ENDPOINT+'obtenerColumnaNumeroTelefono/'+numero_telefono);
+  }
 
   
 
