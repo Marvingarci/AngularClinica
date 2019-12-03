@@ -1301,10 +1301,10 @@
             &nbsp; &nbsp; &nbsp; &nbsp; 
 
             <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
-            <div class="col" style="display: none;" id="divAgregarTiposCanceresAP" id="InputCancerAP"> 
+            <div class="col" style="display: none;" id="divAgregarTiposCanceresAP" > 
 
               <mat-form-field>
-                <input matInput formControlName= "tipo_cancer" placeholder="Tipo cáncer">
+                <input matInput formControlName= "tipo_cancer" placeholder="Tipo cáncer" id="InputCancerAP"> 
               </mat-form-field>
   
               &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -2129,7 +2129,7 @@
       </div>
        
     </form>   
-    <div *ngIf="loading==true" id="spin"> <mat-spinner class="loading"></mat-spinner></div> 
+    <div *ngIf="loading==true" id="spin"  class="uploader-status" > <mat-spinner class="loading"></mat-spinner></div> 
   </mat-step>
 
 

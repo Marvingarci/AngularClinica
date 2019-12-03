@@ -88,7 +88,7 @@ export class VerAdministradoresComponent implements OnInit {
   }  
 
   borraradministrador(){
-    const dialogRef = this.dialog.open(Borraradministrador, {disableClose:false,panelClass: 'cerrarsesion'});  
+    const dialogRef = this.dialog.open(Borraradministrador, {disableClose:true,panelClass: 'borrar'});  
   }
 
   ngOnInit() {
@@ -151,9 +151,6 @@ export class VerAdministradoresComponent implements OnInit {
     });
   }
 
-  poneid(){
-   
-  }
 
   ngOnInit() {
     this.getPacientes();

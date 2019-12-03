@@ -192,7 +192,7 @@ export class RegistromedicosComponent implements OnInit {
   
       }, (error) => {
       console.log(error);
-      alert('se chorrio');
+      this.showError('Se chorrio');
       });
       }else{
       this.showError('La contraseña no coincide');

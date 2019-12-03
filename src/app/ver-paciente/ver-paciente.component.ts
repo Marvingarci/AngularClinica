@@ -75,6 +75,22 @@ export interface familiar{
   id_parentesco?: string;
 }
 
+export interface cita1{
+  id_paciente?: string,
+  peso?: string,
+  talla?: string,
+  imc?: string,
+  temperatura?: string,
+  presion?:string,
+  pulso?: string,
+  siguiente_cita?: string,
+  observaciones?: string,
+  impresion?:string,
+  indicaciones?:string,
+  remitido?:any,
+  fechayHora?:any
+}
+
 
 
 @Component({
@@ -826,13 +842,6 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
   }
 
- showError(message: string) {
-  const config = new MatSnackBarConfig();
-  config.panelClass = ['background-red'];
-  config.duration = 2000;
-  this.mensaje.open(message, null, config);
-}
-
  
  @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
 
@@ -846,7 +855,6 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
  {
 
   this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
-  this.disabledDatosGenerales = !this.disabledDatosGenerales;
 
   switch(this.paciente.estado_civil){
     case "Soltero":
@@ -932,7 +940,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
           });
 
           // alert('se actualizaron perron los datos generales');
-
+          this.showError('Datos generales actualizado correctamente');
           
 
         }, (error)=>{
@@ -978,10 +986,12 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
         this.formularioService.actualizarAntecedenteFamiliar(this.antecedente_familiar).subscribe( (data) =>{
           this.cargarTablaAntecedentesFamiliares();
-          alert('se actualizaron perron los antecedentes familiares')
+          //alert('se actualizaron perron los ')
+          this.showError('Antecedentes familiares actualizado correctamente');
         }, (error) => {
           console.log(error);
-          alert('se chorriaron los antecedentes familiares')
+          //alert('se chorriaron los antecedentes familiares')
+          this.showError('Error al actualizar los antecedentes familiares');
         });
       }
     }
@@ -1025,10 +1035,12 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
         this.formularioService.actualizarAntecedentePersonal(this.antecedente_personal).subscribe((data)=>{
           this.cargarTablaAntecedentesPersonales();
-          alert('se actualizaron perron los antecedentes personales');    
+          //alert('se actualizaron perron los antecedentes personales');
+          this.showError('Antecedentes personales actualizado correctamente');    
         },(error)=>{
           console.log(error)
-          alert('se chorriaron los antecedentes personales');    
+          //alert('se chorriaron los antecedentes personales');
+          this.showError('Error al actualizar los antecedentes personales');    
         });
       }      
     }    
@@ -1052,9 +1064,11 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         this.habito_toxicologico_personal.observacion_otros = this.observacion_otros_ht.value;
         this.formularioService.actualizarHabitoToxicologico(this.habito_toxicologico_personal).subscribe((data)=>{          
           this.cargarTablaHabitosToxicologicos();
-          alert('se actualizaron perron los habitos toxicologicos');
+          //alert('se actualizaron perron los habitos toxicologicos');
+          this.showError('Habitos toxicologicos actualizado correctamente');
         }, (error)=>{
           console.log(error);
+          this.showError('Error al actualizar los habitos toxicologicos');
         });
       }
     }
@@ -1073,9 +1087,11 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
          this.formularioService.actualizarActividadSexual(this.actividad_sexual).subscribe((data)=>{
           this.cargarInformacionActividadSexual();
-          alert('se actualizaron perron la actividad sexual');           
+          //alert('se actualizaron perron la actividad sexual');
+          this.showError('Actividad sexual actualizado correctamente');           
          },(error)=>{
            console.log(error);
+           this.showError('Error al actualizar los Actividad sexual');
          });
       }
     }
@@ -1098,9 +1114,11 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
         this.formularioService.actualizarAntecedenteGinecologico(this.antecedente_ginecologico).subscribe((data)=>{
           this.cargarInformacionAntecedentesGinecologicos();
-          alert('se actualizaron perron los antecedentes ginecologicos');
+          //alert('se actualizaron perron los antecedentes ginecologicos');
+          this.showError('Antecedentes ginecologicos actualizado correctamente');
         }, (error)=> {
           console.log(error);
+          this.showError('Error al actualizar los antecedentes ginecologicos');
         });
       }
     }
@@ -1123,9 +1141,11 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
         this.formularioService.actualizarAntecedenteObstetrico(this.antecedente_obstetrico).subscribe((data)=>{
           this.cargarInformacionAntecedentesObstetricos();
-          alert('se actualizaron perron los antecedentes obstetricos');
+          //alert('se actualizaron perron los antecedentes obstetricos');
+          this.showError('Antecedentes obstetricos actualizado correctamente');
         }, (error)=>{
           console.log(error);
+          this.showError('Error al actualizar los antecedentes obstetricos');
         });
       }
     }
@@ -1143,9 +1163,11 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
         this.formularioService.actualizarPlanificacionFamiliar(this.planificacion_familiar).subscribe((data)=>{
             this.cargarInformacionPlanificacionfamiliar();            
-            alert('se actualizaron perron la Planificacion Familiar');
+            //alert('se actualizaron perron la Planificacion Familiar');
+            this.showError('Planificacion Familiar actualizado correctamente');
           }, (error)=>{
             console.log(error);
+            this.showError('Error al actualizar los Planificacion Familiar');
           });
       }
     }
@@ -1840,6 +1862,13 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.mostrarHisorias=false;
   }
 
+   showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+
 
   guardarDatos(){
 
@@ -2157,7 +2186,8 @@ export class HistoriaSubsiguiente1{
         this.showError('Cita guardada con exito');
       }, (error) => {
         console.log(error);
-        alert('ocurrion un error');
+        //alert('ocurrion un error');
+        this.showError('ocurrion un error');
       });
       this.medicamento.id = this.nombre.value;
       this.medicamento.cantidad = this.unidad.value;
@@ -2167,7 +2197,9 @@ export class HistoriaSubsiguiente1{
         this.showError('medicamento guardado con exito');
       }, (error) => {
         console.log(error);
-        alert('ocurrion un error en medicamento');
+        //alert('ocurrion un error en medicamento');
+        this.showError('ocurrion un error en medicamento');
+        
       });
     }
     

@@ -22,8 +22,10 @@ mat-horizontal-stepper{
 #spin{
   position: absolute;
    top: 50%;
-   left: 50%;
-   background: #B721FF;
+   left: 50%;  
+}
+.uploader-status ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #B721FF;
 }
 
 .containerScroll{
