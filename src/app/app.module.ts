@@ -7,7 +7,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Route} from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { PrincipalComponent, DialogContentExampleDialog1} from './principal/principal.component';
+import { PrincipalComponent, DialogContentExampleDialog1, DialogCerrarSesion2} from './principal/principal.component';
 import { LoginadminComponent } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
@@ -145,6 +145,7 @@ const routes: Route[] = [
     HistoriaSubsiguiente1,
     Borraradministrador,
     Borrarmedico,
+    DialogCerrarSesion2,
 
 
 
@@ -212,7 +213,8 @@ const routes: Route[] = [
     HistoriaSubsiguiente,
     HistoriaSubsiguiente1,
     Borraradministrador,
-    Borrarmedico
+    Borrarmedico,
+    DialogCerrarSesion2
   ],
   providers: [],
   bootstrap: [AppComponent]

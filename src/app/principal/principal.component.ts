@@ -49,6 +49,10 @@ abrirside() {
       this.icon = 'help';
   const dialogRef = this.dialog.open(DialogContentExampleDialog1, {disableClose:false,panelClass: 'custom-dialog-container1'});
   }
+  cerrarsesion(){
+    
+  const dialogRef = this.dialog.open(DialogCerrarSesion2, {disableClose:false,panelClass: 'cerrarsesion'});
+  }
       
       
    
@@ -81,4 +85,19 @@ export class DialogContentExampleDialog1 {
  
   constructor( ){   
    }
+}
+
+@Component({
+  selector: 'dialog-cerrar-sesion2',
+  templateUrl: 'dialog-cerrar-sesion2.html',
+})
+ 
+export class DialogCerrarSesion2 {
+constructor( public dialog: MatDialog,private router: Router){
+  
+  this.dialog.closeAll;
+}
+  salir(){
+    this.router.navigate(['']);
+  }
 }
