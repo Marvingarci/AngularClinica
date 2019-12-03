@@ -50,9 +50,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { PaseAdminComponent } from './pase-admin/pase-admin.component';
 import { VerAdministradoresComponent,Borraradministrador } from './ver-administradores/ver-administradores.component';
-import { BorraradministradorComponent } from './borraradministrador/borraradministrador.component';
 import {MatBadgeModule} from '@angular/material/badge';
-import { MedicosComponent } from './medicos/medicos.component';
+import { MedicosComponent, Borrarmedico } from './medicos/medicos.component';
 import { RegistromedicosComponent } from './registromedicos/registromedicos.component';
 import { Principal1Component } from './principal1/principal1.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -100,12 +99,12 @@ const routes: Route[] = [
       {path: 'paseadmin', component: PaseAdminComponent},
       {path: 'veradministradores', component: VerAdministradoresComponent},
       {path: 'veradministradores/:id', component: VerAdministradoresComponent},
-      {path: 'borraradministradores/:id', component: BorraradministradorComponent},
       {path: 'loginadmin', component: LoginadminComponent},
       {path: 'loginadmin/:id', component: LoginadminComponent},
       {path: 'formInventario', component: FormInventarioComponent},
       {path: 'formInventario/:id', component: FormInventarioComponent},
-      {path: 'medicos', component: MedicosComponent},      
+      {path: 'medicos', component: MedicosComponent},       
+      {path: 'medicos/:id', component: MedicosComponent},      
       {path: 'registromedicos', component: RegistromedicosComponent},
       {path: 'registromedicos/:id', component: RegistromedicosComponent},
       {path: 'principal1', component: Principal1Component},
@@ -144,6 +143,7 @@ const routes: Route[] = [
     HistoriaSubsiguiente,
     HistoriaSubsiguiente1,
     Borraradministrador,
+    Borrarmedico,
 
 
 
@@ -155,7 +155,6 @@ const routes: Route[] = [
 
     FormInventarioComponent,
 
-    BorraradministradorComponent,
 
     MedicosComponent,
     RegistromedicosComponent,
@@ -210,7 +209,8 @@ const routes: Route[] = [
     DialogCerrarSesion,
     HistoriaSubsiguiente,
     HistoriaSubsiguiente1,
-    Borraradministrador
+    Borraradministrador,
+    Borrarmedico
   ],
   providers: [],
   bootstrap: [AppComponent]
