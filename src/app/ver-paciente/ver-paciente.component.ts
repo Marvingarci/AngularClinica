@@ -844,6 +844,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
  {
 
   this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
+  this.disabledDatosGenerales = !this.disabledDatosGenerales;
 
   switch(this.paciente.estado_civil){
     case "Soltero":
