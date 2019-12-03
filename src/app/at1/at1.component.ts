@@ -14,7 +14,7 @@ export class At1Component implements OnInit {
   dataSource1:any;
 
   displayedColumns: string[] = ['id_paciente','numero_cuenta', 'nombre_completo', 'carrera', 'sexo', 
-                                'categoria', 'remitidoa', 'diagnostico1', 'diagnostico2', 'sn1', 'sn2'];
+                                'categoria', 'remitidoa'];
 
   applyFilter(filterValue: string) {
     this.dataSource1.filter = filterValue.trim().toLowerCase();
