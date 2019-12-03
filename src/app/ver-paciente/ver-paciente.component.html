@@ -527,7 +527,19 @@
                <mat-error *ngIf="pulso.hasError('required')">campo requerido</mat-error>    
              </mat-form-field>
            </div>
-         </div>
+
+           <div class="col">
+            <div style="padding-top: 20px;">
+              <label id="example-radio-group-label" style="margin-right: 40px;">Prosene</label>
+          <mat-radio-group  formControlName="prosene"  aria-labelledby="example-radio-group-label" class="example-radio-group" [disabled]="disabledDatosGenerales" >        
+            <mat-radio-button  value="Si" >Si</mat-radio-button> &nbsp; &nbsp;&nbsp;   
+            <mat-radio-button  value="No" >No</mat-radio-button>
+            <!-- que pedos -->
+          </mat-radio-group>
+        </div>
+        </div>
+
+        </div>
 
     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_datos_generales.invalid}}
     (click)="actualizarDatosGenerales(); ">
