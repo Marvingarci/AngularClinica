@@ -2177,6 +2177,8 @@ export class HistoriaSubsiguiente1{
      this.maximoMedicamento = this.inventario[numero-1].unidades;
      this.unidad.setValidators(Validators.max(this.maximoMedicamento));
      this.texto = "El valor en existencia es: "+this.maximoMedicamento;
+     this.seleccionado=true;
+     this.habilitarInputs([<FormControl>this.unidad]);
   }
  
   
