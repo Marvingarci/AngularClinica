@@ -55,6 +55,8 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { MedicosComponent } from './medicos/medicos.component';
 import { RegistromedicosComponent } from './registromedicos/registromedicos.component';
 import { Principal1Component } from './principal1/principal1.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ConsolidadodiarioComponent } from './consolidadodiario/consolidadodiario.component';
 
 
 
@@ -83,6 +85,7 @@ const routes: Route[] = [
   {path: 'loginadmin', component: LoginadminComponent},
   {path: 'paseadmin', component: PaseAdminComponent},  
   {path: 'veradministradores', component: VerAdministradoresComponent},
+  {path: 'consolidadodiario', component: ConsolidadodiarioComponent},
 
   {
     path: 'principal',
@@ -157,6 +160,7 @@ const routes: Route[] = [
     MedicosComponent,
     RegistromedicosComponent,
     Principal1Component,
+    ConsolidadodiarioComponent,
 
 
     
@@ -194,7 +198,8 @@ const routes: Route[] = [
     MatBottomSheetModule,
     MatSnackBarModule
     ,MatSidenavModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatAutocompleteModule
   
     
   ],

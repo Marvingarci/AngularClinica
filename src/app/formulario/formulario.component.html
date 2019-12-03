@@ -1,6 +1,6 @@
 <mat-horizontal-stepper linear #stepper  (selectionChange)="onStepChange($event)" > 
 
-  <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
+  <!-- <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
       <form [formGroup]="formulario_datos_generales">
       <div style="display: none;" id="labelDatosGenerales"><ng-template matStepLabel >{{datosGenerales}}</ng-template></div>
       <div class="container1">
@@ -151,11 +151,11 @@
         
       </div>
       <div class="botonesstep"> 
-            <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right" >Siguiente</button>
+            <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron" >Siguiente</button>
         </div>
       
     </form>
-  </mat-step>   
+  </mat-step>    -->
     
 
 
@@ -164,7 +164,7 @@
 
 
 
- <!-- primer step -->
+ <!-- primer step
   
   <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1" label="hola">
     <form [formGroup]="formulario_datos_generales">
@@ -340,10 +340,10 @@
         </div>
     </div>
     <div class="botonesstep"> 
-        <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right" >Siguiente</button>
+        <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron" >Siguiente</button>
      </div>
   </form>
-  </mat-step>
+  </mat-step> -->
 
 
 
@@ -355,7 +355,7 @@
     <form [formGroup]="formulario_antecedentes_familiares">
       
       <ng-template matStepLabel>{{antecedentesFamiliares}}</ng-template>
-      <div class="container">
+      <div class="containerScroll">
        
          
         <label id="example-radio-group-label">1. Diabetes</label>
@@ -427,8 +427,19 @@
           <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
           <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAF"> 
 
+              <!-- <div class="autocomplete" style="width:300px;">
+                <input id="myInput" type="text" name="myCountry" placeholder="Country">
+              </div>
+              <input type="submit"> -->
+
             <mat-form-field>
-              <input matInput formControlName= "tipo_desnutricion" placeholder="Tipo Desnutricion">
+              <input matInput formControlName= "tipo_desnutricion" 
+                [matAutocomplete]="auto" placeholder="Tipo Desnutricion" >
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let enfermedad of enfermedadesFiltradas | async" [value]="enfermedad">
+                    {{enfermedad}}
+                  </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -518,7 +529,13 @@
           <div class="col" style="display: none;" id="divAgregarTiposEnfermedadesMentalesAF"> 
 
             <mat-form-field>
-              <input matInput formControlName= "tipo_enfermedad_mental" placeholder="Tipo enfermedad mental">
+              <input matInput formControlName= "tipo_enfermedad_mental" 
+                [matAutocomplete]="auto" placeholder="Tipo enfermedad mental">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let enfermedad of enfermedadesFiltradas | async" [value]="enfermedad">
+                    {{enfermedad}}
+                  </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -924,7 +941,7 @@
   <mat-step  [stepControl]="formulario_antecedentes_personales">
     <form [formGroup]= "formulario_antecedentes_personales">
       <ng-template matStepLabel> {{antecedentesPersonales}}</ng-template>
-      <div class="container">    
+      <div class="containerScroll">    
 
         
           <label id="example-radio-group-label">1. Diabetes</label>
@@ -1589,7 +1606,7 @@
   <mat-step [stepControl]= "formulario_actividad_sexual">
     <form [formGroup]= "formulario_actividad_sexual">
       <ng-template matStepLabel>{{actividadSexualYReproductiva}}</ng-template>
-      <div class="container">
+      <div class="containerScroll">
 
         
           <label id="example-radio-group-label">Actividad Sexual</label>
@@ -1650,7 +1667,7 @@
     <form [formGroup]= "formulario_antecedente_obstetrico">
       <ng-template matStepLabel>{{antecedentesObstetricos}}</ng-template>
       <!-- <ng-template matStepLabel>Antecedentes Obstétricos</ng-template> -->
-      <div class="container">
+      <div class="containerScroll">
 
         <label>Historial Gine-obstétrico</label>
         <div class="row">
@@ -1746,7 +1763,7 @@
     <form [formGroup]="formulario_planificacion_familiar">
     <ng-template matStepLabel>{{planificacionFamiliar}}</ng-template>
     <!-- <ng-template matStepLabel>Planificacion Familiar</ng-template> -->
-      <div class="container">
+      <div class="containerScroll">
             <mat-error style="margin-left: 0;" *ngIf="planificacion_familiarr.hasError('required')">campo requerido</mat-error>
         <div>  
           <p><mat-radio-group formControlName="planificacion_familiar" 
@@ -1805,7 +1822,7 @@
  <mat-step *ngIf="ocultar==false"  [stepControl]="formulario_antecedente_ginecologico">
     <form [formGroup]="formulario_antecedente_ginecologico">
       <ng-template matStepLabel>{{antecedentesGinecologicos}}</ng-template>
-      <div class="container">
+      <div class="containerScroll">
 
         <div class="row" >
           <div class="col">
@@ -1938,7 +1955,7 @@
 <mat-step [stepControl]="formulario_habito_toxicologico_personal">
     <form [formGroup]="formulario_habito_toxicologico_personal">
       <ng-template matStepLabel>{{habitosToxicologicosPersonales}}</ng-template>
-      <div class="container">
+      <div class="containerScroll">
 
         <label id="example-radio-group-label">1. Alcohol</label>
           <mat-error style="margin-left: 0;" *ngIf="alcohol.hasError('required')">campo requerido</mat-error>

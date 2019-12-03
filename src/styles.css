@@ -75,5 +75,38 @@ body { margin: 0; font-family:Poppins-Regular,sans-serif;
     }
        
 
+    /* Tamaño del scroll */
+.containerScroll::-webkit-scrollbar {
+  width: 12px;
+  height: 10px;
+}
+
+ /* Estilos barra (thumb) de scroll */
+.containerScroll::-webkit-scrollbar-thumb {
+  background: #B721FF;
+  border-radius: 4px;
+}
+
+.containerScroll::-webkit-scrollbar-thumb:active {
+  background-color: #B721FF;
+}
+
+.containerScroll::-webkit-scrollbar-thumb:hover {
+  background: #B721FF;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+ /* Estilos track de scroll */
+.containerScroll::-webkit-scrollbar-track {
+  background: #a7a0ff;
+  border-radius: 4px;
+}
+
+.containerScroll::-webkit-scrollbar-track:hover, 
+.containerScroll::-webkit-scrollbar-track:active {
+
+  background: #a7a0ff;
+}
+
 
    
