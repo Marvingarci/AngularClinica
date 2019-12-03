@@ -1130,15 +1130,17 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
     this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedades);
-    this.autocomplete(document.getElementById('InputEnfermedadMental'), this.enfermedades);
-    this.autocomplete(document.getElementById('InputAlergia'), this.enfermedades);
-    this.autocomplete(document.getElementById('InputCancer'), this.enfermedades);
+    this.autocomplete(document.getElementById('InputEnfermedadAF'), this.enfermedades);
+    this.autocomplete(document.getElementById('InputAlergiaAF'), this.enfermedades);
+    this.autocomplete(document.getElementById('InputCancerAF'), this.enfermedades);
     this.autocomplete(document.getElementById('InputOtrosAF'), this.enfermedades);
     this.autocomplete(document.getElementById('InputDenutricionAP'), this.enfermedades);
     this.autocomplete(document.getElementById('InputEnfermedadAP'), this.enfermedades);
     this.autocomplete(document.getElementById('inputAlergiaAP'), this.enfermedades);
     this.autocomplete(document.getElementById('InputCancerAP'), this.enfermedades);
     this.autocomplete(document.getElementById('inputOtrosAP'), this.enfermedades);
+
+
   }
 
 
