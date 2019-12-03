@@ -49,12 +49,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { PaseAdminComponent } from './pase-admin/pase-admin.component';
-import { VerAdministradoresComponent } from './ver-administradores/ver-administradores.component';
+import { VerAdministradoresComponent,Borraradministrador } from './ver-administradores/ver-administradores.component';
 import { BorraradministradorComponent } from './borraradministrador/borraradministrador.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import { MedicosComponent } from './medicos/medicos.component';
 import { RegistromedicosComponent } from './registromedicos/registromedicos.component';
-import { BorrarMedicoComponent } from './borrar-medico/borrar-medico.component';
 import { Principal1Component } from './principal1/principal1.component';
 
 
@@ -99,7 +98,6 @@ const routes: Route[] = [
       {path: 'veradministradores', component: VerAdministradoresComponent},
       {path: 'veradministradores/:id', component: VerAdministradoresComponent},
       {path: 'borraradministradores/:id', component: BorraradministradorComponent},
-      {path: 'borrarmedico/:id', component: BorrarMedicoComponent},
       {path: 'loginadmin', component: LoginadminComponent},
       {path: 'loginadmin/:id', component: LoginadminComponent},
       {path: 'formInventario', component: FormInventarioComponent},
@@ -142,6 +140,8 @@ const routes: Route[] = [
     DialogCerrarSesion,
     HistoriaSubsiguiente,
     HistoriaSubsiguiente1,
+    Borraradministrador,
+
 
 
 
@@ -156,8 +156,8 @@ const routes: Route[] = [
 
     MedicosComponent,
     RegistromedicosComponent,
-    BorrarMedicoComponent,
     Principal1Component,
+
 
     
   ],
@@ -204,7 +204,8 @@ const routes: Route[] = [
     DialogContentExampleDialog2,
     DialogCerrarSesion,
     HistoriaSubsiguiente,
-    HistoriaSubsiguiente1
+    HistoriaSubsiguiente1,
+    Borraradministrador
   ],
   providers: [],
   bootstrap: [AppComponent]
