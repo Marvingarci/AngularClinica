@@ -9,7 +9,7 @@ import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familia
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
 import { AppComponent } from "../app.component";
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl, NG_ASYNC_VALIDATORS } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Login } from '../interfaces/login';
 import { DialogContentExampleDialog, DatoPacienteComponent } from "../dato-paciente/dato-paciente.component";
@@ -27,6 +27,7 @@ import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
 import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
 
 export interface Loginadmin {
   // contrasenia_admin: any;
@@ -218,7 +219,17 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     categoria: new FormControl('', [Validators.required]),
     estado_civil: new FormControl('', Validators.required),
     seguro_medico: new FormControl('', Validators.required),
-    numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+   
+    numero_telefono: new FormControl('', {
+      validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
+      asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)],
+      updateOn: 'blur'}),
+
+
+    // numero_telefono: new FormControl('', {
+    //   validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
+    //   asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]}),
+
     emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
     emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
   });
@@ -583,21 +594,29 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public onControlChange(event: any): void {
-    console.log(event.value);
+  // public onControlChange(event: any): void {
+  //   console.log(event.value);
 
-  }
+  // }
+
+  step;
+  element: any;
+  
 
   public onStepChange(event: any): void {
+    console.log('step index seleccionado');
     console.log(event.selectedIndex);
-    console.log('step seleccionado');
-    console.log(event.selectedStep);
+    
 
+    if(event.selectedIndex == 0){
+      
+      this.step = 0;
 
-
-    if (event.selectedIndex == 0) {
-
+      
+      this.element = document.getElementsByClassName('mat-step-label')[0];
+      this.element.innerHTML = "Datos Generales";
       this.eliminarLabelStep([1,2,3,4,5,6,7]);
+      
 
       // this.datosGenerales = 'Datos Generales';
       // this.antecedentesFamiliares = '';
@@ -607,15 +626,25 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       // this.antecedentesGinecologicos = '';
       // this.antecedentesObstetricos = '';
       // this.planificacionFamiliar = '';
-
+  
+      
     }
 
     if (event.selectedIndex == 1) {
 
+      this.step = 1;
+
+
+      // var element: any = document.getElementsByClassName('mat-step-label')[1];
+      // element.innerHTML= "hola";
+
+      // var element1: any =  document.getElementsByClassName('mat-step-label')[0];
+      // element1.style.display = "none";
+
+      this.element = document.getElementsByClassName('mat-step-label')[1];
+      this.element.innerHTML = "Antecedentes Familiares";
+
       this.eliminarLabelStep([0,2,3,4,5,6,7]);
-
-
-     
 
       // this.datosGenerales = '';
       // this.antecedentesFamiliares = 'Antecedentes Familiares';
@@ -626,19 +655,15 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       // this.antecedentesObstetricos = '';
       // this.planificacionFamiliar = '';
 
-      // this.antecedentesFamiliares = 'Antecedentes Familiares';  
-      // var div = document.getElementById('labelDatosGenerales');
-
-
-      // this.hidden1 = true;
-      // document.getElementById('labelDatosGenerales').hidden = true;
-      // console.log(document.getElementById('labelDatosGenerales'));
-
-      // console.log(document.getElementById('labelDatosGenerales'))
     }
-
+    
     if (event.selectedIndex == 2) {
 
+      this.step = 2;
+
+
+      this.element = document.getElementsByClassName('mat-step-label')[2];
+      this.element.innerHTML = "Antecedentes Personales";
 
       this.eliminarLabelStep([0,1,3,4,5,6,7]);
 
@@ -651,11 +676,17 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       // this.antecedentesGinecologicos = '';
       // this.antecedentesObstetricos = '';
       // this.planificacionFamiliar = '';
-      // document.getElementById('labelAntecedentesFamiliares').style.display = "none";
+
     }
+    
     if (event.selectedIndex == 3) {
 
-      this.eliminarLabelStep([0,2,1,3,5,6,7]);
+      this.step = 3;
+
+      // var element: any = document.getElementsByClassName('mat-step-label')[3];
+      // element.innerHTML = "Actividad Sexual y Reproductiva";
+
+      // this.eliminarLabelStep([0,2,1,4,5,6,7]);
 
       // this.datosGenerales = '';
       // this.antecedentesFamiliares = '';
@@ -666,13 +697,19 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       // this.antecedentesObstetricos = '';
       // this.planificacionFamiliar = '';
     }
-
+    
     if (event.selectedIndex == 4) {
+
+      this.step = 4;
 
 
       if (this.sexo.value == "1" && this.actividad_sexuall.value == "No") {
 
-        this.eliminarLabelStep([0,2,4,1,5,6,7]);
+
+        this.element = document.getElementsByClassName('mat-step-label')[4];
+        this.element.innerHTML = "Hábitos Toxicológicos Personales";
+
+        this.eliminarLabelStep([0,2,3,1,5,6,7]);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -683,9 +720,15 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         // this.antecedentesObstetricos = '';
         // this.planificacionFamiliar = '';
 
-      } if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No") {
+      }
+      
+      if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No") {
 
-        this.eliminarLabelStep([0,2,3,1,4,6,7]);
+        this.element = document.getElementsByClassName('mat-step-label')[4];
+        this.element.innerHTML = "Antecedentes Ginecológicos";
+
+        this.eliminarLabelStep([0,2,3,1,5,6,7]);
+
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -699,7 +742,12 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       if (this.formulario_datos_generales.get('sexo').value == "1" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si") {
 
-        this.eliminarLabelStep([0,2,3,1,4,6,5]);
+
+        this.element = document.getElementsByClassName('mat-step-label')[4];
+        this.element.innerHTML = "Planificación Familiar";
+
+        this.eliminarLabelStep([0,2,3,1,5,6,7]);
+
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -713,7 +761,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si") {
 
-        this.eliminarLabelStep([0,2,3,1,4,7,5]);
+        this.element = document.getElementsByClassName('mat-step-label')[4];
+        this.element.innerHTML = "Antecedentes Obstétricos";
+
+        this.eliminarLabelStep([0,2,3,1,5,6,7]);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -725,11 +776,14 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         // this.planificacionFamiliar = '';
       }
     }
-
+    
     if (event.selectedIndex == 5) {
       if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No") {
 
-        this.eliminarLabelStep([0,2,6,1,4,7,5]);
+        this.element = document.getElementsByClassName('mat-step-label')[5];
+        this.element.innerHTML = "Hábitos Toxicológicos Personales";
+
+        this.eliminarLabelStep([0,2,6,1,4,7,3]);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -742,7 +796,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       }
       if (this.formulario_datos_generales.get('sexo').value == "1" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si") {
 
-        this.eliminarLabelStep([0,2,6,1,4,7,5]);
+        this.element = document.getElementsByClassName('mat-step-label')[5];
+        this.element.innerHTML = "Hábitos Toxicológicos Personales";
+
+        this.eliminarLabelStep([0,2,6,1,4,7,3]);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -755,8 +812,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       }
       if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si") {
 
+        this.element = document.getElementsByClassName('mat-step-label')[5];
+        this.element.innerHTML = "Planificación Familiar";
 
-        this.eliminarLabelStep([0,2,6,1,4,3,5]);
+        this.eliminarLabelStep([0,2,6,1,4,7,3]);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -768,12 +827,15 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         // this.planificacionFamiliar = 'Planificación Familiar';
       }
     }
-
+    
     if (event.selectedIndex == 6) {
 
       if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si") {
 
-        this.eliminarLabelStep([0,2,6,1,4,3,7]);
+        this.element = document.getElementsByClassName('mat-step-label')[6];
+        this.element.innerHTML = "Antecedentes Ginecológicos";
+
+        this.eliminarLabelStep([0,2,5,1,4,3,7]);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -785,12 +847,15 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         // this.planificacionFamiliar = '';
       }
     }
-
+    
     if (event.selectedIndex == 7) {
 
       if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si") {
 
-        this.eliminarLabelStep([0,2,6,1,4,5,7]);
+        this.element = document.getElementsByClassName('mat-step-label')[6];
+        this.element.innerHTML = "Hábitos Toxicológicos Personales";
+
+        this.eliminarLabelStep([0,2,5,1,4,3,6]);
 
         // this.datosGenerales = '';
         // this.antecedentesFamiliares = '';
@@ -799,17 +864,21 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         // this.actividadSexualYReproductiva = '';
         // this.antecedentesGinecologicos = '';
         // this.antecedentesObstetricos = '';
-        // this.planificacionFamiliar = '';
+        // this.planificacionFamiliar = '';'
+
+
+        
       }
     }
+    
   }
 
-  eliminarLabelStep(index: number[]){
+  eliminarLabelStep(index: any[]){
 
     index.forEach(i=> {
 
-      let elemento : any= document.getElementsByClassName('mat-step-label')[i];
-      elemento.style.display="none";
+      this.element = document.getElementsByClassName('mat-step-label')[i];
+      this.element.style.display= "none";
 
       
     });
@@ -1095,8 +1164,11 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
   // myControl = new FormControl();
-  enfermedades: string[] = [];
-  enfermedadesFiltradas: Observable<string[]>;
+  enfermedadesDesnutricion: string[] = [];
+  enfermedadesMentales: string[] = [];
+  enfermedadesAlergias: string[] = [];
+  enfermedadesCancer: string[] = [];
+  habitosToxicologicos: string[] = [];
 
 
 
@@ -1104,10 +1176,9 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   constructor(private formularioService: FormularioService,
     private router: Router, activar: AppComponent, public dialog: MatDialog,
-    public login: LoginService, private formulario: FormularioService) {
+    public login: LoginService, private formulario: FormularioService,private TelefonoUnicoService: TelefonoUnicoService) {
     // this.obtenerDatosFormulario();
     this.getDatosScraping();
-
 
     console.log();
 
@@ -1118,38 +1189,36 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   }
 
-
-
-
-
-
-
-
-
-
+  
 
   // para que se le quite la cosa fea al text area
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void{  
+
+    // this.eliminarLabelStep([1,2,3,4]);
+
+    // console.log('step: '+this.step);
+
+    this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedadesDesnutricion, this.tipo_desnutricion);
+    this.autocomplete(document.getElementById('InputEnfermedadAF'), this.enfermedadesMentales, this.tipo_enfermedad_mental);
+    this.autocomplete(document.getElementById('InputAlergiaAF'), this.enfermedadesAlergias, this.tipo_alergia);
+    this.autocomplete(document.getElementById('InputCancerAF'), this.enfermedadesCancer, this.tipo_cancer);
+    this.autocomplete(document.getElementById('InputDenutricionAP'), this.enfermedadesDesnutricion, this.tipo_desnutricion_ap);
+    this.autocomplete(document.getElementById('InputEnfermedadAP'), this.enfermedadesMentales, this.tipo_enfermedad_mental_ap);
+    this.autocomplete(document.getElementById('inputAlergiaAP'), this.enfermedadesAlergias, this.tipo_alergia_ap);
+    this.autocomplete(document.getElementById('InputCancerAP'), this.enfermedadesCancer, this.tipo_cancer_ap);
+    this.autocomplete(document.getElementById('inputOtrosHT'), this.habitosToxicologicos, this.otros_ht);
+
+    
 
 
-    this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedades);
-    this.autocomplete(document.getElementById('InputEnfermedadAF'), this.enfermedades);
-    this.autocomplete(document.getElementById('InputAlergiaAF'), this.enfermedades);
-    this.autocomplete(document.getElementById('InputCancerAF'), this.enfermedades);
-    this.autocomplete(document.getElementById('InputOtrosAF'), this.enfermedades);
-    this.autocomplete(document.getElementById('InputDenutricionAP'), this.enfermedades);
-    this.autocomplete(document.getElementById('InputEnfermedadAP'), this.enfermedades);
-    this.autocomplete(document.getElementById('inputAlergiaAP'), this.enfermedades);
-    this.autocomplete(document.getElementById('InputCancerAP'), this.enfermedades);
-    this.autocomplete(document.getElementById('inputOtrosAP'), this.enfermedades);
-
+    
 
   }
 
 
-  autocomplete(inp, arr): void {
+  autocomplete(inp, arr, control): void {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
@@ -1180,7 +1249,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
           /*execute a function when someone clicks on the item value (DIV element):*/
           b.addEventListener("click", function (e) {
             /*insert the value for the autocomplete text field:*/
-            inp.value = this.getElementsByTagName("input")[0].value;
+            control.setValue(inp.value = this.getElementsByTagName("input")[0].value);
+
             /*close the list of autocompleted values,
             (or any other open lists of autocompleted values:*/
             closeAllLists();
@@ -1253,81 +1323,12 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+
     this.obtenerDatosFormulario();
     this.getDatosScraping();
     this.esAlumno = this.formulario.esAlumno;
 
 
-    // this.enfermedadesFiltradas = this.tipo_desnutricion.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filtro(value))
-    // );
-
-
-
-
-    // this.mostrarEnfermedadesFiltradas();
-    // this.enfermedadesFiltradas = this.tipo_desnutricion.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filtro(value))
-    // );
-
-    // this.enfermedadesFiltradas = this.tipo_enfermedad_mental.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filtro(value))
-    // );
-
-    // this.enfermedadesFiltradas = this.tipo_alergia.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filtro(value))
-    // );
-
-    // this.enfermedadesFiltradas = this.tipo_cancer.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filtro(value))
-    // );
-
-
-
-
-  }
-
-
-  mostrarEnfermedadesFiltradas() {
-
-    // if(this.tipo_desnutricion.touched){
-    //   this.enfermedadesFiltradas = this.tipo_desnutricion.valueChanges.pipe(
-    //     startWith(''),
-    //     map(value => this._filtro(value))
-    //   );
-    // }else if(this.tipo_enfermedad_mental.touched){
-    //   this.enfermedadesFiltradas = this.tipo_enfermedad_mental.valueChanges.pipe(
-    //     startWith(''),
-    //     map(value => this._filtro(value))
-    //   );
-    // }
-
-
-
-
-    // this.enfermedadesFiltradas = this.tipo_alergia.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filtro(value))
-    // );
-
-    // this.enfermedadesFiltradas = this.tipo_cancer.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filtro(value))
-    // );
-
-
-
-  }
-
-  private _filtro(value: string): string[] {
-    const valorFiltrado = value.toLowerCase();
-
-    return this.enfermedades.filter(option => option.toLowerCase().indexOf(valorFiltrado) === 0);
   }
 
 
@@ -1373,14 +1374,53 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     });
 
-    this.formularioService.obtenerColumnaEnfermedades().subscribe((data: any[]) => {
+    this.formularioService.obtenerColumnaEnfermedades(1).subscribe((data: any[]) => {
 
       data.forEach(element => {
 
-        this.enfermedades.push(element.enfermedad);
+        this.enfermedadesDesnutricion.push(element.enfermedad);
 
       });
-    })
+    });
+
+    this.formularioService.obtenerColumnaEnfermedades(2).subscribe((data: any[]) => {
+
+      data.forEach(element => {
+
+        this.enfermedadesMentales.push(element.enfermedad);
+
+      });
+    });
+
+    this.formularioService.obtenerColumnaEnfermedades(3).subscribe((data: any[]) => {
+
+      data.forEach(element => {
+
+        this.enfermedadesAlergias.push(element.enfermedad);
+
+      });
+    });
+
+    this.formularioService.obtenerColumnaEnfermedades(4).subscribe((data: any[]) => {
+
+      data.forEach(element => {
+
+        this.enfermedadesCancer.push(element.enfermedad);
+
+      });
+    });
+
+
+    this.formularioService.obtenerColumnaHabitoToxicologico().subscribe((data: any[]) => {
+
+      data.forEach(element => {
+
+        this.habitosToxicologicos.push(element.habito_toxicologico);
+
+      });
+    });
+
+
 
   }
 

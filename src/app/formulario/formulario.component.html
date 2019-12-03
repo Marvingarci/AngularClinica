@@ -1,9 +1,9 @@
 <mat-horizontal-stepper linear #stepper  (selectionChange)="onStepChange($event)" > 
 
- <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
+  <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" label="Datos Generales" id="step1" >
       <form [formGroup]="formulario_datos_generales">
 
-      <ng-template matStepLabel >Datos Generales</ng-template>
+      <!-- <ng-template matStepLabel >Datos Generales</ng-template> -->
 
       <div class="container1">
         <div class="row">
@@ -127,7 +127,7 @@
           <div class="row">
             <div class="col">
               <mat-form-field class="example-full-width">
-                <input matInput matInput formControlName= "numero_telefono"  name="numero_telefono" id="telefono" placeholder="N° Teléfono">
+                <input matInput matInput formControlName= "numero_telefono"  name="numero_telefono" maxlength="8" placeholder="N° Teléfono">
                 <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido</mat-error>
                 <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un número de teléfono válido!</mat-error>
               </mat-form-field>
@@ -143,7 +143,7 @@
 
             <div class="col">
               <mat-form-field class="example-full-width">
-                <input matInput formControlName= "emergencia_telefono" name="emergencia_telefono" id="" placeholder="Teléfono de emergencia">
+                <input matInput formControlName= "emergencia_telefono" name="emergencia_telefono" maxlength="8"  placeholder="Teléfono de emergencia">
                 <mat-error *ngIf="emergencia_telefono.hasError('required')">campo requerido</mat-error>
                 <mat-error *ngIf="emergencia_telefono.hasError('pattern')">introduzca un número de teléfono válido!</mat-error>
   
@@ -158,7 +158,7 @@
       
     </form>
   </mat-step>   
-     
+    
 
 
 
@@ -168,10 +168,10 @@
 
  <!-- primer step -->
   
-   <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1" label="hola">
+  <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales"  id="step1">
     <form [formGroup]="formulario_datos_generales">
     
-    <ng-template matStepLabel >Datos Generales</ng-template>
+    <ng-template matStepLabel *ngIf ="step == 0">Datos Generales</ng-template>
 
 
 
@@ -318,8 +318,10 @@
         <div class="row" style=" padding-left: 0;margin-left: 0%;">
             <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
             <mat-form-field class="example-full-width">
-              <input matInput matInput formControlName= "numero_telefono"  name="numero_telefono" id="telefono" placeholder="N° Teléfono">
+              <input matInput matInput formControlName= "numero_telefono"  name="numero_telefono" maxlength="8" placeholder="N° Teléfono">
+              <mat-hint align="end">{{numero_telefono.value.length}} / 8</mat-hint> 
               <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido</mat-error>
+              <mat-error *ngIf="numero_telefono.hasError('telefonoUnico')">El numero pertenece a otra persona</mat-error>
               <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un número de teléfono válido!</mat-error>
             </mat-form-field>
           </div>
@@ -334,7 +336,8 @@
 
           <div class="col">
             <mat-form-field class="example-full-width">
-              <input matInput formControlName= "emergencia_telefono" name="emergencia_telefono" id="" placeholder="Teléfono de emergencia">
+              <input matInput formControlName= "emergencia_telefono" maxlength="8" placeholder="Teléfono de emergencia">
+              <mat-hint align="end">{{emergencia_telefono.value.length}} / 8</mat-hint> 
               <mat-error *ngIf="emergencia_telefono.hasError('required')">campo requerido</mat-error>
               <mat-error *ngIf="emergencia_telefono.hasError('pattern')">introduzca un número de teléfono válido!</mat-error>
               </mat-form-field>
@@ -345,7 +348,7 @@
         <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron" >Siguiente</button>
      </div>
   </form>
-  </mat-step>
+  </mat-step> 
 
 
 
@@ -356,7 +359,7 @@
   <mat-step [stepControl]= "formulario_antecedentes_familiares">
     <form [formGroup]="formulario_antecedentes_familiares">
       
-      <ng-template matStepLabel>Antecedentes Familiares</ng-template>
+      <!-- <ng-template matStepLabel>Antecedentes Familiares</ng-template> -->
       <div class="containerScroll">
        
          
@@ -946,7 +949,7 @@
   <!-- tercer step -->
   <mat-step  [stepControl]="formulario_antecedentes_personales">
     <form [formGroup]= "formulario_antecedentes_personales">
-      <ng-template matStepLabel>Antecedentes Personales</ng-template>
+      <!-- <ng-template matStepLabel>Antecedentes Personales</ng-template> -->
       <div class="containerScroll">    
 
         
@@ -1611,7 +1614,7 @@
   <!-- quinto step -->  
   <mat-step [stepControl]= "formulario_actividad_sexual">
     <form [formGroup]= "formulario_actividad_sexual">
-      <ng-template matStepLabel>Actividad Sexual y Reproductiva</ng-template>
+      <!-- <ng-template matStepLabel>Actividad Sexual y Reproductiva</ng-template> -->
       <div class="containerScroll">
 
         
@@ -1826,7 +1829,7 @@
  <!-- sexto step -->
  <mat-step *ngIf="ocultar==false"  [stepControl]="formulario_antecedente_ginecologico">
     <form [formGroup]="formulario_antecedente_ginecologico">
-      <ng-template matStepLabel>Antecedentes Ginecologicos</ng-template>
+      <!-- <ng-template matStepLabel>Antecedentes Ginecologicos</ng-template> -->
       <div class="containerScroll">
 
         <div class="row" >
@@ -1959,7 +1962,7 @@
 <!-- cuarto step -->
 <mat-step [stepControl]="formulario_habito_toxicologico_personal">
     <form [formGroup]="formulario_habito_toxicologico_personal">
-      <ng-template matStepLabel>Habitos Toxicologicos Personales</ng-template>
+      <!-- <ng-template matStepLabel>Habitos Toxicologicos Personales</ng-template> -->
       <div class="containerScroll">
 
         <label id="example-radio-group-label">1. Alcohol</label>
@@ -2056,7 +2059,7 @@
           <div class="col" style="margin-left: 0; padding-left: 0%;">
 
             <mat-form-field>
-              <input matInput formControlName="otros" placeholder="Hábito toxicólogico">
+              <input matInput formControlName="otros" placeholder="Hábito toxicólogico" id="inputOtrosHT">
               <mat-error *ngIf="otros_ht.hasError('maxlength')">campo muy extenso</mat-error>
               <mat-error *ngIf="otros_ht.hasError('minlength')">introduzca una observación válida</mat-error>
             </mat-form-field>

@@ -2035,6 +2035,10 @@ export interface Inventario{
   unidades?: number,
   medicamento?: string,
 }
+export interface selecto{
+  value: number,
+  viewValue: string
+}
 
 @Component({
   selector: 'historiaSubsiguiente1',
@@ -2048,6 +2052,10 @@ export interface Inventario{
 
 
 export class HistoriaSubsiguiente1{
+  seleccionado: boolean;
+  seleccion = 0;
+  maximoMedicamento : number = 2;
+
 
   constructor(private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente1>, private mensaje: MatSnackBar){//para cerrar el dialogo desde la misma interfaz
   }
@@ -2091,6 +2099,7 @@ export class HistoriaSubsiguiente1{
     this.form.obtenerMedicamento().subscribe((data: Inventario[])=>{
       this.datos = data;
       this.inventario = data;
+      this.nombres.push({value:0,viewValue:'Ninguno'});
       this.datos.forEach(element => {
         this.nombres.push({value:element.id_inventario, viewValue:element.medicamento});  
       });
@@ -2127,7 +2136,7 @@ export class HistoriaSubsiguiente1{
     cita: new FormControl('', Validators.required),
     remitira: new FormControl('', Validators.required),
     nombre: new FormControl('',Validators.required),
-    unidad: new FormControl('',Validators.required)
+    unidad: new FormControl('',[Validators.required, Validators.pattern(/^[0-9]+/),Validators.maxLength(3)])
     
 });
   matcher = new MyErrorStateMatcher();
@@ -2135,7 +2144,7 @@ export class HistoriaSubsiguiente1{
   datos: any;
   demas: boolean = true;
   inventario: Inventario[];
-
+  texto: string = "Unidades";
 
   parentescos: Parentescos[] = [
     {value: 1 , viewValue: 'Psicologia'},
@@ -2145,7 +2154,7 @@ export class HistoriaSubsiguiente1{
     {value: 5 , viewValue: 'CATFA'},
     {value: 6 , viewValue: 'Trabajo Social'}
   ];
-  nombres: select[]=[];
+  nombres: selecto[]=[];
 
   habilitarInputs(formControl : FormControl[]){  
     formControl.forEach(controlador => {
@@ -2160,6 +2169,18 @@ export class HistoriaSubsiguiente1{
     });
   }
 
+  medicamentoUnidad(numero: number){
+    if(numero==0){
+      this.borrarInputs([<FormControl>this.unidad]);
+      this.seleccionado=false;
+    }
+     this.maximoMedicamento = this.inventario[numero-1].unidades;
+     this.unidad.setValidators(Validators.max(this.maximoMedicamento));
+     this.texto = "El valor en existencia es: "+this.maximoMedicamento;
+     this.seleccionado=true;
+     this.habilitarInputs([<FormControl>this.unidad]);
+  }
+ 
   
 
   guardarCita(){
@@ -2179,7 +2200,13 @@ export class HistoriaSubsiguiente1{
       this.citaGuardar.observaciones=this.observaciones_examen.value;
       this.citaGuardar.remitido=this.remitira.value;
       this.citaGuardar.siguiente_cita= this.fecha_nacimiento.value;
+
       
+
+      if(this.citaGuardar.remitido == null || this.citaGuardar.remitido == ""){
+        this.citaGuardar.remitido = 7;
+      }
+      console.log(this.citaGuardar);
       this.form.guardarCita(this.citaGuardar).subscribe( (data) =>{
         console.log(data);
         this.dialogRef.close();
@@ -2189,10 +2216,13 @@ export class HistoriaSubsiguiente1{
         //alert('ocurrion un error');
         this.showError('ocurrion un error');
       });
-      this.medicamento.id = this.nombre.value;
-      this.medicamento.cantidad = this.unidad.value;
-      console.log(this.medicamento);
-      this.form.EgresoMedicamentos(this.medicamento).subscribe( (data) =>{
+
+
+      if(this.seleccionado==true){
+        this.medicamento.id = this.nombre.value;
+        this.medicamento.cantidad = this.unidad.value;
+        console.log(this.medicamento);
+        this.form.EgresoMedicamentos(this.medicamento).subscribe( (data) =>{
         console.log(data);
         this.showError('medicamento guardado con exito');
       }, (error) => {
@@ -2201,6 +2231,12 @@ export class HistoriaSubsiguiente1{
         this.showError('ocurrion un error en medicamento');
         
       });
+
+      }
+      
+    }else{
+      this.showError('LLenar todos los campos');
+      
     }
     
   }
