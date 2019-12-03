@@ -1,6 +1,6 @@
 <mat-horizontal-stepper linear #stepper  (selectionChange)="onStepChange($event)" > 
 
-   <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
+  <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
       <form [formGroup]="formulario_datos_generales">
 
       <ng-template matStepLabel >Datos Generales</ng-template>
@@ -157,7 +157,7 @@
         </div>
       
     </form>
-  </mat-step>    
+  </mat-step>   
     
 
 
@@ -166,7 +166,7 @@
 
 
 
- <!-- primer step-->
+ <!-- primer step -->
   
   <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1" label="hola">
     <form [formGroup]="formulario_datos_generales">
@@ -345,7 +345,7 @@
         <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron" >Siguiente</button>
      </div>
   </form>
-  </mat-step> 
+  </mat-step>
 
 
 
@@ -1023,10 +1023,10 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
 
           <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
-          <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAP" id="InputDenutricionAP"> 
+          <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAP" > 
 
             <mat-form-field>
-              <input matInput formControlName= "tipo_desnutricion" placeholder="Tipo Desnutricion">
+              <input matInput formControlName= "tipo_desnutricion" placeholder="Tipo Desnutricion" id="InputDenutricionAP">
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -1219,7 +1219,7 @@
           <div class="col" style="display: none;" id="divAgregarTiposAlergiasAP"> 
 
             <mat-form-field>
-              <input matInput formControlName= "tipo_alergia" placeholder="Tipo alergia">
+              <input matInput formControlName= "tipo_alergia" placeholder="Tipo alergia" id="inputAlergiaAP">
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -1525,7 +1525,7 @@
 
           <div class="col" style="margin-left: 0; padding-left: 0%;">
             <mat-form-field>
-              <input matInput formControlName= "otros" placeholder="Enfermedad">
+              <input matInput formControlName= "otros" placeholder="Enfermedad" id="inputOtrosAP">
               <mat-error *ngIf="otros.hasError('maxlength')">campo muy extenso</mat-error>
               <mat-error *ngIf="otros.hasError('minlength')">introduzca una observación valida</mat-error>
 
