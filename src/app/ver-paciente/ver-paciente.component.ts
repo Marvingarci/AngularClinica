@@ -146,6 +146,8 @@ matcher = new MyErrorStateMatcher();
     seguro_medico: new FormControl('', Validators.required),
     numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
     emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+    emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+
     //datos restantes
     peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
     talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]), 
@@ -1878,6 +1880,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
    get seguro_medico(){return this.formulario_datos_generales.get('seguro_medico')};
    get numero_telefono(){return this.formulario_datos_generales.get('numero_telefono')};
    get emergencia_telefono(){return this.formulario_datos_generales.get('emergencia_telefono')};
+   get emergencia_persona(){return this.formulario_datos_generales.get('emergencia_persona')};
    get categoria(){return this.formulario_datos_generales.get('categoria')};
 
 
