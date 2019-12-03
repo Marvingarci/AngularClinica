@@ -110,29 +110,34 @@
                   </div>
                   
                   <div class="row">
+                      
                     <div class="col"> 
                       <mat-form-field  style=" width: 100%;">
-                        <mat-select formControlName= "nombre" placeholder="nombre">
-                          <mat-option *ngFor="let nombre of nombres" [value]="nombre.value">
+                        <mat-select formControlName= "nombre" placeholder="Medicamento" [(value)]="seleccion">
+                          <mat-option *ngFor="let nombre of nombres" [value]="nombre.value" (click)="medicamentoUnidad(nombre.value)">
                             {{nombre.viewValue}}
                           </mat-option>
                         </mat-select>
                       <mat-error *ngIf="nombre.hasError('required')"> <strong>campo requerido</strong></mat-error>
-          
+                      
+
                       </mat-form-field>
                     </div>
                     <div class="col">
                       <mat-form-field style=" width: 100%;">
-                          <input  matInput placeholder="Unidad" formControlName= "unidad" required>
+                          <input  matInput placeholder="{{texto}}" formControlName= "unidad" required>
                           <mat-error *ngIf="unidad.hasError('required')">
                           <strong>campo requerido</strong>
                           </mat-error>
-                          <mat-error *ngIf="unidad.hasError('minLength') && unidad.hasError('maxLength')">
-                          <strong>campo requerido</strong>
-                          </mat-error>
-                          <mat-error *ngIf="demas==false">
-                            <strong>Solo hay en existencia</strong>
+                          <mat-error *ngIf="unidad.hasError('pattern')">
+                            tienen que ser numeros positivos
                             </mat-error>
+                          <mat-error *ngIf="unidad.hasError('maxLength')">
+                            No hay tantas en existencia
+                          </mat-error>
+                          
+
+                          
                       </mat-form-field>
                       </div>
                   </div>
