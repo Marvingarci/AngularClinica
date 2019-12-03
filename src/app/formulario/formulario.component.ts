@@ -9,7 +9,7 @@ import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familia
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
 import { AppComponent } from "../app.component";
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl, NG_ASYNC_VALIDATORS } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Login } from '../interfaces/login';
 import { DialogContentExampleDialog, DatoPacienteComponent } from "../dato-paciente/dato-paciente.component";
@@ -27,6 +27,7 @@ import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
 import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
 
 export interface Loginadmin {
   // contrasenia_admin: any;
@@ -213,7 +214,17 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     categoria: new FormControl('', [Validators.required]),
     estado_civil: new FormControl('', Validators.required),
     seguro_medico: new FormControl('', Validators.required),
-    numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+   
+    numero_telefono: new FormControl('', {
+      validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
+      asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)],
+      updateOn: 'blur'}),
+
+
+    // numero_telefono: new FormControl('', {
+    //   validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
+    //   asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]}),
+
     emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
     emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
   });
@@ -1160,7 +1171,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   constructor(private formularioService: FormularioService,
     private router: Router, activar: AppComponent, public dialog: MatDialog,
-    public login: LoginService, private formulario: FormularioService) {
+    public login: LoginService, private formulario: FormularioService,private TelefonoUnicoService: TelefonoUnicoService) {
     // this.obtenerDatosFormulario();
     this.getDatosScraping();
 
