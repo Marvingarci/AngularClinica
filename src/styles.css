@@ -33,6 +33,14 @@ html, body {
     height: 190px;  
   }
 
+/* para que no salga el doble scroll en principal */
+  .cdk-global-scrollblock{
+    position: fixed;
+    width: 100%;
+    overflow-y: hidden;
+  }
+
+/* estilo de los auocompletado */
   .autocomplete-items {
     position: absolute;
     border: 1px solid #d4d4d4;
