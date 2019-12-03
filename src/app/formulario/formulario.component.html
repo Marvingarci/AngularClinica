@@ -168,7 +168,7 @@
 
  <!-- primer step -->
   
-  <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales"  id="step1">
+  <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" label="Datos Generales">
     <form [formGroup]="formulario_datos_generales">
     
     <ng-template matStepLabel *ngIf ="step == 0">Datos Generales</ng-template>
@@ -356,7 +356,7 @@
 
 
   <!-- segundo step --> 
-  <mat-step [stepControl]= "formulario_antecedentes_familiares">
+  <mat-step [stepControl]= "formulario_antecedentes_familiares" label="Antecedentes Familiares">
     <form [formGroup]="formulario_antecedentes_familiares">
       
       <!-- <ng-template matStepLabel>Antecedentes Familiares</ng-template> -->
@@ -947,7 +947,7 @@
 
 
   <!-- tercer step -->
-  <mat-step  [stepControl]="formulario_antecedentes_personales">
+  <mat-step  [stepControl]="formulario_antecedentes_personales" label="Antecedentes Personales">
     <form [formGroup]= "formulario_antecedentes_personales">
       <!-- <ng-template matStepLabel>Antecedentes Personales</ng-template> -->
       <div class="containerScroll">    
@@ -1612,7 +1612,7 @@
 
 
   <!-- quinto step -->  
-  <mat-step [stepControl]= "formulario_actividad_sexual">
+  <mat-step [stepControl]= "formulario_actividad_sexual" label="Actividad Sexual y Reproductiva">
     <form [formGroup]= "formulario_actividad_sexual">
       <!-- <ng-template matStepLabel>Actividad Sexual y Reproductiva</ng-template> -->
       <div class="containerScroll">
@@ -1672,9 +1672,9 @@
 
  
 <!-- septimo step -->
-  <mat-step *ngIf="(ocultar==false)&&(ocultar1==false)"  [stepControl]="formulario_antecedente_obstetrico">
+  <mat-step *ngIf="(ocultar==false)&&(ocultar1==false)"  [stepControl]="formulario_antecedente_obstetrico" label="Antecedes Obstetricos">
     <form [formGroup]= "formulario_antecedente_obstetrico">
-      <ng-template matStepLabel>Antecedes Obstetricos</ng-template>
+      <!-- <ng-template matStepLabel>Antecedes Obstetricos</ng-template> -->
       <div class="containerScroll">
 
         <label>Historial Gine-obstétrico</label>
@@ -1827,7 +1827,7 @@
 
 
  <!-- sexto step -->
- <mat-step *ngIf="ocultar==false"  [stepControl]="formulario_antecedente_ginecologico">
+ <mat-step *ngIf="ocultar==false"  [stepControl]="formulario_antecedente_ginecologico" label="Antecedentes Ginecologicos">
     <form [formGroup]="formulario_antecedente_ginecologico">
       <!-- <ng-template matStepLabel>Antecedentes Ginecologicos</ng-template> -->
       <div class="containerScroll">
@@ -1960,7 +1960,7 @@
 
 
 <!-- cuarto step -->
-<mat-step [stepControl]="formulario_habito_toxicologico_personal">
+<mat-step [stepControl]="formulario_habito_toxicologico_personal" label="Habitos Toxicologicos Personales">
     <form [formGroup]="formulario_habito_toxicologico_personal">
       <!-- <ng-template matStepLabel>Habitos Toxicologicos Personales</ng-template> -->
       <div class="containerScroll">
