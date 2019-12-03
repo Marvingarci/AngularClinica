@@ -19,6 +19,7 @@ export interface select {
 export class LoginadminComponent implements OnInit {
   hide1 = false;
   hide = true; 
+  disabledloginadmin: boolean = false;
 
   loginadmin_form = new FormGroup({
     usuario: new FormControl('',[Validators.required,  Validators.minLength(6)]),    
@@ -112,7 +113,7 @@ onKeydown(event) {
   comprobarDatos(){
   if(this.editing){  
   if(this.loginadmin_form.valid){
-
+    this.disabledloginadmin = true;
     this.login_admin.contrasenia_admin = this.loginadmin_form.get('contraseniaC').value; 
     if(this.login_admin.contrasenia_admin ==this.loginadmin_form.get('contrasenia').value ){
     this.login_admin.usuario_admin = this.usuario.value;
@@ -146,6 +147,7 @@ onKeydown(event) {
       this.login_admin.identidad_admin = this.loginadmin_form.get('identidad').value;
 
       if(this.loginadmin_form.valid){
+      this.disabledloginadmin = true;
       this.login_adminservice.saveloginadmin(this.login_admin).subscribe( (data) =>{
       console.log(data);
       this.getdato();
