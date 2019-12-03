@@ -170,6 +170,7 @@
   
   <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales"  id="step1">
     <form [formGroup]="formulario_datos_generales">
+        <div class="containerScroll">
     
     <ng-template matStepLabel *ngIf ="step == 0">Datos Generales</ng-template>
 
@@ -344,6 +345,7 @@
           </div>
         </div>
     </div>
+  </div>
     <div class="botonesstep"> 
         <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron" >Siguiente</button>
      </div>
