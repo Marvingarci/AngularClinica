@@ -222,8 +222,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
    
     numero_telefono: new FormControl('', {
       validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
-      asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)],
-      updateOn: 'blur'}),
+      asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]}),
 
 
     // numero_telefono: new FormControl('', {
