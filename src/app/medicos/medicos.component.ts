@@ -72,8 +72,8 @@ export class MedicosComponent implements OnInit {
     });
   }
 
-  displayedColumns: string[] = ['id', 'usuarioM', 'contraseniaM', 'nombreM', 'identidadM', 'especialidadM','nada'];
-  displayedColumns2: string[] = ['id', 'usuarioM', 'contraseniaM', 'nombreM', 'identidadM', 'especialidadM','nada'];
+  displayedColumns: string[] = ['id', 'usuarioM',  'nombreM', 'identidadM', 'especialidadM','nada'];
+  displayedColumns2: string[] = ['id', 'usuarioM', 'nombreM', 'identidadM', 'especialidadM','nada'];
 
  applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
