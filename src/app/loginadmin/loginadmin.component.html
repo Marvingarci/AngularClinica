@@ -63,10 +63,11 @@
     
 </mat-card>
 
-<div >
-    <button  mat-raised-button [routerLink]="['/principal/veradministradores']" class="btn btn-outline-primary float-right botonperron" style="margin-top: 20px;margin-left: 10px;"> Cancelar</button> 
-    <button  mat-raised-button (click)="comprobarDatos()"  class="btn btn-outline-primary float-right botonperron" 
-    style="margin-top: 20px;margin-bottom: 15px;" [disabled]="disabledloginadmin"> Guardar</button>  
+<div style="position: fixed; bottom: 10px;right: 15px;">
+  
+    <button  mat-raised-button [routerLink]="['/principal/veradministradores']" class="btn btn-outline-primary botonperron"  > Cancelar</button> 
+    <button  mat-raised-button (click)="comprobarDatos()"  class="btn btn-outline-primary botonperron" style="margin-top: 20px;margin-left: 10px;"
+    [disabled]="disabledloginadmin"> Guardar</button> 
 </div>
 
 </form>
