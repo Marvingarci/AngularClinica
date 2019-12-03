@@ -2,7 +2,9 @@
 
    <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" id="step1">
       <form [formGroup]="formulario_datos_generales">
-      <div style="display: none;" id="labelDatosGenerales"><ng-template matStepLabel >{{datosGenerales}}</ng-template></div>
+
+      <ng-template matStepLabel >Datos Generales</ng-template>
+
       <div class="container1">
         <div class="row">
           <div class="col">
@@ -169,7 +171,7 @@
   <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" id="step1" label="hola">
     <form [formGroup]="formulario_datos_generales">
     
-    <ng-template matStepLabel >{{datosGenerales}}</ng-template>
+    <ng-template matStepLabel >Datos Generales</ng-template>
 
 
 
@@ -354,7 +356,7 @@
   <mat-step [stepControl]= "formulario_antecedentes_familiares">
     <form [formGroup]="formulario_antecedentes_familiares">
       
-      <ng-template matStepLabel>{{antecedentesFamiliares}}</ng-template>
+      <ng-template matStepLabel>Antecedentes Familiares</ng-template>
       <div class="containerScroll">
        
          
@@ -432,15 +434,23 @@
               </div>
               <input type="submit"> -->
 
-            <mat-form-field>
-              <input matInput formControlName= "tipo_desnutricion" 
-                [matAutocomplete]="auto" placeholder="Tipo Desnutricion" >
+
+            <mat-form-field class="autocomplete">
+
+              <input matInput formControlName= "tipo_desnutricion" placeholder="Tipo Desnutricion" id="InputDesnutricion">
+
+            </mat-form-field>
+
+
+            <!-- <mat-form-field>
+              <input matInput formControlName= "tipo_desnutricion"  
+                [matAutocomplete]="auto" placeholder="Tipo Desnutricion" id="inputPrueba">
                 <mat-autocomplete #auto="matAutocomplete">
                   <mat-option *ngFor="let enfermedad of enfermedadesFiltradas | async" [value]="enfermedad">
                     {{enfermedad}}
                   </mat-option>
                 </mat-autocomplete>
-            </mat-form-field>
+            </mat-form-field> -->
 
             &nbsp; &nbsp; &nbsp; &nbsp; 
 
@@ -529,13 +539,9 @@
           <div class="col" style="display: none;" id="divAgregarTiposEnfermedadesMentalesAF"> 
 
             <mat-form-field>
-              <input matInput formControlName= "tipo_enfermedad_mental" 
-                [matAutocomplete]="auto" placeholder="Tipo enfermedad mental">
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let enfermedad of enfermedadesFiltradas | async" [value]="enfermedad">
-                    {{enfermedad}}
-                  </mat-option>
-                </mat-autocomplete>
+
+              <input matInput formControlName= "tipo_enfermedad_mental" placeholder="Tipo enfermedad mental" id="InputEnfermedadMentalMental">
+               
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -665,7 +671,7 @@
            <div class="col" style="display: none;" id="divAgregarTiposAlergiasAF"> 
 
             <mat-form-field>
-              <input matInput formControlName= "tipo_alergia" placeholder="Tipo alergia">
+              <input matInput formControlName= "tipo_alergia" placeholder="Tipo alergia" id="InputAlergia">
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -748,7 +754,7 @@
           <div class="col" style="display: none;" id="divAgregarTiposCancerAF"> 
 
             <mat-form-field>
-              <input matInput formControlName= "tipo_cancer" placeholder="Tipo cáncer">
+              <input matInput formControlName= "tipo_cancer" placeholder="Tipo cáncer" id="InputCancer">
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -840,7 +846,7 @@
 
           <div class="col" style="margin-left: 0; padding-left: 0%;">
             <mat-form-field>
-              <input matInput formControlName= "otros" placeholder="Enfermedad">
+              <input matInput formControlName= "otros" placeholder="Enfermedad" id="InputOtrosAF">
               <mat-error *ngIf="otros.hasError('maxlength')">campo muy extenso</mat-error>
               <mat-error *ngIf="otros.hasError('minlength')">introduzca una observación valida</mat-error>
 
@@ -940,7 +946,7 @@
   <!-- tercer step -->
   <mat-step  [stepControl]="formulario_antecedentes_personales">
     <form [formGroup]= "formulario_antecedentes_personales">
-      <ng-template matStepLabel> {{antecedentesPersonales}}</ng-template>
+      <ng-template matStepLabel>Antecedentes Personales</ng-template>
       <div class="containerScroll">    
 
         
@@ -1017,7 +1023,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
 
           <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
-          <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAP"> 
+          <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAP" id="InputDenutricionAP"> 
 
             <mat-form-field>
               <input matInput formControlName= "tipo_desnutricion" placeholder="Tipo Desnutricion">
@@ -1108,7 +1114,7 @@
           <div class="col" style="display: none;" id="divAgregarTiposEnfermedadesMentalesAP"> 
 
             <mat-form-field>
-              <input matInput formControlName= "tipo_enfermedad_mental" placeholder="Tipo enfermedad mental">
+              <input matInput formControlName= "tipo_enfermedad_mental" placeholder="Tipo enfermedad mental"  id="InputEnfermedadAP">
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -1295,7 +1301,7 @@
             &nbsp; &nbsp; &nbsp; &nbsp; 
 
             <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
-            <div class="col" style="display: none;" id="divAgregarTiposCanceresAP"> 
+            <div class="col" style="display: none;" id="divAgregarTiposCanceresAP" id="InputCancerAP"> 
 
               <mat-form-field>
                 <input matInput formControlName= "tipo_cancer" placeholder="Tipo cáncer">
@@ -1605,7 +1611,7 @@
   <!-- quinto step -->  
   <mat-step [stepControl]= "formulario_actividad_sexual">
     <form [formGroup]= "formulario_actividad_sexual">
-      <ng-template matStepLabel>{{actividadSexualYReproductiva}}</ng-template>
+      <ng-template matStepLabel>Actividad Sexual y Reproductiva</ng-template>
       <div class="containerScroll">
 
         
@@ -1665,8 +1671,7 @@
 <!-- septimo step -->
   <mat-step *ngIf="(ocultar==false)&&(ocultar1==false)"  [stepControl]="formulario_antecedente_obstetrico">
     <form [formGroup]= "formulario_antecedente_obstetrico">
-      <ng-template matStepLabel>{{antecedentesObstetricos}}</ng-template>
-      <!-- <ng-template matStepLabel>Antecedentes Obstétricos</ng-template> -->
+      <ng-template matStepLabel>Antecedes Obstetricos</ng-template>
       <div class="containerScroll">
 
         <label>Historial Gine-obstétrico</label>
@@ -1761,7 +1766,7 @@
   <!-- octavo step -->
   <mat-step  *ngIf="(ocultar1==false)" [stepControl]="formulario_planificacion_familiar">
     <form [formGroup]="formulario_planificacion_familiar">
-    <ng-template matStepLabel>{{planificacionFamiliar}}</ng-template>
+    <ng-template matStepLabel>Planificacion Familiar</ng-template>
     <!-- <ng-template matStepLabel>Planificacion Familiar</ng-template> -->
       <div class="containerScroll">
             <mat-error style="margin-left: 0;" *ngIf="planificacion_familiarr.hasError('required')">campo requerido</mat-error>
@@ -1821,7 +1826,7 @@
  <!-- sexto step -->
  <mat-step *ngIf="ocultar==false"  [stepControl]="formulario_antecedente_ginecologico">
     <form [formGroup]="formulario_antecedente_ginecologico">
-      <ng-template matStepLabel>{{antecedentesGinecologicos}}</ng-template>
+      <ng-template matStepLabel>Antecedentes Ginecologicos</ng-template>
       <div class="containerScroll">
 
         <div class="row" >
@@ -1954,7 +1959,7 @@
 <!-- cuarto step -->
 <mat-step [stepControl]="formulario_habito_toxicologico_personal">
     <form [formGroup]="formulario_habito_toxicologico_personal">
-      <ng-template matStepLabel>{{habitosToxicologicosPersonales}}</ng-template>
+      <ng-template matStepLabel>Habitos Toxicologicos Personales</ng-template>
       <div class="containerScroll">
 
         <label id="example-radio-group-label">1. Alcohol</label>
