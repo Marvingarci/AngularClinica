@@ -75,6 +75,22 @@ export interface familiar{
   id_parentesco?: string;
 }
 
+export interface cita1{
+  id_paciente?: string,
+  peso?: string,
+  talla?: string,
+  imc?: string,
+  temperatura?: string,
+  presion?:string,
+  pulso?: string,
+  siguiente_cita?: string,
+  observaciones?: string,
+  impresion?:string,
+  indicaciones?:string,
+  remitido?:any,
+  fechayHora?:any
+}
+
 
 
 @Component({
@@ -846,7 +862,6 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
  {
 
   this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
-  this.disabledDatosGenerales = !this.disabledDatosGenerales;
 
   switch(this.paciente.estado_civil){
     case "Soltero":
