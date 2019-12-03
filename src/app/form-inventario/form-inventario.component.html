@@ -80,7 +80,8 @@
     
     <div >
         <button  mat-raised-button [routerLink]="['/principal/inventario']" class="btn btn-outline-primary float-right botonperron" style="margin-top: 20px;margin-left: 10px;"> Cancelar</button> 
-        <button  mat-raised-button (click)="comprobarDatos()"  class="btn btn-outline-primary float-right botonperron" style="margin-top: 20px;"> Guardar</button>  
+        <button  mat-raised-button (click)="comprobarDatos()"  class="btn btn-outline-primary float-right botonperron" 
+                style="margin-top: 20px;" [disabled]="disabledinventario"> Guardar</button>  
         
     </div>
 </div>
