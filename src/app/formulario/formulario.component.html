@@ -321,7 +321,7 @@
               <input matInput matInput formControlName= "numero_telefono"  name="numero_telefono" maxlength="8" placeholder="N° Teléfono">
               <mat-hint align="end">{{numero_telefono.value.length}} / 8</mat-hint> 
               <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido</mat-error>
-              <mat-error *ngIf="numero_telefono.errors.telefonoUnico">El numero pertenece a otra persona</mat-error>
+              <mat-error *ngIf="numero_telefono.hasError('telefonoUnico')">El numero pertenece a otra persona</mat-error>
               <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un número de teléfono válido!</mat-error>
             </mat-form-field>
           </div>
