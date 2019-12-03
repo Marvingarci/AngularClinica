@@ -2087,9 +2087,25 @@ style="margin-top: 10px;"
     <div class="example-element-weight"> {{element.indicaciones}} </div>
   </div>
   <div class="example-element-description">
-    {{element.description}}
-    <span class="example-element-description-attribution"> -- Wikipedia </span>
+    Indicaciones: {{element.indicaciones}}
   </div>
+  <div class="example-element-description">
+    Presion: {{element.presion}}
+  </div>
+  <br>
+  <div class="example-element-description">
+    Pulso: {{element.pulso}}
+  </div>
+  <div class="example-element-description">
+    Remitido a: {{element.seccion}}
+  </div>
+  <div class="example-element-description">
+    IMC: {{element.imc}}
+  </div>
+  <div class="example-element-description">
+    Siguiente cita: {{element.siguiente_cita}}
+  </div>
+  
 </div>
 </td>
 </ng-container>
@@ -2102,8 +2118,10 @@ class="example-element-row"
 </tr>
 <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table> 
-<button class="botonperron" (click)="cerrarHistorias()">Volver</button>
-
+<!---Aqui Melvin-->
+<div>
+  <button id="boton" class="botonperron" (click)="cerrarHistorias()">Volver</button>
+</div>
   </mat-card>
 
 
