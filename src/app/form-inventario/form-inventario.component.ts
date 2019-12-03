@@ -20,6 +20,8 @@ export class FormInventarioComponent implements OnInit {
   hide = true;
   //input
   
+  disabledinventario: boolean = false;
+
   formInventario = new FormGroup({
     unidad: new FormControl('',[Validators.required,  Validators.minLength(1),Validators.maxLength(4)]),
     nombre: new FormControl('',[Validators.required,  Validators.minLength(4),Validators.maxLength(30)]),
@@ -241,10 +243,11 @@ export class FormInventarioComponent implements OnInit {
   }
 
   comprobarDatos(){
+ 
 
     if(this.formInventario.valid){
 
-
+   this.disabledinventario = true;
       this.inventario.unidad = this.unidad.value;
       this.inventario.nombre = this.nombre.value;
       this.inventario.descripcion = this.descripcion.value;
