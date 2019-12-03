@@ -19,6 +19,7 @@ export interface select {
 export class RegistromedicosComponent implements OnInit {
   hide1 = false;
   hide = true; 
+  disabledmedicos: boolean = false;
 
   medicos_form = new FormGroup({
     usuario: new FormControl('',[Validators.required,  Validators.minLength(6)]),    
@@ -175,7 +176,8 @@ export class RegistromedicosComponent implements OnInit {
   comprobarDatos(){
     if(this.editing){  
     if(this.medicos_form.valid){
-  
+
+      this.disabledmedicos = true;
       this.medico.contraseniaM = this.medicos_form.get('contraseniaC').value; 
       if(this.medico.contraseniaM ==this.medicos_form.get('contrasenia').value ){
       this.medico.usuarioM = this.usuario.value;
@@ -202,6 +204,7 @@ export class RegistromedicosComponent implements OnInit {
       }
   
       }else{
+        this.disabledmedicos = true;
         this.medico.contraseniaM = this.medicos_form.get('contraseniaC').value; 
         if(this.medico.contraseniaM ==this.medicos_form.get('contrasenia').value ){
         this.medico.usuarioM = this.medicos_form.get('usuario').value;

@@ -43,11 +43,11 @@
                 <div class="col">
                         <mat-form-field class="example-full-width">
                             <input  matInput placeholder="Observacion" formControlName= "observacion" required>
-                                <mat-error *ngIf="observacion.hasError('required')">
+                               <!-- <mat-error *ngIf="observacion.hasError('required')">
                                     <strong>campo requerido</strong>
-                                </mat-error>
+                                </mat-error>-->
                                 <mat-error *ngIf="observacion.hasError('minLength')">
-                                    <strong>campo requerido</strong>
+                                    <!--<strong>campo requerido</strong>-->
                                 </mat-error>
                         </mat-form-field>     
                 </div>
@@ -80,7 +80,8 @@
     
     <div >
         <button  mat-raised-button [routerLink]="['/principal/inventario']" class="btn btn-outline-primary float-right botonperron" style="margin-top: 20px;margin-left: 10px;"> Cancelar</button> 
-        <button  mat-raised-button (click)="comprobarDatos()"  class="btn btn-outline-primary float-right botonperron" style="margin-top: 20px;"> Guardar</button>  
+        <button  mat-raised-button (click)="comprobarDatos()"  class="btn btn-outline-primary float-right botonperron" 
+                style="margin-top: 20px;" [disabled]="disabledinventario"> Guardar</button>  
         
     </div>
 </div>
