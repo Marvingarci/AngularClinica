@@ -43,11 +43,11 @@
                 <div class="col">
                         <mat-form-field class="example-full-width">
                             <input  matInput placeholder="Observacion" formControlName= "observacion" required>
-                                <mat-error *ngIf="observacion.hasError('required')">
+                               <!-- <mat-error *ngIf="observacion.hasError('required')">
                                     <strong>campo requerido</strong>
-                                </mat-error>
+                                </mat-error>-->
                                 <mat-error *ngIf="observacion.hasError('minLength')">
-                                    <strong>campo requerido</strong>
+                                    <!--<strong>campo requerido</strong>-->
                                 </mat-error>
                         </mat-form-field>     
                 </div>
