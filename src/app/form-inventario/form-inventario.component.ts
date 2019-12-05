@@ -23,7 +23,7 @@ export class FormInventarioComponent implements OnInit {
   disabledinventario: boolean = false;
 
   formInventario = new FormGroup({
-    unidad: new FormControl('',[Validators.required,  Validators.minLength(1),Validators.maxLength(4)]),
+    unidad: new FormControl('',[Validators.required, Validators.pattern(/^\d/) ,Validators.minLength(1),Validators.maxLength(4)]),
     nombre: new FormControl('',[Validators.required,  Validators.minLength(4),Validators.maxLength(30)]),
     descripcion: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
     observacion: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
