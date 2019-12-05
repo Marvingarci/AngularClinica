@@ -65,6 +65,7 @@ export class PacienteComponent implements OnInit {
   constructor( private pacienteService: FormularioService, private httpClient: HttpClient, private router:Router ) { 
     this.getPacientes();
     this.loading = false;
+    this.pacienteService.esAlumno = true;
   }
 
 
