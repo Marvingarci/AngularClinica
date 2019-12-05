@@ -28,7 +28,10 @@ export interface Select {
   value: string;
   viewValue: string;
 }
-
+export interface Categorias {
+  value: number;
+  viewValue: string;
+}
 export interface Sexos {
   value: number;
   viewValue: string;
@@ -108,6 +111,9 @@ export interface cita1{
 })
 
 export class VerPacienteComponent implements OnInit {
+  static mostrarHistoriasSub() {
+    throw new Error("Method not implemented.");
+  }
   @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
   dataSource1:any;
   columnsToDisplay = ['fechayHora', 'observaciones', 'impresion', 'indicaciones'];
@@ -519,10 +525,10 @@ ocultar: boolean = true;
   maxDate = new Date();
 
   //select
-  categorias: select[] = [
-    {value: 'T', viewValue: 'Empleado'},
-    {value: 'V', viewValue: 'Visitante'},
-    {value: 'P', viewValue: 'Prosene'}
+  categorias: Categorias[] = [
+    {value: 1, viewValue: 'Empleado'},
+    {value: 2, viewValue: 'Visitante'},
+    {value: 3, viewValue: 'Prosene'}
   ];
 
   
@@ -672,7 +678,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         //si el paciente no es alumno, cambiamos
         //el valor de la variable "esAlumno" a false
         //para mostrar diferente el contenido de los datos
-        if(this.paciente.categoria != "E"){
+        if(this.paciente.categoria != "Empleado"){
           this.esAlumno = false;
         }
         console.log('esAlumno: '+this.esAlumno);
@@ -1846,7 +1852,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, {disableClose:true, width:"70%"});
     this.inven.idCita=this.id;
   }
-  mostrarHistoriasSub(){
+  public mostrarHistoriasSub(){
     this.mostrarHisorias=true;
 
     this.inven.obtenerCita(this.id).subscribe((data: Cita[])=>{
@@ -2055,6 +2061,8 @@ export class HistoriaSubsiguiente1{
   seleccionado: boolean;
   seleccion = 0;
   maximoMedicamento : number = 2;
+  minDate = new Date();
+  
 
 
   constructor(private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente1>, private mensaje: MatSnackBar){//para cerrar el dialogo desde la misma interfaz
@@ -2176,9 +2184,16 @@ export class HistoriaSubsiguiente1{
     }
      this.maximoMedicamento = this.inventario[numero-1].unidades;
      this.unidad.setValidators(Validators.max(this.maximoMedicamento));
-     this.texto = "El valor en existencia es: "+this.maximoMedicamento;
-     this.seleccionado=true;
-     this.habilitarInputs([<FormControl>this.unidad]);
+     if (this.maximoMedicamento==0) {
+      this.texto = "No hay producto en existencia";
+      this.borrarInputs([<FormControl>this.unidad]);
+      this.seleccionado=false;
+     }else{
+      this.texto = "El valor en existencia es: "+this.maximoMedicamento;
+      this.seleccionado=true;
+      this.habilitarInputs([<FormControl>this.unidad]);
+     }
+     
   }
  
   

@@ -203,7 +203,7 @@
                 
                   <mat-form-field class="example-full-width">
                     <input matInput style="width:100%"
-                    [matDatepicker]="picker1"
+                    [matDatepicker]="picker1"[min]="minDate"
                     formControlName= "fecha_nacimiento" placeholder="Fecha siguiente cita"
                     readonly="readonly">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>

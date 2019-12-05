@@ -176,8 +176,8 @@
           <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
           <mat-label>Sexo</mat-label>
           <mat-select formControlName= "sexo" readonly="readonly">
-          <mat-option value={{1}}>Hombre</mat-option>
-          <mat-option value={{2}}>Mujer</mat-option>
+          <mat-option value="Hombre">Hombre</mat-option>
+          <mat-option value="Mujer">Mujer</mat-option>
           </mat-select>
           <mat-error *ngIf="sexo.hasError('required')">campo requerido</mat-error>
           </mat-form-field>
@@ -409,8 +409,8 @@
         <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
         <mat-label>Sexo</mat-label>
         <mat-select formControlName= "sexo" readonly="readonly">
-        <mat-option value={{1}}>Hombre</mat-option>
-        <mat-option value={{2}}>Mujer</mat-option>
+        <mat-option value="Hombre">Hombre</mat-option>
+        <mat-option value="Mujer">Mujer</mat-option>
         </mat-select>
         <mat-error *ngIf="sexo.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
