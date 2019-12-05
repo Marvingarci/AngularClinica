@@ -80,9 +80,9 @@ export class PacienteComponent implements OnInit {
       this.pacientes=data;
 
       console.log(this.pacientes);
-      this.alumnos = this.pacientes.filter(paciente => paciente.categoria === 'E');
-      this.empleados = this.pacientes.filter(paciente => paciente.categoria === 'T');
-      this.visitantes = this.pacientes.filter(paciente => paciente.categoria === 'V');
+      this.alumnos = this.pacientes.filter(paciente => paciente.categoria === 'Estudiante');
+      this.empleados = this.pacientes.filter(paciente => paciente.categoria === 'Empleado');
+      this.visitantes = this.pacientes.filter(paciente => paciente.categoria === 'Visitante');
       this.prosene = this.pacientes.filter(paciente => paciente.prosene === 'Si');
 console.log(this.pacientes[0].prosene);
 

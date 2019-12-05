@@ -2055,6 +2055,8 @@ export class HistoriaSubsiguiente1{
   seleccionado: boolean;
   seleccion = 0;
   maximoMedicamento : number = 2;
+  minDate = new Date();
+  
 
 
   constructor(private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente1>, private mensaje: MatSnackBar){//para cerrar el dialogo desde la misma interfaz
