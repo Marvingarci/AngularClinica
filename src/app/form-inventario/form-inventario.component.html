@@ -7,11 +7,10 @@
                 <div class="col">
                 <mat-form-field class="example-full-width">
                     <input  matInput placeholder="Unidad" formControlName= "unidad" required>
-                    <mat-error *ngIf="unidad.hasError('required')">
-                    <strong>campo requerido</strong>
-                    </mat-error>
+                    <mat-error *ngIf="unidad.hasError('required')">campo requerido</mat-error>
+                    <mat-error *ngIf="unidad.hasError('pattern')">Introduzca solo números</mat-error> 
                     <mat-error *ngIf="unidad.hasError('minLength') && unidad.hasError('maxLength')">
-                    <strong>campo requerido</strong>
+                    campo requerido
                     </mat-error>
                 </mat-form-field>
                 </div>
@@ -21,7 +20,7 @@
                         <input  matInput placeholder="Ingrese el nombre" formControlName= "nombre" required>
                             <mat-error *ngIf="nombre.hasError('required')">
                                 <strong>campo requerido</strong>
-                                </mat-error>
+                            </mat-error>
                             <mat-error *ngIf="nombre.hasError('minLength') && nombre.hasError('maxLength')">
                                 <strong>campo requerido</strong>
                             </mat-error>
