@@ -7,7 +7,7 @@
     <mat-card style="margin-bottom: 30px;" >
       <div class="row">
 
-        <div class="col-2" >
+        <div style="width: 216.5px;height: 216.5px;padding-left:50.75px;padding-right: 50.75px;padding-top: 38.25px;padding-bottom: 38.25px;margin-left: 20px;">
           <img *ngIf="noImg==true" class="sinImg"/>
           <img *ngIf="noImg == false" class="img" src={{paciente.imagen}}/>
         </div>
@@ -92,7 +92,7 @@
           <mat-form-field class="example-full-width" >
           <input matInput formControlName= "nombre_completo"  placeholder="Nombre Completo" [readonly]="readonlyDatosGenerales" >
           <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido</mat-error>
-          <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un apellido valido</mat-error>
+          <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un apellido válido</mat-error>
           </mat-form-field>
         </div>
         </div>
@@ -103,7 +103,7 @@
             <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta" readonly>
             <!-- <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint> -->
             <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido</mat-error>
-            <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta valido</mat-error>
+            <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta válido</mat-error>
           </mat-form-field>
           </div>
 
@@ -176,8 +176,8 @@
           <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
           <mat-label>Sexo</mat-label>
           <mat-select formControlName= "sexo" readonly="readonly">
-          <mat-option value={{1}}>Hombre</mat-option>
-          <mat-option value={{2}}>Mujer</mat-option>
+          <mat-option value="Hombre">Hombre</mat-option>
+          <mat-option value="Mujer">Mujer</mat-option>
           </mat-select>
           <mat-error *ngIf="sexo.hasError('required')">campo requerido</mat-error>
           </mat-form-field>
@@ -229,6 +229,14 @@
           <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un número de teléfono valido</mat-error>
           </mat-form-field>
         </div>
+
+        <div class="col">
+          <mat-form-field class="example-full-width">
+          <input matInput formControlName= "emergencia_persona" name="emergencia_persona" placeholder="Emergencia Persona" [readonly]="readonlyDatosGenerales">
+          <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido</mat-error>
+          <mat-error *ngIf="emergencia_persona.hasError('pattern')">introduzca un número de teléfono válido</mat-error>
+          </mat-form-field>
+          </div>
 
         <div class="col">
           <mat-form-field class="example-full-width">
@@ -306,16 +314,15 @@
                     <label id="example-radio-group-label" style="margin-right: 40px;">Prosene</label>
                 <mat-radio-group  formControlName="prosene"  aria-labelledby="example-radio-group-label" class="example-radio-group" [disabled]="disabledDatosGenerales" >        
                   <mat-radio-button  value="Si" >Si</mat-radio-button> &nbsp; &nbsp;&nbsp;   
-                  <mat-radio-button  value="No" >No</mat-radio-button>
-                  <!-- que pedos -->
+                  <mat-radio-button  value="No" >No</mat-radio-button>                
                 </mat-radio-group>
               </div>
               </div>
               </div>
-      
+       <!-- disabled={{formulario_datos_generales.invalid}} -->
 
         <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
-        disabled={{formulario_datos_generales.invalid}}
+       
         (click)="actualizarDatosGenerales();">
         {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
         </button>
@@ -409,8 +416,8 @@
         <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
         <mat-label>Sexo</mat-label>
         <mat-select formControlName= "sexo" readonly="readonly">
-        <mat-option value={{1}}>Hombre</mat-option>
-        <mat-option value={{2}}>Mujer</mat-option>
+        <mat-option value="Hombre">Hombre</mat-option>
+        <mat-option value="Mujer">Mujer</mat-option>
         </mat-select>
         <mat-error *ngIf="sexo.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
@@ -458,7 +465,7 @@
 
       <div class="col">
       <mat-form-field class="example-full-width">
-      <input matInput formControlName= "emergencia_persona" name="emergencia_persona" placeholder="Telefono de emergencia" [readonly]="readonlyDatosGenerales">
+      <input matInput formControlName= "emergencia_persona" name="emergencia_persona" placeholder="Emergencia Persona" [readonly]="readonlyDatosGenerales">
       <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido</mat-error>
       <mat-error *ngIf="emergencia_persona.hasError('pattern')">introduzca un número de teléfono válido</mat-error>
       </mat-form-field>

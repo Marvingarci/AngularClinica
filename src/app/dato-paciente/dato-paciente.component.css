@@ -29,16 +29,15 @@
 
 
 .img{
-  height: 100%;
-  width: 100%;
-  padding: 35px;
-  margin-left:20px ;
-
+  height: 140px;
+  width: 115px;  
+  background-size: cover;
+  background-position: center;
 }
 
 .sinImg{
   height: 140px;
-  width: 115px;
+  width: 115px;  
   background:url('src/imagenes/image_user.png');
   background-size: cover;
   background-position: center;
