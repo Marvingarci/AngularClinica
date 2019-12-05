@@ -168,7 +168,7 @@ matcher = new MyErrorStateMatcher();
     seguro_medico: new FormControl('', Validators.required),
     numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
     emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
-    emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+    emergencia_persona: new FormControl('', [Validators.pattern(/^\d{8}$/)]),
 
     //datos restantes
     peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
@@ -861,6 +861,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
  {
 
   this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
+  this.disabledDatosGenerales = !this.disabledDatosGenerales;
 
   switch(this.paciente.estado_civil){
     case "Soltero":
@@ -2136,15 +2137,15 @@ export class HistoriaSubsiguiente1{
     temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
     observaciones_examen: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
     impresion_diagnostica: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
-    indicaciones: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
+    indicaciones: new FormControl('', [ Validators.maxLength(50),Validators.minLength(5)]),
     presion: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
     fecha_nacimiento: new FormControl('', Validators.required),
     pulso: new FormControl('',[Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
-    remitir: new FormControl('', Validators.required),
+    remitir: new FormControl(''),
     cita: new FormControl('', Validators.required),
-    remitira: new FormControl('', Validators.required),
-    nombre: new FormControl('',Validators.required),
-    unidad: new FormControl('',[Validators.required, Validators.pattern(/^[0-9]+/),Validators.maxLength(3)])
+    remitira: new FormControl(''),
+    nombre: new FormControl(''),
+    unidad: new FormControl('',[ Validators.pattern(/^[0-9]+/),Validators.maxLength(3)])
     
 });
   matcher = new MyErrorStateMatcher();
