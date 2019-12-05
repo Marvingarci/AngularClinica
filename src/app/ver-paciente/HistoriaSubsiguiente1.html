@@ -118,7 +118,6 @@
                             {{nombre.viewValue}}
                           </mat-option>
                         </mat-select>
-                      <mat-error *ngIf="nombre.hasError('required')"> <strong>campo requerido</strong></mat-error>
                       
 
                       </mat-form-field>
@@ -147,9 +146,9 @@
                       <mat-form-field style=" width: 100%;">
                         <textarea matInput formControlName= "indicaciones" name="indicaciones" id="" placeholder="Indicaciones y procedimientos"
                         cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
-                      <mat-error *ngIf="indicaciones.hasError('required')">campo requerido!</mat-error>
-                      <mat-error *ngIf="indicaciones.hasError('maxlength')">campo muy extenso!</mat-error>
-                      <mat-error *ngIf="indicaciones.hasError('minlength')">sea especifico!</mat-error>
+                      
+                      <mat-error *ngIf="indicaciones.hasError('maxlength')">campo muy extenso</mat-error>
+                      <mat-error *ngIf="indicaciones.hasError('minlength')">sea especifico</mat-error>
                       
           
                       </mat-form-field>
@@ -158,8 +157,7 @@
                   </div>  
 
 
-                  <label id="example-radio-group-label">Remitirlo</label>
-                  <mat-error style="margin-left: 0;" *ngIf="remitir.hasError('required')">campo requerido!</mat-error>   
+                  <label id="example-radio-group-label">Remitirlo</label>  
                 <div class="row" style="margin-left: 0;">         
                   <mat-radio-group formControlName= "remitir" style="padding-top:18px;"
                     aria-labelledby="example-radio-group-label"
@@ -179,7 +177,7 @@
                         {{parentesco.viewValue}}
                       </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="remitira.hasError('required')">campo requerido!</mat-error>
+                    <mat-error *ngIf="remitira.hasError('required')">campo requerido</mat-error>
 
                   </mat-form-field>
                   
@@ -188,7 +186,7 @@
 
             <!--Aqui van las citas-->
               <label id="example-radio-group-label">Cita</label>
-                  <mat-error style="margin-left: 0;" *ngIf="cita.hasError('required')">campo requerido!</mat-error>   
+                  <mat-error style="margin-left: 0;" *ngIf="cita.hasError('required')">campo requerido</mat-error>   
                 <div class="row" style="margin-left: 0;">         
                   <mat-radio-group formControlName= "cita" style="padding-top:18px;"
                     aria-labelledby="example-radio-group-label"
@@ -208,7 +206,7 @@
                     readonly="readonly">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
-                  <mat-error *ngIf="fecha_nacimiento.hasError('required')">campo requerido!</mat-error>
+                  <mat-error *ngIf="fecha_nacimiento.hasError('required')">campo requerido</mat-error>
       
                   </mat-form-field>
               </div>
