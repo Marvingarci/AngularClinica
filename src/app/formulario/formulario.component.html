@@ -88,7 +88,7 @@
                 <mat-label>Sexo</mat-label>
                   <mat-select formControlName= "sexo">
                     <mat-option (click)="mostrarN()"  value={{1}}>Hombre</mat-option>
-                    <mat-option (click)="mostrarS()" value={{2}}>Mujer</mat-option>
+                    <mat-option (click)="mostrarS();mostrarLabelStep(0)" value={{2}}>Mujer</mat-option>
                     
                 </mat-select>
                 <mat-error *ngIf="sexo.hasError('required')">campo requerido</mat-error>
@@ -278,7 +278,7 @@
             <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
             <mat-form-field class="example-full-width">
               <mat-label>Sexo</mat-label>
-                <mat-select formControlName= "sexo">
+                <mat-select formControlName= "sexo" id="select">
                   <mat-option (click)="mostrarN()"  value={{1}}>Hombre</mat-option>
                   <mat-option (click)="mostrarS()" value={{2}}>Mujer</mat-option>
                   
@@ -965,7 +965,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
           <mat-form-field class="medium-width">
           <textarea matInput  formControlName="observacion_diabetes" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Añada una observación en caso de ser necesario"></textarea>
          <mat-error style="margin-inline-start: 5px;"  *ngIf="observacion_diabetes_ap.hasError('maxlength')">campo muy extenso</mat-error>
           <mat-error style="margin-inline-start: 5px;"  *ngIf="observacion_diabetes_ap.hasError('minlength')">introduzca una observación válida</mat-error>
         </mat-form-field>
@@ -983,7 +983,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field class="medium-width" >
           <textarea matInput formControlName="observacion_tb_pulmonar"  cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Añada una observación en caso de ser necesario" ></textarea>
             <mat-error *ngIf="observacion_tb_pulmonar_ap.hasError('maxlength')">campo muy extenso</mat-error>
             <mat-error *ngIf="observacion_tb_pulmonar_ap.hasError('minlength')">introduzca una observación válida</mat-error>
         </mat-form-field>
@@ -1003,7 +1003,7 @@
           &nbsp; &nbsp; &nbsp; &nbsp; 
           <mat-form-field class="medium-width">
             <textarea matInput formControlName="observacion_its" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
+            cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Añada una observación en caso de ser necesario" ></textarea>
               <mat-error *ngIf="observacion_its.hasError('maxlength')">campo muy extenso</mat-error>
               <mat-error *ngIf="observacion_its.hasError('minlength')">introduzca una observación válida</mat-error>
           </mat-form-field>
@@ -1038,7 +1038,7 @@
 
             <mat-form-field class="medium-width">
               <textarea matInput formControlName="observacion_desnutricion"cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-              cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+              cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Añada una observación en caso de ser necesario"></textarea>
                 <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">campo muy extenso</mat-error>
                 <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">introduzca una observación válida</mat-error>
             </mat-form-field>
@@ -1126,7 +1126,7 @@
 
             <mat-form-field class="medium-width">
               <textarea matInput formControlName="observacion_enfermedades_mentales"cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-              cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+              cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Añada una observación en caso de ser necesario"></textarea>
                 <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">campo muy extenso</mat-error>
                 <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">introduzca una observación válida</mat-error>
             </mat-form-field>
@@ -1197,7 +1197,7 @@
             &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_convulsiones"cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Añada una observación en caso de ser necesario"></textarea>
           <mat-error *ngIf="observacion_convulsiones_ap.hasError('maxlength')">campo muy extenso</mat-error>
           <mat-error *ngIf="observacion_convulsiones_ap.hasError('minlength')">introduzca una observación válida</mat-error>
         </mat-form-field>
@@ -1231,7 +1231,7 @@
 
             <mat-form-field class="medium-width">
               <textarea matInput formControlName="observacion_alergias"cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-              cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+              cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Añada una observación en caso de ser necesario"></textarea>
                 <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">campo muy extenso</mat-error>
                 <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">introduzca una observación válida</mat-error>
             </mat-form-field>
@@ -1316,7 +1316,7 @@
   
               <mat-form-field class="medium-width">
                 <textarea matInput formControlName="observacion_cancer"cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento"></textarea>
+                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Añada una observación en caso de ser necesario"></textarea>
                   <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">campo muy extenso</mat-error>
                   <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">introduzca una observación válida</mat-error>
               </mat-form-field>
@@ -1517,7 +1517,7 @@
             &nbsp; &nbsp; &nbsp; &nbsp; 
         <mat-form-field class="medium-width">
           <textarea matInput formControlName="observacion_traumaticos" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Detallar inicio de enfermedad y tratamiento" ></textarea>
+          cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" placeholder="Añada una observación en caso de ser necesario"></textarea>
           <mat-error *ngIf="observacion_traumaticos.hasError('maxlength')">campo muy extenso</mat-error>
           <mat-error *ngIf="observacion_traumaticos.hasError('minlength')">introduzca una observación válida</mat-error>
         </mat-form-field>
@@ -1625,7 +1625,9 @@
         
             <div class="row" style="margin-left: 0;">
             <mat-radio-group formControlName="actividad_sexual" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-            <mat-radio-button value="Si" (click)="csi15([edad_inicio_sexual,numero_parejas_sexuales,practicas_sexuales_riesgo])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
+            <mat-radio-button value="Si" 
+              (click)="csi15([edad_inicio_sexual,numero_parejas_sexuales,practicas_sexuales_riesgo]);
+                      mostrarLabelStep(4)">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;   
             <mat-radio-button value="No" (click)="cno15([edad_inicio_sexual,numero_parejas_sexuales,practicas_sexuales_riesgo])">No</mat-radio-button>
          </mat-radio-group>
          &nbsp; &nbsp; &nbsp; &nbsp; 
