@@ -28,7 +28,10 @@ export interface Select {
   value: string;
   viewValue: string;
 }
-
+export interface Categorias {
+  value: number;
+  viewValue: string;
+}
 export interface Sexos {
   value: number;
   viewValue: string;
@@ -165,7 +168,7 @@ matcher = new MyErrorStateMatcher();
     seguro_medico: new FormControl('', Validators.required),
     numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
     emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
-    emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+    emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{3,30}$/)]),
 
     //datos restantes
     peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
@@ -522,10 +525,10 @@ ocultar: boolean = true;
   maxDate = new Date();
 
   //select
-  categorias: select[] = [
-    {value: 'T', viewValue: 'Empleado'},
-    {value: 'V', viewValue: 'Visitante'},
-    {value: 'P', viewValue: 'Prosene'}
+  categorias: Categorias[] = [
+    {value: 1, viewValue: 'Empleado'},
+    {value: 2, viewValue: 'Visitante'},
+    {value: 3, viewValue: 'Prosene'}
   ];
 
   
@@ -675,7 +678,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         //si el paciente no es alumno, cambiamos
         //el valor de la variable "esAlumno" a false
         //para mostrar diferente el contenido de los datos
-        if(this.paciente.categoria != "Estudiante"){
+        if(this.paciente.categoria != "Empleado"){
           this.esAlumno = false;
         }
         console.log('Es alumno: '+this.esAlumno);
@@ -858,6 +861,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
  {
 
   this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
+  this.disabledDatosGenerales = !this.disabledDatosGenerales;
 
   switch(this.paciente.estado_civil){
     case "Soltero":
@@ -923,6 +927,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
         this.paciente.numero_telefono = this.numero_telefono.value;
+        this.paciente.emergencia_persona = this.emergencia_persona.value;
         this.paciente.emergencia_telefono = this.emergencia_telefono.value;
         this.paciente.categoria = this.categoria.value;
         this.paciente.imc = this.imc.value;
@@ -1406,6 +1411,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
     this.seguro_medico.setValue(this.paciente.seguro_medico);
     this.numero_telefono.setValue(this.paciente.numero_telefono);
+    this.emergencia_persona.setValue(this.paciente.emergencia_persona);
     this.emergencia_telefono.setValue(this.paciente.emergencia_telefono);
     this.categoria.setValue(this.paciente.categoria);
     this.temperatura.setValue(this.paciente.temperatura);
@@ -2133,15 +2139,15 @@ export class HistoriaSubsiguiente1{
     temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
     observaciones_examen: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
     impresion_diagnostica: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
-    indicaciones: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
+    indicaciones: new FormControl('', [ Validators.maxLength(50),Validators.minLength(5)]),
     presion: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
     fecha_nacimiento: new FormControl('', Validators.required),
     pulso: new FormControl('',[Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
-    remitir: new FormControl('', Validators.required),
+    remitir: new FormControl(''),
     cita: new FormControl('', Validators.required),
-    remitira: new FormControl('', Validators.required),
-    nombre: new FormControl('',Validators.required),
-    unidad: new FormControl('',[Validators.required, Validators.pattern(/^[0-9]+/),Validators.maxLength(3)])
+    remitira: new FormControl(''),
+    nombre: new FormControl(''),
+    unidad: new FormControl('',[ Validators.pattern(/^[0-9]+/),Validators.maxLength(3)])
     
 });
   matcher = new MyErrorStateMatcher();

@@ -88,11 +88,27 @@ mat-action-list{
 
 
 .img{
-  height: 100%;
-  width: 100%;
-  padding: 35px;
-  margin-left:20px ;
+  height: 140px;
+  width: 115px;  
+  background-size: cover;
+  background-position: center;
 }
+
+.sinImg{
+  height: 140px;
+  width: 115px;  
+  background:url('src/imagenes/image_user.png');
+  background-size: cover;
+  background-position: center;
+}
+
+
+
+
+
+
+
+
 .example-fill-remaining-space {
   /* This fills the remaining space, by using flexbox. 
      Every toolbar row uses a flexbox row layout. */

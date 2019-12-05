@@ -202,7 +202,7 @@
       <mat-toolbar-row class="toolbar"> 
         <span (click)="drawer.toggle()" style="cursor: pointer;margin-top: 5px;"><mat-icon>reorder</mat-icon> </span>
         <span class="title"><strong> Clínica UNAH-TEC Danlí</strong></span>
-
+ 
         <span class="example-spacer"></span>
         <span class="example-fill-remaining-space"></span>
         
@@ -242,14 +242,14 @@
             <button (click)="ayuda()"  routerLinkActive="router-link-active" class="hoveritem">
                 <mat-icon style="vertical-align: middle; width: 30px; height: 30px;">  help  </mat-icon> Ayuda </button>
             <button (click)="cerrarsesion()"  routerLinkActive="router-link-active" class="hoveritem">
-                <mat-icon style="vertical-align: middle; width: 30px; height: 30px;">power_settings_new</mat-icon>Cerrar sesión</button>
+                <mat-icon style="vertical-align: middle; width: 30px; height: 30px;">  power_settings_new  </mat-icon>Cerrar sesión</button>
            </mat-action-list>  
     </div>  
   
    
   </mat-sidenav>
   
-  <mat-sidenav-content class="fondo2" > 
+  <mat-sidenav-content class="containerScroll" > 
     <router-outlet > </router-outlet>
   </mat-sidenav-content>
 
