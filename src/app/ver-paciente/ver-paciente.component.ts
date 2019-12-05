@@ -28,7 +28,10 @@ export interface Select {
   value: string;
   viewValue: string;
 }
-
+export interface Categorias {
+  value: number;
+  viewValue: string;
+}
 export interface Sexos {
   value: number;
   viewValue: string;
@@ -519,10 +522,10 @@ ocultar: boolean = true;
   maxDate = new Date();
 
   //select
-  categorias: select[] = [
-    {value: 'T', viewValue: 'Empleado'},
-    {value: 'V', viewValue: 'Visitante'},
-    {value: 'P', viewValue: 'Prosene'}
+  categorias: Categorias[] = [
+    {value: 1, viewValue: 'Empleado'},
+    {value: 2, viewValue: 'Visitante'},
+    {value: 3, viewValue: 'Prosene'}
   ];
 
   
@@ -672,7 +675,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         //si el paciente no es alumno, cambiamos
         //el valor de la variable "esAlumno" a false
         //para mostrar diferente el contenido de los datos
-        if(this.paciente.categoria != "E"){
+        if(this.paciente.categoria != "Empleado"){
           this.esAlumno = false;
         }
         console.log('esAlumno: '+this.esAlumno);
