@@ -146,39 +146,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class FormularioComponent implements OnInit, AfterViewInit {
 
-  stateCtrl = new FormControl();
-  filteredStates: Observable<State[]>;
-
-
-
-  states: State[] = [
-    {
-      name: 'Arkansas',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-    },
-    {
-      name: 'California',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-    },
-    {
-      name: 'Florida',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-    },
-    {
-      name: 'Texas',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-    }
-  ];
-
-
   loading: boolean = false;
 
 
@@ -355,7 +322,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       controlador.enable({ onlySelf: true });
     });
 
-    this.eliminarLabelStep(4);
+    //muestra solo el step que le manda
+    // this.eliminarLabelStep(4);
 
   }
 
@@ -562,12 +530,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   mostrarLabelDatosGenerales: boolean = false;
 
-  mostrarS() {
-    this.ocultar = false;
-  }
-  mostrarN() {
-    this.ocultar = true;
-  }
 
   csi15(formControl: FormControl[]) {
     formControl.forEach(controlador => {
@@ -586,8 +548,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       controlador.setValue('');
       controlador.disable({ onlySelf: true });
     });
-    console.log(this.formulario_datos_generales.get('sexo').value);
-    if (this.formulario_datos_generales.get('sexo').value == "Hombre") {
+
+    if (this.sexo.value == "Hombre") {
       this.ocultar1 = true;
 
     } else {
@@ -600,292 +562,34 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   // }
 
-  step;
-  element: any;
+
   
 
   public onStepChange(event: any): void {
     console.log('step index seleccionado');
     console.log(event.selectedIndex);
     
-    this.eliminarLabelStep(event.selectedIndex);
-      
 
-
-/*
-    if(event.selectedIndex == 0){
-      
-      this.step = 0;
-
-      
-      // this.element = document.getElementsByClassName('mat-step-label')[0];
-      // this.element.innerHTML = "Datos Generales";
-
-      this.eliminarLabelStep(0);
-      
-
-      // this.datosGenerales = 'Datos Generales';
-      // this.antecedentesFamiliares = '';
-      // this.antecedentesPersonales = '';
-      // this.habitosToxicologicosPersonales = '';
-      // this.actividadSexualYReproductiva = '';
-      // this.antecedentesGinecologicos = '';
-      // this.antecedentesObstetricos = '';
-      // this.planificacionFamiliar = '';
-  
-      
-    }
-
-    if (event.selectedIndex == 1) {
-
-      this.step = 1;
-
-
-      // var element: any = document.getElementsByClassName('mat-step-label')[1];
-      // element.innerHTML= "hola";
-
-      // var element1: any =  document.getElementsByClassName('mat-step-label')[0];
-      // element1.style.display = "none";
-
-      //this.element = document.getElementsByClassName('mat-step-label')[1];
-      //this.element.innerHTML = "Antecedentes Familiares";
-
-      this.eliminarLabelStep(1);
-
-      // this.datosGenerales = '';
-      // this.antecedentesFamiliares = 'Antecedentes Familiares';
-      // this.antecedentesPersonales = '';
-      // this.habitosToxicologicosPersonales = '';
-      // this.actividadSexualYReproductiva = '';
-      // this.antecedentesGinecologicos = '';
-      // this.antecedentesObstetricos = '';
-      // this.planificacionFamiliar = '';
-
-    }
+   this.mostrarLabelStep(event.selectedIndex);
     
-    if (event.selectedIndex == 2) {
 
-      this.step = 2;
-
-
-      //this.element = document.getElementsByClassName('mat-step-label')[2];
-      //this.element.innerHTML = "Antecedentes Personales";
-
-      this.eliminarLabelStep(2);
-
-
-      // this.datosGenerales = '';
-      // this.antecedentesFamiliares = '';
-      // this.antecedentesPersonales = 'Antecedentes Personales';
-      // this.habitosToxicologicosPersonales = '';
-      // this.actividadSexualYReproductiva = '';
-      // this.antecedentesGinecologicos = '';
-      // this.antecedentesObstetricos = '';
-      // this.planificacionFamiliar = '';
-
-    }
-    
-    if (event.selectedIndex == 3) {
-
-      this.step = 3;
-
-      // var element: any = document.getElementsByClassName('mat-step-label')[3];
-      // element.innerHTML = "Actividad Sexual y Reproductiva";
-
-      this.eliminarLabelStep(3);
-
-      // this.datosGenerales = '';
-      // this.antecedentesFamiliares = '';
-      // this.antecedentesPersonales = '';
-      // this.habitosToxicologicosPersonales = '';
-      // this.actividadSexualYReproductiva = 'Actividad Sexual Y Reproductiva';
-      // this.antecedentesGinecologicos = '';
-      // this.antecedentesObstetricos = '';
-      // this.planificacionFamiliar = '';
-    }
-    
-    if (event.selectedIndex == 4) {
-
-      this.step = 4;
-
-
-      if (this.sexo.value == "1" && this.actividad_sexuall.value == "No") {
-
-
-        this.element = document.getElementsByClassName('mat-step-label')[4];
-        this.element.innerHTML = "Hábitos Toxicológicos Personales";
-
-        this.eliminarLabelStep(4);
-
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = 'Hábitos Toxicológicos Personales';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos = '';
-        // this.antecedentesObstetricos = '';
-        // this.planificacionFamiliar = '';
-
-      }
-      
-      if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No") {
-
-        this.element = document.getElementsByClassName('mat-step-label')[4];
-        this.element.innerHTML = "Antecedentes Ginecológicos";
-
-        this.eliminarLabelStep(4);
-
-
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = '';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos = 'Antecedentes Ginecológicos';
-        // this.antecedentesObstetricos = '';
-        // this.planificacionFamiliar = '';
-      }
-
-      if (this.formulario_datos_generales.get('sexo').value == "1" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si") {
-
-
-        this.element = document.getElementsByClassName('mat-step-label')[4];
-        this.element.innerHTML = "Planificación Familiar";
-
-        this.eliminarLabelStep(4);
-
-
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = '';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos = '';
-        // this.antecedentesObstetricos = '';
-        // this.planificacionFamiliar = 'Planificación Familiar';
-      }
-
-      if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si") {
-
-        this.element = document.getElementsByClassName('mat-step-label')[4];
-        this.element.innerHTML = "Antecedentes Obstétricos";
-
-        this.eliminarLabelStep(4);
-
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = '';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos = '';
-        // this.antecedentesObstetricos = 'Antecedentes Obstétricos';
-        // this.planificacionFamiliar = '';
-      }
-    }
-    
-    if (event.selectedIndex == 5) {
-      if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "No") {
-
-        this.element = document.getElementsByClassName('mat-step-label')[5];
-        this.element.innerHTML = "Hábitos Toxicológicos Personales";
-
-        this.eliminarLabelStep(5);
-
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = 'Hábitos Toxicológicos Personales';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos = '';
-        // this.antecedentesObstetricos = '';
-        // this.planificacionFamiliar = '';
-      }
-      if (this.formulario_datos_generales.get('sexo').value == "1" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si") {
-
-        this.element = document.getElementsByClassName('mat-step-label')[5];
-        this.element.innerHTML = "Hábitos Toxicológicos Personales";
-
-        this.eliminarLabelStep(5);
-
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = 'Hábitos Toxicológicos Personales';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos = '';
-        // this.antecedentesObstetricos = '';
-        // this.planificacionFamiliar = '';
-      }
-      if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si") {
-
-        this.element = document.getElementsByClassName('mat-step-label')[5];
-        this.element.innerHTML = "Planificación Familiar";
-
-        this.eliminarLabelStep(5);
-
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = '';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos = '';
-        // this.antecedentesObstetricos = '';
-        // this.planificacionFamiliar = 'Planificación Familiar';
-      }
-    }
-    
-    if (event.selectedIndex == 6) {
-
-      if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si") {
-
-        this.element = document.getElementsByClassName('mat-step-label')[6];
-        this.element.innerHTML = "Antecedentes Ginecológicos";
-
-        this.eliminarLabelStep(6);
-
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = '';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos = 'Antecedentes Ginecológicos';
-        // this.antecedentesObstetricos = '';
-        // this.planificacionFamiliar = '';
-      }
-    }
-    
-    if (event.selectedIndex == 7) {
-
-      if (this.formulario_datos_generales.get('sexo').value == "2" && this.formulario_actividad_sexual.get('actividad_sexual').value == "Si") {
-
-        this.element = document.getElementsByClassName('mat-step-label')[6];
-        this.element.innerHTML = "Hábitos Toxicológicos Personales";
-
-        this.eliminarLabelStep(7);
-
-        // this.datosGenerales = '';
-        // this.antecedentesFamiliares = '';
-        // this.antecedentesPersonales = '';
-        // this.habitosToxicologicosPersonales = 'Hábitos Toxicológicos Personales';
-        // this.actividadSexualYReproductiva = '';
-        // this.antecedentesGinecologicos = '';
-        // this.antecedentesObstetricos = '';
-        // this.planificacionFamiliar = '';'
-
-
-        
-      }
-    }
-*/
 
   }
 
-  eliminarLabelStep(index: number){
-    this.step = index;
+  mostrarS() {
+    this.ocultar = false;
+  }
+  mostrarN() {
+    this.ocultar = true;
+  }
+  
+  //muestra solo el step que le manda
+  mostrarLabelStep(index: number){
     let elementos: any = document.getElementsByClassName('mat-step-label');
 
     for (let i = 0; i < elementos.length; i++) {
-      const element: any= elementos[i];
+      const element: any = elementos[i];
+    
       element.style.display= "none";
       console.log(element);
     }
@@ -893,20 +597,28 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     elementos[index].style.display = "";
 
-/*
-    index.forEach(i=> {
-
-      let element: any  = document.getElementsByClassName('mat-step-label')[i];
-      element.style.display= "none";
-
-
-      console.log(element);
-      console.log(i);
-
-      
-    });*/
-
   }
+
+  // mostrarLabelStep(index: number){
+  //   let elementos: any = document.getElementsByClassName('mat-step-label');
+
+  //   for (let i = 0; i < elementos.length; i++) {
+  //     var element: any = elementos[i];
+    
+  //     if(index == i){
+  //       element.style.display= "none";
+  //     }else{
+  //       element = document.getElementsByClassName('mat-step-label')[index];
+  //       element.style.display= "none";
+  //     }
+      
+  //     console.log(element);
+  //   }
+  //   console.log(index);
+
+  //   elementos[index].style.display = "";
+
+  // }
 
 
   des = true;
@@ -1219,9 +931,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void{  
 
-    this.eliminarLabelStep(0);
+   
+    
+    this.mostrarLabelStep(0);
 
-    // console.log('step: '+this.step);
+    let element: any = document.getElementById("select");
+    console.log(element);
+    element.addEventListener('click', function(e){
+      console.log('se toco el select');
+    })
+    
 
     this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedadesDesnutricion, this.tipo_desnutricion);
     this.autocomplete(document.getElementById('InputEnfermedadAF'), this.enfermedadesMentales, this.tipo_enfermedad_mental);
