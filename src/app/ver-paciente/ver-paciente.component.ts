@@ -675,10 +675,10 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         //si el paciente no es alumno, cambiamos
         //el valor de la variable "esAlumno" a false
         //para mostrar diferente el contenido de los datos
-        if(this.paciente.categoria != "E"){
+        if(this.paciente.categoria != "Estudiante"){
           this.esAlumno = false;
         }
-        console.log('esAlumno: '+this.esAlumno);
+        console.log('Es alumno: '+this.esAlumno);
         console.log(this.paciente.contrasenia);
         this.formularioService.idActualizar=this.paciente.id_paciente;
         // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
