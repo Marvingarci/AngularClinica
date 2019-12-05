@@ -111,6 +111,9 @@ export interface cita1{
 })
 
 export class VerPacienteComponent implements OnInit {
+  static mostrarHistoriasSub() {
+    throw new Error("Method not implemented.");
+  }
   @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
   dataSource1:any;
   columnsToDisplay = ['fechayHora', 'observaciones', 'impresion', 'indicaciones'];
@@ -1849,7 +1852,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, {disableClose:true, width:"70%"});
     this.inven.idCita=this.id;
   }
-  mostrarHistoriasSub(){
+  public mostrarHistoriasSub(){
     this.mostrarHisorias=true;
 
     this.inven.obtenerCita(this.id).subscribe((data: Cita[])=>{
@@ -2181,9 +2184,16 @@ export class HistoriaSubsiguiente1{
     }
      this.maximoMedicamento = this.inventario[numero-1].unidades;
      this.unidad.setValidators(Validators.max(this.maximoMedicamento));
-     this.texto = "El valor en existencia es: "+this.maximoMedicamento;
-     this.seleccionado=true;
-     this.habilitarInputs([<FormControl>this.unidad]);
+     if (this.maximoMedicamento==0) {
+      this.texto = "No hay producto en existencia";
+      this.borrarInputs([<FormControl>this.unidad]);
+      this.seleccionado=false;
+     }else{
+      this.texto = "El valor en existencia es: "+this.maximoMedicamento;
+      this.seleccionado=true;
+      this.habilitarInputs([<FormControl>this.unidad]);
+     }
+     
   }
  
   
