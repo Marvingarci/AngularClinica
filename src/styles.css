@@ -28,6 +28,10 @@ html, body {
     width: 340px;
     height: 140px;  
   }
+  .cerrarsesion2 .mat-dialog-container{
+    width: 340px;
+    height: 175px;  
+  }
   .borrar .mat-dialog-container{
     width: 340px;
     height: 190px;  
@@ -75,13 +79,13 @@ body { margin: 0; font-family:Poppins-Regular,sans-serif;
     overflow: hidden; }
 
     .background-red > .mat-simple-snackbar {
-        background-color:  rgb(104, 71, 250); 
+        background-color: #B721FF;
         color: #fff;
     
         justify-content: center;       
       }
       .mat-snack-bar-container{
-          background: rgb(104, 71, 250); 
+          background: #B721FF;
       }
       .toolbar{  
         background-color: #B721FF;
