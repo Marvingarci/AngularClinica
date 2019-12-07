@@ -116,30 +116,32 @@ export class VerAdministradoresComponent implements OnInit {
   })
    
   export class Borraradministrador {
+
     login_admin:LoginAdmin = { 
-      id:null  ,
+      id:null ,
       usuario_admin:null,
       contrasenia_admin:null,
       nombre_admin:null,
       identidad_admin:null
     };
+
     pacientes: LoginAdmin[];
     id: any;
     admins: LoginAdmin[];
 
  
-  constructor(public dialog: MatDialog,private router: Router,private mensaje: MatSnackBar,private login_adminservice:LoginadminService,
-             private LoginAdminService: LoginadminService,private activatedRoute: ActivatedRoute) {    
-  this.dialog.closeAll;   
-  this.getPacientes();
-  }
+    constructor(public dialog: MatDialog,private router: Router,private mensaje: MatSnackBar,private login_adminservice:LoginadminService,
+              private LoginAdminService: LoginadminService,private activatedRoute: ActivatedRoute) {    
+    this.dialog.closeAll;   
+    this.getPacientes();
+    }
 
-   showError(message: string) {
-    const config = new MatSnackBarConfig();
-    config.panelClass = ['background-red'];
-    config.duration = 2000;
-    this.mensaje.open(message, null, config);
-  }
+    showError(message: string) {
+      const config = new MatSnackBarConfig();
+      config.panelClass = ['background-red'];
+      config.duration = 2000;
+      this.mensaje.open(message, null, config);
+    }
 
   getPacientes(){
     this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) =>{
@@ -176,14 +178,14 @@ export class VerAdministradoresComponent implements OnInit {
 
 
 
-       this.LoginAdminService.delete(this.login_admin.id).subscribe((data)=>{       
+    this.LoginAdminService.delete(this.login_admin.id).subscribe((data)=>{       
       this.showError('Administrador eliminado correctamente'); 
       console.log(data);
       
-    this.router.navigate(['/principal/veradministradores']);
+      this.router.navigate(['/principal/veradministradores']);
       
      
-  },(error)=>{console.log(error);
-    });
+    },(error)=>{console.log(error);
+      });
     }
-  }
+  } 
