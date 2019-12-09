@@ -74,7 +74,7 @@ export class RegistromedicosComponent implements OnInit {
 
     if(this.id){
       this.editing = true;
-      this.medicoService.getMedico().subscribe((data: Medicos[]) =>{
+      this.medicoService.obtenerMedicos().subscribe((data: Medicos[]) =>{
       this.meds = data;
       this.medico = this.meds.find((m)=>{return m.id == this.id});
 
@@ -146,7 +146,7 @@ export class RegistromedicosComponent implements OnInit {
   }//fin del constructor
 
   getdato(){
-    this.medicoService.getMedico().subscribe((data: Medicos[]) =>{
+    this.medicoService.obtenerMedicos().subscribe((data: Medicos[]) =>{
     this.meds = data;
     },(error)=>{
     console.log(error);
@@ -186,7 +186,7 @@ export class RegistromedicosComponent implements OnInit {
       this.medico.identidadM = this.identidad.value;
       this.medico.especialidadM = this.especialidad.value;
   
-      this.medicoService.put(this.medico).subscribe( (data) =>{
+      this.medicoService.actualizarMedico(this.medico).subscribe( (data) =>{
       console.log(data);
       this.router.navigate(['/principal/medicos']);
       this.getdato();
@@ -214,7 +214,7 @@ export class RegistromedicosComponent implements OnInit {
         this.medico.especialidadM = this.medicos_form.get('especialidad').value;
   
         if(this.medicos_form.valid){
-        this.medicoService.saveMedico(this.medico).subscribe( (data) =>{
+        this.medicoService.GuardarMedico(this.medico).subscribe( (data) =>{
         console.log(data);
         this.getdato();
         this.router.navigate(['/principal/medicos']);         

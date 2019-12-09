@@ -8,23 +8,27 @@ import { Medicos } from '../interfaces/medicos';
 })
 export class MedicosService {
   idActualizar: number;
+  datasourceService: any;
   API_ENDPOINT = 'http://127.0.0.1:8000/api'
-  getMedico(){
+
+
+  obtenerMedicos(){
     return this.httpClient.get(this.API_ENDPOINT+'/medicos');
   }
 
   constructor(private httpClient :HttpClient,medicosService:MedicosService) { }
 
-  saveMedico(medicos:Medicos){
+  GuardarMedico(medicos:Medicos){
     const headers = new HttpHeaders({'Content-Type':'application/json'});
     return this.httpClient.post(this.API_ENDPOINT+'/medicos',medicos,{headers:headers});
   }
 
-  put(medicos:Medicos){
+  actualizarMedico(medicos: Medicos){
     const headers = new HttpHeaders({'Content-Type':'application/json'});
     return this.httpClient.put(this.API_ENDPOINT+'/medicos/'+medicos.id,medicos,{headers:headers});
   }
-  delete(id){      
-  return this.httpClient.delete(this.API_ENDPOINT+'/medicos/'+id);
+  
+  borrarMedico(id){      
+    return this.httpClient.delete(this.API_ENDPOINT+'/medicos/'+id);
   }
 }

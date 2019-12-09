@@ -87,7 +87,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
   console.log(error);
   }); 
 
-  this.medicosService.getMedico().subscribe((data: Medicos[]) =>{
+  this.medicosService.obtenerMedicos().subscribe((data: Medicos[]) =>{
     this.medicos = data;
     console.log(this.medicos);
     }, (error: any)=>{
@@ -95,10 +95,10 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
     }); 
 
   Formulario.obtenerPacientes().subscribe((data: Paciente[])=>{
-  this.pacientes = data;
-  console.log(this.pacientes);
-  }, (error)=>{
-  console.log(error);
+    this.pacientes = data;
+    console.log(this.pacientes);
+    }, (error)=>{
+    console.log(error);
   }); 
 }
 

@@ -446,17 +446,6 @@
 
             </mat-form-field>
 
-
-            <!-- <mat-form-field>
-              <input matInput formControlName= "tipo_desnutricion"  
-                [matAutocomplete]="auto" placeholder="Tipo Desnutricion" id="inputPrueba">
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let enfermedad of enfermedadesFiltradas | async" [value]="enfermedad">
-                    {{enfermedad}}
-                  </mat-option>
-                </mat-autocomplete>
-            </mat-form-field> -->
-
             &nbsp; &nbsp; &nbsp; &nbsp; 
 
             <mat-form-field>
@@ -504,11 +493,11 @@
 
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
-                <div mat-cell *matCellDef="let element; index as i;">
+                <td mat-cell *matCellDef="let element; index as i;">
                   <button mat-icon-button (click)="eliminarDesnutriciones(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
-                </div>
+                </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTablaAF"></tr>

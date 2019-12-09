@@ -51,7 +51,7 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { PaseAdminComponent } from './pase-admin/pase-admin.component';
 import { VerAdministradoresComponent,Borraradministrador } from './ver-administradores/ver-administradores.component';
 import {MatBadgeModule} from '@angular/material/badge';
-import { MedicosComponent, Borrarmedico } from './medicos/medicos.component';
+import { MedicosComponent, DialogoMedico} from './medicos/medicos.component';
 import { RegistromedicosComponent } from './registromedicos/registromedicos.component';
 import { Principal1Component } from './principal1/principal1.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -111,7 +111,6 @@ const routes: Route[] = [
       {path: 'principal1', component: Principal1Component},
       {path: 'verPaciente/:id', component: VerPacienteComponent},
       // {path: 'verPaciente', component: VerPacienteComponent},
-      // {path: 'verPaciente/:id', component: VerPacienteComponent}
 
     ]
   }
@@ -144,25 +143,18 @@ const routes: Route[] = [
     HistoriaSubsiguiente,
     HistoriaSubsiguiente1,
     Borraradministrador,
-    Borrarmedico,
     DialogCerrarSesion2,
-
-
-
-
-
-    
     PaseAdminComponent,
     VerAdministradoresComponent,
-
     FormInventarioComponent,
-
-
     MedicosComponent,
     RegistromedicosComponent,
     Principal1Component,
     ConsolidadodiarioComponent,
     TelefonoUnicoDirective,
+    DialogoMedico
+    
+
 
 
     
@@ -198,8 +190,8 @@ const routes: Route[] = [
     MatProgressSpinnerModule,
     MatMenuModule,
     MatBottomSheetModule,
-    MatSnackBarModule
-    ,MatSidenavModule,
+    MatSnackBarModule,
+    MatSidenavModule,
     MatBadgeModule,
     MatAutocompleteModule
   
@@ -213,8 +205,8 @@ const routes: Route[] = [
     HistoriaSubsiguiente,
     HistoriaSubsiguiente1,
     Borraradministrador,
-    Borrarmedico,
-    DialogCerrarSesion2
+    DialogCerrarSesion2,
+    DialogoMedico,
   ],
   providers: [],
   bootstrap: [AppComponent]
