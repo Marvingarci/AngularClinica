@@ -1863,6 +1863,23 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   }
 
+  eliminarsHopitalariasQuirurgicas(index) {
+    //borro el elemento de la tabla estableciendo el index.
+    this.tablaHospitalariasQuirurgicas.splice(index, 1);
+
+    //refresco el datasouerce con los elemento que quedaron para que se resfresque
+    // tambien la tabla html.
+    this.dataSourceTablaHospitalariasQuirurgicas = new MatTableDataSource(this.tablaHospitalariasQuirurgicas);
+
+
+    //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
+    // para que no se muestre en el html.
+    if (!this.tablaHospitalariasQuirurgicas.length) {
+      this.dataSourceTablaHospitalariasQuirurgicas = null;
+    }
+
+  }
+
   enviarDatos() {
     this.loading = true;
 
