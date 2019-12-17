@@ -6,8 +6,27 @@ height: 100%;
 width:100%;
 position: absolute;
 margin:0px;
-background-color: #B721FF;
-background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%);
+
+/* tema 1 */
+/* background-color: #B721FF;
+background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%); */
+
+/* tema 2 */
+/* background-color: #f1db10;
+background-image: linear-gradient(315deg, #f1db10 0%, #0d57ff 100%); */
+
+
+/* tema 3 */
+/* background-color: #f1db10;
+background-image: linear-gradient(315deg, #f1db10 5%, #00006d 81%); */
+
+/* tema 4 */
+background-color: #f1db10;
+background-image: linear-gradient(315deg, #f1db10 5%, #1928d4 81%);
+
+
+
+
 }
 
 #imagenpuma{
@@ -21,8 +40,21 @@ background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%);
   background-size: cover;  
   border-radius: 50px;
   margin-left: 120px;
-  border: 3px solid #B721FF;
-  margin-top: 20px;  
+  margin-top: 20px; 
+
+  /* tema 1 */
+  /* border: 3px solid #B721FF; */
+
+  /* tema 2 */
+  /* border: 3px solid #0d57ff; */
+
+  /* tema 3 */
+  /* border: 3px solid #f1db10; */
+
+  /* tema 4 */
+  border: 5px solid #1928d4;
+
+
 }
 
 mat-spinner{
@@ -97,15 +129,60 @@ mat-spinner{
   margin-left: 20px;
   margin-right: 20px;
   text-align: center;
-  background-color: #21D4FD;
-  background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%);
+
+  /* tema 1 */
+  /* background-color: #21D4FD;
+  background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%); */
+
+  /* tema 2 */
+  /* background-color: #f1db10;
+  background-image: linear-gradient(315deg, #f1db10 0%, #0d57ff 100%); */
+
+  /* tema 3 */
+  /* background-color: #f1db10;
+  background-image: linear-gradient(315deg, #f1db10 5%, #00006d 81%); */
+
+  /* tema 4 */
+  background-color: #f1db10;
+  background-image: linear-gradient(315deg, #f1db10 5%, #1928d4 81%);
+
+
   }  
   .boton:hover {
-  background-color: #B721FF;
-  background-image: linear-gradient(90deg, #B721FF 0%, #21D4FD 100%);
+
+    /* tema 1 */
+  /* background-color: #B721FF;
+  background-image: linear-gradient(90deg, #B721FF 0%, #21D4FD 100%); */
+
+  /* tema 2 */
+  /* background-color: #0d57ff ;
+  background-image: linear-gradient(315deg,#0d57ff  0%, #f1db10  100%); */
+
+  /* tema 3 */
+  /* background-color: #00006d;
+  background-image: linear-gradient(315deg,#00006d 5%, #f1db10 81%); */
+
+  /* tema 4 */
+  background-color: #1928d4;  
+  background-image: linear-gradient(315deg, #1928d4 5%, #f1db10 81%);
+
+
   transition: all 1s ease;
   }  
 
   .uploader-status ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
-    stroke: #B721FF;
+    
+    /* tema 1 */
+    /* stroke: #B721FF; */
+
+    /* tema 2 */
+    /* stroke: #f1db10; */
+
+    /* tema 3 */
+    /* stroke: #f1db10; */
+
+    /* tema 4 */
+    stroke: #f1db10;
+
+
 }
