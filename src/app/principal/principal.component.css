@@ -45,7 +45,7 @@
 
   .router-link-active{
   color: #fff;
-  background-color: #B721FF;
+  background-color: #f1db10;
   outline:none;  
   display:block;
   } 
@@ -79,12 +79,12 @@
   }
 
   .hoveritem:hover{
-  background-color: #21D4FD;
+  background-color: #1928d4;
   color: #fff;
   transition: all 1s ease;
   }
 
-  .container{
+  .containerScroll{
   overflow: auto;
   height: 100%;
   min-width: 100px;  
@@ -92,35 +92,3 @@
   color: #fff;  
   }
 
-   /* Tamaño del scroll */
-.container::-webkit-scrollbar {
-  width: 12px;
-  height: 10px;
-}
-
- /* Estilos barra (thumb) de scroll */
-.container::-webkit-scrollbar-thumb {
-  background: #B721FF;
-  border-radius: 4px;
-}
-
-.container::-webkit-scrollbar-thumb:active {
-  background-color: #B721FF;
-}
-
-.container::-webkit-scrollbar-thumb:hover {
-  background: #B721FF;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-}
-
- /* Estilos track de scroll */
-.container::-webkit-scrollbar-track {
-  background: #a7a0ff;
-  border-radius: 4px;
-}
-
-.container::-webkit-scrollbar-track:hover, 
-.container::-webkit-scrollbar-track:active {
-
-  background: #a7a0ff;
-}
