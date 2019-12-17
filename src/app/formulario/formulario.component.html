@@ -1,9 +1,7 @@
 <mat-horizontal-stepper linear #stepper  (selectionChange)="onStepChange($event)" > 
 
-  <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" label="Datos Generales" id="step1" >
+  <!-- <mat-step *ngIf="esAlumno==false" [stepControl]= "formulario_datos_generales" label="Datos Generales" id="step1" >
       <form [formGroup]="formulario_datos_generales">
-
-      <!-- <ng-template matStepLabel >Datos Generales</ng-template> -->
 
       <div class="container1">
         <div class="row">
@@ -157,7 +155,7 @@
         </div>
       
     </form>
-  </mat-step>   
+  </mat-step>    -->
     
 
 
@@ -168,7 +166,7 @@
 
  <!-- primer step -->
   
-  <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" label="Datos Generales">
+  <!-- <mat-step *ngIf="esAlumno==true" [stepControl]= "formulario_datos_generales" label="Datos Generales">
     <form [formGroup]="formulario_datos_generales">
         <div class="containerScroll">
     
@@ -350,7 +348,7 @@
         <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron" >Siguiente</button>
      </div>
   </form>
-  </mat-step> 
+  </mat-step>  -->
 
 
 
@@ -468,13 +466,13 @@
 
         <div class="row medium-width" style="margin-left: 0;">
           <table mat-table [dataSource]="dataSourceTablaDesnutricionesAF" 
-          class="mat-elevation-z8"  
+          class="mat-elevation-z8 tabla"  
           *ngIf="dataSourceTablaDesnutricionesAF != null">
                               
             <ng-container matColumnDef="numero">
               <th mat-header-cell *matHeaderCellDef> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+              <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
           
@@ -494,7 +492,8 @@
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarDesnutriciones(i)">
+                  <button mat-icon-button class="botonesTabla"
+                    (click)="eliminarDesnutriciones(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
                 </td>
@@ -559,13 +558,13 @@
 
         <div class="row medium-width" style="margin-left: 0;">
           <table mat-table [dataSource]="dataSourceTablaEnfermedadesMentalesAF" 
-          class="mat-elevation-z8"  
+          class="mat-elevation-z8 tabla"  
           *ngIf="dataSourceTablaEnfermedadesMentalesAF != null">
                               
             <ng-container matColumnDef="numero">
               <th mat-header-cell *matHeaderCellDef> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
           
@@ -584,11 +583,12 @@
 
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
-                <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarEnfermedadesMentales(i)">
+                <td mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button class="botonesTabla"
+                    (click)="eliminarEnfermedadesMentales(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
-                </div>
+                </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTablaAF"></tr>
@@ -689,13 +689,13 @@
 
         <div class="row medium-width" style="margin-left: 0;">
           <table mat-table [dataSource]="dataSourceTablaAlergiasAF" 
-          class="mat-elevation-z8"  
+          class="mat-elevation-z8 tabla"  
           *ngIf="dataSourceTablaAlergiasAF != null">
                               
             <ng-container matColumnDef="numero">
               <th mat-header-cell *matHeaderCellDef> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
           
@@ -714,11 +714,12 @@
 
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
-                <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarAlergias(i)">
+                <td mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button class="botonesTabla"
+                    (click)="eliminarAlergias(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
-                </div>
+                </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTablaAF"></tr>
@@ -772,13 +773,13 @@
 
         <div class="row medium-width" style="margin-left: 0;">
           <table mat-table [dataSource]="dataSourceTablaCanceresAF" 
-          class="mat-elevation-z8"  
+          class="mat-elevation-z8 tabla"  
           *ngIf="dataSourceTablaCanceresAF != null">
                               
             <ng-container matColumnDef="numero">
               <th mat-header-cell *matHeaderCellDef> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
           
@@ -797,11 +798,12 @@
 
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
-                <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarCanceres(i)">
+                <td mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button class="botonesTabla"
+                    (click)="eliminarCanceres(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
-                </div>
+                </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTablaAF"></tr>
@@ -871,13 +873,13 @@
         <div class="row medium-width" style="margin-left: 0;">
 
           <table mat-table [dataSource]="dataSourceTablaOtrosAF" 
-          class="mat-elevation-z8"  
+          class="mat-elevation-z8 tabla"  
           *ngIf="dataSourceTablaOtrosAF != null">
                                 
               <ng-container matColumnDef="numero">
                 <th mat-header-cell *matHeaderCellDef> # </th>
                 <a>eliminar</a>
-                <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+                <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
                 <td mat-footer-cell *matFooterCellDef></td>
               </ng-container>
             
@@ -897,11 +899,12 @@
 
               <ng-container matColumnDef="botones">
                 <th mat-header-cell *matHeaderCellDef></th>
-                  <div mat-cell *matCellDef="let element; index as i;">
-                    <button mat-icon-button (click)="eliminarOtros(i)">
+                  <td mat-cell *matCellDef="let element; index as i;">
+                    <button mat-icon-button class="botonesTabla" 
+                      (click)="eliminarOtros(i)">
                       <mat-icon>delete</mat-icon>
                     </button>      
-                  </div>
+                  </td>
               </ng-container>
             
               <tr mat-header-row *matHeaderRowDef="columnasTablaAF"></tr>
@@ -1043,14 +1046,14 @@
 
         <div class="row medium-width" style="margin-left: 0;">
           <table mat-table [dataSource]="dataSourceTablaDesnutricionesAP" 
-          class="mat-elevation-z8"  
+          class="mat-elevation-z8 tabla"  
           *ngIf="dataSourceTablaDesnutricionesAP != null">
                               
             <!-- Position Column -->
             <ng-container matColumnDef="numero">
               <th mat-header-cell *matHeaderCellDef> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
           
@@ -1071,11 +1074,12 @@
 
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
-                <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarDesnutricionesAP(i)">
+                <td mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button class="botonesTabla"
+                    (click)="eliminarDesnutricionesAP(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
-                </div>
+                </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTablaAP"></tr>
@@ -1131,13 +1135,13 @@
   
         <div class="row medium-width" style="margin-left: 0;">
           <table mat-table [dataSource]="dataSourceTablaEnfermedadesMentalesAP" 
-          class="mat-elevation-z8"  
+          class="mat-elevation-z8 tabla"  
           *ngIf="dataSourceTablaEnfermedadesMentalesAP != null">
                               
             <ng-container matColumnDef="numero">
               <th mat-header-cell *matHeaderCellDef> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+              <td mat-cell *matCellDef="let element; index as i;"> {{i+1} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
           
@@ -1156,11 +1160,12 @@
 
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
-                <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarEnfermedadesMentalesAP(i)">
+                <td mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button class="botonesTabla"
+                    (click)="eliminarEnfermedadesMentalesAP(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
-                </div>
+                </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTablaAP"></tr>
@@ -1235,13 +1240,13 @@
   
         <div class="row medium-width" style="margin-left: 0;">
           <table mat-table [dataSource]="dataSourceTablaAlergiasAP" 
-          class="mat-elevation-z8"  
+          class="mat-elevation-z8 tabla"  
           *ngIf="dataSourceTablaAlergiasAP != null">
                               
             <ng-container matColumnDef="numero">
               <th mat-header-cell *matHeaderCellDef> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
           
@@ -1260,11 +1265,12 @@
 
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
-                <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarAlergiasAP(i)">
+                <td mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button class="botonesTabla"
+                    (click)="eliminarAlergiasAP(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
-                </div>
+                </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTablaAP"></tr>
@@ -1320,13 +1326,13 @@
       
           <div class="row medium-width" style="margin-left: 0;">
             <table mat-table [dataSource]="dataSourceTablaCanceresAP" 
-            class="mat-elevation-z8"  
+            class="mat-elevation-z8 tabla"  
             *ngIf="dataSourceTablaCanceresAP != null">
                                 
               <ng-container matColumnDef="numero">
                 <th mat-header-cell *matHeaderCellDef> # </th>
                 <a>eliminar</a>
-                <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+                <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
                 <td mat-footer-cell *matFooterCellDef></td>
               </ng-container>
             
@@ -1345,11 +1351,12 @@
   
               <ng-container matColumnDef="botones">
                 <th mat-header-cell *matHeaderCellDef></th>
-                  <div mat-cell *matCellDef="let element; index as i;">
-                    <button mat-icon-button (click)="eliminarCanceresAP(i)">
+                  <td mat-cell *matCellDef="let element; index as i;">
+                    <button mat-icon-button class="botonesTabla"
+                      (click)="eliminarCanceresAP(i)">
                       <mat-icon>delete</mat-icon>
                     </button>      
-                  </div>
+                  </td>
               </ng-container>
             
               <tr mat-header-row *matHeaderRowDef="columnasTablaAP"></tr>
@@ -1436,13 +1443,13 @@
         <div class="row exampel-full-width" style="margin-left: 0;">
 
             <table mat-table [dataSource]="dataSourceTablaHospitalariasQuirurgicas" 
-            class="mat-elevation-z8"  
+            class="mat-elevation-z8 tabla"  
             *ngIf="dataSourceTablaHospitalariasQuirurgicas != null">
                                   
               <ng-container matColumnDef="numero">
                 <th mat-header-cell *matHeaderCellDef> # </th>
                 <a>eliminar</a>
-                <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+                <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
                 <td mat-footer-cell *matFooterCellDef></td>
               </ng-container>
             
@@ -1477,11 +1484,12 @@
   
               <ng-container matColumnDef="botones">
                 <th mat-header-cell *matHeaderCellDef></th>
-                  <div mat-cell *matCellDef="let element; index as i;">
-                    <button mat-icon-button (click)="eliminarOtrosAP(i)">
+                  <td mat-cell *matCellDef="let element; index as i;">
+                    <button mat-icon-button class="botonesTabla"
+                      (click)="eliminarsHopitalariasQuirurgicas(i)">
                       <mat-icon>delete</mat-icon>
                     </button>      
-                  </div>
+                  </td>
               </ng-container>
             
               <tr mat-header-row *matHeaderRowDef="columnasTablaHospitalarias"></tr>
@@ -1546,13 +1554,13 @@
         <div class="row medium-width" style="margin-left: 0;">
 
           <table mat-table [dataSource]="dataSourceTablaOtrosAP" 
-          class="mat-elevation-z8"  
+          class="mat-elevation-z8 tabla"  
           *ngIf="dataSourceTablaOtrosAP != null">
                                 
             <ng-container matColumnDef="numero">
               <th mat-header-cell *matHeaderCellDef> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
           
@@ -1572,11 +1580,12 @@
 
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
-                <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarOtrosAP(i)">
+                <td mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button class="botonesTabla"
+                    (click)="eliminarOtrosAP(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
-                </div>
+                </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTablaAP"></tr>
@@ -2077,13 +2086,13 @@
 
         <div class="row medium-width" style="margin-left: 0;">
           <table mat-table [dataSource]="dataSourceTablaOtrosHT" 
-          class="mat-elevation-z8"  
+          class="mat-elevation-z8 tabla"  
           *ngIf="dataSourceTablaOtrosHT != null">
                               
             <ng-container matColumnDef="numero">
               <th mat-header-cell *matHeaderCellDef> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
           
@@ -2102,11 +2111,12 @@
 
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
-                <div mat-cell *matCellDef="let element; index as i;">
-                  <button mat-icon-button (click)="eliminarOtrosHT(i)">
+                <td mat-cell *matCellDef="let element; index as i;">
+                  <button mat-icon-button class="botonesTabla"
+                    (click)="eliminarOtrosHT(i)">
                     <mat-icon>delete</mat-icon>
                   </button>      
-                </div>
+                </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="columnasTablaAP"></tr>
