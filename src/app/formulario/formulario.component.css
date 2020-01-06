@@ -11,11 +11,11 @@ mat-horizontal-stepper{
 }
 
 ::ng-deep .mat-step-header .mat-step-icon-selected{
-  background: #B721FF;
+  background: #1928d4;
 }
 
 ::ng-deep .mat-step-header .mat-step-icon-state-done{
-  background: #B721FF;
+  background: #f1db10;
 
 }
 
@@ -25,7 +25,8 @@ mat-horizontal-stepper{
    left: 50%;  
 }
 .uploader-status ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
-  stroke: #B721FF;
+  stroke: #f1db10;
+  
 }
 
 .containerScroll{
