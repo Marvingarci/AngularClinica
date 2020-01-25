@@ -76,11 +76,18 @@
                         
         </div>
     </mat-card>
+
+</div>
+
+<div>
+    <button  mat-raised-button [routerLink]="['/principal/inventario']" 
+        class="btn btn-outline-primary float-right botonperron" 
+        style="margin-top: 20px;margin-left: 10px;">
+        Cancelar
+    </button> 
+    <button  mat-raised-button (click)="comprobarDatos()"  
+        class="btn btn-outline-primary float-right botonperron" 
+        style="margin-top: 20px;" 
+        [disabled]="disabledinventario"> Guardar</button>  
     
-    <div style="position: fixed; bottom: 10px;right: 15px;">
-        <button  mat-raised-button [routerLink]="['/principal/inventario']" class="btn btn-outline-primary float-right botonperron" style="margin-top: 20px;margin-left: 10px;"> Cancelar</button> 
-        <button  mat-raised-button (click)="comprobarDatos()"  class="btn btn-outline-primary float-right botonperron" 
-                style="margin-top: 20px;" [disabled]="disabledinventario"> Guardar</button>  
-        
-    </div>
 </div>
