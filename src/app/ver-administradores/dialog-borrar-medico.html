@@ -1,0 +1,19 @@
+<h2 mat-dialog-title disableClose>Eliminar Administrador</h2>
+<mat-dialog-content class="mat-typography">
+    <p>¿Estás seguro que quiere eliminar a este Médico?</p>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align='end'>
+    <button mat-button mat-dialog-close class="botonperron"
+        (click)="Borrarmedico();"
+        style="outline:none;display:block;">
+        Eliminar
+    </button> 
+    
+    &nbsp;&nbsp;
+    
+    <button mat-button mat-dialog-close class="botonperron" (click)="salir()">
+        Cancelar
+    </button>
+</mat-dialog-actions>
