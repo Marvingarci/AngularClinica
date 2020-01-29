@@ -84,9 +84,8 @@
     </select></p>           
     </div> -->
 
-    <div class="col"> 
       <mat-form-field  class="example-full-width">
-        <mat-label>Especialidad</mat-label>
+        <mat-label> <b>Especialidad</b> </mat-label>
         <mat-select formControlName= "especialidad" >
           <mat-option *ngFor="let especialidad of especialidades" [value]="especialidad.value">
             {{especialidad.viewValue}}
@@ -95,8 +94,6 @@
       <mat-error *ngIf="especialidad.hasError('required')"><strong>campo requerido</strong></mat-error>
 
       </mat-form-field>
-    </div>
-
 
 
 </mat-card>  
