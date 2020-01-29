@@ -64,9 +64,9 @@ export class PaseAdminComponent implements OnInit {
       for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
         if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
             this.login_admin=this.login_admins[indexx];
+            
         }else{
           
-        this.showError('Usuario no existe');
         }
       } 
   
@@ -77,7 +77,7 @@ export class PaseAdminComponent implements OnInit {
         
       console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
         this.loading=false;
-        this.showError('Contraseña incorrecta');
+        this.showError('Cuenta incorrecta');
       }
         
     }
@@ -94,7 +94,6 @@ export class PaseAdminComponent implements OnInit {
         this.login_admin=this.login_admins[indexx];
       }else{
           
-        this.showError('Usuario no existe');
         }
     }
     if (this.login_admin.contrasenia_admin  == this.login.clave) {
@@ -104,7 +103,7 @@ export class PaseAdminComponent implements OnInit {
       
     console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
       this.loading=false;
-      this.showError('Contraseña incorrecta');  
+      this.showError('Cuenta incorrecta');  
     }
 
   }
