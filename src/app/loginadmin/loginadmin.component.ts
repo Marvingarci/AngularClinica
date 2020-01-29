@@ -26,7 +26,7 @@ export class LoginadminComponent implements OnInit {
     contrasenia: new FormControl('',[Validators.required,  Validators.minLength(8),Validators.maxLength(30)]),
     contraseniaC: new FormControl('',[Validators.required,  Validators.minLength(8),Validators.maxLength(30)]),
     nombre: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
-    identidad: new FormControl('',[Validators.required,  Validators.minLength(13),Validators.maxLength(13)]),
+    identidad: new FormControl('',[Validators.required,  Validators.minLength(13),Validators.maxLength(13),Validators.pattern('[0-9]*')]),
   });
  
   getErrorMessage() {

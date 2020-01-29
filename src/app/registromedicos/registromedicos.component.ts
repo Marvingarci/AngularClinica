@@ -26,7 +26,7 @@ export class RegistromedicosComponent implements OnInit {
     contrasenia: new FormControl('',[Validators.required,  Validators.minLength(8),Validators.maxLength(30)]),
     contraseniaC: new FormControl('',[Validators.required,  Validators.minLength(8),Validators.maxLength(30)]),
     nombre: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
-    identidad: new FormControl('',[Validators.required,  Validators.minLength(13),Validators.maxLength(13)]),
+    identidad: new FormControl('',[Validators.required,  Validators.minLength(13),Validators.maxLength(13),Validators.pattern('[0-9]*')]),
     especialidad: new FormControl('',[Validators.required]),
   });
 
@@ -176,7 +176,6 @@ export class RegistromedicosComponent implements OnInit {
   comprobarDatos(){
     if(this.editing){  
     if(this.medicos_form.valid){
-
       this.disabledmedicos = true;
       this.medico.contraseniaM = this.medicos_form.get('contraseniaC').value; 
       if(this.medico.contraseniaM ==this.medicos_form.get('contrasenia').value ){
@@ -188,7 +187,7 @@ export class RegistromedicosComponent implements OnInit {
   
       this.medicoService.actualizarMedico(this.medico).subscribe( (data) =>{
       console.log(data);
-      this.router.navigate(['/principal/medicos']);
+      this.router.navigate(['/principal/veradministradores']);
       this.getdato();
       this.showError('Médico actualizado correctamente'); 
   
@@ -204,7 +203,6 @@ export class RegistromedicosComponent implements OnInit {
       }
   
       }else{
-        this.disabledmedicos = true;
         this.medico.contraseniaM = this.medicos_form.get('contraseniaC').value; 
         if(this.medico.contraseniaM ==this.medicos_form.get('contrasenia').value ){
         this.medico.usuarioM = this.medicos_form.get('usuario').value;
@@ -214,6 +212,7 @@ export class RegistromedicosComponent implements OnInit {
         this.medico.especialidadM = this.medicos_form.get('especialidad').value;
   
         if(this.medicos_form.valid){
+          this.disabledmedicos = true;
         this.medicoService.GuardarMedico(this.medico).subscribe( (data) =>{
         console.log(data);
         this.getdato();

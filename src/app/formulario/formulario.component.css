@@ -11,11 +11,11 @@ mat-horizontal-stepper{
 }
 
 ::ng-deep .mat-step-header .mat-step-icon-selected{
-  background: #B721FF;
+  background: #1928d4;
 }
 
 ::ng-deep .mat-step-header .mat-step-icon-state-done{
-  background: #B721FF;
+  background: #f1db10;
 
 }
 
@@ -25,7 +25,8 @@ mat-horizontal-stepper{
    left: 50%;  
 }
 .uploader-status ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
-  stroke: #B721FF;
+  stroke: #f1db10;
+  
 }
 
 .containerScroll{
@@ -43,39 +44,6 @@ mat-horizontal-stepper{
   left:0;  
 }
 
-
-/* Tamaño del scroll */
-/* .container::-webkit-scrollbar {
-  width: 12px;
-  height: 10px;
-} */
-
- /* Estilos barra (thumb) de scroll */
-/* .container::-webkit-scrollbar-thumb {
-  background: #B721FF;
-  border-radius: 4px;
-} */
-
-/* .container::-webkit-scrollbar-thumb:active {
-  background-color: #B721FF;
-} */
-
-/* .container::-webkit-scrollbar-thumb:hover {
-  background: #B721FF;
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-} */
-
- /* Estilos track de scroll */
-/* .container::-webkit-scrollbar-track {
-  background: #a7a0ff;
-  border-radius: 4px;
-} */
-
-/* .container::-webkit-scrollbar-track:hover, 
-.container::-webkit-scrollbar-track:active {
-
-  background: #a7a0ff;
-} */
 
 .botonesstep{
   position: fixed;

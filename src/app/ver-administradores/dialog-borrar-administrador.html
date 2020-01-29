@@ -1,11 +1,16 @@
 <h2 mat-dialog-title disableClose >Eliminar Administrador</h2>
+
 <mat-dialog-content class="mat-typography">
     <p>¿Estás seguro que quiere eliminar a este Administrador?</p>
 </mat-dialog-content>
 
 
 <mat-dialog-actions align='end'>
-<button mat-button (click)='salir()' mat-dialog-close class="botonperron" style="outline:none;  
-display:block;">Eliminar</button> &nbsp;&nbsp;
-<button mat-button mat-dialog-close class="botonperron" [routerLink]="['/principal/veradministradores']">Cancelar</button>
+    <button mat-button (click)='Borraradministrador()' mat-dialog-close class="botonperron" 
+    style="outline:none;display:block;">Eliminar
+    </button> &nbsp;&nbsp;
+
+    <button mat-button (click)='salir()' mat-dialog-close  class="botonperron"
+    style="outline:none;display:block;" >Cancelar
+    </button>
 </mat-dialog-actions>

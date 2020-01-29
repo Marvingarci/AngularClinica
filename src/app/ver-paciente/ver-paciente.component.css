@@ -167,3 +167,14 @@ tr.example-element-row:not(.example-expanded-row):active {
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
 }
+
+/* para que se miren el tituo en negrita */
+.titlepanel{
+width: 500px;
+}
+/* para que no se mire los margenes feos */
+.mat-expansion-panel-header-description, .mat-expansion-panel-header-title {
+  display: flex;
+  flex-grow: initial;
+  margin-right: 16px;
+}

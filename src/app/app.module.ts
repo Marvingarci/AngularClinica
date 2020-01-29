@@ -49,9 +49,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { PaseAdminComponent } from './pase-admin/pase-admin.component';
-import { VerAdministradoresComponent,Borraradministrador } from './ver-administradores/ver-administradores.component';
+import { VerAdministradoresComponent,Borraradministrador,DialogoMedico } from './ver-administradores/ver-administradores.component';
 import {MatBadgeModule} from '@angular/material/badge';
-import { MedicosComponent, DialogoMedico} from './medicos/medicos.component';
 import { RegistromedicosComponent } from './registromedicos/registromedicos.component';
 import { Principal1Component } from './principal1/principal1.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -103,9 +102,7 @@ const routes: Route[] = [
       {path: 'loginadmin', component: LoginadminComponent},
       {path: 'loginadmin/:id', component: LoginadminComponent},
       {path: 'formInventario', component: FormInventarioComponent},
-      {path: 'formInventario/:id', component: FormInventarioComponent},
-      {path: 'medicos', component: MedicosComponent},       
-      {path: 'medicos/:id', component: MedicosComponent},      
+      {path: 'formInventario/:id', component: FormInventarioComponent},     
       {path: 'registromedicos', component: RegistromedicosComponent},
       {path: 'registromedicos/:id', component: RegistromedicosComponent},
       {path: 'principal1', component: Principal1Component},
@@ -147,7 +144,6 @@ const routes: Route[] = [
     PaseAdminComponent,
     VerAdministradoresComponent,
     FormInventarioComponent,
-    MedicosComponent,
     RegistromedicosComponent,
     Principal1Component,
     ConsolidadodiarioComponent,

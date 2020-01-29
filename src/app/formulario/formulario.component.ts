@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, NgZone, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, NgZone, ElementRef, AfterViewInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Paciente } from '../interfaces/paciente';
 import { FormularioService } from '../services/formulario.service';
@@ -145,6 +145,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 
 export class FormularioComponent implements OnInit, AfterViewInit {
+  
 
   loading: boolean = false;
 
@@ -320,6 +321,37 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   habilitarInputs(formControl: FormControl[]) {
     formControl.forEach(controlador => {
       controlador.enable({ onlySelf: true });
+
+      if(controlador.parent == this.formulario_antecedentes_familiares){
+
+        controlador.setValidators(Validators.required);
+
+        //este metodo sirve para actualizar el valor y las validaciones de un controlador.
+        controlador.updateValueAndValidity();
+        
+      }
+
+      if(controlador.parent == this.formulario_antecedentes_personales){
+
+        if(this.tipo_desnutricion_ap == controlador ||
+          this.tipo_enfermedad_mental_ap == controlador ||
+          this.tipo_alergia_ap == controlador ||
+          this.tipo_cancer_ap == controlador ||
+          this.fecha_antecedente_hospitalario == controlador ||
+          this.tiempo_hospitalizacion == controlador ||
+          this.diagnostico == controlador ||
+          this.tratamiento == controlador){
+            
+          controlador.setValidators(Validators.required);
+
+          //este metodo sirve para actualizar el valor y las validaciones de un controlador.
+          controlador.updateValueAndValidity();
+
+        }
+
+      }
+
+      
     });
 
     //muestra solo el step que le manda
@@ -331,6 +363,15 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     formControl.forEach(controlador => {
       controlador.setValue('');
       controlador.disable({ onlySelf: true });
+
+      if(controlador.parent == this.formulario_antecedentes_familiares){
+        
+        //elimino todas la validaciones que tenga el controlador
+        controlador.clearValidators();
+        controlador.updateValueAndValidity();
+        
+      }
+
     });
 
   }
@@ -555,15 +596,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     } else {
       this.ocultar1 = true;
     }
-  }
-
-  // public onControlChange(event: any): void {
-  //   console.log(event.value);
-
-  // }
-
-
-  
+  }  
 
   public onStepChange(event: any): void {
     console.log('step index seleccionado');
@@ -931,8 +964,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void{  
 
-   
-    
+  
     this.mostrarLabelStep(0);
 
     let element: any = document.getElementById("select");
@@ -1323,6 +1355,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   agregarDesnutricionesAF() {
 
+
     if (this.tipo_desnutricion.value && this.tipo_desnutricion.valid && this.parentesco_desnutricion.value) {
 
       var stringParentesco: string = "";
@@ -1368,7 +1401,18 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.tipo_desnutricion.setValue('');
       this.parentesco_desnutricion.setValue('');
 
+      //si se agrega un elemento a la tabla entonces los campos
+      //tipo desnutricion y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
+      this.tipo_desnutricion.clearValidators();
+      this.tipo_desnutricion.updateValueAndValidity();
+
+      this.parentesco_desnutricion.clearValidators();
+      this.parentesco_desnutricion.updateValueAndValidity();
+
+
     }
+
+    
 
 
   }
@@ -1385,6 +1429,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     // para que no se muestre en el html.
     if (!this.tablaDesnutricionesAF.length) {
       this.dataSourceTablaDesnutricionesAF = null;
+
+
+      //si la tabla no tiene ningun valor entonces establezco como requerido
+      // los campos tipo desnutricion y parentesco.
+      this.tipo_desnutricion.setValidators(Validators.required);
+      this.tipo_desnutricion.updateValueAndValidity();
+
+      this.parentesco_desnutricion.setValidators(Validators.required);
+      this.parentesco_desnutricion.updateValueAndValidity();
+
     }
   }
 
@@ -1433,6 +1487,14 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.tipo_enfermedad_mental.setValue('');
       this.parentesco_enfermedades_mentales.setValue('');
 
+      //si se agrega un elemento a la tabla entonces los campos
+      //tipo enfermedad mental y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
+      this.tipo_enfermedad_mental.clearValidators();
+      this.tipo_enfermedad_mental.updateValueAndValidity();
+
+      this.parentesco_enfermedades_mentales.clearValidators();
+      this.parentesco_enfermedades_mentales.updateValueAndValidity();
+
     }
 
 
@@ -1449,7 +1511,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
     // para que no se muestre en el html.
     if (!this.tablaEnfermedadesMentalesAF.length) {
+
       this.dataSourceTablaEnfermedadesMentalesAF = null;
+
+      //si la tabla no tiene ningun valor entonces establezco como requerido
+      // los campos tipo enfermedad mental y parentesco.
+      this.tipo_enfermedad_mental.setValidators(Validators.required);
+      this.tipo_enfermedad_mental.updateValueAndValidity();
+
+      this.parentesco_enfermedades_mentales.setValidators(Validators.required);
+      this.parentesco_enfermedades_mentales.updateValueAndValidity();
     }
   }
 
@@ -1497,6 +1568,14 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.tipo_alergia.setValue('');
       this.parentesco_alergias.setValue('');
 
+      //si se agrega un elemento a la tabla entonces los campos
+      //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
+      this.tipo_alergia.clearValidators();
+      this.tipo_alergia.updateValueAndValidity();
+
+      this.parentesco_alergias.clearValidators();
+      this.parentesco_alergias.updateValueAndValidity();
+
     }
 
 
@@ -1513,7 +1592,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
     // para que no se muestre en el html.
     if (!this.tablaAlergiasAF.length) {
+
       this.dataSourceTablaAlergiasAF = null;
+
+      //si la tabla no tiene ningun valor entonces establezco como requerido
+      // los campos tipo alergia y parentesco.
+      this.tipo_alergia.setValidators(Validators.required);
+      this.tipo_alergia.updateValueAndValidity();
+
+      this.parentesco_alergias.setValidators(Validators.required);
+      this.parentesco_alergias.updateValueAndValidity();
     }
   }
 
@@ -1562,6 +1650,14 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.tipo_cancer.setValue('');
       this.parentesco_cancer.setValue('');
 
+      //si se agrega un elemento a la tabla entonces los campos
+      //tipo cancer y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
+      this.tipo_cancer.clearValidators();
+      this.tipo_cancer.updateValueAndValidity();
+
+      this.parentesco_cancer.clearValidators();
+      this.parentesco_cancer.updateValueAndValidity();
+
     }
 
   }
@@ -1577,7 +1673,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
     // para que no se muestre en el html.
     if (!this.tablaCanceresAF.length) {
+
       this.dataSourceTablaCanceresAF = null;
+
+      //si la tabla no tiene ningun valor entonces establezco como requerido
+      // los campos tipo cancer y parentesco.
+      this.tipo_cancer.setValidators(Validators.required);
+      this.tipo_cancer.updateValueAndValidity();
+
+      this.parentesco_cancer.setValidators(Validators.required);
+      this.parentesco_cancer.updateValueAndValidity();
     }
 
   }
@@ -1603,6 +1708,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.tipo_desnutricion_ap.setValue('');
       this.observacion_desnutricion_ap.setValue('');
 
+      //si se agrega un elemento a la tabla entonces los campos
+      //tipo desnutricion de antecedentes personales y parentesco ya no seran requeridos,
+      // solo en caso de que la tabla este vacia.
+
+      this.tipo_desnutricion_ap.clearValidators();
+      this.tipo_desnutricion_ap.updateValueAndValidity();
+
+      this.observacion_desnutricion_ap.clearValidators();
+      this.observacion_desnutricion_ap.updateValueAndValidity();
+
     }
 
 
@@ -1619,7 +1734,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
     // para que no se muestre en el html.
     if (!this.tablaDesnutricionesAP.length) {
+
       this.dataSourceTablaDesnutricionesAP = null;
+
+      //si la tabla no tiene ningun valor entonces establezco como requerido
+      // el campo tipo desnutricion de antecedentes personales.
+
+      this.tipo_desnutricion_ap.setValidators(Validators.required);
+      this.tipo_desnutricion_ap.updateValueAndValidity();
+
+  
     }
 
   }
@@ -1644,6 +1768,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.tipo_enfermedad_mental_ap.setValue('');
       this.observacion_enfermedades_mentales_ap.setValue('');
 
+      //si se agrega un elemento a la tabla entonces los campos
+      //tipo enfermedades mentales de antecedentes personales y parentesco ya no seran requeridos,
+      // solo en caso de que la tabla este vacia.
+      
+      this.tipo_enfermedad_mental_ap.clearValidators();
+      this.tipo_enfermedad_mental_ap.updateValueAndValidity();
+
+      this.observacion_enfermedades_mentales_ap.clearValidators();
+      this.observacion_enfermedades_mentales_ap.updateValueAndValidity();
+
     }
 
 
@@ -1660,7 +1794,15 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
     // para que no se muestre en el html.
     if (!this.tablaEnfermedadesMentalesAP.length) {
+
       this.dataSourceTablaEnfermedadesMentalesAP = null;
+
+      //si la tabla no tiene ningun valor entonces establezco como requerido
+      // el campo tipo enfermedades mentales de antecedentes personales.
+
+      this.tipo_enfermedad_mental_ap.setValidators(Validators.required);
+      this.tipo_enfermedad_mental_ap.updateValueAndValidity();
+
     }
   }
 
@@ -1685,6 +1827,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.tipo_alergia_ap.setValue('');
       this.observacion_alergias_ap.setValue('');
 
+      //si se agrega un elemento a la tabla entonces los campos
+      //tipo alergia de antecedentes personales y parentesco ya no seran requeridos,
+      // solo en caso de que la tabla este vacia.
+      
+      this.tipo_alergia_ap.clearValidators();
+      this.tipo_alergia_ap.updateValueAndValidity();
+
+      this.observacion_alergias_ap.clearValidators();
+      this.observacion_alergias_ap.updateValueAndValidity();
+
     }
 
 
@@ -1701,7 +1853,14 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
     // para que no se muestre en el html.
     if (!this.tablaAlergiasAP.length) {
+
       this.dataSourceTablaAlergiasAP = null;
+
+      //si la tabla no tiene ningun valor entonces establezco como requerido
+      // el campo tipo alergia de antecedentes personales.
+
+      this.tipo_alergia_ap.setValidators(Validators.required);
+      this.tipo_alergia_ap.updateValueAndValidity();
     }
   }
 
@@ -1725,6 +1884,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.tipo_cancer_ap.setValue('');
       this.observacion_cancer_ap.setValue('');
 
+      //si se agrega un elemento a la tabla entonces los campos
+      //tipo cancer de antecedentes personales y parentesco ya no seran requeridos,
+      // solo en caso de que la tabla este vacia.
+      
+      this.tipo_cancer_ap.clearValidators();
+      this.tipo_cancer_ap.updateValueAndValidity();
+
+      this.observacion_cancer_ap.clearValidators();
+      this.observacion_cancer_ap.updateValueAndValidity();
+
     }
 
 
@@ -1741,7 +1910,14 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
     // para que no se muestre en el html.
     if (!this.tablaCanceresAP.length) {
+
       this.dataSourceTablaCanceresAP = null;
+
+      //si la tabla no tiene ningun valor entonces establezco como requerido
+      // el campo tipo cancer de antecedentes personales.
+
+      this.tipo_cancer_ap.setValidators(Validators.required);
+      this.tipo_cancer_ap.updateValueAndValidity();
     }
 
   }
@@ -1765,6 +1941,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       this.otros_ap.setValue('');
       this.observacion_otros_ap.setValue('');
+
+  
 
     }
 
@@ -1858,8 +2036,51 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.diagnostico.setValue('');
       this.tratamiento.setValue('');
 
+      this.fecha_antecedente_hospitalario.clearValidators();
+      this.fecha_antecedente_hospitalario.updateValueAndValidity();
+
+      this.tiempo_hospitalizacion.clearValidators();
+      this.tiempo_hospitalizacion.updateValueAndValidity();
+
+      this.diagnostico.clearValidators();
+      this.diagnostico.updateValueAndValidity();
+
+      this.tratamiento.clearValidators();
+      this.tratamiento.updateValueAndValidity();
+
+
     }
 
+
+  }
+
+  eliminarsHopitalariasQuirurgicas(index) {
+    //borro el elemento de la tabla estableciendo el index.
+    this.tablaHospitalariasQuirurgicas.splice(index, 1);
+
+    //refresco el datasouerce con los elemento que quedaron para que se resfresque
+    // tambien la tabla html.
+    this.dataSourceTablaHospitalariasQuirurgicas = new MatTableDataSource(this.tablaHospitalariasQuirurgicas);
+
+
+    //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
+    // para que no se muestre en el html.
+    if (!this.tablaHospitalariasQuirurgicas.length) {
+
+      this.dataSourceTablaHospitalariasQuirurgicas = null;
+
+      this.fecha_antecedente_hospitalario.setValidators(Validators.required);
+      this.fecha_antecedente_hospitalario.updateValueAndValidity();
+
+      this.tiempo_hospitalizacion.setValidators(Validators.required);
+      this.tiempo_hospitalizacion.updateValueAndValidity();
+
+      this.diagnostico.setValidators(Validators.required);
+      this.diagnostico.updateValueAndValidity();
+
+      this.tratamiento.setValidators(Validators.required);
+      this.tratamiento.updateValueAndValidity();
+    }
 
   }
 
