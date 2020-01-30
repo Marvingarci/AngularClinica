@@ -1,17 +1,17 @@
 <mat-toolbar class="toolbar">
     <span>Clinica UNAH-TEC Danli</span>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu" >
+    <button mat-icon-button [matMenuTriggerFor]="menu"  style=" outline:none;display:block;">
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
         
-        <button  mat-menu-item (click)="cerrarsesion()">
+        <button  mat-menu-item (click)="cerrarsesion()" style=" outline:none;display:block;">
             <mat-icon >loop</mat-icon>
             <span>Cambiar contraseña</span>                        
         </button> 
         
-         <button mat-menu-item (click)="cambiarcontra()">
+         <button mat-menu-item (click)="cambiarcontra()" style=" outline:none;display:block;">
           <mat-icon >power_settings_new</mat-icon>
             <span>Cerrar sesión</span>              
         </button>
