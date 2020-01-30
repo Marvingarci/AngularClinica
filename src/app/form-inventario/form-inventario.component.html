@@ -4,20 +4,21 @@
             <div class="titulo"><h2 >Registro Inventario</h2></div> 
             <form  id="form" [formGroup]= "formInventario">
         
-                <div class="col">
                 <mat-form-field class="example-full-width">
+                    <mat-label><b>Unidad</b></mat-label>
                     <input  matInput placeholder="Unidad" formControlName= "unidad" required>
+                    <mat-hint align="end">{{unidad.value.length}} / 6</mat-hint>
                     <mat-error *ngIf="unidad.hasError('required')">campo requerido</mat-error>
                     <mat-error *ngIf="unidad.hasError('pattern')">Introduzca solo números</mat-error> 
                     <mat-error *ngIf="unidad.hasError('minLength') && unidad.hasError('maxLength')">
                     campo requerido
                     </mat-error>
                 </mat-form-field>
-                </div>
-        
-                <div class="col">
+                
                     <mat-form-field class="example-full-width">
+                        <mat-label><b>Ingrese el nombre</b></mat-label>
                         <input  matInput placeholder="Ingrese el nombre" formControlName= "nombre" required>
+                        <mat-hint align="end">{{nombre.value.length}} / 6</mat-hint> 
                             <mat-error *ngIf="nombre.hasError('required')">
                                 <strong>campo requerido</strong>
                             </mat-error>
@@ -25,23 +26,23 @@
                                 <strong>campo requerido</strong>
                             </mat-error>
                     </mat-form-field>     
-                </div>
 
-                <div class="col">
                     <mat-form-field class="example-full-width">
+                        <mat-label><b>Descripcion</b></mat-label>
                         <input  matInput placeholder="Descripcion" formControlName= "descripcion" required>
+                        <mat-hint align="end">{{descripcion.value.length}} / 6</mat-hint>
                             <mat-error *ngIf="descripcion.hasError('required')">
                                 <strong>campo requerido</strong>
                             </mat-error>
                             <mat-error *ngIf="descripcion.hasError('minLength')">
                                 <strong>campo requerido</strong>
                             </mat-error>
-                    </mat-form-field>     
-                </div>
+                    </mat-form-field>
 
-                <div class="col">
                         <mat-form-field class="example-full-width">
+                            <mat-label><b>Observacion</b></mat-label>
                             <input  matInput placeholder="Observacion" formControlName= "observacion" required>
+                            <mat-hint align="end">{{observacion.value.length}} / 6</mat-hint>
                                <!-- <mat-error *ngIf="observacion.hasError('required')">
                                     <strong>campo requerido</strong>
                                 </mat-error>-->
@@ -49,7 +50,6 @@
                                     <!--<strong>campo requerido</strong>-->
                                 </mat-error>
                         </mat-form-field>     
-                </div>
 
                <!-- <div >
                     <label  class="label">Presentacion</label>
@@ -58,9 +58,8 @@
                     </select></p>           
                 </div>-->
 
-                <div class="col"> 
                     <mat-form-field  class="example-full-width">
-                      <mat-label>Presentacion</mat-label>
+                      <mat-label><b>Presentacion</b></mat-label>
                       <mat-select formControlName= "presentacion" >
                         <mat-option *ngFor="let presentacion of presentaciones" [value]="presentacion.value">
                           {{presentacion.viewValue}}
@@ -69,7 +68,6 @@
                     <mat-error *ngIf="presentacion.hasError('required')"> <strong>campo requerido</strong></mat-error>
         
                     </mat-form-field>
-                  </div>
 
 
             </form>
@@ -79,7 +77,6 @@
 
 </div>
 
-<div>
     <button  mat-raised-button [routerLink]="['/principal/inventario']" 
         class="btn btn-outline-primary float-right botonperron" 
         style="margin-top: 12%;margin-left: 25px; right: 15px">
@@ -87,7 +84,6 @@
     </button> 
     <button  mat-raised-button (click)="comprobarDatos()"  
         class="btn btn-outline-primary float-right botonperron" 
-        style="margin-top: 12%;" 
-        [disabled]="disabledinventario"> Guardar</button>  
-    
-</div>
+        style="margin-top: 12%; margin-left: 25px; " 
+        [disabled]="disabledinventario"> Guardar
+    </button>  
