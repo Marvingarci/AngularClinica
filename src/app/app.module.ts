@@ -56,6 +56,7 @@ import { Principal1Component } from './principal1/principal1.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ConsolidadodiarioComponent } from './consolidadodiario/consolidadodiario.component';
 import { TelefonoUnicoDirective } from './validations/telefono-unico.directive';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 
@@ -189,7 +190,8 @@ const routes: Route[] = [
     MatSnackBarModule,
     MatSidenavModule,
     MatBadgeModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatChipsModule,
   
     
   ],
