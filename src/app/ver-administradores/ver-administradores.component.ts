@@ -128,7 +128,8 @@ export class VerAdministradoresComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.paginator = this.paginator;
-  }  
+  }
+
 
   //dialogo
   borraradministrador(id){
