@@ -216,7 +216,7 @@ export class RegistromedicosComponent implements OnInit {
         this.medicoService.GuardarMedico(this.medico).subscribe( (data) =>{
         console.log(data);
         this.getdato();
-        this.router.navigate(['/principal/medicos']);         
+        this.router.navigate(['/principal/veradministradores']);         
         this.showError('Medico creado con exito');
         }, (error) => {
         console.log(error);
