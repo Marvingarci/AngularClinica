@@ -29,6 +29,9 @@ import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitala
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
 
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { TelefonoEmergencia } from '../interfaces/telefono-emergencia';
+
 export interface Loginadmin {
   // contrasenia_admin: any;
   value: string;
@@ -127,6 +130,7 @@ export interface Categorias {
   viewValue: string;
 }
 
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -145,7 +149,39 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 
 export class FormularioComponent implements OnInit, AfterViewInit {
-  
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  telefonos_emergencia = [];
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      // this.telefonos_emergencia.push({ name: value.trim() });
+      this.telefonos_emergencia.push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(telefono_emergencia): void {
+    const index = this.telefonos_emergencia.indexOf(telefono_emergencia);
+
+    if (index >= 0) {
+      this.telefonos_emergencia.splice(index, 1);
+    }
+  }
+
 
   loading: boolean = false;
 
@@ -187,10 +223,11 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     categoria: new FormControl('', [Validators.required]),
     estado_civil: new FormControl('', Validators.required),
     seguro_medico: new FormControl('', Validators.required),
-   
+
     numero_telefono: new FormControl('', {
       validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
-      asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]}),
+      asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]
+    }),
 
 
     // numero_telefono: new FormControl('', {
@@ -322,26 +359,26 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     formControl.forEach(controlador => {
       controlador.enable({ onlySelf: true });
 
-      if(controlador.parent == this.formulario_antecedentes_familiares){
+      if (controlador.parent == this.formulario_antecedentes_familiares) {
 
         controlador.setValidators(Validators.required);
 
         //este metodo sirve para actualizar el valor y las validaciones de un controlador.
         controlador.updateValueAndValidity();
-        
+
       }
 
-      if(controlador.parent == this.formulario_antecedentes_personales){
+      if (controlador.parent == this.formulario_antecedentes_personales) {
 
-        if(this.tipo_desnutricion_ap == controlador ||
+        if (this.tipo_desnutricion_ap == controlador ||
           this.tipo_enfermedad_mental_ap == controlador ||
           this.tipo_alergia_ap == controlador ||
           this.tipo_cancer_ap == controlador ||
           this.fecha_antecedente_hospitalario == controlador ||
           this.tiempo_hospitalizacion == controlador ||
           this.diagnostico == controlador ||
-          this.tratamiento == controlador){
-            
+          this.tratamiento == controlador) {
+
           controlador.setValidators(Validators.required);
 
           //este metodo sirve para actualizar el valor y las validaciones de un controlador.
@@ -351,7 +388,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       }
 
-      
+
     });
 
     //muestra solo el step que le manda
@@ -364,12 +401,12 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       controlador.setValue('');
       controlador.disable({ onlySelf: true });
 
-      if(controlador.parent == this.formulario_antecedentes_familiares){
-        
+      if (controlador.parent == this.formulario_antecedentes_familiares) {
+
         //elimino todas la validaciones que tenga el controlador
         controlador.clearValidators();
         controlador.updateValueAndValidity();
-        
+
       }
 
     });
@@ -596,15 +633,15 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     } else {
       this.ocultar1 = true;
     }
-  }  
+  }
 
   public onStepChange(event: any): void {
     console.log('step index seleccionado');
     console.log(event.selectedIndex);
-    
 
-   this.mostrarLabelStep(event.selectedIndex);
-    
+
+    this.mostrarLabelStep(event.selectedIndex);
+
 
 
   }
@@ -615,15 +652,15 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   mostrarN() {
     this.ocultar = true;
   }
-  
+
   //muestra solo el step que le manda
-  mostrarLabelStep(index: number){
+  mostrarLabelStep(index: number) {
     let elementos: any = document.getElementsByClassName('mat-step-label');
 
     for (let i = 0; i < elementos.length; i++) {
       const element: any = elementos[i];
-    
-      element.style.display= "none";
+
+      element.style.display = "none";
       console.log(element);
     }
     console.log(index);
@@ -637,14 +674,14 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   //   for (let i = 0; i < elementos.length; i++) {
   //     var element: any = elementos[i];
-    
+
   //     if(index == i){
   //       element.style.display= "none";
   //     }else{
   //       element = document.getElementsByClassName('mat-step-label')[index];
   //       element.style.display= "none";
   //     }
-      
+
   //     console.log(element);
   //   }
   //   console.log(index);
@@ -714,6 +751,13 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     emergencia_telefono: null,
     categoria: null
   };
+
+  telefono_emergencia: TelefonoEmergencia = {
+
+    id_paciente: null,
+    telefono_emergencia: null,
+
+  }
 
   enfermedad: Element = {
     numero: null,
@@ -944,7 +988,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   constructor(private formularioService: FormularioService,
     private router: Router, activar: AppComponent, public dialog: MatDialog,
-    public login: LoginService, private formulario: FormularioService,private TelefonoUnicoService: TelefonoUnicoService) {
+    public login: LoginService, private formulario: FormularioService, private TelefonoUnicoService: TelefonoUnicoService) {
     // this.obtenerDatosFormulario();
     this.getDatosScraping();
 
@@ -957,22 +1001,22 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   }
 
-  
+
 
   // para que se le quite la cosa fea al text area
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
 
-  ngAfterViewInit(): void{  
+  ngAfterViewInit(): void {
 
-  
+
     this.mostrarLabelStep(0);
 
     let element: any = document.getElementById("select");
     console.log(element);
-    element.addEventListener('click', function(e){
+    element.addEventListener('click', function (e) {
       console.log('se toco el select');
     })
-    
+
 
     this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedadesDesnutricion, this.tipo_desnutricion);
     this.autocomplete(document.getElementById('InputEnfermedadAF'), this.enfermedadesMentales, this.tipo_enfermedad_mental);
@@ -984,10 +1028,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     this.autocomplete(document.getElementById('InputCancerAP'), this.enfermedadesCancer, this.tipo_cancer_ap);
     this.autocomplete(document.getElementById('inputOtrosHT'), this.habitosToxicologicos, this.otros_ht);
 
-    
 
 
-    
+
+
 
   }
 
@@ -1412,7 +1456,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     }
 
-    
+
 
 
   }
@@ -1743,7 +1787,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.tipo_desnutricion_ap.setValidators(Validators.required);
       this.tipo_desnutricion_ap.updateValueAndValidity();
 
-  
+
     }
 
   }
@@ -1771,7 +1815,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       //si se agrega un elemento a la tabla entonces los campos
       //tipo enfermedades mentales de antecedentes personales y parentesco ya no seran requeridos,
       // solo en caso de que la tabla este vacia.
-      
+
       this.tipo_enfermedad_mental_ap.clearValidators();
       this.tipo_enfermedad_mental_ap.updateValueAndValidity();
 
@@ -1830,7 +1874,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       //si se agrega un elemento a la tabla entonces los campos
       //tipo alergia de antecedentes personales y parentesco ya no seran requeridos,
       // solo en caso de que la tabla este vacia.
-      
+
       this.tipo_alergia_ap.clearValidators();
       this.tipo_alergia_ap.updateValueAndValidity();
 
@@ -1887,7 +1931,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       //si se agrega un elemento a la tabla entonces los campos
       //tipo cancer de antecedentes personales y parentesco ya no seran requeridos,
       // solo en caso de que la tabla este vacia.
-      
+
       this.tipo_cancer_ap.clearValidators();
       this.tipo_cancer_ap.updateValueAndValidity();
 
@@ -1942,7 +1986,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.otros_ap.setValue('');
       this.observacion_otros_ap.setValue('');
 
-  
+
 
     }
 
@@ -2247,6 +2291,22 @@ export class FormularioComponent implements OnInit, AfterViewInit {
           this.error = true;
           alert('ocurrion un error');
         });
+
+        console.log(this.telefonos_emergencia);
+
+        if (this.telefonos_emergencia.length) {
+          this.telefonos_emergencia.forEach(telefono_emergencia => {
+
+            this.telefono_emergencia.id_paciente = this.paciente.id_paciente;
+            this.telefono_emergencia.telefono_emergencia = telefono_emergencia;
+
+            this.formularioService.enviarTelefonoEmergencia(this.telefono_emergencia).subscribe((data) => {
+              console.log('se envio el numero de emergencia');
+            }, (error) => {
+              console.log(error);
+            });
+          });
+        }
       }
 
     } else {
@@ -2282,6 +2342,20 @@ export class FormularioComponent implements OnInit, AfterViewInit {
           this.error = true;
           alert('ocurrion un error');
         });
+
+        if (this.telefonos_emergencia.length) {
+          this.telefonos_emergencia.forEach(telefono_emergencia => {
+
+            this.telefono_emergencia.id_paciente = this.paciente.id_paciente;
+            this.telefono_emergencia.telefono_emergencia = telefono_emergencia;
+
+            this.formularioService.enviarTelefonoEmergencia(this.telefono_emergencia).subscribe((data) => {
+              console.log('se envio el numero de emergencia');
+            }, (error) => {
+              console.log(error);
+            });
+          });
+        }
 
       }
     }
