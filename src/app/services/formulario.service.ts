@@ -81,7 +81,9 @@ export class FormularioService {
 
 
 
-  enviarParentescos(){
+  enviarTelefonoEmergencia(telefono_emergencia){
+
+    return this.httpClient.post(this.API_ENDPOINT+'telefonos_emergencia', telefono_emergencia, {headers: this.headers});
 
   }
 
@@ -201,9 +203,6 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT+'obtenerColumnaNumeroTelefono/'+numero_telefono);
   }
 
-  
-
-
 
   obtenerAntecedentesFamiliares(){
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_familiares');
@@ -212,8 +211,6 @@ export class FormularioService {
   obtenerAntecedenteFamiliar(id_paciente: any){
     return this.httpClient.get(this.API_ENDPOINT+'pacientes_antecedentes_familiares/'+id_paciente);
   }
-
-
 
 
   obtenerAntecedentesPersonales(){
@@ -226,9 +223,6 @@ export class FormularioService {
       this.API_ENDPOINT+'pacientes_antecedentes_personales/'+$id_paciente);
   }
 
-
-
-
   obtenerHabitosToxicologicos(){
     return this.httpClient.get(this.API_ENDPOINT+'habitos_toxicologicos_personales');
   }
@@ -236,9 +230,6 @@ export class FormularioService {
   obtenerHabitoToxicologico(id_paciente: any){
     return this.httpClient.get(this.API_ENDPOINT+'pacientes_habitos_toxicologicos/'+id_paciente);
   }
-
-
-
 
   obtenerActividadesSexuales(){
     return this.httpClient.get(this.API_ENDPOINT+'actividad_sexual');
@@ -248,18 +239,13 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT+'actividad_sexual/'+$id_paciente);
   }
 
-
-
-
-  obtenerAntecedentesGinecologicos(){
+ obtenerAntecedentesGinecologicos(){
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_ginecologicos');
   }
 
   obtenerAntecedenteGinecologico(id_paciente: any){
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_ginecologicos/'+id_paciente);
   }
-
-
 
 
   obtenerAntecedentesObstetricos(){
@@ -269,8 +255,6 @@ export class FormularioService {
   obtenerAntecedenteObstetrico(id_paciente: any){
     return this.httpClient.get(this.API_ENDPOINT+'antecedentes_obstetricos/'+id_paciente);
   }
-
-
 
 
   obtenerPlanificacionesFamiliares(){
