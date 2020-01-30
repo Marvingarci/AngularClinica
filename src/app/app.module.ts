@@ -11,7 +11,7 @@ import { PrincipalComponent, DialogContentExampleDialog1, DialogCerrarSesion2} f
 import { LoginadminComponent } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
-import { DatoPacienteComponent, DialogContentExampleDialog,DialogContentExampleDialog2, DialogCerrarSesion } from './dato-paciente/dato-paciente.component';
+import { DatoPacienteComponent, DialogContentExampleDialog,DialogContentExampleDialog2, DialogCerrarSesion, DialogContentExampleDialog3 } from './dato-paciente/dato-paciente.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-estudiantes/listado-estudiantes.component';
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
@@ -137,6 +137,7 @@ const routes: Route[] = [
     InventarioComponent,
     DialogContentExampleDialog1,
     DialogContentExampleDialog2,
+    DialogContentExampleDialog3,
     DialogCerrarSesion,
     HistoriaSubsiguiente,
     HistoriaSubsiguiente1,
@@ -199,6 +200,7 @@ const routes: Route[] = [
     DialogContentExampleDialog,
     DialogContentExampleDialog1,
     DialogContentExampleDialog2,
+    DialogContentExampleDialog3,
     DialogCerrarSesion,
     HistoriaSubsiguiente,
     HistoriaSubsiguiente1,

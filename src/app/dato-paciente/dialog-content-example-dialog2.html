@@ -7,7 +7,7 @@
   
             <mat-form-field class="example-full-width" style="margin-top: 5px;" >                
                 <input matInput  (keydown)="onKeydown($event)" 
-                placeholder="Ingrese su nueva contraseña" [type]="hide1 ? 'text' : 'password'"
+                placeholder="Ingresa tu nueva contraseña" [type]="hide1 ? 'text' : 'password'"
                 formControlName="nuevaContraCambio">
                 <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide1 ? 'visibility' : 'visibility_off'}}</mat-icon>
@@ -20,7 +20,7 @@
       <br>
               <mat-form-field class="example-full-width">                
                   <input matInput (keydown)="onKeydown($event)" 
-                  placeholder="Repita su contraseña" [type]="hide ? 'password' : 'text'"
+                  placeholder="Verifica tu contraseña" [type]="hide ? 'password' : 'text'"
                   formControlName="nuevaContraRepCambio">
                   <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -35,6 +35,6 @@
   </mat-dialog-content>
 
   <mat-dialog-actions align='end'>
-    <button mat-button (click)="guardarCambio()" class="botonperron" style="bottom: 0px;right: 0px;" >guardar</button>&nbsp;&nbsp;
-    <button  mat-button mat-dialog-close class="botonperron">Cancelar</button>
+    <button mat-button (click)="guardarCambio()" class="botonperron" style="bottom: 0px;right: 0px;outline:none;  display:block;" >guardar</button>&nbsp;&nbsp;
+    <button  mat-button mat-dialog-close class="botonperron" style="outline:none; display:block;">Cancelar</button>
   </mat-dialog-actions>    
