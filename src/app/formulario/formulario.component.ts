@@ -2280,7 +2280,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.paciente.seguro_medico = this.seguro_medico.value;
         this.paciente.numero_telefono = this.numero_telefono.value;
         this.paciente.emergencia_persona = this.emergencia_persona.value;
-        this.paciente.emergencia_telefono = this.emergencia_telefono.value;
         this.paciente.categoria = this.categoria.value;
 
         this.formularioService.guardarDatosGenerales(this.paciente).subscribe((data) => {
