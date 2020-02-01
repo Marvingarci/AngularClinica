@@ -2133,8 +2133,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   }
 
   AgregarTelefonosEmergencia() {
+    this.otros.value.toString().trim()
 
-    if (this.emergencia_persona.value && this.emergencia_telefono.valid) {
+    if (this.emergencia_persona.value.toString().trim() && this.emergencia_telefono.valid &&
+      this.emergencia_telefono.value.toString().trim() && this.emergencia_telefono.valid) {
 
       var emergencia_persona: string = "";
       var emergencia_telefono: string = "";
@@ -2353,7 +2355,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
         this.paciente.numero_telefono = this.numero_telefono.value;
-        this.paciente.emergencia_persona = this.emergencia_persona.value;
         this.paciente.categoria = this.categoria.value;
 
         this.formularioService.guardarDatosGenerales(this.paciente).subscribe((data) => {
@@ -2367,11 +2368,12 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
         console.log(this.telefonos_emergencia);
 
-        if (this.telefonos_emergencia.length) {
-          this.telefonos_emergencia.forEach(telefono_emergencia => {
+        if (this.tablaTelefonosEmergencia.length) {
+          this.tablaTelefonosEmergencia.forEach(telefono_emergencia => {
 
             this.telefono_emergencia.id_paciente = this.paciente.id_paciente;
-            this.telefono_emergencia.telefono_emergencia = telefono_emergencia;
+            this.telefono_emergencia.emergencia_persona = telefono_emergencia.emergencia_persona;
+            this.telefono_emergencia.telefono_emergencia = telefono_emergencia.telefono_emergencia;
 
             this.formularioService.enviarTelefonoEmergencia(this.telefono_emergencia).subscribe((data) => {
               console.log('se envio el numero de emergencia');
