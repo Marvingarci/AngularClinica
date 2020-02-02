@@ -91,7 +91,7 @@ export interface select {
 // todas estas interfaces hay que borrarlas despues y solo dejar una
 // por mientras son de prueba
 export interface sexos {
-  value: number;
+  value: string;
   viewValue: string;
 }
 
@@ -856,8 +856,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     { value: 3, viewValue: 'Estudiante' }
   ];
   sexos: sexos[] = [
-    { value: 1, viewValue: 'Hombre' },
-    { value: 2, viewValue: 'Mujer' },
+    { value: 'Hombre', viewValue: 'Hombre' },
+    { value: 'Mujer', viewValue: 'Mujer' },
     //{value: 'otro', viewValue: 'Otro'}
   ];
 
