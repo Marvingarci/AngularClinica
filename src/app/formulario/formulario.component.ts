@@ -91,7 +91,7 @@ export interface select {
 // todas estas interfaces hay que borrarlas despues y solo dejar una
 // por mientras son de prueba
 export interface sexos {
-  value: number;
+  value: string;
   viewValue: string;
 }
 
@@ -756,6 +756,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     id_paciente: null,
     telefono_emergencia: null,
+    emergencia_persona: null,
 
   }
 
@@ -856,8 +857,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     { value: 3, viewValue: 'Estudiante' }
   ];
   sexos: sexos[] = [
-    { value: 1, viewValue: 'Hombre' },
-    { value: 2, viewValue: 'Mujer' },
+    { value: 'Hombre', viewValue: 'Hombre' },
+    { value: 'Mujer', viewValue: 'Mujer' },
     //{value: 'otro', viewValue: 'Otro'}
   ];
 
@@ -938,6 +939,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   dataSourceTablaEnfermedadesMentalesAF: any;
   dataSourceTablaAlergiasAF: any;
   dataSourceTablaCanceresAF: any;
+  dataSourceTablaTelefonosEmergencia: any;
 
 
   tablaOtrosAP: Element[] = [];
@@ -945,6 +947,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   tablaEnfermedadesMentalesAP: Element[] = [];
   tablaAlergiasAP: Element[] = [];
   tablaCanceresAP: Element[] = [];
+  tablaTelefonosEmergencia: TelefonoEmergencia[] = [];
 
   dataSourceTablaOtrosAP: any;
   dataSourceTablaDesnutricionesAP: any;
@@ -965,6 +968,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   columnasTablaAF: string[] = ['numero', 'antecedente', 'parentesco', 'botones'];
   columnasTablaAP: string[] = ['numero', 'antecedente', 'observacion', 'botones'];
   columnasTablaHospitalarias: string[] = ['numero', 'fecha', 'tiempo', 'diagnostico', 'tratamiento', 'botones'];
+  columnasTablaTelefonosEmergencia: string[] = ['numero', 'nombre', 'telefono', 'botones'];
 
 
   // creo estos arreglos de los cuales extraigo el valor de cada elemento y lo mando a la tabla de la base de datos respectiva
@@ -2128,6 +2132,78 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   }
 
+  AgregarTelefonosEmergencia() {
+    this.otros.value.toString().trim()
+
+    if (this.emergencia_persona.value.toString().trim() && this.emergencia_telefono.valid &&
+      this.emergencia_telefono.value.toString().trim() && this.emergencia_telefono.valid) {
+
+      var emergencia_persona: string = "";
+      var emergencia_telefono: string = "";
+
+      //establezco el valor del fomrControl a las variables para despues eliminar los espacios finales e iniciales
+      emergencia_persona = this.emergencia_persona.value;
+      emergencia_telefono = this.emergencia_telefono.value;
+
+
+      //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
+      emergencia_persona = emergencia_persona.trim();
+      emergencia_telefono = emergencia_telefono.trim();
+
+      //agrego a la tabla la emergencia persona y el emergencia telefono.
+      this.tablaTelefonosEmergencia.push(
+        {
+          id_paciente: null,
+          telefono_emergencia: emergencia_telefono,
+          emergencia_persona: emergencia_persona
+        }
+
+      );
+
+      this.dataSourceTablaTelefonosEmergencia = new MatTableDataSource(this.tablaTelefonosEmergencia);
+
+      this.emergencia_persona.setValue('');
+      this.emergencia_telefono.setValue('');
+
+      //si se agrega un elemento a la tabla entonces los campos
+      //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
+      this.emergencia_persona.clearValidators();
+      this.emergencia_persona.updateValueAndValidity();
+
+      this.emergencia_telefono.clearValidators();
+      this.emergencia_telefono.updateValueAndValidity();
+
+    }
+
+
+  }
+
+  eliminarTelefonosEmergencia(index) {
+    //borro el elemento de la tabla estableciendo el index.
+    this.tablaTelefonosEmergencia.splice(index, 1);
+
+    //refresco el datasource con los elemento que quedaron para que se resfresque
+    // tambien la tabla html.
+    this.dataSourceTablaTelefonosEmergencia = new MatTableDataSource(this.tablaTelefonosEmergencia);
+
+
+    //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
+    // para que no se muestre en el html.
+    if (!this.tablaTelefonosEmergencia.length) {
+
+      this.dataSourceTablaTelefonosEmergencia = null;
+
+      this.emergencia_telefono.setValidators(Validators.required);
+      this.emergencia_telefono.updateValueAndValidity();
+
+      this.emergencia_persona.setValidators(Validators.required);
+      this.emergencia_persona.updateValueAndValidity();
+
+    }
+
+  }
+
+
   enviarDatos() {
     this.loading = true;
 
@@ -2279,7 +2355,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
         this.paciente.numero_telefono = this.numero_telefono.value;
-        this.paciente.emergencia_persona = this.emergencia_persona.value;
         this.paciente.categoria = this.categoria.value;
 
         this.formularioService.guardarDatosGenerales(this.paciente).subscribe((data) => {
@@ -2293,11 +2368,12 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
         console.log(this.telefonos_emergencia);
 
-        if (this.telefonos_emergencia.length) {
-          this.telefonos_emergencia.forEach(telefono_emergencia => {
+        if (this.tablaTelefonosEmergencia.length) {
+          this.tablaTelefonosEmergencia.forEach(telefono_emergencia => {
 
             this.telefono_emergencia.id_paciente = this.paciente.id_paciente;
-            this.telefono_emergencia.telefono_emergencia = telefono_emergencia;
+            this.telefono_emergencia.emergencia_persona = telefono_emergencia.emergencia_persona;
+            this.telefono_emergencia.telefono_emergencia = telefono_emergencia.telefono_emergencia;
 
             this.formularioService.enviarTelefonoEmergencia(this.telefono_emergencia).subscribe((data) => {
               console.log('se envio el numero de emergencia');
