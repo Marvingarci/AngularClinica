@@ -33,7 +33,7 @@ export interface Categorias {
   viewValue: string;
 }
 export interface Sexos {
-  value: number;
+  value: string;
   viewValue: string;
 }
 
@@ -548,8 +548,8 @@ ocultar: boolean = true;
   seguros_medicos: SegurosMedicos[]=[];
 
   sexos: Sexos[] = [
-    {value: 1, viewValue: 'Hombre'},
-    {value: 2, viewValue: 'Mujer'},
+    {value: 'Hombre', viewValue: 'Hombre'},
+    {value: 'Mujer', viewValue: 'Mujer'},
   
   ];
 
@@ -899,17 +899,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
   console.log(this.paciente.sexo);
 
-  switch (this.paciente.sexo) {
-    case 'Hombre':
-      this.sexo.setValue(1);
-      
-      break;
   
-    default:
-        this.sexo.setValue(2);
-
-      break;
-  }
 
 
     if(this.readonlyDatosGenerales === true){    

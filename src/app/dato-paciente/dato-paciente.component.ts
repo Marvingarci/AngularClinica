@@ -1,9 +1,9 @@
-import { Component, OnInit , Input} from '@angular/core';
+import { Component, OnInit , Input, Inject} from '@angular/core';
 import { FormularioService } from '../services/formulario.service';
 import { Paciente } from "../interfaces/paciente";
 import { ActivatedRoute, Route } from '@angular/router';
 import { AppComponent } from "../app.component";
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from "../services/login.service";
@@ -164,7 +164,7 @@ export class DatoPacienteComponent implements OnInit {
   }
 
   cerrarsesion(){  
-    const dialogRef = this.dialog.open(DialogContentExampleDialog2, {disableClose:false,panelClass: 'cambiarcontrasenia'});
+    const dialogRef = this.dialog.open(DialogContentExampleDialog3, {disableClose:false,closeOnNavigation: true,panelClass: 'cambiarcontrasenia'});
   }
 
   cambiarcontra(){
@@ -424,6 +424,130 @@ get nuevaContraRep(){return this.Nueva.get('nuevaContraRep')};
 
 
 
+@Component({
+  selector: 'dialog-content-example-dialog3',
+  templateUrl: 'dialog-content-example-dialog3.html',
+})
+ 
+export class DialogContentExampleDialog3 {
+  hide1= false;
+  hide = true;
+
+  paciente2: Paciente = {
+    id_paciente: null,
+    numero_paciente: null,
+    contrasenia: null,
+    nombre_completo: null,
+    numero_cuenta: null,
+    numero_identidad: null,
+    lugar_procedencia: null,
+    direccion: null,
+    carrera: null,
+    fecha_nacimiento: null,
+    sexo: null,
+    estado_civil: null,
+    seguro_medico: null,
+    numero_telefono: null,
+    emergencia_persona: null,
+    emergencia_telefono: null,
+    peso: null,
+    talla: null,
+    imc: null,
+    temperatura: null,
+    presion: null,
+    pulso: null,
+    categoria:null
+  }
+  id:any;
+  resultado:any;
+  pacientes:Paciente[];
+  paciente:Paciente;
+  constructor(
+
+    private dialogRef: MatDialogRef<DialogContentExampleDialog3>,
+    @Inject(MAT_DIALOG_DATA) data,
+
+    private formularioService: FormularioService,private activatedRoute: ActivatedRoute,
+    public login: LoginService, private router: Router, private mensaje: MatSnackBar,public dialog: MatDialog ){   
+      this.getContra();
+      
+      this.paciente2.id_paciente = this.formularioService.idActualizar;
+      console.log(this.paciente2.id_paciente);
+      if(this.paciente2.id_paciente){
+        this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
+        this.pacientes = data;
+        this.paciente2 = this.pacientes.find((m)=>{return m.id_paciente == this.paciente2.id_paciente});
+         
+        },(error)=>{
+        console.log(error);
+        });
+  
+        }
+    }//fin del constructor
+
+
+    getContra(){
+      this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) =>{
+      this.pacientes = data;
+      },(error)=>{
+      console.log(error);
+      alert('Ocurrio un error');
+      });
+    }
+   showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+
+  CambioContrasenia = new FormGroup({
+    viejacontra: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.minLength(6)]),
+});
+
+
+//EVENTO CUANDO SE DA ENTER
+onKeydown(event) {
+  if (event.key === "Enter") {
+    this.hide = true;
+    this.hide1=true;
+  }
+}
+
+//EVENTO BOTON GUARDAR
+pasarotrodialogo(){   
+  this.paciente2.contrasenia = this.CambioContrasenia.get('viejacontra').value;
+  for (let index = 0; index < this.pacientes.length; index++) {
+    if (this.pacientes[index].numero_cuenta || this.pacientes[index].numero_identidad  ) {        
+        this.paciente=this.pacientes[index];
+      }       
+  } 
+
+      if (this.paciente.contrasenia==this.paciente2.contrasenia) {
+      
+        const dialogRef = this.dialog.open(DialogContentExampleDialog2, 
+          {disableClose:false,panelClass: 'cambiarcontrasenia'});
+          this.dialogRef.close();
+      }else{
+        this.showError('Contraseña Incorrecta'); 
+      }      
+}
+
+get viejacontra(){return this.CambioContrasenia.get('viejacontra')};
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -484,8 +608,8 @@ export class DialogContentExampleDialog2 {
         this.pac = data;
         this.paciente2 = this.pac.find((m)=>{return m.id_paciente == this.paciente2.id_paciente});
         //establesco el valor al los formcontrol para que se visualizen en los respectivos inputs
-        this.nuevaContraCambio.setValue(this.paciente2.contrasenia);
-        this.nuevaContraRepCambio.setValue(this.paciente2.contrasenia);
+       // this.nuevaContraCambio.setValue(this.paciente2.contrasenia);
+        //this.nuevaContraRepCambio.setValue(this.paciente2.contrasenia);
   
         
         //this.especialidad.setValue(this.medico.especialidadM);  
