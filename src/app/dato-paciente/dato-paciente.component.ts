@@ -153,6 +153,13 @@ export class DatoPacienteComponent implements OnInit {
     
   }
 
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+
 
   ngOnInit() {
   }
@@ -197,10 +204,10 @@ export class DatoPacienteComponent implements OnInit {
           this.numero_telefono.setValue(this.paciente.numero_telefono);
         });
 
-          alert('estamos en vivo');
+        this.showError('Todo correcto');
         }, (error)=>{
           console.log(error);
-          alert('se chorrio');
+          this.showError('Ocurrio un error');
         });
       } 
     }else{
