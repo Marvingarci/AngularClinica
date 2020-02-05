@@ -111,6 +111,7 @@ const routes: Route[] = [
       {path: 'registromedicos/:id', component: RegistromedicosComponent},
       {path: 'principal1', component: Principal1Component},
       {path: 'verPaciente/:id', component: VerPacienteComponent},
+      {path: 'formulario', component: FormularioComponent},
       // {path: 'verPaciente', component: VerPacienteComponent},
 
     ]

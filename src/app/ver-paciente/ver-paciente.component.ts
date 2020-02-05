@@ -681,7 +681,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         if(this.paciente.categoria != "Empleado"){
           this.esAlumno = false;
         }
-        console.log('esAlumno: '+this.esAlumno);
+        console.log('Es alumno: '+this.esAlumno);
         console.log(this.paciente.contrasenia);
         this.formularioService.idActualizar=this.paciente.id_paciente;
         // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
