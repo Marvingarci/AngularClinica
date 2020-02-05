@@ -1,7 +1,7 @@
 export interface Login {
     id_login? : number;
     cuenta : string;
-    clave : string;
+    password : string;
     nombre?: string;
     carrera? : string;
     centro? : string;
