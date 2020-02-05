@@ -66,7 +66,7 @@ login_form = new FormGroup({
 
 login: Login = {
   cuenta: null,
-  clave: null
+  password: null
 };
 
 login_admin: LoginAdmin;
@@ -125,7 +125,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
     this.hide = false;
     this.loading=true;
     this.login.cuenta = this.login_form.get('cuenta').value;
-    this.login.clave = this.login_form.get('clave').value;
+    this.login.password = this.login_form.get('clave').value;
     this.loginService.porMientras = this.login_form.get('clave').value;
   
   //pacientes
@@ -136,7 +136,8 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
           }       
       } 
       if (this.pase == true) {
-        this.loginService.guardarDatos(this.login).subscribe( (data) =>{
+        this.loginService.guardarDatos(this.login).subscribe( (data: any) =>{
+          localStorage.setItem("token", data.token);
         console.log(data);   
         this.showError('Llene el siguiente formulario'); 
         this.router.navigate(['/formulario']);
@@ -146,7 +147,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
           this.showError('Cuenta incorrecta'); 
         });        
         }else{
-          if (this.paciente.contrasenia==this.login.clave) {
+          if (this.paciente.contrasenia==this.login.password) {
             this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);
             this.showError('Bienvenido');   
           }else{
@@ -159,7 +160,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
     for (let indexx = 0; indexx < this.medicos.length; indexx++) {
       if (this.medicos[indexx].usuarioM == this.login.cuenta) {        
         this.medico=this.medicos[indexx];
-      if (this.medico.contraseniaM  == this.login.clave) {
+      if (this.medico.contraseniaM  == this.login.password) {
         console.log(this.medico.contraseniaM);console.log( this.login.cuenta);
         this.showError('Bienvenido Medico'); 
         this.router.navigate(['/principal/principal1']);
@@ -175,7 +176,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
     for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
       if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
         this.login_admin=this.login_admins[indexx]; 
-      if (this.login_admin.contrasenia_admin  == this.login.clave) {
+      if (this.login_admin.contrasenia_admin  == this.login.password) {
         console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
         this.showError('Bienvenido Administrador'); 
         this.router.navigate(['/principal/principal1']);
@@ -195,7 +196,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
   comprobarDatos(){
     this.loading=true;
     this.login.cuenta = this.cuenta.value;
-    this.login.clave = this.clave.value;
+    this.login.password = this.clave.value;
     this.loginService.porMientras = this.clave.value;
 
   //pacientes
@@ -207,7 +208,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
   } 
   if (this.pase == true) {
       this.loginService.guardarDatos(this.login).subscribe( (data) =>{
-      console.log(data);  
+      console.log("logeado"+data);  
       this.showError('Llene el siguiente formulario');
       this.router.navigate(['/formulario']);
       }, (error) => {
@@ -217,7 +218,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
       this.showError('Cuenta incorrecta');
       });
     }else{
-      if (this.paciente.contrasenia==this.login.clave) {
+      if (this.paciente.contrasenia==this.login.password) {
         this.router.navigate(['/datoPaciente/'+this.paciente.id_paciente]);  
         this.showError('Bienvenido'); 
       }else{
@@ -230,7 +231,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
     for (let indexx = 0; indexx < this.medicos.length; indexx++) {
       if (this.medicos[indexx].usuarioM == this.login.cuenta) {        
         this.medico=this.medicos[indexx];
-      if (this.medico.contraseniaM  == this.login.clave) {
+      if (this.medico.contraseniaM  == this.login.password) {
         console.log(this.medico.contraseniaM);console.log( this.login.cuenta);
         this.showError('Bienvenido Medico'); 
         this.router.navigate(['/principal/principal1']);
@@ -252,7 +253,7 @@ constructor(private LoginAdminService: LoginadminService,private loginService: L
     for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
       if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
         this.login_admin=this.login_admins[indexx];
-      if (this.login_admin.contrasenia_admin  == this.login.clave) {
+      if (this.login_admin.contrasenia_admin  == this.login.password) {
         console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
         this.showError('Bienvenido Administrador'); 
         this.router.navigate(['/principal/principal1']);

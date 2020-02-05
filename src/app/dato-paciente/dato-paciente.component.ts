@@ -708,11 +708,14 @@ export class DialogContentExampleDialog2 {
 })
 
 export class DialogCerrarSesion {
-  constructor(public dialog: MatDialog, private router: Router) {
-
-    this.dialog.closeAll;
-  }
-  salir() {
+constructor( public dialog: MatDialog,private router: Router){
+  
+  this.dialog.closeAll;
+}
+  salir(){
+    //borro el token para que el usuario no ya no tenga acceso
+    localStorage.removeItem('token'); 
     this.router.navigate(['']);
+    
   }
 }

@@ -28,7 +28,7 @@ export class PaseAdminComponent implements OnInit {
   });
   login: Login = {
     cuenta: null,
-    clave: null
+    password: null
   };
   login_admin: LoginAdmin
   login_admins: LoginAdmin[];  
@@ -59,7 +59,7 @@ export class PaseAdminComponent implements OnInit {
       this.hide = false;
       this.loading=true;
       this.login.cuenta = this.login_form.get('cuenta').value;
-      this.login.clave = this.login_form.get('clave').value;
+      this.login.password = this.login_form.get('clave').value;
   
       for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
         if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
@@ -70,7 +70,7 @@ export class PaseAdminComponent implements OnInit {
         }
       } 
   
-      if (this.login_admin.contrasenia_admin  == this.login.clave) {
+      if (this.login_admin.contrasenia_admin  == this.login.password) {
       console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
         this.router.navigate(['/principal/veradministradores']);
       }else{
@@ -87,7 +87,7 @@ export class PaseAdminComponent implements OnInit {
   comprobarDatos(){
     this.loading=true;
     this.login.cuenta = this.login_form.get('cuenta').value;
-    this.login.clave = this.login_form.get('clave').value;
+    this.login.password = this.login_form.get('clave').value;
 
     for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
       if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
@@ -96,7 +96,7 @@ export class PaseAdminComponent implements OnInit {
           
         }
     }
-    if (this.login_admin.contrasenia_admin  == this.login.clave) {
+    if (this.login_admin.contrasenia_admin  == this.login.password) {
     console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
       this.router.navigate(['/principal/veradministradores']);
     }else{
