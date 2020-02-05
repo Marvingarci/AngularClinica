@@ -3,7 +3,7 @@ import { NgModule, Component } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormularioComponent } from './formulario/formulario.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RouterModule, Route} from '@angular/router';
 import { LoginComponent } from './login/login.component';
@@ -57,6 +57,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ConsolidadodiarioComponent } from './consolidadodiario/consolidadodiario.component';
 import { TelefonoUnicoDirective } from './validations/telefono-unico.directive';
 import {MatChipsModule} from '@angular/material/chips';
+
+// Interceptors
+import { AuthInterceptorService } from './auth-interceptor.service';
 
 
 
@@ -208,7 +211,13 @@ const routes: Route[] = [
     DialogCerrarSesion2,
     DialogoMedico,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
