@@ -199,7 +199,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   datosScraping: Login = {
     cuenta: null,
-    clave: null,
+    password: null,
     nombre: null,
     carrera: null,
     centro: null,
@@ -1303,7 +1303,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
         if (this.esAlumno == false) {
 
-          this.datosScraping.clave = null;
+          this.datosScraping.password = null;
           this.datosScraping.nombre = null;
           this.datosScraping.carrera = null;
           this.datosScraping.numero_identidad = null;
@@ -3276,7 +3276,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     //borro los datos que se habian recuperado del scraping 
     this.datosScraping.id_login = null;
     this.datosScraping.cuenta = null;
-    this.datosScraping.clave = null;
+    this.datosScraping.password = null;
     this.datosScraping.nombre = null;
     this.datosScraping.carrera = null;
     this.datosScraping.numero_identidad = null;
