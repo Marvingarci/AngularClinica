@@ -513,7 +513,7 @@ export class DialogContentExampleDialog3 {
       }, (error) => {
         console.log(error);
       });
-
+  
     }
   }//fin del constructor
 
