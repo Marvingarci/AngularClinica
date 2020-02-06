@@ -345,14 +345,16 @@ export class DialogContentExampleDialog {
         // guardar datos del formulario en paciente y enviarlo a la api
         this.paciente1.contrasenia = this.nuevaContra.value;
         if (this.paciente1.contrasenia == this.Nueva.get('nuevaContraRep').value) {
+
           this.formularioService.actualizarPaciente(this.paciente1).subscribe((data) => {
 
             this.loginService.obtenerUltimoId().subscribe((data: any)=>{
               this.login.id_login = data[0].ultimoId;
               this.login.password = this.nuevaContra.value;
 
+              //actualizo tambien la contrasenia del login para cuando el usuario vuelva a entrar
+              // se haga la verficacion en la tabla login y se le pueda generar el token.
               this.loginService.actualizarDatos(this.login).subscribe((data)=>{
-                console.log('su actualizo la contra del login');
               },(error)=>{
                 console.log(error);
               });
