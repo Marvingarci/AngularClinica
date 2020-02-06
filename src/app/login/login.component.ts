@@ -136,7 +136,9 @@ export class LoginComponent implements OnInit {
         }
       }
       if (this.pase == true) {
+        // si el usuario es nuevo entonces lo registro.
         this.loginService.guardarDatos(this.login).subscribe((data: any) => {
+          //guardo el token en el localstorage para poder obtenerlo despues.
           localStorage.setItem("token", data.token);
           this.showError('Llene el siguiente formulario');
           this.router.navigate(['/formulario']);
@@ -146,12 +148,15 @@ export class LoginComponent implements OnInit {
           this.showError('Cuenta incorrecta');
         });
       } else {
+
         if (this.paciente.contrasenia == this.login.password) {
 
           this.login.cuenta = this.cuenta.value;
           this.login.password = this.clave.value;
 
+          // si el usuario ya se encuentra registrado entonces solo se logueára.
           this.loginService.loguear(this.login).subscribe((data: any) => {
+          //guardo el token en el localstorage para poder obtenerlo despues.
             localStorage.setItem("token", data.token);
 
             this.router.navigate(['/datoPaciente/' + this.paciente.id_paciente]);
