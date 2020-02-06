@@ -12,6 +12,7 @@ import { FormularioComponent } from '../formulario/formulario.component';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { PacienteComponent } from '../paciente/paciente.component';
 import { DialogContentExampleDialog1 } from '../principal/principal.component';
+import { Login } from '../interfaces/login';
 
 export interface select {
   value: string;
@@ -170,10 +171,13 @@ export class DatoPacienteComponent implements OnInit {
   cerrarsesion() {
     const dialogRef = this.dialog.open(DialogContentExampleDialog3, { disableClose: false, closeOnNavigation: true, panelClass: 'cambiarcontrasenia' });
     console.log(this.paciente);
+
+    
   }
 
   cambiarcontra() {
     const dialogRef = this.dialog.open(DialogCerrarSesion, { disableClose: false, panelClass: 'cerrarsesion' });
+
   }
 
   actualizar() {
@@ -272,10 +276,17 @@ export class DialogContentExampleDialog {
     pulso: null,
     categoria: null
   }
+
+  login: Login = {
+    id_login: null,
+    cuenta: null,
+    password: null,
+  }
+
   id: any;
   Listo: boolean = false;
   constructor(private formularioService: FormularioService, private dialogRef: MatDialogRef<DialogContentExampleDialog>, private activatedRoute: ActivatedRoute,
-    public login: LoginService, private router: Router, private mensaje: MatSnackBar) {
+    private loginService: LoginService, private router: Router, private mensaje: MatSnackBar) {
     this.paciente1.id_paciente = this.formularioService.idActualizar;
     console.log(this.paciente1.id_paciente);
     ///////
@@ -332,9 +343,25 @@ export class DialogContentExampleDialog {
 
       if (this.Nueva.valid) {
         // guardar datos del formulario en paciente y enviarlo a la api
-        this.paciente1.contrasenia = this.Nueva.get('nuevaContra').value;
+        this.paciente1.contrasenia = this.nuevaContra.value;
         if (this.paciente1.contrasenia == this.Nueva.get('nuevaContraRep').value) {
           this.formularioService.actualizarPaciente(this.paciente1).subscribe((data) => {
+
+            this.loginService.obtenerUltimoId().subscribe((data: any)=>{
+              this.login.id_login = data[0].ultimoId;
+              this.login.password = this.nuevaContra.value;
+
+              this.loginService.actualizarDatos(this.login).subscribe((data)=>{
+                console.log('su actualizo la contra del login');
+              },(error)=>{
+                console.log(error);
+              });
+            });
+
+            
+
+            
+
             if (this.formularioService.esAlumno == true) {
               this.router.navigate(['datoPaciente/' + this.paciente1.id_paciente]);
               this.showError('Contraseña Guardada');
