@@ -3,7 +3,7 @@ import { AppComponent } from "../app.component";
 import {Location} from '@angular/common';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { DialogContentExampleDialog } from '../dato-paciente/dato-paciente.component';
+import { cambiocontraDialog } from '../dato-paciente/dato-paciente.component';
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.component.html',
