@@ -1,0 +1,40 @@
+
+  <h2 mat-dialog-title disableClose >Cambio de contraseña</h2>
+  <mat-dialog-content class="mat-typography">
+    <p>Actualiza tu contraseña </p>
+    <p>Usa caracteres y números para hacer tu contraseña más confiable</p>
+    <form [formGroup]="CambioContrasenia">
+  
+            <mat-form-field class="example-full-width" style="margin-top: 5px;" >                
+                <input matInput  (keydown)="onKeydown($event)" 
+                placeholder="Ingresa tu nueva contraseña" [type]="hide1 ? 'text' : 'password'"
+                formControlName="nuevaContraCambio">
+                <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide1 ? 'visibility' : 'visibility_off'}}</mat-icon>
+                    </button>
+                <mat-error *ngIf="nuevaContraCambio.hasError('required') ">ingrese la contraseña</mat-error>
+                <mat-error *ngIf="nuevaContraCambio.hasError('maxLength') ">contraseña muy extensa</mat-error>
+                <mat-error *ngIf="nuevaContraCambio.hasError('minLength') ">contraseña muy corta</mat-error>
+              </mat-form-field>
+  
+      <br>
+              <mat-form-field class="example-full-width">                
+                  <input matInput (keydown)="onKeydown($event)" 
+                  placeholder="Verifica tu contraseña" [type]="hide ? 'password' : 'text'"
+                  formControlName="nuevaContraRepCambio">
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                  <mat-error *ngIf="nuevaContraRepCambio.hasError('required') ">ingrese la contraseña!</mat-error>
+                  <mat-error *ngIf="nuevaContraRepCambio.hasError('maxLength') ">contraseña muy extensa</mat-error>
+                  <mat-error *ngIf="nuevaContraRepCambio.hasError('minLength') ">contraseña muy corta</mat-error>
+                </mat-form-field>
+  
+      </form>
+      
+  </mat-dialog-content>
+
+  <mat-dialog-actions align='end'>
+    <button mat-button (click)="guardarCambio()" class="botonperron" style="bottom: 0px;right: 0px;outline:none;  display:block;" >guardar</button>&nbsp;&nbsp;
+    <button  mat-button mat-dialog-close class="botonperron" style="outline:none; display:block;">Cancelar</button>
+  </mat-dialog-actions>    
