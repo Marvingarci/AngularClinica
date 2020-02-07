@@ -121,7 +121,7 @@ console.log(this.pacientes[0].prosene);
 
   formulario(){
     this.pacienteService.esAlumno = false;
-    this.router.navigate(['/formulario']);
+    this.router.navigate(['principal/formulario']);
   }
 
 }
