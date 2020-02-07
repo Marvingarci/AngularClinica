@@ -12,7 +12,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl, NG_ASYNC_VALIDATORS } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Login } from '../interfaces/login';
-import { DialogContentExampleDialog, DatoPacienteComponent } from "../dato-paciente/dato-paciente.component";
+import { cambiocontraDialog, DatoPacienteComponent } from "../dato-paciente/dato-paciente.component";
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from "../services/login.service";
 import { NgStyle } from '@angular/common';
@@ -3311,7 +3311,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   openDialog() {
     index: Number;
     const index = this.paciente.id_paciente;
-    const dialogRef = this.dialog.open(DialogContentExampleDialog,{ 
+    const dialogRef = this.dialog.open(cambiocontraDialog,{ 
       disableClose: true, 
       panelClass: 'custom-dialog-container' ,
     });
