@@ -126,7 +126,7 @@ export class LoginComponent implements OnInit {
       this.loading = true;
       this.login.cuenta = this.cuenta.value;
       this.login.password = this.clave.value;
-      this.loginService.porMientras = this.login_form.get('clave').value;
+      this.loginService.porMientras = this.clave.value;
 
       //pacientes
       for (let index = 0; index < this.pacientes.length; index++) {
@@ -136,7 +136,7 @@ export class LoginComponent implements OnInit {
         }
       }
       if (this.pase == true) {
-        // si el usuario es nuevo entonces lo registro.
+        // si el usuario es nuevo, entonces lo registro.
         this.loginService.guardarDatos(this.login).subscribe((data: any) => {
           //guardo el token en el localstorage para poder obtenerlo despues.
           localStorage.setItem("token", data.token);
