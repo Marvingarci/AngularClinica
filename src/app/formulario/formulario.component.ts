@@ -12,7 +12,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl, NG_ASYNC_VALIDATORS } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Login } from '../interfaces/login';
-import { DialogContentExampleDialog, DatoPacienteComponent } from "../dato-paciente/dato-paciente.component";
+import { cambiocontraDialog, DatoPacienteComponent } from "../dato-paciente/dato-paciente.component";
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from "../services/login.service";
 import { NgStyle } from '@angular/common';
@@ -992,11 +992,14 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   constructor(private formularioService: FormularioService,
     private router: Router, activar: AppComponent, public dialog: MatDialog,
-    public login: LoginService, private formulario: FormularioService, private TelefonoUnicoService: TelefonoUnicoService) {
+    public loginService: LoginService, private formulario: FormularioService, private TelefonoUnicoService: TelefonoUnicoService) {
     // this.obtenerDatosFormulario();
     this.getDatosScraping();
 
-    console.log();
+    this.loginService.obtenerUltimoId().subscribe((data:any)=>{
+      console.log(data[0].ultimoId);
+    });
+
 
     // this.enfermedadesFiltradas = this.tipo_enfermedad_mental.valueChanges.pipe(
     //   startWith(''),
@@ -2349,8 +2352,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.paciente.direccion = this.direccion.value;
         this.paciente.carrera = this.carrera.value;
         this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
-        this.paciente.contrasenia = this.login.porMientras;
-        console.log(this.login.porMientras);
+        this.paciente.contrasenia = this.loginService.porMientras;
+        console.log(this.loginService.porMientras);
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
@@ -3293,7 +3296,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       if (this.resultado != null) {
         if (this.resultado[0].ultimoId != null) {
           this.loading = false;
-          this.login.idpaciente = this.resultado[0].ultimoId;
+          this.loginService.idpaciente = this.resultado[0].ultimoId;
           this.openDialog();
 
         }
@@ -3308,7 +3311,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   openDialog() {
     index: Number;
     const index = this.paciente.id_paciente;
-    const dialogRef = this.dialog.open(DialogContentExampleDialog, { disableClose: true, panelClass: 'custom-dialog-container' });
+    const dialogRef = this.dialog.open(cambiocontraDialog,{ 
+      disableClose: true, 
+      panelClass: 'custom-dialog-container' ,
+    });
   }
 
 
