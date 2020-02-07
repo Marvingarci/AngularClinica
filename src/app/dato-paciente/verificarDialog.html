@@ -1,0 +1,33 @@
+<h2 mat-dialog-title disableClose >Cambio de contraseña</h2>
+  <mat-dialog-content class="mat-typography">
+    <p>Para continuar, primero debes de verificar que eres tú</p>
+
+    <form [formGroup]="CambioContrasenia">
+  
+        <mat-form-field class="example-full-width" style="margin-top: 5px;" >                
+            <input matInput  (keydown)="onKeydown($event)" 
+            placeholder="Ingresa tu contraseña" [type]="hide1 ? 'text' : 'password'"
+            formControlName="viejacontra">
+            <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide1 ? 'visibility' : 'visibility_off'}}</mat-icon>
+                </button>
+            <mat-error *ngIf="viejacontra.hasError('maxLength') ">contraseña muy extensa</mat-error>
+            <mat-error *ngIf="viejacontra.hasError('minLength') ">contraseña muy corta</mat-error>
+          </mat-form-field>
+
+  </form>
+  
+
+
+
+
+
+
+
+
+      
+  </mat-dialog-content>
+
+  <mat-dialog-actions align='end' style="margin-top: 85px;">
+    <button mat-button  (click)="pasarotrodialogo()" class="botonperron" style="bottom: 0px;right: 0px; outline:none;display:block;" >Siguiente</button>&nbsp;&nbsp;
+  </mat-dialog-actions>    
