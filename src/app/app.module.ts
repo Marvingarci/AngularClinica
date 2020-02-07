@@ -11,7 +11,7 @@ import { PrincipalComponent, DialogContentExampleDialog1, DialogCerrarSesion2 } 
 import { LoginadminComponent } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
-import { DatoPacienteComponent, DialogContentExampleDialog, DialogContentExampleDialog2, DialogCerrarSesion, DialogContentExampleDialog3 } from './dato-paciente/dato-paciente.component';
+import { DatoPacienteComponent, cambiocontraDialog, actualizarcontraDialog, DialogCerrarSesion, verificarDialog } from './dato-paciente/dato-paciente.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-estudiantes/listado-estudiantes.component';
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
@@ -137,11 +137,11 @@ const routes: Route[] = [
     ListadoVisitantesComponent,
     ListadoProseneComponent,
     VerPacienteComponent,
-    DialogContentExampleDialog,
+    cambiocontraDialog,
     InventarioComponent,
     DialogContentExampleDialog1,
-    DialogContentExampleDialog2,
-    DialogContentExampleDialog3,
+    actualizarcontraDialog,
+    verificarDialog,
     DialogCerrarSesion,
     HistoriaSubsiguiente,
     HistoriaSubsiguiente1,
@@ -201,10 +201,10 @@ const routes: Route[] = [
 
   ],
   entryComponents: [
-    DialogContentExampleDialog,
+    cambiocontraDialog,
     DialogContentExampleDialog1,
-    DialogContentExampleDialog2,
-    DialogContentExampleDialog3,
+    actualizarcontraDialog,
+    verificarDialog,
     DialogCerrarSesion,
     HistoriaSubsiguiente,
     HistoriaSubsiguiente1,
