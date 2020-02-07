@@ -548,8 +548,9 @@
         </div>
 
         </div>
-
-    <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_datos_generales.invalid}}
+ <!-- disabled={{formulario_datos_generales.invalid}} -->
+    <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" 
+   
     (click)="actualizarDatosGenerales(); ">
     {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
     </button>
