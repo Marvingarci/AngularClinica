@@ -2352,7 +2352,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.paciente.direccion = this.direccion.value;
         this.paciente.carrera = this.carrera.value;
         this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
-        this.paciente.contrasenia = this.loginService.porMientras;
+        // this.paciente.contrasenia = this.loginService.porMientras;
         console.log(this.loginService.porMientras);
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
