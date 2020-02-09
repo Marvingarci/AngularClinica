@@ -44,7 +44,14 @@ export class LoginService {
     
   }
 
-  
-  
+
+  // se verifica si el usuario existe introducciendo su numero de cuenta y contrasenia.
+  obtenerUsuario(cuenta, password){
+    
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerUsuario/'+cuenta+'/'+password);
+    
+  }
+
+
 
 }
