@@ -1850,6 +1850,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
     this.inven.obtenerCita(this.id).subscribe((data: Cita[])=>{
       this.citasPaciente = data;
+      
       console.log(this.citasPaciente);
       this.dataSource1= this.citasPaciente;
     }, (error)=>{
@@ -2120,11 +2121,10 @@ export class HistoriaSubsiguiente1{
     // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
     // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
     // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    talla: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]), 
+    talla: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(4)]), 
     // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
     // "/ /" indica el inicio y el final de la expresion regular
     // "{10}" indica le numero de digitos de lo que lo antecede
-    IMC: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
      // "\d" es lo mismo "[0-9]"
     temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
     observaciones_examen: new FormControl('', [Validators.required, Validators.maxLength(50),Validators.minLength(5)]),
@@ -2198,7 +2198,7 @@ export class HistoriaSubsiguiente1{
    if(this.formulario_cita.valid){
       this.citaGuardar.id_paciente = this.form.idCita;
       this.citaGuardar.peso= this.peso.value;
-      this.citaGuardar.imc=this.presion.value;
+      this.citaGuardar.imc= 1;
       this.citaGuardar.presion=this.presion.value;
       this.citaGuardar.pulso=this.pulso.value;
       this.citaGuardar.talla= this.talla.value;
@@ -2221,7 +2221,6 @@ export class HistoriaSubsiguiente1{
         this.showError('Cita guardada con exito');
       }, (error) => {
         console.log(error);
-        //alert('ocurrion un error');
         this.showError('ocurrion un error');
       });
 
