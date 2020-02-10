@@ -170,6 +170,12 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes/' + id_paciente);
   }
 
+  obtenerPacientePorCuenta(cuenta){
+    
+      return this.httpClient.get(this.API_ENDPOINT + 'obtenerPaciente/'+cuenta);
+      
+  }
+
 
   obtenerParentescos() {
     return this.httpClient.get(this.API_ENDPOINT + 'parentescos');
