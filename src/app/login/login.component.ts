@@ -12,7 +12,7 @@ import { LoginAdmin } from '../interfaces/login_admin';
 import { LoginadminService } from '../services/loginadmin.service';
 import { Medicos } from '../interfaces/medicos';
 import { MedicosService } from '../services/medicos.service';
-import * as CryptoJS from 'crypto-js';
+import { isNullOrUndefined } from "util";
 
 @Component({
   selector: 'app-login',
@@ -55,6 +55,14 @@ export class LoginComponent implements OnInit {
   constructor(private LoginAdminService: LoginadminService, private loginService: LoginService, private medicosService: MedicosService,
     private router: Router, private activar: AppComponent, private formularioService: FormularioService, private mensaje: MatSnackBar) {
     activar.esconder();
+
+
+    if(localStorage.getItem('token')){
+      console.log('true');
+
+    }else{
+      console.log('false');
+    }
 
     this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) => {
       this.login_admins = data;
