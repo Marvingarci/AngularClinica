@@ -60,6 +60,7 @@ import { MatChipsModule } from '@angular/material/chips';
 
 // Interceptors
 import { AuthInterceptorService } from './auth-interceptor.service';
+import { AuthGuard } from './guards/auth.guard';
 
 
 
@@ -74,10 +75,10 @@ const routes: Route[] = [
   { path: '', component: LoginComponent },
   { path: 'formulario', component: FormularioComponent },
   { path: 'formulario:id', component: FormularioComponent },
-  { path: 'principal', component: PrincipalComponent },
+  { path: 'principal', component: PrincipalComponent, canActivate: [AuthGuard] },
   { path: 'at1', component: At1Component },
   { path: 'datoPaciente/:id', component: DatoPacienteComponent },
-  { path: 'datoPaciente', component: DatoPacienteComponent },
+  { path: 'datoPaciente', component: DatoPacienteComponent, canActivate: [AuthGuard] },
   { path: 'verPaciente/:id', component: VerPacienteComponent },
   { path: 'inventario', component: InventarioComponent },
   //{path: 'formInventario', component: FormInventarioComponent},
@@ -93,6 +94,7 @@ const routes: Route[] = [
   {
     path: 'principal',
     component: PrincipalComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'at1', component: At1Component },
       { path: 'registro', component: PacienteComponent },

@@ -52,6 +52,13 @@ export class LoginService {
     
   }
 
+  getCurrentUser(token: any){
+
+    return this.httpClient.post(this.API_ENDPOINT + 'getCurrentUser', token , {headers: this.headers});
+     
+
+  }
+
 
 
 }
