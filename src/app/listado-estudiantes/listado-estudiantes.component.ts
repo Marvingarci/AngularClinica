@@ -569,7 +569,6 @@ ocultar: boolean = true;
 paciente: Paciente={
   id_paciente: null,
   numero_paciente: null,
-  contrasenia: null,
   nombre_completo: null,
   numero_cuenta: null,
   numero_identidad: null,
@@ -598,7 +597,6 @@ paciente: Paciente={
 paciente1: Paciente={
   id_paciente: null,
   numero_paciente: null,
-  contrasenia: null,
   nombre_completo: null,
   numero_cuenta: null,
   numero_identidad: null,
@@ -914,7 +912,6 @@ dataSource: any;
         }
         console.log(this.esAlumno);
 
-        console.log(this.paciente.contrasenia);
         this.formularioService.idActualizar=this.paciente.id_paciente;
 
         // valido si el paciente tiene imagen, la variable noImg por defecto esta en true

@@ -374,7 +374,6 @@ ocultar: boolean = true;
   paciente: Paciente={
     id_paciente: null,
     numero_paciente: null,
-    contrasenia: null,
     nombre_completo: null,
     numero_cuenta: null,
     numero_identidad: null,
@@ -682,7 +681,6 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
           this.esAlumno = false;
         }
         console.log('Es alumno: '+this.esAlumno);
-        console.log(this.paciente.contrasenia);
         this.formularioService.idActualizar=this.paciente.id_paciente;
         // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
         //si el paciente tiene imagen entonces esta variable cambiara a false
