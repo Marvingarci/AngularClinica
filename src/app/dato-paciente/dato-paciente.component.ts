@@ -323,6 +323,7 @@ export class cambiocontraDialog {
 // FUNCION QUE HACE EL MACANEO
 continuar(){
   this.hide = true;
+  this.hide1 = false;
 
   this.formularioService.getUltimoID().subscribe((data) => {
     this.resultado = data;
@@ -382,14 +383,14 @@ continuar(){
     }
   }
 
-  this.hide = true;
-  this.hide1 = true;
 }
 
   //EVENTO CUANDO SE DA ENTER
   onKeydown(event) {
     if (event.key === "Enter") {
-     this.continuar();
+    this.hide = true;
+    this.hide1 = true;
+    this.continuar();
     }
   }
 
@@ -660,6 +661,8 @@ export class actualizarcontraDialog {
 
   //EVENTO BOTON GUARDAR
   guardarCambio() {
+    this.hide = true;
+      this.hide1 = true;
     if (this.CambioContrasenia.valid) {
       // guardar datos del formulario en paciente y enviarlo a la api
       this.paciente2.contrasenia = this.CambioContrasenia.get('nuevaContraCambio').value;
