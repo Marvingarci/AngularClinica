@@ -111,16 +111,17 @@ export class LoginComponent implements OnInit {
     //verifico en la base de datos si el usuario fue logueado ya anteriormente ó es primera vez.
     this.loginService.obtenerUsuario(this.cuenta.value, this.clave.value).subscribe((data: any) => {
 
-      if (data.id_administrador) {
-        id_administrador = data.id_administrador
-      } else if (data.id_medico) {
-        id_medico = data.id_medico;
-      }
-
 
       //si el resultado arroja un valor diferente de null, entonces el usuario existe en la base de datos.
       if (data != null) {
 
+        if (data.id_administrador) {
+          id_administrador = data.id_administrador
+        } else if (data.id_medico) {
+          id_medico = data.id_medico;
+        }
+
+        
         //si el resultado arroja un valor difente a contrasenia incorrecta entonces el usuario esta verificado y
         //puede loguearse correctamente
         if (data != 'contrasenia incorrecta') {
@@ -154,7 +155,7 @@ export class LoginComponent implements OnInit {
 
               //recupero al paciente introduciendo su numero de cuenta para poder recuperar su id
               // y redireccionarlo a su respectivo informacion.
-              
+
               this.formularioService.obtenerPacientePorCuenta(this.cuenta.value).subscribe((data: Paciente) => {
                 this.paciente = data;
 
