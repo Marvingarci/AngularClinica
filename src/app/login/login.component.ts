@@ -58,26 +58,27 @@ export class LoginComponent implements OnInit {
     activar.esconder();
 
 
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
       console.log('true');
 
-    }else{
+    } else {
       console.log('false');
+
     }
 
-    this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) => {
-      this.login_admins = data;
-      console.log(this.login_admins);
-    }, (error: any) => {
-      console.log(error);
-    });
+    // this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) => {
+    //   this.login_admins = data;
+    //   console.log(this.login_admins);
+    // }, (error: any) => {
+    //   console.log(error);
+    // });
 
-    this.medicosService.obtenerMedicos().subscribe((data: Medicos[]) => {
-      this.medicos = data;
-      console.log(this.medicos);
-    }, (error: any) => {
-      console.log(error);
-    });
+    // this.medicosService.obtenerMedicos().subscribe((data: Medicos[]) => {
+    //   this.medicos = data;
+    //   console.log(this.medicos);
+    // }, (error: any) => {
+    //   console.log(error);
+    // });
 
     // formularioService.obtenerPacientes().subscribe((data: Paciente[]) => {
     //   this.pacientes = data;
@@ -99,18 +100,29 @@ export class LoginComponent implements OnInit {
   //FUNCION QUE HACE TODO EL MACANEO
   continuar() {
 
+    let id_administrador: any;
+    let id_medico: any;
+
     this.hide = false;
     this.loading = true;
     this.loginService.porMientras = this.clave.value;
 
     //pacientes
 
-    //verifico en la base de datos si el usuario fue logueado ya ó es primera vez.
+    //verifico en la base de datos si el usuario fue logueado ya anteriormente ó es primera vez.
     this.loginService.obtenerUsuario(this.cuenta.value, this.clave.value).subscribe((data: any) => {
+
 
       //si el resultado arroja un valor diferente de null, entonces el usuario existe en la base de datos.
       if (data != null) {
 
+        if (data.id_administrador) {
+          id_administrador = data.id_administrador
+        } else if (data.id_medico) {
+          id_medico = data.id_medico;
+        }
+
+        
         //si el resultado arroja un valor difente a contrasenia incorrecta entonces el usuario esta verificado y
         //puede loguearse correctamente
         if (data != 'contrasenia incorrecta') {
@@ -126,21 +138,42 @@ export class LoginComponent implements OnInit {
             //guardo el token en el localstorage para poder obtenerlo despues.
             localStorage.setItem("token", data.token);
 
-            //recupero al paciente introduciendo su numero de cuenta para poder recuperar su id
-            // y redireccionarlo a su respectivo informacion.
-            this.formularioService.obtenerPacientePorCuenta(this.cuenta.value).subscribe((data: Paciente) => {
-              this.paciente = data;
+            //si en los datos del usario logueado el id_admnistrador tiene un valor 
+            //entonces el usuario sera redirigido a principal.
+            if (id_administrador) {
 
-              this.router.navigate(['/datoPaciente/' + this.paciente.id_paciente]);
+              this.router.navigate(['/principal']);
               this.showError('Bienvenido');
-            });
+
+            //si en los datos del usuario logueado el id_medico tiene un valor
+            //entonces el usuario sera redirigido a principal.
+            } else if (id_medico) {
+
+              this.router.navigate(['/principal']);
+              this.showError('Bienvenido');
+
+            } else {
+
+              //recupero al paciente introduciendo su numero de cuenta para poder recuperar su id
+              // y redireccionarlo a su respectivo informacion.
+
+              this.formularioService.obtenerPacientePorCuenta(this.cuenta.value).subscribe((data: Paciente) => {
+                this.paciente = data;
+
+                this.router.navigate(['/datoPaciente/' + this.paciente.id_paciente]);
+                this.showError('Bienvenido');
+              });
+
+            }
+
+
 
 
           });
 
 
-        // si el resultado arroja que la contrasenia es incorrecta el usuario existe en la base
-        // de datos pero su contrasenia no es correcta.
+          // si el resultado arroja que la contrasenia es incorrecta el usuario existe en la base
+          // de datos pero su contrasenia no es correcta.
         } else {
           // console.log(this.medico.contraseniaM); console.log(this.login.cuenta);
           this.loading = false;
@@ -165,7 +198,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/formulario']);
 
         }, (error) => {
-          
+
           this.loading = false;
           console.log(error);
           this.showError('Cuenta incorrecta');
@@ -237,36 +270,37 @@ export class LoginComponent implements OnInit {
     // }
 
     //medicos
-    for (let indexx = 0; indexx < this.medicos.length; indexx++) {
-      if (this.medicos[indexx].usuarioM == this.login.cuenta) {
-        this.medico = this.medicos[indexx];
-        if (this.medico.contraseniaM == this.login.password) {
-          console.log(this.medico.contraseniaM); console.log(this.login.cuenta);
-          this.showError('Bienvenido Medico');
-          this.router.navigate(['/principal/principal1']);
-        } else {
-          console.log(this.medico.contraseniaM); console.log(this.login.cuenta);
-          this.loading = false;
-          this.showError('Contraseña Incorrecta');
-        }
-      }
-    }
 
-    //administradores
-    for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
-      if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {
-        this.login_admin = this.login_admins[indexx];
-        if (this.login_admin.contrasenia_admin == this.login.password) {
-          console.log(this.login_admin.contrasenia_admin); console.log(this.login.cuenta);
-          this.showError('Bienvenido Administrador');
-          this.router.navigate(['/principal/principal1']);
-        } else {
-          console.log(this.login_admin.contrasenia_admin); console.log(this.login.cuenta);
-          this.loading = false;
-          this.showError('Contraseña Incorrecta');
-        }
-      }
-    }
+    // for (let indexx = 0; indexx < this.medicos.length; indexx++) {
+    //   if (this.medicos[indexx].usuarioM == this.login.cuenta) {
+    //     this.medico = this.medicos[indexx];
+    //     if (this.medico.contraseniaM == this.login.password) {
+    //       console.log(this.medico.contraseniaM); console.log(this.login.cuenta);
+    //       this.showError('Bienvenido Medico');
+    //       this.router.navigate(['/principal/principal1']);
+    //     } else {
+    //       console.log(this.medico.contraseniaM); console.log(this.login.cuenta);
+    //       this.loading = false;
+    //       this.showError('Contraseña Incorrecta');
+    //     }
+    //   }
+    // }
+
+    // //administradores
+    // for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
+    //   if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {
+    //     this.login_admin = this.login_admins[indexx];
+    //     if (this.login_admin.contrasenia_admin == this.login.password) {
+    //       console.log(this.login_admin.contrasenia_admin); console.log(this.login.cuenta);
+    //       this.showError('Bienvenido Administrador');
+    //       this.router.navigate(['/principal/principal1']);
+    //     } else {
+    //       console.log(this.login_admin.contrasenia_admin); console.log(this.login.cuenta);
+    //       this.loading = false;
+    //       this.showError('Contraseña Incorrecta');
+    //     }
+    //   }
+    // }
   }
 
 
