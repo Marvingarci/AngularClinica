@@ -27,7 +27,7 @@ export class LoginadminComponent implements OnInit {
 
 
     usuario: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(5)],
+      validators: [Validators.required, Validators.minLength(4)],
       asyncValidators: [this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService)]
     }),
     
