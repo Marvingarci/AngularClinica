@@ -5,7 +5,8 @@ import { LoginAdmin } from '../interfaces/login_admin';
 import { LoginadminService } from '../services/loginadmin.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { UsuarioUnicoService } from '../validations/username-unico.directive';
+import { UsuarioAdminUnicoService } from '../validations/usuario-admin-unico.directive';
+
 
 export interface select {
   value: number;
@@ -26,8 +27,8 @@ export class LoginadminComponent implements OnInit {
 
 
     usuario: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(6)],
-      asyncValidators: [this.UsuarioUnicoService.validate.bind(this.UsuarioUnicoService)]
+      validators: [Validators.required, Validators.minLength(5)],
+      asyncValidators: [this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService)]
     }),
     
     
@@ -54,7 +55,7 @@ export class LoginadminComponent implements OnInit {
   admins: LoginAdmin[];
   constructor(private activatedRoute:ActivatedRoute,private router: Router,activar: AppComponent,
              private login_adminservice:LoginadminService, private mensaje: MatSnackBar, 
-             private UsuarioUnicoService: UsuarioUnicoService) {
+             private usuarioAdminUnicoService: UsuarioAdminUnicoService) {
     activar.esconder();
     this.getdato();
     this.id = this.activatedRoute.snapshot.params['id'];
