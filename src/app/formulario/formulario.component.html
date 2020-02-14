@@ -130,6 +130,8 @@
               <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido</mat-error>
               <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un número de teléfono válido!
               </mat-error>
+              <mat-error *ngIf="numero_telefono.hasError('telefonoUnico')">El numero pertenece a otra persona
+              </mat-error>
             </mat-form-field>
           </div>
 
