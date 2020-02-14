@@ -5,56 +5,42 @@ import { map } from 'rxjs/operators';
 
 @Directive({
   selector: '[telefonoUnico]',
-  providers: [{  provide: NG_ASYNC_VALIDATORS, useExisting: TelefonoUnicoDirective, multi: true }]
+  providers: [{ provide: NG_ASYNC_VALIDATORS, useExisting: TelefonoUnicoDirective, multi: true }]
 })
-export class TelefonoUnicoDirective implements AsyncValidator{
+export class TelefonoUnicoDirective implements AsyncValidator {
 
-  constructor(private FormularioService: FormularioService) {}
+  constructor(private FormularioService: FormularioService) { }
 
   validate(control: import("@angular/forms").AbstractControl): Promise<import("@angular/forms").ValidationErrors> | import("rxjs").Observable<import("@angular/forms").ValidationErrors> {
-    const telefono = control.value;
-    return this.FormularioService.obtenerColumnaTelefono(telefono).pipe(
-      map((valor:any) => {
 
-        console.log(valor);
-        if ( valor && valor.numero_telefono == telefono){
-          console.log('esto si funciona');
-          return {telefonoUnico: true};
+    const telefono = control.value;
+
+    return this.FormularioService.obtenerColumnaTelefono(telefono).pipe(
+      map((valor: any) => {
+
+        if (valor && valor.numero_telefono == telefono) {
+          return { telefonoUnico: true };
+
         } else
-        return null;
+
+          return null;
+          
       })
     );
   }
 
-
-  // validate(control: import("@angular/forms").AbstractControl): Promise<import("@angular/forms").ValidationErrors> | import("rxjs").Observable<import("@angular/forms").ValidationErrors> {
-  //   const telefono = control.value;
-
-  //   return this.FormularioService.obtenerColumnaTelefono(telefono).pipe(
-  //     map(valor  => {
-  //       if(valor == telefono) {
-  //         return {telefonoUnico: true};
-  //       }
-
-  //       return null;
-
-  //     })
-
-  //   );
-            
-  // }
-  
-
-
 }
 
-@Injectable({providedIn: 'root'})
-export class TelefonoUnicoService implements AsyncValidator  {
- constructor(private FormularioService: FormularioService) { }
+@Injectable({ providedIn: 'root' })
+export class TelefonoUnicoService implements AsyncValidator {
+  constructor(private FormularioService: FormularioService) { }
 
- validate(control: import("@angular/forms").AbstractControl): Promise<import("@angular/forms").ValidationErrors> | import("rxjs").Observable<import("@angular/forms").ValidationErrors>
- {
-   const telefonoUnicoDirective = new TelefonoUnicoDirective(this.FormularioService);
+  validate(control: import("@angular/forms").AbstractControl): Promise<import("@angular/forms").ValidationErrors> | import("rxjs").Observable<import("@angular/forms").ValidationErrors> {
+
+    const telefonoUnicoDirective = new TelefonoUnicoDirective(this.FormularioService);
+
     return telefonoUnicoDirective.validate(control);
- }
+  
+  }
+
 }
