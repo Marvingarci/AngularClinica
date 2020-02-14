@@ -29,8 +29,8 @@ export class LoginadminService {
     return this.httpClient.delete(this.API_ENDPOINT+'/administradores/'+id);
     }
 
-   obtenerColumnaUsuario(usuario_admin) {
-      return this.httpClient.get(this.API_ENDPOINT + 'obtenerColumnaUsuario/' + usuario_admin);
+    obtenerColumnaUsuarioAdmin(usuario) {
+      return this.httpClient.get(this.API_ENDPOINT + '/obtenerColumnaUsuarioAdmin/' + usuario);
     }
    
 }
