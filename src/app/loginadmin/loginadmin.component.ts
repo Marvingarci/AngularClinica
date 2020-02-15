@@ -5,6 +5,8 @@ import { LoginAdmin } from '../interfaces/login_admin';
 import { LoginadminService } from '../services/loginadmin.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { UsuarioAdminUnicoService } from '../validations/usuario-admin-unico.directive';
+
 
 export interface select {
   value: number;
@@ -22,7 +24,14 @@ export class LoginadminComponent implements OnInit {
   disabledloginadmin: boolean = false;
 
   loginadmin_form = new FormGroup({
-    usuario: new FormControl('',[Validators.required,  Validators.minLength(6)]),    
+
+
+    usuario: new FormControl('', {
+      validators: [Validators.required, Validators.minLength(4)],
+      asyncValidators: [this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService)]
+    }),
+    
+    
     contrasenia: new FormControl('',[Validators.required,  Validators.minLength(8),Validators.maxLength(30)]),
     contraseniaC: new FormControl('',[Validators.required,  Validators.minLength(8),Validators.maxLength(30)]),
     nombre: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
@@ -45,7 +54,8 @@ export class LoginadminComponent implements OnInit {
   editing:boolean = false;
   admins: LoginAdmin[];
   constructor(private activatedRoute:ActivatedRoute,private router: Router,activar: AppComponent,
-             private login_adminservice:LoginadminService, private mensaje: MatSnackBar ) {
+             private login_adminservice:LoginadminService, private mensaje: MatSnackBar, 
+             private usuarioAdminUnicoService: UsuarioAdminUnicoService) {
     activar.esconder();
     this.getdato();
     this.id = this.activatedRoute.snapshot.params['id'];

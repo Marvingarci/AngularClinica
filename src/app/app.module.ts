@@ -61,6 +61,7 @@ import { MatChipsModule } from '@angular/material/chips';
 // Interceptors
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { AuthGuard } from './guards/auth.guard';
+import { UsuarioAdminUnicoDirective } from './validations/usuario-admin-unico.directive';
 
 
 
@@ -156,7 +157,9 @@ const routes: Route[] = [
     Principal1Component,
     ConsolidadodiarioComponent,
     TelefonoUnicoDirective,
-    DialogoMedico
+    DialogoMedico,
+    UsuarioAdminUnicoDirective,
+  
 
 
 

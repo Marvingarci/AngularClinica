@@ -5,7 +5,7 @@
 
   <mat-form-field class="example-full-width">
           <input  matInput placeholder="Ingrese un nuevo Administrador" formControlName= "usuario" required>
-          <mat-hint align="end">{{usuario.value.length}} / 6</mat-hint> 
+          <mat-hint align="end">{{usuario.value.length}} / 4</mat-hint> 
           <mat-label> <b>Usuario</b> </mat-label>
 
           <mat-error *ngIf="usuario.hasError('required')">
@@ -14,6 +14,7 @@
             <mat-error *ngIf="usuario.hasError('minLength') && usuario.hasError('maxLength')">
               <strong>usuario invalido</strong>
             </mat-error>
+            <mat-error *ngIf="usuario.hasError('usuarioAdminUnico')">El usuario pertenece a otra persona</mat-error>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
