@@ -9,7 +9,7 @@ import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familia
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
 import { AppComponent } from "../app.component";
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl, NG_ASYNC_VALIDATORS } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl, NG_ASYNC_VALIDATORS, FormBuilder } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Login } from '../interfaces/login';
 import { cambiocontraDialog, DatoPacienteComponent } from "../dato-paciente/dato-paciente.component";
@@ -149,7 +149,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 
 export class FormularioComponent implements OnInit, AfterViewInit {
-
+  panelOpenState = true;
   visible = true;
   selectable = true;
   removable = true;
@@ -209,34 +209,36 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   formulario_datos_generales = new FormGroup({
     nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,100}$/)]),
-    numero_cuenta: new FormControl('', [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]),
-    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
-    // "/ /" indica el inicio y el final de la expresion regular
-    // "{10}" indica le numero de digitos de lo que lo antecede
-    numero_identidad: new FormControl('', [Validators.required, Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
-    // "\d" es lo mismo "[0-9]"
-    lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,20}$/)]),
-    direccion: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(20)]),
-    carrera: new FormControl('', [Validators.required]),
-    fecha_nacimiento: new FormControl('', Validators.required),
-    sexo: new FormControl('', Validators.required),
-    categoria: new FormControl('', [Validators.required]),
-    estado_civil: new FormControl('', Validators.required),
-    seguro_medico: new FormControl('', Validators.required),
-
-    numero_telefono: new FormControl('', {
-      validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
-      asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]
-    }),
-
-
-    // numero_telefono: new FormControl('', {
-    //   validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
-    //   asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]}),
-
-    emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
-    emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
+      numero_cuenta: new FormControl('', [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]),
+      // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
+      // "/ /" indica el inicio y el final de la expresion regular
+      // "{10}" indica le numero de digitos de lo que lo antecede
+      numero_identidad: new FormControl('', [Validators.required, Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
+      // "\d" es lo mismo "[0-9]"
+      lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,20}$/)]),
+      direccion: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(20)]),
+      carrera: new FormControl('', [Validators.required]),
+      fecha_nacimiento: new FormControl('', Validators.required),
+      sexo: new FormControl('', Validators.required),
+      categoria: new FormControl('', [Validators.required]),
+      estado_civil: new FormControl('', Validators.required),
+      seguro_medico: new FormControl('', Validators.required),    
+  
+      numero_telefono: new FormControl('', {
+        validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
+        asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]
+      }),
+  
+  
+      // numero_telefono: new FormControl('', {
+      //   validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
+      //   asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]}),
+  
+      emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
+      emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
   });
+   
+  
 
 
   formulario_antecedentes_familiares = new FormGroup({
@@ -990,11 +992,12 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
 
-  constructor(private formularioService: FormularioService,
-    private router: Router, activar: AppComponent, public dialog: MatDialog,
-    public loginService: LoginService, private formulario: FormularioService, private TelefonoUnicoService: TelefonoUnicoService) {
+  constructor(private formularioService: FormularioService,private formBuilder: FormBuilder,
+    private router: Router, activar: AppComponent, public dialog: MatDialog,public loginService: LoginService, 
+    private formulario: FormularioService, private TelefonoUnicoService: TelefonoUnicoService) {
     // this.obtenerDatosFormulario();
     this.getDatosScraping();
+  
 
     this.loginService.obtenerUltimoId().subscribe((data:any)=>{
       console.log(data[0].ultimoId);
@@ -1006,6 +1009,13 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     //   map(value => this._filtro(value))
     // );
 
+  }
+
+
+  submit() {
+    if (this.formulario_datos_generales.valid) {
+      console.log(this.formulario_datos_generales);
+    }
   }
 
 
