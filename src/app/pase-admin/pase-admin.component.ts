@@ -7,9 +7,9 @@ import { Paciente } from "../interfaces/paciente";
 import { PacienteComponent } from '../paciente/paciente.component';
 import { FormularioService } from '../services/formulario.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { LoginAdmin } from '../interfaces/login_admin';
 import { LoginadminService } from '../services/loginadmin.service';
 import { MatSnackBarConfig, MatSnackBar } from '@angular/material';
+import { Administrador } from '../interfaces/administrador';
 
 @Component({
   selector: 'app-pase-admin',
@@ -30,9 +30,7 @@ export class PaseAdminComponent implements OnInit {
     cuenta: null,
     password: null
   };
-  login_admin: LoginAdmin
-  login_admins: LoginAdmin[];
-
+  
   constructor(private LoginAdminService: LoginadminService, private loginService: LoginService,
     private router: Router, private activar: AppComponent, private mensaje: MatSnackBar) {
     activar.esconder();
