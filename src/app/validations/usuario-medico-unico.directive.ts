@@ -16,7 +16,7 @@ export class UsuarioMedicoUnicoDirective implements AsyncValidator{
     return this.medicosService.obtenerColumnaUsuarioMedicos(usuarioMedico).pipe(
       map((valor:any)=>{
         
-        if(valor && valor.usuarioM == usuarioMedico){
+        if(valor && valor.usuario == usuarioMedico){
           return {usuarioMedicoUnico: true};
         }else
           return null;
