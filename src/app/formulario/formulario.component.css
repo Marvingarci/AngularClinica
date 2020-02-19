@@ -105,3 +105,13 @@ table {
 tr.mat-footer-row {
   font-weight: bold;
 }
+
+
+/* para el focus de error */
+label {
+  display: block;
+}
+
+input.ng-invalid:focus {
+  outline-color: rgb(68, 0, 255);
+}
