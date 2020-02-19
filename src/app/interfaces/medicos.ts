@@ -1,10 +1,10 @@
 export interface Medicos {
-    id?:number;
-    usuarioM : string;
-    contraseniaM : string;
-    nombreM : string;
-    identidadM : string;
-    especialidadM : any;
+    id_medico?:number;
+    usuario: string;
+    password : string;
+    nombre : string;
+    numero_identidad : string;
+    especialidad : any;
     created_at? : string;
     updated_at? : string;
 }
