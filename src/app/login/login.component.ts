@@ -8,7 +8,6 @@ import { PacienteComponent } from '../paciente/paciente.component';
 import { FormularioService } from '../services/formulario.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { LoginAdmin } from '../interfaces/login_admin';
 import { LoginadminService } from '../services/loginadmin.service';
 import { Medicos } from '../interfaces/medicos';
 import { MedicosService } from '../services/medicos.service';
@@ -24,13 +23,15 @@ export class LoginComponent implements OnInit {
   hide = true;
   loading: boolean = false;
 
-  scrap1: LoginAdmin = {
-    id: null,
-    usuario_admin: null,
-    contrasenia_admin: null,
-    nombre_admin: null,
-    identidad_admin: null,
-  }
+  // scrap1: LoginAdmin = {
+  //   id: null,
+  //   usuario_admin: null,
+  //   contrasenia_admin: null,
+  //   nombre_admin: null,
+  //   identidad_admin: null,
+  // }
+
+
   //,Validators.pattern(/^[2][0-9]{10}$/)
   login_form = new FormGroup({
     cuenta: new FormControl('', [Validators.required]),
@@ -43,8 +44,8 @@ export class LoginComponent implements OnInit {
     password: null
   };
 
-  login_admin: LoginAdmin;
-  login_admins: LoginAdmin[];
+  // login_admin: LoginAdmin;
+  // login_admins: LoginAdmin[];
   paciente: Paciente;
   pacientes: Paciente[];
   medico: Medicos;
