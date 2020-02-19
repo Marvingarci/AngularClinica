@@ -159,12 +159,7 @@ const routes: Route[] = [
     TelefonoUnicoDirective,
     DialogoMedico,
     UsuarioAdminUnicoDirective,
-  
-
-
-
-
-
+    
   ],
   imports: [
     BrowserModule,
