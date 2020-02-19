@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Medicos } from '../interfaces/medicos';
 import { MedicosService } from '../services/medicos.service';
+import { UsuarioMedicoUnicoService } from '../validations/usuario-medico-unico.directive';
 
 export interface select {
   value: number;
@@ -22,7 +23,12 @@ export class RegistromedicosComponent implements OnInit {
   disabledmedicos: boolean = false;
 
   medicos_form = new FormGroup({
-    usuario: new FormControl('', [Validators.required, Validators.minLength(6)]),
+
+    usuario: new FormControl('', {
+      validators: [Validators.required, Validators.minLength(4)],
+      asyncValidators: [this.usuarioMedicoUnicoService.validate.bind(this.usuarioMedicoUnicoService)]
+    }),
+
     contrasenia: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]),
     contraseniaC: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]),
     nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(30)]),
@@ -68,7 +74,8 @@ export class RegistromedicosComponent implements OnInit {
   editing: boolean = false;
   meds: Medicos[];
   constructor(private activatedRoute: ActivatedRoute, private router: Router, activar: AppComponent,
-    private medicoService: MedicosService, private mensaje: MatSnackBar) {
+    private medicoService: MedicosService, private mensaje: MatSnackBar,
+    private usuarioMedicoUnicoService: UsuarioMedicoUnicoService) {
 
     activar.esconder();
     this.getdato();
