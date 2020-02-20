@@ -246,10 +246,11 @@
   <!-- primer step -->
 
   <mat-step *ngIf="esAlumno==true" [stepControl]="formulario_datos_generales" label="Datos Generales">
-    <form focusInvalidInput [formGroup]="formulario_datos_generales" (ngSubmit)="submit()"  >
+
+    <form [formGroup]="formulario_datos_generales"  >
       <div class="containerScroll">
 
-        <ng-template matStepLabel>Datos Generales</ng-template>
+        <ng-template matStepLabel >Datos Generales</ng-template>
 
 
 
@@ -512,10 +513,11 @@
           </div>
         </div>
       </div>
+      
       <div class="botonesstep">
         <button mat-raised-button matStepperNext
           class="btn btn-outline-primary float-right botonperron" (click)="AgregarTelefonosEmergencia();" >Siguiente</button>
-      </div>
+        </div>
     </form>
   </mat-step>
 
@@ -526,9 +528,9 @@
 
   <!-- segundo step -->
   <mat-step [stepControl]="formulario_antecedentes_familiares" label="Antecedentes Familiares">
-    <form [formGroup]="formulario_antecedentes_familiares" (ngSubmit)="submit()">
+    <form [formGroup]="formulario_antecedentes_familiares" >
 
-      <ng-template matStepLabel>Antecedentes Familiares</ng-template>
+      <ng-template matStepLabel>Antecedentes Familiares </ng-template>
       <div class="containerScroll">
 
 
