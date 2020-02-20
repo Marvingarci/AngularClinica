@@ -16,6 +16,13 @@ export class MedicosService {
     return this.httpClient.get(this.API_ENDPOINT+'/medicos');
   }
 
+
+  obtenerMedico(id){
+  
+    return this.httpClient.get(this.API_ENDPOINT+'/obtenerMedico/'+ id);
+
+  }
+
   constructor(private httpClient :HttpClient,medicosService:MedicosService) { }
 
   GuardarMedico(medicos:Medicos){
@@ -25,7 +32,7 @@ export class MedicosService {
 
   actualizarMedico(medicos: Medicos){
     const headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.put(this.API_ENDPOINT+'/medicos/'+medicos.id,medicos,{headers:headers});
+    return this.httpClient.put(this.API_ENDPOINT+'/medicos/'+medicos.id_medico,medicos,{headers:headers});
   }
   
   borrarMedico(id){      

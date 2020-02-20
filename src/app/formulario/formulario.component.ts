@@ -26,7 +26,6 @@ import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-
 import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
 import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
-import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
 
 import { COMMA, ENTER } from '@angular/cdk/keycodes';

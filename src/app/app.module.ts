@@ -62,6 +62,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { AuthGuard } from './guards/auth.guard';
 import { FormDirective } from './form.directive';
+import { UsuarioAdminUnicoDirective } from './validations/usuario-admin-unico.directive';
 
 
 
@@ -164,6 +165,8 @@ const routes: Route[] = [
 
 
 
+    UsuarioAdminUnicoDirective,
+    
   ],
   imports: [
     BrowserModule,

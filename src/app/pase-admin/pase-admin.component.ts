@@ -7,9 +7,9 @@ import { Paciente } from "../interfaces/paciente";
 import { PacienteComponent } from '../paciente/paciente.component';
 import { FormularioService } from '../services/formulario.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { LoginAdmin } from '../interfaces/login_admin';
 import { LoginadminService } from '../services/loginadmin.service';
 import { MatSnackBarConfig, MatSnackBar } from '@angular/material';
+import { Administrador } from '../interfaces/administrador';
 
 @Component({
   selector: 'app-pase-admin',
@@ -18,30 +18,31 @@ import { MatSnackBarConfig, MatSnackBar } from '@angular/material';
 })
 
 export class PaseAdminComponent implements OnInit {
- hide = true;
- loading: boolean =false;
- 
-//,Validators.pattern(/^[2][0-9]{10}$/)
+  hide = true;
+  loading: boolean = false;
+
+  //,Validators.pattern(/^[2][0-9]{10}$/)
   login_form = new FormGroup({
-    cuenta: new FormControl('',[Validators.required]),
-    clave: new FormControl('',[Validators.required]),
+    cuenta: new FormControl('', [Validators.required]),
+    clave: new FormControl('', [Validators.required]),
   });
   login: Login = {
     cuenta: null,
     password: null
   };
-  login_admin: LoginAdmin
-  login_admins: LoginAdmin[];  
-
-  constructor(private LoginAdminService: LoginadminService,private loginService: LoginService,
-    private router: Router, private activar: AppComponent,private mensaje: MatSnackBar){
+  
+  constructor(private LoginAdminService: LoginadminService, private loginService: LoginService,
+    private router: Router, private activar: AppComponent, private mensaje: MatSnackBar) {
     activar.esconder();
-    this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) =>{
-    this.login_admins = data;
-    console.log(this.login_admins);
-    }, (error: any)=>{
-    console.log(error);
-    });  
+
+
+    // this.LoginAdminService.getAdmin().subscribe((data: LoginAdmin[]) => {
+    //   this.login_admins = data;
+    //   console.log(this.login_admins);
+    // }, (error: any) => {
+    //   console.log(error);
+    // });
+
   }
 
   showError(message: string) {
@@ -53,61 +54,62 @@ export class PaseAdminComponent implements OnInit {
 
   ngOnInit() { }
 
+  loguear() {
+
+    this.hide = false;
+    this.loading = true;
+
+    this.loginService.obtenerUsuario(this.cuenta.value, this.clave.value).subscribe((data: any) => {
+
+      if (data != null) {
+
+        if (data != 'contrasenia incorrecta') {
+
+          this.login.cuenta = this.cuenta.value;
+          this.login.password = this.clave.value;
+
+
+          this.loginService.loguear(this.login).subscribe((data: any) => {
+
+            this.router.navigate(['/principal/veradministradores']);
+
+          }, (error) => {
+            console.log(error);
+          });
+        } else {
+
+          this.loading = false;
+          this.showError('Cuenta incorrecta');
+
+        }
+
+      } else {
+        this.loading = false;
+        this.showError('El usuario no existe');
+      }
+
+    });
+
+  }
+
   //CLICK ENTER
   onKeydown(event) {
+
     if (event.key === "Enter") {
-      this.hide = false;
-      this.loading=true;
-      this.login.cuenta = this.login_form.get('cuenta').value;
-      this.login.password = this.login_form.get('clave').value;
-  
-      for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
-        if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
-            this.login_admin=this.login_admins[indexx];
-            
-        }else{
-          
-        }
-      } 
-  
-      if (this.login_admin.contrasenia_admin  == this.login.password) {
-      console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
-        this.router.navigate(['/principal/veradministradores']);
-      }else{
-        
-      console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
-        this.loading=false;
-        this.showError('Cuenta incorrecta');
-      }
-        
+
+      this.loguear();
+
     }
+    
   }
 
-//CLICK BOTON
-  comprobarDatos(){
-    this.loading=true;
-    this.login.cuenta = this.login_form.get('cuenta').value;
-    this.login.password = this.login_form.get('clave').value;
+  //CLICK BOTON
+  comprobarDatos() {
 
-    for (let indexx = 0; indexx < this.login_admins.length; indexx++) {
-      if (this.login_admins[indexx].usuario_admin == this.login.cuenta) {        
-        this.login_admin=this.login_admins[indexx];
-      }else{
-          
-        }
-    }
-    if (this.login_admin.contrasenia_admin  == this.login.password) {
-    console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
-      this.router.navigate(['/principal/veradministradores']);
-    }else{
-      
-    console.log(this.login_admin.contrasenia_admin);console.log( this.login.cuenta);
-      this.loading=false;
-      this.showError('Cuenta incorrecta');  
-    }
+    this.loguear();
 
   }
 
-  get cuenta(){return this.login_form.get('cuenta')};
-  get clave(){return this.login_form.get('clave')}; 
+  get cuenta() { return this.login_form.get('cuenta') };
+  get clave() { return this.login_form.get('clave') };
 }

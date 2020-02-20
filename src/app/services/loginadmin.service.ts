@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LoginAdmin } from '../interfaces/login_admin';
+import { Administrador } from '../interfaces/administrador';
 
 @Injectable({
   providedIn: 'root'
@@ -8,24 +8,38 @@ import { LoginAdmin } from '../interfaces/login_admin';
 export class LoginadminService {
   idActualizar: number;
   API_ENDPOINT = 'http://127.0.0.1:8000/api'
-  getAdmin(){
-    return this.httpClient.get(this.API_ENDPOINT+'/login_admin');
+
+
+  obtenerAdministradores() {
+
+    return this.httpClient.get(this.API_ENDPOINT + '/administradores');
+
   }
- 
 
-  constructor(private httpClient :HttpClient,LoginAdminService: LoginadminService) {}
 
-    saveloginadmin(login_admin:LoginAdmin){
-      const headers = new HttpHeaders({'Content-Type':'application/json'});
-      return this.httpClient.post(this.API_ENDPOINT+'/login_admin',login_admin,{headers:headers});
-    }
+  constructor(private httpClient: HttpClient, LoginAdminService: LoginadminService) { }
 
-    put(login_admin:LoginAdmin){
-      const headers = new HttpHeaders({'Content-Type':'application/json'});
-      return this.httpClient.put(this.API_ENDPOINT+'/login_admin/'+login_admin.id,login_admin,{headers:headers});
-    }
-    delete(id){      
-    return this.httpClient.delete(this.API_ENDPOINT+'/login_admin/'+id);
-    }
-   
+  guardarAdministrador(administrador: Administrador) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post(this.API_ENDPOINT + '/administradores', administrador, { headers: headers });
+  }
+
+  put(administrador: Administrador) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.put(this.API_ENDPOINT + '/administradores/' + administrador.id_administrador, administrador, { headers: headers });
+  }
+  delete(id) {
+    return this.httpClient.delete(this.API_ENDPOINT + '/administradores/' + id);
+  }
+
+  obtenerColumnaUsuarioAdmin(usuario) {
+    return this.httpClient.get(this.API_ENDPOINT + '/obtenerColumnaUsuarioAdmin/' + usuario);
+  }
+
+  obtenerAdministrador(id){
+
+    return this.httpClient.get(this.API_ENDPOINT + '/obtenerAdministrador/' + id);
+    
+  }
+
 }
