@@ -4,6 +4,7 @@ import {Location} from '@angular/common';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { cambiocontraDialog } from '../dato-paciente/dato-paciente.component';
+import { LoginService } from '../services/login.service';
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.component.html',
@@ -21,6 +22,7 @@ export class PrincipalComponent implements OnInit {
 
   constructor(mostrar: AppComponent,private router: Router,public dialog: MatDialog) {
     mostrar.mostrar();  
+
 }
 
 abrirside() {
