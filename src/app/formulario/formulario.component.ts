@@ -636,16 +636,39 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     }
   }
 
+ 
+
+
+
+
+
   public onStepChange(event: any): void {
     console.log('step index seleccionado');
     console.log(event.selectedIndex);
-
-
     this.mostrarLabelStep(event.selectedIndex);
 
-
-
+    if (event.selectedIndex ==1) {
+      this.AgregarTelefonosEmergencia();
+    }
+    if (event.selectedIndex ==2) {
+      this.agregarDesnutricionesAF();
+      this.agregarEnfermedadesMentales();
+      this.agregarAlergias();
+      this.agregarCanceres();
+      this.agregarOtros();
+    }
+    if (event.selectedIndex ==3) {
+      this.agregarDesnutricionesAP();
+      this.agregarEnfermedadesMentalesAP();
+      this.agregarAlergiasAP();
+      this.agregarCanceresAP();
+      this.agregarHospitalariasQuirurgicas();
+      this.agregarOtrosAP();
+    }
+   
   }
+
+   
 
   mostrarS() {
     this.ocultar = false;
