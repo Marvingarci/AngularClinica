@@ -38,4 +38,8 @@ export class MedicosService {
   borrarMedico(id){      
     return this.httpClient.delete(this.API_ENDPOINT+'/medicos/'+id);
   }
+
+  obtenerColumnaUsuarioMedicos(usuario) {
+    return this.httpClient.get(this.API_ENDPOINT + '/obtenerColumnaUsuarioMedicos/' + usuario);
+  }
 }

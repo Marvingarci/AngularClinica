@@ -15,6 +15,7 @@
             <mat-error *ngIf="usuario.hasError('minLength') && usuario.hasError('maxLength')">
               <strong>usuario invalido</strong>
             </mat-error>
+            <mat-error *ngIf="usuario.hasError('usuarioMedicoUnico')">El usuario pertenece a otra persona</mat-error>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
