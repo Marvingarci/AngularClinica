@@ -12,6 +12,7 @@ import { LoginadminService } from '../services/loginadmin.service';
 import { Medicos } from '../interfaces/medicos';
 import { MedicosService } from '../services/medicos.service';
 import { isNullOrUndefined } from "util";
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -144,10 +145,12 @@ export class LoginComponent implements OnInit {
           // si el usuario ya se encuentra registrado entonces solo se logueára.
           this.loginService.loguear(this.login).subscribe((data: any) => {
 
+
             //guardo el token en el localstorage para poder obtenerlo despues.
             if (id_administrador) {
 
               localStorage.setItem("token_administrador", data.token);
+
 
             } else if (id_medico) {
 

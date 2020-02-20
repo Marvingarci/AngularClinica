@@ -43,20 +43,74 @@
     border-radius: 20px;  
   }
 
-  .boton{
+  /*.boton{
     width:90%;
     height:40px;
     color: #fff;
     border-radius: 20px;    
     /* quitar borde feo */
-    outline:none;  
+    /*outline:none;  
     display:block;    
     margin-left: 20px;
     margin-right: 20px;
     text-align: center;
     background-color: #B721FF;
     background-image: linear-gradient(90deg, #B721FF 0%, #21D4FD 100%); 
-    } 
+    } */
+
+    .boton{
+      width:90%;
+      height:40px;
+      color: #fff;
+      border-radius: 20px;  
+    
+      /* quitar borde feo */
+      outline:none;  
+      display:block;
+      
+      margin-left: 20px;
+      margin-right: 20px;
+      text-align: center;
+    
+      /* tema 1 */
+      /* background-color: #21D4FD;
+      background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%); */
+    
+      /* tema 2 */
+      /* background-color: #f1db10;
+      background-image: linear-gradient(315deg, #f1db10 0%, #0d57ff 100%); */
+    
+      /* tema 3 */
+      /* background-color: #f1db10;
+      background-image: linear-gradient(315deg, #f1db10 5%, #00006d 81%); */
+    
+      /* tema 4 */
+      background-color: #f1db10;
+      background-image: linear-gradient(315deg, #f1db10 5%, #1928d4 81%);
+    
+    
+      }  
+      .boton:hover {
+    
+        /* tema 1 */
+      /* background-color: #B721FF;
+      background-image: linear-gradient(90deg, #B721FF 0%, #21D4FD 100%); */
+    
+      /* tema 2 */
+      /* background-color: #0d57ff ;
+      background-image: linear-gradient(315deg,#0d57ff  0%, #f1db10  100%); */
+    
+      /* tema 3 */
+      /* background-color: #00006d;
+      background-image: linear-gradient(315deg,#00006d 5%, #f1db10 81%); */
+    
+      /* tema 4 */
+      background-color: #1928d4;  
+      background-image: linear-gradient(315deg, #1928d4 5%, #f1db10 81%);
+    
+    
+      transition: all 1s ease;
+      }  
 
     
 
@@ -131,3 +185,31 @@
       margin-top: 5px;
       font-size: 30dp;
     }
+
+    .intro{
+height: 100%;
+width:100%;
+position: absolute;
+margin:0px;
+
+/* tema 1 */
+/* background-color: #B721FF;
+background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%); */
+
+/* tema 2 */
+/* background-color: #f1db10;
+background-image: linear-gradient(315deg, #f1db10 0%, #0d57ff 100%); */
+
+
+/* tema 3 */
+/* background-color: #f1db10;
+background-image: linear-gradient(315deg, #f1db10 5%, #00006d 81%); */
+
+/* tema 4 */
+background-color: #f1db10;
+background-image: linear-gradient(315deg, #f1db10 5%, #1928d4 81%);
+
+
+
+
+}

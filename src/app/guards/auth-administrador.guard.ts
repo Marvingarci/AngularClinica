@@ -11,7 +11,7 @@ export class AuthAdministradorGuard implements CanActivate {
   constructor(private loginService: LoginService, private router: Router) { }
   canActivate() {
 
-    if (localStorage.getItem('token_administrador')) {
+    if (localStorage.getItem('token_administrador') || localStorage.getItem('token_medico')) {
 
       return true;
 
