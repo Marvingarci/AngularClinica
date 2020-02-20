@@ -164,14 +164,14 @@ export class LoginComponent implements OnInit {
             //entonces el usuario sera redirigido a principal.
             if (id_administrador) {
 
-              this.router.navigate(['/principal']);
+              this.router.navigate(['/principal/principal1']);
               this.showError('Bienvenido');
 
               //si en los datos del usuario logueado el id_medico tiene un valor
               //entonces el usuario sera redirigido a principal.
             } else if (id_medico) {
 
-              this.router.navigate(['/principal']);
+              this.router.navigate(['/principal/principal1']);
               this.showError('Bienvenido');
 
             } else {
@@ -342,6 +342,7 @@ export class LoginComponent implements OnInit {
   //EVENTO CUANDO SE DA EN EL BOTON
   comprobarDatos() {
     this.continuar();
+    this.hide = true;
   }
 
   get cuenta() { return this.login_form.get('cuenta') };
