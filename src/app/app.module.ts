@@ -67,8 +67,7 @@ import { UsuarioMedicoUnicoDirective } from './validations/usuario-medico-unico.
 import { AuthAdministradorGuard } from './guards/auth-administrador.guard';
 import { AuthMedicoGuard } from './guards/auth-medico.guard';
 
-//importacion para los focus
-import {NgxScrollToFirstInvalidModule} from '@ismaestro/ngx-scroll-to-first-invalid';
+
 
 
 
@@ -216,10 +215,6 @@ const routes: Route[] = [
     MatBadgeModule,
     MatAutocompleteModule,
     MatChipsModule,
-
-//esto es de los focus
-NgxScrollToFirstInvalidModule,
-
 
 
   ],
