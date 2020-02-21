@@ -246,10 +246,11 @@
   <!-- primer step -->
 
   <mat-step *ngIf="esAlumno==true" [stepControl]="formulario_datos_generales" label="Datos Generales">
-    <form [formGroup]="formulario_datos_generales">
+
+    <form [formGroup]="formulario_datos_generales"  >
       <div class="containerScroll">
 
-        <ng-template matStepLabel>Datos Generales</ng-template>
+        <ng-template matStepLabel >Datos Generales</ng-template>
 
 
 
@@ -258,7 +259,7 @@
           <div class="row">
             <div class="col" id="columna">
               <mat-form-field class="example-full-width">
-                <input matInput formControlName="nombre_completo" placeholder="Nombre Completo">
+                <input matInput formControlName="nombre_completo" placeholder="Nombre Completo" >
                 <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido</mat-error>
                 <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un nombre válido</mat-error>
 
@@ -295,10 +296,10 @@
             <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
               <mat-form-field class="example-full-width">
                 <input matInput formControlName="lugar_procedencia" name="lugar_procedencia"
-                  placeholder="Lugar de Procedencia">
+                  placeholder="Lugar de Procedencia" class="rojo" id="lugar_procedencia">
                 <mat-error *ngIf="lugar_procedencia.hasError('required')">campo requerido</mat-error>
                 <mat-error *ngIf="lugar_procedencia.hasError('pattern')">ingrese datos válidos</mat-error>
-
+<!-- <mat-error *ngIf="checarSiSonIguales()">Las contraseñas no coinciden</mat-error> -->
 
               </mat-form-field>
             </div>
@@ -395,17 +396,8 @@
             </div>
 
             <div class="col">
-              <mat-accordion>
-                <mat-expansion-panel>
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      Teléfono de emergencia
-                    </mat-panel-title>
-                    <mat-panel-description>
-                      Escriba un nombre y teléfono
-                    </mat-panel-description>
-                  </mat-expansion-panel-header>
-
+            
+                  <mat-card>
                   <div class="row">
                     <div class="col">
                       <mat-form-field>
@@ -413,7 +405,7 @@
                           placeholder="En caso de emergencia llamar a">
                         <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido</mat-error>
                         <mat-error *ngIf="emergencia_persona.hasError('pattern')">
-                          !introduzca un nombre válido!
+                          introduzca un nombre válido
                         </mat-error>
                       </mat-form-field>
 
@@ -425,7 +417,7 @@
                         <mat-hint align="end">{{emergencia_telefono.value.length}} / 8</mat-hint>
                         <mat-error *ngIf="emergencia_telefono.hasError('required')">campo requerido</mat-error>
                         <mat-error *ngIf="emergencia_telefono.hasError('pattern')">
-                          !introduzca un número de teléfono válido!
+                          introduzca un número de teléfono válido
                         </mat-error>
 
                       </mat-form-field>
@@ -440,7 +432,9 @@
 
                   <div class="row medium-width" style="margin-left: 0;">
                     <table mat-table [dataSource]="dataSourceTablaTelefonosEmergencia" class="mat-elevation-z8 tabla"
-                      *ngIf="dataSourceTablaTelefonosEmergencia != null">
+                      *ngIf="dataSourceTablaTelefonosEmergencia != null"  >
+
+                      
 
                       <ng-container matColumnDef="numero">
                         <th mat-header-cell *matHeaderCellDef> # </th>
@@ -451,7 +445,7 @@
 
                       <ng-container matColumnDef="nombre">
                         <th mat-header-cell *matHeaderCellDef> Persona </th>
-                        <td mat-cell *matCellDef="let element"> {{element.emergencia_persona}} </td>
+                        <td mat-cell *matCellDef="let element"  > {{element.emergencia_persona}} </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                       </ng-container>
 
@@ -477,12 +471,12 @@
 
 
                   </div>
+                </mat-card>
 
                   &nbsp; &nbsp; &nbsp; &nbsp;
 
-
-                </mat-expansion-panel>
-              </mat-accordion>
+                
+              
             </div>
 
             <!-- <div class="col">
@@ -519,10 +513,11 @@
           </div>
         </div>
       </div>
+      
       <div class="botonesstep">
         <button mat-raised-button matStepperNext
-          class="btn btn-outline-primary float-right botonperron">Siguiente</button>
-      </div>
+          class="btn btn-outline-primary float-right botonperron" (click)="AgregarTelefonosEmergencia();" >Siguiente</button>
+        </div>
     </form>
   </mat-step>
 
@@ -533,9 +528,9 @@
 
   <!-- segundo step -->
   <mat-step [stepControl]="formulario_antecedentes_familiares" label="Antecedentes Familiares">
-    <form [formGroup]="formulario_antecedentes_familiares">
+    <form [formGroup]="formulario_antecedentes_familiares" >
 
-      <ng-template matStepLabel>Antecedentes Familiares</ng-template>
+      <ng-template matStepLabel>Antecedentes Familiares </ng-template>
       <div class="containerScroll">
 
 
@@ -1136,7 +1131,9 @@
 
       <div class="botonesstep">
         <button mat-raised-button matStepperNext
-          class="btn btn-outline-primary float-right botonperron">Siguiente</button>
+          class="btn btn-outline-primary float-right botonperron"
+          (click)="agregarDesnutricionesAF();agregarEnfermedadesMentales();agregarAlergias();agregarCanceres();
+          agregarOtros();">Siguiente</button>
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
       </div>
     </form>
@@ -1160,7 +1157,9 @@
 
 
   <!-- tercer step -->
-  <mat-step [stepControl]="formulario_antecedentes_personales" label="Antecedentes Personales">
+  <mat-step [stepControl]="formulario_antecedentes_personales" label="Antecedentes Personales"
+  (click)="agregarDesnutricionesAP();agregarEnfermedadesMentalesAP();agregarAlergiasAP();
+  agregarCanceresAP();agregarHospitalariasQuirurgicas();agregarOtrosAP();">
     <form [formGroup]="formulario_antecedentes_personales">
       <!-- <ng-template matStepLabel>Antecedentes Personales</ng-template> -->
       <div class="containerScroll">
@@ -1869,7 +1868,10 @@
 
       <div class="botonesstep">
         <button mat-raised-button matStepperNext
-          class="btn btn-outline-primary float-right botonperron">Siguiente</button>
+          class="btn btn-outline-primary float-right botonperron"
+          (click)="agregarDesnutricionesAP();agregarEnfermedadesMentalesAP();agregarAlergiasAP();
+          agregarCanceresAP();agregarHospitalariasQuirurgicas();agregarOtrosAP();"
+          >Siguiente</button>
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
       </div>
     </form>
@@ -2437,7 +2439,7 @@
 
       <div class="botonesstep">
         <button disabled="{{formulario_habito_toxicologico_personal.invalid}}" mat-raised-button matStepperNext
-          class="btn btn-outline-primary float-right botonperron" (click)="enviarDatos()">Enviar</button>
+          class="btn btn-outline-primary float-right botonperron" (click)="enviarDatos();agregarOtrosHT();">Enviar</button>
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
       </div>
 

@@ -130,7 +130,7 @@ export class PaseAdminComponent implements OnInit {
   comprobarDatos() {
 
     this.loguear();
-
+    this.hide = true;
   }
 
   get cuenta() { return this.login_form.get('cuenta') };

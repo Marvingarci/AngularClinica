@@ -105,3 +105,14 @@ table {
 tr.mat-footer-row {
   font-weight: bold;
 }
+
+
+label{
+  display: block;
+  color: black;
+}
+
+
+mat-radio-button{
+  color: black;
+}
