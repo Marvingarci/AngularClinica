@@ -84,13 +84,14 @@ export class RegistromedicosComponent implements OnInit {
     if (this.id) {
       this.editing = true;
       this.medicoService.obtenerMedico(this.id).subscribe((data: any) => {
+
         this.medico = data;
 
 
         //establesco el valor a los formcontrol para que se visualizen en los respectivos inputs
         this.usuario.setValue(this.medico.usuario);
-        this.contrasenia.setValue(this.medico.password);
-        this.contraseniaC.setValue(this.medico.password);
+        // this.contrasenia.setValue(this.medico.password);
+        // this.contraseniaC.setValue(this.medico.password);
         this.nombre.setValue(this.medico.nombre);
         this.identidad.setValue(this.medico.numero_identidad);
 
@@ -232,7 +233,7 @@ export class RegistromedicosComponent implements OnInit {
 
           this.disabledmedicos = true;
           this.medicoService.GuardarMedico(this.medico).subscribe((data) => {
-            
+
             this.getdato();
             this.router.navigate(['/principal/veradministradores']);
             this.showError('Medico creado con exito');
