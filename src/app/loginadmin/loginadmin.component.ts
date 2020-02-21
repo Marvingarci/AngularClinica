@@ -61,14 +61,17 @@ export class LoginadminComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.params['id'];
 
     if (this.id) {
+
       this.editing = true;
 
-      this.login_adminservice.obtenerAdministrador(this.id).subscribe((data) => {
+      this.login_adminservice.obtenerAdministrador(this.id).subscribe((data: any) => {
+
+        this.administrador = data;
 
         //establesco el valor al los formcontrol para que se visualizen en los respectivos inputs
         this.usuario.setValue(this.administrador.usuario);
-        this.contrasenia.setValue(this.administrador.password);
-        this.contraseniaC.setValue(this.administrador.password);
+        // this.contrasenia.setValue(this.administrador.password);
+        // this.contraseniaC.setValue(this.administrador.password);
         this.nombre.setValue(this.administrador.nombre_completo);
         this.identidad.setValue(this.administrador.identidad);
 
@@ -79,17 +82,24 @@ export class LoginadminComponent implements OnInit {
       });
 
     } else {
+
       this.editing = false;
+
     }
   }//fin del constructor
 
   getdato() {
+
     this.login_adminservice.obtenerAdministradores().subscribe((data: Administrador[]) => {
+
       this.admins = data;
+
     }, (error) => {
+
       console.log(error);
       alert('Ocurrio un error');
     });
+
   }
 
   showError(message: string) {
@@ -115,10 +125,8 @@ export class LoginadminComponent implements OnInit {
   }
 
 
-
-
-
   comprobarDatos() {
+
     if (this.editing) {
 
       if (this.loginadmin_form.valid) {
@@ -129,11 +137,11 @@ export class LoginadminComponent implements OnInit {
         if (this.administrador.password == this.contrasenia.value) {
 
           this.administrador.usuario = this.usuario.value;
-          this.administrador.password = this.contraseniaC.value;
+          // this.administrador.password = this.contraseniaC.value;
           this.administrador.nombre_completo = this.nombre.value;
           this.administrador.identidad = this.identidad.value;
 
-          this.login_adminservice.put(this.administrador).subscribe((data) => {
+          this.login_adminservice.actualizarAdministrador(this.administrador).subscribe((data) => {
             console.log(data);
             this.router.navigate(['/principal/veradministradores']);
             this.getdato();
@@ -151,7 +159,9 @@ export class LoginadminComponent implements OnInit {
       }
 
     } else {
+
       this.administrador.password = this.contraseniaC.value;
+
       if (this.administrador.password == this.contrasenia.value) {
         this.administrador.usuario = this.usuario.value;
         this.administrador.password = this.contraseniaC.value;
@@ -184,7 +194,7 @@ export class LoginadminComponent implements OnInit {
       else {
 
         this.showError('La contraseña no coincide');
-        
+
       }
     }
   }//fin del boton

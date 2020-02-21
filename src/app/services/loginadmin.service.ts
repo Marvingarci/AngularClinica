@@ -24,7 +24,7 @@ export class LoginadminService {
     return this.httpClient.post(this.API_ENDPOINT + '/administradores', administrador, { headers: headers });
   }
 
-  put(administrador: Administrador) {
+  actualizarAdministrador(administrador: Administrador) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.put(this.API_ENDPOINT + '/administradores/' + administrador.id_administrador, administrador, { headers: headers });
   }

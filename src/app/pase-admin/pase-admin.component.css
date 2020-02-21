@@ -1,215 +1,129 @@
-/*.login100-form-title {
+
+/* 1em equivale a 16 px; */
+
+*{
+
+  margin: 0px;
+  padding: 0px;
+
+}
+
+#show_password{
+  background-color:   rgb(109, 0, 160) ;
+  border-radius: 20px;  
+}
+
+
+.boton{
+
+  width:90%;
+  height:40px;
+  color: #fff;
+  border-radius: 20px;  
+
+  /* quitar borde feo */
+  outline:none;  
+  display:block;
+
+  margin-left: 20px;
+  margin-right: 20px;
+  text-align: center;
+
+  /* tema 4 */
+  background-color: #f1db10;
+  background-image: linear-gradient(315deg, #f1db10 5%, #1928d4 81%);
+
+
+}  
+
+
+.boton:hover {
+
+
+  /* tema 4 */
+  background-color: #1928d4;  
+  background-image: linear-gradient(315deg, #1928d4 5%, #f1db10 81%);
+  transition: all 1s ease;
+
+}  
+
+
+
+#imagenpuma{
+
+  height: 100px;
+  width:100px;
+  margin:0px;
+  background: url('src\imagenes\pumitafinal.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+  border-radius: 50px;
+  margin-left: 120px;
+  margin-top: 20px; 
+
+
+  /* tema 4 */
+  border: 5px solid #1928d4;
+
+
+}
+
+#formstyle{  
+
+  -webkit-box-shadow: 0 30px 60px 0 rgba(228, 38, 38, 0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);  
+  padding: 1em;
+  margin: auto;
+  background-color: #fff  ;
+  width:360px;
+  height:500px;
+  text-align: left;
+  color: rgb(109, 0, 160);	
+  filter: alpha(opacity=70); 
+  border-radius: 10px;
+  box-sizing: border-box;
+
+}
+
+.login100-form-title {
   display: block;
   font-family: Poppins-Regular,sans-serif;
-  font-size: 20px;
+  font-size: 30px;
   color: #333;
   line-height: 1.2;
   text-align: center;
   padding: 20px;
-}*/
+}
 
- /* #formstyle{  
-    -webkit-box-shadow: 0 30px 60px 0 rgba(228, 38, 38, 0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);  
-    padding-bottom: 50px; 
-    margin-top: 50px;
-    background-color: #fff  ;
-    position: absolute;
-    top:40%;
-    left:47.58%;
-    width:360px;
-    margin-left:-150px;
-    height:370px;
-    margin-top:-150px;
-    padding:10px;
-    text-align: left;
-    color: rgb(109, 0, 160);	
-    filter: alpha(opacity=70); 
-    border-radius: 10px;
-  }*/
-  
-  /*.example-full-width{
-    border-radius: 20px;
-    text-align: left;
-    width:100%;
-    color: rgb(109, 0, 160);
-   padding-right: 20px;
-   padding-left: 20px;
-   padding-bottom: 20px;  
-  }*/
-  
-  #show_password{
-    background-color:   rgb(109, 0, 160) ;
-    border-radius: 20px;  
-  }
+.example-full-width{
+  border-radius: 20px;
+  text-align: left;
+  width:100%;
+  color: rgb(109, 0, 160);
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;  
+}
 
-  /*.boton{
-    width:90%;
-    height:40px;
-    color: #fff;
-    border-radius: 20px;    
-    /* quitar borde feo */
-    /*outline:none;  
-    display:block;    
-    margin-left: 20px;
-    margin-right: 20px;
-    text-align: center;
-    background-color: #B721FF;
-    background-image: linear-gradient(90deg, #B721FF 0%, #21D4FD 100%); 
-    } */
+.label{
 
-    .boton{
-      width:90%;
-      height:40px;
-      color: #fff;
-      border-radius: 20px;  
-    
-      /* quitar borde feo */
-      outline:none;  
-      display:block;
-      
-      margin-left: 20px;
-      margin-right: 20px;
-      text-align: center;
-    
-      /* tema 1 */
-      /* background-color: #21D4FD;
-      background-image: linear-gradient(90deg, #21D4FD 0%, #B721FF 100%); */
-    
-      /* tema 2 */
-      /* background-color: #f1db10;
-      background-image: linear-gradient(315deg, #f1db10 0%, #0d57ff 100%); */
-    
-      /* tema 3 */
-      /* background-color: #f1db10;
-      background-image: linear-gradient(315deg, #f1db10 5%, #00006d 81%); */
-    
-      /* tema 4 */
-      background-color: #f1db10;
-      background-image: linear-gradient(315deg, #f1db10 5%, #1928d4 81%);
-    
-    
-      }  
-      .boton:hover {
-    
-        /* tema 1 */
-      /* background-color: #B721FF;
-      background-image: linear-gradient(90deg, #B721FF 0%, #21D4FD 100%); */
-    
-      /* tema 2 */
-      /* background-color: #0d57ff ;
-      background-image: linear-gradient(315deg,#0d57ff  0%, #f1db10  100%); */
-    
-      /* tema 3 */
-      /* background-color: #00006d;
-      background-image: linear-gradient(315deg,#00006d 5%, #f1db10 81%); */
-    
-      /* tema 4 */
-      background-color: #1928d4;  
-      background-image: linear-gradient(315deg, #1928d4 5%, #f1db10 81%);
-    
-    
-      transition: all 1s ease;
-      }  
+  margin-top: 5px;
+  font-size: 30dp;
 
-    
+}
 
-      #imagenpuma{
-        height: 100px;
-        width:100px;
-        margin:0px;
-        background: url('src\imagenes\pumitafinal.jpg');
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;  
-        border-radius: 50px;
-        margin-left: 120px;
-        margin-top: 20px; 
-      
-        /* tema 1 */
-        /* border: 3px solid #B721FF; */
-      
-        /* tema 2 */
-        /* border: 3px solid #0d57ff; */
-      
-        /* tema 3 */
-        /* border: 3px solid #f1db10; */
-      
-        /* tema 4 */
-        border: 5px solid #1928d4;
-      
-      
-      }
-      #formstyle{  
-        -webkit-box-shadow: 0 30px 60px 0 rgba(228, 38, 38, 0.3);
-        box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);  
-        padding-bottom: 50px; 
-        margin-top: 50px;
-        background-color: #fff  ;
-        position: absolute;
-        top:33.5%;
-        left:47.58%;
-        width:360px;
-        margin-left:-150px;
-        height:500px;
-        margin-top:-150px;
-        padding:10px;
-        text-align: left;
-        color: rgb(109, 0, 160);	
-        filter: alpha(opacity=70); 
-        border-radius: 10px;
-      }
+.intro{
 
-      .login100-form-title {
-        display: block;
-        font-family: Poppins-Regular,sans-serif;
-        font-size: 30px;
-        color: #333;
-        line-height: 1.2;
-        text-align: center;
-        padding: 20px;
-    }
+  height: 100%;
+  width:100%;
+  position: absolute;
+  margin:0px;
 
-    .example-full-width{
-      border-radius: 20px;
-      text-align: left;
-      width:100%;
-      color: rgb(109, 0, 160);
-     padding-right: 20px;
-     padding-left: 20px;
-     padding-bottom: 20px;  
-    }
-
-    .label{
-      margin-top: 5px;
-      font-size: 30dp;
-    }
-
-    .intro{
-height: 100%;
-width:100%;
-position: absolute;
-margin:0px;
-
-/* tema 1 */
-/* background-color: #B721FF;
-background-image: linear-gradient(135deg, #B721FF 0%, #21D4FD 100%); */
-
-/* tema 2 */
-/* background-color: #f1db10;
-background-image: linear-gradient(315deg, #f1db10 0%, #0d57ff 100%); */
-
-
-/* tema 3 */
-/* background-color: #f1db10;
-background-image: linear-gradient(315deg, #f1db10 5%, #00006d 81%); */
-
-/* tema 4 */
-background-color: #f1db10;
-background-image: linear-gradient(315deg, #f1db10 5%, #1928d4 81%);
-
-
+  /* tema 4 */
+  background-color: #f1db10;
+  background-image: linear-gradient(315deg, #f1db10 5%, #1928d4 81%);
 
 
 }
