@@ -1,8 +1,9 @@
 export interface Cita{
 id_paciente?: string,
-peso?: string,
-talla?: string,
-imc?: string,
+peso?: number,
+talla?: number,
+imc?: number,
+edad?: number,
 temperatura?: string,
 presion?:string,
 pulso?: string,

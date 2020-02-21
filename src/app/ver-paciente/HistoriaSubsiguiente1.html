@@ -10,7 +10,7 @@
               <div class="row">
                 <div class="col">
                   <mat-form-field style=" width: 100%;">
-                    <input matInput  formControlName= "peso"  placeholder="Peso" >
+                    <input matInput  formControlName= "peso"  placeholder="Peso(kg)" >
                     
                     <mat-error *ngIf="peso.hasError('required')">campo requerido!</mat-error>
                     <mat-error *ngIf="peso.hasError('pattern')">ingrese un peso valido!</mat-error>
@@ -21,7 +21,7 @@
 
                 <div class="col">
                     <mat-form-field style=" width: 100%;" >
-                      <input matInput class="example-full-width"  formControlName= "talla"  placeholder="Talla" >
+                      <input matInput class="example-full-width"  formControlName= "talla"  placeholder="Altura(cm)" >
                       
                       <mat-error *ngIf="talla.hasError('required')">campo requerido!</mat-error>
                       <mat-error *ngIf="talla.hasError('pattern')">ingrese una talla valido!</mat-error>
@@ -33,19 +33,19 @@
         
                 <div class="row">
                  
-                  <div class="col">
+                  <!-- <div class="col">
                     <mat-form-field style=" width: 100%;">
-                      <input matInput formControlName= "IMC" placeholder="IMC"  >
+                      <input matInput formControlName= "IMC" placeholder="IMC" disabled="true" >
                      <mat-error *ngIf="IMC.hasError('required')">campo requerido!</mat-error>
                     <mat-error *ngIf="IMC.hasError('pattern')">ingrese un IMC valido!</mat-error>
         
                     </mat-form-field>
-                  </div>
+                  </div> -->
 
 
                   <div class="col">
                     <mat-form-field style=" width: 100%;">
-                      <input matInput formControlName= "temperatura" placeholder="temperatura"  >
+                      <input matInput formControlName= "temperatura" placeholder="Temperatura"  >
                      <mat-error *ngIf="temperatura.hasError('required')">campo requerido!</mat-error>
                     <mat-error *ngIf="temperatura.hasError('pattern')">ingrese una temperatura que este en el rango!</mat-error>
         

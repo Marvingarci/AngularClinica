@@ -233,8 +233,8 @@
               <mat-icon style="vertical-align: middle; width: 30px; height: 30px;">  folder_shared  </mat-icon> Pacientes </button>
             <button (click)="at1()"  [routerLink]="['/principal/at1']" routerLinkActive="router-link-active" class="hoveritem"> 
               <mat-icon style="vertical-align: middle; width: 30px; height: 30px;">  receipt  </mat-icon> At1 </button>
-            <button (click)="consolidariodiario()"    routerLinkActive="router-link-active" class="hoveritem">
-                <mat-icon style="vertical-align: middle; width: 30px; height: 30px;">  today  </mat-icon> Consolidado Diario </button>
+            <button (click)="consolidariodiario()" [routerLink]="['/principal/consolidado']"   routerLinkActive="router-link-active" class="hoveritem">
+                <mat-icon style="vertical-align: middle; width: 30px; height: 30px;" >  today  </mat-icon> Consolidado Diario </button>
             <button (click)="inventario()" [routerLink]="['/principal/inventario']" routerLinkActive="router-link-active" class="hoveritem"> 
               <mat-icon style="vertical-align: middle; width: 30px; height: 30px;">  healing  </mat-icon> Medicamentos  </button>
             <button (click)="admininstradores()" [routerLink]="['/principal/paseadmin']" routerLinkActive="router-link-active" class="hoveritem">

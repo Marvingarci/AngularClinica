@@ -27,6 +27,8 @@ import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
 import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
 import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
+import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { TelefonoEmergencia } from '../interfaces/telefono-emergencia';
@@ -137,13 +139,38 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: ['YYYY-MM-DD'],
+  },
+  display: {
+    dateInput: 'YYYY-MM-DD',
+    monthYearLabel: 'MMM YYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.css'],
   providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
-  }]
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false },
+    
+  },
+  {
+    provide: DateAdapter,
+    useClass: MomentDateAdapter,
+    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+  },
+
+  {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},  
+]
 })
 
 
@@ -2371,6 +2398,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
     if (this.esAlumno == true) {
+      
 
       if (this.formulario_datos_generales.valid) {
 
@@ -2384,6 +2412,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.paciente.direccion = this.direccion.value;
         this.paciente.carrera = this.carrera.value;
         this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
+        
         // this.paciente.contrasenia = this.loginService.porMientras;
         console.log(this.loginService.porMientras);
         this.paciente.sexo = this.sexo.value;
@@ -3349,6 +3378,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     });
   }
 
+  convertir(edad){
+     var nuevaedad = edad.toString().substr(0,10);
+     return nuevaedad; 
+  }
 
 
 

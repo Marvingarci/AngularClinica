@@ -9,6 +9,7 @@ export interface Paciente {
     direccion: string;
     carrera: string;
     fecha_nacimiento: Date;
+    edad?: number;
     sexo: any;
     estado_civil: any;
     seguro_medico?: any;

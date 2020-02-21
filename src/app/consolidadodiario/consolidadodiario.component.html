@@ -1,12 +1,16 @@
+<div class="container">
+  <div class="row" id="contenedor">
+    <div class="col-3"></div>
+    <div class="col-6">
 <mat-card style="margin: 15px;" [class.mat-elevation-z20]="true"> 
                         
                      
   
   
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
-    
+    </mat-form-field> -->
+    <h5>Sexo</h5>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
       <ng-container matColumnDef="sexo">
@@ -15,19 +19,19 @@
       </ng-container>
 
       <ng-container matColumnDef="m">
-        <th mat-header-cell *matHeaderCellDef> M </th>
-        <td mat-cell *matCellDef="let element"> {{element.m}} </td>
+        <th mat-header-cell *matHeaderCellDef> Maculino </th>
+        <td mat-cell *matCellDef="let element"> {{element.masculino}} </td>
       </ng-container>
 
       <ng-container matColumnDef="f">
-        <th mat-header-cell *matHeaderCellDef> F </th>
-        <td mat-cell *matCellDef="let element"> {{element.f}} </td>
+        <th mat-header-cell *matHeaderCellDef> Femenino </th>
+        <td mat-cell *matCellDef="let element"> {{element.femenino}} </td>
       </ng-container>
 
       <!-- Position Column -->
       <ng-container matColumnDef="total">
         <th mat-header-cell *matHeaderCellDef> Total </th>
-        <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.masculino + element.femenino}} </td>
       </ng-container>
    
     
@@ -36,31 +40,34 @@
     </table>
     
 
-    <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
-      
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+   <BR>
+   <br>
+      <h5>Rango de Edad</h5>
+      <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
   
         <ng-container matColumnDef="sexo">
           <th mat-header-cell *matHeaderCellDef> Menor 19 Años </th>
-          <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.menos19}} </td>
         </ng-container>
   
         <ng-container matColumnDef="m">
           <th mat-header-cell *matHeaderCellDef> 20-24 </th>
-          <td mat-cell *matCellDef="let element"> {{element.m}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.primerRango}} </td>
         </ng-container>
   
         <ng-container matColumnDef="f">
           <th mat-header-cell *matHeaderCellDef> 25-29 </th>
-          <td mat-cell *matCellDef="let element"> {{element.f}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.segundoRango}} </td>
         </ng-container>
   
         <!-- Position Column -->
         <ng-container matColumnDef="total">
-          <th mat-header-cell *matHeaderCellDef> 30-34 </th>
-          <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+          <th mat-header-cell *matHeaderCellDef> mayor a 30</th>
+          <td mat-cell *matCellDef="let element"> {{element.tercerRango}} </td>
+        </ng-container>
+        <ng-container matColumnDef="total2">
+          <th mat-header-cell *matHeaderCellDef> Total </th>
+          <td mat-cell *matCellDef="let element"> {{element.cuartoRango}} </td>
         </ng-container>
      
       
@@ -69,3 +76,7 @@
       </table>
 
 </mat-card>
+</div>
+<div class="col-3"></div>
+</div>
+</div>

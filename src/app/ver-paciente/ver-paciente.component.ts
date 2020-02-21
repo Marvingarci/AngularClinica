@@ -171,7 +171,7 @@ matcher = new MyErrorStateMatcher();
     emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{3,30}$/)]),
 
     //datos restantes
-    peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
+    peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,4}$/)]),
     talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]), 
     // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
     // "/ /" indica el inicio y el final de la expresion regular
@@ -1848,7 +1848,9 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
     this.inven.obtenerCita(this.id).subscribe((data: Cita[])=>{
       this.citasPaciente = data;
-      
+      this.citasPaciente.forEach(element => {
+   //     console.log(this.citasPaciente.imc);
+      });
       console.log(this.citasPaciente);
       this.dataSource1= this.citasPaciente;
     }, (error)=>{
@@ -2115,7 +2117,7 @@ export class HistoriaSubsiguiente1{
   formulario_cita = new FormGroup({
     
       
-    peso: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(3)]),
+    peso: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]+/),Validators.maxLength(4)]),
     // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
     // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
     // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
