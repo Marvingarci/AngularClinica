@@ -107,11 +107,12 @@ tr.mat-footer-row {
 }
 
 
-/* para el focus de error */
-label {
+label{
   display: block;
+  color: black;
 }
 
-input.ng-invalid:focus {
-  outline-color: rgb(68, 0, 255);
+
+mat-radio-button{
+  color: black;
 }
