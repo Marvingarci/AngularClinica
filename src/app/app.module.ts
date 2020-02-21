@@ -154,7 +154,7 @@ const routes: Route[] = [
     verificarDialog,
     DialogCerrarSesion,
     HistoriaSubsiguiente,
-    HistoriaSubsiguiente1,
+    HistoriaSubsiguiente1,  
     Borraradministrador,
     DialogCerrarSesion2,
     PaseAdminComponent,
