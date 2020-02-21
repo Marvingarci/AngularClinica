@@ -60,11 +60,15 @@ import { MatChipsModule } from '@angular/material/chips';
 
 // Interceptors
 import { AuthInterceptorService } from './auth-interceptor.service';
+//import { AuthGuard } from './guards/auth.guard';
 import { AuthPacienteGuard } from './guards/auth-paciente.guard';
 import { UsuarioAdminUnicoDirective } from './validations/usuario-admin-unico.directive';
 import { UsuarioMedicoUnicoDirective } from './validations/usuario-medico-unico.directive';
 import { AuthAdministradorGuard } from './guards/auth-administrador.guard';
 import { AuthMedicoGuard } from './guards/auth-medico.guard';
+
+//importacion para los focus
+import {NgxScrollToFirstInvalidModule} from '@ismaestro/ngx-scroll-to-first-invalid';
 
 
 
@@ -161,6 +165,11 @@ const routes: Route[] = [
     ConsolidadodiarioComponent,
     TelefonoUnicoDirective,
     DialogoMedico,
+
+
+
+
+
     UsuarioAdminUnicoDirective,
     UsuarioMedicoUnicoDirective,
   
@@ -207,6 +216,10 @@ const routes: Route[] = [
     MatBadgeModule,
     MatAutocompleteModule,
     MatChipsModule,
+
+//esto es de los focus
+NgxScrollToFirstInvalidModule,
+
 
 
   ],
