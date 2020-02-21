@@ -21,6 +21,7 @@ import { InventariosService } from '../services/inventarios.service';
 import { Cita } from '../interfaces/Cita';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { TelefonoEmergencia } from '../interfaces/telefono-emergencia';
 
 
 
@@ -390,6 +391,13 @@ ocultar: boolean = true;
     emergencia_telefono: null,
     categoria: null,
   }
+
+  telefono_Emergencia: TelefonoEmergencia = {
+    id_paciente:null,
+    telefono_emergencia:null,
+    emergencia_persona:null,
+  }
+  tel_emergencia:any;
   
 
   antecedente_familiar: AntecedentesFamiliares ={
@@ -421,6 +429,8 @@ ocultar: boolean = true;
   };
 
   ante_familiar: any;
+
+
   ante_familiar_filtrado:familiar[] ;
 
   antecedente_personal: AntecedentesPersonales = {
@@ -513,11 +523,14 @@ ocultar: boolean = true;
   tablaAntecedentesFamiliares: any;
   tablaAntecedentesPersonales: any;
   tablaHabitosToxicologicos: any;
+  tablaTelefonosEmergencia:any;
+
 
   //creo un arreglo en el cual se añaden las columnas que se van a mostrar en la tabla
   columnasTablaAntecedentesFamiliares: string[] = ['antecedente', 'valor', 'parentesco'];
   columnasTablaAntecedentesPersonales: string[] = ['antecedente', 'valor', 'observacion'];
   columnastablaHabitosToxicologicos: string[] = ['habito_toxicologico', 'observacion'];
+  columnasTablaEmergenciaPersona:string[] = ['persona','telefono'];
 
   //date picker
   minDate = new Date(1950, 0, 1);
@@ -692,6 +705,28 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         console.log(error);
       });
 
+
+
+
+      this.formularioService.obtenerTelefonoEmergencia(this.id).subscribe((data: TelefonoEmergencia)=>{
+        this.tel_emergencia = data;
+      
+
+        //cargo los datos de la tabla antecedentes familiares
+        this.cargarTablaTelefonosEmergencia();  
+        //establesco el valor a los formcontrol para que se visualizen
+        //en los respectivos inputs de los antecedentes familiares
+        
+        //this.cargarInformacionTelefonosEmergencia();        
+        console.log(this.tel_emergencia);
+      }, (error)=>{
+        console.log(error);
+      });
+
+
+
+
+
       
 
 
@@ -712,8 +747,8 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
          
        }
 
-        //cargo los datos de la tabla antecedentes familiares
-        this.cargarTablaAntecedentesFamiliares();  
+        //cargo los datos de la tabla antecedentes familiares y telefonos emergencia
+        this.cargarTablaAntecedentesFamiliares();   
         //establesco el valor a los formcontrol para que se visualizen
         //en los respectivos inputs de los antecedentes familiares
         this.cargarInformacionAntecedentesFamiliares();        
@@ -721,6 +756,12 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       }, (error)=>{
         console.log(error);
       });
+
+
+
+
+
+
   
 
       this.formularioService.obtenerAntecedentePersonal(this.id).subscribe((data: AntecedentesPersonales)=>{
@@ -1187,7 +1228,15 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
  
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-  cargarTablaAntecedentesFamiliares(){
+cargarTablaTelefonosEmergencia(){
+  // establesco los valores a el arreglo de interfaces "tablaAntecedentesFamiliares"  
+  this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);
+  // verifico si otro tiene un valor para poder agregarlo a la tabla
+  
+} 
+
+
+cargarTablaAntecedentesFamiliares(){
     // establesco los valores a el arreglo de interfaces "tablaAntecedentesFamiliares"
     
     this.tablaAntecedentesFamiliares = new MatTableDataSource(this.ante_familiar);
@@ -1333,6 +1382,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.numero_identidad.setValue(this.paciente.numero_identidad);
     this.numero_cuenta.setValue(this.paciente.numero_cuenta);
     this.carrera.setValue(this.paciente.carrera);
+
 
    /* switch(this.paciente.sexo){
       case "Hombre":
@@ -1591,28 +1641,25 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
   cargarInformacionHabitosToxicologicos(){
 
     this.alcohol.setValue(this.habito_toxicologico_personal.alcohol);
-    this.observacion_alcohol.setValue(this.habito_toxicologico_personal.observacion_alcohol);
-    
+    this.observacion_alcohol.setValue(this.habito_toxicologico_personal.observacion_alcohol);    
     if(this.alcohol.value == "No"){
       this.observacion_alcohol.disable({onlySelf: true});        
     }
 
     this.tabaquismo.setValue(this.habito_toxicologico_personal.tabaquismo);
     this.observacion_tabaquismo.setValue(this.habito_toxicologico_personal.observacion_tabaquismo);
-
     if(this.tabaquismo.value == "No"){
       this.observacion_tabaquismo.disable({onlySelf: true});       
     }
+
     this.marihuana.setValue(this.habito_toxicologico_personal.marihuana);
     this.observacion_marihuana.setValue(this.habito_toxicologico_personal.observacion_marihuana);
-
     if(this.marihuana.value == "No"){
       this.observacion_marihuana.disable({onlySelf: true});       
     }
 
     this.cocaina.setValue(this.habito_toxicologico_personal.cocaina);
     this.observacion_cocaina.setValue(this.habito_toxicologico_personal.observacion_cocaina);
-
     if(this.cocaina.value == "No"){
       this.observacion_cocaina.disable({onlySelf: true});       
     }

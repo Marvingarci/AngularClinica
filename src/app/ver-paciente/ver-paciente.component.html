@@ -464,6 +464,15 @@
       </mat-form-field>
       </div>
 
+
+
+
+
+
+
+
+
+
       <div class="col">
       <mat-form-field class="example-full-width">
       <input matInput formControlName= "emergencia_persona" name="emergencia_persona" placeholder="Emergencia Persona" [readonly]="readonlyDatosGenerales">
@@ -480,6 +489,62 @@
       </mat-form-field>
       </div>
     </div>
+
+    <div class="col">
+
+      <div class="row medium-width" style="margin-left: 0;">
+        <table mat-table [dataSource]="tablaTelefonosEmergencia" class="mat-elevation-z8 tabla"
+           >
+<!-- *ngIf="dataSourceTablaTelefonosEmergencia != null"  -->
+          
+
+          <ng-container matColumnDef="numero">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <a>eliminar</a>
+            <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+
+          <ng-container matColumnDef="persona">
+            <th mat-header-cell *matHeaderCellDef> Persona </th>
+            <td mat-cell *matCellDef="let element"  > {{element.emergencia_persona}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+            <td mat-cell *matCellDef="let element"> {{element.telefono_emergencia}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="botones">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element; index as i;">
+              <button mat-icon-button class="botonesTabla" (click)="eliminarTelefonosEmergencia(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container> -->
+
+          <tr mat-header-row *matHeaderRowDef="columnasTablaEmergenciaPersona"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnasTablaEmergenciaPersona;"></tr>
+        </table>
+
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
 
       
 <!--Datos restantes-->

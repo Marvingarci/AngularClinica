@@ -63,7 +63,6 @@ import { DateAdapter,  MAT_DATE_LOCALE } from '@angular/material';
 
 // Interceptors
 import { AuthInterceptorService } from './auth-interceptor.service';
-//import { AuthGuard } from './guards/auth.guard';
 import { AuthPacienteGuard } from './guards/auth-paciente.guard';
 import { UsuarioAdminUnicoDirective } from './validations/usuario-admin-unico.directive';
 import { UsuarioMedicoUnicoDirective } from './validations/usuario-medico-unico.directive';
@@ -71,6 +70,7 @@ import { AuthAdministradorGuard } from './guards/auth-administrador.guard';
 import { AuthMedicoGuard } from './guards/auth-medico.guard';
 
 //importacion para los focus
+
 
 
 
@@ -157,7 +157,7 @@ const routes: Route[] = [
     verificarDialog,
     DialogCerrarSesion,
     HistoriaSubsiguiente,
-    HistoriaSubsiguiente1,
+    HistoriaSubsiguiente1,  
     Borraradministrador,
     DialogCerrarSesion2,
     PaseAdminComponent,

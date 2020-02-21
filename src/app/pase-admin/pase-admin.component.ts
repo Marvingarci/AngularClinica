@@ -10,6 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginadminService } from '../services/loginadmin.service';
 import { MatSnackBarConfig, MatSnackBar } from '@angular/material';
 import { Administrador } from '../interfaces/administrador';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-pase-admin',
@@ -30,7 +31,7 @@ export class PaseAdminComponent implements OnInit {
     cuenta: null,
     password: null
   };
-  
+
   constructor(private LoginAdminService: LoginadminService, private loginService: LoginService,
     private router: Router, private activar: AppComponent, private mensaje: MatSnackBar) {
     activar.esconder();
@@ -71,11 +72,33 @@ export class PaseAdminComponent implements OnInit {
 
           this.loginService.loguear(this.login).subscribe((data: any) => {
 
-            this.router.navigate(['/principal/veradministradores']);
+
+            //verifico si el usuario es un administrador, con el token que se le genera
+            this.loginService.getCurrentUser(data).subscribe((data: any) => {
+
+              if (data.id_administrador != null) {
+
+                this.router.navigate(['/principal/veradministradores']);
+
+              } else {
+
+                this.showError('El usuario no es un administrador');
+
+              }
+
+            }, (error) => {
+
+              console.log(error);
+
+            });
+
 
           }, (error) => {
+
             console.log(error);
+
           });
+
         } else {
 
           this.loading = false;
@@ -100,7 +123,7 @@ export class PaseAdminComponent implements OnInit {
       this.loguear();
 
     }
-    
+
   }
 
   //CLICK BOTON
