@@ -34,7 +34,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule, MatError } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
@@ -57,6 +57,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ConsolidadodiarioComponent } from './consolidadodiario/consolidadodiario.component';
 import { TelefonoUnicoDirective } from './validations/telefono-unico.directive';
 import { MatChipsModule } from '@angular/material/chips';
+import { DateAdapter,  MAT_DATE_LOCALE } from '@angular/material';
+
+
 
 // Interceptors
 import { AuthInterceptorService } from './auth-interceptor.service';
@@ -198,6 +201,9 @@ const routes: Route[] = [
     MatBadgeModule,
     MatAutocompleteModule,
     MatChipsModule,
+    MatDatepickerModule, 
+    
+    
 
 
   ],
