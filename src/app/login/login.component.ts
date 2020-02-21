@@ -14,6 +14,7 @@ import { MedicosService } from '../services/medicos.service';
 //import * as CryptoJS from 'crypto-js';
 import { isNullOrUndefined } from "util";
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -59,11 +60,19 @@ export class LoginComponent implements OnInit {
     activar.esconder();
 
 
-    if (localStorage.getItem('token')) {
-      console.log('true');
+    // cada vez que el usuario se devuelva al login borro los token para que tenga
+    // que volver a loguearse y crear otro nuevo token.
+    if (localStorage.getItem('token_paciente')) {
+      
+      localStorage.removeItem('token_paciente');
 
-    } else {
-      console.log('false');
+    } else if(localStorage.getItem('token_administrador')){
+
+      localStorage.removeItem('token_administrador');
+
+    } else{
+
+      localStorage.removeItem('token_medico');
 
     }
 
@@ -123,7 +132,7 @@ export class LoginComponent implements OnInit {
           id_medico = data.id_medico;
         }
 
-        
+
         //si el resultado arroja un valor difente a contrasenia incorrecta entonces el usuario esta verificado y
         //puede loguearse correctamente
         if (data != 'contrasenia incorrecta') {
@@ -136,21 +145,37 @@ export class LoginComponent implements OnInit {
 
           // si el usuario ya se encuentra registrado entonces solo se logueára.
           this.loginService.loguear(this.login).subscribe((data: any) => {
+
+
             //guardo el token en el localstorage para poder obtenerlo despues.
-            localStorage.setItem("token", data.token);
+            if (id_administrador) {
+
+              localStorage.setItem("token_administrador", data.token);
+
+
+            } else if (id_medico) {
+
+              localStorage.setItem("token_medico", data.token);
+
+
+            } else {
+
+              localStorage.setItem("token_paciente", data.token);
+
+            }
 
             //si en los datos del usario logueado el id_admnistrador tiene un valor 
             //entonces el usuario sera redirigido a principal.
             if (id_administrador) {
 
-              this.router.navigate(['/principal']);
+              this.router.navigate(['/principal/principal1']);
               this.showError('Bienvenido');
 
-            //si en los datos del usuario logueado el id_medico tiene un valor
-            //entonces el usuario sera redirigido a principal.
+              //si en los datos del usuario logueado el id_medico tiene un valor
+              //entonces el usuario sera redirigido a principal.
             } else if (id_medico) {
 
-              this.router.navigate(['/principal']);
+              this.router.navigate(['/principal/principal1']);
               this.showError('Bienvenido');
 
             } else {
@@ -193,7 +218,7 @@ export class LoginComponent implements OnInit {
         this.loginService.guardarDatos(this.login).subscribe((data: any) => {
 
           //guardo el token en el localstorage para poder obtenerlo despues.
-          localStorage.setItem("token", data.token);
+          localStorage.setItem("token_paciente", data.token);
 
           this.showError('Llene el siguiente formulario');
           this.router.navigate(['/formulario']);
@@ -321,6 +346,7 @@ export class LoginComponent implements OnInit {
   //EVENTO CUANDO SE DA EN EL BOTON
   comprobarDatos() {
     this.continuar();
+    this.hide = true;
   }
 
   get cuenta() { return this.login_form.get('cuenta') };

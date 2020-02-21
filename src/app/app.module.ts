@@ -63,8 +63,15 @@ import { DateAdapter,  MAT_DATE_LOCALE } from '@angular/material';
 
 // Interceptors
 import { AuthInterceptorService } from './auth-interceptor.service';
-import { AuthGuard } from './guards/auth.guard';
+//import { AuthGuard } from './guards/auth.guard';
+import { AuthPacienteGuard } from './guards/auth-paciente.guard';
 import { UsuarioAdminUnicoDirective } from './validations/usuario-admin-unico.directive';
+import { UsuarioMedicoUnicoDirective } from './validations/usuario-medico-unico.directive';
+import { AuthAdministradorGuard } from './guards/auth-administrador.guard';
+import { AuthMedicoGuard } from './guards/auth-medico.guard';
+
+//importacion para los focus
+import {NgxScrollToFirstInvalidModule} from '@ismaestro/ngx-scroll-to-first-invalid';
 
 
 
@@ -79,26 +86,26 @@ const routes: Route[] = [
   { path: '', component: LoginComponent },
   { path: 'formulario', component: FormularioComponent },
   { path: 'formulario:id', component: FormularioComponent },
-  { path: 'principal', component: PrincipalComponent, canActivate: [AuthGuard] },
-  { path: 'at1', component: At1Component },
+  { path: 'principal', component: PrincipalComponent, canActivate: [AuthAdministradorGuard]},
+  { path: 'at1', component: At1Component, canActivate: [AuthAdministradorGuard] },
   { path: 'datoPaciente/:id', component: DatoPacienteComponent },
-  { path: 'datoPaciente', component: DatoPacienteComponent, canActivate: [AuthGuard] },
-  { path: 'verPaciente/:id', component: VerPacienteComponent },
-  { path: 'inventario', component: InventarioComponent },
+  { path: 'datoPaciente', component: DatoPacienteComponent, canActivate: [AuthPacienteGuard] },
+  { path: 'verPaciente/:id', component: VerPacienteComponent, canActivate: [AuthAdministradorGuard] },
+  { path: 'inventario', component: InventarioComponent, canActivate: [AuthAdministradorGuard] },
   //{path: 'formInventario', component: FormInventarioComponent},
-  { path: 'listadoEstudiantes/:id', component: ListadoEstudiantesComponent },
+  { path: 'listadoEstudiantes/:id', component: ListadoEstudiantesComponent, canActivate: [AuthAdministradorGuard] },
 
 
 
-  { path: 'loginadmin', component: LoginadminComponent },
-  { path: 'paseadmin', component: PaseAdminComponent },
-  { path: 'veradministradores', component: VerAdministradoresComponent },
-  { path: 'consolidadodiario', component: ConsolidadodiarioComponent },
+  { path: 'loginadmin', component: LoginadminComponent, canActivate: [AuthAdministradorGuard] },
+  { path: 'paseadmin', component: PaseAdminComponent, canActivate: [AuthAdministradorGuard] },
+  { path: 'veradministradores', component: VerAdministradoresComponent, canActivate: [AuthAdministradorGuard] },
+  { path: 'consolidadodiario', component: ConsolidadodiarioComponent, canActivate: [AuthAdministradorGuard] },
 
   {
     path: 'principal',
     component: PrincipalComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthAdministradorGuard],
     children: [
       { path: 'at1', component: At1Component },
       { path: 'registro', component: PacienteComponent },
@@ -162,7 +169,19 @@ const routes: Route[] = [
     ConsolidadodiarioComponent,
     TelefonoUnicoDirective,
     DialogoMedico,
+
+
+
+
+
     UsuarioAdminUnicoDirective,
+    UsuarioMedicoUnicoDirective,
+  
+
+
+
+
+
     
   ],
   imports: [
@@ -204,6 +223,10 @@ const routes: Route[] = [
     MatDatepickerModule, 
     
     
+
+//esto es de los focus
+NgxScrollToFirstInvalidModule,
+
 
 
   ],

@@ -714,4 +714,4 @@ export class DialogCerrarSesion {
     this.router.navigate(['']);
 
   }
-}
+} 

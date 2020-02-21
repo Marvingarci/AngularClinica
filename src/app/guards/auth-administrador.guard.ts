@@ -6,21 +6,23 @@ import { LoginService } from '../services/login.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthAdministradorGuard implements CanActivate {
 
-  constructor(private loginService: LoginService, private router: Router){}
-  canActivate(){
+  constructor(private loginService: LoginService, private router: Router) { }
+  canActivate() {
 
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token_administrador') || localStorage.getItem('token_medico')) {
 
       return true;
 
-    }else{
+    } else {
 
       this.router.navigate(['/']);
       return false;
     }
-    
+
   }
-  
+
 }
+
+

@@ -11,21 +11,36 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   constructor(
     private router: Router
-  ) {}
+  ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-  
-    const token: string = localStorage.getItem('token');
+
+    var token: string;
+
+    //verifico cual es el token que se creo y lo guardo en la variable, para enviarlo en el header
+    if (localStorage.getItem('token_paciente')) {
+
+      token = localStorage.getItem('token_paciente');
+
+    } else if (localStorage.getItem('token_administrador')) {
+
+      token = localStorage.getItem('token_administrador');
+
+    } else {
+
+      token = localStorage.getItem('token_medico');
+
+    }
 
     let request = req;
 
     if (token) {
       request = req.clone({
         setHeaders: {
-          authorization: `Bearer ${ token }`
+          authorization: `Bearer ${token}`
         }
       });
-    }else{
+    } else {
       this.router.navigateByUrl('/');
     }
 
@@ -36,7 +51,7 @@ export class AuthInterceptorService implements HttpInterceptor {
           this.router.navigateByUrl('/');
         }
 
-        return throwError( err );
+        return throwError(err);
 
       })
     );
