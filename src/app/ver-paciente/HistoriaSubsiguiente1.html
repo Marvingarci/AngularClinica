@@ -21,7 +21,7 @@
 
                 <div class="col">
                     <mat-form-field style=" width: 100%;" >
-                      <input matInput class="example-full-width"  formControlName= "talla"  placeholder="Altura(cm)" >
+                      <input matInput class="example-full-width"  formControlName= "talla"  placeholder="Altura(en metros)" >
                       
                       <mat-error *ngIf="talla.hasError('required')">campo requerido!</mat-error>
                       <mat-error *ngIf="talla.hasError('pattern')">ingrese una talla valido!</mat-error>
