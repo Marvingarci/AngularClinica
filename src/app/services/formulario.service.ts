@@ -165,6 +165,7 @@ export class FormularioService {
   obtenerPacientes() {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes');
   }
+ 
 
   obtenerPaciente(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes/' + id_paciente);
@@ -174,6 +175,9 @@ export class FormularioService {
     
       return this.httpClient.get(this.API_ENDPOINT + 'obtenerPaciente/'+cuenta);
       
+  }
+   obtenerTelefonoEmergencia(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'telefonos_emergencia/'+id_paciente);
   }
 
 
