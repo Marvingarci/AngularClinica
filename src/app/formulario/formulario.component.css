@@ -111,7 +111,9 @@ label{
   display: block;
   color: black;
 }
-
+input{
+  color: black ;
+}
 
 mat-radio-button{
   color: black;
