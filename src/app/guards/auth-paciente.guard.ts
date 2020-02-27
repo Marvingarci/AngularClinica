@@ -8,19 +8,20 @@ import { LoginService } from '../services/login.service';
 })
 export class AuthPacienteGuard implements CanActivate {
 
-  constructor(private loginService: LoginService, private router: Router){}
-  canActivate(){
+  constructor(private loginService: LoginService, private router: Router) { }
+  canActivate() {
 
-    if(localStorage.getItem('token_paciente')){
+    if ((this.loginService.datosUsuario.id_medico == null || this.loginService.datosUsuario.id_medico == undefined)
+      && (this.loginService.datosUsuario.id_administrador == null || this.loginService.datosUsuario.id_administrador == undefined)) {
 
       return true;
 
-    }else{
+    } else {
 
       this.router.navigate(['/']);
       return false;
     }
-    
+
   }
-  
+
 }
