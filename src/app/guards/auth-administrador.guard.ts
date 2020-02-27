@@ -8,10 +8,17 @@ import { LoginService } from '../services/login.service';
 })
 export class AuthAdministradorGuard implements CanActivate {
 
-  constructor(private loginService: LoginService, private router: Router) { }
-  canActivate() {
+  constructor(private loginService: LoginService, private router: Router) {
 
-    if (localStorage.getItem('token_administrador') || localStorage.getItem('token_medico')) {
+    console.log('datos usuario: \n'+this.loginService.datosUsuario.id_administrador);
+    
+   }
+
+
+  canActivate(){
+
+    if (this.loginService.datosUsuario.id_administrador || this.loginService.datosUsuario.id_medico) {
+
 
       return true;
 
@@ -22,6 +29,8 @@ export class AuthAdministradorGuard implements CanActivate {
     }
 
   }
+
+
 
 }
 
