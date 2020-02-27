@@ -2236,8 +2236,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.emergencia_telefono.updateValueAndValidity();
 
     }
-
-
   }
 
   eliminarTelefonosEmergencia(index) {
