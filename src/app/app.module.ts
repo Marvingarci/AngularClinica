@@ -87,7 +87,7 @@ const routes: Route[] = [
   { path: 'formulario:id', component: FormularioComponent },
   { path: 'principal', component: PrincipalComponent, canActivate: [AuthAdministradorGuard]},
   { path: 'at1', component: At1Component, canActivate: [AuthAdministradorGuard] },
-  { path: 'datoPaciente/:id', component: DatoPacienteComponent },
+  { path: 'datoPaciente/:id', component: DatoPacienteComponent, canActivate: [AuthPacienteGuard] },
   { path: 'datoPaciente', component: DatoPacienteComponent, canActivate: [AuthPacienteGuard] },
   { path: 'verPaciente/:id', component: VerPacienteComponent, canActivate: [AuthAdministradorGuard] },
   { path: 'inventario', component: InventarioComponent, canActivate: [AuthAdministradorGuard] },
