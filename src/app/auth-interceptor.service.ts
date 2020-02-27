@@ -3,6 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { LoginService } from './services/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,27 +11,15 @@ import { Router } from '@angular/router';
 export class AuthInterceptorService implements HttpInterceptor {
 
   constructor(
-    private router: Router
+
+    private router: Router,
+    private loginService: LoginService
+
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    var token: string;
-
-    //verifico cual es el token que se creo y lo guardo en la variable, para enviarlo en el header
-    if (localStorage.getItem('token_paciente')) {
-
-      token = localStorage.getItem('token_paciente');
-
-    } else if (localStorage.getItem('token_administrador')) {
-
-      token = localStorage.getItem('token_administrador');
-
-    } else {
-
-      token = localStorage.getItem('token_medico');
-
-    }
+    var token: string = localStorage.getItem('token');    
 
     let request = req;
 
@@ -41,6 +30,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         }
       });
     } else {
+      
       this.router.navigateByUrl('/');
     }
 
