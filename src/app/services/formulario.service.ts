@@ -176,9 +176,11 @@ export class FormularioService {
       return this.httpClient.get(this.API_ENDPOINT + 'obtenerPaciente/'+cuenta);
       
   }
-   obtenerTelefonoEmergencia(id_paciente: any) {
-    return this.httpClient.get(this.API_ENDPOINT + 'telefonos_emergencia/'+id_paciente);
+
+  obtenerColumnaTelefono(numero_telefono) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerColumnaNumeroTelefono/' + numero_telefono);
   }
+
 
 
   obtenerParentescos() {
@@ -209,9 +211,7 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT + 'columna_habito_toxicologico');
   }
 
-  obtenerColumnaTelefono(numero_telefono) {
-    return this.httpClient.get(this.API_ENDPOINT + 'obtenerColumnaNumeroTelefono/' + numero_telefono);
-  }
+ 
 
 
   obtenerAntecedentesFamiliares() {
@@ -239,6 +239,10 @@ export class FormularioService {
 
   obtenerHabitoToxicologico(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes_habitos_toxicologicos/' + id_paciente);
+  }
+
+  obtenerEmergenciaPersona(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'telefonos_emergencia/' + id_paciente);
   }
 
   obtenerActividadesSexuales() {
