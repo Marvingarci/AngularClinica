@@ -285,6 +285,7 @@ export class cambiocontraDialog {
   Listo: boolean = false;
   constructor(private formularioService: FormularioService, private dialogRef: MatDialogRef<cambiocontraDialog>, private activatedRoute: ActivatedRoute,
     private loginService: LoginService, private router: Router, private mensaje: MatSnackBar) {
+
     this.paciente1.id_paciente = this.formularioService.idActualizar;
     console.log(this.paciente1.id_paciente);
     ///////
@@ -318,10 +319,10 @@ export class cambiocontraDialog {
   });
 
 
-// FUNCION QUE HACE EL MACANEO
-continuar(){
-  this.hide = true;
-  this.hide1 = false;
+  // FUNCION QUE HACE EL MACANEO
+  continuar() {
+    this.hide = true;
+    this.hide1 = false;
 
     this.formularioService.getUltimoID().subscribe((data) => {
       this.resultado = data;
@@ -348,7 +349,7 @@ continuar(){
         this.login.id_login = data[0].ultimoId;
         this.login.password = this.nuevaContra.value;
 
-        if (this.login.password == this.Nueva.get('nuevaContraRep').value) {
+        if (this.nuevaContra.value == this.nuevaContraRep.value) {
 
           this.loginService.actualizarDatos(this.login).subscribe((data) => {
           }, (error) => {
@@ -368,9 +369,11 @@ continuar(){
       });
 
       if (this.formularioService.esAlumno == true) {
+
         this.router.navigate(['datoPaciente/' + this.paciente1.id_paciente]);
         this.showError('Contraseña Guardada');
         this.Listo = true;
+
       } else {
         this.router.navigate(['principal/verPaciente/' + this.paciente1.id_paciente]);
         this.showError('Contraseña Guardada');
@@ -380,14 +383,14 @@ continuar(){
       }
     }
 
-}
+  }
 
   //EVENTO CUANDO SE DA ENTER
   onKeydown(event) {
     if (event.key === "Enter") {
-    this.hide = true;
-    this.hide1 = true;
-    this.continuar();
+      this.hide = true;
+      this.hide1 = true;
+      this.continuar();
     }
   }
 
@@ -457,32 +460,24 @@ export class verificarDialog {
     @Inject(MAT_DIALOG_DATA) data,
 
     private formularioService: FormularioService, private activatedRoute: ActivatedRoute,
-    public loginService: LoginService, private router: Router, private mensaje: MatSnackBar, public dialog: MatDialog) {
-    this.getContra();
+    public loginService: LoginService, private router: Router, private mensaje: MatSnackBar, public dialog: MatDialog
 
-    this.paciente2.id_paciente = this.formularioService.idActualizar;
-    console.log(this.paciente2.id_paciente);
-    if (this.paciente2.id_paciente) {
-      this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) => {
-        this.pacientes = data;
-        this.paciente2 = this.pacientes.find((m) => { return m.id_paciente == this.paciente2.id_paciente });
+  ) {
 
-      }, (error) => {
-        console.log(error);
-      });
 
-    }
+    this.formularioService.obtenerPaciente(this.formularioService.idActualizar).subscribe((data: any) => {
+      this.paciente = data;
+      console.log(data);
+    }, (error) => {
+
+      console.log(error);
+
+    });
+
+
   }//fin del constructor
 
 
-  getContra() {
-    this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) => {
-      this.pacientes = data;
-    }, (error) => {
-      console.log(error);
-      alert('Ocurrio un error');
-    });
-  }
   showError(message: string) {
     const config = new MatSnackBarConfig();
     config.panelClass = ['background-red'];
@@ -494,37 +489,54 @@ export class verificarDialog {
     viejacontra: new FormControl('', [Validators.required, Validators.maxLength(20), Validators.minLength(6)]),
   });
 
+  verificar() {
+
+    this.login.cuenta = this.paciente.numero_cuenta;
+    this.login.password = this.viejacontra.value;
+
+
+    this.loginService.verificarClave(this.login).subscribe((data: any) => {
+
+      if (data.codigoError == 0) {
+
+        const dialogRef = this.dialog.open(actualizarcontraDialog,
+          { disableClose: false, panelClass: 'cambiarcontrasenia' });
+        this.dialogRef.close();
+
+      } else {
+
+        this.showError(data.msg);
+
+      }
+
+
+    }, (error) => {
+
+      console.log(error);
+
+    });
+
+  }
 
   //EVENTO CUANDO SE DA ENTER
   onKeydown(event) {
     if (event.key === "Enter") {
       this.hide = true;
       this.hide1 = true;
+      this.verificar();
     }
   }
 
-  //EVENTO BOTON GUARDAR
-  //   pasarotrodialogo() {
-  //     this.login.password = this.CambioContrasenia.get('viejacontra').value;
-  //     for (let index = 0; index < this.pacientes.length; index++) {
-  //       if (this.pacientes[index].numero_cuenta || this.pacientes[index].numero_identidad) {
-  //         this.paciente = this.pacientes[index];
+  // EVENTO BOTON GUARDAR
+  pasarotrodialogo() {
 
+    this.verificar();
 
-  //       }
-  //     }
+  }
 
-  //     if (this.paciente.contrasenia == this.paciente2.contrasenia) {
-
-  //       const dialogRef = this.dialog.open(actualizarcontraDialog,
-  //         { disableClose: false, panelClass: 'cambiarcontrasenia' });
-  //       this.dialogRef.close();
-  //     } else {
-  //       this.showError('Contraseña Incorrecta');
-  //     }
-  //   }
 
   get viejacontra() { return this.CambioContrasenia.get('viejacontra') };
+
 }
 
 
@@ -560,7 +572,7 @@ export class actualizarcontraDialog {
   hide1 = false;
   hide = true;
 
-  paciente2: Paciente = {
+  pacienteActualizar: Paciente = {
     id_paciente: null,
     numero_paciente: null,
     nombre_completo: null,
@@ -593,41 +605,27 @@ export class actualizarcontraDialog {
   id: any;
   resultado: any;
   pac: Paciente[];
-  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute,
+
+  constructor(
+
+    private dialogRef: MatDialogRef<verificarDialog>,
+    private formularioService: FormularioService, private activatedRoute: ActivatedRoute,
     public loginService: LoginService, private router: Router, private mensaje: MatSnackBar, public dialog: MatDialog) {
-    this.getContra();
-
-    this.paciente2.id_paciente = this.formularioService.idActualizar;
-    console.log(this.paciente2.id_paciente);
-    if (this.paciente2.id_paciente) {
-      this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) => {
-        this.pac = data;
-        this.paciente2 = this.pac.find((m) => { return m.id_paciente == this.paciente2.id_paciente });
-        //establesco el valor al los formcontrol para que se visualizen en los respectivos inputs
-        // this.nuevaContraCambio.setValue(this.paciente2.contrasenia);
-        //this.nuevaContraRepCambio.setValue(this.paciente2.contrasenia);
 
 
-        //this.especialidad.setValue(this.medico.especialidadM);  
-        // this.formularioService.idActualizar=this.paciente2.id_paciente;    
-      }, (error) => {
-        console.log(error);
-      });
+    this.formularioService.obtenerPaciente(this.formularioService.idActualizar).subscribe((data: any) => {
 
-    }
-  }//fin del constructor
+      this.pacienteActualizar = data;
 
-
-  getContra() {
-    this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) => {
-      this.pac = data;
     }, (error) => {
+
       console.log(error);
-      alert('Ocurrio un error');
+
     });
-  }
 
 
+
+  }//fin del constructor
 
 
   showError(message: string) {
@@ -638,7 +636,8 @@ export class actualizarcontraDialog {
   }
 
   ngOnInit() {
-    this.getContra();
+
+
   }
 
   CambioContrasenia = new FormGroup({
@@ -647,41 +646,52 @@ export class actualizarcontraDialog {
   });
 
 
+  cambiarClave(){
+
+    if (this.CambioContrasenia.valid) {
+
+      // guardar datos del formulario en paciente y enviarlo a la api
+      this.login.cuenta = this.pacienteActualizar.numero_cuenta;
+      this.login.password = this.nuevaContraCambio.value;
+
+      if (this.nuevaContraCambio.value == this.nuevaContraRepCambio.value) {
+
+        this.loginService.actualizarDatos(this.login).subscribe((data) => {
+
+          this.router.navigate(['datoPaciente/2']);
+          this.showError('Cambio de contraseña exitoso');
+          this.dialogRef.close();
+
+        }, (error) => {
+          console.log(error);
+          this.showError('Existe un error');
+          this.router.navigate(['datoPaciente/' + this.pacienteActualizar.id_paciente]);
+        });
+
+      } else {
+
+        this.showError('La contraseña no coincide');
+
+      }
+    }
+
+  }
+
   //EVENTO CUANDO SE DA ENTER
   onKeydown(event) {
     if (event.key === "Enter") {
       this.hide = true;
       this.hide1 = true;
+      this.cambiarClave();
     }
   }
 
   //EVENTO BOTON GUARDAR
   guardarCambio() {
     this.hide = true;
-      this.hide1 = true;
-    if (this.CambioContrasenia.valid) {
-
-      // guardar datos del formulario en paciente y enviarlo a la api
-      this.login.password = this.CambioContrasenia.get('nuevaContraCambio').value;
-
-      if (this.login.password == this.nuevaContraRepCambio.value) {
-
-        this.loginService.actualizarDatos(this.login).subscribe((data) => {
-
-          this.router.navigate(['datoPaciente/' + this.paciente2.id_paciente]);
-          this.showError('Cambio de contraseña exitoso');
-
-        }, (error) => {
-          console.log(error);
-          this.showError('Existe un error');
-          this.router.navigate(['datoPaciente/' + this.paciente2.id_paciente]);
-        });
-      } else {
-        
-        this.showError('La contraseña no coincide');
-
-      }
-    }
+    this.hide1 = true;
+    this.cambiarClave();
+    
   }
 
   get nuevaContraCambio() { return this.CambioContrasenia.get('nuevaContraCambio') };
