@@ -68,6 +68,7 @@ import { UsuarioAdminUnicoDirective } from './validations/usuario-admin-unico.di
 import { UsuarioMedicoUnicoDirective } from './validations/usuario-medico-unico.directive';
 import { AuthAdministradorGuard } from './guards/auth-administrador.guard';
 import { AuthMedicoGuard } from './guards/auth-medico.guard';
+import { FocusInvalidoInputDirective } from './focus/focus-invalido-input.directive';
 
 //importacion para los focus
 
@@ -175,6 +176,7 @@ const routes: Route[] = [
 
     UsuarioAdminUnicoDirective,
     UsuarioMedicoUnicoDirective,
+    FocusInvalidoInputDirective,
   
 
 
