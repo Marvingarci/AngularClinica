@@ -231,6 +231,17 @@
           </mat-form-field>
         </div>
 
+
+
+
+
+
+
+
+
+
+
+
         <div class="col">
           <mat-form-field class="example-full-width">
           <input matInput formControlName= "emergencia_persona" name="emergencia_persona" placeholder="Emergencia Persona" [readonly]="readonlyDatosGenerales">
@@ -247,7 +258,38 @@
             <mat-error *ngIf="emergencia_telefono.hasError('pattern')">introduzca un número de teléfono válido</mat-error>
           </mat-form-field>
         </div>
+
+
+<div class="col">
+      <table mat-table id="tabla4" [dataSource]="tablaTelefonosEmergencia" class="mat-elevation-z8">
+       
+        <ng-container matColumnDef="persona">
+        <th mat-header-cell *matHeaderCellDef> Persona </th>
+        <td mat-cell *matCellDef="let elemento"> {{elemento.persona}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+  
+      
+        <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+        <td mat-cell *matCellDef="let elemento"> {{elemento.telefono}}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="columnasTablaEmergenciaPersona"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnasTablaEmergenciaPersona;"></tr>
+        <tr mat-footer-row *matFooterRowDef="columnasTablaEmergenciaPersona"></tr>
+        </table>
       </div>
+
+
+
+
+      </div>
+
+      
+
+
 
 
        <!--Datos restantes-->
@@ -1424,7 +1466,7 @@ style="margin-top: 10px;"
 
       <!-- columna antecedente -->
       <ng-container matColumnDef="habito_toxicologico">
-      <th mat-header-cell *matHeaderCellDef> Habito Toxicológico </th>
+      <th mat-header-cell *matHeaderCellDef> Hábito Toxicológico </th>
       <td mat-cell *matCellDef="let elemento"> {{elemento.habito_toxicologico}} </td>
 
       <!-- este mat-footer siempre tiene que ir en cada columna -->
