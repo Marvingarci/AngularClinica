@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row" id="contenedor">
-    <div class="col-3"></div>
-    <div class="col-6">
+    <div class="col-2"></div>
+    <div class="col-8">
 <mat-card style="margin: 15px;" [class.mat-elevation-z20]="true"> 
                         
                      
@@ -38,6 +38,25 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+
+    <!--Graficos de barra-->
+    <div>
+      <div>
+        <div style="display: block">
+          <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+
+    <!--Hasta Aqui grafivos de barra-->
     
 
    <BR>
@@ -75,8 +94,66 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
       </table>
 
+      <!--Aqui va el grafico de barra edad-->
+      <div>
+        <div>
+          <div style="display: block">
+            <canvas baseChart
+              [datasets]="barChartData1"
+              [labels]="barChartLabels1"
+              [options]="barChartOptions1"
+              [plugins]="barChartPlugins1"
+              [legend]="barChartLegend1"
+              [chartType]="barChartType1">
+            </canvas>
+          </div>
+        </div>
+      </div>
+      <!--HASta aqui grafico edad-->
+
+      <!--
+      <div class="flex">
+        <div class="flex-item">
+          <div style="display: block;">
+          <canvas baseChart width="400" height="400"
+                      [datasets]="lineChartData"
+                      [labels]="lineChartLabels"
+                      [options]="lineChartOptions"
+                      [colors]="lineChartColors"
+                      [legend]="lineChartLegend"
+                      [chartType]="lineChartType"
+                      [plugins]="lineChartPlugins"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </div>
+        <div class="flex-item">
+          <table class="table table-responsive table-condensed">
+            <tr>
+              <th *ngFor="let label of lineChartLabels">{{label}}</th>
+            </tr>
+            <tr *ngFor="let d of lineChartData; let i=index" [class]="'line-'+i">
+              <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+            </tr>
+          </table>
+          <button mat-button mat-raised-button color="primary" (click)="randomize()">Randomize</button>
+          <button mat-button mat-raised-button color="primary" (click)="pushOne()">Push</button>
+          <button mat-button mat-raised-button color="primary" (click)="changeColor()">Recolor</button>
+          <button mat-button mat-raised-button color="primary" (click)="hideOne()">Toggle Series B</button>
+          <button mat-button mat-raised-button color="primary" (click)="changeLabel()">Change Label</button>
+        </div>
+      </div>
+      -->
+
 </mat-card>
 </div>
-<div class="col-3"></div>
+<div class="col-2"></div>
 </div>
+<div class="container">
+  <!--Aqui va el grafico-->
+  
+
+
+</div>
+
 </div>

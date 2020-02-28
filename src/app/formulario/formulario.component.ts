@@ -140,6 +140,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+
+
+
 
 @Component({
   selector: 'app-formulario',
@@ -147,10 +151,10 @@ import * as _moment from 'moment';
   styleUrls: ['./formulario.component.css'],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false },
-
+    
   },
-
-  ]
+   
+]
 })
 
 

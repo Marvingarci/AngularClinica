@@ -73,7 +73,10 @@ import { FocusInvalidoInputDirective } from './focus/focus-invalido-input.direct
 //importacion para los focus
 
 
+//Tablas
+import { ChartsModule } from 'ng2-charts';
 
+    
 
 
 
@@ -222,6 +225,7 @@ const routes: Route[] = [
     MatAutocompleteModule,
     MatChipsModule,
     MatDatepickerModule, 
+    ChartsModule
     
     
 
