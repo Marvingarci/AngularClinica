@@ -778,8 +778,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     estado_civil: null,
     seguro_medico: null,
     numero_telefono: null,
-    emergencia_persona: null,
-    emergencia_telefono: null,
     categoria: null
   };
 
@@ -2445,8 +2443,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
         this.paciente.numero_telefono = this.numero_telefono.value;
-        this.paciente.emergencia_persona = this.emergencia_persona.value;
-        this.paciente.emergencia_telefono = this.emergencia_telefono.value;
         this.paciente.categoria = this.categoria.value;
 
 
