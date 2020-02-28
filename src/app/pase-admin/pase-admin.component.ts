@@ -60,56 +60,95 @@ export class PaseAdminComponent implements OnInit {
     this.hide = false;
     this.loading = true;
 
-    this.loginService.obtenerUsuario(this.cuenta.value, this.clave.value).subscribe((data: any) => {
+    this.login.cuenta = this.cuenta.value;
+    this.login.password = this.clave.value;
 
-      if (data != null) {
+    this.loginService.obtenerUsuario(this.login).subscribe((data: any) => {
 
-        if (data != 'contrasenia incorrecta') {
+      if (data.codigoError == 1) {
 
-          this.login.cuenta = this.cuenta.value;
-          this.login.password = this.clave.value;
+        this.loading = false;
+        this.showError(data.msg);
 
+      } else if (data.codigoError == 2) {
 
-          this.loginService.loguear(this.login).subscribe((data: any) => {
-
-
-            //verifico si el usuario es un administrador, con el token que se le genera
-            this.loginService.getCurrentUser(data).subscribe((data: any) => {
-
-              if (data.id_administrador != null) {
-
-                this.router.navigate(['/principal/veradministradores']);
-
-              } else {
-
-                this.showError('El usuario no es un administrador');
-
-              }
-
-            }, (error) => {
-
-              console.log(error);
-
-            });
-
-
-          }, (error) => {
-
-            console.log(error);
-
-          });
-
-        } else {
-
-          this.loading = false;
-          this.showError('Cuenta incorrecta');
-
-        }
-
-      } else {
         this.loading = false;
         this.showError('El usuario no existe');
+
+      } else {
+
+        //verifico si el usuario es un administrador, con el token que se le genera
+        this.loginService.getCurrentUser(data).subscribe((data: any) => {
+
+          if (data.id_administrador != null) {
+
+            this.router.navigate(['/principal/veradministradores']);
+
+          } else {
+
+            this.showError('El usuario no es un administrador');
+
+          }
+
+        }, (error) => {
+
+          console.log(error);
+
+        });
+
       }
+
+
+
+
+      // if (data != null) {
+
+      //   if (data != 'contrasenia incorrecta') {
+
+      //     this.login.cuenta = this.cuenta.value;
+      //     this.login.password = this.clave.value;
+
+
+      //     this.loginService.loguear(this.login).subscribe((data: any) => {
+
+
+      //       //verifico si el usuario es un administrador, con el token que se le genera
+      //       this.loginService.getCurrentUser(data).subscribe((data: any) => {
+
+      //         if (data.id_administrador != null) {
+
+      //           this.router.navigate(['/principal/veradministradores']);
+
+      //         } else {
+
+      //           this.showError('El usuario no es un administrador');
+
+      //         }
+
+      //       }, (error) => {
+
+      //         console.log(error);
+
+      //       });
+
+
+      //     }, (error) => {
+
+      //       console.log(error);
+
+      //     });
+
+      //   } else {
+
+      //     this.loading = false;
+      //     this.showError('Cuenta incorrecta');
+
+      //   }
+
+      // } else {
+      //   this.loading = false;
+      //   this.showError('El usuario no existe');
+      // }
 
     });
 

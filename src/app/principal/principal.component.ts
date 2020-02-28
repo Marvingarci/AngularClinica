@@ -18,10 +18,24 @@ export class PrincipalComponent implements OnInit {
   public opened:boolean =true; 
   public isSpinnerVisible:boolean;   
   icon : string='home';
+  esAdmin: boolean;
+
   // @Output() messageEvent = new EventEmitter<boolean>();  esto es para mandar string de un componente a otro
 
-  constructor(mostrar: AppComponent,private router: Router,public dialog: MatDialog) {
+  constructor(mostrar: AppComponent,private router: Router,public dialog: MatDialog, private loginService: LoginService) {
+
     mostrar.mostrar();  
+
+    //verifico si el usuario que se logueo es un administrador
+    // para poder mostrar o no la seccion de administradores en la sidenav
+    if(this.loginService.datosUsuario.id_administrador != null){
+
+      this.esAdmin = true;
+      
+    }else {
+
+      this.esAdmin = false;
+    }
 
 }
 

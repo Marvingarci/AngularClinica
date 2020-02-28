@@ -68,6 +68,7 @@ import { UsuarioAdminUnicoDirective } from './validations/usuario-admin-unico.di
 import { UsuarioMedicoUnicoDirective } from './validations/usuario-medico-unico.directive';
 import { AuthAdministradorGuard } from './guards/auth-administrador.guard';
 import { AuthMedicoGuard } from './guards/auth-medico.guard';
+import { FocusInvalidoInputDirective } from './focus/focus-invalido-input.directive';
 
 //importacion para los focus
 
@@ -90,7 +91,7 @@ const routes: Route[] = [
   { path: 'formulario:id', component: FormularioComponent },
   { path: 'principal', component: PrincipalComponent, canActivate: [AuthAdministradorGuard]},
   { path: 'at1', component: At1Component, canActivate: [AuthAdministradorGuard] },
-  { path: 'datoPaciente/:id', component: DatoPacienteComponent },
+  { path: 'datoPaciente/:id', component: DatoPacienteComponent, canActivate: [AuthPacienteGuard] },
   { path: 'datoPaciente', component: DatoPacienteComponent, canActivate: [AuthPacienteGuard] },
   { path: 'verPaciente/:id', component: VerPacienteComponent, canActivate: [AuthAdministradorGuard] },
   { path: 'inventario', component: InventarioComponent, canActivate: [AuthAdministradorGuard] },
@@ -178,6 +179,7 @@ const routes: Route[] = [
 
     UsuarioAdminUnicoDirective,
     UsuarioMedicoUnicoDirective,
+    FocusInvalidoInputDirective,
   
 
 
