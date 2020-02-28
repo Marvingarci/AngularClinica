@@ -386,9 +386,7 @@ ocultar: boolean = true;
     sexo: null,
     estado_civil: null,
     seguro_medico: null,
-    numero_telefono: null,
-    emergencia_persona: null,
-    emergencia_telefono: null,
+    numero_telefono: null,  
     categoria: null,
   }
 
@@ -523,14 +521,17 @@ ocultar: boolean = true;
   tablaAntecedentesFamiliares: any;
   tablaAntecedentesPersonales: any;
   tablaHabitosToxicologicos: any;
-  tablaTelefonosEmergencia: TelefonoEmergencia[] = [];
-
+  tablaTelefonosEmergencia: any;
+  tablaTelefonosEmergenciaActualizar: TelefonoEmergencia[] = [];
+  
+  dataSourceTablaTelefonosEmergenciaActualizar: any;
 
   //creo un arreglo en el cual se añaden las columnas que se van a mostrar en la tabla en el html
   columnasTablaAntecedentesFamiliares: string[] = ['antecedente', 'valor', 'parentesco'];
   columnasTablaAntecedentesPersonales: string[] = ['antecedente', 'valor', 'observacion'];
   columnastablaHabitosToxicologicos: string[] = ['habito_toxicologico', 'observacion'];
   columnasTablaEmergenciaPersona:string[] = ['persona','telefono'];
+  columnasTablaTelefonosEmergencia: string[] = ['numero', 'nombre', 'telefono', 'botones'];
 
   //date picker
   minDate = new Date(1950, 0, 1);
@@ -765,10 +766,11 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
 
       this.formularioService.obtenerEmergenciaPersona(this.id).subscribe((data: TelefonoEmergencia)=>{
-        this.telefono_Emergencias = data;
+        this.tel_emergencia = data;
+        
         //cargo los datos de la tabla antecedentes personales
         this.cargarTablaEmergenciaPersona();
-        console.log(this.telefono_Emergencias);      
+        console.log(this.tel_emergencia);      
         }, (error)=>{
           console.log(error);
         });      
@@ -888,6 +890,9 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
  actualizarDatosGenerales()
  {
 
+  this.cargarTablaEmergenciaPersonaActualizar();
+
+  
   this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
   this.disabledDatosGenerales = !this.disabledDatosGenerales;
 
@@ -904,7 +909,6 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     case "Viudo":
      this.estado_civil.setValue(4);
        break;
-
     default:
       this.estado_civil.setValue(5);
        break;
@@ -916,23 +920,14 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         break;
     case "IHSS":
       this.seguro_medico.setValue(2);
-          break;
-    
-    default:
+         break;
+   default:
       this.seguro_medico.setValue(3);
         break;
-    
-
   }
 
-  console.log(this.paciente.sexo);
-
-  
-
-
-    if(this.readonlyDatosGenerales === true){    
-      if(this.formulario_datos_generales.valid){
-
+  if(this.readonlyDatosGenerales === true){    
+      if(this.formulario_datos_generales.invalid){
         // guardar datos del formulario en paciente y enviarlo a la api
         this.paciente.nombre_completo = this.nombre_completo.value;
         this.paciente.numero_cuenta = this.numero_cuenta.value;
@@ -945,8 +940,6 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
         this.paciente.numero_telefono = this.numero_telefono.value;
-        this.paciente.emergencia_persona = this.emergencia_persona.value;
-        this.paciente.emergencia_telefono = this.emergencia_telefono.value;
         this.paciente.categoria = this.categoria.value;
         this.paciente.imc = this.imc.value;
         this.paciente.peso = this.peso.value;
@@ -955,29 +948,81 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         this.paciente.temperatura = this.temperatura.value;
         this.paciente.pulso = this.pulso.value;
         this.paciente.prosene = this.prosene.value;
-
       
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
-
-          this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente)=>{
-            this.paciente = data;
-  
-            this.cargarInformacionDatosGenerales();
-          });
-
-          // alert('se actualizaron perron los datos generales');
-          this.showError('Datos generales actualizado correctamente');
-          
-
+          console.log(data);         
+        this.showError('Datos generales actualizado correctamente');
         }, (error)=>{
           console.log(error);
           this.showError('Error al actualizar los datos generales'); 
         });
 
-        
+        this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente)=>{
+            this.paciente = data;
+  
+            this.cargarInformacionDatosGenerales();
+          });
       } 
     }     
   }
+
+
+
+
+  AgregarTelefonosEmergencia() {   
+    
+    this.cargarTablaEmergenciaPersonaActualizar(); 
+    if (this.emergencia_persona.value.toString().trim() && this.emergencia_telefono.valid &&
+      this.emergencia_telefono.value.toString().trim() && this.emergencia_telefono.valid) {
+      var emergencia_persona: string = "";
+      var emergencia_telefono: string = "";
+      //establezco el valor del fomrControl a las variables para despues eliminar los espacios finales e iniciales
+      emergencia_persona = this.emergencia_persona.value;
+      emergencia_telefono = this.emergencia_telefono.value;
+      //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
+      emergencia_persona = emergencia_persona.trim();
+      emergencia_telefono = emergencia_telefono.trim();
+      //agrego a la tabla la emergencia persona y el emergencia telefono.
+
+      
+      this.tablaTelefonosEmergenciaActualizar.push(
+        {
+          id_paciente: null,
+          telefono_emergencia: emergencia_telefono,
+          emergencia_persona: emergencia_persona
+        }
+      );
+      
+      this.dataSourceTablaTelefonosEmergenciaActualizar = new MatTableDataSource(this.tablaTelefonosEmergenciaActualizar);
+      this.emergencia_persona.setValue('');
+      this.emergencia_telefono.setValue('');
+      //si se agrega un elemento a la tabla entonces los campos
+      //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
+      this.emergencia_persona.clearValidators();
+       this.emergencia_persona.updateValueAndValidity();
+      this.emergencia_telefono.clearValidators();
+      this.emergencia_telefono.updateValueAndValidity();
+    }
+  }
+
+  eliminarTelefonosEmergencia(index) {
+    //borro el elemento de la tabla estableciendo el index.
+    this.tablaTelefonosEmergenciaActualizar.splice(index, 1);
+    //refresco el datasource con los elemento que quedaron para que se resfresque
+    // tambien la tabla html.
+    this.dataSourceTablaTelefonosEmergenciaActualizar = new MatTableDataSource(this.tablaTelefonosEmergenciaActualizar);
+    //si el arreglo no tiene ningun valor entonces establezco en nulo el datasource
+    // para que no se muestre en el html.
+    if (!this.tablaTelefonosEmergenciaActualizar.length) {
+      this.dataSourceTablaTelefonosEmergenciaActualizar = null;
+      this.emergencia_telefono.setValidators(Validators.required); 
+      this.emergencia_telefono.updateValueAndValidity();
+      this.emergencia_persona.setValidators(Validators.required);
+      this.emergencia_persona.updateValueAndValidity();
+    }
+  }
+
+
 
 
 
@@ -1223,7 +1268,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 cargarTablaAntecedentesFamiliares(){
     // establesco los valores a el arreglo de interfaces "tablaAntecedentesFamiliares"
     
-    this.tablaAntecedentesFamiliares = new MatTableDataSource(this.ante_familiar);
+    this.tablaTelefonosEmergencia = new MatTableDataSource(this.ante_familiar);
     // verifico si otro tiene un valor para poder agregarlo a la tabla
     
   }
@@ -1356,49 +1401,11 @@ cargarTablaAntecedentesFamiliares(){
     
   }
 
-  cargarTablaEmergenciaPersona(){ 
-    
-    this.otros.value.toString().trim()
-
-    if (this.emergencia_persona.value.toString().trim() && this.emergencia_telefono.valid &&
-      this.emergencia_telefono.value.toString().trim() && this.emergencia_telefono.valid) {
-
-      var emergencia_persona: string = "";
-      var emergencia_telefono: string = "";
-
-      //establezco el valor del fomrControl a las variables para despues eliminar los espacios finales e iniciales
-      emergencia_persona = this.emergencia_persona.value;
-      emergencia_telefono = this.emergencia_telefono.value;
-
-
-      //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
-      emergencia_persona = emergencia_persona.trim();
-      emergencia_telefono = emergencia_telefono.trim();
-
-      //agrego a la tabla la emergencia persona y el emergencia telefono.
-      this.tablaTelefonosEmergencia.push(
-        {
-          id_paciente: null,
-          telefono_emergencia: emergencia_telefono,
-          emergencia_persona: emergencia_persona
-        }
-
-      );
-
-      this.dataSourceTablaTelefonosEmergencia = new MatTableDataSource(this.tablaTelefonosEmergencia);
-
-      this.emergencia_persona.setValue('');
-      this.emergencia_telefono.setValue('');
-
-      //si se agrega un elemento a la tabla entonces los campos
-      //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.emergencia_persona.clearValidators();
-      this.emergencia_persona.updateValueAndValidity();
-
-      this.emergencia_telefono.clearValidators();
-      this.emergencia_telefono.updateValueAndValidity();
-
-    }
+  cargarTablaEmergenciaPersona(){     
+    this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);    
+  }
+  cargarTablaEmergenciaPersonaActualizar(){
+    this.dataSourceTablaTelefonosEmergenciaActualizar = this.tel_emergencia;
   }
 
  
@@ -1478,8 +1485,6 @@ cargarTablaAntecedentesFamiliares(){
 
     this.seguro_medico.setValue(this.paciente.seguro_medico);
     this.numero_telefono.setValue(this.paciente.numero_telefono);
-    this.emergencia_persona.setValue(this.paciente.emergencia_persona);
-    this.emergencia_telefono.setValue(this.paciente.emergencia_telefono);
     this.categoria.setValue(this.paciente.categoria);
     this.temperatura.setValue(this.paciente.temperatura);
     this.pulso.setValue(this.paciente.pulso);
