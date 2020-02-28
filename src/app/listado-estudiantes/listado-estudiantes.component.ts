@@ -581,8 +581,6 @@ paciente: Paciente={
   estado_civil: null,
   seguro_medico: null,
   numero_telefono: null,
-  emergencia_persona: null,
-  emergencia_telefono: null,
   categoria: null,
   peso: null,
   presion: null,
@@ -609,8 +607,6 @@ paciente1: Paciente={
   estado_civil: null,
   seguro_medico: null,
   numero_telefono: null,  
-  emergencia_persona: null,
-  emergencia_telefono: null,
   categoria: null,
  
 
@@ -1232,7 +1228,6 @@ dataSource: any;
     this.estado_civil.setValue(this.paciente.estado_civil);
     this.seguro_medico.setValue(this.paciente.seguro_medico);
     this.numero_telefono.setValue(this.paciente.numero_telefono);
-    this.emergencia_telefono.setValue(this.paciente.emergencia_telefono);
     this.categoria.setValue(this.paciente.categoria);
   }
 
