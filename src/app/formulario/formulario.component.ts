@@ -143,17 +143,7 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 
 
-export const MY_FORMATS = {
-  parse: {
-    dateInput: ['YYYY-MM-DD'],
-  },
-  display: {
-    dateInput: 'YYYY-MM-DD',
-    monthYearLabel: 'MMM YYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+
 
 @Component({
   selector: 'app-formulario',
@@ -163,13 +153,7 @@ export const MY_FORMATS = {
     provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false },
     
   },
-  {
-    provide: DateAdapter,
-    useClass: MomentDateAdapter,
-    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-  },
-
-  {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},  
+   
 ]
 })
 
