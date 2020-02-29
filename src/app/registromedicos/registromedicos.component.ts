@@ -188,6 +188,7 @@ export class RegistromedicosComponent implements OnInit {
   comprobarDatos() {
 
     if (this.editing) {
+
       if (this.medicos_form.valid) {
 
         this.disabledmedicos = true;
@@ -223,6 +224,7 @@ export class RegistromedicosComponent implements OnInit {
       this.medico.password = this.contraseniaC.value;
 
       if (this.medico.password == this.contrasenia.value) {
+        
         this.medico.usuario = this.usuario.value;
         this.medico.password = this.contraseniaC.value;
         this.medico.nombre = this.nombre.value;
