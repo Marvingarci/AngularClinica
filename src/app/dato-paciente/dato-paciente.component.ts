@@ -348,8 +348,25 @@ export class cambiocontraDialog {
         if (this.nuevaContra.value == this.nuevaContraRep.value) {
 
           this.loginService.actualizarDatos(this.login).subscribe((data) => {
+
+            if (this.formularioService.esAlumno == true) {
+
+              this.router.navigate(['datoPaciente/' + this.paciente1.id_paciente]);
+              this.showError('Contraseña Guardada');
+              this.Listo = true;
+      
+            } else {
+              this.router.navigate(['principal/verPaciente/' + this.paciente1.id_paciente]);
+              this.showError('Contraseña Guardada');
+              this.dialogRef.close();
+      
+              this.Listo = true;
+            }
+
           }, (error) => {
+
             console.log(error);
+            
           });
 
         } else {
@@ -364,19 +381,7 @@ export class cambiocontraDialog {
 
       });
 
-      if (this.formularioService.esAlumno == true) {
 
-        this.router.navigate(['datoPaciente/' + this.paciente1.id_paciente]);
-        this.showError('Contraseña Guardada');
-        this.Listo = true;
-
-      } else {
-        this.router.navigate(['principal/verPaciente/' + this.paciente1.id_paciente]);
-        this.showError('Contraseña Guardada');
-        this.dialogRef.close();
-
-        this.Listo = true;
-      }
     }
 
   }
