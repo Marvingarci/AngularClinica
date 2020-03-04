@@ -14,25 +14,6 @@ import { MedicosService } from '../services/medicos.service';
 import { Administrador } from '../interfaces/administrador';
 import { Medicos } from '../interfaces/medicos';
 
-// export interface LoginAdmin {
-//   id_loginAdmin?: string;
-//   usuario_admin?: string;
-//   contrasenia_admin?: string;
-//   nombre_admin?: string;
-//   identidad_admin?: string;
-//   especialidad_admin?: string;
-// }\
-
-
-// export interface Medicos {
-//   id?: string;
-//   usuarioM?: string;
-//   contraseniaM?: string;
-//   nombreM?: string;
-//   identidadM?: string;
-//   especialidadM?: string;
-// }
-
 
 @Component({
   selector: 'app-ver-administradores',
@@ -78,21 +59,7 @@ export class VerAdministradoresComponent implements OnInit {
 
     this.getAdministrador();
     this.getMedico();
-    // this.id = this.activatedRoute.snapshot.params['id'];
-
-    // if(this.id){
-    //   this.login_adminservice.getAdmin().subscribe((data: LoginAdmin[]) =>{
-    //     this.admins = data;
-
-    //     this.login_admin = this.admins.find((m)=>{return m.id == this.id});
-    //     console.log(this.login_admin.usuario_admin);
-    //     this.login_adminservice.idActualizar=this.login_admin.id;  
-    //    console.log(this.login_admin);      
-    //   },(error)=>{
-    //     console.log(error);
-    //   });
-
-    // }
+   
   }//fin constructor
 
 
@@ -197,11 +164,9 @@ export class DialogoMedico implements OnDestroy {
   }
 
   Borrarmedico() {
-
     this.medicoService.borrarMedico(this.data).subscribe((data) => {
       this.showError('Administrador eliminado correctamente');
     });
-
   }
 
   showError(message: string) {
@@ -233,9 +198,7 @@ export class Borraradministrador implements OnDestroy {
   constructor(public dialogRef: MatDialogRef<Borraradministrador>,
     private loginAdminService: LoginadminService,
     private mensaje: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-
-  }
+    @Inject(MAT_DIALOG_DATA) public data: any) {  }
 
 
   salir(): void {
@@ -243,11 +206,6 @@ export class Borraradministrador implements OnDestroy {
   }
 
   Borraradministrador() {
-
-    // this.loginAdminService.delete(this.data).subscribe((data) => {
-    //   this.showError('Administrador eliminado correctamente');
-    // });
-
     if (this.data != 1) {
       this.loginAdminService.delete(this.data).subscribe((data) => {
         this.showError('Administrador eliminado correctamente');
@@ -255,7 +213,6 @@ export class Borraradministrador implements OnDestroy {
     } else {
       this.showError('El administrador no puede ser borrado');
     }
-
   }
 
   showError(message: string) {
@@ -268,6 +225,4 @@ export class Borraradministrador implements OnDestroy {
   ngOnDestroy(): void {
     this.loginAdminService.obtenerAdministradores().subscribe();
   }
-
-
 } 
