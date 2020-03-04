@@ -75,6 +75,7 @@ import { FocusInvalidoInputDirective } from './focus/focus-invalido-input.direct
 
 //Tablas
 import { ChartsModule } from 'ng2-charts';
+import { IdentidadUnicaDirective } from './validations/identidad-unica.directive';
 
     
 
@@ -180,6 +181,7 @@ const routes: Route[] = [
     UsuarioAdminUnicoDirective,
     UsuarioMedicoUnicoDirective,
     FocusInvalidoInputDirective,
+    IdentidadUnicaDirective,
   
 
 
