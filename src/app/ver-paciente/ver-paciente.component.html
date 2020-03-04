@@ -517,6 +517,7 @@
       </div>
 
 
+      <!-- ESTA ES LA VAINA DE VER -->
       <div class="col" *ngIf="readonlyDatosGenerales === true">
         <mat-accordion>
        <mat-expansion-panel>
@@ -561,7 +562,7 @@
  </div>
 
 
-
+<!-- ESTA ES LA VAINA DE EDITAR -->
  <div class="col" *ngIf="readonlyDatosGenerales === false">
   <mat-card>
   <div class="row">
@@ -596,7 +597,7 @@
   </div>
 
   <div class="row medium-width" style="margin-left: 0;">
-    <table mat-table [dataSource]="dataSourceTablaTelefonosEmergenciaActualizar" class="mat-elevation-z8 tabla" *ngIf="dataSourceTablaTelefonosEmergenciaActualizar != null"  >
+    <table mat-table [dataSource]="tablaTelefonosEmergencia" class="mat-elevation-z8 tabla" *ngIf="tablaTelefonosEmergencia != null"  >
   
       <ng-container matColumnDef="numero">
         <th mat-header-cell *matHeaderCellDef> # </th>
@@ -630,9 +631,9 @@
       <tr mat-row *matRowDef="let row; columns: columnasTablaTelefonosEmergencia;"></tr>
     </table>
 
-</div>
-</mat-card>
-</div>  
+    </div>
+    </mat-card>
+    </div>  
 </div>
 
 
