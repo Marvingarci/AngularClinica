@@ -17,7 +17,7 @@ export class AuthAdministradorGuard implements CanActivate {
 
   canActivate(){
 
-    if (this.loginService.datosUsuario.id_administrador || this.loginService.datosUsuario.id_medico) {
+    if (this.loginService.datosUsuario.rol == 'Administrador'|| this.loginService.datosUsuario.rol == 'Medico') {
 
 
       return true;
