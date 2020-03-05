@@ -27,6 +27,7 @@ import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
 import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
 import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
+import { IdentidadUnicoService } from '../validations/identidad-unica.directive';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
@@ -223,7 +224,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
     // "/ /" indica el inicio y el final de la expresion regular
     // "{10}" indica le numero de digitos de lo que lo antecede
-    numero_identidad: new FormControl('', [Validators.required, Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
+    numero_identidad: new FormControl('', { 
+      validators: [Validators.required, Validators.pattern(/^\d{4}\d{4}\d{5}$/)],
+      asyncValidators: [this.IdentidadUnicoService.validate.bind(this.IdentidadUnicoService)]
+    }),
     // "\d" es lo mismo "[0-9]"
     lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,20}$/)]),
     direccion: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(20)]),
@@ -1025,7 +1029,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   constructor(private formularioService: FormularioService, private formBuilder: FormBuilder,
     private router: Router, activar: AppComponent, public dialog: MatDialog, public loginService: LoginService,
-    private formulario: FormularioService, private TelefonoUnicoService: TelefonoUnicoService) {
+    private formulario: FormularioService, private TelefonoUnicoService: TelefonoUnicoService, 
+    private IdentidadUnicoService: IdentidadUnicoService) {
     // this.obtenerDatosFormulario();
     this.getDatosScraping();
 

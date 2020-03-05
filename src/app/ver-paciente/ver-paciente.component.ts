@@ -766,8 +766,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
 
       this.formularioService.obtenerEmergenciaPersona(this.id).subscribe((data: TelefonoEmergencia)=>{
-        this.tel_emergencia = data;
-        
+        this.tel_emergencia = data;        
         //cargo los datos de la tabla antecedentes personales
         this.cargarTablaEmergenciaPersona();
         console.log(this.tel_emergencia);      
@@ -836,6 +835,18 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
    }
  }//fin del constructor
 
+ cargarEmergenciaPersonaYa(){
+
+  this.formularioService.obtenerEmergenciaPersona(this.id).subscribe((data: TelefonoEmergencia)=>{
+    this.tel_emergencia = data;        
+    //cargo los datos de la tabla antecedentes personales
+    this.cargarTablaEmergenciaPersona();
+    console.log(this.tel_emergencia);      
+    }, (error)=>{
+      console.log(error);
+    });      
+ }
+
 
 
 
@@ -890,7 +901,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
  actualizarDatosGenerales()
  {
 
-  this.cargarTablaEmergenciaPersonaActualizar();
+  this.cargarTablaEmergenciaPersona();
 
   
   this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
@@ -927,7 +938,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
   }
 
   if(this.readonlyDatosGenerales === true){    
-      if(this.formulario_datos_generales.invalid){
+      if(this.formulario_datos_generales.valid){
         // guardar datos del formulario en paciente y enviarlo a la api
         this.paciente.nombre_completo = this.nombre_completo.value;
         this.paciente.numero_cuenta = this.numero_cuenta.value;
@@ -984,16 +995,11 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.emergencia_persona.setValue('');
       this.emergencia_telefono.setValue('');
 
-      this.formularioService.obtenerEmergenciaPersona(this.id).subscribe((data: TelefonoEmergencia)=>{
-        this.tel_emergencia = data;
-        
-        //cargo los datos de la tabla antecedentes personales
-        this.cargarTablaEmergenciaPersona();
-        console.log(this.tel_emergencia);      
-        }, (error)=>{
-          console.log(error);
-        });    
+        this.cargarEmergenciaPersonaYa();
+      
   }
+
+ 
 
   eliminarTelefonosEmergencia(index) {
     //borro el elemento de la tabla estableciendo el index.
@@ -1393,12 +1399,7 @@ cargarTablaAntecedentesFamiliares(){
 
   cargarTablaEmergenciaPersona(){     
     this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);    
-  }
-  cargarTablaEmergenciaPersonaActualizar(){
-    this.dataSourceTablaTelefonosEmergenciaActualizar = this.tel_emergencia;
-  }
-
- 
+  } 
 
 
   cargarInformacionDatosGenerales(){

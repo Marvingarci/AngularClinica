@@ -211,7 +211,9 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT + 'columna_habito_toxicologico');
   }
 
- 
+  obtenerColumnaIdentidad(numero_identidad) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerColumnaIdentidad/' + numero_identidad);
+  }
 
   
   obtenerAntecedentesFamiliares() {
