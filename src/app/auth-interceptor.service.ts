@@ -21,10 +21,10 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     var token: string = localStorage.getItem('token');    
 
-    let request = req;
+    //let request = req;
 
     if (token) {
-      request = req.clone({
+      req = req.clone({
         setHeaders: {
           authorization: `Bearer ${token}`
         }
@@ -34,7 +34,7 @@ export class AuthInterceptorService implements HttpInterceptor {
       this.router.navigateByUrl('/');
     }
 
-    return next.handle(request).pipe(
+    return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
 
         if (err.status === 401) {
