@@ -7,7 +7,8 @@ import { Administrador } from '../interfaces/administrador';
 })
 export class LoginadminService {
   idActualizar: number;
-  API_ENDPOINT = 'http://127.0.0.1:8000/api'
+  API_ENDPOINT = 'http://127.0.0.1:8000/api';
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
 
   obtenerAdministradores() {
@@ -20,14 +21,14 @@ export class LoginadminService {
   constructor(private httpClient: HttpClient, LoginAdminService: LoginadminService) { }
 
   guardarAdministrador(administrador: Administrador) {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post(this.API_ENDPOINT + '/administradores', administrador, { headers: headers });
+    return this.httpClient.post(this.API_ENDPOINT + '/administradores', administrador, { headers: this.headers });
   }
 
   actualizarAdministrador(administrador: Administrador) {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.put(this.API_ENDPOINT + '/administradores/' + administrador.id_administrador, administrador, { headers: headers });
+    
+    return this.httpClient.put(this.API_ENDPOINT + '/administradores/' + administrador.id_administrador, administrador, { headers: this.headers });
   }
+  
   delete(id) {
     return this.httpClient.delete(this.API_ENDPOINT + '/administradores/' + id);
   }
