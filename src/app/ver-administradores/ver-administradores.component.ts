@@ -78,21 +78,7 @@ export class VerAdministradoresComponent implements OnInit {
 
     this.getAdministrador();
     this.getMedico();
-    // this.id = this.activatedRoute.snapshot.params['id'];
-
-    // if(this.id){
-    //   this.login_adminservice.getAdmin().subscribe((data: LoginAdmin[]) =>{
-    //     this.admins = data;
-
-    //     this.login_admin = this.admins.find((m)=>{return m.id == this.id});
-    //     console.log(this.login_admin.usuario_admin);
-    //     this.login_adminservice.idActualizar=this.login_admin.id;  
-    //    console.log(this.login_admin);      
-    //   },(error)=>{
-    //     console.log(error);
-    //   });
-
-    // }
+   
   }//fin constructor
 
 
@@ -101,9 +87,9 @@ export class VerAdministradoresComponent implements OnInit {
     this.LoginAdminService.obtenerAdministradores().subscribe((data: Administrador[]) => {
       this.administradores = data;
 
-      console.log(this.administradores);
       this.administradores = this.administradores.filter(administrador => administrador);
       this.datasourceAdmninistradores = new MatTableDataSource(this.administradores);
+
     }, (error) => {
       console.log(error);
       alert('Ocurrio un error');
@@ -134,14 +120,18 @@ export class VerAdministradoresComponent implements OnInit {
 
   //dialogo
   borrarAdministrador(id) {
+
     const dialogRef = this.dialog.open(Borraradministrador, {
       disableClose: true,
       panelClass: 'borrar',
       data: id
+
     });
+
     dialogRef.afterClosed().subscribe(result => {
       this.getAdministrador();
     });
+    
   }
 
   borrarMedico(id) {
