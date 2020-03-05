@@ -129,6 +129,7 @@ export class LoginComponent implements OnInit {
 
         this.loginService.getCurrentUser(data).subscribe((data: any) => {
 
+          console.log(data);
 
           //guardo los datos en una variable globar dentro del service
           //para poder acceder desde cualquier lado a ellos.
@@ -137,14 +138,14 @@ export class LoginComponent implements OnInit {
 
           //si en los datos del usario logueado el id_admnistrador tiene un valor 
           //entonces el usuario sera redirigido a principal.
-          if (data.id_administrador) {
+          if (data.rol == 'Administrador') {
 
             this.router.navigate(['/principal/principal1']);
             this.showError('Bienvenido');
 
             //si en los datos del usuario logueado el id_medico tiene un valor
             //entonces el usuario sera redirigido a principal.
-          } else if (data.id_medico) {
+          } else if (data.rol == 'Medico') {
 
             this.router.navigate(['/principal/principal1']);
             this.showError('Bienvenido');
@@ -174,114 +175,6 @@ export class LoginComponent implements OnInit {
 
 
       }
-
-
-
-
-      //si el resultado arroja un valor diferente de null, entonces el usuario existe en la base de datos.
-    //   if (data.codigoError != 2) {
-
-
-    //     //si el resultado arroja un valor difente a contrasenia incorrecta entonces el usuario esta verificado y
-    //     //puede loguearse correctamente
-    //     if (data.codigoError != 1) {
-
-
-    //       //establezco a la interfaz login el atributo cuenta y password 
-    //       //los valores que el usuario ingresa una vez que se sabe que son veridicos.
-    //       this.login.cuenta = this.cuenta.value;
-    //       this.login.password = this.clave.value;
-
-    //       // si el usuario ya se encuentra registrado entonces solo se logueára.
-    //       this.loginService.loguear(this.login).subscribe((data: any) => {
-
-    //         //guardo el token en el localstorage para poder obtenerlo despues.
-    //         localStorage.setItem("token", data.token);
-
-
-    //         this.loginService.getCurrentUser(data).subscribe((data: any) => {
-
-
-    //           //guardo los datos en una variable globar dentro del service
-    //           //para poder acceder desde cualquier lado a ellos.
-    //           this.loginService.datosUsuario = data;
-
-
-    //           //si en los datos del usario logueado el id_admnistrador tiene un valor 
-    //           //entonces el usuario sera redirigido a principal.
-    //           if (data.id_administrador) {
-
-    //             this.router.navigate(['/principal/principal1']);
-    //             this.showError('Bienvenido');
-
-    //             //si en los datos del usuario logueado el id_medico tiene un valor
-    //             //entonces el usuario sera redirigido a principal.
-    //           } else if (data.id_medico) {
-
-    //             this.router.navigate(['/principal/principal1']);
-    //             this.showError('Bienvenido');
-
-    //           } else {
-
-    //             //recupero al paciente introduciendo su numero de cuenta para poder recuperar su id
-    //             // y redireccionarlo a su respectivo informacion.
-
-
-    //             this.formularioService.obtenerPacientePorCuenta(this.cuenta.value).subscribe((data: Paciente) => {
-
-    //               this.paciente = data;
-
-    //               this.router.navigate(['/datoPaciente/' + this.paciente.id_paciente]);
-    //               this.showError('Bienvenido');
-    //             });
-
-    //           }
-
-
-
-    //         }, (error) => {
-
-    //           console.log(error);
-
-    //         });
-
-
-    //       });
-
-
-    //       // si el resultado arroja que la contrasenia es incorrecta el usuario existe en la base
-    //       // de datos pero su contrasenia no es correcta.
-    //     } else {
-    //       // console.log(this.medico.contraseniaM); console.log(this.login.cuenta);
-    //       this.loading = false;
-    //       this.showError(data.codigoError);
-    //     }
-
-
-    //     // si el resultado arroja null entonces el usuario no existe en la base de datos
-    //     // por lo que es nuevo y tiene que hacer su registro correspondiente.
-    //   } else {
-
-    //     this.login.cuenta = this.cuenta.value;
-    //     this.login.password = this.clave.value;
-
-    //     // si el usuario es nuevo entonces lo registro.
-    //     this.loginService.guardarDatos(this.login).subscribe((data: any) => {
-
-    //       //guardo el token en el localstorage para poder obtenerlo despues.
-    //       localStorage.setItem("token_paciente", data.token);
-
-    //       this.showError('Llene el siguiente formulario');
-    //       this.router.navigate(['/formulario']);
-
-    //     }, (error) => {
-
-    //       this.loading = false;
-    //       console.log(error);
-    //       this.showError('Cuenta incorrecta');
-    //     });
-
-    //   }
 
     });
 
