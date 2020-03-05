@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { PrincipalComponent, DialogContentExampleDialog1, DialogCerrarSesion2 } from './principal/principal.component';
-import { LoginadminComponent } from './loginadmin/loginadmin.component';
+import { LoginadminComponent, DialogoVerificar } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
 import { DatoPacienteComponent, cambiocontraDialog, actualizarcontraDialog, DialogCerrarSesion, verificarDialog } from './dato-paciente/dato-paciente.component';
@@ -172,6 +172,7 @@ const routes: Route[] = [
     ConsolidadodiarioComponent,
     TelefonoUnicoDirective,
     DialogoMedico,
+    DialogoVerificar,
 
 
 
@@ -245,6 +246,7 @@ const routes: Route[] = [
     Borraradministrador,
     DialogCerrarSesion2,
     DialogoMedico,
+    DialogoVerificar
   ],
   providers: [
     {
