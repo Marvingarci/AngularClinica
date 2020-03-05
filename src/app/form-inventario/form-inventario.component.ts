@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Inventario } from '../interfaces/inventario';
 import { InventariosService } from '../services/inventarios.service';
@@ -240,6 +240,14 @@ export class FormInventarioComponent implements OnInit {
     this.mensaje.open(message, null, config);
   }
   ngOnInit() {
+  }
+
+  onKeydown(event) {
+
+    if (event.key === "Enter") {
+      this.comprobarDatos();
+    }
+
   }
 
   comprobarDatos(){
