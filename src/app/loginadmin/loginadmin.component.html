@@ -1,5 +1,5 @@
 <div class="container">
-  <form id="form" [formGroup]="loginadmin_form">
+  <form id="form" [formGroup]="loginadmin_form" (keyup.enter)="onKeydown($event)">
     <mat-card style="margin-top: 15px;" [class.mat-elevation-z5]="true">
       <div class="titulo">
         <h2>Registro Administradores</h2>
@@ -21,12 +21,11 @@
 
       <mat-form-field class="example-full-width">
         <input matInput (keydown)="onKeydown($event)" placeholder="Ingrese la contraseña" formControlName="contrasenia"
-          [type]="hide1 ? 'text' : 'password'" required>
-        <mat-hint align="end">{{contrasenia.value.length}} / 6</mat-hint>
+          [type]="esconderClave ? 'text' : 'password'" required>
         <mat-label> <b>Contraseña</b> </mat-label>
-        <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide1">
-          <mat-icon>{{hide1 ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <button mat-icon-button matSuffix (click)="esconderClave = !esconderClave" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="esconderClave">
+          <mat-icon>{{esconderClave ? 'visibility' : 'visibility_off'}}</mat-icon>
         </button>
         <mat-error *ngIf="contrasenia.hasError('required')">
           <strong>Ingrese la contraseña</strong>
@@ -37,13 +36,12 @@
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input matInput (keydown)="onKeydown($event)" placeholder="Reescriba la contraseña anterior"
-          formControlName="contraseniaC" [type]="hide ? 'password' : 'text'" required>
-        <mat-hint align="end">{{contraseniaC.value.length}} / 6</mat-hint>
+        <input matInput (keydown)="onKeydown($event)" placeholder="confirme la contraseña anterior"
+          formControlName="contraseniaC" [type]="esconderConfirmacionClave ? 'text' : 'password'" required>
         <mat-label> <b>Confirmación de contraseña</b> </mat-label>
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <button mat-icon-button matSuffix (click)="esconderConfirmacionClave = !esconderConfirmacionClave" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="esconderConfirmacionClave">
+          <mat-icon>{{esconderConfirmacionClave ? 'visibility' : 'visibility_off'}}</mat-icon>
         </button>
         <mat-error *ngIf="contraseniaC.hasError('required')">
           <strong>Confirme la contraseña</strong>
@@ -91,7 +89,7 @@
       <button mat-raised-button [routerLink]="['/principal/veradministradores']"
         class="btn btn-outline-primary botonperron"> Cancelar</button>
       <button mat-raised-button (click)="comprobarDatos()" class="btn btn-outline-primary botonperron"
-        style="margin-top: 20px;margin-left: 10px;" [disabled]="disabledloginadmin"> Guardar</button>
+        style="margin-top: 20px;margin-left: 10px;" disabled="{{loginadmin_form.invalid}}"> Guardar</button>
     </div>
 
   </form>
