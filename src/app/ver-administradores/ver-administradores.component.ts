@@ -68,9 +68,9 @@ export class VerAdministradoresComponent implements OnInit {
     this.LoginAdminService.obtenerAdministradores().subscribe((data: Administrador[]) => {
       this.administradores = data;
 
-      console.log(this.administradores);
       this.administradores = this.administradores.filter(administrador => administrador);
       this.datasourceAdmninistradores = new MatTableDataSource(this.administradores);
+
     }, (error) => {
       console.log(error);
       alert('Ocurrio un error');
@@ -101,14 +101,18 @@ export class VerAdministradoresComponent implements OnInit {
 
   //dialogo
   borrarAdministrador(id) {
+
     const dialogRef = this.dialog.open(Borraradministrador, {
       disableClose: true,
       panelClass: 'borrar',
       data: id
+
     });
+
     dialogRef.afterClosed().subscribe(result => {
       this.getAdministrador();
     });
+    
   }
 
   borrarMedico(id) {
