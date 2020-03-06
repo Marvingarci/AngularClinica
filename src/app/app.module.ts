@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { PrincipalComponent, DialogContentExampleDialog1, DialogCerrarSesion2 } from './principal/principal.component';
-import { LoginadminComponent, DialogoVerificar } from './loginadmin/loginadmin.component';
+import { LoginadminComponent, /*DialogoVerificar*/ } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
 import { DatoPacienteComponent, cambiocontraDialog, actualizarcontraDialog, DialogCerrarSesion, verificarDialog } from './dato-paciente/dato-paciente.component';
@@ -76,6 +76,7 @@ import { FocusInvalidoInputDirective } from './focus/focus-invalido-input.direct
 //Tablas
 import { ChartsModule } from 'ng2-charts';
 import { IdentidadUnicaDirective } from './validations/identidad-unica.directive';
+import { DialogoVerificarPermisoComponent } from './dialogo-verificar-permiso/dialogo-verificar-permiso.component';
 
     
 
@@ -173,7 +174,7 @@ const routes: Route[] = [
     ConsolidadodiarioComponent,
     TelefonoUnicoDirective,
     DialogoMedico,
-    DialogoVerificar,
+    // DialogoVerificar,
 
 
 
@@ -183,6 +184,7 @@ const routes: Route[] = [
     UsuarioMedicoUnicoDirective,
     FocusInvalidoInputDirective,
     IdentidadUnicaDirective,
+    DialogoVerificarPermisoComponent,
   
 
 
@@ -248,7 +250,8 @@ const routes: Route[] = [
     Borraradministrador,
     DialogCerrarSesion2,
     DialogoMedico,
-    DialogoVerificar
+    // DialogoVerificar,
+    DialogoVerificarPermisoComponent
   ],
   providers: [
     {
