@@ -64,11 +64,6 @@ export class DialogoVerificarPermisoComponent {
     this.dialogRef.close(false);
   }
 
-  // getAdministradores() {
-  //   this.loginAdminService.obtenerAdministradores().subscribe((data: any[]) => {
-  //     this.administradores = data;
-  //   })
-  // }
 
   guardar() {
 
@@ -89,75 +84,6 @@ export class DialogoVerificarPermisoComponent {
         if (data.codigoError == 0) {
 
           this.dialogRef.close(true);
-
-          
-
-          // if (this.data.editando) {
-
-
-
-          //   // this.disabledloginadmin = true;
-
-          //   // this.administrador.password = this.data.formulario.get('contraseniaC').value;
-          //   this.administrador.id_administrador = this.data.id;
-          //   this.administrador.usuario = this.data.formulario.get('usuario').value;
-          //   // this.administrador.password = this.contraseniaC.value;
-          //   this.administrador.nombre_completo = this.data.formulario.get('nombre').value;
-          //   this.administrador.identidad = this.data.formulario.get('identidad').value;
-
-          //   this.loginAdminService.actualizarAdministrador(this.administrador).subscribe((data) => {
-          //     console.log(data);
-          //     this.router.navigate(['/principal/veradministradores']);
-          //     this.getAdministradores();
-          //     this.showError('Administrador actualizado correctamente');
-
-          //   }, (error) => {
-          //     console.log(error);
-          //     alert('se chorrio');
-          //   });
-
-
-
-          // } else {
-
-          //   this.administrador.password = this.data.formulario.get('contraseniaC').value;
-
-          //   if (this.administrador.password == this.data.formulario.get('contrasenia').value) {
-
-          //     this.administrador.usuario = this.data.formulario.get('usuario').value;
-          //     this.administrador.password = this.data.formulario.get('contrasenia').value;
-          //     this.administrador.nombre_completo = this.data.formulario.get('nombre').value;
-          //     this.administrador.identidad = this.data.formulario.get('identidad').value;
-
-          //     if (this.data.formulario.valid) {
-
-          //       // this.disabledloginadmin = true;
-
-          //       this.loginAdminService.guardarAdministrador(this.administrador).subscribe((data) => {
-
-          //         this.getAdministradores();
-
-          //         this.router.navigate(['/principal/veradministradores']);
-
-          //         this.showError('Administrador creado con exito');
-
-          //       }, (error) => {
-
-          //         console.log(error);
-
-          //       });
-
-          //     } else {
-
-          //       this.showError('Ingrese los datos correctamente');
-          //     }
-
-          //   } else {
-
-          //     this.showError('La contraseña no coincide');
-
-          //   }
-          // }
 
           
         } else {
