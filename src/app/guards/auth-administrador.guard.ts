@@ -8,11 +8,7 @@ import { LoginService } from '../services/login.service';
 })
 export class AuthAdministradorGuard implements CanActivate {
 
-  constructor(private loginService: LoginService, private router: Router) {
-
-    console.log('datos usuario: \n'+this.loginService.datosUsuario.id_administrador);
-    
-   }
+  constructor(private loginService: LoginService, private router: Router) { }
 
 
   canActivate(){
