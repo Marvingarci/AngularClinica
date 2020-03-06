@@ -107,6 +107,7 @@ export class LoginComponent implements OnInit {
         // si el usuario es nuevo entonces lo registro.
         this.loginService.guardarDatos(this.login).subscribe((data: any) => {
 
+          this.loginService.datosUsuario = {'rol': 'Estudiante'};
           //guardo el token en el localstorage para poder obtenerlo despues.
           localStorage.setItem("token", data.token);
 
