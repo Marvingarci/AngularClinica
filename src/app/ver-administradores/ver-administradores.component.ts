@@ -233,8 +233,10 @@ export class Borraradministrador implements OnDestroy {
 
   Borraradministrador() {
 
+    //verifico si el usuario que se va a borrar no es el que trae por defecto el sistema
     if (this.data != 1) {
 
+      //verifico si el usuario que se va borrar no es el mismo usuario que esta logueado
       if (this.data != this.loginService.datosUsuario.id) {
 
         this.loginAdminService.delete(this.data).subscribe(result =>{
@@ -256,8 +258,6 @@ export class Borraradministrador implements OnDestroy {
 
 
   }
-
-
 
 
   showError(message: string) {
