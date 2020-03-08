@@ -49,14 +49,7 @@ export class ConsolidadodiarioComponent implements OnInit {
   edad: edades[]=[
     {menos19:0, primerRango:0, segundoRango:0, tercerRango:0, cuartoRango:0, quintoRango:0}
   ];
-  carreras: carrera[]=[
-    {nombre:'', numeroDeAlumni:0},
-    {nombre:'', numeroDeAlumni:0},
-    {nombre:'', numeroDeAlumni:0},
-    {nombre:'', numeroDeAlumni:0},
-    {nombre:'', numeroDeAlumni:0},
-    {nombre:'', numeroDeAlumni:0},
-  ];
+  carreras: carrera[];
 
   //Codigo linea///////////////////////////////////////////////////////////////////////////////////////////
   public lineChartData: ChartDataSets[] = [
@@ -319,19 +312,19 @@ export class ConsolidadodiarioComponent implements OnInit {
 
 
       switch (true) {
-        case this.datos[index].edad < 19:
+        case this.datos[index].edad <= 19:
           this.menos19+=1;
           console.log('se agrego a <19');
           break;
-        case (this.datos[index].edad >20 && this.datos[index].edad <25):
+        case (this.datos[index].edad >19 && this.datos[index].edad <=25):
           this.veinte+=1;
           console.log('se agrego a 20-25');
           break;
-        case this.datos[index].edad >25 && this.datos[index].edad <30:
+        case this.datos[index].edad >25 && this.datos[index].edad <=30:
           this.veintecinco+=1;
           console.log('se agrego a 25-30');
           break;
-          case this.datos[index].edad >=30:
+          case this.datos[index].edad >30:
             this.treinta+=1;
             console.log('se agrego a >30');
             break;
@@ -339,7 +332,7 @@ export class ConsolidadodiarioComponent implements OnInit {
           break;
       }
 
-      this.carreras[index].nombre == this.datos[index].carrera;
+    //  this.carreras[index].nombre == this.datos[index].carrera;
     
      
 
