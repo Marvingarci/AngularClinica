@@ -24,8 +24,8 @@ export interface select {
 })
 export class LoginadminComponent implements OnInit {
 
-  esconderClave: boolean;
-  esconderConfirmacionClave: boolean;
+  esconderClave: boolean = true;
+  esconderConfirmacionClave: boolean = true;
 
   loginadmin_form = new FormGroup({
 
@@ -124,14 +124,14 @@ export class LoginadminComponent implements OnInit {
 
 
 
-  onKeydown(event) {
+  // onKeydown(event) {
 
-    if (event.key === "Enter") {
-      this.esconderClave = true;
-      this.esconderConfirmacionClave = true;
-      this.llamarDialogo();
-    }
-  }
+  //   if (event.key === "Enter") {
+  //     this.esconderClave = true;
+  //     this.esconderConfirmacionClave = true;
+  //     this.llamarDialogo();
+  //   }
+  // }
 
 
   llamarDialogo() {
@@ -177,9 +177,7 @@ export class LoginadminComponent implements OnInit {
 
             } else {
 
-              this.administrador.password = this.contraseniaC.value;
-
-              if (this.administrador.password == this.contrasenia.value) {
+              if (this.contraseniaC.value == this.contrasenia.value) {
 
                 this.administrador.usuario = this.usuario.value;
                 this.administrador.password = this.contrasenia.value;
