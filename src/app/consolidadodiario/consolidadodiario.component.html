@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row" id="contenedor">
-    <div class="col-2"></div>
-    <div class="col-8">
+    <div class="col-1"></div>
+    <div class="col-10">
 <mat-card style="margin: 15px;" [class.mat-elevation-z20]="true"> 
                         
                      
@@ -40,20 +40,21 @@
     </table>
 
     <!--Graficos de barra-->
-    <div>
-      <div>
-        <div style="display: block">
-          <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [plugins]="barChartPlugins"
-            [legend]="barChartLegend"
-            [chartType]="barChartType">
-          </canvas>
+
+      <div style="position: relative">
+          <div style="display: block">
+            <canvas baseChart #baseChart="base-chart"
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [plugins]="barChartPlugins"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+            </canvas>
+          </div>
         </div>
-      </div>
-    </div>
+  
+    
 
 
     <!--Hasta Aqui grafivos de barra-->
@@ -95,10 +96,9 @@
       </table>
 
       <!--Aqui va el grafico de barra edad-->
-      <div>
-        <div>
+      
           <div style="display: block">
-            <canvas baseChart
+            <canvas baseChart #baseChart1="base-chart"
               [datasets]="barChartData1"
               [labels]="barChartLabels1"
               [options]="barChartOptions1"
@@ -107,8 +107,11 @@
               [chartType]="barChartType1">
             </canvas>
           </div>
-        </div>
-      </div>
+
+
+         
+        
+        
       <!--HASta aqui grafico edad-->
 
       <!--
@@ -147,13 +150,6 @@
 
 </mat-card>
 </div>
-<div class="col-2"></div>
+<div class="col-1"></div>
 </div>
-<div class="container">
-  <!--Aqui va el grafico-->
-  
-
-
-</div>
-
 </div>

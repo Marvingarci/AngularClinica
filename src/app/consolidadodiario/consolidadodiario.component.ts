@@ -9,6 +9,7 @@ import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { runInThisContext } from 'vm';
 
 
 export interface elementos{
@@ -35,6 +36,9 @@ export interface carrera{
   styleUrls: ['./consolidadodiario.component.css']
 })
 export class ConsolidadodiarioComponent implements OnInit {
+  @ViewChild("baseChart", {static: false}) chart: BaseChartDirective;
+  @ViewChild("baseChart1", {static: false}) chart2: BaseChartDirective;
+  
   datos:any;
   hombres: number =0;
   mujeres: number =0;
@@ -131,7 +135,7 @@ export class ConsolidadodiarioComponent implements OnInit {
   public lineChartType = 'line';
   public lineChartPlugins = [pluginAnnotations];
 
-  @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
+  @ViewChild(BaseChartDirective, { static: true }) chart1: BaseChartDirective;
 
   /*public randomize(): void {
     for (let i = 0; i < this.lineChartData.length; i++) {
@@ -200,9 +204,10 @@ export class ConsolidadodiarioComponent implements OnInit {
   public barChartPlugins = [pluginDataLabels];
 
   public barChartData: ChartDataSets[] = [
-    { data: [0], label: 'Hombres' },
-    { data: [0], label: 'Mujeres' },
-    { data: [0], label: '' }
+    { data: [0, 8, 0], label: 'Hombres' },
+    { data: [0 ], label: 'Mujeres' },
+    //{ data: [0],  label: ''}
+
   ];
 
   // eventos
@@ -228,20 +233,42 @@ export class ConsolidadodiarioComponent implements OnInit {
   }
 
   public seter(){
-    
+    if(this.chart != undefined){
+      this.chart1.chart.destroy();
+      this.chart2.chart.destroy();
+      
+    //Asignacion sexo
     this.barChartData[0].data[0] = this.elemetos[0].masculino;
+    this.barChartData[0].data[1] = this.elemetos[0].masculino+2;
     this.barChartData[1].data[0] = this.elemetos[0].femenino;
     //asignacion de edad
     this.barChartData1[0].data[0] = this.edad[0].menos19;
+    this.barChartData1[0].data[1] = this.edad[0].menos19+1;
     this.barChartData1[1].data[0] = this.edad[0].primerRango;
     this.barChartData1[2].data[0] = this.edad[0].segundoRango;
     this.barChartData1[3].data[0] = this.edad[0].tercerRango;
-    
+
+    this.chart1.ngOnInit();
+    this.chart2.ngOnInit();
     
   }
+    
+  }
+  reloadChart() {
+    if (this.chart !== undefined) {
+       this.chart.chart.destroy();
+       //this.chart.chart = '0';
+
+       //this.chart.datasets = this.datasets;
+       //this.chart.labels = this.labels;
+       this.chart.ngOnInit();
+    }
+}
+
   //Segunda grafica edad//////////////////////////////////////////////////////////////
   public barChartOptions1: ChartOptions = {
     responsive: true,
+    maintainAspectRatio: true,
     // We use these empty structures as placeholders for dynamic theming.
     scales: { xAxes: [{}], yAxes: [{}] },
     plugins: {
@@ -257,7 +284,7 @@ export class ConsolidadodiarioComponent implements OnInit {
   public barChartPlugins1 = [pluginDataLabels];
 
   public barChartData1: ChartDataSets[] = [
-    { data: [0], label: '<19' },
+    { data: [0,5,0], label: '<19' },
     { data: [0], label: '20-24' },
     { data: [0], label: '25-30' },
     { data: [0], label: '>30' }
@@ -269,6 +296,7 @@ export class ConsolidadodiarioComponent implements OnInit {
 
 //Hasta aqui graficos barra
 
+
   elemetos: elementos[]=[
     {sexo: '', masculino: 0, femenino: 0}
   ];
@@ -277,7 +305,8 @@ export class ConsolidadodiarioComponent implements OnInit {
   
   constructor(private inventario: InventariosService) {
     this.inventario.obtenerTodasCita().subscribe((data: Cita[])=>{
-   
+      this.seter();
+
     this.datos=data;
 
     for (let index = 0; index < this.datos.length; index++) {
@@ -362,6 +391,8 @@ export class ConsolidadodiarioComponent implements OnInit {
   
 
   ngOnInit() {
+    this.seter();
   }
+
 
 }
