@@ -1,8 +1,20 @@
+html,
+body,
+header,
+side-nav{
+  height: 100%;
+  width:100%;
+  position: absolute;
+  margin:0px;
+}
+
 .example-full-width{
   width: 80%;
   margin-top: 10px;
   text-align: left;
 }
+
+
 .titulo{
   text-align: center;
 }
@@ -34,4 +46,9 @@ color:rgb(122, 22, 22);
   input[type=number]::-webkit-inner-spin-button{ 
     -webkit-appearance: none; 
     margin: 0; 
+  }
+
+  button{
+    bottom: 10px;
+    right: 40px;
   }
