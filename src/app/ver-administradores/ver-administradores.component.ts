@@ -134,14 +134,34 @@ export class VerAdministradoresComponent implements OnInit {
   }
 
   borrarMedico(id) {
-    const dialogRef = this.dialog.open(DialogoMedico, {
+
+    const dialogRef = this.dialog.open(DialogoVerificarPermisoComponent, {
       disableClose: true,
-      panelClass: 'borrar',
-      data: id
+      panelClass: 'verificar',
+
     });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getMedicos();
+
+    dialogRef.afterClosed().subscribe(confimacion => {
+
+
+      if (confimacion) {
+
+        const dialogRef = this.dialog.open(DialogoMedico, {
+          disableClose: true,
+          panelClass: 'borrar',
+          data: id
+
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.getMedicos();
+        });
+
+      }
+
     });
+
+    
   }
 
 
@@ -151,16 +171,6 @@ export class VerAdministradoresComponent implements OnInit {
     this.getMedicos();
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -187,7 +197,7 @@ export class DialogoMedico implements OnDestroy {
 
   Borrarmedico() {
     this.medicoService.borrarMedico(this.data).subscribe((data) => {
-      this.showError('Administrador eliminado correctamente');
+      this.showError('Médico eliminado correctamente');
     });
   }
 
