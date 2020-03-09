@@ -391,10 +391,12 @@ ocultar: boolean = true;
   }
 
   telefono_Emergencias: TelefonoEmergencia = {
+    id_telefono_emergencia:null,
     id_paciente:null,
     telefono_emergencia:null,
     emergencia_persona:null,
   }
+  telefonos_Emergencias:TelefonoEmergencia[];  
   tel_emergencia:any;
   
 
@@ -731,7 +733,8 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         console.log(error);
       });
 
-
+      //obtener los datos de los servicios de la api
+      this.cargarEmergenciaPersonaYa();
 
 
 
@@ -765,14 +768,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       });
 
 
-      this.formularioService.obtenerEmergenciaPersona(this.id).subscribe((data: TelefonoEmergencia)=>{
-        this.tel_emergencia = data;        
-        //cargo los datos de la tabla antecedentes personales
-        this.cargarTablaEmergenciaPersona();
-        console.log(this.tel_emergencia);      
-        }, (error)=>{
-          console.log(error);
-        });      
+      
 
 
       this.formularioService.obtenerActividadSexual(this.id).subscribe((data : ActividadSexual)=>{
@@ -837,9 +833,10 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
  cargarEmergenciaPersonaYa(){
 
-  this.formularioService.obtenerEmergenciaPersona(this.id).subscribe((data: TelefonoEmergencia)=>{
+  this.formularioService.obtenerEmergenciaPersona(this.id).subscribe((data: TelefonoEmergencia[])=>{
     this.tel_emergencia = data;        
     //cargo los datos de la tabla antecedentes personales
+    this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);
     this.cargarTablaEmergenciaPersona();
     console.log(this.tel_emergencia);      
     }, (error)=>{
@@ -1007,8 +1004,9 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       panelClass: 'borrar',
       data: id
     });
+
     dialogRef.afterClosed().subscribe(result => {
-     // this.();
+      this.cargarEmergenciaPersonaYa();
     });
   }
 
@@ -2354,20 +2352,44 @@ export class Borrartelefonoemergencia implements OnDestroy {
   constructor(public dialogRef: MatDialogRef<Borrartelefonoemergencia>,
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: any) {  }
+    @Inject(MAT_DIALOG_DATA) public data: any){ 
+      console.log(this.data);
+    }
+    tablaTelefonosEmergencia: any;
+    tel_emergencia:any;
+    id:any;
+
+    cargarEmergenciaPersonaYa(){
+      this.formularioService.obtenerEmergenciaPersona(this.id).subscribe((data: TelefonoEmergencia[])=>{
+        this.tel_emergencia = data;        
+        //cargo los datos de la tabla antecedentes personales
+        this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);
+        this.cargarTablaEmergenciaPersona();
+        console.log(this.tel_emergencia);      
+        }, (error)=>{
+          console.log(error);
+        });      
+     }
+     cargarTablaEmergenciaPersona(){     
+      this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);    
+    } 
 
 
   salir(): void {
     this.dialogRef.close();
   }
+
+ 
   Borraremergenciapersona() {
     if (this.data != 1) {
      this.formularioService.eliminarEmergenciaPersona(this.data).subscribe((data) => {
         this.showError('Administrador eliminado correctamente');
+        
       });
     } else {
       this.showError('El administrador no puede ser borrado');
     }
+    
   }
 
   showError(message: string) {
@@ -2378,6 +2400,6 @@ export class Borrartelefonoemergencia implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-   this.formularioService.obtenerEmergenciaPersonas().subscribe();
+    this.cargarEmergenciaPersonaYa();
   }
 } 
