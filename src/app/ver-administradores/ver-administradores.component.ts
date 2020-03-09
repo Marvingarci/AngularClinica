@@ -13,6 +13,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MedicosService } from '../services/medicos.service';
 import { Administrador } from '../interfaces/administrador';
 import { Medicos } from '../interfaces/medicos';
+import { DialogoVerificarPermisoComponent } from '../dialogo-verificar-permiso/dialogo-verificar-permiso.component';
 
 
 @Component({
@@ -57,14 +58,14 @@ export class VerAdministradoresComponent implements OnInit {
     private activatedRoute: ActivatedRoute, public dialog: MatDialog, private LoginAdminService: LoginadminService,
     private httpClient: HttpClient, private router: Router) {
 
-    this.getAdministrador();
-    this.getMedico();
-   
+    this.getAdministradores();
+    this.getMedicos();
+
   }//fin constructor
 
 
 
-  getAdministrador() {
+  getAdministradores() {
     this.LoginAdminService.obtenerAdministradores().subscribe((data: Administrador[]) => {
       this.administradores = data;
 
@@ -77,7 +78,7 @@ export class VerAdministradoresComponent implements OnInit {
     });
   }
 
-  getMedico() {
+  getMedicos() {
     this.medicoService.obtenerMedicos().subscribe((data: Medicos[]) => {
       this.medicos = data;
       this.medicos = this.medicos.filter(medico => medico);
@@ -102,47 +103,74 @@ export class VerAdministradoresComponent implements OnInit {
   //dialogo
   borrarAdministrador(id) {
 
-    const dialogRef = this.dialog.open(Borraradministrador, {
+    const dialogRef = this.dialog.open(DialogoVerificarPermisoComponent, {
       disableClose: true,
-      panelClass: 'borrar',
-      data: id
+      panelClass: 'verificar',
 
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.getAdministrador();
+    dialogRef.afterClosed().subscribe(confimacion => {
+
+
+      if (confimacion) {
+
+        const dialogRef = this.dialog.open(Borraradministrador, {
+          disableClose: true,
+          panelClass: 'borrar',
+          data: id
+
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.getAdministradores();
+        });
+
+      }
+
     });
-    
+
+
+
   }
 
   borrarMedico(id) {
-    const dialogRef = this.dialog.open(DialogoMedico, {
+
+    const dialogRef = this.dialog.open(DialogoVerificarPermisoComponent, {
       disableClose: true,
-      panelClass: 'borrar',
-      data: id
+      panelClass: 'verificar',
+
     });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getMedico();
+
+    dialogRef.afterClosed().subscribe(confimacion => {
+
+
+      if (confimacion) {
+
+        const dialogRef = this.dialog.open(DialogoMedico, {
+          disableClose: true,
+          panelClass: 'borrar',
+          data: id
+
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.getMedicos();
+        });
+
+      }
+
     });
+
+    
   }
 
 
 
   ngOnInit() {
-    this.getAdministrador();
-    this.getMedico();
+    this.getAdministradores();
+    this.getMedicos();
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -169,7 +197,7 @@ export class DialogoMedico implements OnDestroy {
 
   Borrarmedico() {
     this.medicoService.borrarMedico(this.data).subscribe((data) => {
-      this.showError('Administrador eliminado correctamente');
+      this.showError('Médico eliminado correctamente');
     });
   }
 
@@ -199,10 +227,14 @@ export class DialogoMedico implements OnDestroy {
 
 export class Borraradministrador implements OnDestroy {
 
+  verificado: boolean = false;
+
   constructor(public dialogRef: MatDialogRef<Borraradministrador>,
     private loginAdminService: LoginadminService,
+    private loginService: LoginService,
+    public dialogo: MatDialog,
     private mensaje: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: any) {  }
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
 
   salir(): void {
@@ -210,14 +242,33 @@ export class Borraradministrador implements OnDestroy {
   }
 
   Borraradministrador() {
+
+    //verifico si el usuario que se va a borrar no es el que trae por defecto el sistema
     if (this.data != 1) {
-      this.loginAdminService.delete(this.data).subscribe((data) => {
-        this.showError('Administrador eliminado correctamente');
-      });
+
+      //verifico si el usuario que se va borrar no es el mismo usuario que esta logueado
+      if (this.data != this.loginService.datosUsuario.id) {
+
+        this.loginAdminService.delete(this.data).subscribe(result =>{
+          this.showError('Administrador borrado con exito');
+        });
+
+      } else {
+
+        this.showError('No puede borrar su propio usuario');
+
+
+      }
+
     } else {
+
       this.showError('El administrador no puede ser borrado');
+
     }
+
+
   }
+
 
   showError(message: string) {
     const config = new MatSnackBarConfig();

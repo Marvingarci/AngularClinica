@@ -1,11 +1,11 @@
 <div class="container">
-  <form id="form" [formGroup]="loginadmin_form" (keyup.enter)="onKeydown($event)">
+  <form id="form" [formGroup]="loginadmin_form">
     <mat-card style="margin-top: 15px;" [class.mat-elevation-z5]="true">
       <div class="titulo">
         <h2>Registro Administradores</h2>
       </div>
 
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width" appearance="outline">
         <input matInput placeholder="Ingrese un nuevo Administrador" formControlName="usuario" required>
         <mat-hint align="end">{{usuario.value.length}} / 4</mat-hint>
         <mat-label> <b>Usuario</b> </mat-label>
@@ -19,13 +19,13 @@
         <mat-error *ngIf="usuario.hasError('usuarioAdminUnico')">El usuario pertenece a otra persona</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <input matInput (keydown)="onKeydown($event)" placeholder="Ingrese la contraseña" formControlName="contrasenia"
-          [type]="esconderClave ? 'text' : 'password'" required>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <input matInput placeholder="Ingrese la contraseña" formControlName="contrasenia"
+          [type]="esconderClave ? 'password' : 'text'" required>
         <mat-label> <b>Contraseña</b> </mat-label>
         <button mat-icon-button matSuffix (click)="esconderClave = !esconderClave" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="esconderClave">
-          <mat-icon>{{esconderClave ? 'visibility' : 'visibility_off'}}</mat-icon>
+          <mat-icon>{{esconderClave ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error *ngIf="contrasenia.hasError('required')">
           <strong>Ingrese la contraseña</strong>
@@ -35,13 +35,13 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-        <input matInput (keydown)="onKeydown($event)" placeholder="confirme la contraseña anterior"
-          formControlName="contraseniaC" [type]="esconderConfirmacionClave ? 'text' : 'password'" required>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <input matInput placeholder="confirme la contraseña anterior" formControlName="contraseniaC"
+          [type]="esconderConfirmacionClave ? 'password' : 'text'" required>
         <mat-label> <b>Confirmación de contraseña</b> </mat-label>
-        <button mat-icon-button matSuffix (click)="esconderConfirmacionClave = !esconderConfirmacionClave" [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="esconderConfirmacionClave">
-          <mat-icon>{{esconderConfirmacionClave ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <button mat-icon-button matSuffix (click)="esconderConfirmacionClave = !esconderConfirmacionClave"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="esconderConfirmacionClave">
+          <mat-icon>{{esconderConfirmacionClave ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error *ngIf="contraseniaC.hasError('required')">
           <strong>Confirme la contraseña</strong>
@@ -51,7 +51,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width" appearance="outline">
         <input matInput placeholder="Ingrese el nombre completo" formControlName="nombre" required>
         <mat-label> <b>Nombre</b> </mat-label>
         <mat-error *ngIf="nombre.hasError('required')">
@@ -62,7 +62,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width" appearance="outline">
         <input matInput placeholder="Ingrese el número de identidad" formControlName="identidad" required>
         <mat-hint align="end">{{identidad.value.length}} / 13</mat-hint>
         <mat-label> <b>Número de identidad</b> </mat-label>
@@ -84,13 +84,23 @@
 
     </mat-card>
 
-    <div style="position: fixed; bottom: 10px;right: 15px;">
+    <div>
 
-      <button mat-raised-button [routerLink]="['/principal/veradministradores']"
-        class="btn btn-outline-primary botonperron"> Cancelar</button>
-      <button mat-raised-button (click)="comprobarDatos()" class="btn btn-outline-primary botonperron"
-        style="margin-top: 20px;margin-left: 10px;" disabled="{{loginadmin_form.invalid}}"> Guardar</button>
+      <button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px; margin-bottom: 10px;"
+        (click)="comprobarDatos()">
+        Guardar
+      </button>
+      <button class="btn btn-danger float-right" style="margin-top: 10px; margin-bottom: 10px;"
+        [routerLink]="['/principal/veradministradores']">
+        Cancelar
+      </button>
+      
     </div>
+
+
+
+
+
 
   </form>
 </div>

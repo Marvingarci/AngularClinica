@@ -5,6 +5,13 @@
   padding-top:20px ;
   
 }
+/* mat-sidenav-content{
+
+  margin: 0px;
+  padding: 0px;
+
+} */
+
 .example-full-width {
   width: 100%;
 }
@@ -90,5 +97,7 @@
   min-width: 100px;  
   background-color: #fff;
   color: #fff;  
+  padding: 0px;
+  margin: 0px;
   }
 

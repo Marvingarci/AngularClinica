@@ -11,14 +11,14 @@ export class LoginadminService {
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
 
+  constructor(private httpClient: HttpClient, LoginAdminService: LoginadminService) { }
+
   obtenerAdministradores() {
 
     return this.httpClient.get(this.API_ENDPOINT + '/administradores');
 
   }
 
-
-  constructor(private httpClient: HttpClient, LoginAdminService: LoginadminService) { }
 
   guardarAdministrador(administrador: Administrador) {
     return this.httpClient.post(this.API_ENDPOINT + '/administradores', administrador, { headers: this.headers });
