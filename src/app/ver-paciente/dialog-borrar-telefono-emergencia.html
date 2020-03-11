@@ -1,0 +1,16 @@
+<h2 mat-dialog-title disableClose >Eliminar Emergencia Persona</h2>
+
+<mat-dialog-content class="mat-typography">
+    <p>¿Estás seguro que quiere eliminar este numero telefonico?</p>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align='end'>
+    <button mat-button (click)='Borraremergenciapersona()' mat-dialog-close class="botonperron" 
+    style="outline:none;display:block;">Eliminar
+    </button> &nbsp;&nbsp;
+
+    <button mat-button (click)='salir()' mat-dialog-close  class="botonperron"
+    style="outline:none;display:block;" >Cancelar
+    </button>
+</mat-dialog-actions>

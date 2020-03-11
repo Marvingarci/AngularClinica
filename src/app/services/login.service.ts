@@ -12,6 +12,7 @@ import { FormularioService } from "../services/formulario.service";
 export class LoginService {
   porMientras: string;//variable donde se guarda la contrase;a por si el usuario no registra la nueva
   datosUsuario: any ;
+  idActualizar: number;
 
 
   API_ENDPOINT = 'http://127.0.0.1:8000/api/';

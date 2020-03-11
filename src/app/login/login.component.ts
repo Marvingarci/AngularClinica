@@ -163,7 +163,7 @@ export class LoginComponent implements OnInit {
 
               this.paciente = data;
 
-              this.router.navigate(['/datoPaciente/' + this.paciente.id_paciente]);
+           this.router.navigate(['/datoPaciente/' + this.paciente.id_paciente]);
               this.showError('Bienvenido');
             });
 

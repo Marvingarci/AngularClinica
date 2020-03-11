@@ -17,7 +17,8 @@ import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-est
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
-import { VerPacienteComponent, HistoriaSubsiguiente1, CambiarFoto } from './ver-paciente/ver-paciente.component';
+import { VerPacienteComponent, HistoriaSubsiguiente1, CambiarFoto, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
+//import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -77,6 +78,7 @@ import { FocusInvalidoInputDirective } from './focus/focus-invalido-input.direct
 import { ChartsModule } from 'ng2-charts';
 import { IdentidadUnicaDirective } from './validations/identidad-unica.directive';
 import { DialogoVerificarPermisoComponent } from './dialogo-verificar-permiso/dialogo-verificar-permiso.component';
+import { CambiarContraseniaComponent } from './cambiar-contrasenia/cambiar-contrasenia.component';
 
 //Camara
 import {WebcamModule} from 'ngx-webcam';
@@ -177,6 +179,7 @@ const routes: Route[] = [
     ConsolidadodiarioComponent,
     TelefonoUnicoDirective,
     DialogoMedico,
+    Borrartelefonoemergencia,
     // DialogoVerificar,
 
 
@@ -188,7 +191,8 @@ const routes: Route[] = [
     FocusInvalidoInputDirective,
     IdentidadUnicaDirective,
     DialogoVerificarPermisoComponent,
-    CambiarFoto
+    CambiarFoto,
+    CambiarContraseniaComponent,
   
 
 
@@ -257,7 +261,9 @@ const routes: Route[] = [
     DialogoMedico,
     // DialogoVerificar,
     DialogoVerificarPermisoComponent,
-    CambiarFoto
+    CambiarFoto,
+    Borrartelefonoemergencia,
+    DialogoVerificarPermisoComponent
   ],
   providers: [
     {
