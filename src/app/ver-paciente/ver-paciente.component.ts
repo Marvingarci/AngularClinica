@@ -2157,7 +2157,8 @@ export class HistoriaSubsiguiente1{
      indicaciones:null,
      observaciones:null,
      remitido:null,
-     siguiente_cita:null
+     siguiente_cita:null,
+     nombre:null
   }
   medicamento: any={
     id: null,
@@ -2290,6 +2291,7 @@ export class HistoriaSubsiguiente1{
       this.citaGuardar.observaciones=this.observaciones_examen.value;
       this.citaGuardar.remitido=this.remitira.value;
       this.citaGuardar.siguiente_cita= this.fecha_nacimiento.value;
+      this.citaGuardar.nombre= this.medicamento.value;
 
       
 
