@@ -11,7 +11,17 @@ side-nav{
 .example-full-width{
   width: 80%;
   margin-top: 10px;
-  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  /* text-align: left; */
+
+}
+
+.container{
+
+  text-align: center;
+  width: 90%;
+
 }
 
 
@@ -24,8 +34,8 @@ side-nav{
   color: rgb(35, 35, 36);
 }
 #form{   
-    text-align: center;
-    width: 100%;
+
+  width: 100%;
 }
 
 .errorverificacion{
