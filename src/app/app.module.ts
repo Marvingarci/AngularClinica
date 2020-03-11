@@ -77,6 +77,7 @@ import { FocusInvalidoInputDirective } from './focus/focus-invalido-input.direct
 import { ChartsModule } from 'ng2-charts';
 import { IdentidadUnicaDirective } from './validations/identidad-unica.directive';
 import { DialogoVerificarPermisoComponent } from './dialogo-verificar-permiso/dialogo-verificar-permiso.component';
+import { CambiarContraseniaComponent } from './cambiar-contrasenia/cambiar-contrasenia.component';
 
     
 
@@ -174,17 +175,12 @@ const routes: Route[] = [
     ConsolidadodiarioComponent,
     TelefonoUnicoDirective,
     DialogoMedico,
-    // DialogoVerificar,
-
-
-
-
-
     UsuarioAdminUnicoDirective,
     UsuarioMedicoUnicoDirective,
     FocusInvalidoInputDirective,
     IdentidadUnicaDirective,
     DialogoVerificarPermisoComponent,
+    CambiarContraseniaComponent,
   
 
 
@@ -250,7 +246,6 @@ const routes: Route[] = [
     Borraradministrador,
     DialogCerrarSesion2,
     DialogoMedico,
-    // DialogoVerificar,
     DialogoVerificarPermisoComponent
   ],
   providers: [
