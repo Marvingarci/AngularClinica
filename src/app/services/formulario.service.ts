@@ -223,6 +223,9 @@ export class FormularioService {
   obtenerEmergenciaPersona(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'telefonos_emergencia/' + id_paciente);
   }
+  obtenerEmergenciaPersonas() {
+    return this.httpClient.get(this.API_ENDPOINT + 'telefonos_emergencia/' );
+  }
 
   obtenerAntecedenteFamiliar(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes_antecedentes_familiares/' + id_paciente);
@@ -352,4 +355,13 @@ export class FormularioService {
       { headers: this.headers }
     );
   };
+
+
+eliminarEmergenciaPersona(id_paciente: any) {
+  return this.httpClient.delete(this.API_ENDPOINT + 'telefonos_emergencia/' + id_paciente);
 }
+
+}
+
+
+
