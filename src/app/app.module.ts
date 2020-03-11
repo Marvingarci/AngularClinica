@@ -254,7 +254,6 @@ const routes: Route[] = [
     DialogCerrarSesion2,
     DialogoMedico,
     Borrartelefonoemergencia,
-    // DialogoVerificar,
     DialogoVerificarPermisoComponent
   ],
   providers: [
