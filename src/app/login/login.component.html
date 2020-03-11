@@ -1,49 +1,53 @@
 <div class="intro">
-    
-          
-      <div id="formstyle">
-        <div>
-            
-             <!-- <div class="bienvenida">
-              <h4 class="h4"> Bienvenido a Clínica UNAH-TEC Danlí</h4> 
-              <h6 class="h6"> Por favor ingrese su cuenta y contraseña</h6>
-            </div> -->
 
-        
-            <div> <div *ngIf="loading==true" class="uploader-status" > <mat-spinner  ></mat-spinner></div>
-            <div class="view" id="imagenpuma"></div></div> 
-  
-            <span class="login100-form-title p-b-49">
-              <strong>Clínica UNAH-TEC</strong>
-              </span>
-              
-            <form [formGroup]= "login_form">
-              <div>
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <input matInput (keydown)="onKeydown1($event)"
-                    placeholder="Ingrese su cuenta" formControlName="cuenta" required>
-                    <mat-label><mat-icon>person</mat-icon>&nbsp;  <b>Cuenta</b> </mat-label>
-                    <mat-error *ngIf="cuenta.hasError('required')">ingrese la cuenta</mat-error>
-                    <mat-error *ngIf="cuenta.hasError('pattern')">ingrese un numero de cuenta valido</mat-error>
-                  </mat-form-field>
-                </div>
-              <div>
-                <mat-form-field class="example-full-width" appearance="outline">                
-                  <input matInput (keydown)="onKeydown($event)" 
-                  placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'"
-                  formControlName="clave">
-                  <mat-label><mat-icon>vpn_key</mat-icon> &nbsp;   <b>Contraseña</b> </mat-label>
-                  <button  mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                      </button>
-                  <mat-error *ngIf="clave.hasError('required') ">ingrese la contraseña</mat-error>
-                </mat-form-field>
-              </div>
-            </form>
-          
-            </div>  
-             <div><button ng-enter mat-raised-button  class="boton" (click)="comprobarDatos()">INGRESAR</button></div>            
-           
-                                      
+
+  <div id="formstyle">
+    <div>
+
+
+      <div>
+        <div class="view" id="imagenpuma">
+          <div *ngIf="loading==true" class="uploader-status">
+            <mat-spinner [diameter]="100"></mat-spinner>
+          </div>
         </div>
+      </div>
+
+      <span class="login100-form-title p-b-49">
+        <strong>Clínica UNAH-TEC</strong>
+      </span>
+
+      <form [formGroup]="login_form">
+        <div>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput (keydown)="onKeydown1($event)" placeholder="Ingrese su cuenta" formControlName="cuenta"
+              required>
+            <mat-label>
+              <mat-icon>person</mat-icon>&nbsp; <b>Cuenta</b>
+            </mat-label>
+            <mat-error *ngIf="cuenta.hasError('required')">ingrese la cuenta</mat-error>
+            <mat-error *ngIf="cuenta.hasError('pattern')">ingrese un numero de cuenta valido</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput (keydown)="onKeydown($event)" placeholder="Ingrese su contraseña"
+              [type]="hide ? 'password' : 'text'" formControlName="clave">
+            <mat-label>
+              <mat-icon>vpn_key</mat-icon> &nbsp; <b>Contraseña</b>
+            </mat-label>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="clave.hasError('required') ">ingrese la contraseña</mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+
+    </div>
+    <div><button ng-enter mat-raised-button class="boton" (click)="comprobarDatos()">INGRESAR</button></div>
+
+
+  </div>
 </div>
