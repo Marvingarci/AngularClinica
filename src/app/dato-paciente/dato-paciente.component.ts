@@ -424,7 +424,7 @@ export class cambiocontraDialog {
   onKeydown(event) {
     if (event.key === "Enter") {
       this.hide = true;
-      this.hide1 = true;
+      this.hide1 = false;
       this.continuar();
     }
   }
@@ -432,6 +432,7 @@ export class cambiocontraDialog {
   //EVENTO BOTON GUARDAR
   guardar() {
     this.continuar();
+
   }
 
 
