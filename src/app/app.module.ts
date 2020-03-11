@@ -17,7 +17,7 @@ import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-est
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
-import { VerPacienteComponent, HistoriaSubsiguiente1 } from './ver-paciente/ver-paciente.component';
+import { VerPacienteComponent, HistoriaSubsiguiente1, CambiarFoto } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -78,7 +78,9 @@ import { ChartsModule } from 'ng2-charts';
 import { IdentidadUnicaDirective } from './validations/identidad-unica.directive';
 import { DialogoVerificarPermisoComponent } from './dialogo-verificar-permiso/dialogo-verificar-permiso.component';
 
-    
+//Camara
+import {WebcamModule} from 'ngx-webcam';
+
 
 
 
@@ -133,6 +135,7 @@ const routes: Route[] = [
       { path: 'consolidado', component: ConsolidadodiarioComponent },
       // {path: 'verPaciente', component: VerPacienteComponent},
 
+
     ]
   }
 
@@ -185,6 +188,7 @@ const routes: Route[] = [
     FocusInvalidoInputDirective,
     IdentidadUnicaDirective,
     DialogoVerificarPermisoComponent,
+    CambiarFoto
   
 
 
@@ -230,7 +234,8 @@ const routes: Route[] = [
     MatAutocompleteModule,
     MatChipsModule,
     MatDatepickerModule, 
-    ChartsModule
+    ChartsModule,
+    WebcamModule
     
     
 
@@ -251,7 +256,8 @@ const routes: Route[] = [
     DialogCerrarSesion2,
     DialogoMedico,
     // DialogoVerificar,
-    DialogoVerificarPermisoComponent
+    DialogoVerificarPermisoComponent,
+    CambiarFoto
   ],
   providers: [
     {

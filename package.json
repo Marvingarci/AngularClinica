@@ -36,6 +36,7 @@
     "ng2-charts": "^2.3.0",
     "ngx-password-toggle": "^1.0.3",
     "ngx-spinner": "^8.1.0",
+    "ngx-webcam": "^0.2.6",
     "rxjs": "~6.4.0",
     "save": "^2.4.0",
     "tslib": "^1.10.0",

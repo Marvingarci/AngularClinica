@@ -47,5 +47,10 @@ export class InventariosService {
     const headers = new HttpHeaders({'Content-Type':'application/json'});
     return this.httpClient.post(this.API_ENDPOINT+'/medicamentos/egreso',medicamento,{headers:headers});
   }
+  ActualizarImagen(id_paciente: any, imagen: any){
+    
+    const headers = new HttpHeaders({'Content-Type':'application/json'});
+    return this.httpClient.post(this.API_ENDPOINT+'/pacientes/actualizarImagen',[id_paciente, imagen], {headers:headers});
+  }
 
 }

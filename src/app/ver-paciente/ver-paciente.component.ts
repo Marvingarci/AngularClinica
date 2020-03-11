@@ -22,6 +22,12 @@ import { Cita } from '../interfaces/Cita';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { TelefonoEmergencia } from '../interfaces/telefono-emergencia';
+import {WebcamImage} from '../modules/webcam/domain/webcam-image';
+import {WebcamUtil} from '../modules/webcam/util/webcam.util';
+import {WebcamInitError} from '../modules/webcam/domain/webcam-init-error';
+import {Observable, Subject} from 'rxjs';
+import { PacienteComponent } from '../paciente/paciente.component';
+
 
 
 
@@ -112,6 +118,7 @@ export interface cita1{
 })
 
 export class VerPacienteComponent implements OnInit {
+  botonagregarimagen: boolean = true;
   static mostrarHistoriasSub() {
     throw new Error("Method not implemented.");
   }
@@ -669,7 +676,7 @@ ocultar: boolean = true;
 
 
 constructor(private formularioService: FormularioService, private mensaje: MatSnackBar,  private activatedRoute: ActivatedRoute, 
-  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, ) { 
+  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, private cambiarFoto: MatDialog ) { 
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
     
@@ -701,11 +708,14 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         //si el paciente tiene imagen entonces esta variable cambiara a false
         if(this.paciente.imagen != null){
           this.noImg = false;
+          this.botonagregarimagen = false;
         } 
         console.log(this.paciente);      
       },(error)=>{
         console.log(error);
       });
+
+      
 
   
 
@@ -1943,6 +1953,11 @@ cargarTablaAntecedentesFamiliares(){
   cerrarHistorias(){
     this.mostrarHisorias=false;
   }
+  //codigo para cambiar foto de perfil////////////////////////////////////////////////
+  cambiarfoto(){
+    const cambiarphoto = this.cambiarFoto.open(CambiarFoto, {disableClose:true, width:"70%"});
+    this.inven.idCita=this.id;        
+  }
 
    showError(message: string) {
     const config = new MatSnackBarConfig();
@@ -2347,4 +2362,133 @@ export class HistoriaSubsiguiente1{
   get unidad(){return this.formulario_cita.get('unidad')};
   get cita(){return this.formulario_cita.get('cita')};
   
+}
+
+
+/////// MATDIALOG cambiar foto
+@Component({
+  selector: 'CambiarFoto',
+  templateUrl: 'CambiarFoto.html',  
+  styleUrls: ['CambiarFoto.css'],
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  }]
+})
+
+export class CambiarFoto {
+
+
+  constructor(private dialogo:MatDialogRef<CambiarFoto>, private servicio: InventariosService, private activatedRoute: ActivatedRoute,
+              private formulario: FormularioService){
+
+  }
+    // toggle webcam on/off
+    public showWebcam = true;
+    public allowCameraSwitch = true;
+    public multipleWebcamsAvailable = false;
+    public deviceId: string;
+    public facingMode: string = 'environment';
+    public errors: WebcamInitError[] = [];
+    public mirrorImage: 'never';
+    paciente : Paciente;
+
+    // latest snapshot
+    public webcamImage: WebcamImage = null;
+    opcion: boolean = true;
+    id: any;
+    imagen : any;
+    // webcam snapshot trigger
+    private trigger: Subject<void> = new Subject<void>();
+    // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
+    private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
+  
+    public ngOnInit(): void {
+      WebcamUtil.getAvailableVideoInputs()
+        .then((mediaDevices: MediaDeviceInfo[]) => {
+          this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
+        });
+    }
+  
+    public triggerSnapshot(): void {
+      this.trigger.next();
+      this.opcion = false;
+    }
+  
+    public toggleWebcam(): void {
+      this.showWebcam = !this.showWebcam;
+    }
+  
+    public handleInitError(error: WebcamInitError): void {
+      if (error.mediaStreamError && error.mediaStreamError.name === "NotAllowedError") {
+        console.warn("Camera access was not allowed by user!");
+      }
+      this.errors.push(error);
+    }
+  
+    public showNextWebcam(directionOrDeviceId: boolean|string): void {
+      // true => move forward through devices
+      // false => move backwards through devices
+      // string => move to device with given deviceId
+      this.nextWebcam.next(directionOrDeviceId);
+    }
+    public otrafoto(){
+      this.opcion = true;
+
+    }
+    public guardar(){
+      this.dialogo.close();
+
+      this.id=this.servicio.idCita;
+      console.log(this.id);
+
+      this.imagen = this.webcamImage.imageAsDataUrl;
+      console.log(this.imagen);
+      
+      this.formulario.obtenerPaciente(this.id).subscribe( (data: Paciente) =>{
+           this.paciente = data;
+           console.log(this.paciente);
+          this.paciente.imagen = this.imagen;
+            this.formulario.actualizarPaciente(this.paciente).subscribe( (data) =>{
+                 console.log('imagen guardado con exito');
+               }, (error) => {
+                 console.log(error);
+               });
+
+         }, (error) => {
+           console.log(error);
+         });
+
+      // this.servicio.ActualizarImagen(this.id, this.imagen).subscribe( (data) =>{
+      //   console.log('imagen guardado con exito');
+      // }, (error) => {
+      //   console.log(error);
+      // });
+    }
+  
+    public handleImage(webcamImage: WebcamImage): void {
+      console.log('received webcam image', webcamImage);
+      this.webcamImage = webcamImage;
+    }
+  
+    public cameraWasSwitched(deviceId: string): void {
+      console.log('active device: ' + deviceId);
+      this.deviceId = deviceId;
+    }
+  
+    public get triggerObservable(): Observable<void> {
+      return this.trigger.asObservable();
+    }
+  
+    public get nextWebcamObservable(): Observable<boolean|string> {
+      return this.nextWebcam.asObservable();
+    }
+  
+    public get videoOptions(): MediaTrackConstraints {
+      const result: MediaTrackConstraints = {};
+      if (this.facingMode && this.facingMode !== "") {
+        result.facingMode = { ideal: this.facingMode };
+      }
+  
+      return result;
+    }
 }
