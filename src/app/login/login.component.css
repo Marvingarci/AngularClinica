@@ -33,44 +33,30 @@ background-image: linear-gradient(315deg, #f1db10 5%, #1928d4 81%);
   height: 100px;
   width:100px;
   margin:0px;
-  background: url('src\imagenes\pumitafinal.jpg');
+  background: url('src\imagenes\cardiograma.png');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;  
-  border-radius: 50px;
+  /* border-radius: 50px; */
   margin-left: 120px;
   margin-top: 20px; 
 
-  /* tema 1 */
-  /* border: 3px solid #B721FF; */
-
-  /* tema 2 */
-  /* border: 3px solid #0d57ff; */
-
-  /* tema 3 */
-  /* border: 3px solid #f1db10; */
-
   /* tema 4 */
-  border: 5px solid #1928d4;
+  /* border: 5px solid #1928d4; */
 
 
-}
-
-mat-spinner{
-  position: absolute;
-  height: 100px;
-  width: 200px;;
-  left: 130px;
-  color: ThemePalette;
 }
 
 .label{
+
   margin-top: 5px;
   font-size: 30dp;
+
 }
 
 #formstyle{  
+
   -webkit-box-shadow: 0 30px 60px 0 rgba(228, 38, 38, 0.3);
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);  
   padding-bottom: 50px; 
@@ -87,10 +73,12 @@ mat-spinner{
   text-align: left;
 	filter: alpha(opacity=70); 
   border-radius: 10px;
+
 }
 
 
 .login100-form-title {
+
     display: block;
     font-family: Poppins-Regular,sans-serif;
     font-size: 30px;
@@ -179,6 +167,8 @@ mat-spinner{
     /* stroke: #f1db10; */
 
     /* tema 4 */
+  justify-content: center;
+
     stroke: #f1db10;
 
 
