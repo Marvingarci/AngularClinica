@@ -2283,7 +2283,7 @@ export class HistoriaSubsiguiente1{
       this.citaGuardar.observaciones=this.observaciones_examen.value;
       this.citaGuardar.remitido=this.remitira.value;
       this.citaGuardar.siguiente_cita= this.fecha_nacimiento.value;
-      this.citaGuardar.nombre= this.medicamento.value;
+      this.citaGuardar.nombre= this.nombre.value;
 
       
 
