@@ -12,5 +12,6 @@ observaciones?: string,
 impresion?:string,
 indicaciones?:string,
 remitido?:any,
-fechayHora?:any
+fechayHora?:any,
+nombre?:any
 }

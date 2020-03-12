@@ -6,6 +6,7 @@ import { Administrador } from '../interfaces/administrador';
   providedIn: 'root'
 })
 export class LoginadminService {
+  datosAdministrador: any;
   idActualizar: number;
   API_ENDPOINT = 'http://127.0.0.1:8000/api';
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });

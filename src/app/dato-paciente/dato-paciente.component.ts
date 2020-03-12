@@ -13,10 +13,30 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { PacienteComponent } from '../paciente/paciente.component';
 import { DialogContentExampleDialog1 } from '../principal/principal.component';
 import { Login } from '../interfaces/login';
+import { InventariosService } from '../services/inventarios.service';
+import { Cita } from '../interfaces/Cita';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface select {
   value: string;
   viewValue: string;
+}
+
+export interface cita1 {
+  id_paciente?: string,
+  peso?: string,
+  talla?: string,
+  imc?: string,
+  temperatura?: string,
+  presion?: string,
+  pulso?: string,
+  siguiente_cita?: string,
+  observaciones?: string,
+  impresion?: string,
+  indicaciones?: string,
+  remitido?: any,
+  fechayHora?: any,
+  nombre?: any
 }
 
 @Component({
@@ -26,6 +46,8 @@ export interface select {
 })
 export class DatoPacienteComponent implements OnInit {
 
+  columnaTablaDatoPaciente: string[] = ['fechayHora', 'nombre', 'indicaciones', 'observaciones'];
+  dataSourceTablaDatoPaciente: any;
 
 
   formulario_datos_generales = new FormGroup({
@@ -87,6 +109,7 @@ export class DatoPacienteComponent implements OnInit {
   id: any;
   noImg: boolean = true;
   pacientes: Paciente[];
+  citas: Cita[];
 
 
   //variable que identifica si un input es editable
@@ -94,7 +117,8 @@ export class DatoPacienteComponent implements OnInit {
 
 
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, private router: Router,
-    principal: AppComponent, public dialog: MatDialog, login: LoginService, private formBuilder: FormBuilder, private mensaje: MatSnackBar) {
+    principal: AppComponent, public dialog: MatDialog, login: LoginService,
+    private formBuilder: FormBuilder, private mensaje: MatSnackBar, private inven: InventariosService) {
     this.dialog.closeAll;
     this.id = this.activatedRoute.snapshot.params['id'];
 
@@ -129,6 +153,16 @@ export class DatoPacienteComponent implements OnInit {
     }
 
     principal.esconder();
+
+    this.inven.obtenerCita(this.id).subscribe((data: Cita[]) => {
+      this.citas = data;
+      console.log(this.citas);
+      this.dataSourceTablaDatoPaciente = new MatTableDataSource(this.citas);
+
+    }, (error) => {
+
+      console.log(error);
+    });
 
 
 
@@ -354,19 +388,19 @@ export class cambiocontraDialog {
               this.router.navigate(['datoPaciente/' + this.paciente1.id_paciente]);
               this.showError('Contraseña Guardada');
               this.Listo = true;
-      
+
             } else {
               this.router.navigate(['principal/verPaciente/' + this.paciente1.id_paciente]);
               this.showError('Contraseña Guardada');
               this.dialogRef.close();
-      
+
               this.Listo = true;
             }
 
           }, (error) => {
 
             console.log(error);
-            
+
           });
 
         } else {
@@ -603,12 +637,13 @@ export class actualizarcontraDialog {
   id: any;
   resultado: any;
   pac: Paciente[];
+  citas: Cita[];
 
   constructor(
-
     private dialogRef: MatDialogRef<verificarDialog>,
     private formularioService: FormularioService, private activatedRoute: ActivatedRoute,
-    public loginService: LoginService, private router: Router, private mensaje: MatSnackBar, public dialog: MatDialog) {
+    public loginService: LoginService, private router: Router,
+    private mensaje: MatSnackBar, public dialog: MatDialog) {
 
 
     this.formularioService.obtenerPaciente(this.formularioService.idActualizar).subscribe((data: any) => {
@@ -620,7 +655,6 @@ export class actualizarcontraDialog {
       console.log(error);
 
     });
-
 
 
   }//fin del constructor
@@ -644,7 +678,7 @@ export class actualizarcontraDialog {
   });
 
 
-  cambiarClave(){
+  cambiarClave() {
 
     if (this.CambioContrasenia.valid) {
 
@@ -689,7 +723,7 @@ export class actualizarcontraDialog {
     this.hide = true;
     this.hide1 = true;
     this.cambiarClave();
-    
+
   }
 
   get nuevaContraCambio() { return this.CambioContrasenia.get('nuevaContraCambio') };

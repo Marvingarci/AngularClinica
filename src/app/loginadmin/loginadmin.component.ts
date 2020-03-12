@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from "../app.component";
 import { LoginadminService } from '../services/loginadmin.service';
@@ -22,7 +22,9 @@ export interface select {
   templateUrl: './loginadmin.component.html',
   styleUrls: ['./loginadmin.component.css']
 })
-export class LoginadminComponent implements OnInit {
+export class LoginadminComponent implements OnInit, AfterViewInit {
+
+  
 
   esconderClave: boolean = true;
   esconderConfirmacionClave: boolean = true;
@@ -34,8 +36,9 @@ export class LoginadminComponent implements OnInit {
       asyncValidators: [this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService)]
     }),
 
-    contrasenia: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]),
-    contraseniaC: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]),
+    contraseniaActual: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
+    contraseniaNueva: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
+    confirmarContrasenia: new FormControl('', [ Validators.minLength(8), Validators.maxLength(30)]),
     nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(30)]),
     identidad: new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')]),
 
@@ -74,10 +77,12 @@ export class LoginadminComponent implements OnInit {
       this.login_adminservice.obtenerAdministrador(this.id).subscribe((data: any) => {
 
         this.administrador = data;
+        this.login_adminservice.datosAdministrador = this.administrador;
 
         //establesco el valor al los formcontrol para que se visualizen en los respectivos inputs
         this.usuario.setValue(this.administrador.usuario);
         // this.contrasenia.setValue(this.administrador.password);
+        this.contraseniaNueva.setValue('holahola');
         // this.contraseniaC.setValue(this.administrador.password);
         this.nombre.setValue(this.administrador.nombre_completo);
         this.identidad.setValue(this.administrador.identidad);
@@ -122,6 +127,16 @@ export class LoginadminComponent implements OnInit {
     this.getAdministradores();
   }
 
+  ngAfterViewInit(){
+    
+    // if(this.confirmarContrasenia.value != null){
+
+    //   this.confirmarContrasenia.setValidators(Validators.required);
+    //   this.confirmarContrasenia.updateValueAndValidity();
+    // }
+    
+  }
+
 
 
   // onKeydown(event) {
@@ -139,7 +154,7 @@ export class LoginadminComponent implements OnInit {
     if (this.loginadmin_form.valid) {
 
 
-      if (this.contraseniaC.value == this.contrasenia.value) {
+      // if (this.confirmarContrasenia.value == this.contraseniaNueva.value) {
 
         const dialogRef = this.dialogo.open(DialogoVerificarPermisoComponent, {
           disableClose: true,
@@ -153,12 +168,10 @@ export class LoginadminComponent implements OnInit {
           if (confirmacion) {
 
             if (this.editando) {
-              // this.disabledloginadmin = true;
 
-              // this.administrador.password = this.data.formulario.get('contraseniaC').value;
               this.administrador.id_administrador = this.id;
               this.administrador.usuario = this.usuario.value;
-              // this.administrador.password = this.contraseniaC.value;
+              this.administrador.password = this.confirmarContrasenia.value;
               this.administrador.nombre_completo = this.nombre.value;
               this.administrador.identidad = this.identidad.value;
 
@@ -174,19 +187,17 @@ export class LoginadminComponent implements OnInit {
               });
 
 
-
             } else {
 
-              if (this.contraseniaC.value == this.contrasenia.value) {
+              if (this.confirmarContrasenia.value == this.contraseniaNueva.value) {
 
                 this.administrador.usuario = this.usuario.value;
-                this.administrador.password = this.contrasenia.value;
+                this.administrador.password = this.contraseniaNueva.value;
                 this.administrador.nombre_completo = this.nombre.value;
                 this.administrador.identidad = this.identidad.value;
 
                 if (this.loginadmin_form.valid) {
 
-                  // this.disabledloginadmin = true;
 
                   this.login_adminservice.guardarAdministrador(this.administrador).subscribe((data) => {
 
@@ -217,12 +228,12 @@ export class LoginadminComponent implements OnInit {
           }
         });
 
-      } else {
+      // } else {
 
-        this.showError('La contraseña no coincide');
+      //   this.showError('La contraseña no coincide');
 
 
-      }
+      // }
 
     }
 
@@ -235,8 +246,9 @@ export class LoginadminComponent implements OnInit {
   }//fin del boton
 
   get usuario() { return this.loginadmin_form.get('usuario') };
-  get contrasenia() { return this.loginadmin_form.get('contrasenia') };
-  get contraseniaC() { return this.loginadmin_form.get('contraseniaC') };
+  get contraseniaActual() { return this.loginadmin_form.get('contraseniaActual') };
+  get contraseniaNueva() { return this.loginadmin_form.get('contraseniaNueva') };
+  get confirmarContrasenia() { return this.loginadmin_form.get('confirmarContrasenia') };
   get nombre() { return this.loginadmin_form.get('nombre') };
   get identidad() { return this.loginadmin_form.get('identidad') };
 
