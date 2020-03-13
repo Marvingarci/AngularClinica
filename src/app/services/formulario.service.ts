@@ -215,20 +215,23 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT + 'obtenerColumnaIdentidad/' + numero_identidad);
   }
 
-  
   obtenerAntecedentesFamiliares() {
     return this.httpClient.get(this.API_ENDPOINT + 'antecedentes_familiares');
   }
+ 
   
   obtenerEmergenciaPersona(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'telefonos_emergencia/' + id_paciente);
   }
   obtenerEmergenciaPersonas() {
     return this.httpClient.get(this.API_ENDPOINT + 'telefonos_emergencia/' );
-  }
+  }  
 
   obtenerAntecedenteFamiliar(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes_antecedentes_familiares/' + id_paciente);
+  }
+  obtenerDesnutricionAF(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerdesnutricionAF/' + id_paciente);
   }
 
 
@@ -359,6 +362,9 @@ export class FormularioService {
 
 eliminarEmergenciaPersona(id_paciente: any) {
   return this.httpClient.delete(this.API_ENDPOINT + 'telefonos_emergencia/' + id_paciente);
+}
+eliminarDesnutricionAF(id_paciente: any) {
+  return this.httpClient.delete(this.API_ENDPOINT + 'pacientes_antecedentes_familiares/' + id_paciente);
 }
 
 }

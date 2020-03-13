@@ -17,7 +17,7 @@ import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-est
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
-import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
+import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -177,6 +177,13 @@ const routes: Route[] = [
     TelefonoUnicoDirective,
     DialogoMedico,
     Borrartelefonoemergencia,
+    BorrarDesnutricionAF,
+    // DialogoVerificar,
+
+
+
+
+
     UsuarioAdminUnicoDirective,
     UsuarioMedicoUnicoDirective,
     FocusInvalidoInputDirective,
@@ -254,6 +261,9 @@ const routes: Route[] = [
     DialogoVerificarPermisoComponent,
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed,
+    BorrarDesnutricionAF,
+    // DialogoVerificar,
+    DialogoVerificarPermisoComponent
   ],
   providers: [
     {

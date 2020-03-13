@@ -721,8 +721,7 @@
     </div>
     
  <!-- disabled={{formulario_datos_generales.invalid}} -->
-    <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" 
-   
+    <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"    
     (click)="actualizarDatosGenerales(); ">
     {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
     </button>
@@ -807,298 +806,75 @@ style="margin-top: 10px;"
 
 
 
-<div *ngIf="readonlyAntecedentesFamiliares == false">
-  <!--asasas-->
+<div *ngIf="readonlyAntecedentesFamiliares == false"> 
 <form [formGroup]="formulario_antecedentes_familiares">
 
-  <div>
-  <label id="example-radio-group-label">1. Diabetes</label>
-  <mat-error style="margin-left: 0;" *ngIf="diabetes.hasError('required')">campo requerido!</mat-error>
 
-  <div class="row" style="margin-left: 0;"> 
-    <mat-radio-group formControlName= "diabetes" aria-labelledby="example-radio-group-label"  class="example-radio-group"  readonly="true">        
-    <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_diabetes])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp; &nbsp;    
-    <mat-radio-button value="No" (click)="borrarInputs([parentesco_diabetes])">No</mat-radio-button>
-    </mat-radio-group>   
+  <label id="example-radio-group-label">Desnutrición</label>
+  <div class="row">
 
-    &nbsp; &nbsp; &nbsp; &nbsp;                        
-
-    <mat-form-field>
-    <mat-label>Parentesco</mat-label>
-    <mat-select  formControlName= "parentesco_diabetes">
-    <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-    {{parentesco.viewValue}}
-    </mat-option>
-    </mat-select>
-    </mat-form-field>                  
-  </div>
-  </div>
-
-  <mat-divider></mat-divider>
-
-  <div>
-    <label id="example-radio-group-label">2. Tuberculosis Pulmonar</label>
-    <mat-error style="margin-left: 0;" *ngIf="tb_pulmonar.hasError('required')">campo requerido!</mat-error>
-    <div class="row" style="margin-left: 0;"> 
-      <mat-radio-group formControlName= "tb_pulmonar" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-      <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_tb_pulmonar])">Si</mat-radio-button> &nbsp; &nbsp; &nbsp; &nbsp;   
-      <mat-radio-button value="No" (click)="borrarInputs([parentesco_tb_pulmonar])">No</mat-radio-button>
-      </mat-radio-group>
-
-      &nbsp; &nbsp; &nbsp; &nbsp;  
-
-      <mat-form-field>
-      <mat-label>Parentesco</mat-label>
-      <mat-select formControlName= "parentesco_tb_pulmonar">
-      <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-      {{parentesco.viewValue}}
-      </mat-option>
-      </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <mat-divider></mat-divider>
-
-  <div> 
-    <label id="example-radio-group-label">3. Desnutrición</label>
-    <mat-error style="margin-left: 0;" *ngIf="desnutricion.hasError('required')">campo requerido</mat-error>
-    <div class="row" style="margin-left: 0;"> 
-      <mat-radio-group formControlName= "desnutricion" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-      <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_desnutricion, tipo_desnutricion])">Si</mat-radio-button> &nbsp; &nbsp; &nbsp; &nbsp;  
-      <mat-radio-button value="No" (click)="borrarInputs([parentesco_desnutricion, tipo_desnutricion])">No</mat-radio-button>
-      </mat-radio-group>
-
-      &nbsp; &nbsp; &nbsp; &nbsp; 
-
-      <mat-form-field>
-      <mat-label>Parentesco</mat-label>
-      <mat-select formControlName= "parentesco_desnutricion">
-      <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-      {{parentesco.viewValue}}
-      </mat-option>
-      </mat-select>
-      </mat-form-field>
-
-      &nbsp; &nbsp; &nbsp; &nbsp; 
-
-      <mat-form-field>
-      <mat-label>Tipo Desnutricion</mat-label>
-      <mat-select formControlName= "tipo_desnutricion">
-      <mat-option *ngFor="let desnutricion of desnutriciones" [value]="desnutricion.value">
-      {{desnutricion.viewValue}}
-      </mat-option>
-      </mat-select>
-      </mat-form-field>
-
-    </div>
-  </div>
-
-  <mat-divider></mat-divider>
-
-  <div>
-    <label id="example-radio-group-label">4. Enfermedades Mentales</label>
-    <mat-error style="margin-left: 0;" *ngIf="enfermedades_mentales.hasError('required')">campo requerido!</mat-error>
-    <div class="row" style="margin-left: 0;"> 
-      <mat-radio-group formControlName= "enfermedades_mentales" aria-labelledby="example-radio-group-label" class="example-radio-group">   
-      <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_enfermedades_mentales, tipo_enfermedad_mental])">Si
-      </mat-radio-button> &nbsp; &nbsp; &nbsp; &nbsp;   
-      <mat-radio-button value="No" (click)="borrarInputs([parentesco_enfermedades_mentales, tipo_enfermedad_mental])">No
-      </mat-radio-button>                      
-      </mat-radio-group>
-
-      &nbsp; &nbsp; &nbsp; &nbsp; 
-
-      <mat-form-field>
-      <mat-label>Parentesco</mat-label>
-      <mat-select formControlName= "parentesco_enfermedades_mentales" name="observacion_enfermedades_mentales">
-      <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-      {{parentesco.viewValue}}
-      </mat-option>
-      </mat-select>
-      </mat-form-field>
-
-      &nbsp; &nbsp; &nbsp; &nbsp; 
-
-      <mat-form-field>
-      <mat-label>Tipo Enfermedad Mental</mat-label>
-      <mat-select formControlName= "tipo_enfermedad_mental" name="enfermedad_mental">
-      <mat-option *ngFor="let enfermedad_mental of enfermedades_mentaless" [value]="enfermedad_mental.value">
-      {{enfermedad_mental.viewValue}}
-      </mat-option>
-      </mat-select>
-      </mat-form-field>
-
-    </div>
-  </div>
-
-  <mat-divider></mat-divider>
-
-  <div>
-    <label id="example-radio-group-label">5. Convulsiones</label>
-    <mat-error style="margin-left: 0;" *ngIf="convulsiones.hasError('required')">campo requerido</mat-error>
-    <div class="row" style="margin-left: 0;">
-      <mat-radio-group formControlName= "convulsiones" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-      <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_convulsiones])">Si</mat-radio-button> &nbsp; &nbsp; &nbsp; &nbsp;    
-      <mat-radio-button value="No" (click)="borrarInputs([parentesco_convulsiones])">No</mat-radio-button>
-      </mat-radio-group>
-
-      &nbsp; &nbsp; &nbsp; &nbsp; 
-
-      <mat-form-field>
-      <mat-label>Parentesco</mat-label>
-      <mat-select formControlName= "parentesco_convulsiones" >
-      <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-      {{parentesco.viewValue}}
-      </mat-option>
-      </mat-select>
-      </mat-form-field>
-
-    </div>
-  </div>
-
-  <mat-divider></mat-divider>
-
-  <div>
-    <label id="example-radio-group-label">6. Alcoholismo o Sustancias Psicoactivas</label>
-    <mat-error style="margin-left: 0;" *ngIf="alcoholismo_sustancias_psicoactivas.hasError('required')">campo requerido</mat-error>   
-    <div class="row" style="margin-left: 0;">
-      <mat-radio-group formControlName= "alcoholismo_sustancias_psicoactivas" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-      <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_alcoholismo_sustancias_psicoactivas])">Si</mat-radio-button> &nbsp; &nbsp; &nbsp; &nbsp;   
-      <mat-radio-button value="No" (click)="borrarInputs([parentesco_alcoholismo_sustancias_psicoactivas])">No</mat-radio-button>      
-      </mat-radio-group>
-
-      &nbsp; &nbsp; &nbsp; &nbsp; 
-
-      <mat-form-field>
-      <mat-label>Parentesco</mat-label>
-      <mat-select formControlName= "parentesco_alcoholismo_sustancias_psicoactivas">
-      <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-      {{parentesco.viewValue}}
-      </mat-option>
-      </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <mat-divider></mat-divider>
-
-  <div>
-      <label id="example-radio-group-label">7. Alergias</label>
-      <mat-error style="margin-left: 0;" *ngIf="alergias.hasError('required')">campo requerido</mat-error>
-    <div class="row" style="margin-left: 0;">
-      <mat-radio-group formControlName= "alergias" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-      <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_alergias, tipo_alergia])" >Si</mat-radio-button>  &nbsp; &nbsp; &nbsp; &nbsp;  
-      <mat-radio-button value="No" (click)="borrarInputs([parentesco_alergias, tipo_alergia])">No</mat-radio-button>
-
-      </mat-radio-group>
-
-      &nbsp; &nbsp; &nbsp; &nbsp; 
-
-      <mat-form-field>
-      <mat-label>Parentesco</mat-label>
-      <mat-select formControlName= "parentesco_alergias">
-      <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-      {{parentesco.viewValue}}
-      </mat-option>
-      </mat-select>
-      </mat-form-field>
-
-      &nbsp; &nbsp; &nbsp; &nbsp;
-
-      <mat-form-field>
-      <mat-label>Tipo Alergia</mat-label>
-      <mat-select formControlName= "tipo_alergia">
-      <mat-option *ngFor="let alergia of tipos_alergias" [value]="alergia.value" >
-      {{alergia.viewValue}}
-      </mat-option>
-      </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <mat-divider></mat-divider>
-
-  <div>
-      <label id="example-radio-group-label">8. Cáncer</label>
-      <mat-error style="margin-left: 0;" *ngIf="cancer.hasError('required')">campo requerido</mat-error> 
-    <div class="row" style="margin-left: 0;">
-
-      <mat-radio-group formControlName= "cancer" 
-      aria-labelledby="example-radio-group-label"
-      class="example-radio-group">        
-      <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_cancer, tipo_cancer])">Si</mat-radio-button>  &nbsp; &nbsp; &nbsp; &nbsp;  
-      <mat-radio-button value="No" (click)="borrarInputs([parentesco_cancer,tipo_cancer])">No</mat-radio-button>       
-      </mat-radio-group>
-
-      &nbsp; &nbsp; &nbsp; &nbsp;
-
-      <mat-form-field>
-      <mat-label>Parentesco</mat-label>
-      <mat-select formControlName= "parentesco_cancer">
-      <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-      {{parentesco.viewValue}}
-      </mat-option>
-      </mat-select>
-      </mat-form-field>
-
-      &nbsp; &nbsp; &nbsp; &nbsp;
-
-      <mat-form-field>
-      <mat-label>Tipo cáncer</mat-label>
-      <mat-select formControlName= "tipo_cancer">
-      <mat-option *ngFor="let cancer of canceres" [value]="cancer.value">
-      {{cancer.viewValue}}
-      </mat-option>
-      </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <mat-divider></mat-divider>
-
-  <div>
-      <label id="example-radio-group-label">9. Hipertensión arterial</label>
-      <mat-error style="margin-left: 0;" *ngIf="hipertension_arterial.hasError('required')">campo requerido</mat-error>
-    <div class="row" style="margin-left: 0;">
-
-      <mat-radio-group formControlName= "hipertension_arterial" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-      <mat-radio-button value="Si" (click)="habilitarInputs([parentesco_hipertension_arterial])">Si</mat-radio-button>  &nbsp; &nbsp; &nbsp; &nbsp; 
-      <mat-radio-button value="No" (click)="borrarInputs([parentesco_hipertension_arterial])">No</mat-radio-button>
-      </mat-radio-group>
-      &nbsp; &nbsp; &nbsp; &nbsp;
-
-      <mat-form-field>
-      <mat-label>Parentesco</mat-label>
-      <mat-select formControlName= "parentesco_hipertension_arterial">
-      <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-      {{parentesco.viewValue}}
-      </mat-option>
-      </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <mat-divider></mat-divider>
-
-  <div class="row" style="margin-left: 0;">
-    <mat-form-field>
-    <input matInput formControlName= "otros" placeholder="Otros">
-    <mat-error *ngIf="otros.hasError('maxlength')">campo muy extenso</mat-error>
-    <mat-error *ngIf="otros.hasError('minlength')">introduzca una observación válida</mat-error>          
+    <mat-form-field class="autocomplete">
+      <input matInput formControlName="tipo_desnutricion" placeholder="Tipo Desnutricion"
+        id="InputDesnutricion">
     </mat-form-field>
 
     &nbsp; &nbsp; &nbsp; &nbsp;
 
     <mat-form-field>
-    <mat-label>Parentesco</mat-label>
-    <mat-select formControlName= "parentesco_otros" name="observacion_otros">
-    <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-    {{parentesco.viewValue}}
-    </mat-option>
-    </mat-select>
+      <mat-label>Parentesco</mat-label>
+      <mat-select formControlName="parentesco_desnutricion" name="parentesco_desnutricion" multiple>
+        <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+          {{parentesco.viewValue}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+
+    &nbsp; &nbsp; &nbsp; &nbsp;
+
+    <button mat-raised-button (click)="agregarDesnutricionesAF();">agregar</button>
+
   </div>
+
+
+
+  <div class="row medium-width" style="margin-left: 0;">
+    <table mat-table [dataSource]="tablaDesnutricionAF" class="mat-elevation-z8 tabla" *ngIf="tablaDesnutricionAF != null"  >
+  
+      <ng-container matColumnDef="grupoenfermedad">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <a>eliminar</a>
+        <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="enfermedad">
+        <th mat-header-cell *matHeaderCellDef> Enfermedad </th>
+        <td mat-cell *matCellDef="let element"  > {{element.enfermedad}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="parentesco">
+        <th mat-header-cell *matHeaderCellDef> Parentesco </th>
+        <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+     </ng-container>
+
+      <ng-container matColumnDef="botones">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element;">
+          <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAF(element.id_enfermedad)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnasTablaDesnutricionAF"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnasTablaDesnutricionAF;"></tr>
+    </table>
+
+    </div>
+
+
 
   <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_antecedentes_familiares.invalid}}
   (click)="readonlyAntecedentesFamiliares = !readonlyAntecedentesFamiliares; actualizarAntecedentesFamiliares()">

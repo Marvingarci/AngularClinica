@@ -172,22 +172,20 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-
     // Add our fruit
     if ((value || '').trim()) {
       // this.telefonos_emergencia.push({ name: value.trim() });
       this.telefonos_emergencia.push(value.trim());
     }
-
     // Reset the input value
     if (input) {
       input.value = '';
     }
   }
 
+
   remove(telefono_emergencia): void {
     const index = this.telefonos_emergencia.indexOf(telefono_emergencia);
-
     if (index >= 0) {
       this.telefonos_emergencia.splice(index, 1);
     }
@@ -237,22 +235,12 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     categoria: new FormControl('', [Validators.required]),
     estado_civil: new FormControl('', Validators.required),
     seguro_medico: new FormControl('', Validators.required),
-
     numero_telefono: new FormControl('', {
       validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
-      asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]
-    }),
-
-
-    // numero_telefono: new FormControl('', {
-    //   validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
-    //   asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]}),
-
+      asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)] }),
     emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
     emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
   });
-
-
 
 
   formulario_antecedentes_familiares = new FormGroup({
@@ -371,21 +359,19 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   matcher = new MyErrorStateMatcher();
 
+
+
   habilitarInputs(formControl: FormControl[]) {
     formControl.forEach(controlador => {
       controlador.enable({ onlySelf: true });
 
       if (controlador.parent == this.formulario_antecedentes_familiares) {
-
         controlador.setValidators(Validators.required);
-
         //este metodo sirve para actualizar el valor y las validaciones de un controlador.
         controlador.updateValueAndValidity();
-
       }
 
       if (controlador.parent == this.formulario_antecedentes_personales) {
-
         if (this.tipo_desnutricion_ap == controlador ||
           this.tipo_enfermedad_mental_ap == controlador ||
           this.tipo_alergia_ap == controlador ||
@@ -396,21 +382,15 @@ export class FormularioComponent implements OnInit, AfterViewInit {
           this.tratamiento == controlador) {
 
           controlador.setValidators(Validators.required);
-
           //este metodo sirve para actualizar el valor y las validaciones de un controlador.
           controlador.updateValueAndValidity();
-
         }
-
       }
-
-
     });
-
-    //muestra solo el step que le manda
-    // this.eliminarLabelStep(4);
-
   }
+
+
+
 
   borrarInputs(formControl: FormControl[]) {
     formControl.forEach(controlador => {
@@ -418,80 +398,51 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       controlador.disable({ onlySelf: true });
 
       if (controlador.parent == this.formulario_antecedentes_familiares) {
-
         //elimino todas la validaciones que tenga el controlador
         controlador.clearValidators();
         controlador.updateValueAndValidity();
-
       }
-
     });
-
   }
+
+
 
 
   mostrarCamposDesnutricionAF() {
-
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposDesnutricionAF').style.display = "block";
-
-  }
+    document.getElementById('divAgregarTiposDesnutricionAF').style.display = "block";}
 
   mostrarCamposEnfermedadesMentalesAF() {
-
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposEnfermedadesMentalesAF').style.display = "block";
-
-  }
+    document.getElementById('divAgregarTiposEnfermedadesMentalesAF').style.display = "block";}
 
   mostrarCamposAlergiasAF() {
-
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposAlergiasAF').style.display = "block";
-
-  }
+    document.getElementById('divAgregarTiposAlergiasAF').style.display = "block";}
 
   mostrarCamposCancerAF() {
-
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposCancerAF').style.display = "block";
-
-  }
+    document.getElementById('divAgregarTiposCancerAF').style.display = "block";}
 
   mostrarCamposDesnutricionAP() {
-
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposDesnutricionAP').style.display = "block";
-
-  }
+    document.getElementById('divAgregarTiposDesnutricionAP').style.display = "block";}
 
   mostrarCamposEnfermedadesMentalesAP() {
-
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposEnfermedadesMentalesAP').style.display = "block";
-
-  }
+    document.getElementById('divAgregarTiposEnfermedadesMentalesAP').style.display = "block";}
 
   mostrarCamposAlergiasAP() {
-
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposAlergiasAP').style.display = "block";
-
-  }
+    document.getElementById('divAgregarTiposAlergiasAP').style.display = "block";}
 
   mostrarCamposCancerAP() {
-
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposCanceresAP').style.display = "block";
-
-  }
+    document.getElementById('divAgregarTiposCanceresAP').style.display = "block";}
 
   mostrarCamposHospitalariasQuirurgicas() {
-
     //muestro el contenido de este div si el usuario hace click en "si"
-    document.getElementById('divAgregarTiposHospitalariasQ').style.display = "block";
-
-  }
+    document.getElementById('divAgregarTiposHospitalariasQ').style.display = "block";}
 
 
 
@@ -499,111 +450,61 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
   ocultarCamposDesnutricionAF() {
-
     //oculto el contenido de este div si el usuario hace click en "no" y establezco
     // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
     // limpio la tablaDesnutriciones para que quede en blanco.
-
+    //ESTE LO HAGO EN TODOS LAS FUNCIONES DE OCULTAR
     document.getElementById('divAgregarTiposDesnutricionAF').style.display = "none";
     this.dataSourceTablaDesnutricionesAF = null;
     this.tablaDesnutricionesAF = [];
-
   }
 
   ocultarCamposEnfermedadesMentalesAF() {
-
-    //oculto el contenido de este div si el usuario hace click en "no" y establezco
-    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
-    // limpio la tablaDesnutriciones para que quede en blanco.
-
     document.getElementById('divAgregarTiposEnfermedadesMentalesAF').style.display = "none";
     this.dataSourceTablaEnfermedadesMentalesAF = null;
     this.tablaEnfermedadesMentalesAF = [];
-
   }
 
   ocultarCamposAlergiasAF() {
-
-    //oculto el contenido de este div si el usuario hace click en "no" y establezco
-    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
-    // limpio la tablaDesnutriciones para que quede en blanco.
-
     document.getElementById('divAgregarTiposAlergiasAF').style.display = "none";
     this.dataSourceTablaAlergiasAF = null;
     this.tablaAlergiasAF = [];
-
   }
 
   ocultarCamposCancerAF() {
-
-    //oculto el contenido de este div si el usuario hace click en "no" y establezco
-    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
-    // limpio la tablaDesnutriciones para que quede en blanco.
-
     document.getElementById('divAgregarTiposCancerAF').style.display = "none";
     this.dataSourceTablaCanceresAF = null;
     this.tablaCanceresAF = [];
-
   }
 
   ocultarCamposDesnutricionAP() {
-
-    //oculto el contenido de este div si el usuario hace click en "no" y establezco
-    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
-    // limpio la tablaDesnutriciones para que quede en blanco.
-
     document.getElementById('divAgregarTiposDesnutricionAP').style.display = "none";
     this.dataSourceTablaDesnutricionesAP = null;
     this.tablaDesnutricionesAP = [];
-
   }
 
   ocultarCamposEnfermedadesMentalesAP() {
-
-    //oculto el contenido de este div si el usuario hace click en "no" y establezco
-    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
-    // limpio la tablaDesnutriciones para que quede en blanco.
-
     document.getElementById('divAgregarTiposEnfermedadesMentalesAP').style.display = "none";
     this.dataSourceTablaEnfermedadesMentalesAP = null;
     this.tablaEnfermedadesMentalesAP = [];
-
   }
 
   ocultarCamposAlergiasAP() {
-
-    //oculto el contenido de este div si el usuario hace click en "no" y establezco
-    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
-    // limpio la tablaDesnutriciones para que quede en blanco.
-
     document.getElementById('divAgregarTiposAlergiasAP').style.display = "none";
     this.dataSourceTablaAlergiasAP = null;
     this.tablaAlergiasAP = [];
-
   }
 
   ocultarCamposCancerAP() {
-
-    //oculto el contenido de este div si el usuario hace click en "no" y establezco
-    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
-    // limpio la tablaDesnutriciones para que quede en blanco.
-
     document.getElementById('divAgregarTiposCanceresAP').style.display = "none";
     this.dataSourceTablaCanceresAP = null;
     this.tablaCanceresAP = [];
-
   }
 
   ocultarCamposHospitalariaQuirurgica() {
-
-    //oculto el contenido de este div si el usuario hace click en "no" y establezco
-    // el datasource de la tabla en null para que no se muestre la tabla html, y por ultimo
-    // limpio la tablaDesnutriciones para que quede en blanco.
-
     document.getElementById('divAgregarTiposHospitalariasQ').style.display = "none";
     this.dataSourceTablaHospitalariasQuirurgicas = null;
     this.tablaHospitalariasQuirurgicas = [];
-
   }
 
 
@@ -617,11 +518,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   read15 = true;
   isDisabledB25 = true;
   input15: string = '';
-
   ocultar: boolean = true;
   ocultar1: boolean = true;
-
-
   mostrarLabelDatosGenerales: boolean = false;
 
 
@@ -642,10 +540,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       controlador.setValue('');
       controlador.disable({ onlySelf: true });
     });
-
     if (this.sexo.value == "Hombre") {
       this.ocultar1 = true;
-
     } else {
       this.ocultar1 = true;
     }
@@ -680,7 +576,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.agregarHospitalariasQuirurgicas();
       this.agregarOtrosAP();
     }
-
   }
 
 
@@ -695,39 +590,14 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   //muestra solo el step que le manda
   mostrarLabelStep(index: number) {
     let elementos: any = document.getElementsByClassName('mat-step-label');
-
     for (let i = 0; i < elementos.length; i++) {
       const element: any = elementos[i];
-
       element.style.display = "none";
       console.log(element);
     }
     console.log(index);
-
     elementos[index].style.display = "";
-
   }
-
-  // mostrarLabelStep(index: number){
-  //   let elementos: any = document.getElementsByClassName('mat-step-label');
-
-  //   for (let i = 0; i < elementos.length; i++) {
-  //     var element: any = elementos[i];
-
-  //     if(index == i){
-  //       element.style.display= "none";
-  //     }else{
-  //       element = document.getElementsByClassName('mat-step-label')[index];
-  //       element.style.display= "none";
-  //     }
-
-  //     console.log(element);
-  //   }
-  //   console.log(index);
-
-  //   elementos[index].style.display = "";
-
-  // }
 
 
   des = true;
@@ -762,7 +632,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     this.ingreso2 = null;
     this.des2 = true;
   }
-
   Mostrar3() {
     this.des3 = false;
   }
@@ -790,11 +659,9 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   };
 
   telefono_emergencia: TelefonoEmergencia = {
-
     id_paciente: null,
     telefono_emergencia: null,
     emergencia_persona: null,
-
   }
 
   enfermedad: Element = {
@@ -814,7 +681,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     id_parentesco: null,
   };
 
-
   paciente_antecedente_personal: PacienteAntecedentePersonal = {
     id_paciente: null,
     id_enfermedad: null,
@@ -822,21 +688,17 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   }
 
   paciente_habito_toxicologico: PacienteHabitoToxicologico = {
-
     id_paciente: null,
     id_habito_toxicologico: null,
     observacion: null,
-
   }
 
   paciente_hospitalaria_quirurgica: PacienteHospitalariaQuirurgica = {
-
     id_paciente: null,
     fecha: null,
     tiempo_hospitalizacion: null,
     diagnostico: null,
     tratamiento: null,
-
   }
 
 
@@ -1033,18 +895,9 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     private IdentidadUnicoService: IdentidadUnicoService) {
     // this.obtenerDatosFormulario();
     this.getDatosScraping();
-
-
     this.loginService.obtenerUltimoId().subscribe((data: any) => {
       console.log(data[0].ultimoId);
     });
-
-
-    // this.enfermedadesFiltradas = this.tipo_enfermedad_mental.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filtro(value))
-    // );
-
   }
 
 
@@ -1054,13 +907,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     }
   }
 
-
-
   // para que se le quite la cosa fea al text area
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
 
   ngAfterViewInit(): void {
-
 
     this.mostrarLabelStep(0);
 
@@ -1069,7 +919,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     element.addEventListener('click', function (e) {
       console.log('se toco el select');
     })
-
 
     this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedadesDesnutricion, this.tipo_desnutricion);
     this.autocomplete(document.getElementById('InputEnfermedadAF'), this.enfermedadesMentales, this.tipo_enfermedad_mental);
@@ -1080,12 +929,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     this.autocomplete(document.getElementById('inputAlergiaAP'), this.enfermedadesAlergias, this.tipo_alergia_ap);
     this.autocomplete(document.getElementById('InputCancerAP'), this.enfermedadesCancer, this.tipo_cancer_ap);
     this.autocomplete(document.getElementById('inputOtrosHT'), this.habitosToxicologicos, this.otros_ht);
-
-
-
-
-
-
   }
 
 
@@ -1186,112 +1029,88 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       }
 
     }
-
     /*execute a function when someone clicks in the document:*/
     document.addEventListener("click", function (e) {
       closeAllLists(e.target);
     });
   }
 
-  ngOnInit() {
 
+
+
+
+
+  ngOnInit() {
     this.obtenerDatosFormulario();
     this.getDatosScraping();
     this.esAlumno = this.formulario.esAlumno;
+    }
 
 
-  }
 
 
   obtenerDatosFormulario() {
 
     this.formularioService.obtenerParentescos().subscribe((data: any[]) => {
-
       data.forEach(element => {
         this.parentescos.push({ value: element.id_parentesco, viewValue: element.parentesco });
       });
-
     });
 
     this.formularioService.obtenerEstadosCiviles().subscribe((data: any[]) => {
-
       data.forEach(element => {
         this.estados_civiles.push({ value: element.id_estado_civil, viewValue: element.estado_civil });
       });
-
     });
 
     this.formularioService.obtenerSegurosMedicos().subscribe((data: any[]) => {
-
       data.forEach(element => {
         this.seguros_medicos.push({ value: element.id_seguro_medico, viewValue: element.seguro_medico });
       });
-
     });
 
     this.formularioService.obtenerPracticasSexuales().subscribe((data: any[]) => {
-
       data.forEach(element => {
         this.practicas_sexuales.push({ value: element.id_practica_sexual, viewValue: element.practicas_sexuales_riesgo });
       });
-
     });
 
     this.formularioService.obtenerMetodosPlanificaciones().subscribe((data: any[]) => {
-
       data.forEach(element => {
         this.metodos.push({ value: element.id_metodo_planificacion, viewValue: element.metodo_planificacion });
       });
-
     });
 
     this.formularioService.obtenerColumnaEnfermedades(1).subscribe((data: any[]) => {
-
       data.forEach(element => {
-
         this.enfermedadesDesnutricion.push(element.enfermedad);
-
       });
     });
 
     this.formularioService.obtenerColumnaEnfermedades(2).subscribe((data: any[]) => {
-
       data.forEach(element => {
-
         this.enfermedadesMentales.push(element.enfermedad);
-
       });
     });
 
     this.formularioService.obtenerColumnaEnfermedades(3).subscribe((data: any[]) => {
-
       data.forEach(element => {
-
         this.enfermedadesAlergias.push(element.enfermedad);
-
       });
     });
 
     this.formularioService.obtenerColumnaEnfermedades(4).subscribe((data: any[]) => {
-
       data.forEach(element => {
-
-        this.enfermedadesCancer.push(element.enfermedad);
-
+      this.enfermedadesCancer.push(element.enfermedad);
       });
     });
 
 
     this.formularioService.obtenerColumnaHabitoToxicologico().subscribe((data: any[]) => {
-
       data.forEach(element => {
-
         this.habitosToxicologicos.push(element.habito_toxicologico);
-
       });
     });
-
-
 
   }
 
@@ -1299,23 +1118,21 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
   modificaciones() {
-
     if (this.esAlumno == false) {
       this.numero_cuenta.valid;
       this.numero_identidad.valid;
-
     }
   }
 
-  getDatosScraping() {
 
+
+
+  getDatosScraping() {
     this.formularioService.getScrap().subscribe((data: Login) => {
       this.datosScraping = data;
-
       console.log(this.maxDate);
 
       if (this.esAlumno === true) {
-
         // si el paciente es un alumno 
         //establesco el valor a los formcontrol recuperados del scrapping
         // para que se visualizen en los respectivos inputs
@@ -1324,12 +1141,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.numero_identidad.setValue(this.datosScraping.numero_identidad);
         this.carrera.setValue(this.datosScraping.carrera);
         this.categoria.setValue(3);
-
       } else {
         //si el paciente no es un alumno
         //establesco el valor por defecto a los formcontrol que no pertenecen a un
         //paciente normal y les establesco un valor por defecto
-
         var numAleatorio: string;
         numAleatorio = '2' + Math.floor(Math.random() * 10000000000);
         console.log(numAleatorio);
@@ -1337,9 +1152,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.numero_cuenta.setValue(numAleatorio);
       }
 
-
       console.log(this.datosScraping);
-
 
       //Obtencion de Paciente ultimo paciente regitrado
       this.formularioService.getUltimoID().subscribe((data) => {
@@ -1351,26 +1164,20 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
         if (this.esAlumno == false) {
-
           this.datosScraping.password = null;
           this.datosScraping.nombre = null;
           this.datosScraping.carrera = null;
           this.datosScraping.numero_identidad = null;
           this.datosScraping.imagen = null;
-
         }
         var numero = 1;
         console.log(this.resultado[0].ultimoId);
         this.datosScraping.id_login = parseInt(this.resultado[0].ultimoId) + numero;
         console.log(this.datosScraping.id_login);
 
-
       }, (error) => {
         console.log(error);
       });
-
-
-
 
       console.log(this.datosScraping);
     },
@@ -1378,38 +1185,26 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         console.log(error),
           alert('ocurrio un error');
       });
-
-
   }
 
-  agregarOtros() {
 
+
+
+  agregarOtros() {
     if (this.otros.value.toString().trim() && this.otros.valid && this.parentesco_otros.value) {
       var stringParentesco: string = "";
 
-
-
       if (this.parentesco_otros.value.length == 1) {
-
         //le establezco a la variable stringParentesco el valor en string del arreglo parentesco
         // en donde el index es igual a el valor que se guarda en el formControl menos 1
         stringParentesco = this.parentescos[this.parentesco_otros.value[0] - 1].viewValue;
-
       } else {
-
         this.parentesco_otros.value.forEach(element => {
-
           element = this.parentescos[element - 1].viewValue;
-
           stringParentesco += element + " ";
         });
 
         stringParentesco = stringParentesco.trim();
-        // var parentescosVarios: string[] = stringParentesco.trim().split(' ');
-
-        // console.log(parentescosVarios);
-
-
       }
 
 
@@ -1418,9 +1213,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
           numero: this.tablaOtrosAF.length + 1,
           enfermedad: this.otros.value,
           parentesco: stringParentesco,
-
         }
-
       );
 
       this.dataSourceTablaOtrosAF = new MatTableDataSource(this.tablaOtrosAF);
@@ -1429,9 +1222,13 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.parentesco_otros.setValue('');
 
     }
-
-
   }
+
+
+
+
+
+
 
   eliminarOtros(index) {
     //borro el elemento de la tabla estableciendo el index.
@@ -1451,35 +1248,20 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   }
 
   agregarDesnutricionesAF() {
-
-
     if (this.tipo_desnutricion.value && this.tipo_desnutricion.valid && this.parentesco_desnutricion.value) {
-
       var stringParentesco: string = "";
-
       // comparo si solo se selecciono un valor en el select de parentesco_desnutricion
       if (this.parentesco_desnutricion.value.length == 1) {
-
         stringParentesco = this.parentescos[this.parentesco_desnutricion.value[0] - 1].viewValue;
-
-
       } else {
-
         this.parentesco_desnutricion.value.forEach(element => {
-
-          element = this.parentescos[element - 1].viewValue;
-
-
-          //si se selecciono mas de un valor del select de parentesco_desnutricion
-          //los guardo cada uno en una variable de tipo string y los separo con un espacio.
-          stringParentesco += element + " ";
+        element = this.parentescos[element - 1].viewValue;
+        //si se selecciono mas de un valor del select de parentesco_desnutricion
+        //los guardo cada uno en una variable de tipo string y los separo con un espacio.
+        stringParentesco += element + " ";
         });
-
-        //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
+       //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
         stringParentesco = stringParentesco.trim();
-
-
-
       }
 
       //agrego a la tabla el parentesco y el tipo de desnutricion.
@@ -1488,31 +1270,24 @@ export class FormularioComponent implements OnInit, AfterViewInit {
           numero: this.tablaDesnutricionesAF.length + 1,
           enfermedad: this.tipo_desnutricion.value,
           parentesco: stringParentesco,
-
         }
-
       );
 
       this.dataSourceTablaDesnutricionesAF = new MatTableDataSource(this.tablaDesnutricionesAF);
-
       this.tipo_desnutricion.setValue('');
       this.parentesco_desnutricion.setValue('');
-
-      //si se agrega un elemento a la tabla entonces los campos
+     //si se agrega un elemento a la tabla entonces los campos
       //tipo desnutricion y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
       this.tipo_desnutricion.clearValidators();
       this.tipo_desnutricion.updateValueAndValidity();
-
       this.parentesco_desnutricion.clearValidators();
       this.parentesco_desnutricion.updateValueAndValidity();
-
-
     }
-
-
-
-
   }
+
+
+
+
 
   eliminarDesnutriciones(index) {
     //borro el elemento de la tabla estableciendo el index.
@@ -2718,7 +2493,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
                 // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
                 // de la interfaz de enfermedad.
                 this.enfermedad.enfermedad = element.enfermedad;
-                this.enfermedad.id_grupo_enfermedad = 3;
+                this.enfermedad.id_grupo_enfermedad = 4;
 
 
                 this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
@@ -2777,7 +2552,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
               }
 
             }
-          } else {
+} else {
 
             //guardo el valor del controlador del parentesco y lo guardo en una variable de tipo any
             // ahora el select como es multiple me devuelve un arreglo

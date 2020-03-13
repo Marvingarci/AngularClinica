@@ -5,7 +5,7 @@ import { Paciente } from "../interfaces/paciente";
 import { MatMonthView } from '@angular/material/datepicker';
 import { AppComponent } from '../app.component';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { select, Parentescos, MyErrorStateMatcher } from '../formulario/formulario.component';
+import { select,  MyErrorStateMatcher, antecedentesPersonales, habitosToxicologicos } from '../formulario/formulario.component';
 import { AntecedentesFamiliares } from '../interfaces/antecedentes-familiares';
 import { MatTableDataSource, MatSidenav, MatDialog, MatSnackBar, MatDialogRef, MatSnackBarConfig, SimpleSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { AntecedentesPersonales } from '../interfaces/antecedentes-personales';
@@ -22,9 +22,24 @@ import { Cita } from '../interfaces/Cita';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { TelefonoEmergencia } from '../interfaces/telefono-emergencia';
+import { DesnutricionAF } from '../interfaces/desnutricionAF';
+import { Login } from '../interfaces/login';
 
 
+export interface Element {
 
+  numero: number;
+  enfermedad?: string;
+  id_grupo_enfermedad?: number
+  observacion?: string;
+  parentesco?: any;
+  habito_toxicologico?: string;
+
+}
+export interface Parentescos {
+  value: number;
+  viewValue: string;
+}
 export interface Select {
   value: string;
   viewValue: string;
@@ -58,13 +73,7 @@ export interface MetodoPlanificacion{
   viewValue: string;
 }
 
-export interface Element{
-  antecedente: string;
-  valor: string;
-  tipo?: string;
-  parentesco?: string;
-  observacion?: string;
-}
+
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -94,6 +103,17 @@ export interface cita1{
   remitido?:any,
   fechayHora?:any
 }
+
+
+export interface antecedentesFamiliares {
+
+  antecedente: number;
+  parentesco: number;
+
+}
+
+
+
 
 
 
@@ -390,6 +410,15 @@ ocultar: boolean = true;
     categoria: null,
   }
 
+  datosScraping: Login = {
+    cuenta: null,
+    password: null,
+    nombre: null,
+    carrera: null,
+    centro: null,
+    numero_identidad: null,
+  }
+
   telefono_Emergencias: TelefonoEmergencia = {
     id_telefono_emergencia:null,
     id_paciente:null,
@@ -428,7 +457,15 @@ ocultar: boolean = true;
     id_paciente : null
   };
 
+  desnutricionAF: DesnutricionAF={
+    enfermedad : null,
+    parentesco:null
+  }
+
   ante_familiar: any;
+  ante_familiardesnutricionAF:any;
+  
+  
 
 
   ante_familiar_filtrado:familiar[] ;
@@ -519,12 +556,39 @@ ocultar: boolean = true;
     id_paciente : null  
   };
 
+  enfermedad: Element = {
+    numero: null,
+    enfermedad: null,
+    parentesco: null,
+    id_grupo_enfermedad: null,
+  }
+  
+  paciente_antecedente_familiar: PacienteAntecedenteFamiliar = {
+    id_paciente: null,
+    id_enfermedad: null,
+    id_parentesco: null,
+  };
+
+  // creo estos arreglos de los cuales extraigo el valor de cada elemento y lo mando a la tabla de la base de datos respectiva
+  // estos arreglos son de los controladores del formulario.
+
+  antecedentesF: antecedentesFamiliares[];
+  antecedentesP: antecedentesPersonales[];
+  habitosT: habitosToxicologicos[];
+
   //creo un arreglo de la interfaz en donde voy a mostrar los datos de la tabla
   tablaAntecedentesFamiliares: any;
   tablaAntecedentesPersonales: any;
   tablaHabitosToxicologicos: any;
   tablaTelefonosEmergencia: any;
-  tablaTelefonosEmergenciaActualizar: TelefonoEmergencia[] = [];
+  tablaDesnutricionAF:any;
+  tablaDesnutricionesAF: Element[] = [];
+
+  
+ 
+
+ 
+
   
   dataSourceTablaTelefonosEmergenciaActualizar: any;
 
@@ -534,6 +598,7 @@ ocultar: boolean = true;
   columnastablaHabitosToxicologicos: string[] = ['habito_toxicologico', 'observacion'];
   columnasTablaEmergenciaPersona:string[] = ['persona','telefono'];
   columnasTablaTelefonosEmergencia: string[] = ['numero', 'nombre', 'telefono', 'botones'];
+  columnasTablaDesnutricionAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
 
   //date picker
   minDate = new Date(1950, 0, 1);
@@ -548,18 +613,6 @@ ocultar: boolean = true;
 
   dataSourceTablaTelefonosEmergencia:any;
 
-  //sexos: Sexos[] = [
-    //{value: 1, viewValue: 'Hombre'},
-    //{value: 2, viewValue: 'Mujer'},
-    //{value: 3, viewValue: 'Otro'}
-  //];
-
-  /*seguros_medicos: SegurosMedicos[] = [
-    {value: 1, viewValue: 'Privado'},
-    {value: 2, viewValue: 'IHSS'},
-    {value: 3, viewValue: 'No'}
-  ];*/
-
   seguros_medicos: SegurosMedicos[]=[];
 
   sexos: Sexos[] = [
@@ -570,12 +623,14 @@ ocultar: boolean = true;
 
   estados_civiles: EstadosCiviles[] = [];
 
-  parentescos: select[] = [
-    {value: 'Padre' , viewValue: 'Padre'},
-    {value: 'Madre' , viewValue: 'Madre'},
-    {value: 'Abuelos' , viewValue: 'Abuelos'},
-    {value: 'Tios' , viewValue: 'Tios'},
-  ];
+  // parentescos: select[] = [
+  //   {value: 'Padre' , viewValue: 'Padre'},
+  //   {value: 'Madre' , viewValue: 'Madre'},
+  //   {value: 'Abuelos' , viewValue: 'Abuelos'},
+  //   {value: 'Tios' , viewValue: 'Tios'},
+  // ];
+
+  parentescos: Parentescos[] = [];
 
   desnutriciones: select[] = [
     {value: 'Obecidad' , viewValue: 'Obecidad'},
@@ -642,6 +697,7 @@ ocultar: boolean = true;
   // a traer todos los datos respectivos desde la api
   pacientes: Paciente[]; 
   antecedentes_familiares: AntecedentesFamiliares[];
+  desnutricion_AF: DesnutricionAF[];
   antecedentes_personales: AntecedentesPersonales[];
   habitos_toxicologicos: HabitosToxicologicosPersonales[];
   
@@ -668,6 +724,13 @@ ocultar: boolean = true;
   mostrarAntecedenteGinecologico: boolean = false;
   mostrarAntecedenteObstetrico: boolean = false;
   mostrarPlanificacionFamiliar: boolean = false;  
+
+    // myControl = new FormControl();
+    enfermedadesDesnutricion: string[] = [];
+    enfermedadesMentales: string[] = [];
+    enfermedadesAlergias: string[] = [];
+    enfermedadesCancer: string[] = [];
+    habitosToxicologicos: string[] = [];
 
 
 constructor(private formularioService: FormularioService, private mensaje: MatSnackBar, public dialog: MatDialog,  private activatedRoute: ActivatedRoute, 
@@ -712,29 +775,12 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
   
 
 
-      this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
-        this.ante_familiar = data;      
-       
-       for (let index = 0; index < this.ante_familiar.length; index++) {
-         switch (this.ante_familiar[index].antecedente) {
-           case "Convulsiones":             
-             break;         
-           default:
-             break;
-         }         
-       }
-        //cargo los datos de la tabla antecedentes familiares y telefonos emergencia
-        this.cargarTablaAntecedentesFamiliares();   
-        //establesco el valor a los formcontrol para que se visualizen
-        //en los respectivos inputs de los antecedentes familiares
-        this.cargarInformacionAntecedentesFamiliares();        
-        console.log(this.ante_familiar);
-      }, (error)=>{
-        console.log(error);
-      });
+     
 
       //obtener los datos de los servicios de la api
       this.cargarEmergenciaPersonaYa();
+      this.cargarAntecedentesFamiliares();
+      this.cargarDesnnutricionAF();
 
 
 
@@ -829,10 +875,14 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       });
 
    }
- }//fin del constructor
+ }                      //FIN DEL CONSTRUCTOR
+
+
+
+
+
 
  cargarEmergenciaPersonaYa(){
-
   this.formularioService.obtenerEmergenciaPersona(this.id).subscribe((data: TelefonoEmergencia[])=>{
     this.tel_emergencia = data;        
     //cargo los datos de la tabla antecedentes personales
@@ -844,47 +894,58 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     });      
  }
 
+ cargarAntecedentesFamiliares(){
+  this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
+    this.ante_familiar = data;    
+   
+   for (let index = 0; index < this.ante_familiar.length; index++) {
+     switch (this.ante_familiar[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+
+    //cargo los datos de la tabla antecedentes familiares y telefonos emergencia
+    this.cargarTablaAntecedentesFamiliares();   
+    this.cargarTablaDesnutricionAF();
+    //establesco el valor a los formcontrol para que se visualizen
+    //en los respectivos inputs de los antecedentes familiares
+    this.cargarInformacionAntecedentesFamiliares();        
+    console.log(this.ante_familiar);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarDesnnutricionAF(){
+  this.formularioService.obtenerDesnutricionAF(this.id).subscribe((data: DesnutricionAF)=>{  
+    this.ante_familiardesnutricionAF = data;     
+   for (let index = 0; index < this.ante_familiardesnutricionAF.length; index++) {
+     switch (this.ante_familiardesnutricionAF[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaDesnutricionAF();     
+    console.log(this.ante_familiardesnutricionAF);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+
+
 
 
 
 
  
 
- obtenerDatosFormulario(){
 
-  this.formularioService.obtenerEstadosCiviles().subscribe((data: any[])=>{
-
-    data.forEach(element => {
-      this.estados_civiles.push({value:element.id_estado_civil, viewValue:element.estado_civil});  
-    });
-  
-  });
-
-  this.formularioService.obtenerSegurosMedicos().subscribe((data: any[])=>{
-
-    data.forEach(element => {
-      this.seguros_medicos.push({value:element.id_seguro_medico, viewValue:element.seguro_medico});  
-    });
-  
-  });
-
-  this.formularioService.obtenerPracticasSexuales().subscribe((data: any[])=>{
-
-    data.forEach(element => {
-      this.practicas_sexuales.push({value:element.id_practica_sexual, viewValue:element.practicas_sexuales_riesgo});  
-    });
-  
-  });
-
-  this.formularioService.obtenerMetodosPlanificaciones().subscribe((data: any[])=>{
-
-    data.forEach(element => {
-      this.metodos.push({value:element.id_metodo_planificacion, viewValue:element.metodo_planificacion});  
-    });
-  
-  });
-
-  }
 
  
  @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
@@ -992,10 +1053,141 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.emergencia_persona.setValue('');
       this.emergencia_telefono.setValue('');
 
-        this.cargarEmergenciaPersonaYa();
-      
+        this.cargarEmergenciaPersonaYa();      
   }
 
+  agregarDesnutricionesAF() {
+    if (this.tipo_desnutricion.value && this.tipo_desnutricion.valid && this.parentesco_desnutricion.value) {
+      var stringParentesco: string = "";
+      // comparo si solo se selecciono un valor en el select de parentesco_desnutricion
+      if (this.parentesco_desnutricion.value.length == 1) {
+        stringParentesco = this.parentescos[this.parentesco_desnutricion.value[0] - 1].viewValue;
+      } else {
+        this.parentesco_desnutricion.value.forEach(element => {
+        element = this.parentescos[element - 1].viewValue;
+        //si se selecciono mas de un valor del select de parentesco_desnutricion
+        //los guardo cada uno en una variable de tipo string y los separo con un espacio.
+        stringParentesco += element + " ";
+        });
+       //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
+        stringParentesco = stringParentesco.trim();
+      }
+
+      //agrego a la tabla el parentesco y el tipo de desnutricion.
+      this.tablaDesnutricionesAF.push(
+        {
+          numero: this.tablaDesnutricionesAF.length + 1,
+          enfermedad: this.tipo_desnutricion.value,
+          parentesco: stringParentesco,
+        }
+      );
+
+      this.tipo_desnutricion.setValue('');
+      this.parentesco_desnutricion.setValue('');  
+    }
+    this.guardarDesnutricionesAF();
+  }// fin del boton agregardesnutricionAF
+
+  guardarDesnutricionesAF(){
+    
+  this.antecedentesF = [    
+    {
+      antecedente: this.desnutricion.value,
+      parentesco: this.parentesco_desnutricion.value
+    },
+  ];
+
+  var parentescos: any;
+  var stringParentescos: string[];
+  var NumeroParentesco: number;
+  var id_antecedente: number;
+  for (let index = 0; index < this.antecedentesF.length; index++) {
+    const element = this.antecedentesF[index];
+    if (element.antecedente != 0) {
+
+      console.log('valor del elemento: ' + element.antecedente);
+      this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
+
+  if (element.antecedente == 9) {
+    if (this.tablaDesnutricionesAF.length) {
+      for (let index = 0; index < this.tablaDesnutricionesAF.length; index++) {
+        console.log('que pedos alli');
+        const element = this.tablaDesnutricionesAF[index];
+        // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+        // de la interfaz de enfermedad.
+        this.enfermedad.enfermedad = element.enfermedad;
+        this.enfermedad.id_grupo_enfermedad = 1;
+        this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
+          // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_tipo_enfermedad
+          // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
+          this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
+         console.log("ultimo antecedente: " + data[0].id_enfermedad);
+          // separo el string de parentesco que se guarda en la tabla
+          // y lo convierto en un arreglo.
+          stringParentescos = element.parentesco.split(' ');
+          console.log(stringParentescos);
+          // comparo cada string del arreglo de parentesco que se recupera de la tabla
+          // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
+          stringParentescos.forEach(element => {
+            switch (element) {
+              case 'Padre':
+                NumeroParentesco = 1;
+                break;
+              case 'Madre':
+                NumeroParentesco = 2;
+                break;
+              case 'Tios':
+                NumeroParentesco = 3;
+                break;
+              case 'Abuelos':
+                NumeroParentesco = 4;
+                break;
+              default:
+                NumeroParentesco = 5;
+                break;
+            }
+            // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
+            // para ser enviado a la base de datos.
+            this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+            //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+            this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
+              console.log('se enviaron perron los nuevos antecedentes');
+            }, (error) => {
+              console.log(error);
+            });
+          });
+        });
+      }
+    }
+  }else {
+
+    //guardo el valor del controlador del parentesco y lo guardo en una variable de tipo any
+    // ahora el select como es multiple me devuelve un arreglo
+    this.paciente_antecedente_familiar.id_enfermedad = element.antecedente;
+    parentescos = element.parentesco;
+
+
+    // por cada vuelta que de el ciclo se hará un registro en la tabla pacientes_antecedentes_familiares,
+    // siendo cada registro un antecedente de los antecedentes familiares y su parentesco
+    // si el antecedente tiene mas de un 1 parentesco entonces se insertara varias veces el mismo antecedente
+    // con los diferentes parentesco.
+    parentescos.forEach(parentesco => {
+
+      //establezco el valor del arreglo en el atributo id_parentesco de la interfaz paciente_antecedente_familiar.
+      this.paciente_antecedente_familiar.id_parentesco = parentesco;
+
+      this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
+        console.log('se envio perron la prueba');
+      }, (error) => {
+        console.log(error);
+      });
+
+    });
+  }
+
+  }
+}
+}
  
 
   eliminarTelefonosEmergencia(id) {
@@ -1007,6 +1199,18 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
     dialogRef.afterClosed().subscribe(result => {
       this.cargarEmergenciaPersonaYa();
+    });
+  }
+
+  eliminarDesnutricionAF(id) {
+    const dialogRef = this.dialog.open(BorrarDesnutricionAF, {
+      disableClose: true,
+      panelClass: 'borrar',
+      data: id
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.cargarDesnnutricionAF();
     });
   }
 
@@ -1237,6 +1441,70 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
   ngOnInit() {
     this.obtenerDatosFormulario();
   }
+  obtenerDatosFormulario() {
+
+    this.formularioService.obtenerParentescos().subscribe((data: any[]) => {
+      data.forEach(element => {
+        this.parentescos.push({ value: element.id_parentesco, viewValue: element.parentesco });
+      });
+    });
+
+    this.formularioService.obtenerEstadosCiviles().subscribe((data: any[]) => {
+      data.forEach(element => {
+        this.estados_civiles.push({ value: element.id_estado_civil, viewValue: element.estado_civil });
+      });
+    });
+
+    this.formularioService.obtenerSegurosMedicos().subscribe((data: any[]) => {
+      data.forEach(element => {
+        this.seguros_medicos.push({ value: element.id_seguro_medico, viewValue: element.seguro_medico });
+      });
+    });
+
+    this.formularioService.obtenerPracticasSexuales().subscribe((data: any[]) => {
+      data.forEach(element => {
+        this.practicas_sexuales.push({ value: element.id_practica_sexual, viewValue: element.practicas_sexuales_riesgo });
+      });
+    });
+
+    this.formularioService.obtenerMetodosPlanificaciones().subscribe((data: any[]) => {
+      data.forEach(element => {
+        this.metodos.push({ value: element.id_metodo_planificacion, viewValue: element.metodo_planificacion });
+      });
+    });
+
+    this.formularioService.obtenerColumnaEnfermedades(1).subscribe((data: any[]) => {
+      data.forEach(element => {
+        this.enfermedadesDesnutricion.push(element.enfermedad);
+      });
+    });
+
+    this.formularioService.obtenerColumnaEnfermedades(2).subscribe((data: any[]) => {
+      data.forEach(element => {
+        this.enfermedadesMentales.push(element.enfermedad);
+      });
+    });
+
+    this.formularioService.obtenerColumnaEnfermedades(3).subscribe((data: any[]) => {
+      data.forEach(element => {
+        this.enfermedadesAlergias.push(element.enfermedad);
+      });
+    });
+
+    this.formularioService.obtenerColumnaEnfermedades(4).subscribe((data: any[]) => {
+      data.forEach(element => {
+      this.enfermedadesCancer.push(element.enfermedad);
+      });
+    });
+
+
+    this.formularioService.obtenerColumnaHabitoToxicologico().subscribe((data: any[]) => {
+      data.forEach(element => {
+        this.habitosToxicologicos.push(element.habito_toxicologico);
+      });
+    });
+
+  }
 
   
   
@@ -1254,12 +1522,16 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
 
 cargarTablaAntecedentesFamiliares(){
-    // establesco los valores a el arreglo de interfaces "tablaAntecedentesFamiliares"
-    
+    // establesco los valores a el arreglo de interfaces "tablaAntecedentesFamiliares"    
     this.tablaAntecedentesFamiliares = new MatTableDataSource(this.ante_familiar);
-    // verifico si otro tiene un valor para poder agregarlo a la tabla
-    
+    // verifico si otro tiene un valor para poder agregarlo a la tabla    
   }
+
+  cargarTablaDesnutricionAF(){
+    this.tablaDesnutricionAF = new MatTableDataSource(this.ante_familiardesnutricionAF);
+  }
+
+
 
   cargarTablaAntecedentesPersonales(){
     // establesco los valores a el arreglo de interfaces "tablaAntecedentesPersonales"
@@ -2130,6 +2402,9 @@ export class HistoriaSubsiguiente1{
   seleccion = 0;
   maximoMedicamento : number = 2;
   minDate = new Date();
+
+
+  
   
 
 
@@ -2344,6 +2619,8 @@ export class HistoriaSubsiguiente1{
 }
 
 
+
+
 @Component({
   selector: 'borrartelefonoemergencia',
   templateUrl: 'dialog-borrar-telefono-emergencia.html',
@@ -2355,8 +2632,10 @@ export class Borrartelefonoemergencia implements OnDestroy {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any){ 
+
       console.log(this.data);
     }
+
     tablaTelefonosEmergencia: any;
     tel_emergencia:any;
     id:any;
@@ -2370,8 +2649,10 @@ export class Borrartelefonoemergencia implements OnDestroy {
         console.log(this.tel_emergencia);      
         }, (error)=>{
           console.log(error);
-        });      
+        });    
+        this.cargarTablaEmergenciaPersona(); 
      }
+
      cargarTablaEmergenciaPersona(){     
       this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);    
     } 
@@ -2382,14 +2663,13 @@ export class Borrartelefonoemergencia implements OnDestroy {
   }
 
  
-  Borraremergenciapersona() {
-    if (this.data != 1) {
+  BorrarRegistro() {
+    if (this.data != 0) {
      this.formularioService.eliminarEmergenciaPersona(this.data).subscribe((data) => {
-        this.showError('Administrador eliminado correctamente');
-        
+        this.showError('Registro eliminado correctamente');        
       });
     } else {
-      this.showError('El administrador no puede ser borrado');
+      this.showError('El Registro no puede ser eliminado');
     }
     
   }
@@ -2403,5 +2683,91 @@ export class Borrartelefonoemergencia implements OnDestroy {
 
   ngOnDestroy(): void {
     this.cargarEmergenciaPersonaYa();
+  }
+} 
+
+
+
+@Component({
+  selector: 'borrartelefonoemergencia',
+  templateUrl: 'dialog-borrar-telefono-emergencia.html',
+})
+
+export class BorrarDesnutricionAF implements OnDestroy {
+
+  constructor(public dialogRef: MatDialogRef<BorrarDesnutricionAF>,
+    private formularioService: FormularioService,
+    private mensaje: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any){ 
+
+      console.log(this.data);
+      this.cargarDesnnutricionAF();
+    }
+
+    
+    ante_familiardesnutricionAF:any;
+    tablaDesnutricionAF:any;
+    id:any;
+
+    cargarDesnnutricionAF(){
+      this.formularioService.obtenerDesnutricionAF(this.id).subscribe((data: DesnutricionAF)=>{  
+        this.ante_familiardesnutricionAF = data;  
+        
+       
+       for (let index = 0; index < this.ante_familiardesnutricionAF.length; index++) {
+         switch (this.ante_familiardesnutricionAF[index].antecedente) {
+           case "Convulsiones":             
+             break;         
+           default:
+             break;
+         }         
+       }
+    
+        //cargo los datos de la tabla antecedentes familiares y telefonos emergencia
+       
+        this.cargarTablaDesnutricionAF();
+        //establesco el valor a los formcontrol para que se visualizen
+        //en los respectivos inputs de los antecedentes familiares
+              
+        console.log(this.ante_familiardesnutricionAF);
+      }, (error)=>{
+        console.log(error);
+      });
+     }
+
+     cargarTablaEmergenciaPersona(){     
+      this.tablaDesnutricionAF = new MatTableDataSource(this.ante_familiardesnutricionAF);    
+    } 
+
+
+  salir(): void {
+    this.dialogRef.close();
+  }
+
+ 
+  BorrarRegistro() {
+    if (this.data != 0) {
+     this.formularioService.eliminarDesnutricionAF(this.data).subscribe((data) => {
+      this.showError('Registro eliminado correctamente');        
+   
+      });
+    } else {
+      this.showError('El Registro no puede ser eliminado');
+    }
+    
+  }
+
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+
+  ngOnDestroy(): void {
+    this.cargarDesnnutricionAF();
+  }
+  cargarTablaDesnutricionAF(){
+    this.tablaDesnutricionAF = new MatTableDataSource(this.ante_familiardesnutricionAF);
   }
 } 
