@@ -79,6 +79,7 @@ export class VerAdministradoresComponent implements OnInit {
   }
 
   getMedicos() {
+
     this.medicoService.obtenerMedicos().subscribe((data: Medicos[]) => {
       this.medicos = data;
       this.medicos = this.medicos.filter(medico => medico);
@@ -87,6 +88,7 @@ export class VerAdministradoresComponent implements OnInit {
       console.log(error);
       alert('Ocurrio un error');
     });
+    
   }
 
 
