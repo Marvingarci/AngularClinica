@@ -78,8 +78,6 @@ import { FocusInvalidoInputDirective } from './focus/focus-invalido-input.direct
 import { ChartsModule } from 'ng2-charts';
 import { IdentidadUnicaDirective } from './validations/identidad-unica.directive';
 import { DialogoVerificarPermisoComponent } from './dialogo-verificar-permiso/dialogo-verificar-permiso.component';
-import { CambiarContraseniaComponent } from './cambiar-contrasenia/cambiar-contrasenia.component';
-import { EditarAdministradorComponent } from './editar-administrador/editar-administrador.component';
 
     
 
@@ -184,8 +182,6 @@ const routes: Route[] = [
     FocusInvalidoInputDirective,
     IdentidadUnicaDirective,
     DialogoVerificarPermisoComponent,
-    CambiarContraseniaComponent,
-    EditarAdministradorComponent,
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed
   
