@@ -8,6 +8,7 @@ import { Medicos } from '../interfaces/medicos';
 })
 export class MedicosService {
   idActualizar: number;
+  datosMedico: any;
   datasourceService: any;
   API_ENDPOINT = 'http://127.0.0.1:8000/api'
 
@@ -32,7 +33,7 @@ export class MedicosService {
 
   actualizarMedico(medicos: Medicos){
     const headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.put(this.API_ENDPOINT+'/medicos/'+medicos.id_medico,medicos,{headers:headers});
+    return this.httpClient.put(this.API_ENDPOINT+'/medicos/'+medicos.id_medico, medicos,{headers:headers});
   }
   
   borrarMedico(id){      
