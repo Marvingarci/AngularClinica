@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { PrincipalComponent, DialogContentExampleDialog1, DialogCerrarSesion2 } from './principal/principal.component';
-import { LoginadminComponent, /*DialogoVerificar*/ } from './loginadmin/loginadmin.component';
+import { LoginadminComponent, DialogoCambiarContraseniaAdmin, /*DialogoVerificar*/ } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
 import { DatoPacienteComponent, cambiocontraDialog, actualizarcontraDialog, DialogCerrarSesion, verificarDialog } from './dato-paciente/dato-paciente.component';
@@ -51,13 +51,14 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { PaseAdminComponent } from './pase-admin/pase-admin.component';
 import { VerAdministradoresComponent, Borraradministrador, DialogoMedico } from './ver-administradores/ver-administradores.component';
 import { MatBadgeModule } from '@angular/material/badge';
-import { RegistromedicosComponent } from './registromedicos/registromedicos.component';
+import { RegistromedicosComponent, DialogoCambiarContraseniaMed } from './registromedicos/registromedicos.component';
 import { Principal1Component } from './principal1/principal1.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ConsolidadodiarioComponent } from './consolidadodiario/consolidadodiario.component';
 import { TelefonoUnicoDirective } from './validations/telefono-unico.directive';
 import { MatChipsModule } from '@angular/material/chips';
 import { DateAdapter,  MAT_DATE_LOCALE } from '@angular/material';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -78,6 +79,7 @@ import { ChartsModule } from 'ng2-charts';
 import { IdentidadUnicaDirective } from './validations/identidad-unica.directive';
 import { DialogoVerificarPermisoComponent } from './dialogo-verificar-permiso/dialogo-verificar-permiso.component';
 import { CambiarContraseniaComponent } from './cambiar-contrasenia/cambiar-contrasenia.component';
+import { EditarAdministradorComponent } from './editar-administrador/editar-administrador.component';
 
     
 
@@ -132,6 +134,7 @@ const routes: Route[] = [
       { path: 'verPaciente/:id', component: VerPacienteComponent },
       { path: 'formulario', component: FormularioComponent },
       { path: 'consolidado', component: ConsolidadodiarioComponent },
+      // { path: 'editar_administrador/:id', component: EditarAdministradorComponent },
       // {path: 'verPaciente', component: VerPacienteComponent},
 
     ]
@@ -176,18 +179,15 @@ const routes: Route[] = [
     TelefonoUnicoDirective,
     DialogoMedico,
     Borrartelefonoemergencia,
-    // DialogoVerificar,
-
-
-
-
-
     UsuarioAdminUnicoDirective,
     UsuarioMedicoUnicoDirective,
     FocusInvalidoInputDirective,
     IdentidadUnicaDirective,
     DialogoVerificarPermisoComponent,
     CambiarContraseniaComponent,
+    EditarAdministradorComponent,
+    DialogoCambiarContraseniaAdmin,
+    DialogoCambiarContraseniaMed
   
 
 
@@ -233,7 +233,8 @@ const routes: Route[] = [
     MatAutocompleteModule,
     MatChipsModule,
     MatDatepickerModule, 
-    ChartsModule
+    ChartsModule,
+    MatCheckboxModule
     
     
 
@@ -254,7 +255,9 @@ const routes: Route[] = [
     DialogCerrarSesion2,
     DialogoMedico,
     Borrartelefonoemergencia,
-    DialogoVerificarPermisoComponent
+    DialogoVerificarPermisoComponent,
+    DialogoCambiarContraseniaAdmin,
+    DialogoCambiarContraseniaMed,
   ],
   providers: [
     {
