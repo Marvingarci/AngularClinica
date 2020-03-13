@@ -1,0 +1,78 @@
+<h2 mat-dialog-title disableClose>Cambiar contraseña</h2>
+
+<mat-dialog-content class="mat-typography">
+
+    <form [formGroup]="cambiarContraForm">
+
+
+        <mat-form-field>
+            <input matInput placeholder="Ingrese la contraseña actual" formControlName="contraseniaActual"
+                [type]="esconderContraActual ? 'password' : 'text'" required>
+            <mat-label> <b>Contraseña actual</b> </mat-label>
+            <button mat-icon-button matSuffix (click)="esconderContraActual = !esconderContraActual"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="esconderContraActual">
+                <mat-icon>{{esconderContraActual ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="contraseniaActual.hasError('required')">
+                <strong>Campo requerido</strong>
+            </mat-error>
+            <mat-error *ngIf="contraseniaActual.hasError('minLength') && contraseniaActual.hasError('maxLength')">
+                <strong>Contraseña invalida</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field>
+            <input matInput placeholder="Ingrese la nueva contraseña" formControlName="contraseniaNueva"
+                [type]="esconderContraNueva ? 'password' : 'text'" required>
+            <mat-label> <b>Nueva contraseña</b> </mat-label>
+            <button mat-icon-button matSuffix (click)="esconderContraNueva = !esconderContraNueva"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="esconderContraNueva">
+                <mat-icon>{{esconderContraNueva ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="contraseniaNueva.hasError('required')">
+                <strong>Campo requerido</strong>
+            </mat-error>
+            <mat-error *ngIf="contraseniaNueva.hasError('minLength') && contraseniaNueva.hasError('maxLength')">
+                <strong>Contraseña invalida</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field>
+            <input matInput placeholder="Ingrese la contraseña actual" formControlName="confirmarContrasenia"
+                [type]="esconderContraConfirmada ? 'password' : 'text'" required>
+            <mat-label> <b>Confirmar la nueva contraseña</b> </mat-label>
+            <button mat-icon-button matSuffix (click)="esconderContraConfirmada = !esconderContraConfirmada"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="esconderContraConfirmada">
+                <mat-icon>{{esconderContraConfirmada ? 'visibility_off ' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="confirmarContrasenia.hasError('required')">
+                <strong>Campo requerido</strong>
+            </mat-error>
+            <mat-error *ngIf="confirmarContrasenia.hasError('minLength') && confirmarContrasenia.hasError('maxLength')">
+                <strong>Contraseña invalida</strong>
+            </mat-error>
+        </mat-form-field>
+
+
+
+    </form>
+
+
+</mat-dialog-content>
+
+
+<mat-dialog-actions align='end'>
+
+    <button mat-button (click)="salir()" class="btn-danger" style="outline:none;display:block;">
+        cancelar
+    </button>
+    <button mat-button (click)="cambiarContra()" class="botonperron" cdkFocusInitial
+        style="outline:none;display:block;">
+        guardar
+    </button>
+
+</mat-dialog-actions>
