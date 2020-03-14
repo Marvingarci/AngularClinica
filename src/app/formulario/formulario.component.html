@@ -566,14 +566,11 @@
           <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAF">
 
             <mat-form-field class="autocomplete">
-
               <input matInput formControlName="tipo_desnutricion" placeholder="Tipo Desnutricion"
                 id="InputDesnutricion">
               <mat-error style="margin-left: 0;" *ngIf="tipo_desnutricion.hasError('required')">
                 !campo requerido!
               </mat-error>
-
-
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -588,16 +585,12 @@
               <mat-error style="margin-left: 0;" *ngIf="parentesco_desnutricion.hasError('required')">
                 !campo requerido!
               </mat-error>
-
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
             <button mat-raised-button (click)="agregarDesnutricionesAF();">agregar</button>
-
           </div>
-
-
         </div>
 
         <div class="row medium-width" style="margin-left: 0;">
