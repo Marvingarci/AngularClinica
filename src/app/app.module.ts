@@ -21,7 +21,7 @@ import { VerPacienteComponent, HistoriaSubsiguiente1, CambiarFoto, Borrartelefon
 //import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+//import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { InventarioComponent } from './inventario/inventario.component';
 import { FormInventarioComponent } from './form-inventario/form-inventario.component';
 
@@ -239,7 +239,8 @@ const routes: Route[] = [
     MatChipsModule,
     MatDatepickerModule, 
     ChartsModule,
-    WebcamModule
+    WebcamModule,
+    
     
     
 
@@ -270,7 +271,8 @@ const routes: Route[] = [
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
+    CambiarFoto
   ],
   bootstrap: [AppComponent]
 })

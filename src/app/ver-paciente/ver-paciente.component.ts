@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input, OnDestroy, Inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormularioService } from "../services/formulario.service";
 import { Paciente } from "../interfaces/paciente";
@@ -7,7 +7,7 @@ import { AppComponent } from '../app.component';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { select, Parentescos, MyErrorStateMatcher } from '../formulario/formulario.component';
 import { AntecedentesFamiliares } from '../interfaces/antecedentes-familiares';
-import { MatTableDataSource, MatSidenav, MatDialog, MatSnackBar, MatDialogRef, MatSnackBarConfig, SimpleSnackBar, MAT_DIALOG_DATA } from '@angular/material';
+import { MatTableDataSource, MatSidenav, MatDialog, MatSnackBar, MatDialogRef, MatSnackBarConfig, SimpleSnackBar, MAT_DIALOG_DATA, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
 import { AntecedentesPersonales } from '../interfaces/antecedentes-personales';
 import { ThrowStmt, analyzeAndValidateNgModules } from '@angular/compiler';
 import { HabitosToxicologicosPersonales } from '../interfaces/habitos-toxicologicos-personales';
@@ -684,6 +684,10 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
     
+    
+    
+    
+    
    if(this.id){
       this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) =>{
         this.paciente = data;
@@ -808,7 +812,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       console.log(error);
       });
 
-
+      this.paciente.imagen = this.inven.imagenactual;
 
       this.formularioService.obtenerAntecedenteObstetrico(this.id).subscribe((data: AntecedentesObstetricos)=>{
         this.antecedente_obstetrico = data;
@@ -858,7 +862,9 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
 
 
-
+actualizarfoto(){
+  this.paciente.imagen = this.inven.imagenactual;
+}
 
  
 
@@ -2300,7 +2306,8 @@ export class HistoriaSubsiguiente1{
       this.citaGuardar.observaciones=this.observaciones_examen.value;
       this.citaGuardar.remitido=this.remitira.value;
       this.citaGuardar.siguiente_cita= this.fecha_nacimiento.value;
-      this.citaGuardar.nombre= this.medicamento.value;
+      //this.citaGuardar.nombre= this.medicamento.value;
+      this.citaGuardar.nombre= this.nombre.value;
 
       
 
@@ -2360,7 +2367,10 @@ export class HistoriaSubsiguiente1{
   
 }
 
-
+export interface imagenNueva{
+  id: number,
+  imagen : string
+}
 /////// MATDIALOG cambiar foto
 @Component({
   selector: 'CambiarFoto',
@@ -2370,6 +2380,9 @@ export class HistoriaSubsiguiente1{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
   }]
 })
+
+
+@Injectable()
 
 export class CambiarFoto {
 
@@ -2387,7 +2400,7 @@ export class CambiarFoto {
     public errors: WebcamInitError[] = [];
     public mirrorImage: 'never';
     paciente : Paciente;
-
+    NuevaImagen: any={id_paciente:null, imagen:null};
     // latest snapshot
     public webcamImage: WebcamImage = null;
     opcion: boolean = true;
@@ -2440,25 +2453,29 @@ export class CambiarFoto {
       this.imagen = this.webcamImage.imageAsDataUrl;
       console.log(this.imagen);
       
-      this.formulario.obtenerPaciente(this.id).subscribe( (data: Paciente) =>{
-           this.paciente = data;
-           console.log(this.paciente);
-          this.paciente.imagen = this.imagen;
-            this.formulario.actualizarPaciente(this.paciente).subscribe( (data) =>{
-                 console.log('imagen guardado con exito');
-               }, (error) => {
-                 console.log(error);
-               });
+      // this.formulario.obtenerPaciente(this.id).subscribe( (data: Paciente) =>{
+      //      this.paciente = data;
+      //      console.log(this.paciente);
+      //     this.paciente.imagen = this.imagen;
+      //       this.formulario.actualizarPaciente(this.paciente).subscribe( (data) =>{
+      //            console.log('imagen guardado con exito');
+      //          }, (error) => {
+      //            console.log(error);
+      //          });
 
-         }, (error) => {
-           console.log(error);
-         });
-
-      // this.servicio.ActualizarImagen(this.id, this.imagen).subscribe( (data) =>{
-      //   console.log('imagen guardado con exito');
-      // }, (error) => {
-      //   console.log(error);
-      // });
+      //    }, (error) => {
+      //      console.log(error);
+      //    });
+      
+      this.NuevaImagen.id_paciente = this.id;
+      this.NuevaImagen.imagen = this.imagen;
+      this.servicio.ActualizarImagen(this.NuevaImagen).subscribe( (data) =>{
+         console.log('imagen guardado con exito');
+         this.servicio.imagenactual = this.imagen;
+         //this.verPaciente.actualizarfoto();
+       }, (error) => {
+         console.log(error);
+       });
     }
   
     public handleImage(webcamImage: WebcamImage): void {

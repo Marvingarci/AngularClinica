@@ -8,6 +8,7 @@ import { Cita } from "../interfaces/Cita";
 })
 export class InventariosService {
   idCita: any;
+  imagenactual: string;
   API_ENDPOINT = 'http://127.0.0.1:8000/api'
   getInventario(id_inventario: any){
     return this.httpClient.get(this.API_ENDPOINT+'/inventarios/'+id_inventario);
@@ -47,10 +48,10 @@ export class InventariosService {
     const headers = new HttpHeaders({'Content-Type':'application/json'});
     return this.httpClient.post(this.API_ENDPOINT+'/medicamentos/egreso',medicamento,{headers:headers});
   }
-  ActualizarImagen(id_paciente: any, imagen: any){
+  ActualizarImagen(datos){
     
     const headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.post(this.API_ENDPOINT+'/pacientes/actualizarImagen',[id_paciente, imagen], {headers:headers});
+    return this.httpClient.post(this.API_ENDPOINT+'/pacientes/actualizarImagen',datos, {headers:headers});
   }
 
 }
