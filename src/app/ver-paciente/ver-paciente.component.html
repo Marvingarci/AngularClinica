@@ -807,33 +807,60 @@ style="margin-top: 10px;"
 
 
 <div *ngIf="readonlyAntecedentesFamiliares == false"> 
-<form [formGroup]="formulario_antecedentes_familiares">
+  <form [formGroup]="formulario_antecedentes_familiares" >
+  <label id="example-radio-group-label">3. Desnutrición</label>
+  <mat-error style="margin-left: 0;" *ngIf="desnutricion.hasError('required')">campo requerido</mat-error>
 
-
-  <label id="example-radio-group-label">Desnutrición</label>
-  <div class="row">
-
-    <mat-form-field class="autocomplete">
-      <input matInput formControlName="tipo_desnutricion" placeholder="Tipo Desnutricion"
-        id="InputDesnutricion">
-    </mat-form-field>
-
-    &nbsp; &nbsp; &nbsp; &nbsp;
-
-    <mat-form-field>
-      <mat-label>Parentesco</mat-label>
-      <mat-select formControlName="parentesco_desnutricion" name="parentesco_desnutricion" multiple>
-        <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-          {{parentesco.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="row" style="margin-left: 0;">
+    <mat-radio-group formControlName="desnutricion" aria-labelledby="example-radio-group-label"
+      class="example-radio-group">
+      <mat-radio-button value={{9}} (click)="habilitarInputs([parentesco_desnutricion,tipo_desnutricion]);
+                mostrarCamposDesnutricionAF()">Si</mat-radio-button>&nbsp;&nbsp;&nbsp;
+      <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_desnutricion,tipo_desnutricion]); 
+              ocultarCamposDesnutricionAF()">No</mat-radio-button>
+    </mat-radio-group>
 
     &nbsp; &nbsp; &nbsp; &nbsp;
 
-    <button mat-raised-button (click)="agregarDesnutricionesAF();">agregar</button>
+    <!--el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
+    <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAF">
 
+      <mat-form-field class="autocomplete">
+        <input matInput formControlName="tipo_desnutricion" placeholder="Tipo Desnutricion"
+          id="InputDesnutricion">
+        <mat-error style="margin-left: 0;" *ngIf="tipo_desnutricion.hasError('required')">
+          !campo requerido!
+        </mat-error>
+      </mat-form-field>
+
+      &nbsp; &nbsp; &nbsp; &nbsp;
+
+      <mat-form-field>
+        <mat-label>Parentesco</mat-label>
+        <mat-select formControlName="parentesco_desnutricion" name="parentesco_desnutricion" multiple>
+          <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+            {{parentesco.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error style="margin-left: 0;" *ngIf="parentesco_desnutricion.hasError('required')">
+          !campo requerido!
+        </mat-error>
+      </mat-form-field>
+
+      &nbsp; &nbsp; &nbsp; &nbsp;
+
+      <button mat-raised-button (click)="agregarDesnutricionesAF();">agregar</button>
+    </div>
   </div>
+</form>
+
+
+
+
+
+
+
+
 
 
 
@@ -880,7 +907,7 @@ style="margin-top: 10px;"
   (click)="readonlyAntecedentesFamiliares = !readonlyAntecedentesFamiliares; actualizarAntecedentesFamiliares()">
   {{!readonlyAntecedentesFamiliares ? 'Guardar' : 'Editar'}}
   </button>
-</form>
+
 </div>
 </mat-expansion-panel>
 
