@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { PrincipalComponent, DialogContentExampleDialog1, DialogCerrarSesion2 } from './principal/principal.component';
-import { LoginadminComponent, /*DialogoVerificar*/ } from './loginadmin/loginadmin.component';
+import { LoginadminComponent, DialogoCambiarContraseniaAdmin, /*DialogoVerificar*/ } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
 import { DatoPacienteComponent, cambiocontraDialog, actualizarcontraDialog, DialogCerrarSesion, verificarDialog } from './dato-paciente/dato-paciente.component';
@@ -17,8 +17,9 @@ import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-est
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
-import { VerPacienteComponent, HistoriaSubsiguiente1, CambiarFoto, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
+import { VerPacienteComponent, HistoriaSubsiguiente1, CambiarFoto, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
 //import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
+//import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 //import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -52,13 +53,14 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { PaseAdminComponent } from './pase-admin/pase-admin.component';
 import { VerAdministradoresComponent, Borraradministrador, DialogoMedico } from './ver-administradores/ver-administradores.component';
 import { MatBadgeModule } from '@angular/material/badge';
-import { RegistromedicosComponent } from './registromedicos/registromedicos.component';
+import { RegistromedicosComponent, DialogoCambiarContraseniaMed } from './registromedicos/registromedicos.component';
 import { Principal1Component } from './principal1/principal1.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ConsolidadodiarioComponent } from './consolidadodiario/consolidadodiario.component';
 import { TelefonoUnicoDirective } from './validations/telefono-unico.directive';
 import { MatChipsModule } from '@angular/material/chips';
 import { DateAdapter,  MAT_DATE_LOCALE } from '@angular/material';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -78,7 +80,6 @@ import { FocusInvalidoInputDirective } from './focus/focus-invalido-input.direct
 import { ChartsModule } from 'ng2-charts';
 import { IdentidadUnicaDirective } from './validations/identidad-unica.directive';
 import { DialogoVerificarPermisoComponent } from './dialogo-verificar-permiso/dialogo-verificar-permiso.component';
-import { CambiarContraseniaComponent } from './cambiar-contrasenia/cambiar-contrasenia.component';
 
 //Camara
 import {WebcamModule} from 'ngx-webcam';
@@ -135,6 +136,7 @@ const routes: Route[] = [
       { path: 'verPaciente/:id', component: VerPacienteComponent },
       { path: 'formulario', component: FormularioComponent },
       { path: 'consolidado', component: ConsolidadodiarioComponent },
+      // { path: 'editar_administrador/:id', component: EditarAdministradorComponent },
       // {path: 'verPaciente', component: VerPacienteComponent},
 
 
@@ -180,6 +182,7 @@ const routes: Route[] = [
     TelefonoUnicoDirective,
     DialogoMedico,
     Borrartelefonoemergencia,
+    BorrarDesnutricionAF,
     // DialogoVerificar,
 
 
@@ -193,6 +196,8 @@ const routes: Route[] = [
     DialogoVerificarPermisoComponent,
     CambiarFoto,
     CambiarContraseniaComponent,
+    DialogoCambiarContraseniaAdmin,
+    DialogoCambiarContraseniaMed
   
 
 
@@ -241,6 +246,7 @@ const routes: Route[] = [
     ChartsModule,
     WebcamModule,
     
+    MatCheckboxModule
     
     
 
@@ -264,6 +270,11 @@ const routes: Route[] = [
     DialogoVerificarPermisoComponent,
     CambiarFoto,
     Borrartelefonoemergencia,
+    DialogoVerificarPermisoComponent,
+    DialogoCambiarContraseniaAdmin,
+    DialogoCambiarContraseniaMed,
+    BorrarDesnutricionAF,
+    // DialogoVerificar,
     DialogoVerificarPermisoComponent
   ],
   providers: [

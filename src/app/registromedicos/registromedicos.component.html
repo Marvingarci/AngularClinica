@@ -2,7 +2,7 @@
   <form id="form" [formGroup]="medicos_form">
     <mat-card style="margin-top: 15px;" [class.mat-elevation-z5]="true">
       <div class="titulo">
-        <h2>Registro Médicos</h2>
+        <h2>Registro Médico</h2>
       </div>
 
       <mat-form-field class="example-full-width" appearance="outline">
@@ -18,39 +18,45 @@
         <mat-error *ngIf="usuario.hasError('usuarioMedicoUnico')">El usuario pertenece a otra persona</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput (keydown)="onKeydown($event)" placeholder="Ingrese la contraseña" formControlName="contrasenia"
-          [type]="hide1 ? 'text' : 'password'" required>
-        <mat-hint align="end">{{contrasenia.value.length}} / 6</mat-hint>
-        <mat-label> <b>Contraseña</b> </mat-label>
-        <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide1">
-          <mat-icon>{{hide1 ? 'visibility' : 'visibility_off '}}</mat-icon>
-        </button>
-        <mat-error *ngIf="contrasenia.hasError('required')">
-          <strong>ingrese la contrasenia</strong>
-        </mat-error>
-        <mat-error *ngIf="contrasenia.hasError('minLength') && contrasenia.hasError('maxLength')">
-          <strong>contrasenia invalida</strong>
-        </mat-error>
-      </mat-form-field>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput (keydown)="onKeydown($event)" placeholder="Reescriba la contraseña anterior"
-          formControlName="contraseniaC" [type]="hide ? 'password' : 'text'" required>
-        <mat-hint align="end">{{contraseniaC.value.length}} / 6</mat-hint>
-        <mat-label> <b>Confirmación de contraseña</b> </mat-label>
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-        <mat-error *ngIf="contraseniaC.hasError('required')">
-          <strong>Confirme la contrasenia</strong>
-        </mat-error>
-        <mat-error *ngIf="contraseniaC.hasError('minLength') && contraseniaC.hasError('maxLength')">
-          <strong>contrasenia no confirmada</strong>
-        </mat-error>
-      </mat-form-field>
+      <div *ngIf="!editando">
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <input matInput (keydown)="onKeydown($event)" placeholder="Ingrese la contraseña"
+            formControlName="contrasenia" [type]="hide1 ? 'text' : 'password'" required>
+          <mat-hint align="end">{{contrasenia.value.length}} / 6</mat-hint>
+          <mat-label> <b>Contraseña</b> </mat-label>
+          <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide1">
+            <mat-icon>{{hide1 ? 'visibility' : 'visibility_off '}}</mat-icon>
+          </button>
+          <mat-error *ngIf="contrasenia.hasError('required')">
+            <strong>ingrese la contrasenia</strong>
+          </mat-error>
+          <mat-error *ngIf="contrasenia.hasError('minLength') && contrasenia.hasError('maxLength')">
+            <strong>contrasenia invalida</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <input matInput (keydown)="onKeydown($event)" placeholder="Reescriba la contraseña anterior"
+            formControlName="contraseniaC" [type]="hide ? 'password' : 'text'" required>
+          <mat-hint align="end">{{contraseniaC.value.length}} / 6</mat-hint>
+          <mat-label> <b>Confirmación de contraseña</b> </mat-label>
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="contraseniaC.hasError('required')">
+            <strong>Confirme la contrasenia</strong>
+          </mat-error>
+          <mat-error *ngIf="contraseniaC.hasError('minLength') && contraseniaC.hasError('maxLength')">
+            <strong>contrasenia no confirmada</strong>
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
 
       <mat-form-field class="example-full-width" appearance="outline">
         <input matInput placeholder="Ingrese el nombre completo" formControlName="nombre" required>
@@ -82,13 +88,6 @@
       </mat-form-field>
 
 
-      <!-- <div >
-    <label  class="label">Especialidad</label>
-    <p><select class="example-full-width" id = "select" name="miselect" formControlName= "especialidad">
-    <option [value]="item" *ngFor="let item of lista">{{item}}</option>
-    </select></p>           
-    </div> -->
-
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label> <b>Especialidad</b> </mat-label>
         <mat-select formControlName="especialidad">
@@ -99,6 +98,18 @@
         <mat-error *ngIf="especialidad.hasError('required')"><strong>campo requerido</strong></mat-error>
 
       </mat-form-field>
+
+
+      <div >
+        <a *ngIf="editando" mat-button (click)="cambiarContra()"><strong>Cambiar contraseña</strong></a>
+        <mat-checkbox id="checkbox" (change)="onChangeCheckbox($event)" formControlName="permisos">
+          <strong>Dar permisos de administrador</strong>
+        </mat-checkbox>
+      </div>
+
+      
+
+
 
 
     </mat-card>
@@ -113,7 +124,6 @@
         [routerLink]="['/principal/veradministradores']">
         Cancelar
       </button>
-
     </div>
 
   </form>

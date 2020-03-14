@@ -133,8 +133,6 @@ export class LoginComponent implements OnInit {
 
         this.loginService.getCurrentUser(data).subscribe((data: any) => {
 
-          console.log(data);
-
           //guardo los datos en una variable globar dentro del service
           //para poder acceder desde cualquier lado a ellos.
           this.loginService.datosUsuario = data;

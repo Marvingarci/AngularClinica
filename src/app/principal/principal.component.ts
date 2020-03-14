@@ -28,7 +28,7 @@ export class PrincipalComponent implements OnInit {
 
     //verifico si el usuario que se logueo es un administrador
     // para poder mostrar o no la seccion de administradores en la sidenav
-    if(this.loginService.datosUsuario.rol == 'Administrador'){
+    if(this.loginService.datosUsuario.rol == 'Administrador' || this.loginService.datosUsuario.permisos == true){
 
       this.esAdmin = true;
       

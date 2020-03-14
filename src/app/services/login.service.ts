@@ -73,6 +73,20 @@ export class LoginService {
 
   }
 
+  duplicarRegistro(login: any){
+
+    return this.httpClient.post(this.API_ENDPOINT + 'duplicarRegistro', login, {headers : this.headers});
+
+
+  }
+
+  obtenerIdLoginMedico(cuenta:any){
+
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerIdLoginMedico/'+cuenta);
+
+
+  }
+
 
 
 }

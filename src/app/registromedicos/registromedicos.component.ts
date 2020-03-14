@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from "../app.component";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -7,6 +7,8 @@ import { Medicos } from '../interfaces/medicos';
 import { MedicosService } from '../services/medicos.service';
 import { UsuarioMedicoUnicoService } from '../validations/usuario-medico-unico.directive';
 import { DialogoVerificarPermisoComponent } from '../dialogo-verificar-permiso/dialogo-verificar-permiso.component';
+import { LoginService } from '../services/login.service';
+import { LoginadminService } from '../services/loginadmin.service';
 
 export interface select {
   value: number;
@@ -27,14 +29,16 @@ export class RegistromedicosComponent implements OnInit {
 
     usuario: new FormControl('', {
       validators: [Validators.required, Validators.minLength(4)],
-      asyncValidators: [this.usuarioMedicoUnicoService.validate.bind(this.usuarioMedicoUnicoService)]
+      // asyncValidators: [this.usuarioMedicoUnicoService.validate.bind(this.usuarioMedicoUnicoService)]
     }),
 
-    contrasenia: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]),
-    contraseniaC: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]),
+    contrasenia: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
+    contraseniaC: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
     nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(30)]),
     identidad: new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')]),
     especialidad: new FormControl('', [Validators.required]),
+    permisos: new FormControl('', []),
+
   });
 
   getErrorMessage() {
@@ -47,7 +51,8 @@ export class RegistromedicosComponent implements OnInit {
     password: null,
     nombre: null,
     numero_identidad: null,
-    especialidad: null
+    especialidad: null,
+    permisos: null,
   };
 
 
@@ -72,10 +77,13 @@ export class RegistromedicosComponent implements OnInit {
   ];
 
   id: any;
-  editing: boolean = false;
+  editando: boolean = false;
+  checkSelecionado: boolean;
   meds: Medicos[];
   constructor(private activatedRoute: ActivatedRoute, private router: Router, activar: AppComponent,
-    private medicoService: MedicosService, private mensaje: MatSnackBar,
+    private medicoService: MedicosService,
+    private loginService: LoginService,
+    private mensaje: MatSnackBar,
     private dialogo: MatDialog,
     private usuarioMedicoUnicoService: UsuarioMedicoUnicoService) {
 
@@ -84,18 +92,20 @@ export class RegistromedicosComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.params['id'];
 
     if (this.id) {
-      this.editing = true;
+      this.editando = true;
+
+
       this.medicoService.obtenerMedico(this.id).subscribe((data: any) => {
 
         this.medico = data;
+        this.medicoService.datosMedico = this.medico;
 
 
         //establesco el valor a los formcontrol para que se visualizen en los respectivos inputs
         this.usuario.setValue(this.medico.usuario);
-        // this.contrasenia.setValue(this.medico.password);
-        // this.contraseniaC.setValue(this.medico.password);
         this.nombre.setValue(this.medico.nombre);
         this.identidad.setValue(this.medico.numero_identidad);
+        this.permisos.setValue(this.medico.permisos);
 
         switch (this.medico.especialidad) {
           case "Salud Públicabletas":
@@ -154,10 +164,30 @@ export class RegistromedicosComponent implements OnInit {
 
     } else {
 
-      this.editing = false;
+      this.editando = false;
+
+      this.usuario.setAsyncValidators(this.usuarioMedicoUnicoService.validate.bind(this.usuarioMedicoUnicoService));
+
+      this.contrasenia.setValidators(Validators.required);
+      this.contrasenia.updateValueAndValidity();
+      this.contraseniaC.setValidators(Validators.required);
+      this.contraseniaC.updateValueAndValidity();
 
     }
   }//fin del constructor
+
+
+  onChangeCheckbox(event) {
+
+    if (event.checked == true) {
+
+      this.checkSelecionado = true;
+
+    } else {
+      this.checkSelecionado = false;
+    }
+
+  }
 
   getMedicos() {
     this.medicoService.obtenerMedicos().subscribe((data: Medicos[]) => {
@@ -189,80 +219,112 @@ export class RegistromedicosComponent implements OnInit {
 
   comprobarDatos() {
 
+
     if (this.medicos_form.valid) {
 
-      if (this.contraseniaC.value == this.contrasenia.value) {
 
-        const dialogRef = this.dialogo.open(DialogoVerificarPermisoComponent, {
+      if (this.medicos_form.dirty) {
 
-          disableClose: true,
-          panelClass: 'verificar',
+        if (this.contraseniaC.value == this.contrasenia.value) {
 
-        });
+          const dialogRef = this.dialogo.open(DialogoVerificarPermisoComponent, {
 
-        dialogRef.afterClosed().subscribe(confirmacion => {
+            disableClose: true,
+            panelClass: 'verificar',
 
-          if (confirmacion) {
+          });
 
-            if (this.editing) {
+          dialogRef.afterClosed().subscribe(confirmacion => {
 
-              this.medico.usuario = this.usuario.value;
-              this.medico.password = this.contraseniaC.value;
-              this.medico.nombre = this.nombre.value;
-              this.medico.numero_identidad = this.identidad.value;
-              this.medico.especialidad = this.especialidad.value;
+            if (confirmacion) {
 
-              this.medicoService.actualizarMedico(this.medico).subscribe((data) => {
-                console.log(data);
-                this.getMedicos();
-                this.router.navigate(['/principal/veradministradores']);
+              if (this.editando) {
 
-                this.showError('Médico actualizado correctamente');
+                this.medico.usuario = this.usuario.value;
+                // introduzco el nombre estableciendo cada primer letra en mayuscula.
+                this.medico.nombre = this.nombre.value.replace(/\b\w/g, l => l.toUpperCase());
+                this.medico.numero_identidad = this.identidad.value;
+                this.medico.especialidad = this.especialidad.value;
 
-              }, (error) => {
+                if (this.checkSelecionado) {
 
-                console.log(error);
-                this.showError('Se chorrio');
+                  this.medico.permisos = true;
 
-              });
+                } else {
 
-            } else {
+                  this.medico.permisos = false;
 
-              this.medico.usuario = this.usuario.value;
-              this.medico.password = this.contraseniaC.value;
-              this.medico.nombre = this.nombre.value;
-              this.medico.numero_identidad = this.identidad.value;
-              this.medico.especialidad = this.especialidad.value;
+                }
 
-              if (this.medicos_form.valid) {
+                this.medicoService.actualizarMedico(this.medico).subscribe((data) => {
 
-                this.medicoService.GuardarMedico(this.medico).subscribe((data) => {
 
                   this.getMedicos();
-                  this.showError('Medico creado con exito');
                   this.router.navigate(['/principal/veradministradores']);
+
+                  this.showError('Médico actualizado correctamente');
 
                 }, (error) => {
 
                   console.log(error);
 
+
                 });
 
               } else {
 
-                this.showError('Ingrese los datos correctamente');
+                this.medico.usuario = this.usuario.value;
+                this.medico.password = this.contraseniaC.value;
+                // introduzco el nombre estableciendo cada primer letra en mayuscula.
+                this.medico.nombre = this.nombre.value.replace(/\b\w/g, l => l.toUpperCase());
+                this.medico.numero_identidad = this.identidad.value;
+                this.medico.especialidad = this.especialidad.value;
+
+                if (this.checkSelecionado) {
+
+                  this.medico.permisos = true;
+
+                } else {
+
+                  this.medico.permisos = false;
+                }
+
+                if (this.medicos_form.valid) {
+
+                  this.medicoService.GuardarMedico(this.medico).subscribe((data) => {
+
+                    this.getMedicos();
+                    this.showError('Medico creado con exito');
+                    this.router.navigate(['/principal/veradministradores']);
+
+                  }, (error) => {
+
+                    console.log(error);
+
+                  });
+
+                } else {
+
+                  this.showError('Ingrese los datos correctamente');
+
+                }
 
               }
 
             }
 
-          }
+          });
 
-        });
+        } else {
+
+          this.showError('La contraseñas no coincide');
+
+        }
 
       } else {
 
-        this.showError('La contraseñas no coincide');
+        this.router.navigate(['/principal/veradministradores']);
+
 
       }
 
@@ -272,10 +334,145 @@ export class RegistromedicosComponent implements OnInit {
   }//fin del boton
 
 
+  cambiarContra() {
+
+    const dialogRef = this.dialogo.open(DialogoCambiarContraseniaMed, {
+      disableClose: true,
+      panelClass: 'cambiar',
+      // height: '450px',
+      // width: '400px',
+
+    });
+
+
+  }
+
+
   get usuario() { return this.medicos_form.get('usuario') };
   get contrasenia() { return this.medicos_form.get('contrasenia') };
   get contraseniaC() { return this.medicos_form.get('contraseniaC') };
   get nombre() { return this.medicos_form.get('nombre') };
   get identidad() { return this.medicos_form.get('identidad') };
   get especialidad() { return this.medicos_form.get('especialidad') };
+  get permisos() { return this.medicos_form.get('permisos') };
+
 }
+
+
+@Component({
+  selector: 'dialogo-cambiar-contrasenia-med',
+  templateUrl: 'dialogo-cambiar-contrasenia-med.html',
+})
+
+export class DialogoCambiarContraseniaMed {
+
+  cambiarContraForm = new FormGroup({
+
+    contraseniaActual: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
+    contraseniaNueva: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]),
+    confirmarContrasenia: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]),
+
+  });
+
+
+  esconderContraActual: boolean = true;
+  esconderContraNueva: boolean = true;
+  esconderContraConfirmada: boolean = true;
+
+
+  constructor(
+
+    private router: Router,
+    private loginService: LoginService,
+    private medicoService: MedicosService,
+    private dialogo: MatDialog,
+    private mensaje: MatSnackBar) { }
+
+
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+
+  cambiarContra() {
+
+    if (this.cambiarContraForm.valid) {
+
+      if (this.contraseniaNueva.value == this.confirmarContrasenia.value) {
+
+
+        var datos = {
+
+          'cuenta': this.medicoService.datosMedico.usuario,
+          'password': this.contraseniaActual.value,
+          // 'id_rol': this.loginService.datosUsuario.id_rol
+
+        };
+
+        this.loginService.obtenerUsuario(datos).subscribe((result: any) => {
+
+          if (result.codigoError == 1) {
+
+            this.showError('La contraseña actual no es la correcta');
+
+          } else {
+
+            const dialogRef = this.dialogo.open(DialogoVerificarPermisoComponent, {
+              disableClose: true,
+              panelClass: 'verificar',
+
+            });
+
+            dialogRef.afterClosed().subscribe(confirmacion => {
+
+              if (confirmacion) {
+
+
+                datos.password = this.contraseniaNueva.value;
+
+                this.loginService.actualizarDatos(datos).subscribe((result: any) => {
+
+                  this.dialogo.closeAll();
+                  this.showError('Contraseña actualizada con exito');
+
+                }, (error) => {
+
+                  console.log(error);
+
+                })
+
+              }
+            });
+
+
+          }
+
+        }, (error) => {
+
+          console.log(error);
+
+
+        });
+
+      } else {
+
+        this.showError('Las contraseñas no coinciden');
+
+      }
+
+    }
+
+  }
+
+  salir() {
+
+    this.dialogo.closeAll();
+
+  }
+
+  get contraseniaActual() { return this.cambiarContraForm.get('contraseniaActual') };
+  get contraseniaNueva() { return this.cambiarContraForm.get('contraseniaNueva') };
+  get confirmarContrasenia() { return this.cambiarContraForm.get('confirmarContrasenia') };
+} 
