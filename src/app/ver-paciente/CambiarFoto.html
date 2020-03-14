@@ -1,0 +1,41 @@
+
+
+<div class="container row"  *ngIf="opcion == true">
+    <div class="col-9">
+        <div>
+            <webcam [height]="800" [width]="800" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+            [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+            [videoOptions]="videoOptions"
+            [imageQuality]="1"
+            (cameraSwitched)="cameraWasSwitched($event)"
+            (initError)="handleInitError($event)"></webcam>
+        </div>
+    </div>
+    <div class="col-3">
+        <button class="actionBtn botonperron boton" (click)="triggerSnapshot();">tomar foto</button>
+
+    </div>
+
+
+
+   
+    
+</div>
+
+<div class="container row snapshot" *ngIf="opcion == false">
+    <div class="col-9">
+        <h1>Que hermoso/a</h1>
+        <img [src]="webcamImage.imageAsDataUrl"/>
+    </div>
+    <div class="col-3">
+        <button class="actionBtn botonperron" (click)="otrafoto();">Tomar otra</button>
+        <button class="actionBtn botonperron" (click)="guardar();">LISTO!</button>
+
+    </div>
+
+
+
+</div>
+
+    
+

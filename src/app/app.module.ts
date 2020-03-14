@@ -17,10 +17,12 @@ import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-est
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
-import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
+import { VerPacienteComponent, HistoriaSubsiguiente1, CambiarFoto, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
+//import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
+//import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+//import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { InventarioComponent } from './inventario/inventario.component';
 import { FormInventarioComponent } from './form-inventario/form-inventario.component';
 
@@ -79,7 +81,9 @@ import { ChartsModule } from 'ng2-charts';
 import { IdentidadUnicaDirective } from './validations/identidad-unica.directive';
 import { DialogoVerificarPermisoComponent } from './dialogo-verificar-permiso/dialogo-verificar-permiso.component';
 
-    
+//Camara
+import {WebcamModule} from 'ngx-webcam';
+
 
 
 
@@ -135,6 +139,7 @@ const routes: Route[] = [
       // { path: 'editar_administrador/:id', component: EditarAdministradorComponent },
       // {path: 'verPaciente', component: VerPacienteComponent},
 
+
     ]
   }
 
@@ -178,7 +183,6 @@ const routes: Route[] = [
     DialogoMedico,
     Borrartelefonoemergencia,
     BorrarDesnutricionAF,
-    // DialogoVerificar,
 
 
 
@@ -189,6 +193,8 @@ const routes: Route[] = [
     FocusInvalidoInputDirective,
     IdentidadUnicaDirective,
     DialogoVerificarPermisoComponent,
+    CambiarFoto,
+    CambiarContraseniaComponent,
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed
   
@@ -237,6 +243,8 @@ const routes: Route[] = [
     MatChipsModule,
     MatDatepickerModule, 
     ChartsModule,
+    WebcamModule,
+    
     MatCheckboxModule
     
     
@@ -257,12 +265,14 @@ const routes: Route[] = [
     Borraradministrador,
     DialogCerrarSesion2,
     DialogoMedico,
+    // DialogoVerificar,
+    DialogoVerificarPermisoComponent,
+    CambiarFoto,
     Borrartelefonoemergencia,
     DialogoVerificarPermisoComponent,
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed,
     BorrarDesnutricionAF,
-    // DialogoVerificar,
     DialogoVerificarPermisoComponent
   ],
   providers: [
@@ -270,7 +280,8 @@ const routes: Route[] = [
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
+    CambiarFoto
   ],
   bootstrap: [AppComponent]
 })
