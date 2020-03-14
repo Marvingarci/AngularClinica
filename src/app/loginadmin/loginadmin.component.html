@@ -2,7 +2,7 @@
   <form id="form" [formGroup]="loginadmin_form">
     <mat-card style="margin-top: 15px;" [class.mat-elevation-z5]="true">
       <div class="titulo">
-        <h2>Registro Administradores</h2>
+        <h2>Registro Administrador</h2>
       </div>
 
       <mat-form-field class="example-full-width" appearance="outline">
@@ -50,7 +50,7 @@
             <strong>Contraseña no confirmada</strong>
           </mat-error>
         </mat-form-field>
-        
+
       </div>
 
 
@@ -83,30 +83,16 @@
         </mat-error>
       </mat-form-field>
 
-      <div class="example-full-width" *ngIf="editando">
+      <div *ngIf="editando">
 
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <strong>Cambiar contraseña</strong>
-              </mat-panel-title>
-              <!-- <mat-panel-description>
-                Type your name and age
-              </mat-panel-description> -->
-            </mat-expansion-panel-header>
-
-            <app-cambiar-contrasenia></app-cambiar-contrasenia>
-
-          </mat-expansion-panel>
-        </mat-accordion>
+        <a mat-button (click)="cambiarContra()"><strong>Cambiar contraseña</strong></a>
 
       </div>
 
 
-
     </mat-card>
 
+  
     <div>
 
       <button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px; margin-bottom: 10px;"
@@ -117,13 +103,7 @@
         [routerLink]="['/principal/veradministradores']">
         Cancelar
       </button>
-
     </div>
-
-
-
-
-
 
   </form>
 </div>

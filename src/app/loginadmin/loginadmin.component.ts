@@ -22,9 +22,9 @@ export interface select {
   templateUrl: './loginadmin.component.html',
   styleUrls: ['./loginadmin.component.css']
 })
-export class LoginadminComponent implements OnInit, AfterViewInit {
+export class LoginadminComponent implements OnInit {
 
-  
+
 
   esconderClave: boolean = true;
   esconderConfirmacionClave: boolean = true;
@@ -33,16 +33,16 @@ export class LoginadminComponent implements OnInit, AfterViewInit {
 
     usuario: new FormControl('', {
       validators: [Validators.required, Validators.minLength(4)],
-      asyncValidators: [this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService)]
+      // asyncValidators: [this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService)]
     }),
 
-    contraseniaActual: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
     contraseniaNueva: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
-    confirmarContrasenia: new FormControl('', [ Validators.minLength(8), Validators.maxLength(30)]),
+    confirmarContrasenia: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
     nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(30)]),
     identidad: new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')]),
 
   });
+
 
 
   getErrorMessage() {
@@ -97,6 +97,13 @@ export class LoginadminComponent implements OnInit, AfterViewInit {
 
       this.editando = false;
 
+      this.usuario.setAsyncValidators(this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService));
+
+      this.contraseniaNueva.setValidators(Validators.required);
+      this.contraseniaNueva.updateValueAndValidity();
+      this.confirmarContrasenia.setValidators(Validators.required);
+      this.confirmarContrasenia.updateValueAndValidity();
+
     }
   }//fin del constructor
 
@@ -124,20 +131,10 @@ export class LoginadminComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
+
     this.getAdministradores();
+
   }
-
-  ngAfterViewInit(){
-    
-    // if(this.confirmarContrasenia.value != null){
-
-    //   this.confirmarContrasenia.setValidators(Validators.required);
-    //   this.confirmarContrasenia.updateValueAndValidity();
-    // }
-    
-  }
-
-
 
   // onKeydown(event) {
 
@@ -153,13 +150,13 @@ export class LoginadminComponent implements OnInit, AfterViewInit {
 
     if (this.loginadmin_form.valid) {
 
-
-      // if (this.confirmarContrasenia.value == this.contraseniaNueva.value) {
+      //ejecuto la accion solo si el fomulario es modificado
+      if (this.loginadmin_form.dirty) {
 
         const dialogRef = this.dialogo.open(DialogoVerificarPermisoComponent, {
           disableClose: true,
           panelClass: 'verificar',
-          data: { id: this.id, editando: this.editando, formulario: this.loginadmin_form}
+          data: { id: this.id, editando: this.editando, formulario: this.loginadmin_form }
 
         });
 
@@ -172,7 +169,9 @@ export class LoginadminComponent implements OnInit, AfterViewInit {
               this.administrador.id_administrador = this.id;
               this.administrador.usuario = this.usuario.value;
               this.administrador.password = this.confirmarContrasenia.value;
-              this.administrador.nombre_completo = this.nombre.value;
+              // introduzco el nombre estableciendo cada primer letra en mayuscula.
+              this.administrador.nombre_completo = this.nombre.value.replace(/\b\w/g, l => l.toUpperCase());
+
               this.administrador.identidad = this.identidad.value;
 
               this.login_adminservice.actualizarAdministrador(this.administrador).subscribe((data) => {
@@ -193,8 +192,9 @@ export class LoginadminComponent implements OnInit, AfterViewInit {
 
                 this.administrador.usuario = this.usuario.value;
                 this.administrador.password = this.contraseniaNueva.value;
-                this.administrador.nombre_completo = this.nombre.value;
                 this.administrador.identidad = this.identidad.value;
+                // introduzco el nombre estableciendo cada primer letra en mayuscula.
+                this.administrador.nombre_completo = this.nombre.value.replace(/\b\w/g, l => l.toUpperCase());
 
                 if (this.loginadmin_form.valid) {
 
@@ -228,28 +228,166 @@ export class LoginadminComponent implements OnInit, AfterViewInit {
           }
         });
 
-      // } else {
+      } else {
 
-      //   this.showError('La contraseña no coincide');
+        this.router.navigate(['/principal/veradministradores']);
 
-
-      // }
+      }
 
     }
 
+
+
   }
 
+  cambiarContra() {
+
+    const dialogRef = this.dialogo.open(DialogoCambiarContraseniaAdmin, {
+      disableClose: true,
+      panelClass: 'cambiar',
+      // height: '450px',
+      // width: '400px',
+
+    });
+
+
+  }
+
+
   comprobarDatos() {
+
+    console.log('llame al dialogo');
 
     this.llamarDialogo();
 
   }//fin del boton
 
   get usuario() { return this.loginadmin_form.get('usuario') };
-  get contraseniaActual() { return this.loginadmin_form.get('contraseniaActual') };
   get contraseniaNueva() { return this.loginadmin_form.get('contraseniaNueva') };
   get confirmarContrasenia() { return this.loginadmin_form.get('confirmarContrasenia') };
   get nombre() { return this.loginadmin_form.get('nombre') };
   get identidad() { return this.loginadmin_form.get('identidad') };
 
+
+
+
 }
+
+
+@Component({
+  selector: 'dialogo-cambiar-contrasenia-admin',
+  templateUrl: 'dialogo-cambiar-contrasenia-admin.html',
+})
+
+export class DialogoCambiarContraseniaAdmin {
+
+  cambiarContraForm = new FormGroup({
+
+    contraseniaActual: new FormControl('', [Validators.minLength(5), Validators.maxLength(30)]),
+    contraseniaNueva: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
+    confirmarContrasenia: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
+
+  });
+
+
+  esconderContraActual: boolean = true;
+  esconderContraNueva: boolean = true;
+  esconderContraConfirmada: boolean = true;
+
+
+  constructor(
+
+    private router: Router,
+    private loginService: LoginService,
+    private loginAdminService: LoginadminService,
+    private dialogo: MatDialog,
+    private mensaje: MatSnackBar) { }
+
+
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+
+  cambiarContra() {
+
+
+    if (this.cambiarContraForm.valid) {
+
+      if (this.contraseniaNueva.value == this.confirmarContrasenia.value) {
+
+
+        var datos = {
+
+          'cuenta': this.loginAdminService.datosAdministrador.usuario,
+          'password': this.contraseniaActual.value,
+
+        };
+
+        this.loginService.obtenerUsuario(datos).subscribe((result: any) => {
+
+          if (result.codigoError == 1) {
+
+            this.showError('La contraseña actual no es la correcta');
+
+          } else {
+
+            const dialogRef = this.dialogo.open(DialogoVerificarPermisoComponent, {
+              disableClose: true,
+              panelClass: 'verificar',
+
+            });
+
+            dialogRef.afterClosed().subscribe(confirmacion => {
+
+              if (confirmacion) {
+
+
+                datos.password = this.contraseniaNueva.value;
+
+                this.loginService.actualizarDatos(datos).subscribe((result: any) => {
+
+                  this.dialogo.closeAll();
+                  this.showError('Contraseña actualizada con exito');
+
+                }, (error) => {
+
+                  console.log(error);
+
+                })
+
+              }
+            });
+
+
+          }
+
+        }, (error) => {
+
+          console.log(error);
+
+
+        });
+
+      } else {
+
+        this.showError('Las contraseñas no coinciden');
+
+      }
+
+    }
+
+  }
+
+  salir() {
+
+    this.dialogo.closeAll();
+
+  }
+
+  get contraseniaActual() { return this.cambiarContraForm.get('contraseniaActual') };
+  get contraseniaNueva() { return this.cambiarContraForm.get('contraseniaNueva') };
+  get confirmarContrasenia() { return this.cambiarContraForm.get('confirmarContrasenia') };
+} 

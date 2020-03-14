@@ -2164,7 +2164,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
         // guardar datos del formulario en paciente y enviarlo a la api
         this.paciente.id_paciente = this.datosScraping.id_login;
-        this.paciente.nombre_completo = this.nombre_completo.value;
+        // introduzco el nombre estableciendo cada primer letra en mayuscula.
+        this.paciente.nombre_completo = this.nombre_completo.value.replace(/\b\w/g, l => l.toUpperCase());
         this.paciente.numero_cuenta = this.numero_cuenta.value;
         this.paciente.numero_identidad = this.numero_identidad.value;
         this.paciente.imagen = this.datosScraping.imagen;
