@@ -863,10 +863,9 @@ style="margin-top: 10px;"
 
 
 
-
+<!-- TABLA DE SOLO DESNUTRICIONES FAMILIARES -->
   <div class="row medium-width" style="margin-left: 0;">
-    <table mat-table [dataSource]="tablaDesnutricionAF" class="mat-elevation-z8 tabla" *ngIf="tablaDesnutricionAF != null"  >
-  
+    <table mat-table [dataSource]="tablaDesnutricionAF" class="mat-elevation-z8 tabla" *ngIf="tablaDesnutricionAF != null"  >  
       <ng-container matColumnDef="grupoenfermedad">
         <th mat-header-cell *matHeaderCellDef> # </th>
         <a>eliminar</a>
@@ -898,8 +897,174 @@ style="margin-top: 10px;"
       <tr mat-header-row *matHeaderRowDef="columnasTablaDesnutricionAF"></tr>
       <tr mat-row *matRowDef="let row; columns: columnasTablaDesnutricionAF;"></tr>
     </table>
-
     </div>
+
+
+
+
+
+
+    <!-- TABLA DE SOLO MENTALES FAMILIARES -->
+      <div class="row medium-width" style="margin-left: 0;">
+        <table mat-table [dataSource]="tablaMentalAF" class="mat-elevation-z8 tabla" *ngIf="tablaMentalAF != null"  >  
+          <ng-container matColumnDef="grupoenfermedad">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <a>eliminar</a>
+            <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+    
+          <ng-container matColumnDef="enfermedad">
+            <th mat-header-cell *matHeaderCellDef> Enfermedad </th>
+            <td mat-cell *matCellDef="let element"  > {{element.enfermedad}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+    
+          <ng-container matColumnDef="parentesco">
+            <th mat-header-cell *matHeaderCellDef> Parentesco </th>
+            <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+         </ng-container>
+    
+          <ng-container matColumnDef="botones">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element;">
+              <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAF(element.id_enfermedad)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="columnasTablaMentalAF"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnasTablaMentalAF;"></tr>
+        </table>
+        </div>
+
+
+
+
+
+
+        <!-- TABLA DE SOLO ALERGIAS FAMILIARES -->
+          <div class="row medium-width" style="margin-left: 0;">
+            <table mat-table [dataSource]="tablaAlergiaAF" class="mat-elevation-z8 tabla" *ngIf="tablaAlergiaAF != null"  >  
+              <ng-container matColumnDef="grupoenfermedad">
+                <th mat-header-cell *matHeaderCellDef> # </th>
+                <a>eliminar</a>
+                <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+        
+              <ng-container matColumnDef="enfermedad">
+                <th mat-header-cell *matHeaderCellDef> Enfermedad </th>
+                <td mat-cell *matCellDef="let element"  > {{element.enfermedad}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+        
+              <ng-container matColumnDef="parentesco">
+                <th mat-header-cell *matHeaderCellDef> Parentesco </th>
+                <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+             </ng-container>
+        
+              <ng-container matColumnDef="botones">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element;">
+                  <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAF(element.id_enfermedad)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+        
+              <tr mat-header-row *matHeaderRowDef="columnasTablaAlergiaAF"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnasTablaAlergiaAF;"></tr>
+            </table>
+            </div>
+
+
+
+
+
+
+            <!-- TABLA DE SOLO CANCERES FAMILIARES -->
+              <div class="row medium-width" style="margin-left: 0;">
+                <table mat-table [dataSource]="tablaCancerAF" class="mat-elevation-z8 tabla" *ngIf="tablaCancerAF != null"  >  
+                  <ng-container matColumnDef="grupoenfermedad">
+                    <th mat-header-cell *matHeaderCellDef> # </th>
+                    <a>eliminar</a>
+                    <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+            
+                  <ng-container matColumnDef="enfermedad">
+                    <th mat-header-cell *matHeaderCellDef> Enfermedad </th>
+                    <td mat-cell *matCellDef="let element"  > {{element.enfermedad}} </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+            
+                  <ng-container matColumnDef="parentesco">
+                    <th mat-header-cell *matHeaderCellDef> Parentesco </th>
+                    <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                 </ng-container>
+            
+                  <ng-container matColumnDef="botones">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element;">
+                      <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAF(element.id_enfermedad)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+            
+                  <tr mat-header-row *matHeaderRowDef="columnasTablaCancerAF"></tr>
+                  <tr mat-row *matRowDef="let row; columns: columnasTablaCancerAF;"></tr>
+                </table>
+                </div>
+
+
+
+
+
+
+                <!-- TABLA DE SOLO OTROS FAMILIARES -->
+                  <div class="row medium-width" style="margin-left: 0;">
+                    <table mat-table [dataSource]="tablaOtroAF" class="mat-elevation-z8 tabla" *ngIf="tablaOtroAF != null"  >  
+                      <ng-container matColumnDef="grupoenfermedad">
+                        <th mat-header-cell *matHeaderCellDef> # </th>
+                        <a>eliminar</a>
+                        <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                      </ng-container>
+                
+                      <ng-container matColumnDef="enfermedad">
+                        <th mat-header-cell *matHeaderCellDef> Enfermedad </th>
+                        <td mat-cell *matCellDef="let element"  > {{element.enfermedad}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                      </ng-container>
+                
+                      <ng-container matColumnDef="parentesco">
+                        <th mat-header-cell *matHeaderCellDef> Parentesco </th>
+                        <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+                     </ng-container>
+                
+                      <ng-container matColumnDef="botones">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element;">
+                          <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAF(element.id_enfermedad)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </td>
+                      </ng-container>
+                
+                      <tr mat-header-row *matHeaderRowDef="columnasTablaOtroAF"></tr>
+                      <tr mat-row *matRowDef="let row; columns: columnasTablaOtroAF;"></tr>
+                    </table>
+                    </div>
+
+
+
 
 
 
