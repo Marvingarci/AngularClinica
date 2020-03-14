@@ -7,7 +7,7 @@ import { AppComponent } from '../app.component';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { select,  MyErrorStateMatcher, antecedentesPersonales, habitosToxicologicos } from '../formulario/formulario.component';
 import { AntecedentesFamiliares } from '../interfaces/antecedentes-familiares';
-import { MatTableDataSource, MatSidenav, MatDialog, MatSnackBar, MatDialogRef, MatSnackBarConfig, SimpleSnackBar, MAT_DIALOG_DATA } from '@angular/material';
+import { MatTableDataSource, MatSidenav, MatDialog, MatSnackBar, MatDialogRef, MatSnackBarConfig, SimpleSnackBar, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
 import { AntecedentesPersonales } from '../interfaces/antecedentes-personales';
 import { ThrowStmt, analyzeAndValidateNgModules } from '@angular/compiler';
 import { HabitosToxicologicosPersonales } from '../interfaces/habitos-toxicologicos-personales';
@@ -24,6 +24,11 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import { TelefonoEmergencia } from '../interfaces/telefono-emergencia';
 import { DesnutricionAF } from '../interfaces/desnutricionAF';
 import { Login } from '../interfaces/login';
+import { MentalAF } from '../interfaces/mentalAF';
+import { AlergiaAF } from '../interfaces/alergiaAF';
+import { CancerAF } from '../interfaces/cancerAF';
+import { OtroAF } from '../interfaces/OtrosAF';
+import { duration } from 'moment';
 
 
 export interface Element {
@@ -523,8 +528,32 @@ ocultar: boolean = true;
     parentesco:null
   }
 
+  mentalAF: MentalAF={
+    enfermedad : null,
+    parentesco:null
+  }
+
+  alergiaAF: AlergiaAF={
+    enfermedad : null,
+    parentesco:null
+  }
+
+  cancerAF: CancerAF={
+    enfermedad : null,
+    parentesco:null
+  }
+
+  otroAF: OtroAF={
+    enfermedad : null,
+    parentesco:null
+  }
+
   ante_familiar: any;
   ante_familiardesnutricionAF:any;
+  ante_familiarmentalAF:any;
+  ante_familiaralergiaAF:any;
+  ante_familiarcancerAF:any;
+  ante_familiarotroAF:any;
   
   
 
@@ -643,6 +672,10 @@ ocultar: boolean = true;
   tablaHabitosToxicologicos: any;
   tablaTelefonosEmergencia: any;
   tablaDesnutricionAF:any;
+  tablaMentalAF:any;
+  tablaAlergiaAF:any;
+  tablaCancerAF:any;
+  tablaOtroAF:any;
 
   tablaOtrosAF: Element[] = [];
   tablaDesnutricionesAF: Element[] = [];
@@ -667,6 +700,10 @@ ocultar: boolean = true;
   columnasTablaEmergenciaPersona:string[] = ['persona','telefono'];
   columnasTablaTelefonosEmergencia: string[] = ['numero', 'nombre', 'telefono', 'botones'];
   columnasTablaDesnutricionAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
+  columnasTablaMentalAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
+  columnasTablaAlergiaAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
+  columnasTablaCancerAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
+  columnasTablaOtroAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
 
   //date picker
   minDate = new Date(1950, 0, 1);
@@ -766,6 +803,10 @@ ocultar: boolean = true;
   pacientes: Paciente[]; 
   antecedentes_familiares: AntecedentesFamiliares[];
   desnutricion_AF: DesnutricionAF[];
+  mental_AF: MentalAF[];
+  alergia_AF: AlergiaAF[];
+  cancer_AF: CancerAF[];
+  otro_AF: OtroAF[];
   antecedentes_personales: AntecedentesPersonales[];
   habitos_toxicologicos: HabitosToxicologicosPersonales[];
   
@@ -849,6 +890,10 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.cargarEmergenciaPersonaYa();
       this.cargarAntecedentesFamiliares();
       this.cargarDesnnutricionAF();
+      this.cargarMentalAF();
+      this.cargarAlergiaAF();
+      this.cargarCancerAF();
+      this.cargarOtrosAF();
 
 
 
@@ -1119,7 +1164,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
  }
 
  cargarDesnnutricionAF(){
-  this.formularioService.obtenerDesnutricionAF(this.id).subscribe((data: DesnutricionAF)=>{  
+  this.formularioService.obtenerDesnutricionesAF(this.id).subscribe((data: DesnutricionAF)=>{  
     this.ante_familiardesnutricionAF = data;     
    for (let index = 0; index < this.ante_familiardesnutricionAF.length; index++) {
      switch (this.ante_familiardesnutricionAF[index].antecedente) {
@@ -1131,6 +1176,78 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
    }
 this.cargarTablaDesnutricionAF();     
     console.log(this.ante_familiardesnutricionAF);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarMentalAF(){
+  this.formularioService.obtenerMentalesAF(this.id).subscribe((data: MentalAF)=>{  
+    this.ante_familiarmentalAF = data;     
+   for (let index = 0; index < this.ante_familiarmentalAF.length; index++) {
+     switch (this.ante_familiarmentalAF[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaMentalAF();     
+    console.log(this.ante_familiarmentalAF);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarAlergiaAF(){
+  this.formularioService.obtenerAlergiasAF(this.id).subscribe((data: AlergiaAF)=>{  
+    this.ante_familiaralergiaAF = data;     
+   for (let index = 0; index < this.ante_familiaralergiaAF.length; index++) {
+     switch (this.ante_familiaralergiaAF[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaAlergiaAF();     
+    console.log(this.ante_familiaralergiaAF);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarCancerAF(){
+  this.formularioService.obtenerCanceresAF(this.id).subscribe((data: CancerAF)=>{  
+    this.ante_familiarcancerAF = data;     
+   for (let index = 0; index < this.ante_familiarcancerAF.length; index++) {
+     switch (this.ante_familiarcancerAF[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaCancerAF();     
+    console.log(this.ante_familiarcancerAF);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarOtrosAF(){
+  this.formularioService.obtenerOtrosAF(this.id).subscribe((data: OtroAF)=>{  
+    this.ante_familiarotroAF = data;     
+   for (let index = 0; index < this.ante_familiarotroAF.length; index++) {
+     switch (this.ante_familiarotroAF[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaOtroAF();     
+    console.log(this.ante_familiarotroAF);
   }, (error)=>{
     console.log(error);
   });
@@ -1759,19 +1876,34 @@ this.cargarTablaDesnutricionAF();
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      const config = new MatDialogConfig();
       this.cargarEmergenciaPersonaYa();
+
     });
   }
 
   eliminarDesnutricionAF(id) {
     const dialogRef = this.dialog.open(BorrarDesnutricionAF, {
       disableClose: true,
+      
       panelClass: 'borrar',
       data: id
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.cargarDesnnutricionAF();
+      this.cargarMentalAF();
+      this.cargarAlergiaAF();
+      this.cargarCancerAF();
+      this.cargarOtrosAF();
+    });
+
+    dialogRef.beforeClosed().subscribe(result => {
+      this.cargarDesnnutricionAF();
+      this.cargarMentalAF();
+      this.cargarAlergiaAF();
+      this.cargarCancerAF();
+      this.cargarOtrosAF();
     });
   }
 
@@ -2090,6 +2222,18 @@ cargarTablaAntecedentesFamiliares(){
 
   cargarTablaDesnutricionAF(){
     this.tablaDesnutricionAF = new MatTableDataSource(this.ante_familiardesnutricionAF);
+  }
+  cargarTablaMentalAF(){
+    this.tablaMentalAF = new MatTableDataSource(this.ante_familiarmentalAF);
+  }
+  cargarTablaAlergiaAF(){
+    this.tablaAlergiaAF = new MatTableDataSource(this.ante_familiaralergiaAF);
+  }
+  cargarTablaCancerAF(){
+    this.tablaCancerAF = new MatTableDataSource(this.ante_familiarcancerAF);
+  }
+  cargarTablaOtroAF(){
+    this.tablaOtroAF = new MatTableDataSource(this.ante_familiarotroAF);
   }
 
 
@@ -3250,72 +3394,32 @@ export class Borrartelefonoemergencia implements OnDestroy {
 
 
 @Component({
-  selector: 'borrartelefonoemergencia',
-  templateUrl: 'dialog-borrar-telefono-emergencia.html',
+  selector: 'borrarantecedentefamiliar',
+  templateUrl: 'dialog-borrar-antecedente-familiar.html',
 })
 
-export class BorrarDesnutricionAF implements OnDestroy {
+export class BorrarDesnutricionAF  {
 
   constructor(public dialogRef: MatDialogRef<BorrarDesnutricionAF>,
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any){ 
-
       console.log(this.data);
-      this.cargarDesnnutricionAF();
-    }
-
-    
-    ante_familiardesnutricionAF:any;
-    tablaDesnutricionAF:any;
-    id:any;
-
-    cargarDesnnutricionAF(){
-      this.formularioService.obtenerDesnutricionAF(this.id).subscribe((data: DesnutricionAF)=>{  
-        this.ante_familiardesnutricionAF = data;  
-        
-       
-       for (let index = 0; index < this.ante_familiardesnutricionAF.length; index++) {
-         switch (this.ante_familiardesnutricionAF[index].antecedente) {
-           case "Convulsiones":             
-             break;         
-           default:
-             break;
-         }         
-       }
-    
-        //cargo los datos de la tabla antecedentes familiares y telefonos emergencia
-       
-        this.cargarTablaDesnutricionAF();
-        //establesco el valor a los formcontrol para que se visualizen
-        //en los respectivos inputs de los antecedentes familiares
-              
-        console.log(this.ante_familiardesnutricionAF);
-      }, (error)=>{
-        console.log(error);
-      });
-     }
-
-     cargarTablaEmergenciaPersona(){     
-      this.tablaDesnutricionAF = new MatTableDataSource(this.ante_familiardesnutricionAF);    
     } 
 
-
-  salir(): void {
-    this.dialogRef.close();
-  }
-
- 
   BorrarRegistro() {
     if (this.data != 0) {
-     this.formularioService.eliminarDesnutricionAF(this.data).subscribe((data) => {
-      this.showError('Registro eliminado correctamente');        
-   
+     this.formularioService.eliminarCualquierEnfermedadAF(this.data).subscribe((data) => {
+      this.showError('Registro eliminado correctamente');    
+      this.dialogRef.close();
       });
     } else {
       this.showError('El Registro no puede ser eliminado');
-    }
-    
+    }    
+  }
+  
+  salir(): void {
+    this.dialogRef.close();
   }
 
   showError(message: string) {
@@ -3325,10 +3429,12 @@ export class BorrarDesnutricionAF implements OnDestroy {
     this.mensaje.open(message, null, config);
   }
 
-  ngOnDestroy(): void {
-    this.cargarDesnnutricionAF();
-  }
-  cargarTablaDesnutricionAF(){
-    this.tablaDesnutricionAF = new MatTableDataSource(this.ante_familiardesnutricionAF);
-  }
+  // ngOnDestroy(): void {    
+  //   this.formularioService.obtenerDesnutricionesAF(this.data).subscribe();
+  //   this.formularioService.obtenerMentalesAF(this.data).subscribe();
+  //   this.formularioService.obtenerAlergiasAF(this.data).subscribe();
+  //   this.formularioService.obtenerCanceresAF(this.data).subscribe();
+  //   this.formularioService.obtenerOtrosAF(this.data).subscribe();
+  // }
+
 } 
