@@ -230,9 +230,22 @@ export class FormularioService {
   obtenerAntecedenteFamiliar(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes_antecedentes_familiares/' + id_paciente);
   }
-  obtenerDesnutricionAF(id_paciente: any) {
+  obtenerDesnutricionesAF(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'obtenerdesnutricionAF/' + id_paciente);
   }
+  obtenerMentalesAF(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenermentalesAF/' + id_paciente);
+  }
+  obtenerAlergiasAF(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obteneralergiasAF/' + id_paciente);
+  }
+  obtenerCanceresAF(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenercanceresAF/' + id_paciente);
+  }
+  obtenerOtrosAF(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerotrosAF/' + id_paciente);
+  }
+  
 
 
   obtenerAntecedentesPersonales() {
@@ -360,10 +373,11 @@ export class FormularioService {
   };
 
 
+
 eliminarEmergenciaPersona(id_paciente: any) {
   return this.httpClient.delete(this.API_ENDPOINT + 'telefonos_emergencia/' + id_paciente);
 }
-eliminarDesnutricionAF(id_paciente: any) {
+eliminarCualquierEnfermedadAF(id_paciente: any) {
   return this.httpClient.delete(this.API_ENDPOINT + 'pacientes_antecedentes_familiares/' + id_paciente);
 }
 
