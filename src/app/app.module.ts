@@ -178,7 +178,6 @@ const routes: Route[] = [
     DialogoMedico,
     Borrartelefonoemergencia,
     BorrarDesnutricionAF,
-    // DialogoVerificar,
 
 
 
@@ -262,7 +261,6 @@ const routes: Route[] = [
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed,
     BorrarDesnutricionAF,
-    // DialogoVerificar,
     DialogoVerificarPermisoComponent
   ],
   providers: [
