@@ -29,6 +29,11 @@ import { AlergiaAF } from '../interfaces/alergiaAF';
 import { CancerAF } from '../interfaces/cancerAF';
 import { OtroAF } from '../interfaces/OtrosAF';
 import { duration } from 'moment';
+import { DesnutricionAP } from '../interfaces/desnutricionAP';
+import { AlergiaAP } from '../interfaces/alergiaAP';
+import { CancerAP } from '../interfaces/cancerAP';
+import { OtroAP } from '../interfaces/otroAP';
+import { MentalAP } from '../interfaces/MentalAP';
 
 
 export interface Element {
@@ -548,12 +553,42 @@ ocultar: boolean = true;
     parentesco:null
   }
 
+  desnutricionAP: DesnutricionAP={
+    enfermedad : null,
+    observacion:null
+  }
+
+  mentalAP: MentalAP={
+    enfermedad : null,
+    observacion:null
+  }
+
+  alergiaAP: AlergiaAP={
+    enfermedad : null,
+    observacion:null
+  }
+
+  cancerAP: CancerAP={
+    enfermedad : null,
+    observacion:null
+  }
+
+  otroAP: OtroAP={
+    enfermedad : null,
+    observacion:null
+  }
+
   ante_familiar: any;
   ante_familiardesnutricionAF:any;
   ante_familiarmentalAF:any;
   ante_familiaralergiaAF:any;
   ante_familiarcancerAF:any;
-  ante_familiarotroAF:any;
+  ante_familiarotroAF:any; 
+  ante_familiardesnutricionAP:any;
+  ante_familiarmentalAP:any;
+  ante_familiaralergiaAP:any;
+  ante_familiarcancerAP:any;
+  ante_familiarotroAP:any;
   
   
 
@@ -676,6 +711,11 @@ ocultar: boolean = true;
   tablaAlergiaAF:any;
   tablaCancerAF:any;
   tablaOtroAF:any;
+  tablaDesnutricionAP:any;
+  tablaMentalAP:any;
+  tablaAlergiaAP:any;
+  tablaCancerAP:any;
+  tablaOtroAP:any;
 
   tablaOtrosAF: Element[] = [];
   tablaDesnutricionesAF: Element[] = [];
@@ -704,6 +744,11 @@ ocultar: boolean = true;
   columnasTablaAlergiaAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
   columnasTablaCancerAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
   columnasTablaOtroAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
+  columnasTablaDesnutricionAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
+  columnasTablaMentalAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
+  columnasTablaAlergiaAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
+  columnasTablaCancerAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
+  columnasTablaOtroAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
 
   //date picker
   minDate = new Date(1950, 0, 1);
@@ -808,6 +853,11 @@ ocultar: boolean = true;
   cancer_AF: CancerAF[];
   otro_AF: OtroAF[];
   antecedentes_personales: AntecedentesPersonales[];
+  desnutricion_AP: DesnutricionAP[];
+  mental_AP: MentalAP[];
+  alergia_AP: AlergiaAP[];
+  cancer_AP: CancerAP[];
+  otro_AP: OtroAP[];
   habitos_toxicologicos: HabitosToxicologicosPersonales[];
   
   actividades_sexuales: ActividadSexual[];
@@ -894,6 +944,11 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.cargarAlergiaAF();
       this.cargarCancerAF();
       this.cargarOtrosAF();
+      this.cargarDesnnutricionAP();
+      this.cargarMentalAP();
+      this.cargarAlergiaAP();
+      this.cargarCancerAP();
+      this.cargarOtrosAP();
 
 
 
@@ -1248,6 +1303,101 @@ this.cargarTablaCancerAF();
    }
 this.cargarTablaOtroAF();     
     console.log(this.ante_familiarotroAF);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+
+
+
+
+ // estas son las cargas para los antecedentespersonales
+ cargarDesnnutricionAP(){
+  this.formularioService.obtenerDesnutricionesAP(this.id).subscribe((data: DesnutricionAP)=>{  
+    this.ante_familiardesnutricionAP = data;     
+   for (let index = 0; index < this.ante_familiardesnutricionAP.length; index++) {
+     switch (this.ante_familiardesnutricionAP[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaDesnutricionAP();     
+    console.log(this.ante_familiardesnutricionAP);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarMentalAP(){
+  this.formularioService.obtenerMentalesAP(this.id).subscribe((data: MentalAP)=>{  
+    this.ante_familiarmentalAP = data;     
+   for (let index = 0; index < this.ante_familiarmentalAP.length; index++) {
+     switch (this.ante_familiarmentalAP[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaMentalAP();     
+    console.log(this.ante_familiarmentalAP);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarAlergiaAP(){
+  this.formularioService.obtenerAlergiasAP(this.id).subscribe((data: AlergiaAP)=>{  
+    this.ante_familiaralergiaAP = data;     
+   for (let index = 0; index < this.ante_familiaralergiaAP.length; index++) {
+     switch (this.ante_familiaralergiaAP[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaAlergiaAP();     
+    console.log(this.ante_familiaralergiaAP);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarCancerAP(){
+  this.formularioService.obtenerCanceresAP(this.id).subscribe((data: CancerAP)=>{  
+    this.ante_familiarcancerAP = data;     
+   for (let index = 0; index < this.ante_familiarcancerAP.length; index++) {
+     switch (this.ante_familiarcancerAP[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaCancerAP();     
+    console.log(this.ante_familiarcancerAP);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarOtrosAP(){
+  this.formularioService.obtenerOtrosAP(this.id).subscribe((data: OtroAP)=>{  
+    this.ante_familiarotroAP = data;     
+   for (let index = 0; index < this.ante_familiarotroAP.length; index++) {
+     switch (this.ante_familiarotroAP[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaOtroAP();     
+    console.log(this.ante_familiarotroAP);
   }, (error)=>{
     console.log(error);
   });
@@ -1876,9 +2026,10 @@ this.cargarTablaOtroAF();
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      const config = new MatDialogConfig();
       this.cargarEmergenciaPersonaYa();
-
+    });
+    dialogRef.beforeClosed().subscribe(result => {
+      this.cargarEmergenciaPersonaYa();
     });
   }
 
@@ -2234,6 +2385,21 @@ cargarTablaAntecedentesFamiliares(){
   }
   cargarTablaOtroAF(){
     this.tablaOtroAF = new MatTableDataSource(this.ante_familiarotroAF);
+  }
+  cargarTablaDesnutricionAP(){
+    this.tablaDesnutricionAP = new MatTableDataSource(this.ante_familiardesnutricionAP);
+  }
+  cargarTablaMentalAP(){
+    this.tablaMentalAP = new MatTableDataSource(this.ante_familiarmentalAP);
+  }
+  cargarTablaAlergiaAP(){
+    this.tablaAlergiaAP = new MatTableDataSource(this.ante_familiaralergiaAP);
+  }
+  cargarTablaCancerAP(){
+    this.tablaCancerAP = new MatTableDataSource(this.ante_familiarcancerAP);
+  }
+  cargarTablaOtroAP(){
+    this.tablaOtroAP = new MatTableDataSource(this.ante_familiarotroAP);
   }
 
 
@@ -2664,7 +2830,6 @@ cargarTablaAntecedentesFamiliares(){
 
   
   cargarInformacionEmergenciaPersona(){
-
     this.emergencia_persona.setValue(this.telefono_Emergencias.emergencia_persona);
     this.emergencia_telefono.setValue(this.telefono_Emergencias.telefono_emergencia);    
     
@@ -3327,56 +3492,30 @@ export class HistoriaSubsiguiente1{
 
 
 @Component({
-  selector: 'borrartelefonoemergencia',
-  templateUrl: 'dialog-borrar-telefono-emergencia.html',
+  selector: 'borrarantecedentefamiliar',
+  templateUrl: 'dialog-borrar-antecedente-familiar.html',
 })
 
-export class Borrartelefonoemergencia implements OnDestroy {
-
+export class Borrartelefonoemergencia  {
   constructor(public dialogRef: MatDialogRef<Borrartelefonoemergencia>,
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any){ 
-
       console.log(this.data);
     }
-
-    tablaTelefonosEmergencia: any;
-    tel_emergencia:any;
-    id:any;
-
-    cargarEmergenciaPersonaYa(){
-      this.formularioService.obtenerEmergenciaPersona(this.id).subscribe((data: TelefonoEmergencia[])=>{
-        this.tel_emergencia = data;        
-        //cargo los datos de la tabla antecedentes personales
-        this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);
-        this.cargarTablaEmergenciaPersona();
-        console.log(this.tel_emergencia);      
-        }, (error)=>{
-          console.log(error);
-        });    
-        this.cargarTablaEmergenciaPersona(); 
-     }
-
-     cargarTablaEmergenciaPersona(){     
-      this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);    
-    } 
-
-
-  salir(): void {
-    this.dialogRef.close();
-  }
-
  
   BorrarRegistro() {
     if (this.data != 0) {
      this.formularioService.eliminarEmergenciaPersona(this.data).subscribe((data) => {
-        this.showError('Registro eliminado correctamente');        
+        this.showError('Registro eliminado correctamente');   
+        this.dialogRef.close();     
       });
     } else {
       this.showError('El Registro no puede ser eliminado');
-    }
-    
+    }    
+  }
+    salir(): void {
+    this.dialogRef.close();
   }
 
   showError(message: string) {
@@ -3385,11 +3524,10 @@ export class Borrartelefonoemergencia implements OnDestroy {
     config.duration = 2000;
     this.mensaje.open(message, null, config);
   }
-
-  ngOnDestroy(): void {
-    this.cargarEmergenciaPersonaYa();
-  }
 } 
+
+
+
 
 
 
@@ -3399,7 +3537,6 @@ export class Borrartelefonoemergencia implements OnDestroy {
 })
 
 export class BorrarDesnutricionAF  {
-
   constructor(public dialogRef: MatDialogRef<BorrarDesnutricionAF>,
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
@@ -3428,13 +3565,4 @@ export class BorrarDesnutricionAF  {
     config.duration = 2000;
     this.mensaje.open(message, null, config);
   }
-
-  // ngOnDestroy(): void {    
-  //   this.formularioService.obtenerDesnutricionesAF(this.data).subscribe();
-  //   this.formularioService.obtenerMentalesAF(this.data).subscribe();
-  //   this.formularioService.obtenerAlergiasAF(this.data).subscribe();
-  //   this.formularioService.obtenerCanceresAF(this.data).subscribe();
-  //   this.formularioService.obtenerOtrosAF(this.data).subscribe();
-  // }
-
 } 
