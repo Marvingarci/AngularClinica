@@ -258,10 +258,27 @@ export class FormularioService {
       this.API_ENDPOINT + 'pacientes_antecedentes_personales/' + $id_paciente);
   }
 
+  obtenerDesnutricionesAP(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerdesnutricionAP/' + id_paciente);
+  }
+  obtenerMentalesAP(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenermentalesAP/' + id_paciente);
+  }
+  obtenerAlergiasAP(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obteneralergiasAP/' + id_paciente);
+  }
+  obtenerCanceresAP(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenercanceresAP/' + id_paciente);
+  }
+  obtenerOtrosAP(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerotrosAP/' + id_paciente);
+  }
+  obtenerhospitalarias_quirurgicas(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerhospitalarias_quirurgicas/' + id_paciente);
+  }
   obtenerHabitosToxicologicos() {
     return this.httpClient.get(this.API_ENDPOINT + 'habitos_toxicologicos_personales');
   }
-
   obtenerHabitoToxicologico(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes_habitos_toxicologicos/' + id_paciente);
   }
