@@ -24,7 +24,7 @@ export interface AntecedentesFamiliares {
     hipertension_arterial: string;
     parentesco_hipertension_arterial?: string;
     otros : string;
-    parentesco_otros? : string;
+    parentesco_otros? : any;
     id_paciente? : number;
     created_at? : string;
     updated_at? : string;
