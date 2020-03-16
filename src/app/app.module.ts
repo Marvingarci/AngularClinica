@@ -17,7 +17,7 @@ import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-est
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
-import { VerPacienteComponent, HistoriaSubsiguiente1,  Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
+import { VerPacienteComponent, HistoriaSubsiguiente1,  Borrartelefonoemergencia, BorrarDesnutricionAF, BorrarDesnutricionAP, BorrarHospitalarias } from './ver-paciente/ver-paciente.component';
 //import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
 //import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
 //CambiarFoto,
@@ -184,6 +184,8 @@ const routes: Route[] = [
     DialogoMedico,
     Borrartelefonoemergencia,
     BorrarDesnutricionAF,
+    BorrarDesnutricionAP,
+    BorrarHospitalarias,
 
 
 
@@ -274,6 +276,8 @@ const routes: Route[] = [
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed,
     BorrarDesnutricionAF,
+    BorrarDesnutricionAP,
+    BorrarHospitalarias,
     DialogoVerificarPermisoComponent
   ],
   providers: [
