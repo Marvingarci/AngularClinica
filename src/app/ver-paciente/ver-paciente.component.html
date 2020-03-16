@@ -753,7 +753,9 @@ Visualiazar Antecedentes familiares del paciente
 
 <div *ngIf="readonlyAntecedentesFamiliares == true">
 <div>
-<table mat-table id="tabla1" [dataSource]="tablaAntecedentesFamiliares" class="mat-elevation-z8">
+  
+  <p *ngIf="tablaAntecedentesFamiliares == null" >Este paciente no tiene antecedentes familiares</p>
+<table mat-table id="tabla1" [dataSource]="tablaAntecedentesFamiliares" class="mat-elevation-z8" *ngIf="tablaAntecedentesFamiliares != null">
 
 <!-- columna antecedente -->
 <ng-container matColumnDef="antecedente">
@@ -804,35 +806,31 @@ style="margin-top: 10px;"
 
 
 
-
+<!-- AQUI ESTA EDITANDO -->
 
 <div *ngIf="readonlyAntecedentesFamiliares == false"> 
   <form [formGroup]="formulario_antecedentes_familiares" >
-  <label id="example-radio-group-label">3. Desnutrición</label>
-  <mat-error style="margin-left: 0;" *ngIf="desnutricion.hasError('required')">campo requerido</mat-error>
 
   <div class="row" style="margin-left: 0;">
-    <mat-radio-group formControlName="desnutricion" aria-labelledby="example-radio-group-label"
+    <!-- <mat-radio-group formControlName="desnutricion" aria-labelledby="example-radio-group-label"
       class="example-radio-group">
-      <mat-radio-button value={{9}} (click)="habilitarInputs([parentesco_desnutricion,tipo_desnutricion]);
-                mostrarCamposDesnutricionAF()">Si</mat-radio-button>&nbsp;&nbsp;&nbsp;
+      <mat-radio-button >Si</mat-radio-button>&nbsp;&nbsp;&nbsp;
       <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_desnutricion,tipo_desnutricion]); 
               ocultarCamposDesnutricionAF()">No</mat-radio-button>
-    </mat-radio-group>
-
-    &nbsp; &nbsp; &nbsp; &nbsp;
+    </mat-radio-group> -->
+                            
+    
+    
+    
+                                <!-- ENFERMEDADES DESNUTRICION AF -->
 
     <!--el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
     <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAF">
 
       <mat-form-field class="autocomplete">
         <input matInput formControlName="tipo_desnutricion" placeholder="Tipo Desnutricion"
-          id="InputDesnutricion">
-        <mat-error style="margin-left: 0;" *ngIf="tipo_desnutricion.hasError('required')">
-          !campo requerido!
-        </mat-error>
+          id="InputDesnutricion">        
       </mat-form-field>
-
       &nbsp; &nbsp; &nbsp; &nbsp;
 
       <mat-form-field>
@@ -841,12 +839,8 @@ style="margin-top: 10px;"
           <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
             {{parentesco.viewValue}}
           </mat-option>
-        </mat-select>
-        <mat-error style="margin-left: 0;" *ngIf="parentesco_desnutricion.hasError('required')">
-          !campo requerido!
-        </mat-error>
+        </mat-select>       
       </mat-form-field>
-
       &nbsp; &nbsp; &nbsp; &nbsp;
 
       <button mat-raised-button (click)="agregarDesnutricionesAF();">agregar</button>
@@ -854,17 +848,10 @@ style="margin-top: 10px;"
   </div>
 </form>
 
-
-
-
-
-
-
-
-
-
 <!-- TABLA DE SOLO DESNUTRICIONES FAMILIARES -->
-  <div class="row medium-width" style="margin-left: 0;">
+  <div class="row medium-width" style="margin-left: 0;">    
+    <label *ngIf="tablaDesnutricionAF == null" >Este paciente no tiene desnutrición   </label>
+    <div *ngIf="ocultarbtnagregardesnutricionAF == true " ><button value={{9}} (click)="ocultarbtnagregardesnutricionAF = !ocultarbtnagregardesnutricionAF;habilitarInputs([parentesco_desnutricion,tipo_desnutricion]); mostrarCamposDesnutricionAF()"> agregar desnutricion</button></div>
     <table mat-table [dataSource]="tablaDesnutricionAF" class="mat-elevation-z8 tabla" *ngIf="tablaDesnutricionAF != null"  >  
       <ng-container matColumnDef="grupoenfermedad">
         <th mat-header-cell *matHeaderCellDef> # </th>
@@ -898,14 +885,42 @@ style="margin-top: 10px;"
       <tr mat-row *matRowDef="let row; columns: columnasTablaDesnutricionAF;"></tr>
     </table>
     </div>
+    
+    <mat-divider></mat-divider>
 
 
 
 
 
+
+                              <!-- ENFERMEDADES MENTALES AF -->
+
+  <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
+  <div class="col" style="display: none;" id="divAgregarTiposEnfermedadesMentalesAF">
+
+    <mat-form-field>
+      <input matInput formControlName="tipo_enfermedad_mental" placeholder="Tipo enfermedad mental"
+        id="InputEnfermedadAF">     
+    </mat-form-field>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+
+    <mat-form-field>
+      <mat-label>Parentesco</mat-label>
+      <mat-select formControlName="parentesco_enfermedades_mentales" multiple>
+        <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+          {{parentesco.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+
+    <button mat-raised-button (click)="agregarEnfermedadesMentales();">agregar</button>
+  </div>
 
     <!-- TABLA DE SOLO MENTALES FAMILIARES -->
       <div class="row medium-width" style="margin-left: 0;">
+        <label *ngIf="tablaMentalAF == null" >Este paciente no tiene enfermedades mentales</label>
+        <div *ngIf="ocultarbtnagregarmentalAF == true " ><button value={{10}} (click)="ocultarbtnagregarmentalAF = !ocultarbtnagregarmentalAF;habilitarInputs([parentesco_desnutricion,tipo_desnutricion]); mostrarCamposEnfermedadesMentalesAF()"> agregar enfermedad mental</button></div>
         <table mat-table [dataSource]="tablaMentalAF" class="mat-elevation-z8 tabla" *ngIf="tablaMentalAF != null"  >  
           <ng-container matColumnDef="grupoenfermedad">
             <th mat-header-cell *matHeaderCellDef> # </th>
@@ -939,14 +954,52 @@ style="margin-top: 10px;"
           <tr mat-row *matRowDef="let row; columns: columnasTablaMentalAF;"></tr>
         </table>
         </div>
+        <mat-divider></mat-divider>
+
+
+
+        
 
 
 
 
+                              <!-- ENFERMEDADES ALERGIAS AF -->
 
+ <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
+ <div class="col" style="display: none;" id="divAgregarTiposAlergiasAF">
+
+  <mat-form-field>
+    <input matInput formControlName="tipo_alergia" placeholder="Tipo alergia" id="InputAlergiaAF">
+    <mat-error style="margin-left: 0;" *ngIf="tipo_alergia.hasError('required')">
+      !campo requerido!
+    </mat-error>
+  </mat-form-field>
+
+  &nbsp; &nbsp; &nbsp; &nbsp;
+
+  <mat-form-field>
+    <mat-label>Parentesco</mat-label>
+    <mat-select formControlName="parentesco_alergias" multiple>
+      <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+        {{parentesco.viewValue}}
+      </mat-option>
+    </mat-select>
+    <mat-error style="margin-left: 0;" *ngIf="parentesco_alergias.hasError('required')">
+      !campo requerido!
+    </mat-error>
+
+  </mat-form-field>
+
+  &nbsp; &nbsp; &nbsp; &nbsp;
+
+  <button mat-raised-button (click)="agregarAlergias();">agregar</button>
+
+</div>
 
         <!-- TABLA DE SOLO ALERGIAS FAMILIARES -->
           <div class="row medium-width" style="margin-left: 0;">
+            <label *ngIf="tablaAlergiaAF == null" >Este paciente no tiene alergias</label>
+            <div *ngIf="ocultarbtnagregaralergiaAF == true " ><button value={{11}} (click)="ocultarbtnagregaralergiaAF = !ocultarbtnagregaralergiaAF;habilitarInputs([parentesco_desnutricion,tipo_desnutricion]); mostrarCamposAlergiasAF()"> agregar alergia</button></div>
             <table mat-table [dataSource]="tablaAlergiaAF" class="mat-elevation-z8 tabla" *ngIf="tablaAlergiaAF != null"  >  
               <ng-container matColumnDef="grupoenfermedad">
                 <th mat-header-cell *matHeaderCellDef> # </th>
@@ -980,14 +1033,41 @@ style="margin-top: 10px;"
               <tr mat-row *matRowDef="let row; columns: columnasTablaAlergiaAF;"></tr>
             </table>
             </div>
+            <mat-divider></mat-divider>
 
 
 
 
+                              <!-- ENFERMEDADES CANCERES AF -->
 
+              <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
+          <div class="col" style="display: none;" id="divAgregarTiposCancerAF">
+
+            <mat-form-field>
+              <input matInput formControlName="tipo_cancer" placeholder="Tipo cáncer" id="InputCancerAF">             
+            </mat-form-field>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+
+            <mat-form-field>
+              <mat-label>Parentesco</mat-label>
+              <mat-select formControlName="parentesco_cancer" multiple>
+                <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+                  {{parentesco.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error style="margin-left: 0;" *ngIf="parentesco_cancer.hasError('required')">
+                !campo requerido!
+              </mat-error>
+            </mat-form-field>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+
+            <button mat-raised-button (click)="agregarCanceres();">agregar</button>
+          </div>
 
             <!-- TABLA DE SOLO CANCERES FAMILIARES -->
               <div class="row medium-width" style="margin-left: 0;">
+                <label *ngIf="tablaCancerAF == null" >Este paciente no tiene canceres</label>
+                <div *ngIf="ocultarbtnagregarcancerAF == true " ><button value={{12}} (click)="ocultarbtnagregarcancerAF = !ocultarbtnagregarcancerAF;habilitarInputs([parentesco_desnutricion,tipo_desnutricion]); mostrarCamposCancerAF()"> agregar cancer</button></div>
                 <table mat-table [dataSource]="tablaCancerAF" class="mat-elevation-z8 tabla" *ngIf="tablaCancerAF != null"  >  
                   <ng-container matColumnDef="grupoenfermedad">
                     <th mat-header-cell *matHeaderCellDef> # </th>
@@ -1021,15 +1101,43 @@ style="margin-top: 10px;"
                   <tr mat-row *matRowDef="let row; columns: columnasTablaCancerAF;"></tr>
                 </table>
                 </div>
+                <mat-divider></mat-divider>
 
 
 
 
 
+
+
+
+                                     <!-- ENFERMEDADES OTROS AF -->
+     
+                    <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
+          <div class="col" style="display: none;" id="divAgregarTiposOtrosAF">
+
+            <mat-form-field>
+              <input matInput formControlName="otros" placeholder="Otros" id="InputOtroAF">             
+            </mat-form-field>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+
+            <mat-form-field>
+              <mat-label>Parentesco</mat-label>
+              <mat-select formControlName="parentesco_otros" multiple>
+                <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+                  {{parentesco.viewValue}}
+                </mat-option>
+              </mat-select>            
+            </mat-form-field>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+
+            <button mat-raised-button (click)="agregarCanceres();">agregar</button>
+          </div>
 
                 <!-- TABLA DE SOLO OTROS FAMILIARES -->
                   <div class="row medium-width" style="margin-left: 0;">
-                    <table mat-table [dataSource]="tablaOtroAF" class="mat-elevation-z8 tabla" *ngIf="tablaOtroAF != null"  >  
+                    <label *ngIf="tablaOtroAF == null" >Este paciente no tiene otras enfermedades</label>
+                    <div *ngIf="ocultarbtnagregarotroAF == true " ><button value={{13}} (click)="ocultarbtnagregarotroAF = !ocultarbtnagregarotroAF;habilitarInputs([parentesco_desnutricion,tipo_desnutricion]); mostrarCamposOtroAF()"> agregar otra enfermedad</button></div>
+                   <table mat-table [dataSource]="tablaOtroAF" class="mat-elevation-z8 tabla" *ngIf="tablaOtroAF != null"  >  
                       <ng-container matColumnDef="grupoenfermedad">
                         <th mat-header-cell *matHeaderCellDef> # </th>
                         <a>eliminar</a>
@@ -1049,7 +1157,7 @@ style="margin-top: 10px;"
                         <td mat-footer-cell *matFooterCellDef></td>
                      </ng-container>
                 
-                      <ng-container matColumnDef="botones">
+                    <ng-container matColumnDef="botoneseliminar">
                         <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let element;">
                           <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAF(element.id_enfermedad)">
@@ -1104,13 +1212,14 @@ style="margin-top: 10px;"
     <!-- si no se esta editando se mostrara este div -->
   <div *ngIf="readonlyAntecedentesPersonales == true">
   <div>
-    <table mat-table id="tabla2" [dataSource]="tablaAntecedentesPersonales" class="mat-elevation-z8">
+    
+    <p *ngIf="tablaAntecedentesPersonales == null" >Este paciente no tiene antecedentes personales</p>
+    <table mat-table id="tabla2" [dataSource]="tablaAntecedentesPersonales" class="mat-elevation-z8" *ngIf="tablaAntecedentesPersonales != null">
 
     <!-- columna antecedente -->
     <ng-container matColumnDef="antecedente">
     <th mat-header-cell *matHeaderCellDef> Grupo Enfermedad </th>
     <td mat-cell *matCellDef="let elemento"> {{elemento.grupo_enfermedad}} </td>
-
     <!-- este mat-footer siempre tiene que ir en cada columna -->
     <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
@@ -1122,16 +1231,6 @@ style="margin-top: 10px;"
     <td mat-footer-cell *matFooterCellDef></td>  
     </ng-container>
 
-   
-
-    <!-- columna parentesco -->
-    <!-- <ng-container matColumnDef="parentesco">
-    <th mat-header-cell *matHeaderCellDef> Parentesco </th>
-    <td mat-cell *matCellDef="let elemento"> {{elemento.parentesco}}</td>
-    <td mat-footer-cell *matFooterCellDef></td>
-    </ng-container> -->
-
-    <!-- columna observaccion -->
     <ng-container matColumnDef="observacion">
     <th mat-header-cell *matHeaderCellDef> Observacion </th>
     <td mat-cell *matCellDef="let elemento"> {{elemento.observacion}}</td>
@@ -1143,6 +1242,39 @@ style="margin-top: 10px;"
     <tr mat-footer-row *matFooterRowDef="columnasTablaAntecedentesPersonales"></tr>
     </table>
 
+     <!-- TABLA DE HOSPITALARIAS QUIRURGICAS -->
+
+              <p *ngIf="tablahospitalarias == null" >Este paciente no tiene hospitalarias quirurgicas</p>
+              <table mat-table [dataSource]="tablahospitalarias" class="mat-elevation-z8 tabla" *ngIf="tablahospitalarias != null"  >  
+
+                <ng-container matColumnDef="fecha">
+                  <th mat-header-cell *matHeaderCellDef> Fecha</th>
+                  <td mat-cell *matCellDef="let element;"> {{element.fecha}} </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+          
+                <ng-container matColumnDef="tiempo_hospitalizacion">
+                  <th mat-header-cell *matHeaderCellDef> Tiempo Hospitalización </th>
+                  <td mat-cell *matCellDef="let element"  > {{element.tiempo_hospitalizacion}} </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+          
+                <ng-container matColumnDef="diagnostico">
+                  <th mat-header-cell *matHeaderCellDef> Diagnóstico </th>
+                  <td mat-cell *matCellDef="let element"> {{element.diagnostico}} </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+               </ng-container>
+          
+               <ng-container matColumnDef="tratamiento">
+                <th mat-header-cell *matHeaderCellDef> Tratamiento </th>
+                <td mat-cell *matCellDef="let element"> {{element.tratamiento}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+             </ng-container>
+          
+                <tr mat-header-row *matHeaderRowDef="columnashospitalarias"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnashospitalarias;"></tr>
+              </table>
+
 
     <button mat-raised-button
     class="btn btn-outline-primary float-right botonperron"
@@ -1153,11 +1285,37 @@ style="margin-top: 10px;"
   </div>
   </div>
 
-<!-- si se esta editando se mostrara este div -->
+<!-- AQUI SE ESTA EDITANDO ANTECEDENTES PERSONALES -->
 <div *ngIf="readonlyAntecedentesPersonales == false">
-  que pedos aqui qeuno se muestra
 
+  
+                                <!-- ENFERMEDADES DESNUTRICION AP -->
+                                  <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
+          <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAP">
+
+            <mat-form-field>
+              <input matInput formControlName="tipo_desnutricion" placeholder="Tipo Desnutricion"
+                id="InputDenutricionAP">             
+            </mat-form-field>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+
+            <mat-form-field class="medium-width">
+              <textarea matInput formControlName="observacion_desnutricion" cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
+                placeholder="Añada una observación en caso de ser necesario"></textarea>
+              <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">campo muy extenso</mat-error>
+              <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">introduzca una observación válida
+              </mat-error>
+            </mat-form-field>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+
+            <button mat-raised-button (click)="agregarDesnutricionesAP();">agregar</button>
+          </div>
+
+  <!-- TABLA SOLO DESNUTRICIONES AP -->
   <div class="row medium-width" style="margin-left: 0;">
+    <label *ngIf="tablaDesnutricionAP == null" >Este paciente no tiene desnutrición</label>
+    <div *ngIf="ocultarbtnagregardesnutricionAP == true " ><button value={{14}} (click)="ocultarbtnagregardesnutricionAP = !ocultarbtnagregardesnutricionAP;habilitarInputs([parentesco_desnutricion,tipo_desnutricion]); mostrarCamposDesnutricionAP()"> agregar desnutricion</button></div>
     <table mat-table [dataSource]="tablaDesnutricionAP" class="mat-elevation-z8 tabla" *ngIf="tablaDesnutricionAP != null"  >  
       <ng-container matColumnDef="grupoenfermedad">
         <th mat-header-cell *matHeaderCellDef> # </th>
@@ -1181,7 +1339,7 @@ style="margin-top: 10px;"
       <ng-container matColumnDef="botones">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element;">
-          <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAF(element.id_enfermedad)">
+          <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAP(element.id_enfermedad)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>
@@ -1191,12 +1349,44 @@ style="margin-top: 10px;"
       <tr mat-row *matRowDef="let row; columns: columnasTablaDesnutricionAP;"></tr>
     </table>
     </div>
+    <mat-divider></mat-divider>
 
 
 
 
+
+
+
+                                               <!-- ENFERMEDADES MENTALES AP -->
+
+    <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
+  <div class="col" style="display: none;" id="divAgregarTiposEnfermedadesMentalesAP">
+
+    <mat-form-field>
+      <input matInput formControlName="tipo_enfermedad_mental" placeholder="Tipo enfermedad mental"
+        id="InputEnfermedadAP">            
+    </mat-form-field>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+
+    <mat-form-field class="medium-width">
+      <textarea matInput formControlName="observacion_enfermedades_mentales" cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
+        placeholder="Añada una observación en caso de ser necesario">
+      </textarea>
+      <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">campo muy extenso</mat-error>
+      <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">introduzca una observación válida
+      </mat-error>
+    </mat-form-field>
+    &nbsp; &nbsp; &nbsp; &nbsp;
+
+    <button mat-raised-button (click)="agregarEnfermedadesMentalesAP();">agregar</button>
+  </div>
+
+ <!-- TABLA SOLO ENFERMEDADES MENTALES  AP -->
     <div class="row medium-width" style="margin-left: 0;">
-      <table mat-table [dataSource]="tablaMentalAP" class="mat-elevation-z8 tabla" *ngIf="tablaMentalAP != null"  >  
+      <label *ngIf="tablaMentalAP == null" >Este paciente no tiene enfermedades mentales</label>
+      <div *ngIf="ocultarbtnagregarmentalAP == true " ><button value={{15}} (click)="ocultarbtnagregarmentalAP = !ocultarbtnagregarmentalAP;habilitarInputs([parentesco_desnutricion,tipo_desnutricion]); mostrarCamposEnfermedadesMentalesAP()"> agregar enfermedad mental</button></div>
+    <table mat-table [dataSource]="tablaMentalAP" class="mat-elevation-z8 tabla" *ngIf="tablaMentalAP != null"  >  
         <ng-container matColumnDef="grupoenfermedad">
           <th mat-header-cell *matHeaderCellDef> # </th>
           <a>eliminar</a>
@@ -1219,7 +1409,7 @@ style="margin-top: 10px;"
         <ng-container matColumnDef="botones">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element;">
-            <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAF(element.id_enfermedad)">
+            <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAP(element.id_enfermedad)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
@@ -1229,11 +1419,38 @@ style="margin-top: 10px;"
         <tr mat-row *matRowDef="let row; columns: columnasTablaMentalAP;"></tr>
       </table>
       </div>
+      <mat-divider></mat-divider>
   
-  
-  
+
+   
+                                               <!-- ALERGIAS AP -->
+ 
+<!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
+<div class="col" style="display: none;" id="divAgregarTiposAlergiasAP">
+
+  <mat-form-field>
+    <input matInput formControlName="tipo_alergia" placeholder="Tipo alergia" id="inputAlergiaAP">
+    </mat-form-field>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+
+  <mat-form-field class="medium-width">
+    <textarea matInput formControlName="observacion_alergias" cdkTextareaAutosize
+      #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
+      placeholder="Añada una observación en caso de ser necesario"></textarea>
+    <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">campo muy extenso</mat-error>
+    <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">introduzca una observación válida
+    </mat-error>
+  </mat-form-field>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+
+  <button mat-raised-button (click)="agregarAlergiasAP();">agregar</button>
+</div>
+
+      <!-- TABLA SOLO ALERGIAS  AP --> 
   
       <div class="row medium-width" style="margin-left: 0;">
+        <label *ngIf="tablaAlergiaAP == null" >Este paciente no tiene alergias</label>
+        <div *ngIf="ocultarbtnagregaralergiaAP == true " ><button value={{16}} (click)="ocultarbtnagregaralergiaAP = !ocultarbtnagregaralergiaAP;habilitarInputs([parentesco_desnutricion,tipo_desnutricion]); mostrarCamposAlergiasAP()"> agregar alergia</button></div>
         <table mat-table [dataSource]="tablaAlergiaAP" class="mat-elevation-z8 tabla" *ngIf="tablaAlergiaAP != null"  >  
           <ng-container matColumnDef="grupoenfermedad">
             <th mat-header-cell *matHeaderCellDef> # </th>
@@ -1257,7 +1474,7 @@ style="margin-top: 10px;"
           <ng-container matColumnDef="botones">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element;">
-              <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAF(element.id_enfermedad)">
+              <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAP(element.id_enfermedad)">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
@@ -1267,12 +1484,39 @@ style="margin-top: 10px;"
           <tr mat-row *matRowDef="let row; columns: columnasTablaAlergiaAP;"></tr>
         </table>
         </div>
+        <mat-divider></mat-divider>
     
     
     
-    
+                                             <!--  CANCERES AP -->
+
+                                        <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
+    <div class="col" style="display: none;" id="divAgregarTiposCanceresAP">
+
+      <mat-form-field>
+        <input matInput formControlName="tipo_cancer" placeholder="Tipo cáncer" id="InputCancerAP">
+      </mat-form-field>
+      &nbsp; &nbsp; &nbsp; &nbsp;
+
+      <mat-form-field class="medium-width">
+        <textarea matInput formControlName="observacion_cancer" cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
+          placeholder="Añada una observación en caso de ser necesario"></textarea>
+        <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">campo muy extenso</mat-error>
+        <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">introduzca una observación válida
+        </mat-error>
+      </mat-form-field>
+      &nbsp; &nbsp; &nbsp; &nbsp;
+
+      <button mat-raised-button (click)="agregarCanceresAP();">agregar</button>
+    </div>
+
+
+ <!-- TABLA SOLO CANCERES  AP -->
         <div class="row medium-width" style="margin-left: 0;">
-          <table mat-table [dataSource]="tablaCancerAP" class="mat-elevation-z8 tabla" *ngIf="tablaCancerAP != null"  >  
+          <label *ngIf="tablaCancerAP == null" >Este paciente no tiene canceres</label>
+          <div *ngIf="ocultarbtnagregarcancerAP == true " ><button value={{17}} (click)="ocultarbtnagregarcancerAP = !ocultarbtnagregarcancerAP;habilitarInputs([parentesco_desnutricion,tipo_desnutricion]); mostrarCamposCancerAP()"> agregar cancer</button></div>
+        <table mat-table [dataSource]="tablaCancerAP" class="mat-elevation-z8 tabla" *ngIf="tablaCancerAP != null"  >  
             <ng-container matColumnDef="grupoenfermedad">
               <th mat-header-cell *matHeaderCellDef> # </th>
               <a>eliminar</a>
@@ -1295,7 +1539,7 @@ style="margin-top: 10px;"
             <ng-container matColumnDef="botones">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let element;">
-                <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAF(element.id_enfermedad)">
+                <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAP(element.id_enfermedad)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>
@@ -1305,11 +1549,37 @@ style="margin-top: 10px;"
             <tr mat-row *matRowDef="let row; columns: columnasTablaCancerAP;"></tr>
           </table>
           </div>
+          <mat-divider></mat-divider>
       
       
       
-      
+                                                          <!-- ENFERMEDADES OTROS AP -->
+ <!-- el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
+ <div class="col" style="display: none;" id="divAgregarTiposOtrosAP">
+
+  <mat-form-field>
+    <input matInput formControlName="otros" placeholder="otros" id="InputCancerAP">  
+  </mat-form-field>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+
+  <mat-form-field class="medium-width">
+    <textarea matInput formControlName="observacion_otros" cdkTextareaAutosize
+      #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
+      placeholder="Añada una observación en caso de ser necesario"></textarea>
+    <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">campo muy extenso</mat-error>
+    <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">introduzca una observación válida
+    </mat-error>
+  </mat-form-field>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+
+  <button mat-raised-button (click)="agregarCanceresAP();">agregar</button>
+</div>
+
+                                             
+ <!-- TABLA SOLO OTROS  AP -->
           <div class="row medium-width" style="margin-left: 0;">
+            <p *ngIf="tablaOtroAP == null" >Este paciente no tiene otras enfermedades</p>
+            <div *ngIf="ocultarbtnagregarotroAP == true " ><button value={{18}} (click)="ocultarbtnagregarotroAP = !ocultarbtnagregarotroAP;habilitarInputs([parentesco_desnutricion,tipo_desnutricion]); mostrarCamposOtroAP()"> agregar otra enfermedad</button></div>
             <table mat-table [dataSource]="tablaOtroAP" class="mat-elevation-z8 tabla" *ngIf="tablaOtroAP != null"  >  
               <ng-container matColumnDef="grupoenfermedad">
                 <th mat-header-cell *matHeaderCellDef> # </th>
@@ -1333,7 +1603,7 @@ style="margin-top: 10px;"
               <ng-container matColumnDef="botones">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let element;">
-                  <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAF(element.id_enfermedad)">
+                  <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutricionAP(element.id_enfermedad)">
                     <mat-icon>delete</mat-icon>
                   </button>
                 </td>
@@ -1343,13 +1613,131 @@ style="margin-top: 10px;"
               <tr mat-row *matRowDef="let row; columns: columnasTablaOtroAP;"></tr>
             </table>
             </div>
-        
-        
-        
-        
-                    
+            <mat-divider></mat-divider>
 
-</div>
+
+
+
+
+                                          <!-- ENFERMEDADES OTROS AP -->
+
+        <div style="display: none;" id="divAgregarTiposHospitalariasQ">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="example-full-width">
+                <input matInput formControlName="fecha_antecedente_hospitalario" [min]="minDate" [max]="maxDate"
+                  [matDatepicker]="picker2" placeholder="Fecha" readonly="true">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error style="margin-left: 0;" *ngIf="fecha_antecedente_hospitalario.hasError('required')">
+                  !campo requerido!
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field class="example-full-width">
+                <input matInput formControlName="tiempo_hospitalizacion" placeholder="Tiempo Hospitalización">
+                <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso</mat-error>
+                <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación válida
+                </mat-error>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error style="margin-left: 0;" *ngIf="tiempo_hospitalizacion.hasError('required')">
+                  !campo requerido!
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="example-full-width">
+                <textarea matInput formControlName="diagnostico" placeholder="Diagnóstico" cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3"
+                  style="overflow: hidden;"></textarea>
+                <mat-error *ngIf="diagnostico.hasError('maxlength')">campo muy extenso</mat-error>
+                <mat-error *ngIf="diagnostico.hasError('minlength')">introduzca una observación válida</mat-error>
+                <mat-error style="margin-left: 0;" *ngIf="diagnostico.hasError('required')">
+                  !campo requerido!
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+
+              <mat-form-field class="example-full-width">
+                <textarea matInput formControlName="tratamiento" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
+                  placeholder="Tratamiento"></textarea>
+                <mat-error *ngIf="tratamiento.hasError('maxlength')">campo muy extenso</mat-error>
+                <mat-error *ngIf="tratamiento.hasError('minlength')">introduzca una observación válida</mat-error>
+                <mat-error style="margin-left: 0;" *ngIf="tratamiento.hasError('required')">
+                  !campo requerido!
+                </mat-error>
+              </mat-form-field>
+
+
+              <button mat-raised-button class="float-right"
+                (click)="agregarHospitalariasQuirurgicas();">agregar</button>
+
+
+            </div>
+
+          </div>
+        </div>
+
+            <!-- TABLA DE HOSPITALARIAS QUIRURGICAS -->
+            <div class="row medium-width" style="margin-left: 0;">
+              <label *ngIf="tablahospitalarias == null" >Este paciente no tiene hospitalarias quirurgicas</label>
+              <div *ngIf="ocultarbtnagregarhospitalaria == true " ><button value={{19}} (click)="ocultarbtnagregarhospitalaria = !ocultarbtnagregarhospitalaria;habilitarInputs([parentesco_desnutricion,tipo_desnutricion]); mostrarCamposHospitalariasQuirurgicas()"> agregar una hospitalario quirurgica</button></div>
+              <table mat-table [dataSource]="tablahospitalarias" class="mat-elevation-z8 tabla" *ngIf="tablahospitalarias != null"  >  
+                
+                <ng-container matColumnDef="fecha">
+                  <th mat-header-cell *matHeaderCellDef> Fecha</th>
+                  <td mat-cell *matCellDef="let element; "> {{element.fecha}} </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+          
+                <ng-container matColumnDef="tiempo_hospitalizacion">
+                  <th mat-header-cell *matHeaderCellDef> Tiempo Hospitalización </th>
+                  <td mat-cell *matCellDef="let element"  > {{element.tiempo_hospitalizacion}} </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+                </ng-container>
+          
+                <ng-container matColumnDef="diagnostico">
+                  <th mat-header-cell *matHeaderCellDef> Diagnóstico </th>
+                  <td mat-cell *matCellDef="let element"> {{element.diagnostico}} </td>
+                  <td mat-footer-cell *matFooterCellDef></td>
+               </ng-container>
+          
+               <ng-container matColumnDef="tratamiento">
+                <th mat-header-cell *matHeaderCellDef> Tratamiento </th>
+                <td mat-cell *matCellDef="let element"> {{element.tratamiento}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+             </ng-container>
+          
+                <ng-container matColumnDef="botones">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element;">
+                    <button mat-icon-button class="botonesTabla" (click)="eliminarHospitalaria(element.id_hospitalaria_quirurgica)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+          
+                <tr mat-header-row *matHeaderRowDef="columnashospitalariaseditar"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnashospitalariaseditar;"></tr>
+              </table>
+              </div>
+
+
+
+        
+            <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_antecedentes_familiares.invalid}}
+            (click)="readonlyAntecedentesPersonales = !readonlyAntecedentesPersonales; actualizarAntecedentesPersonales()">
+            {{!readonlyAntecedentesPersonales ? 'Guardar' : 'Editar'}}
+            </button>  
+          </div>
 
 </mat-expansion-panel>
 
@@ -1379,7 +1767,9 @@ style="margin-top: 10px;"
 
   <div *ngIf="readonlyHabitosToxicologicos == true">
     <div>
-      <table mat-table id="tabla3" [dataSource]="tablaHabitosToxicologicos" class="mat-elevation-z8">
+      
+  <label *ngIf="tablaHabitosToxicologicos == null" >Este paciente no tiene hábitos toxicológico</label>
+      <table mat-table id="tabla3" [dataSource]="tablaHabitosToxicologicos" class="mat-elevation-z8" *ngIf="tablaHabitosToxicologicos != null" >
 
       <!-- columna antecedente -->
       <ng-container matColumnDef="habito_toxicologico">
@@ -1576,7 +1966,10 @@ style="margin-top: 10px;"
         </mat-panel-description>
       </mat-expansion-panel-header>
 
- <div *ngIf="readonlyActividadSexual">
+ <div *ngIf="readonlyActividadSexual" >
+<div >
+  
+
 
       <form [formGroup]="formulario_actividad_sexual">
       <div class="row">
@@ -1612,7 +2005,9 @@ style="margin-top: 10px;"
 
       </div>
       </form>
-      <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyActividadSexual = !readonlyActividadSexual; cambiarInformacionActividadSexual();">
+     
+    </div>
+     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyActividadSexual = !readonlyActividadSexual; cambiarInformacionActividadSexual();">
       {{!readonlyActividadSexual ? 'Guardar' : 'Editar'}}
       </button> 
       </div>
@@ -1692,6 +2087,7 @@ style="margin-top: 10px;"
   </mat-expansion-panel-header>
 
   <div *ngIf="readonlyAntecedentesGinecologicos">
+    
     <form [formGroup]="formulario_antecedente_ginecologico">
           
       <div class="row">
@@ -2023,7 +2419,8 @@ style="margin-top: 10px;"
       </mat-expansion-panel-header>
 
     <div *ngIf="readonlyPlanificacionFamiliar">
-      <form [formGroup]="formulario_planificacion_familiar">
+      
+      <form [formGroup]="formulario_planificacion_familiar"  >
         <div class="row">
 
           <div class="col">
