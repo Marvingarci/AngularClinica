@@ -397,6 +397,12 @@ eliminarEmergenciaPersona(id_paciente: any) {
 eliminarCualquierEnfermedadAF(id_paciente: any) {
   return this.httpClient.delete(this.API_ENDPOINT + 'pacientes_antecedentes_familiares/' + id_paciente);
 }
+eliminarCualquierEnfermedadAP(id_paciente: any) {
+  return this.httpClient.delete(this.API_ENDPOINT + 'pacientes_antecedentes_personales/' + id_paciente);
+}
+eliminarHospitalaria(id_paciente: any) {
+  return this.httpClient.delete(this.API_ENDPOINT + 'p_hospitalarias_quirurgicas/' + id_paciente);
+}
 
 }
 
