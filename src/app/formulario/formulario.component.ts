@@ -694,6 +694,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   }
 
   paciente_hospitalaria_quirurgica: PacienteHospitalariaQuirurgica = {
+    id_hospitalaria_quirurgica:null,
     id_paciente: null,
     fecha: null,
     tiempo_hospitalizacion: null,
