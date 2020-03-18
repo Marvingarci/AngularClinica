@@ -320,8 +320,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   formulario_actividad_sexual = new FormGroup({
     actividad_sexual: new FormControl('', Validators.required),
-    edad_inicio_sexual: new FormControl('', [Validators.max(50)]),
-    numero_parejas_sexuales: new FormControl('', [Validators.max(99)]),
+    edad_inicio_sexual: new FormControl('', [Validators.maxLength(1000), Validators.minLength(0)]),
+    numero_parejas_sexuales: new FormControl('', [Validators.maxLength(1000), Validators.minLength(0)]),
     practicas_sexuales_riesgo: new FormControl(''),
   });
 
@@ -331,8 +331,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     fum: new FormControl('', [Validators.required]),
     citologia: new FormControl('', [Validators.required]),
     fecha_citologia: new FormControl(''),
-    resultado_citologia: new FormControl('', [Validators.maxLength(60), Validators.minLength(3)]),
-    duracion_ciclo_menstrual: new FormControl('', [Validators.maxLength(60), Validators.minLength(5)]),
+    resultado_citologia: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
+    duracion_ciclo_menstrual: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
     periocidad_ciclo_menstrual: new FormControl('', [Validators.required]),
     caracteristicas_ciclo_menstrual: new FormControl('', [Validators.required])
   });
@@ -341,19 +341,19 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   formulario_planificacion_familiar = new FormGroup({
     planificacion_familiar: new FormControl('', Validators.required),
     metodo_planificacion: new FormControl(''),
-    observacion_planificacion: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_planificacion: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
   });
 
 
   formulario_antecedente_obstetrico = new FormGroup({
-    partos: new FormControl('', [Validators.required, Validators.max(10), Validators.min(0)]),
-    abortos: new FormControl('', [Validators.required, Validators.max(10), Validators.min(0)]),
-    cesarias: new FormControl('', [Validators.required, Validators.max(10), Validators.min(0)]),
-    hijos_vivos: new FormControl('', [Validators.required, Validators.max(10), Validators.min(0)]),
-    hijos_muertos: new FormControl('', [Validators.required, Validators.max(10), Validators.min(0)]),
+    partos: new FormControl('', [Validators.required, Validators.max(100), Validators.min(0)]),
+    abortos: new FormControl('', [Validators.required, Validators.max(100), Validators.min(0)]),
+    cesarias: new FormControl('', [Validators.required, Validators.max(100), Validators.min(0)]),
+    hijos_vivos: new FormControl('', [Validators.required, Validators.max(100), Validators.min(0)]),
+    hijos_muertos: new FormControl('', [Validators.required, Validators.max(100), Validators.min(0)]),
     fecha_termino_ult_embarazo: new FormControl(''),
     descripcion_termino_ult_embarazo: new FormControl(''),
-    observaciones: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observaciones: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
   });
 
 
