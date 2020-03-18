@@ -112,7 +112,8 @@ export interface cita1{
   impresion?:string,
   indicaciones?:string,
   remitido?:any,
-  fechayHora?:any
+  fechayHora?:any,
+  nombre?: string
 }
 
 
@@ -3143,9 +3144,9 @@ cargarTablaAntecedentesFamiliares(){
 
     this.inven.obtenerCita(this.id).subscribe((data: Cita[])=>{
       this.citasPaciente = data;
-      this.citasPaciente.forEach(element => {
+    //  this.citasPaciente.forEach(element => {
    //     console.log(this.citasPaciente.imc);
-      });
+     // });
       console.log(this.citasPaciente);
       this.dataSource1= this.citasPaciente;
     }, (error)=>{
