@@ -18,12 +18,12 @@
     "@angular/core": "^8.2.14",
     "@angular/forms": "^8.2.14",
     "@angular/material": "^8.2.3",
-    "@angular/material-moment-adapter": "^9.0.1",
+    "@angular/material-moment-adapter": "^9.1.2",
     "@angular/platform-browser": "^8.2.14",
     "@angular/platform-browser-dynamic": "^8.2.14",
     "@angular/router": "^8.2.14",
     "@ionic-native/in-app-browser": "^5.22.0",
-    "@types/jquery": "^3.3.32",
+    "@types/jquery": "^3.3.33",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "chartjs-plugin-annotation": "^0.5.7",
@@ -40,7 +40,7 @@
     "ngx-webcam": "^0.2.6",
     "rxjs": "~6.4.0",
     "save": "^2.4.0",
-    "tslib": "^1.10.0",
+    "tslib": "^1.11.1",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
