@@ -813,28 +813,21 @@ style="margin-top: 10px;"
   <div class="row">
     <div class="col">
   <mat-card>
-    <form [formGroup]="formulario_antecedentes_familiares" >
-  <div class="row" style="margin-left: 0;">
-    <!-- <mat-radio-group formControlName="desnutricion" aria-labelledby="example-radio-group-label"
-      class="example-radio-group">
-      <mat-radio-button >Si</mat-radio-button>&nbsp;&nbsp;&nbsp;
-      <mat-radio-button value={{0}} (click)="borrarInputs([parentesco_desnutricion,tipo_desnutricion]); 
-              ocultarCamposDesnutricionAF()">No</mat-radio-button>
-    </mat-radio-group> -->
-                            
-    
-    
-    
-                                <!-- ENFERMEDADES DESNUTRICION AF -->
+
+    <!-- ENFERMEDADES DESNUTRICION AF -->
 
     <!--el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
-    
-    <div class="col" style="display: none;padding: 0px;" id="divAgregarTiposDesnutricionAF">
 
+    <form [formGroup]="formulario_antecedentes_familiares" >
+  <div class="row" style="margin-left: 0;">       
+   <div class="col" style="display: none;padding: 0px;" id="divAgregarTiposDesnutricionAF">
       <mat-form-field class="autocomplete">
         <input matInput formControlName="tipo_desnutricion" placeholder="Tipo Desnutricion"
-          id="InputDesnutricion">        
+          id="InputDesnutricion"> 
+          <mat-error style="margin-left: 0;" *ngIf="tipo_desnutricion.hasError('pattern')">no valido</mat-error>
+            
       </mat-form-field>
+       
       &nbsp; &nbsp;
 
       <mat-form-field>
