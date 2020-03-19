@@ -228,7 +228,7 @@ matcher = new MyErrorStateMatcher();
     parentesco_tb_pulmonar : new FormControl('',[]),
     desnutricion : new FormControl('',[]),
     parentesco_desnutricion : new FormControl('',[]),
-    tipo_desnutricion: new FormControl('',[]),
+    tipo_desnutricion: new FormControl('',[Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/)]),
     enfermedades_mentales : new FormControl('',[]),
     parentesco_enfermedades_mentales : new FormControl('',[]),
     tipo_enfermedad_mental: new FormControl('',[]),
