@@ -194,7 +194,7 @@ const routes: Route[] = [
     IdentidadUnicaDirective,
     DialogoVerificarPermisoComponent,
     CambiarFoto,
-    CambiarContraseniaComponent,
+  
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed
   

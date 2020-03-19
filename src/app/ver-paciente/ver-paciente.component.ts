@@ -1123,19 +1123,19 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
    }
 
 
-actualizarfoto(){
-  this.paciente.imagen = this.inven.imagenactual;
-}
+   
 
  
 
- obtenerDatosFormulario(){
+//  obtenerDatosFormulario(){
 
-  this.formularioService.obtenerEstadosCiviles().subscribe((data: any[])=>{
+//   this.formularioService.obtenerEstadosCiviles().subscribe((data: any[])=>{
 
-    data.forEach(element => {
-      this.estados_civiles.push({value:element.id_estado_civil, viewValue:element.estado_civil});  
-    });
+//     data.forEach(element => {
+//       this.estados_civiles.push({value:element.id_estado_civil, viewValue:element.estado_civil});  
+//     });
+
+
   
     //cargo los datos de la tabla antecedentes familiares y telefonos emergencia
     this.cargarTablaAntecedentesFamiliares();   
@@ -1148,6 +1148,10 @@ actualizarfoto(){
     console.log(error);
   });
  }
+ actualizarfoto(){
+  this.paciente.imagen = this.inven.imagenactual;
+}
+
 
  cargarDesnnutricionAF(){
   this.formularioService.obtenerDesnutricionAF(this.id).subscribe((data: DesnutricionAF)=>{  
@@ -3155,6 +3159,7 @@ export class HistoriaSubsiguiente1{
       this.citaGuardar.observaciones=this.observaciones_examen.value;
       this.citaGuardar.remitido=this.remitira.value;
       this.citaGuardar.siguiente_cita= this.fecha_nacimiento.value;
+      //this.citaGuardar.nombre= this.medicamento.value;
       this.citaGuardar.nombre= this.nombre.value;
 
       
