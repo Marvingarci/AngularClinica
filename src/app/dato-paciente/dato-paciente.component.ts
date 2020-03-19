@@ -166,6 +166,10 @@ export class DatoPacienteComponent implements OnInit {
       this.citas = data;
       console.log(this.citas);
       this.dataSourceTablaDatoPaciente = new MatTableDataSource(this.citas);
+      if (!this.citas.length) {
+        this.dataSourceTablaDatoPaciente = null;     
+      } 
+      
       this.dataSourceTablaDatoPaciente1 = new MatTableDataSource(this.citas);
       this.dataSourceTablaDatoPaciente2 = new MatTableDataSource(this.citas);
       this.dataSourceTablaDatoPaciente3 = new MatTableDataSource(this.citas);
