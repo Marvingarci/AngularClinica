@@ -198,7 +198,7 @@ export class ConsolidadodiarioComponent implements OnInit {
 
   public barChartData: ChartDataSets[] = [
     { data: [0, 8, 0], label: 'Hombres' },
-    { data: [0 ], label: 'Mujeres' },
+    { data: [0 , 0, 0], label: 'Mujeres' },
     //{ data: [0],  label: ''}
 
   ];
@@ -232,14 +232,18 @@ export class ConsolidadodiarioComponent implements OnInit {
       
     //Asignacion sexo
     this.barChartData[0].data[0] = this.elemetos[0].masculino;
-    this.barChartData[0].data[1] = this.elemetos[0].masculino+2;
+    this.barChartData[0].data[1] = this.elemetos[0].masculino+1;
     this.barChartData[1].data[0] = this.elemetos[0].femenino;
+    this.barChartData[1].data[1] = this.elemetos[0].femenino+1;
     //asignacion de edad
     this.barChartData1[0].data[0] = this.edad[0].menos19;
     this.barChartData1[0].data[1] = this.edad[0].menos19+1;
     this.barChartData1[1].data[0] = this.edad[0].primerRango;
+    this.barChartData1[1].data[1] = this.edad[0].primerRango+1;
     this.barChartData1[2].data[0] = this.edad[0].segundoRango;
+    this.barChartData1[2].data[1] = this.edad[0].segundoRango+1;
     this.barChartData1[3].data[0] = this.edad[0].tercerRango;
+    this.barChartData1[3].data[1] = this.edad[0].tercerRango+1;
 
     this.chart1.ngOnInit();
     this.chart2.ngOnInit();
@@ -277,10 +281,10 @@ export class ConsolidadodiarioComponent implements OnInit {
   public barChartPlugins1 = [pluginDataLabels];
 
   public barChartData1: ChartDataSets[] = [
-    { data: [0,5,0], label: '<19' },
-    { data: [0], label: '20-24' },
-    { data: [0], label: '25-30' },
-    { data: [0], label: '>30' }
+    { data: [0,0,0], label: '<19' },
+    { data: [0,0,0], label: '20-24' },
+    { data: [0,0,0], label: '25-30' },
+    { data: [0,0,0], label: '>30' }
   ];
 
   

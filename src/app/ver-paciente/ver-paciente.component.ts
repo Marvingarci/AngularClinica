@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input, OnDestroy, Inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormularioService } from "../services/formulario.service";
 import { Paciente } from "../interfaces/paciente";
@@ -35,6 +35,10 @@ import { CancerAP } from '../interfaces/cancerAP';
 import { OtroAP } from '../interfaces/otroAP';
 import { MentalAP } from '../interfaces/MentalAP';
 import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
+import { WebcamInitError } from '../modules/webcam/domain/webcam-init-error';
+import { WebcamImage } from '../modules/webcam/domain/webcam-image';
+import { Subject, Observable } from 'rxjs';
+import { WebcamUtil } from '../modules/webcam/util/webcam.util';
 
 
 export interface Element {
@@ -1194,6 +1198,22 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
          break;
      }         
    }
+
+
+   
+
+ 
+
+//  obtenerDatosFormulario(){
+
+//   this.formularioService.obtenerEstadosCiviles().subscribe((data: any[])=>{
+
+//     data.forEach(element => {
+//       this.estados_civiles.push({value:element.id_estado_civil, viewValue:element.estado_civil});  
+//     });
+
+
+  
     //cargo los datos de la tabla antecedentes familiares y telefonos emergencia
     this.cargarTablaAntecedentesFamiliares();  
     //establesco el valor a los formcontrol para que se visualizen
@@ -1204,6 +1224,10 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     console.log(error);
   });
  }
+ actualizarfoto(){
+  this.paciente.imagen = this.inven.imagenactual;
+}
+
 
  cargarAntecedentesPersonales(){
   this.formularioService.obtenerAntecedentePersonal(this.id).subscribe((data: AntecedentesPersonales)=>{
@@ -3128,6 +3152,7 @@ export class HistoriaSubsiguiente1{
       this.citaGuardar.observaciones=this.observaciones_examen.value;
       this.citaGuardar.remitido=this.remitira.value;
       this.citaGuardar.siguiente_cita= this.fecha_nacimiento.value;
+      //this.citaGuardar.nombre= this.medicamento.value;
       this.citaGuardar.nombre= this.nombre.value;
 
       
@@ -3345,3 +3370,145 @@ export class BorrarHospitalarias  {
     this.mensaje.open(message, null, config);
   }
 } 
+
+
+
+
+export interface imagenNueva{
+  id: number,
+  imagen : string
+}
+/////// MATDIALOG cambiar foto
+@Component({
+  selector: 'CambiarFoto',
+  templateUrl: 'CambiarFoto.html',  
+  styleUrls: ['CambiarFoto.css'],
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  }]
+})
+
+
+@Injectable()
+
+export class CambiarFoto {
+
+
+  constructor(private dialogo:MatDialogRef<CambiarFoto>, private servicio: InventariosService, private activatedRoute: ActivatedRoute,
+              private formulario: FormularioService){
+
+  }
+    // toggle webcam on/off
+    public showWebcam = true;
+    public allowCameraSwitch = true;
+    public multipleWebcamsAvailable = false;
+    public deviceId: string;
+    public facingMode: string = 'environment';
+    public errors: WebcamInitError[] = [];
+    public mirrorImage: 'never';
+    paciente : Paciente;
+    NuevaImagen: any={id_paciente:null, imagen:null};
+    // latest snapshot
+    public webcamImage: WebcamImage = null;
+    opcion: boolean = true;
+    id: any;
+    imagen : any;
+    // webcam snapshot trigger
+    private trigger: Subject<void> = new Subject<void>();
+    // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
+    private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
+  
+    public ngOnInit(): void {
+      WebcamUtil.getAvailableVideoInputs()
+        .then((mediaDevices: MediaDeviceInfo[]) => {
+          this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
+        });
+    }
+  
+    public triggerSnapshot(): void {
+      this.trigger.next();
+      this.opcion = false;
+    }
+  
+    public toggleWebcam(): void {
+      this.showWebcam = !this.showWebcam;
+    }
+  
+    public handleInitError(error: WebcamInitError): void {
+      if (error.mediaStreamError && error.mediaStreamError.name === "NotAllowedError") {
+        console.warn("Camera access was not allowed by user!");
+      }
+      this.errors.push(error);
+    }
+  
+    public showNextWebcam(directionOrDeviceId: boolean|string): void {
+      // true => move forward through devices
+      // false => move backwards through devices
+      // string => move to device with given deviceId
+      this.nextWebcam.next(directionOrDeviceId);
+    }
+    public otrafoto(){
+      this.opcion = true;
+
+    }
+    public guardar(){
+      this.dialogo.close();
+
+      this.id=this.servicio.idCita;
+      console.log(this.id);
+
+      this.imagen = this.webcamImage.imageAsDataUrl;
+      console.log(this.imagen);
+      
+      // this.formulario.obtenerPaciente(this.id).subscribe( (data: Paciente) =>{
+      //      this.paciente = data;
+      //      console.log(this.paciente);
+      //     this.paciente.imagen = this.imagen;
+      //       this.formulario.actualizarPaciente(this.paciente).subscribe( (data) =>{
+      //            console.log('imagen guardado con exito');
+      //          }, (error) => {
+      //            console.log(error);
+      //          });
+
+      //    }, (error) => {
+      //      console.log(error);
+      //    });
+      
+      this.NuevaImagen.id_paciente = this.id;
+      this.NuevaImagen.imagen = this.imagen;
+      this.servicio.ActualizarImagen(this.NuevaImagen).subscribe( (data) =>{
+         console.log('imagen guardado con exito');
+         this.servicio.imagenactual = this.imagen;
+         //this.verPaciente.actualizarfoto();
+       }, (error) => {
+         console.log(error);
+       });
+    }
+  
+    public handleImage(webcamImage: WebcamImage): void {
+      console.log('received webcam image', webcamImage);
+      this.webcamImage = webcamImage;
+    }
+  
+    public cameraWasSwitched(deviceId: string): void {
+      console.log('active device: ' + deviceId);
+      this.deviceId = deviceId;
+    }
+  
+    public get triggerObservable(): Observable<void> {
+      return this.trigger.asObservable();
+    }
+  
+    public get nextWebcamObservable(): Observable<boolean|string> {
+      return this.nextWebcam.asObservable();
+    }
+  
+    public get videoOptions(): MediaTrackConstraints {
+      const result: MediaTrackConstraints = {};
+      if (this.facingMode && this.facingMode !== "") {
+        result.facingMode = { ideal: this.facingMode };
+      }
+  
+      return result;
+    }
+}
