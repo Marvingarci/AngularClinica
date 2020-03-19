@@ -350,7 +350,7 @@ matcher = new MyErrorStateMatcher();
       controlador.enable({ onlySelf: true });
 
       if (controlador.parent == this.formulario_antecedentes_familiares) {
-        controlador.setValidators(Validators.required);
+        controlador.setValidators(Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/));
         //este metodo sirve para actualizar el valor y las validaciones de un controlador.
         controlador.updateValueAndValidity();
       }
@@ -365,7 +365,7 @@ matcher = new MyErrorStateMatcher();
           this.diagnostico == controlador ||
           this.tratamiento == controlador) {
 
-          controlador.setValidators(Validators.required);
+          controlador.setValidators(Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/));
           //este metodo sirve para actualizar el valor y las validaciones de un controlador.
           controlador.updateValueAndValidity();
         }
