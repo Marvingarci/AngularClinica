@@ -63,7 +63,6 @@ abrirside() {
     }
     ayuda(){      
       this.icon = 'help';
-  const dialogRef = this.dialog.open(DialogContentExampleDialog1, {disableClose:false,panelClass: 'custom-dialog-container1'});
   }
   cerrarsesion(){
     
@@ -92,16 +91,7 @@ abrirside() {
 
 
 
-@Component({
-  selector: 'dialog-content-example-dialog1',
-  templateUrl: 'dialog-content-example-dialog1.html',
-})
 
-export class DialogContentExampleDialog1 {
- 
-  constructor( ){   
-   }
-}
 
 @Component({
   selector: 'dialog-cerrar-sesion2',

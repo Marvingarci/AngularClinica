@@ -7,7 +7,7 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { PrincipalComponent, DialogContentExampleDialog1, DialogCerrarSesion2 } from './principal/principal.component';
+import { PrincipalComponent,  DialogCerrarSesion2 } from './principal/principal.component';
 import { LoginadminComponent, DialogoCambiarContraseniaAdmin, /*DialogoVerificar*/ } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
@@ -26,6 +26,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 //import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { InventarioComponent } from './inventario/inventario.component';
 import { FormInventarioComponent } from './form-inventario/form-inventario.component';
+
 
 
 //Material Angular
@@ -83,7 +84,7 @@ import { IdentidadUnicaDirective } from './validations/identidad-unica.directive
 import { DialogoVerificarPermisoComponent } from './dialogo-verificar-permiso/dialogo-verificar-permiso.component';
 
 //Camara
-//import {WebcamModule} from 'ngx-webcam';
+import {WebcamModule} from 'ngx-webcam';
 
 
 // Import pdfmake-wrapper and the fonts to use
@@ -179,7 +180,6 @@ const routes: Route[] = [
     VerPacienteComponent,
     cambiocontraDialog,
     InventarioComponent,
-    DialogContentExampleDialog1,
     actualizarcontraDialog,
     verificarDialog,
     DialogCerrarSesion,
@@ -272,7 +272,6 @@ const routes: Route[] = [
   ],
   entryComponents: [
     cambiocontraDialog,
-    DialogContentExampleDialog1,
     actualizarcontraDialog,
     verificarDialog,
     DialogCerrarSesion,
@@ -283,7 +282,7 @@ const routes: Route[] = [
     DialogoMedico,
     // DialogoVerificar,
     DialogoVerificarPermisoComponent,
-    //CambiarFoto,
+    // CambiarFoto,
     Borrartelefonoemergencia,
     DialogoVerificarPermisoComponent,
     DialogoCambiarContraseniaAdmin,

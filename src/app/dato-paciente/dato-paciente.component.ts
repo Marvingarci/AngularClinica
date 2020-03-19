@@ -11,7 +11,6 @@ import { LoginComponent } from '../login/login.component';
 import { FormularioComponent } from '../formulario/formulario.component';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { PacienteComponent } from '../paciente/paciente.component';
-import { DialogContentExampleDialog1 } from '../principal/principal.component';
 import { Login } from '../interfaces/login';
 import { InventariosService } from '../services/inventarios.service';
 import { Cita } from '../interfaces/Cita';
@@ -166,6 +165,10 @@ export class DatoPacienteComponent implements OnInit {
       this.citas = data;
       console.log(this.citas);
       this.dataSourceTablaDatoPaciente = new MatTableDataSource(this.citas);
+      if (!this.citas.length) {
+        this.dataSourceTablaDatoPaciente = null;     
+      } 
+      
       this.dataSourceTablaDatoPaciente1 = new MatTableDataSource(this.citas);
       this.dataSourceTablaDatoPaciente2 = new MatTableDataSource(this.citas);
       this.dataSourceTablaDatoPaciente3 = new MatTableDataSource(this.citas);
