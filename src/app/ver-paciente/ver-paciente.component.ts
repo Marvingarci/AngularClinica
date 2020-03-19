@@ -257,18 +257,18 @@ matcher = new MyErrorStateMatcher();
     observacion_its : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     desnutricion : new FormControl('',[Validators.required]),
     observacion_desnutricion : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
-    tipo_desnutricion: new FormControl('',[]),
+    tipo_desnutricion: new FormControl('',[Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/)]),
     enfermedades_mentales : new FormControl('',[Validators.required]),
     observacion_enfermedades_mentales : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
-    tipo_enfermedad_mental: new FormControl('',[]),
+    tipo_enfermedad_mental: new FormControl('',[Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/)]),
     convulsiones : new FormControl('',[Validators.required]),
     observacion_convulsiones : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     alergias : new FormControl('',[Validators.required]),
     observacion_alergias : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
-    tipo_alergia: new FormControl('',[]),
+    tipo_alergia: new FormControl('',[Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/)]),
     cancer : new FormControl('',[Validators.required]),
     observacion_cancer : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
-    tipo_cancer: new FormControl('',[]),
+    tipo_cancer: new FormControl('',[Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/)]),
     hospitalarias_quirurgicas : new FormControl('',[Validators.required]),
     fecha_antecedente_hospitalario: new FormControl('',[]),
     tratamiento: new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
@@ -276,7 +276,7 @@ matcher = new MyErrorStateMatcher();
     tiempo_hospitalizacion: new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
     traumaticos : new FormControl('',[Validators.required]),
     observacion_traumaticos : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
-    otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
+    otros : new FormControl('', [ Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/)]),
     observacion_otros : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
   });
 
@@ -348,38 +348,12 @@ matcher = new MyErrorStateMatcher();
   habilitarInputs(formControl: FormControl[]) {
     formControl.forEach(controlador => {
       controlador.enable({ onlySelf: true });
-
-      if (controlador.parent == this.formulario_antecedentes_familiares) {
         controlador.setValidators(Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/));
-        //este metodo sirve para actualizar el valor y las validaciones de un controlador.
-        controlador.updateValueAndValidity();
-      }
-
-      if (controlador.parent == this.formulario_antecedentes_personales) {
-        if (this.tipo_desnutricion_ap == controlador ||
-          this.tipo_enfermedad_mental_ap == controlador ||
-          this.tipo_alergia_ap == controlador ||
-          this.tipo_cancer_ap == controlador ||
-          this.fecha_antecedente_hospitalario == controlador ||
-          this.tiempo_hospitalizacion == controlador ||
-          this.diagnostico == controlador ||
-          this.tratamiento == controlador) {
-
-          controlador.setValidators(Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/));
-          //este metodo sirve para actualizar el valor y las validaciones de un controlador.
-          controlador.updateValueAndValidity();
-        }
-      }
+      
+     
+    
     });
   }
-
-
-borrarInputs(formControl : FormControl[]){
-  formControl.forEach(controlador => {
-    controlador.setValue('');
-    controlador.disable({onlySelf: true});
-  });
-}
 
 mostrarCamposDesnutricionAF() {
   //muestro el contenido de este div si el usuario hace click en "si"
@@ -1648,13 +1622,7 @@ cargarHospitalarias(){
       );
     
       this.tipo_desnutricion.setValue('');
-      this.parentesco_desnutricion.setValue('');
-     //si se agrega un elemento a la tabla entonces los campos
-      //tipo desnutricion y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.tipo_desnutricion.clearValidators();
-      this.tipo_desnutricion.updateValueAndValidity();
-      this.parentesco_desnutricion.clearValidators();
-      this.parentesco_desnutricion.updateValueAndValidity();
+      this.parentesco_desnutricion.setValue('');    
     }
     this.guardarDesnutricionesAF();
   }// fin del boton agregardesnutricionAF
