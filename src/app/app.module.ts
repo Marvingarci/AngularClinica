@@ -17,7 +17,7 @@ import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-est
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
-import { VerPacienteComponent, HistoriaSubsiguiente1,  Borrartelefonoemergencia, BorrarDesnutricionAF, BorrarDesnutricionAP, BorrarHospitalarias } from './ver-paciente/ver-paciente.component';
+import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF, BorrarDesnutricionAP, BorrarHospitalarias } from './ver-paciente/ver-paciente.component';
 //import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
 //import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
 //CambiarFoto,
@@ -60,8 +60,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ConsolidadodiarioComponent } from './consolidadodiario/consolidadodiario.component';
 import { TelefonoUnicoDirective } from './validations/telefono-unico.directive';
 import { MatChipsModule } from '@angular/material/chips';
-import { DateAdapter,  MAT_DATE_LOCALE } from '@angular/material';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -86,18 +86,32 @@ import { DialogoVerificarPermisoComponent } from './dialogo-verificar-permiso/di
 //import {WebcamModule} from 'ngx-webcam';
 
 
+// Import pdfmake-wrapper and the fonts to use
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+// import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
+import pdfFonts from "../assets/custom-fonts"; // custom fonts
 
+// Set the fonts to use
+// Configuring custom fonts
+PdfMakeWrapper.setFonts(pdfFonts, {
 
+  arial: {
+    normal: 'arial.ttf',
+    bold: 'arial.ttf',
+    italics: 'arial.ttf',
+    bolditalics: 'arial.ttf'
+  }
 
+});
 
-
+PdfMakeWrapper.useFont('arial');
 
 
 const routes: Route[] = [
   { path: '', component: LoginComponent },
   { path: 'formulario', component: FormularioComponent },
   { path: 'formulario:id', component: FormularioComponent },
-  { path: 'principal', component: PrincipalComponent, canActivate: [AuthAdministradorGuard]},
+  { path: 'principal', component: PrincipalComponent, canActivate: [AuthAdministradorGuard] },
   { path: 'at1', component: At1Component, canActivate: [AuthAdministradorGuard] },
   { path: 'datoPaciente/:id', component: DatoPacienteComponent, canActivate: [AuthPacienteGuard] },
   { path: 'datoPaciente', component: DatoPacienteComponent, canActivate: [AuthPacienteGuard] },
@@ -137,7 +151,6 @@ const routes: Route[] = [
       { path: 'verPaciente/:id', component: VerPacienteComponent },
       { path: 'formulario', component: FormularioComponent },
       { path: 'consolidado', component: ConsolidadodiarioComponent },
-      // { path: 'editar_administrador/:id', component: EditarAdministradorComponent },
       // {path: 'verPaciente', component: VerPacienteComponent},
 
 
@@ -171,7 +184,7 @@ const routes: Route[] = [
     verificarDialog,
     DialogCerrarSesion,
     HistoriaSubsiguiente,
-    HistoriaSubsiguiente1,  
+    HistoriaSubsiguiente1,
     Borraradministrador,
     DialogCerrarSesion2,
     PaseAdminComponent,
@@ -196,17 +209,17 @@ const routes: Route[] = [
     FocusInvalidoInputDirective,
     IdentidadUnicaDirective,
     DialogoVerificarPermisoComponent,
-   // CambiarFoto,
-   // CambiarContraseniaComponent,
+    // CambiarFoto,
+    // CambiarContraseniaComponent,
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed
-  
 
 
 
 
 
-    
+
+
   ],
   imports: [
     BrowserModule,
@@ -244,15 +257,15 @@ const routes: Route[] = [
     MatBadgeModule,
     MatAutocompleteModule,
     MatChipsModule,
-    MatDatepickerModule, 
+    MatDatepickerModule,
     ChartsModule,
-//    WebcamModule,
-    
-    MatCheckboxModule
-    
-    
+    //    WebcamModule,
 
-//esto es de los focus
+    MatCheckboxModule
+
+
+
+    //esto es de los focus
 
 
 
@@ -286,7 +299,7 @@ const routes: Route[] = [
       useClass: AuthInterceptorService,
       multi: true
     },
-  //  CambiarFoto
+    //  CambiarFoto
   ],
   bootstrap: [AppComponent]
 })
