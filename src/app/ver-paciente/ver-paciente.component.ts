@@ -939,7 +939,7 @@ ocultar: boolean = true;
 
 
 constructor(private formularioService: FormularioService, private mensaje: MatSnackBar, public dialog: MatDialog,  private activatedRoute: ActivatedRoute, 
-  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, ) { 
+  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, public cambiarFoto: MatDialog) { 
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
     
@@ -1186,6 +1186,9 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       console.log(error);
     });      
  }
+ actualizarfoto(){
+  this.paciente.imagen = this.inven.imagenactual;
+}
 
  cargarAntecedentesFamiliares(){
   this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
@@ -1224,9 +1227,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     console.log(error);
   });
  }
- actualizarfoto(){
-  this.paciente.imagen = this.inven.imagenactual;
-}
+ 
 
 
  cargarAntecedentesPersonales(){
@@ -2807,6 +2808,11 @@ cargarTablaAntecedentesFamiliares(){
     config.panelClass = ['background-red'];
     config.duration = 2000;
     this.mensaje.open(message, null, config);
+  }
+
+  cambiarfoto(){
+    const dia = this.cambiarFoto.open(CambiarFoto);
+    this.inven.idCita = this.id;
   }
 
 
