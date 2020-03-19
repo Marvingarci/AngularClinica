@@ -1,10 +1,11 @@
-import { Component, OnInit , ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormularioService } from '../services/formulario.service';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { Router, RouterModule } from '@angular/router';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { PdfMakeWrapper, Txt, Canvas, Line } from 'pdfmake-wrapper';
 
 
 
@@ -31,8 +32,8 @@ export interface Paciente {
   presion?: string;
   pulso?: string;
   categoria?: any;
-  prosene?:any;
- 
+  prosene?: any;
+
 }
 
 
@@ -45,62 +46,92 @@ export interface Paciente {
 })
 
 export class PacienteComponent implements OnInit {
-  
+
   API_ENDPOINT = 'http://apiclinicaunah.test/api/';
   pacientes: Paciente[];
   alumnos: Paciente[];
   empleados: Paciente[];
   visitantes: Paciente[];
   prosene: Paciente[];
-  
+
   dataSource: any;
   dataSource2: any;
   dataSource3: any;
   dataSource4: any;
-  
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
- 
- loading:boolean;
-  constructor( private pacienteService: FormularioService, private httpClient: HttpClient, private router:Router ) { 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
+
+
+
+  loading: boolean;
+  constructor(private pacienteService: FormularioService, private httpClient: HttpClient, private router: Router) {
     this.getPacientes();
     this.loading = false;
     this.pacienteService.esAlumno = true;
   }
 
 
-// esto es para mandar string de un componente a atro
-//  loading:boolean;  
+  // esto es para mandar string de un componente a atro
+  //  loading:boolean;  
 
-//   receiveMessage($event) {
-//     this.loading = $event;
-//   }
-  
-  getPacientes(){
-    this.pacienteService.obtenerPacientes().subscribe((data: Paciente[]) =>{
-      this.pacientes=data;
+  //   receiveMessage($event) {
+  //     this.loading = $event;
+  //   }
+
+  generarPDF() {
+
+    const pdf = new PdfMakeWrapper();
+
+    pdf.add(
+      new Txt('Constancia').fontSize(16).alignment("center").end
+    );
+
+    pdf.add(
+      new Txt(
+      "\nEl motivo de la presente constancia es para hacerle saber que el alumno "+
+      "quien esta leyendo esto se la come toda y no deja para la cena.").alignment("justify").end
+    );
+
+    pdf.add([
+      new Canvas([
+        new Line([10, 10], [200, 10]).end
+      ]).alignment("center").end,
+      new Txt("firma").alignment("center").end
+    ]);
+
+
+
+    pdf.create().open();
+
+  }
+
+
+  getPacientes() {
+    this.pacienteService.obtenerPacientes().subscribe((data: Paciente[]) => {
+      this.pacientes = data;
 
       console.log(this.pacientes);
       this.alumnos = this.pacientes.filter(paciente => paciente.categoria === 'Estudiante');
       this.empleados = this.pacientes.filter(paciente => paciente.categoria === 'Empleado');
       this.visitantes = this.pacientes.filter(paciente => paciente.categoria === 'Visitante');
       this.prosene = this.pacientes.filter(paciente => paciente.prosene === 'Si');
-console.log(this.pacientes[0].prosene);
+      console.log(this.pacientes[0].prosene);
 
-      this.dataSource =  new MatTableDataSource(this.alumnos);
-     this.dataSource2 =  new MatTableDataSource(this.empleados);
-     this.dataSource3 =  new MatTableDataSource(this.visitantes);
-     this.dataSource4 =  new MatTableDataSource(this.prosene);
- 
+      this.dataSource = new MatTableDataSource(this.alumnos);
+      this.dataSource2 = new MatTableDataSource(this.empleados);
+      this.dataSource3 = new MatTableDataSource(this.visitantes);
+      this.dataSource4 = new MatTableDataSource(this.prosene);
 
-    },(error)=>{
+
+    }, (error) => {
       console.log(error);
       alert('Ocurrio un error');
     });
   }
 
-  
- 
+
+
 
   displayedColumns: string[] = ['id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'];
   displayedColumns2: string[] = ['id_paciente', 'nombre_completo', 'numero_cuenta', 'sexo', 'numero_telefono'];
@@ -110,18 +141,16 @@ console.log(this.pacientes[0].prosene);
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.paginator = this.paginator;
   }
-   
-
-
 
 
   ngOnInit() {
 
   }
 
-  formulario(){
+
+  formulario() {
     this.pacienteService.esAlumno = false;
-    
+
     this.router.navigate(['principal/formulario']);
   }
 
