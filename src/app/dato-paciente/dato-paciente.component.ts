@@ -46,8 +46,16 @@ export interface cita1 {
 })
 export class DatoPacienteComponent implements OnInit {
 
-  columnaTablaDatoPaciente: string[] = ['fechayHora', 'nombre', 'indicaciones', 'observaciones'];
+  columnaTablaDatoPaciente: string[] = ['fechayHora'];
+  columnaTablaDatoPaciente1: string[] = ['nombre'];
+  columnaTablaDatoPaciente2: string[] = ['indicaciones'];
+  columnaTablaDatoPaciente3: string[] = ['observaciones'];
+
   dataSourceTablaDatoPaciente: any;
+  dataSourceTablaDatoPaciente1: any;
+  dataSourceTablaDatoPaciente2: any;
+  dataSourceTablaDatoPaciente3: any;
+ 
 
 
   formulario_datos_generales = new FormGroup({
@@ -158,6 +166,13 @@ export class DatoPacienteComponent implements OnInit {
       this.citas = data;
       console.log(this.citas);
       this.dataSourceTablaDatoPaciente = new MatTableDataSource(this.citas);
+      if (!this.citas.length) {
+        this.dataSourceTablaDatoPaciente = null;     
+      } 
+      
+      this.dataSourceTablaDatoPaciente1 = new MatTableDataSource(this.citas);
+      this.dataSourceTablaDatoPaciente2 = new MatTableDataSource(this.citas);
+      this.dataSourceTablaDatoPaciente3 = new MatTableDataSource(this.citas);
 
     }, (error) => {
 

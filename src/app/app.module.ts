@@ -7,7 +7,7 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { PrincipalComponent, DialogContentExampleDialog1, DialogCerrarSesion2 } from './principal/principal.component';
+import { PrincipalComponent,  DialogCerrarSesion2 } from './principal/principal.component';
 import { LoginadminComponent, DialogoCambiarContraseniaAdmin, /*DialogoVerificar*/ } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
@@ -17,14 +17,16 @@ import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-est
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
-import { VerPacienteComponent, HistoriaSubsiguiente1, CambiarFoto, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
+import { VerPacienteComponent, HistoriaSubsiguiente1,  Borrartelefonoemergencia, BorrarDesnutricionAF, BorrarDesnutricionAP, BorrarHospitalarias, CambiarFoto } from './ver-paciente/ver-paciente.component';
 //import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
 //import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
+//CambiarFoto,
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 //import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { InventarioComponent } from './inventario/inventario.component';
 import { FormInventarioComponent } from './form-inventario/form-inventario.component';
+
 
 
 //Material Angular
@@ -165,7 +167,6 @@ const routes: Route[] = [
     VerPacienteComponent,
     cambiocontraDialog,
     InventarioComponent,
-    DialogContentExampleDialog1,
     actualizarcontraDialog,
     verificarDialog,
     DialogCerrarSesion,
@@ -183,6 +184,8 @@ const routes: Route[] = [
     DialogoMedico,
     Borrartelefonoemergencia,
     BorrarDesnutricionAF,
+    BorrarDesnutricionAP,
+    BorrarHospitalarias,
 
 
 
@@ -195,6 +198,8 @@ const routes: Route[] = [
     DialogoVerificarPermisoComponent,
     CambiarFoto,
   
+    
+   // CambiarContraseniaComponent,
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed
   
@@ -256,7 +261,6 @@ const routes: Route[] = [
   ],
   entryComponents: [
     cambiocontraDialog,
-    DialogContentExampleDialog1,
     actualizarcontraDialog,
     verificarDialog,
     DialogCerrarSesion,
@@ -273,6 +277,8 @@ const routes: Route[] = [
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed,
     BorrarDesnutricionAF,
+    BorrarDesnutricionAP,
+    BorrarHospitalarias,
     DialogoVerificarPermisoComponent
   ],
   providers: [

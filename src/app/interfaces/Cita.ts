@@ -13,5 +13,5 @@ impresion?:string,
 indicaciones?:string,
 remitido?:any,
 fechayHora?:any,
-nombre?:any
+nombre?:string
 }

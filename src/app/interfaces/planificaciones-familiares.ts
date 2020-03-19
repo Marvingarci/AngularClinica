@@ -1,6 +1,6 @@
 export interface PlanificacionesFamiliares {
     id_planificacion_familiar? : number;
-    planificacion_familiar : string;
+    planificacion_familiar? : string;
     metodo_planificacion? : any;
     observacion_planificacion? : string;
     id_paciente? : number;

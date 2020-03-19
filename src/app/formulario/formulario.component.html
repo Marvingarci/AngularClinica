@@ -1861,7 +1861,8 @@
           <div class="col" style="text-align: left;padding-left: 0;">
             <mat-form-field class="example-full-width">
               <input matInput formControlName="edad_inicio_sexual" type="number" placeholder="Edad inicio vida sexual">
-              <mat-error *ngIf="edad_inicio_sexual.hasError('max')">edad inválida</mat-error>
+              <mat-error *ngIf="edad_inicio_sexual.hasError('maxLength')">edad inválida</mat-error>
+              <mat-error *ngIf="edad_inicio_sexual.hasError('minLength')">edad inválida</mat-error>
             </mat-form-field>
           </div>
           &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1869,7 +1870,7 @@
             <mat-form-field class="example-full-width">
               <input matInput formControlName="numero_parejas_sexuales" type="number"
                 placeholder="Número de parejas sexuales">
-              <mat-error *ngIf="numero_parejas_sexuales.hasError('max')">muy extenso</mat-error>
+              <mat-error *ngIf="numero_parejas_sexuales.hasError('pattern')">numero inválido</mat-error>
             </mat-form-field>
           </div>
           &nbsp; &nbsp; &nbsp; &nbsp;
@@ -2080,8 +2081,7 @@
               <input matInput formControlName="edad_inicio_menstruacion" name="edad_inicio_menstruacion" type="number"
                 placeholder="Edad inicio menstruación">
               <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido</mat-error>
-              <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
-              <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>
+              <mat-error *ngIf="edad_inicio_menstruacion.hasError('pattern')">edad incorrecta</mat-error>
             </mat-form-field>
 
           </div>

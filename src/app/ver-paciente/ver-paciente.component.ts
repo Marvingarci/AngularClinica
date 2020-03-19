@@ -7,7 +7,7 @@ import { AppComponent } from '../app.component';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { select,  MyErrorStateMatcher, antecedentesPersonales, habitosToxicologicos } from '../formulario/formulario.component';
 import { AntecedentesFamiliares } from '../interfaces/antecedentes-familiares';
-import { MatTableDataSource, MatSidenav, MatDialog, MatSnackBar, MatDialogRef, MatSnackBarConfig, SimpleSnackBar, MAT_DIALOG_DATA, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
+import { MatTableDataSource, MatSidenav, MatDialog, MatSnackBar, MatDialogRef, MatSnackBarConfig, SimpleSnackBar, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
 import { AntecedentesPersonales } from '../interfaces/antecedentes-personales';
 import { ThrowStmt, analyzeAndValidateNgModules } from '@angular/compiler';
 import { HabitosToxicologicosPersonales } from '../interfaces/habitos-toxicologicos-personales';
@@ -22,14 +22,23 @@ import { Cita } from '../interfaces/Cita';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { TelefonoEmergencia } from '../interfaces/telefono-emergencia';
-import {WebcamImage} from '../modules/webcam/domain/webcam-image';
-import {WebcamUtil} from '../modules/webcam/util/webcam.util';
-import {WebcamInitError} from '../modules/webcam/domain/webcam-init-error';
-import {Observable, Subject} from 'rxjs';
-import { PacienteComponent } from '../paciente/paciente.component';
-
 import { DesnutricionAF } from '../interfaces/desnutricionAF';
 import { Login } from '../interfaces/login';
+import { MentalAF } from '../interfaces/mentalAF';
+import { AlergiaAF } from '../interfaces/alergiaAF';
+import { CancerAF } from '../interfaces/cancerAF';
+import { OtroAF } from '../interfaces/OtrosAF';
+import { duration } from 'moment';
+import { DesnutricionAP } from '../interfaces/desnutricionAP';
+import { AlergiaAP } from '../interfaces/alergiaAP';
+import { CancerAP } from '../interfaces/cancerAP';
+import { OtroAP } from '../interfaces/otroAP';
+import { MentalAP } from '../interfaces/MentalAP';
+import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
+import { WebcamInitError } from '../modules/webcam/domain/webcam-init-error';
+import { WebcamImage } from '../modules/webcam/domain/webcam-image';
+import { Subject, Observable } from 'rxjs';
+import { WebcamUtil } from '../modules/webcam/util/webcam.util';
 
 
 export interface Element {
@@ -107,7 +116,8 @@ export interface cita1{
   impresion?:string,
   indicaciones?:string,
   remitido?:any,
-  fechayHora?:any
+  fechayHora?:any,
+  nombre?: string
 }
 
 
@@ -138,7 +148,6 @@ export interface antecedentesFamiliares {
 })
 
 export class VerPacienteComponent implements OnInit {
-  botonagregarimagen: boolean = true;
   static mostrarHistoriasSub() {
     throw new Error("Method not implemented.");
   }
@@ -388,6 +397,10 @@ mostrarCamposCancerAF() {
   //muestro el contenido de este div si el usuario hace click en "si"
   document.getElementById('divAgregarTiposCancerAF').style.display = "block";}
 
+  mostrarCamposOtroAF() {
+    //muestro el contenido de este div si el usuario hace click en "si"
+    document.getElementById('divAgregarTiposOtrosAF').style.display = "block";}
+
 mostrarCamposDesnutricionAP() {
   //muestro el contenido de este div si el usuario hace click en "si"
   document.getElementById('divAgregarTiposDesnutricionAP').style.display = "block";}
@@ -403,6 +416,10 @@ mostrarCamposAlergiasAP() {
 mostrarCamposCancerAP() {
   //muestro el contenido de este div si el usuario hace click en "si"
   document.getElementById('divAgregarTiposCanceresAP').style.display = "block";}
+
+  mostrarCamposOtroAP() {
+    //muestro el contenido de este div si el usuario hace click en "si"
+    document.getElementById('divAgregarTiposOtrosAP').style.display = "block";}
 
 mostrarCamposHospitalariasQuirurgicas() {
   //muestro el contenido de este div si el usuario hace click en "si"
@@ -530,8 +547,67 @@ ocultar: boolean = true;
     parentesco:null
   }
 
+  mentalAF: MentalAF={
+    enfermedad : null,
+    parentesco:null
+  }
+
+  alergiaAF: AlergiaAF={
+    enfermedad : null,
+    parentesco:null
+  }
+
+  cancerAF: CancerAF={
+    enfermedad : null,
+    parentesco:null
+  }
+
+  otroAF: OtroAF={
+    enfermedad : null,
+    parentesco:null
+  }
+
+  desnutricionAP: DesnutricionAP={
+    enfermedad : null,
+    observacion:null
+  }
+
+  mentalAP: MentalAP={
+    enfermedad : null,
+    observacion:null
+  }
+
+  alergiaAP: AlergiaAP={
+    enfermedad : null,
+    observacion:null
+  }
+
+  cancerAP: CancerAP={
+    enfermedad : null,
+    observacion:null
+  }
+
+  otroAP: OtroAP={
+    enfermedad : null,
+    observacion:null
+  }
+
   ante_familiar: any;
+  ante_personal: any;
   ante_familiardesnutricionAF:any;
+  ante_familiarmentalAF:any;
+  ante_familiaralergiaAF:any;
+  ante_familiarcancerAF:any;
+  ante_familiarotroAF:any; 
+  ante_familiardesnutricionAP:any;
+  ante_familiarmentalAP:any;
+  ante_familiaralergiaAP:any;
+  ante_familiarcancerAP:any;
+  ante_familiarotroAP:any;
+  habito_toxi:any;  
+  act_sex:any;  
+  plani_fam:any;
+  hospitalaria_qui:any;
   
   
 
@@ -637,6 +713,15 @@ ocultar: boolean = true;
     id_parentesco: null,
   };
 
+  paciente_hospitalaria_quirurgica: PacienteHospitalariaQuirurgica = {
+    id_hospitalaria_quirurgica:null,
+    id_paciente: null,
+    fecha: null,
+    tiempo_hospitalizacion: null,
+    diagnostico: null,
+    tratamiento: null,
+  }
+
   // creo estos arreglos de los cuales extraigo el valor de cada elemento y lo mando a la tabla de la base de datos respectiva
   // estos arreglos son de los controladores del formulario.
 
@@ -650,6 +735,20 @@ ocultar: boolean = true;
   tablaHabitosToxicologicos: any;
   tablaTelefonosEmergencia: any;
   tablaDesnutricionAF:any;
+  tablaMentalAF:any;
+  tablaAlergiaAF:any;
+  tablaCancerAF:any;
+  tablaOtroAF:any;
+  tablaDesnutricionAP:any;
+  tablaMentalAP:any;
+  tablaAlergiaAP:any;
+  tablaCancerAP:any;
+  tablaOtroAP:any;
+  mostrarmensajeactividadsexual:any;
+  mostrarmensajeplanificacionfamiliar:any;  
+  tablahospitalarias:any;  
+
+  
 
   tablaOtrosAF: Element[] = [];
   tablaDesnutricionesAF: Element[] = [];
@@ -674,6 +773,17 @@ ocultar: boolean = true;
   columnasTablaEmergenciaPersona:string[] = ['persona','telefono'];
   columnasTablaTelefonosEmergencia: string[] = ['numero', 'nombre', 'telefono', 'botones'];
   columnasTablaDesnutricionAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
+  columnasTablaMentalAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
+  columnasTablaAlergiaAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
+  columnasTablaCancerAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
+  columnasTablaOtroAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco','botoneseliminar'];
+  columnasTablaDesnutricionAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
+  columnasTablaMentalAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
+  columnasTablaAlergiaAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
+  columnasTablaCancerAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
+  columnasTablaOtroAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];  
+  columnashospitalarias: string[] = ['fecha', 'tiempo_hospitalizacion', 'diagnostico', 'tratamiento'];
+  columnashospitalariaseditar: string[] = ['fecha', 'tiempo_hospitalizacion', 'diagnostico', 'tratamiento','botones'];
 
   //date picker
   minDate = new Date(1950, 0, 1);
@@ -773,7 +883,16 @@ ocultar: boolean = true;
   pacientes: Paciente[]; 
   antecedentes_familiares: AntecedentesFamiliares[];
   desnutricion_AF: DesnutricionAF[];
+  mental_AF: MentalAF[];
+  alergia_AF: AlergiaAF[];
+  cancer_AF: CancerAF[];
+  otro_AF: OtroAF[];
   antecedentes_personales: AntecedentesPersonales[];
+  desnutricion_AP: DesnutricionAP[];
+  mental_AP: MentalAP[];
+  alergia_AP: AlergiaAP[];
+  cancer_AP: CancerAP[];
+  otro_AP: OtroAP[];
   habitos_toxicologicos: HabitosToxicologicosPersonales[];
   
   actividades_sexuales: ActividadSexual[];
@@ -790,7 +909,18 @@ ocultar: boolean = true;
   readonlyActividadSexual: boolean = true;
   readonlyAntecedentesObstetricos: boolean = true;
   readonlyAntecedentesGinecologicos: boolean = true;
-  readonlyPlanificacionFamiliar: boolean = true;
+  readonlyPlanificacionFamiliar: boolean = true;  
+  ocultarbtnagregardesnutricionAF: boolean = true;
+  ocultarbtnagregarmentalAF: boolean = true;
+  ocultarbtnagregaralergiaAF: boolean = true;
+  ocultarbtnagregarcancerAF: boolean = true;
+  ocultarbtnagregarotroAF: boolean = true; 
+  ocultarbtnagregardesnutricionAP: boolean = true;
+  ocultarbtnagregarmentalAP: boolean = true;
+  ocultarbtnagregaralergiaAP: boolean = true;
+  ocultarbtnagregarcancerAP: boolean = true;
+  ocultarbtnagregarotroAP: boolean = true;
+  ocultarbtnagregarhospitalaria: boolean = true;
 
   //variable que identifica si un paciente es un alumno
   esAlumno: boolean = true;
@@ -808,16 +938,10 @@ ocultar: boolean = true;
     habitosToxicologicos: string[] = [];
 
 
-constructor(private formularioService: FormularioService, private mensaje: MatSnackBar,  public dialog: MatDialog, private activatedRoute: ActivatedRoute, 
-  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, private cambiarFoto: MatDialog ) { 
-//constructor(private formularioService: FormularioService, private mensaje: MatSnackBar, public dialog: MatDialog,  private activatedRoute: ActivatedRoute, 
-  //activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, ) { 
+constructor(private formularioService: FormularioService, private mensaje: MatSnackBar, public dialog: MatDialog,  private activatedRoute: ActivatedRoute, 
+  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, ) { 
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
-    
-    
-    
-    
     
    if(this.id){
       this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) =>{
@@ -847,14 +971,11 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
         //si el paciente tiene imagen entonces esta variable cambiara a false
         if(this.paciente.imagen != null){
           this.noImg = false;
-          this.botonagregarimagen = false;
         } 
         console.log(this.paciente);      
       },(error)=>{
         console.log(error);
       });
-
-      
 
   
 
@@ -864,51 +985,22 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       //obtener los datos de los servicios de la api
       this.cargarEmergenciaPersonaYa();
       this.cargarAntecedentesFamiliares();
+      this.cargarAntecedentesPersonales();
       this.cargarDesnnutricionAF();
-
-
-
-
+      this.cargarMentalAF();
+      this.cargarAlergiaAF();
+      this.cargarCancerAF();
+      this.cargarOtrosAF();
+      this.cargarDesnnutricionAP();
+      this.cargarMentalAP();
+      this.cargarAlergiaAP();
+      this.cargarCancerAP();
+      this.cargarOtrosAP();
+      this.cargarHabitoToxicologico();
+      this.cargarActividadSexual();
+      this.cargarPlanificacionFamiliar();      
+      this.cargarHospitalarias();
   
-
-      this.formularioService.obtenerAntecedentePersonal(this.id).subscribe((data: AntecedentesPersonales)=>{
-      this.antecedente_personal = data;
-      //cargo los datos de la tabla antecedentes personales
-      this.cargarTablaAntecedentesPersonales();
-      //establesco el valor a los formcontrol para que se visualizen
-      //en los respectivos inputs de los antecedentes personales
-      this.cargarInformacionAntecedentesPersonales();
-      console.log(this.antecedente_personal);
-    },(error)=>{
-      console.log(error);
-    });
-     
-
-    this.formularioService.obtenerHabitoToxicologico(this.id).subscribe((data: HabitosToxicologicosPersonales)=>{
-      this.habito_toxicologico_personal = data;
-      //cargo los datos de la tabla antecedentes personales
-      this.cargarTablaHabitosToxicologicos();
-      console.log(this.tablaHabitosToxicologicos);
-      //establesco el valor a los formcontrol para que se visualizen
-      //en los respectivos inputs de los habitos toxicologicos
-      this.cargarInformacionHabitosToxicologicos();
-      console.log(this.habito_toxicologico_personal);        
-      }, (error)=>{
-        console.log(error);
-      });
-
-
-      
-
-
-      this.formularioService.obtenerActividadSexual(this.id).subscribe((data : ActividadSexual)=>{
-      this.actividad_sexual = data;
-      //establesco el valor a los formcontrol para que se visualizen
-      //en los respectivos inputs de la actividad sexual
-      this.cargarInformacionActividadSexual();
-      },(error)=>{
-      console.log(error);
-      });
 
 
       this.formularioService.obtenerAntecedenteGinecologico(this.id).subscribe((data : AntecedentesGinecologicos)=>{
@@ -926,7 +1018,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       console.log(error);
       });
 
-      this.paciente.imagen = this.inven.imagenactual;
+
 
       this.formularioService.obtenerAntecedenteObstetrico(this.id).subscribe((data: AntecedentesObstetricos)=>{
         this.antecedente_obstetrico = data;
@@ -942,21 +1034,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       },(error)=>{
         console.log(error);        
       });
-
-
-      this.formularioService.obtenerPlanificacionFamiliar(this.id).subscribe((data: PlanificacionesFamiliares)=>{
-        this.planificacion_familiar = data;
-        if(this.planificacion_familiar!= null){
-          this.mostrarPlanificacionFamiliar = true;
-          //establesco el valor a los formcontrol para que se visualizen
-          //en los respectivos inputs de la planificacion familiar
-          this.cargarInformacionPlanificacionfamiliar();
-          console.log(this.planificacion_familiar);
-        }
-        console.log('mostrarPlanificacionFamiliar: '+this.mostrarPlanificacionFamiliar);
-      },(error)=>{
-        console.log(error);
-      });
+    
 
    }
  }                      //FIN DEL CONSTRUCTOR
@@ -1111,8 +1189,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
  cargarAntecedentesFamiliares(){
   this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
-    this.ante_familiar = data;    
-   
+    this.ante_familiar = data;       
    for (let index = 0; index < this.ante_familiar.length; index++) {
      switch (this.ante_familiar[index].antecedente) {
        case "Convulsiones":             
@@ -1138,8 +1215,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
   
     //cargo los datos de la tabla antecedentes familiares y telefonos emergencia
-    this.cargarTablaAntecedentesFamiliares();   
-    this.cargarTablaDesnutricionAF();
+    this.cargarTablaAntecedentesFamiliares();  
     //establesco el valor a los formcontrol para que se visualizen
     //en los respectivos inputs de los antecedentes familiares
     this.cargarInformacionAntecedentesFamiliares();        
@@ -1153,8 +1229,29 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 }
 
 
+ cargarAntecedentesPersonales(){
+  this.formularioService.obtenerAntecedentePersonal(this.id).subscribe((data: AntecedentesPersonales)=>{
+    this.ante_personal = data;       
+   for (let index = 0; index < this.ante_personal.length; index++) {
+     switch (this.ante_personal[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+    //cargo los datos de la tabla antecedentes familiares y telefonos emergencia
+    this.cargarTablaAntecedentesPersonales();  
+    //establesco el valor a los formcontrol para que se visualizen
+    //en los respectivos inputs de los antecedentes familiares   
+    console.log(this.ante_personal);
+  }, (error)=>{
+    console.log(error);
+  });
+ } 
+
  cargarDesnnutricionAF(){
-  this.formularioService.obtenerDesnutricionAF(this.id).subscribe((data: DesnutricionAF)=>{  
+  this.formularioService.obtenerDesnutricionesAF(this.id).subscribe((data: DesnutricionAF)=>{  
     this.ante_familiardesnutricionAF = data;     
    for (let index = 0; index < this.ante_familiardesnutricionAF.length; index++) {
      switch (this.ante_familiardesnutricionAF[index].antecedente) {
@@ -1170,6 +1267,244 @@ this.cargarTablaDesnutricionAF();
     console.log(error);
   });
  }
+
+ cargarMentalAF(){
+  this.formularioService.obtenerMentalesAF(this.id).subscribe((data: MentalAF)=>{  
+    this.ante_familiarmentalAF = data;     
+   for (let index = 0; index < this.ante_familiarmentalAF.length; index++) {
+     switch (this.ante_familiarmentalAF[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaMentalAF();     
+    console.log(this.ante_familiarmentalAF);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarAlergiaAF(){
+  this.formularioService.obtenerAlergiasAF(this.id).subscribe((data: AlergiaAF)=>{  
+    this.ante_familiaralergiaAF = data;     
+   for (let index = 0; index < this.ante_familiaralergiaAF.length; index++) {
+     switch (this.ante_familiaralergiaAF[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaAlergiaAF();     
+    console.log(this.ante_familiaralergiaAF);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarCancerAF(){
+  this.formularioService.obtenerCanceresAF(this.id).subscribe((data: CancerAF)=>{  
+    this.ante_familiarcancerAF = data;     
+   for (let index = 0; index < this.ante_familiarcancerAF.length; index++) {
+     switch (this.ante_familiarcancerAF[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaCancerAF();     
+    console.log(this.ante_familiarcancerAF);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarOtrosAF(){
+  this.formularioService.obtenerOtrosAF(this.id).subscribe((data: OtroAF)=>{  
+    this.ante_familiarotroAF = data;     
+   for (let index = 0; index < this.ante_familiarotroAF.length; index++) {
+     switch (this.ante_familiarotroAF[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaOtroAF();     
+    console.log(this.ante_familiarotroAF);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+
+
+
+
+ // estas son las cargas para los antecedentespersonales
+ cargarDesnnutricionAP(){
+  this.formularioService.obtenerDesnutricionesAP(this.id).subscribe((data: DesnutricionAP)=>{  
+    this.ante_familiardesnutricionAP = data;     
+   for (let index = 0; index < this.ante_familiardesnutricionAP.length; index++) {
+     switch (this.ante_familiardesnutricionAP[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaDesnutricionAP();     
+    console.log(this.ante_familiardesnutricionAP);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarMentalAP(){
+  this.formularioService.obtenerMentalesAP(this.id).subscribe((data: MentalAP)=>{  
+    this.ante_familiarmentalAP = data;     
+   for (let index = 0; index < this.ante_familiarmentalAP.length; index++) {
+     switch (this.ante_familiarmentalAP[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaMentalAP();     
+    console.log(this.ante_familiarmentalAP);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarAlergiaAP(){
+  this.formularioService.obtenerAlergiasAP(this.id).subscribe((data: AlergiaAP)=>{  
+    this.ante_familiaralergiaAP = data;     
+   for (let index = 0; index < this.ante_familiaralergiaAP.length; index++) {
+     switch (this.ante_familiaralergiaAP[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaAlergiaAP();     
+    console.log(this.ante_familiaralergiaAP);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarCancerAP(){
+  this.formularioService.obtenerCanceresAP(this.id).subscribe((data: CancerAP)=>{  
+    this.ante_familiarcancerAP = data;     
+   for (let index = 0; index < this.ante_familiarcancerAP.length; index++) {
+     switch (this.ante_familiarcancerAP[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaCancerAP();     
+    console.log(this.ante_familiarcancerAP);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarOtrosAP(){
+  this.formularioService.obtenerOtrosAP(this.id).subscribe((data: OtroAP)=>{  
+    this.ante_familiarotroAP = data;     
+   for (let index = 0; index < this.ante_familiarotroAP.length; index++) {
+     switch (this.ante_familiarotroAP[index].antecedente) {
+       case "Convulsiones":             
+         break;         
+       default:
+         break;
+     }         
+   }
+this.cargarTablaOtroAP();     
+    console.log(this.ante_familiarotroAP);
+  }, (error)=>{
+    console.log(error);
+  });
+ }
+
+ cargarHabitoToxicologico(){
+  this.formularioService.obtenerHabitoToxicologico(this.id).subscribe((data: HabitosToxicologicosPersonales)=>{
+    this.habito_toxicologico_personal = data;
+    this.habito_toxi = data;
+    //cargo los datos de la tabla antecedentes personales
+    this.cargarTablaHabitosToxicologicos();
+    console.log(this.tablaHabitosToxicologicos);
+    //establesco el valor a los formcontrol para que se visualizen
+    //en los respectivos inputs de los habitos toxicologicos
+    this.cargarInformacionHabitosToxicologicos();
+    console.log(this.habito_toxi);        
+    }, (error)=>{
+      console.log(error);
+    });
+ }
+
+ cargarActividadSexual(){
+ this.formularioService.obtenerActividadSexual(this.id).subscribe((data : ActividadSexual)=>{
+  this.actividad_sexual = data;
+  this.act_sex = data;
+  if (this.act_sex == null) {
+    this.mostrarmensajeactividadsexual = null;     
+  }  
+  //establesco el valor a los formcontrol para que se visualizen
+  //en los respectivos inputs de la actividad sexual
+  this.cargarInformacionActividadSexual();
+  },(error)=>{
+  console.log(error);
+  });
+}
+
+cargarPlanificacionFamiliar(){
+  this.formularioService.obtenerPlanificacionFamiliar(this.id).subscribe((data: PlanificacionesFamiliares)=>{
+    this.planificacion_familiar = data;
+    console.log('los datos de planificacion    '+this.planificacion_familiar);
+
+    //si no hay datos se muestra un label en html que no hay
+    if (this.planificacion_familiar) {
+      this.mostrarmensajeplanificacionfamiliar != null;     
+    } 
+
+
+    if(this.planificacion_familiar!= null){
+      this.mostrarPlanificacionFamiliar = true;
+      //establesco el valor a los formcontrol para que se visualizen
+      //en los respectivos inputs de la planificacion familiar
+      this.cargarInformacionPlanificacionfamiliar();
+      console.log(this.planificacion_familiar);
+    }
+    console.log('mostrarPlanificacionFamiliar: '+this.mostrarPlanificacionFamiliar);
+  },(error)=>{
+    console.log(error);
+  });
+}
+
+
+cargarHospitalarias(){
+  this.formularioService.obtenerhospitalarias_quirurgicas(this.id).subscribe((data : PacienteHospitalariaQuirurgica)=>{
+   this.hospitalaria_qui = data;
+   if (!this.hospitalaria_qui.length) {
+     this.tablahospitalarias = null;     
+   }  
+   //establesco el valor a los formcontrol para que se visualizen
+   //en los respectivos inputs de la actividad sexual
+   this.cargarTablaHospitalaria();
+   },(error)=>{
+   console.log(error);
+   });
+ }
+
 
 
 
@@ -1796,17 +2131,73 @@ this.cargarTablaDesnutricionAF();
     dialogRef.afterClosed().subscribe(result => {
       this.cargarEmergenciaPersonaYa();
     });
+    dialogRef.beforeClosed().subscribe(result => {
+      this.cargarEmergenciaPersonaYa();
+    });
   }
 
   eliminarDesnutricionAF(id) {
     const dialogRef = this.dialog.open(BorrarDesnutricionAF, {
       disableClose: true,
+      
       panelClass: 'borrar',
       data: id
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.cargarDesnnutricionAF();
+      this.cargarMentalAF();
+      this.cargarAlergiaAF();
+      this.cargarCancerAF();
+      this.cargarOtrosAF();
+    });
+
+    dialogRef.beforeClosed().subscribe(result => {
+      this.cargarDesnnutricionAF();
+      this.cargarMentalAF();
+      this.cargarAlergiaAF();
+      this.cargarCancerAF();
+      this.cargarOtrosAF();
+    });
+  }
+
+  eliminarDesnutricionAP(id) {
+    const dialogRef = this.dialog.open(BorrarDesnutricionAP, {
+      disableClose: true,      
+      panelClass: 'borrar',
+      data: id
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.cargarDesnnutricionAP();
+      this.cargarMentalAP();
+      this.cargarAlergiaAP();
+      this.cargarCancerAP();
+      this.cargarOtrosAP();
+    });
+
+    dialogRef.beforeClosed().subscribe(result => {
+      this.cargarDesnnutricionAP();
+      this.cargarMentalAP();
+      this.cargarAlergiaAP();
+      this.cargarCancerAP();
+      this.cargarOtrosAP();
+    });
+  }
+
+  eliminarHospitalaria(id) {
+    const dialogRef = this.dialog.open(BorrarHospitalarias, {
+      disableClose: true,      
+      panelClass: 'borrar',
+      data: id
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.cargarHospitalarias();      
+    });
+
+    dialogRef.beforeClosed().subscribe(result => {
+      this.cargarHospitalarias();
     });
   }
 
@@ -2034,6 +2425,8 @@ this.cargarTablaDesnutricionAF();
 
 
 
+
+
   ngOnInit() {
     this.obtenerDatosFormulario();
   }
@@ -2120,106 +2513,98 @@ this.cargarTablaDesnutricionAF();
 cargarTablaAntecedentesFamiliares(){
     // establesco los valores a el arreglo de interfaces "tablaAntecedentesFamiliares"    
     this.tablaAntecedentesFamiliares = new MatTableDataSource(this.ante_familiar);
-    // verifico si otro tiene un valor para poder agregarlo a la tabla    
+    // verifico si otro tiene un valor para poder agregarlo a la tabla       
+    if (!this.ante_familiar.length) {
+      this.tablaAntecedentesFamiliares = null;   
+    } 
+  }
+
+  cargarTablaAntecedentesPersonales(){     
+    this.tablaAntecedentesPersonales = new MatTableDataSource(this.ante_personal);
+    if (!this.ante_personal.length) {
+      this.tablaAntecedentesPersonales = null;   
+    }    
   }
 
   cargarTablaDesnutricionAF(){
     this.tablaDesnutricionAF = new MatTableDataSource(this.ante_familiardesnutricionAF);
+    if (!this.ante_familiardesnutricionAF.length) {
+      this.tablaDesnutricionAF = null;     
+    } 
+  }
+  cargarTablaMentalAF(){
+    this.tablaMentalAF = new MatTableDataSource(this.ante_familiarmentalAF);
+    if (!this.ante_familiarmentalAF.length) {
+      this.tablaMentalAF = null;     
+    } 
+  }
+  cargarTablaAlergiaAF(){
+    this.tablaAlergiaAF = new MatTableDataSource(this.ante_familiaralergiaAF);
+    if (!this.ante_familiaralergiaAF.length) {
+      this.tablaAlergiaAF = null;     
+    } 
+  }
+  cargarTablaCancerAF(){
+    this.tablaCancerAF = new MatTableDataSource(this.ante_familiarcancerAF);
+    if (!this.ante_familiarcancerAF.length) {
+      this.tablaCancerAF = null;     
+    } 
+  }
+  cargarTablaOtroAF(){
+    this.tablaOtroAF = new MatTableDataSource(this.ante_familiarotroAF);
+    if (!this.ante_familiarotroAF.length) {
+      this.tablaOtroAF = null;     
+    } 
+  }
+  cargarTablaDesnutricionAP(){
+    this.tablaDesnutricionAP = new MatTableDataSource(this.ante_familiardesnutricionAP);
+    if (!this.ante_familiardesnutricionAP.length) {
+      this.tablaDesnutricionAP = null;     
+    } 
+  }
+  cargarTablaMentalAP(){
+    this.tablaMentalAP = new MatTableDataSource(this.ante_familiarmentalAP);
+    if (!this.ante_familiarmentalAP.length) {
+      this.tablaMentalAP = null;     
+    } 
+  }
+  cargarTablaAlergiaAP(){
+    this.tablaAlergiaAP = new MatTableDataSource(this.ante_familiaralergiaAP);
+    if (!this.ante_familiaralergiaAP.length) {
+      this.tablaAlergiaAP = null;     
+    } 
+  }
+  cargarTablaCancerAP(){
+    this.tablaCancerAP = new MatTableDataSource(this.ante_familiarcancerAP);
+    if (!this.ante_familiarcancerAP.length) {
+      this.tablaCancerAP = null;     
+    } 
+  }
+  cargarTablaOtroAP(){
+    this.tablaOtroAP = new MatTableDataSource(this.ante_familiarotroAP);
+    if (!this.ante_familiarotroAP.length) {
+      this.tablaOtroAP = null;     
+    } 
+  }
+
+  cargarTablaHospitalaria(){
+    this.tablahospitalarias = new MatTableDataSource(this.hospitalaria_qui);
+    if (!this.hospitalaria_qui.length) {
+      this.tablahospitalarias = null;     
+    } 
   }
 
 
 
-  cargarTablaAntecedentesPersonales(){
-    // establesco los valores a el arreglo de interfaces "tablaAntecedentesPersonales"
-    this.formularioService.obtenerAntecedentePersonal(this.id).subscribe((data)=>{
-      this.tablaAntecedentesPersonales = data;            
-    }, (error)=>{
-      console.log(error);
-    });
-    // [
-    //   {antecedente: 'Diabetes',
-    //   valor: this.antecedente_personal.diabetes,
-    //   observacion: this.antecedente_personal.observacion_diabetes
-    //   },
-    
-    //   {
-    //   antecedente: 'Tuberculosis Pulmonar',
-    //   valor: this.antecedente_personal.tb_pulmonar,
-    //   observacion: this.antecedente_personal.observacion_tb_pulmonar
-    //   },
-  
-    //   {
-    //   antecedente: 'ITSs',
-    //   valor: this.antecedente_personal.its,
-    //   observacion: this.antecedente_personal.observacion_its
-    //   },
-      
-    //   {
-    //   antecedente: 'Desnutrición',
-    //   valor: this.antecedente_personal.desnutricion,
-    //   tipo: this.antecedente_personal.tipo_desnutricion,
-    //   observacion: this.antecedente_personal.observacion_desnutricion
-    //   },
-  
-    //   {
-    //   antecedente: 'Enfermedades Mentales',
-    //   valor: this.antecedente_personal.enfermedades_mentales,
-    //   tipo: this.antecedente_personal.tipo_enfermedad_mental,
-    //   observacion: this.antecedente_personal.observacion_enfermedades_mentales
-    //   },
-  
-    //   {
-    //   antecedente: 'Convulsiones',
-    //   valor: this.antecedente_personal.convulsiones,
-    //   observacion: this.antecedente_personal.observacion_convulsiones
-    //   }, 
-  
-    //   { 
-    //   antecedente: 'Alergias',
-    //   valor: this.antecedente_personal.alergias,
-    //   tipo:this.antecedente_personal.tipo_alergia,
-    //   observacion: this.antecedente_personal.observacion_alergias
-    //   }, 
-  
-    //   { 
-    //   antecedente: 'Cáncer',
-    //   valor:this.antecedente_personal.cancer,
-    //   tipo: this.antecedente_personal.tipo_cancer,
-    //   observacion: this.antecedente_personal.observacion_cancer
-    //   },
-
-    //   {
-    //   antecedente: 'Hospitalarios y Quirurgicos',
-    //   valor: this.antecedente_personal.hospitalarias_quirurgicas,
-    //   },
-
-    //   {
-    //     antecedente: 'Traumáticos',
-    //     valor: this.antecedente_personal.traumaticos,
-    //     observacion: this.antecedente_personal.observacion_traumaticos
-    //   },   
-    // ];
-    // verifico si otro tiene un valor para poder agregarlo a la tabla
-    if(this.antecedente_personal.otros != null){
-      this.tablaAntecedentesPersonales.push(
-        {
-          antecedente: this.antecedente_personal.otros,
-          valor: "Si",
-          observacion: this.antecedente_personal.observacion_otros
-      });
-    }
-
-  }
+ 
 
 
 
-  cargarTablaHabitosToxicologicos(){  
-    // establesco los valores a el arreglo de interfaces "tablaHabitosToxicologicos"
-    this.formularioService.obtenerHabitoToxicologico(this.id).subscribe((data)=>{
-      this.tablaHabitosToxicologicos = data;            
-    }, (error)=>{
-      console.log(error);
-    });
+  cargarTablaHabitosToxicologicos(){    
+    this.tablaHabitosToxicologicos = new MatTableDataSource(this.habito_toxi);
+    if (!this.habito_toxi.length) {
+      this.tablaHabitosToxicologicos = null;     
+    } 
      
     // [
     //   {antecedente: 'Alcohol',
@@ -2555,7 +2940,6 @@ cargarTablaAntecedentesFamiliares(){
 
   
   cargarInformacionEmergenciaPersona(){
-
     this.emergencia_persona.setValue(this.telefono_Emergencias.emergencia_persona);
     this.emergencia_telefono.setValue(this.telefono_Emergencias.telefono_emergencia);    
     
@@ -2597,8 +2981,7 @@ cargarTablaAntecedentesFamiliares(){
 
 
 
-  cargarInformacionActividadSexual(){
-
+  cargarInformacionActividadSexual(){    
     this.actividad_sexuall.setValue(this.actividad_sexual.actividad_sexual);
     this.edad_inicio_sexual.setValue(this.actividad_sexual.edad_inicio_sexual);
     this.numero_parejas_sexuales.setValue(this.actividad_sexual.numero_parejas_sexuales);
@@ -2632,7 +3015,6 @@ cargarTablaAntecedentesFamiliares(){
 
 
   cargarInformacionAntecedentesGinecologicos(){
-
     this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);
     this.fum.setValue(this.antecedente_ginecologico.fum);
     this.citologia.setValue(this.antecedente_ginecologico.citologia);
@@ -2651,8 +3033,7 @@ cargarTablaAntecedentesFamiliares(){
 
 
 
-  cargarInformacionAntecedentesObstetricos(){
-    
+  cargarInformacionAntecedentesObstetricos(){    
     this.partos.setValue(this.antecedente_obstetrico.partos);
     this.abortos.setValue(this.antecedente_obstetrico.abortos);
     this.cesarias.setValue(this.antecedente_obstetrico.cesarias);
@@ -2733,12 +3114,8 @@ cargarTablaAntecedentesFamiliares(){
   }
 
 
-  cargarInformacionPlanificacionfamiliar(){
- 
-    
-    this.planificacion_familiarr.setValue(this.planificacion_familiar.planificacion_familiar);
-
-    
+  cargarInformacionPlanificacionfamiliar(){    
+    this.planificacion_familiarr.setValue(this.planificacion_familiar.planificacion_familiar);    
     switch(this.planificacion_familiar.metodo_planificacion){
       case 1:
           this.planificacion_familiar.metodo_planificacion = "DIU";
@@ -2767,9 +3144,7 @@ cargarTablaAntecedentesFamiliares(){
       default:
           this.planificacion_familiar.metodo_planificacion = "Esterilización";
           break;
-      
-
-    }
+            }
   
 
     this.metodo_planificacion.setValue(this.planificacion_familiar.metodo_planificacion);
@@ -2781,6 +3156,9 @@ cargarTablaAntecedentesFamiliares(){
     }
   }
 
+
+ 
+
   anadirCita(){
     const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, {disableClose:true, width:"70%"});
     this.inven.idCita=this.id;
@@ -2790,9 +3168,9 @@ cargarTablaAntecedentesFamiliares(){
 
     this.inven.obtenerCita(this.id).subscribe((data: Cita[])=>{
       this.citasPaciente = data;
-      this.citasPaciente.forEach(element => {
+    //  this.citasPaciente.forEach(element => {
    //     console.log(this.citasPaciente.imc);
-      });
+     // });
       console.log(this.citasPaciente);
       this.dataSource1= this.citasPaciente;
     }, (error)=>{
@@ -2802,11 +3180,6 @@ cargarTablaAntecedentesFamiliares(){
   }
   cerrarHistorias(){
     this.mostrarHisorias=false;
-  }
-  //codigo para cambiar foto de perfil////////////////////////////////////////////////
-  cambiarfoto(){
-    const cambiarphoto = this.cambiarFoto.open(CambiarFoto, {disableClose:true, width:"70%"});
-    this.inven.idCita=this.id;        
   }
 
    showError(message: string) {
@@ -3220,6 +3593,167 @@ export class HistoriaSubsiguiente1{
   
 }
 
+
+
+
+@Component({
+  selector: 'borrarregistro',
+  templateUrl: 'dialog-borrar-registro.html',
+})
+
+export class Borrartelefonoemergencia  {
+  constructor(public dialogRef: MatDialogRef<Borrartelefonoemergencia>,
+    private formularioService: FormularioService,
+    private mensaje: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any){ 
+      console.log(this.data);
+    }
+ 
+  BorrarRegistro() {
+    if (this.data != 0) {
+     this.formularioService.eliminarEmergenciaPersona(this.data).subscribe((data) => {
+        this.showError('Registro eliminado correctamente');   
+        this.dialogRef.close();     
+      });
+    } else {
+      this.showError('El Registro no puede ser eliminado');
+    }    
+  }
+    salir(): void {
+    this.dialogRef.close();
+  }
+
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+} 
+
+
+
+
+
+
+@Component({
+  selector: 'borrarregistro',
+  templateUrl: 'dialog-borrar-registro.html',
+})
+
+export class BorrarDesnutricionAF  {
+  constructor(public dialogRef: MatDialogRef<BorrarDesnutricionAF>,
+    private formularioService: FormularioService,
+    private mensaje: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any){ 
+      console.log(this.data);
+    } 
+
+  BorrarRegistro() {
+    if (this.data != 0) {
+     this.formularioService.eliminarCualquierEnfermedadAF(this.data).subscribe((data) => {
+      this.showError('Registro eliminado correctamente');    
+      this.dialogRef.close();
+      });
+    } else {
+      this.showError('El Registro no puede ser eliminado');
+    }    
+  }
+  
+  salir(): void {
+    this.dialogRef.close();
+  }
+
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+} 
+
+
+
+
+
+
+@Component({
+  selector: 'borrarregistro',
+  templateUrl: 'dialog-borrar-registro.html',
+})
+
+export class BorrarDesnutricionAP  {
+  constructor(public dialogRef: MatDialogRef<BorrarDesnutricionAP>,
+    private formularioService: FormularioService,
+    private mensaje: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any){ 
+      console.log(this.data);
+    } 
+
+  BorrarRegistro() {
+    if (this.data != 0) {
+     this.formularioService.eliminarCualquierEnfermedadAP(this.data).subscribe((data) => {
+      this.showError('Registro eliminado correctamente');    
+      this.dialogRef.close();
+      });
+    } else {
+      this.showError('El Registro no puede ser eliminado');
+    }    
+  }
+  
+  salir(): void {
+    this.dialogRef.close();
+  }
+
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+} 
+
+
+
+@Component({
+  selector: 'borrarregistro',
+  templateUrl: 'dialog-borrar-registro.html',
+})
+
+export class BorrarHospitalarias  {
+  constructor(public dialogRef: MatDialogRef<BorrarHospitalarias>,
+    private formularioService: FormularioService,
+    private mensaje: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any){ 
+      console.log(this.data);
+    } 
+
+  BorrarRegistro() {
+    if (this.data != 0) {
+     this.formularioService.eliminarHospitalaria(this.data).subscribe((data) => {
+      this.showError('Registro eliminado correctamente');    
+      this.dialogRef.close();
+      });
+    } else {
+      this.showError('El Registro no puede ser eliminado');
+    }    
+  }
+  
+  salir(): void {
+    this.dialogRef.close();
+  }
+
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+} 
+
+
+
+
 export interface imagenNueva{
   id: number,
   imagen : string
@@ -3358,155 +3892,3 @@ export class CambiarFoto {
       return result;
     }
 }
-
-
-@Component({
-  selector: 'borrartelefonoemergencia',
-  templateUrl: 'dialog-borrar-telefono-emergencia.html',
-})
-
-export class Borrartelefonoemergencia implements OnDestroy {
-
-  constructor(public dialogRef: MatDialogRef<Borrartelefonoemergencia>,
-    private formularioService: FormularioService,
-    private mensaje: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: any){ 
-
-      console.log(this.data);
-    }
-
-    tablaTelefonosEmergencia: any;
-    tel_emergencia:any;
-    id:any;
-
-    cargarEmergenciaPersonaYa(){
-      this.formularioService.obtenerEmergenciaPersona(this.id).subscribe((data: TelefonoEmergencia[])=>{
-        this.tel_emergencia = data;        
-        //cargo los datos de la tabla antecedentes personales
-        this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);
-        this.cargarTablaEmergenciaPersona();
-        console.log(this.tel_emergencia);      
-        }, (error)=>{
-          console.log(error);
-        });    
-        this.cargarTablaEmergenciaPersona(); 
-     }
-
-     cargarTablaEmergenciaPersona(){     
-      this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);    
-    } 
-
-
-  salir(): void {
-    this.dialogRef.close();
-  }
-
- 
-  BorrarRegistro() {
-    if (this.data != 0) {
-     this.formularioService.eliminarEmergenciaPersona(this.data).subscribe((data) => {
-        this.showError('Registro eliminado correctamente');        
-      });
-    } else {
-      this.showError('El Registro no puede ser eliminado');
-    }
-    
-  }
-
-  showError(message: string) {
-    const config = new MatSnackBarConfig();
-    config.panelClass = ['background-red'];
-    config.duration = 2000;
-    this.mensaje.open(message, null, config);
-  }
-
-  ngOnDestroy(): void {
-    this.cargarEmergenciaPersonaYa();
-  }
-} 
-
-
-
-@Component({
-  selector: 'borrartelefonoemergencia',
-  templateUrl: 'dialog-borrar-telefono-emergencia.html',
-})
-
-export class BorrarDesnutricionAF implements OnDestroy {
-
-  constructor(public dialogRef: MatDialogRef<BorrarDesnutricionAF>,
-    private formularioService: FormularioService,
-    private mensaje: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: any){ 
-
-      console.log(this.data);
-      this.cargarDesnnutricionAF();
-    }
-
-    
-    ante_familiardesnutricionAF:any;
-    tablaDesnutricionAF:any;
-    id:any;
-
-    cargarDesnnutricionAF(){
-      this.formularioService.obtenerDesnutricionAF(this.id).subscribe((data: DesnutricionAF)=>{  
-        this.ante_familiardesnutricionAF = data;  
-        
-       
-       for (let index = 0; index < this.ante_familiardesnutricionAF.length; index++) {
-         switch (this.ante_familiardesnutricionAF[index].antecedente) {
-           case "Convulsiones":             
-             break;         
-           default:
-             break;
-         }         
-       }
-    
-        //cargo los datos de la tabla antecedentes familiares y telefonos emergencia
-       
-        this.cargarTablaDesnutricionAF();
-        //establesco el valor a los formcontrol para que se visualizen
-        //en los respectivos inputs de los antecedentes familiares
-              
-        console.log(this.ante_familiardesnutricionAF);
-      }, (error)=>{
-        console.log(error);
-      });
-     }
-
-     cargarTablaEmergenciaPersona(){     
-      this.tablaDesnutricionAF = new MatTableDataSource(this.ante_familiardesnutricionAF);    
-    } 
-
-
-  salir(): void {
-    this.dialogRef.close();
-  }
-
- 
-  BorrarRegistro() {
-    if (this.data != 0) {
-     this.formularioService.eliminarDesnutricionAF(this.data).subscribe((data) => {
-      this.showError('Registro eliminado correctamente');        
-   
-      });
-    } else {
-      this.showError('El Registro no puede ser eliminado');
-    }
-    
-  }
-
-  showError(message: string) {
-    const config = new MatSnackBarConfig();
-    config.panelClass = ['background-red'];
-    config.duration = 2000;
-    this.mensaje.open(message, null, config);
-  }
-
-  ngOnDestroy(): void {
-    this.cargarDesnnutricionAF();
-  }
-  cargarTablaDesnutricionAF(){
-    this.tablaDesnutricionAF = new MatTableDataSource(this.ante_familiardesnutricionAF);
-  }
-} 
