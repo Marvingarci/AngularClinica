@@ -11,7 +11,7 @@ import { LoginComponent } from '../login/login.component';
 import { FormularioComponent } from '../formulario/formulario.component';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { PacienteComponent } from '../paciente/paciente.component';
-import { DialogContentExampleDialog1 } from '../principal/principal.component';
+//import { DialogContentExampleDialog1 } from '../principal/principal.component';
 import { Login } from '../interfaces/login';
 import { InventariosService } from '../services/inventarios.service';
 import { Cita } from '../interfaces/Cita';
