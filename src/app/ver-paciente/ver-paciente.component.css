@@ -107,7 +107,11 @@ mat-action-list{
 
 
 
-
+.mat-icon-button{
+  /* quitar borde feo */
+  outline:none;  
+  display:block;
+}
 
 .example-fill-remaining-space {
   /* This fills the remaining space, by using flexbox. 
