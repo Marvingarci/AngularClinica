@@ -171,9 +171,9 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes/' + id_paciente);
   }
 
-  obtenerPacientePorCuenta(cuenta){
+  obtenerPacientePorCuenta(paciente){
     
-      return this.httpClient.get(this.API_ENDPOINT + 'obtenerPaciente/'+cuenta);
+      return this.httpClient.post(this.API_ENDPOINT + 'obtenerPaciente', paciente, {headers: this.headers});
       
   }
 
