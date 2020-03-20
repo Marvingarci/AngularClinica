@@ -46,7 +46,7 @@ export interface cita1 {
 })
 export class DatoPacienteComponent implements OnInit {
 
-  columnaTablaDatoPaciente: string[] = ['fechayHora'];
+  columnaTablaDatoPaciente: string[] = ['siguiente_cita'];
   columnaTablaDatoPaciente1: string[] = ['nombre'];
   columnaTablaDatoPaciente2: string[] = ['indicaciones'];
   columnaTablaDatoPaciente3: string[] = ['observaciones'];
@@ -169,10 +169,18 @@ export class DatoPacienteComponent implements OnInit {
       if (!this.citas.length) {
         this.dataSourceTablaDatoPaciente = null;     
       } 
-      
       this.dataSourceTablaDatoPaciente1 = new MatTableDataSource(this.citas);
+      if (!this.citas.length) {
+        this.dataSourceTablaDatoPaciente1 = null;     
+      } 
       this.dataSourceTablaDatoPaciente2 = new MatTableDataSource(this.citas);
+      if (!this.citas.length) {
+        this.dataSourceTablaDatoPaciente2 = null;     
+      } 
       this.dataSourceTablaDatoPaciente3 = new MatTableDataSource(this.citas);
+      if (!this.citas.length) {
+        this.dataSourceTablaDatoPaciente3 = null;     
+      } 
 
     }, (error) => {
 
