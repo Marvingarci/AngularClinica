@@ -1599,6 +1599,7 @@ cargarHospitalarias(){
 
 
 //LAEXPLICACION DE ESTO ESTA EN EL FORMULARIO
+//AGREGAR DESNUTRICIONES
   agregarDesnutricionesAF() {
     if (this.tipo_desnutricion.value && this.tipo_desnutricion.valid && this.parentesco_desnutricion.value) {
       var stringParentesco: string = "";
@@ -1708,7 +1709,456 @@ cargarHospitalarias(){
           }    
         }     
     }
+
+
+
+
+
+// AGREGANDO LAS ENFERMEDADES MENTALES FAMILIARES
+    agregarEnfermedadesMentales() {
+      if (this.tipo_enfermedad_mental.value && this.tipo_enfermedad_mental.valid && this.parentesco_enfermedades_mentales.value) {
+        var stringParentesco: string = "";
+       
+        if (this.parentesco_enfermedades_mentales.value.length == 1) {
+          stringParentesco = this.parentescos[this.parentesco_enfermedades_mentales.value[0] - 1].viewValue;
+        } else {
+          this.parentesco_enfermedades_mentales.value.forEach(element => {
+          element = this.parentescos[element - 1].viewValue;       
+          stringParentesco += element + " ";
+          });      
+          stringParentesco = stringParentesco.trim();
+        }
+  
+        this.tablaEnfermedadesMentalesAF.push(
+          {
+            numero: this.tablaEnfermedadesMentalesAF.length + 1,
+            enfermedad: this.tipo_enfermedad_mental.value,
+            parentesco: stringParentesco,
+          }
+        );
+      
+        this.tipo_enfermedad_mental.setValue('');
+        this.parentesco_enfermedades_mentales.setValue('');    
+      }
+      this.guardarEnfermedadesMentales();
+    }// fin del boton agregardesnutricionAF
+  
+    guardarEnfermedadesMentales(){
+          this.antecedentesF = [    
+            {
+              antecedente: 10,
+              parentesco: this.parentesco_enfermedades_mentales.value
+            },
+          ];
+  
+          if (this.formulario_antecedentes_familiares.valid) {
+            var parentescos: any;
+            var stringParentesco: string[];
+            var NumeroParentesco: number;      
+            const element = this.antecedentesF[0];
+              // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
+            if (element.antecedente != 0) {
+                this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
+  
+                if (element.antecedente == 10) {
+  
+                  if (this.tablaEnfermedadesMentalesAF.length) {
+                  for (let index = 0; index < this.tablaEnfermedadesMentalesAF.length; index++) {
+                      const element = this.tablaEnfermedadesMentalesAF[index];
+                      // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                      // de la interfaz de enfermedad.
+                      this.enfermedad.enfermedad = element.enfermedad;
+                      this.enfermedad.id_grupo_enfermedad = 2;
+                      this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
+                        // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_tipo_enfermedad
+                        // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
+                        this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
+                        this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
+                        console.log("ultimo antecedente: " + data[0].id_enfermedad);
+                        // separo el string de parentesco que se guarda en la tabla
+                        // y lo convierto en un arreglo.
+                        stringParentesco = element.parentesco.split(' ');
+                        console.log(stringParentesco);
+                        // comparo cada string del arreglo de parentesco que se recupera de la tabla
+                        // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
+                        stringParentesco.forEach(element => {
+                          switch (element) {
+                            case 'Padre':
+                              NumeroParentesco = 1;
+                              break;
+                            case 'Madre':
+                              NumeroParentesco = 2;
+                              break;
+                            case 'Tios':
+                              NumeroParentesco = 3;
+                              break;
+                            case 'Abuelos':
+                              NumeroParentesco = 4;
+                              break;
+                            default:
+                              NumeroParentesco = 5;
+                              break;
+                          }
+  
+                          // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
+                          // para ser enviado a la base de datos.
+                          this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+                          console.log(this.paciente_antecedente_familiar);
+                          //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                          this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
+                            this.cargarMentalAF();
+                            console.log('se enviaron perron los nuevos antecedentes');
+                          }, (error) => {
+                            console.log(error);
+                          });
+  
+                        });
+  
+                      });
+                  }
+                  }
+                  
+                }
+                //vacio la tabla para que al agregar otro se vaya sin los datos anteriores
+                this.tablaEnfermedadesMentalesAF.pop();
+            }    
+          }     
+      }
+
+
+
+
+
+
+      // AGREGANDO LAS ENFERMEDADES ALERGICAS FAMILIARES
+      agregarAlergias() {
+      if (this.tipo_alergia.value && this.tipo_alergia.valid && this.parentesco_alergias.value) {
+        var stringParentesco: string = "";
+       
+        if (this.parentesco_alergias.value.length == 1) {
+          stringParentesco = this.parentescos[this.parentesco_alergias.value[0] - 1].viewValue;
+        } else {
+          this.parentesco_alergias.value.forEach(element => {
+          element = this.parentescos[element - 1].viewValue;       
+          stringParentesco += element + " ";
+          });      
+          stringParentesco = stringParentesco.trim();
+        }
+  
+        this.tablaAlergiasAF.push(
+          {
+            numero: this.tablaAlergiasAF.length + 1,
+            enfermedad: this.tipo_alergia.value,
+            parentesco: stringParentesco,
+          }
+        );
+      
+        this.tipo_alergia.setValue('');
+        this.parentesco_alergias.setValue('');    
+      }
+      this.guardarAlergias();
+    }// fin del boton agregardesnutricionAF
+  
+    guardarAlergias(){
+          this.antecedentesF = [    
+            {
+              antecedente: 11,
+              parentesco: this.parentesco_alergias.value
+            },
+          ];
+  
+          if (this.formulario_antecedentes_familiares.valid) {
+            var parentescos: any;
+            var stringParentesco: string[];
+            var NumeroParentesco: number;      
+            const element = this.antecedentesF[0];
+              // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
+            if (element.antecedente != 0) {
+                this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
+  
+                if (element.antecedente == 11) {
+  
+                  if (this.tablaAlergiasAF.length) {
+                  for (let index = 0; index < this.tablaAlergiasAF.length; index++) {
+                      const element = this.tablaAlergiasAF[index];
+                      // le establezco el valor de la enfermedad que se guarda en la tabla al atributo enfermedad
+                      // de la interfaz de enfermedad.
+                      this.enfermedad.enfermedad = element.enfermedad;
+                      this.enfermedad.id_grupo_enfermedad = 3;
+                      this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
+                        // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_tipo_enfermedad
+                        // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
+                        this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
+                        this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
+                        console.log("ultimo antecedente: " + data[0].id_enfermedad);
+                        // separo el string de parentesco que se guarda en la tabla
+                        // y lo convierto en un arreglo.
+                        stringParentesco = element.parentesco.split(' ');
+                        console.log(stringParentesco);
+                        // comparo cada string del arreglo de parentesco que se recupera de la tabla
+                        // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
+                        stringParentesco.forEach(element => {
+                          switch (element) {
+                            case 'Padre':
+                              NumeroParentesco = 1;
+                              break;
+                            case 'Madre':
+                              NumeroParentesco = 2;
+                              break;
+                            case 'Tios':
+                              NumeroParentesco = 3;
+                              break;
+                            case 'Abuelos':
+                              NumeroParentesco = 4;
+                              break;
+                            default:
+                              NumeroParentesco = 5;
+                              break;
+                          }
+  
+                          // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
+                          // para ser enviado a la base de datos.
+                          this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+                          console.log(this.paciente_antecedente_familiar);
+                          //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
+                          this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
+                            this.cargarAlergiaAF();
+                            console.log('se enviaron perron los nuevos antecedentes');
+                          }, (error) => {
+                            console.log(error);
+                          });
+  
+                        });
+  
+                      });
+                  }
+                  }
+                  
+                }
+                //vacio la tabla para que al agregar otro se vaya sin los datos anteriores
+                this.tablaAlergiasAF.pop();
+            }    
+          }     
+      }
  
+
+
+
+
+       // AGREGANDO LAS ENFERMEDADES CANCERES FAMILIARES
+       agregarCanceresAF() {
+        if (this.tipo_cancer.value && this.tipo_cancer.valid && this.parentesco_cancer.value) {
+          var stringParentesco: string = "";
+         
+          if (this.parentesco_cancer.value.length == 1) {
+            stringParentesco = this.parentescos[this.parentesco_cancer.value[0] - 1].viewValue;
+          } else {
+            this.parentesco_cancer.value.forEach(element => {
+            element = this.parentescos[element - 1].viewValue;       
+            stringParentesco += element + " ";
+            });      
+            stringParentesco = stringParentesco.trim();
+          }
+    
+          this.tablaCanceresAF.push(
+            {
+              numero: this.tablaCanceresAF.length + 1,
+              enfermedad: this.tipo_cancer.value,
+              parentesco: stringParentesco,
+            }
+          );
+        
+          this.tipo_cancer.setValue('');
+          this.parentesco_cancer.setValue('');    
+        }
+        this.guardarCanceresAF();
+      }// fin del boton agregardesnutricionAF
+    
+      guardarCanceresAF(){
+            this.antecedentesF = [    
+              {
+                antecedente: 12,
+                parentesco: this.parentesco_cancer.value
+              },
+            ];
+    
+            if (this.formulario_antecedentes_familiares.valid) {
+              var parentescos: any;
+              var stringParentesco: string[];
+              var NumeroParentesco: number;      
+              const element = this.antecedentesF[0];
+                // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
+              if (element.antecedente != 0) {
+                  this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
+    
+                  if (element.antecedente == 12) {
+    
+                    if (this.tablaCanceresAF.length) {
+                    for (let index = 0; index < this.tablaCanceresAF.length; index++) {
+                        const element = this.tablaCanceresAF[index];
+
+                        this.enfermedad.enfermedad = element.enfermedad;
+                        this.enfermedad.id_grupo_enfermedad = 4;
+                        this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
+
+                          this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
+                          this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
+                          console.log("ultimo antecedente: " + data[0].id_enfermedad);
+
+                          stringParentesco = element.parentesco.split(' ');
+                          console.log(stringParentesco);
+
+                          stringParentesco.forEach(element => {
+                            switch (element) {
+                              case 'Padre':
+                                NumeroParentesco = 1;
+                                break;
+                              case 'Madre':
+                                NumeroParentesco = 2;
+                                break;
+                              case 'Tios':
+                                NumeroParentesco = 3;
+                                break;
+                              case 'Abuelos':
+                                NumeroParentesco = 4;
+                                break;
+                              default:
+                                NumeroParentesco = 5;
+                                break;
+                            }
+    
+                            this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+                            console.log(this.paciente_antecedente_familiar);
+
+                            this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
+                              this.cargarCancerAF();
+                              console.log('se enviaron perron los nuevos antecedentes');
+                            }, (error) => {
+                              console.log(error);
+                            });
+    
+                          });
+    
+                        });
+                    }
+                    }
+                    
+                  }
+                  this.tablaCanceresAF.pop();
+              }    
+            }     
+        }
+
+
+
+
+
+
+
+          // AGREGANDO LOS OTROS FAMILIARES
+          agregarOtrosAF() {
+        if (this.otros.value && this.otros.valid && this.parentesco_otros.value) {
+          var stringParentesco: string = "";
+         
+          if (this.parentesco_otros.value.length == 1) {
+            stringParentesco = this.parentescos[this.parentesco_otros.value[0] - 1].viewValue;
+          } else {
+            this.parentesco_otros.value.forEach(element => {
+            element = this.parentescos[element - 1].viewValue;       
+            stringParentesco += element + " ";
+            });      
+            stringParentesco = stringParentesco.trim();
+          }
+    
+          this.tablaOtrosAF.push(
+            {
+              numero: this.tablaCanceresAF.length + 1,
+              enfermedad: this.otros.value,
+              parentesco: stringParentesco,
+            }
+          );
+        
+          this.otros.setValue('');
+          this.parentesco_otros.setValue('');    
+        }
+        this.guardarOtrosAF();
+      }// fin del boton agregardesnutricionAF
+    
+      guardarOtrosAF(){
+            this.antecedentesF = [    
+              {
+                antecedente: 13,
+                parentesco: this.parentesco_otros.value
+              },
+            ];
+    
+            if (this.formulario_antecedentes_familiares.valid) {
+              var parentescos: any;
+              var stringParentesco: string[];
+              var NumeroParentesco: number;      
+              const element = this.antecedentesF[0];
+                // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
+              if (element.antecedente != 0) {
+                  this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
+    
+                  if (element.antecedente == 13) {
+    
+                    if (this.tablaOtrosAF.length) {
+                    for (let index = 0; index < this.tablaOtrosAF.length; index++) {
+                        const element = this.tablaOtrosAF[index];
+
+                        this.enfermedad.enfermedad = element.enfermedad;
+                        this.enfermedad.id_grupo_enfermedad = 5;
+                        this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
+
+                          this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
+                          this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
+                          console.log("ultimo antecedente: " + data[0].id_enfermedad);
+
+                          stringParentesco = element.parentesco.split(' ');
+                          console.log(stringParentesco);
+
+                          stringParentesco.forEach(element => {
+                            switch (element) {
+                              case 'Padre':
+                                NumeroParentesco = 1;
+                                break;
+                              case 'Madre':
+                                NumeroParentesco = 2;
+                                break;
+                              case 'Tios':
+                                NumeroParentesco = 3;
+                                break;
+                              case 'Abuelos':
+                                NumeroParentesco = 4;
+                                break;
+                              default:
+                                NumeroParentesco = 5;
+                                break;
+                            }
+    
+                            this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
+                            console.log(this.paciente_antecedente_familiar);
+
+                            this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
+                              this.cargarOtrosAF();
+                              console.log('se enviaron perron los nuevos antecedentes');
+                            }, (error) => {
+                              console.log(error);
+                            });
+    
+                          });
+    
+                        });
+                    }
+                    }
+                    
+                  }
+                  this.tablaOtrosAF.pop();
+              }    
+            }     
+        }
+   
 
   eliminarTelefonosEmergencia(id) {
     const dialogRef = this.dialog.open(Borrartelefonoemergencia, {
@@ -2399,7 +2849,6 @@ cargarTablaAntecedentesFamiliares(){
 
     this.otros.setValue(this.antecedente_familiar.otros);
     this.parentesco_otros.setValue(this.antecedente_familiar.parentesco_otros);
-    this.parentesco_otros.disable({onlySelf:true});
   }
 
 

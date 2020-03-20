@@ -924,7 +924,7 @@ style="margin-top: 10px;"
     <!-- TABLA DE SOLO MENTALES FAMILIARES -->
       <div class="row medium-width" style="margin-left: 0;">
         <div class="col">
-         <div class="row" *ngIf="ocultarbtnagregarmentalAF == true " ><button class="botonperron" value={{10}} (click)="ocultarbtnagregarmentalAF = !ocultarbtnagregarmentalAF;habilitarInputs([tipo_enfermedad_mental]); mostrarCamposEnfermedadesMentalesAF()"> agregar enfermedad mental</button></div>
+         <div class="row" *ngIf="ocultarbtnagregarmentalAF == true " ><button class="botonperron" (click)="ocultarbtnagregarmentalAF = !ocultarbtnagregarmentalAF;habilitarInputs([tipo_enfermedad_mental]); mostrarCamposEnfermedadesMentalesAF()"> agregar enfermedad mental</button></div>
          <div class="row" *ngIf="tablaMentalAF == null" style="margin-top: 5px;" >  Este paciente no tiene enfermedades mentales</div>
        </div>
         <table mat-table [dataSource]="tablaMentalAF" class="mat-elevation-z8 tabla" *ngIf="tablaMentalAF != null"  style="margin-right: 16px;" >  
@@ -1078,7 +1078,7 @@ style="margin-top: 10px;"
               </mat-error>
             </mat-form-field>
 
-            <button mat-icon-button (click)="agregarCanceres();" class="botonesTabla"> <mat-icon>save</mat-icon></button>
+            <button mat-icon-button (click)="agregarCanceresAF();" class="botonesTabla"> <mat-icon>save</mat-icon></button>
          
           </div>
           </form>
@@ -1156,7 +1156,7 @@ style="margin-top: 10px;"
               </mat-select>            
             </mat-form-field>
 
-            <button mat-icon-button (click)="agregarCanceres();" class="botonesTabla"><mat-icon>save</mat-icon></button>
+            <button mat-icon-button (click)="agregarOtrosAF();" class="botonesTabla"><mat-icon>save</mat-icon></button>
           </div>
           </form>
 
