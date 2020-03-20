@@ -79,106 +79,117 @@ export class LoginComponent implements OnInit {
   continuar() {
 
 
+    if (this.login_form.valid) {
 
-    this.hide = false;
-    this.loading = true;
-    this.loginService.porMientras = this.clave.value;
-
-
-    this.login.cuenta = this.cuenta.value;
-    this.login.password = this.clave.value;
+      this.hide = false;
+      this.loading = true;
+      this.loginService.porMientras = this.clave.value;
 
 
-    //verifico en la base de datos si el usuario fue logueado ya anteriormente ó es primera vez.
-    this.loginService.obtenerUsuario(this.login).subscribe((data: any) => {
+      this.login.cuenta = this.cuenta.value;
+      this.login.password = this.clave.value;
 
 
-      if (data.codigoError == 1) {
-
-        this.loading = false;
-        this.showError(data.msg);
-
-      } else if (data.codigoError == 2) {
+      //verifico en la base de datos si el usuario fue logueado ya anteriormente ó es primera vez.
+      this.loginService.obtenerUsuario(this.login).subscribe((data: any) => {
 
 
-        this.login.cuenta = this.cuenta.value;
-        this.login.password = this.clave.value;
+        if (data.codigoError == 1) {
 
-        // si el usuario es nuevo entonces lo registro.
-        this.loginService.guardarDatos(this.login).subscribe((data: any) => {
+          this.loading = false;
+          this.showError(data.msg);
 
-          //establezco el rol del usuario como estudiante para que pueda tener permisos
-          //para ver sus datos
-          this.loginService.datosUsuario = {'rol': 'Estudiante'};
+        } else if (data.codigoError == 2) {
+
+
+          this.login.cuenta = this.cuenta.value;
+          this.login.password = this.clave.value;
+
+          // si el usuario es nuevo entonces lo registro.
+          this.loginService.guardarDatos(this.login).subscribe((data: any) => {
+
+            //establezco el rol del usuario como estudiante para que pueda tener permisos
+            //para ver sus datos
+            this.loginService.datosUsuario = { 'rol': 'Estudiante' };
+
+            //guardo el token en el localstorage para poder obtenerlo despues.
+            localStorage.setItem("token", data.token);
+
+            this.showError('Llene el siguiente formulario');
+            this.router.navigate(['/formulario']);
+
+          }, (error) => {
+
+            this.loading = false;
+            this.showError('Cuenta incorrecta');
+          });
+
+
+
+        } else {
 
           //guardo el token en el localstorage para poder obtenerlo despues.
           localStorage.setItem("token", data.token);
 
-          this.showError('Llene el siguiente formulario');
-          this.router.navigate(['/formulario']);
 
-        }, (error) => {
+          this.loginService.getCurrentUser(data).subscribe((data: any) => {
 
-          this.loading = false;
-          this.showError('Cuenta incorrecta');
-        });
+            //guardo los datos en una variable globar dentro del service
+            //para poder acceder desde cualquier lado a ellos.
+            this.loginService.datosUsuario = data;
 
 
 
-      } else {
-
-        //guardo el token en el localstorage para poder obtenerlo despues.
-        localStorage.setItem("token", data.token);
-
-
-        this.loginService.getCurrentUser(data).subscribe((data: any) => {
-
-          //guardo los datos en una variable globar dentro del service
-          //para poder acceder desde cualquier lado a ellos.
-          this.loginService.datosUsuario = data;
-
-
-          //si en los datos del usario logueado el id_admnistrador tiene un valor 
-          //entonces el usuario sera redirigido a principal.
-          if (data.rol == 'Administrador') {
-
-            this.router.navigate(['/principal/principal1']);
-            this.showError('Bienvenido');
-
-            //si en los datos del usuario logueado el id_medico tiene un valor
+            //si en los datos del usario logueado el id_admnistrador tiene un valor 
             //entonces el usuario sera redirigido a principal.
-          } else if (data.rol == 'Medico') {
+            if (data.rol == 'Administrador') {
 
-            this.router.navigate(['/principal/principal1']);
-            this.showError('Bienvenido');
-
-          } else {
-
-            //recupero al paciente introduciendo su numero de cuenta para poder recuperar su id
-            // y redireccionarlo a su respectivo informacion.
-
-            this.formularioService.obtenerPacientePorCuenta(this.cuenta.value).subscribe((data: Paciente) => {
-
-              this.paciente = data;
-
-           this.router.navigate(['/datoPaciente/' + this.paciente.id_paciente]);
+              this.router.navigate(['/principal/principal1']);
               this.showError('Bienvenido');
-            });
 
-          }
+              //si en los datos del usuario logueado el id_medico tiene un valor
+              //entonces el usuario sera redirigido a principal.
+            } else if (data.rol == 'Medico') {
+
+              this.router.navigate(['/principal/principal1']);
+              this.showError('Bienvenido');
+
+            } else {
+
+              //recupero al paciente introduciendo su numero de cuenta para poder recuperar su id
+              // y redireccionarlo a su respectivo informacion.
+
+              var paciente = {
+                'cuenta' : this.cuenta.value,
+              }
+
+              this.formularioService.obtenerPacientePorCuenta(paciente).subscribe((data: Paciente) => {
+
+                this.paciente = data;
+
+                this.router.navigate(['/datoPaciente/' + this.paciente.id_paciente]);
+                this.showError('Bienvenido');
+              });
+
+            }
 
 
 
-        }, (error) => {
+          }, (error) => {
 
-          console.log(error);
+            console.log(error);
 
-        });
+          });
 
 
-      }
+        }
 
-    });
+      });
+
+
+    }
+
+
 
   }
 
