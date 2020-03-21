@@ -96,29 +96,29 @@ export class FormularioService {
     );
   }
 
-  actualizarAntecedenteFamiliar(antecedente_familiar: AntecedentesFamiliares) {
-    return this.httpClient.put(
-      this.API_ENDPOINT + 'antecedentes_familiares/' + antecedente_familiar.id_paciente,
-      antecedente_familiar,
+
+
+
+
+
+ 
+
+  actualizarHabitoToxicologico(paciente_habito_toxicologico) {
+    return this.httpClient.put(this.API_ENDPOINT + 'pacientes_habitos_toxicologicos/' + paciente_habito_toxicologico.id_habito_toxicologico,paciente_habito_toxicologico,
       { headers: this.headers }
     );
   }
 
-  actualizarAntecedentePersonal(antecedente_personal: AntecedentesPersonales) {
-    return this.httpClient.put(
-      this.API_ENDPOINT + 'antecedentes_personales/' + antecedente_personal.id_paciente,
-      antecedente_personal,
-      { headers: this.headers }
-    );
-  }
 
-  actualizarHabitoToxicologico(habito_toxicologico_personal: HabitosToxicologicosPersonales) {
-    return this.httpClient.put(
-      this.API_ENDPOINT + 'habitos_toxicologicos_personales/' + habito_toxicologico_personal.id_paciente,
-      habito_toxicologico_personal,
-      { headers: this.headers }
-    );
-  }
+
+
+
+
+
+
+
+
+
 
   actualizarActividadSexual(actividad_sexual: ActividadSexual) {
     return this.httpClient.put(
@@ -282,6 +282,9 @@ export class FormularioService {
   obtenerHabitoToxicologico(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes_habitos_toxicologicos/' + id_paciente);
   }
+  obtenerUnhabito(id_habito_toxi: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerUnhabito/' + id_habito_toxi);
+  }
 
   
 
@@ -402,6 +405,9 @@ eliminarCualquierEnfermedadAP(id_paciente: any) {
 }
 eliminarHospitalaria(id_paciente: any) {
   return this.httpClient.delete(this.API_ENDPOINT + 'p_hospitalarias_quirurgicas/' + id_paciente);
+}
+eliminarHabitoTox(id_paciente: any) {
+  return this.httpClient.delete(this.API_ENDPOINT + 'pacientes_habitos_toxicologicos/' + id_paciente);
 }
 
 }
