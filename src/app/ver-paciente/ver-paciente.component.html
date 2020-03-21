@@ -798,7 +798,9 @@ Visualiazar Antecedentes familiares del paciente
 <button mat-raised-button
 class="btn btn-outline-primary float-right botonperron"
 style="margin-top: 10px;"
-(click)="readonlyAntecedentesFamiliares = !readonlyAntecedentesFamiliares;">
+(click)="readonlyAntecedentesFamiliares = !readonlyAntecedentesFamiliares;
+ocultarbtnagregardesnutricionAF=true;    ocultarbtnagregarmentalAF=true;    ocultarbtnagregaralergiaAF=true;    
+ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 {{!readonlyAntecedentesFamiliares ? 'Guardar' : 'Editar'}}
 </button> 
 </div>
@@ -1309,7 +1311,9 @@ style="margin-top: 10px;"
     <button mat-raised-button
     class="btn btn-outline-primary float-right botonperron"
     style="margin-top: 10px;"
-    (click)="readonlyAntecedentesPersonales = !readonlyAntecedentesPersonales">
+    (click)="readonlyAntecedentesPersonales = !readonlyAntecedentesPersonales;
+    ocultarbtnagregardesnutricionAP=true;   ocultarbtnagregarotroAP=true;  ocultarbtnagregarhospitalaria=true;
+    ocultarbtnagregarmentalAP=true;     ocultarbtnagregaralergiaAP=true;   ocultarbtnagregarcancerAP=true;">
     {{!readonlyAntecedentesPersonales ? 'Guardar' : 'Editar'}}
     </button> 
   </div>
@@ -1867,28 +1871,9 @@ style="margin-top: 10px;"
       <ng-container matColumnDef="habito_toxicologico">
       <th mat-header-cell *matHeaderCellDef> Hábito Toxicológico </th>
       <td mat-cell *matCellDef="let elemento"> {{elemento.habito_toxicologico}} </td>
-
-      <!-- este mat-footer siempre tiene que ir en cada columna -->
       <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
-      <!-- <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td> -->
-
-
-      <!-- columna tipo -->
-      <!-- <ng-container matColumnDef="tipo">
-      <th mat-header-cell *matHeaderCellDef> Tipo </th>
-      <td mat-cell *matCellDef="let elemento"> {{elemento.tipo}}</td>
-      <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container> -->
-
-
-      <!-- columna parentesco -->
-      <!-- <ng-container matColumnDef="parentesco">
-      <th mat-header-cell *matHeaderCellDef> Parentesco </th>
-      <td mat-cell *matCellDef="let elemento"> {{elemento.parentesco}}</td>
-      <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container> -->
 
       <!-- columna observaccion -->
       <ng-container matColumnDef="observacion">
@@ -1906,109 +1891,29 @@ style="margin-top: 10px;"
       <button mat-raised-button
       class="btn btn-outline-primary float-right botonperron"
       style="margin-top: 10px;"
-      (click)="readonlyHabitosToxicologicos = !readonlyHabitosToxicologicos">
-      {{!readonlyHabitosToxicologicos ? 'Guardar' : 'Editar'}}
+      (click)="readonlyHabitosToxicologicos = !readonlyHabitosToxicologicos;ocultarbtnagregartoxicologico = true">
+      {{!readonlyHabitosToxicologicos ? 'Regresar' : 'Editar'}}
       </button> 
     </div>
   </div>
 
 
-
+                <!-- AQUI SE ESTA EDITANDO -->
 
 <div *ngIf="readonlyHabitosToxicologicos == false">
-  <form [formGroup]="formulario_habito_toxicologico_personal">
-    <label id="example-radio-group-label">1. Alcohol</label>
-    <mat-error style="margin-left: 0;" *ngIf="alcohol.hasError('required')">campo requerido</mat-error>
-    <div class="row" style="margin-left: 0;"> 
-      <mat-radio-group formControlName="alcohol"  aria-labelledby="example-radio-group-label" class="example-radio-group">
-      <mat-radio-button value="Si" (click)="habilitarInputs([observacion_alcohol])">Si</mat-radio-button> &nbsp;  &nbsp; &nbsp; &nbsp;  
-      <mat-radio-button value="No" (click)= "borrarInputs([observacion_alcohol])">No</mat-radio-button>
-      </mat-radio-group>
 
-      &nbsp; &nbsp; &nbsp; &nbsp; 
-
-      <mat-form-field  class="medium-width">
-      <textarea matInput formControlName="observacion_alcohol" placeholder="Detallar tiempo de uso y frecuencia"
-      cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" >  
-      </textarea>
-      <mat-error *ngIf="observacion_alcohol.hasError('maxlength')">campo muy extenso</mat-error>
-      <mat-error *ngIf="observacion_alcohol.hasError('minlength')">introduzca una observación válida</mat-error>
-      </mat-form-field>
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <label id="example-radio-group-label">2. Tabaquismo</label>
-    <mat-error style="margin-left: 0;"*ngIf="tabaquismo.hasError('required')"> campo requerido</mat-error>
-    <div class="row" style="margin-left: 0;"> 
-      <mat-radio-group formControlName="tabaquismo" aria-labelledby="example-radio-group-label" class="example-radio-group">
-      <mat-radio-button value="Si" (click)="habilitarInputs([observacion_tabaquismo])">Si</mat-radio-button> &nbsp;  &nbsp; &nbsp; &nbsp;  
-      <mat-radio-button value="No" (click)="borrarInputs([observacion_tabaquismo])">No</mat-radio-button>
-      </mat-radio-group>
-
-      &nbsp; &nbsp; &nbsp; &nbsp; 
-
-      <mat-form-field class="medium-width">
-      <textarea matInput formControlName="observacion_tabaquismo" placeholder="Detallar tiempo de uso y frecuencia"
-      cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;">
-      </textarea>
-      <mat-error *ngIf="observacion_tabaquismo.hasError('maxlength')">campo muy extenso</mat-error>
-      <mat-error *ngIf="observacion_tabaquismo.hasError('minlength')">introduzca una observación válida</mat-error>
-      </mat-form-field>
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <label id="example-radio-group-label">3. Marihuana</label>
-    <mat-error style="margin-left: 0;"*ngIf="marihuana.hasError('required')">campo requerido</mat-error>
-    <div class="row" style="margin-left: 0;"> 
-      <mat-radio-group formControlName="marihuana" aria-labelledby="example-radio-group-label" class="example-radio-group" >
-      <mat-radio-button value="Si" (click)="habilitarInputs([observacion_marihuana])">Si</mat-radio-button> &nbsp;  &nbsp; &nbsp; &nbsp;  
-      <mat-radio-button value="No" (click)="borrarInputs([observacion_marihuana])">No</mat-radio-button>
-      </mat-radio-group>
-
-      &nbsp; &nbsp; &nbsp; &nbsp; 
-
-      <mat-form-field class="medium-width">
-      <textarea matInput formControlName="observacion_marihuana" placeholder="Detallar tiempo de uso y frecuencia"
-      cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;">
-      </textarea>
-      <mat-error *ngIf="observacion_marihuana.hasError('maxlength')">campo muy extenso</mat-error>
-      <mat-error *ngIf="observacion_marihuana.hasError('minlength')">introduzca una observación válida</mat-error>
-      </mat-form-field>
-    </div>
-
-    <mat-divider></mat-divider>
-
-    <label id="example-radio-group-label">4. Cocaina</label>
-    <mat-error style="margin-left: 0;" *ngIf="cocaina.hasError('required')">campo requerido</mat-error>
-    <div class="row" style="margin-left: 0;">
-      <mat-radio-group formControlName="cocaina" aria-labelledby="example-radio-group-label" class="example-radio-group" >
-      <mat-radio-button value="Si" (click)="habilitarInputs([observacion_cocaina])">Si</mat-radio-button> &nbsp;   &nbsp; &nbsp; &nbsp; 
-      <mat-radio-button value="No" (click)="borrarInputs([observacion_cocaina])">No</mat-radio-button>
-      </mat-radio-group>
-
-      &nbsp; &nbsp; &nbsp; &nbsp; 
-
-      <mat-form-field class="medium-width">
-      <textarea matInput formControlName="observacion_cocaina"   placeholder="Detallar inicio de enfermedad y tratamiento"
-      cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;">
-      </textarea>
-      <mat-error *ngIf="observacion_cocaina.hasError('maxlength')">campo muy extenso</mat-error>
-      <mat-error *ngIf="observacion_cocaina.hasError('minlength')">introduzca una observación válida</mat-error>
-      </mat-form-field>
-    </div>
-
-    <mat-divider></mat-divider>
-
+  <mat-card>
+     <form [formGroup]="formulario_habito_toxicologico_personal">
+   
+  <div style="display: none;padding: 0px;" id="divAgregarToxicologicos">
     <div class="row" style="margin-left: 0;">
       <mat-form-field>
-      <input matInput formControlName="otros" placeholder="5. Otros">
+      <input matInput formControlName="otros" placeholder="agrega otro hábito toxicológico">
       <mat-error *ngIf="otros_ht.hasError('maxlength')">campo muy extenso</mat-error>
       <mat-error *ngIf="otros_ht.hasError('minlength')">introduzca una observación válida</mat-error>
       </mat-form-field>
 
-      &nbsp; &nbsp; &nbsp; &nbsp; 
+      &nbsp; &nbsp; 
 
       <mat-form-field class="medium-width" *ngIf="otros_ht.value">
       <textarea matInput formControlName="observacion_otros" placeholder="Observacion"
@@ -2016,12 +1921,65 @@ style="margin-top: 10px;"
       <mat-error *ngIf="observacion_otros_ht.hasError('maxlength')">campo muy extenso</mat-error>
       <mat-error *ngIf="observacion_otros_ht.hasError('minlength')">introduzca una observación válida</mat-error>
       </mat-form-field>
-    </div>
-   </form>
 
-    <button mat-raised-button     class="btn btn-outline-primary float-right botonperron"    style="margin-top: 10px;"    disabled={{formulario_habito_toxicologico_personal.invalid}}
-    (click)="readonlyHabitosToxicologicos = !readonlyHabitosToxicologicos; actualizarHabitosToxicologicos()">
-    {{!readonlyHabitosToxicologicos ? 'Guardar' : 'Editar'}}
+      <button mat-icon-button class="float-right"
+      (click)="agregarHabitoToxicologico();" class="botonesTabla"><mat-icon>save</mat-icon></button>
+    </div>
+  </div>
+
+  </form>
+
+
+  <div class="col">
+    <div class="row" *ngIf="ocultarbtnagregartoxicologico == true " ><button  class="botonperron" (click)="ocultarbtnagregartoxicologico = !ocultarbtnagregartoxicologico;mostrarCamposToxicologicos();"> agregar un hábito toxicológico</button></div>
+<div class="row" *ngIf="tablaHabitosToxicologicos == null" >Este paciente no hábitos toxicológicos</div>
+ </div>
+  <table mat-table id="tabla3" [dataSource]="tablaHabitosToxicologicos" class="mat-elevation-z8" *ngIf="tablaHabitosToxicologicos != null" style="margin-right: 16px;"  >
+
+    <ng-container matColumnDef="numero">
+      <th mat-header-cell *matHeaderCellDef> # </th>
+      <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- columna antecedente -->
+    <ng-container matColumnDef="habito_toxicologico">
+    <th mat-header-cell *matHeaderCellDef> Hábito Toxicológico </th>
+    <td mat-cell *matCellDef="let elemento"> {{elemento.habito_toxicologico}} </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- columna observaccion -->
+    <ng-container matColumnDef="observacion">
+    <th mat-header-cell *matHeaderCellDef> Observación </th>
+    <td mat-cell *matCellDef="let elemento"> {{elemento.observacion}}</td>
+    <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- columna botoneliminar  -->
+    <ng-container matColumnDef="botoneliminar">
+    <th mat-header-cell *matHeaderCellDef>  </th>
+    <td mat-cell *matCellDef="let elemento"><button mat-icon-button class="float-right" (click)="eliminarHabitoToxicologico(elemento.id_paciente_habito_toxicologico);" class="botonesTabla"><mat-icon>delete</mat-icon></button> </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- columna botoneditar  -->
+    <ng-container matColumnDef="botoneditar">
+    <th mat-header-cell *matHeaderCellDef>  </th>
+    <td mat-cell *matCellDef="let elemento"><button mat-icon-button class="float-right" (click)="actualizarHabitosToxicologicos(elemento.id_paciente_habito_toxicologico);   ocultarbtnagregartoxicologico = false;    mostrarCamposToxicologicos();" class="botonesTabla"><mat-icon>create</mat-icon></button> </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnastablaHabitosToxicologicosEditar"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnastablaHabitosToxicologicosEditar;"></tr>
+    <tr mat-footer-row *matFooterRowDef="columnastablaHabitosToxicologicosEditar"></tr>
+    </table>
+  </mat-card>
+ 
+
+    <button mat-raised-button     class="btn btn-outline-primary float-right botonperron"    style="margin-top: 10px;"
+    (click)="readonlyHabitosToxicologicos = !readonlyHabitosToxicologicos; ">
+    {{!readonlyHabitosToxicologicos ? 'Regresar' : 'Editar'}}
     </button>
 </div>
 </mat-expansion-panel>
