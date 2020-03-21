@@ -90,7 +90,8 @@ import { WebcamModule } from 'ngx-webcam';
 // Import pdfmake-wrapper and the fonts to use
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 // import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
-import pdfFonts from "../assets/custom-fonts"; // custom fonts
+import pdfFonts from "../assets/custom-fonts";
+import { AyudaComponent } from './ayuda/ayuda.component'; // custom fonts
 
 // Set the fonts to use
 // Configuring custom fonts
@@ -120,7 +121,7 @@ const routes: Route[] = [
   { path: 'inventario', component: InventarioComponent, canActivate: [AuthAdministradorGuard] },
   //{path: 'formInventario', component: FormInventarioComponent},
   { path: 'listadoEstudiantes/:id', component: ListadoEstudiantesComponent, canActivate: [AuthAdministradorGuard] },
-
+  { path: 'ayuda', component: AyudaComponent },
 
 
   { path: 'loginadmin', component: LoginadminComponent, canActivate: [AuthAdministradorGuard] },
@@ -153,6 +154,7 @@ const routes: Route[] = [
       { path: 'formulario', component: FormularioComponent },
       { path: 'consolidado', component: ConsolidadodiarioComponent },
       // {path: 'verPaciente', component: VerPacienteComponent},
+      { path: 'ayuda', component: AyudaComponent },
 
 
     ]
@@ -212,7 +214,8 @@ const routes: Route[] = [
     DialogoVerificarPermisoComponent,
     CambiarFoto,
     DialogoCambiarContraseniaAdmin,
-    DialogoCambiarContraseniaMed
+    DialogoCambiarContraseniaMed,
+    AyudaComponent
 
 
 
