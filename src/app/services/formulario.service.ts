@@ -66,11 +66,15 @@ export class FormularioService {
 
   }
 
+
+  // estos dos servicios son solo para el input de otro
   enviarHabitoToxicologico(habito_toxicologico: any) {
     return this.httpClient.post(this.API_ENDPOINT + 'habitos_toxicologicos',
       habito_toxicologico,
       { headers: this.headers });
   }
+
+
 
 
   enviarTipoEnfermedad(tipo_enfermedad: any) {
@@ -103,10 +107,13 @@ export class FormularioService {
 
  
 
-  actualizarHabitoToxicologico(paciente_habito_toxicologico) {
+  actualizarPacienteHabitoToxicologico(paciente_habito_toxicologico) {
     return this.httpClient.put(this.API_ENDPOINT + 'pacientes_habitos_toxicologicos/' + paciente_habito_toxicologico.id_habito_toxicologico,paciente_habito_toxicologico,
-      { headers: this.headers }
-    );
+      { headers: this.headers });
+  }
+  actualizarHabitoToxicologico(habito_toxicologico) {
+    return this.httpClient.put(this.API_ENDPOINT + 'habitos_toxicologicos/'+habito_toxicologico.idhabitotoxicologico,      habito_toxicologico,
+          { headers: this.headers });
   }
 
 
