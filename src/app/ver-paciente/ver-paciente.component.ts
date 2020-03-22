@@ -549,7 +549,8 @@ ocultar: boolean = true;
   ante_familiaralergiaAP:any;
   ante_familiarcancerAP:any;
   ante_familiarotroAP:any;
-  habito_toxi:any;  
+  habito_toxi:any;
+  habito_toxiActu:any;  
   act_sex:any;  
   plani_fam:any;
   hospitalaria_qui:any;
@@ -674,6 +675,7 @@ ocultar: boolean = true;
   }
   habito_toxicologico: HabitoToxicologico = {
     habito_toxicologico: null,
+    idhabitotoxicologico:null
   }
 
  
@@ -2315,10 +2317,10 @@ cargarHospitalarias(){
             this.editandoToxi = true;
 
             this.formularioService.obtenerUnhabito(this.id).subscribe((data: HabitosToxicologicosPersonales)=>{
-              this.habito_toxi = data;          
-              this.otros_ht.setValue(this.habito_toxi[0].habito_toxicologico);
-              this.observacion_otros_ht.setValue(this.habito_toxi[0].observacion);  
-              console.log(this.habito_toxi);                   
+              this.habito_toxiActu = data;          
+              this.otros_ht.setValue(this.habito_toxiActu[0].habito_toxicologico);
+              this.observacion_otros_ht.setValue(this.habito_toxiActu[0].observacion);  
+              console.log(this.habito_toxiActu);                   
               }, (error)=>{
                 console.log(error);
               });
@@ -2329,23 +2331,29 @@ cargarHospitalarias(){
           if(this.editandoToxi == true){
 
             if(this.formulario_habito_toxicologico_personal.valid){
-              this.habito_toxicologico.habito_toxicologico = this.otros_ht.value; 
+              this.habito_toxicologico.habito_toxicologico = this.otros_ht.value;
+              this.habito_toxicologico.idhabitotoxicologico = this.habito_toxiActu[0].id_habito_toxicologico;
                this.paciente_habito_toxicologico.id_paciente = this.paciente.id_paciente;
                this.paciente_habito_toxicologico.observacion = this.observacion_otros_ht.value;               
-               this.paciente_habito_toxicologico.id_habito_toxicologico = this.habito_toxi[0].id_paciente_habito_toxicologico;
-               console.log("id actulizar: " + this.habito_toxi[0].id_paciente_habito_toxicologico);
-       
-                   this.formularioService.actualizarHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data) => {
-                     console.log('se enviaron actualizaron habitos toxicologicos');
-                     this.cargarHabitoToxicologico();  
+               this.paciente_habito_toxicologico.id_habito_toxicologico = this.habito_toxiActu[0].id_paciente_habito_toxicologico;
+               console.log("id actulizar: " + this.habito_toxiActu[0].id_paciente_habito_toxicologico);
+
+
+               this.formularioService.actualizarHabitoToxicologico(this.habito_toxicologico).subscribe((data) => {
+
+                   this.formularioService.actualizarPacienteHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data) => {
+                     console.log('se actualizaron los habitos toxicologicos'+data);
+                     this.cargarHabitoToxicologico();                        
                    }, (error) => {
                      console.log(error);  
                    }); 
                  this.observacion_otros_ht.setValue('');  
                  this.otros_ht.setValue('');    
-               }  
-          
-
+                 
+              }, (error) => {
+                console.log(error);  
+              });
+            }
 
           }else{
 
