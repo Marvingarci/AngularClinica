@@ -46,6 +46,11 @@ export class FormularioService {
       paciente_antecedente_personal,
       { headers: this.headers });
   }
+  actualizarPacienteAntecedentePersonal(paciente_antecedente_personal: any) {
+    return this.httpClient.put(this.API_ENDPOINT + 'pacientes_antecedentes_personales/'+paciente_antecedente_personal.id_enfermedad,
+      paciente_antecedente_personal,
+      { headers: this.headers });
+  }
 
   enviarPacienteHabitoToxicologico(paciente_habito_toxicologico: PacienteHabitoToxicologico) {
     return this.httpClient.post(this.API_ENDPOINT + 'pacientes_habitos_toxicologicos',
@@ -61,16 +66,22 @@ export class FormularioService {
 
 
   enviarEnfermedad(enfermedad: any) {
+    return this.httpClient.post(this.API_ENDPOINT + 'enfermedades', enfermedad,
+     { headers: this.headers }); }
+  actualizarEnfermedad(enfermedadeditar: any) {
+      return this.httpClient.put(this.API_ENDPOINT + 'enfermedades/' +enfermedadeditar.id_enfermedadeditar, enfermedadeditar,
+       { headers: this.headers }); }
 
-    return this.httpClient.post(this.API_ENDPOINT + 'enfermedades', enfermedad, { headers: this.headers });
 
-  }
-
+  // estos dos servicios son solo para el input de otro
   enviarHabitoToxicologico(habito_toxicologico: any) {
-    return this.httpClient.post(this.API_ENDPOINT + 'habitos_toxicologicos',
-      habito_toxicologico,
-      { headers: this.headers });
-  }
+    return this.httpClient.post(this.API_ENDPOINT + 'habitos_toxicologicos',habito_toxicologico,
+      { headers: this.headers }); }
+  actualizarHabitoToxicologico(habito_toxicologico) {
+    return this.httpClient.put(this.API_ENDPOINT + 'habitos_toxicologicos/'+habito_toxicologico.idhabitotoxicologico, habito_toxicologico,
+          { headers: this.headers });  }
+
+
 
 
   enviarTipoEnfermedad(tipo_enfermedad: any) {
@@ -96,29 +107,29 @@ export class FormularioService {
     );
   }
 
-  actualizarAntecedenteFamiliar(antecedente_familiar: AntecedentesFamiliares) {
-    return this.httpClient.put(
-      this.API_ENDPOINT + 'antecedentes_familiares/' + antecedente_familiar.id_paciente,
-      antecedente_familiar,
-      { headers: this.headers }
-    );
-  }
 
-  actualizarAntecedentePersonal(antecedente_personal: AntecedentesPersonales) {
-    return this.httpClient.put(
-      this.API_ENDPOINT + 'antecedentes_personales/' + antecedente_personal.id_paciente,
-      antecedente_personal,
-      { headers: this.headers }
-    );
-  }
 
-  actualizarHabitoToxicologico(habito_toxicologico_personal: HabitosToxicologicosPersonales) {
-    return this.httpClient.put(
-      this.API_ENDPOINT + 'habitos_toxicologicos_personales/' + habito_toxicologico_personal.id_paciente,
-      habito_toxicologico_personal,
-      { headers: this.headers }
-    );
+
+
+
+ 
+
+  actualizarPacienteHabitoToxicologico(paciente_habito_toxicologico) {
+    return this.httpClient.put(this.API_ENDPOINT + 'pacientes_habitos_toxicologicos/' + paciente_habito_toxicologico.id_habito_toxicologico,paciente_habito_toxicologico,
+      { headers: this.headers });
   }
+ 
+
+
+
+
+
+
+
+
+
+
+
 
   actualizarActividadSexual(actividad_sexual: ActividadSexual) {
     return this.httpClient.put(
@@ -171,9 +182,9 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes/' + id_paciente);
   }
 
-  obtenerPacientePorCuenta(cuenta){
+  obtenerPacientePorCuenta(paciente){
     
-      return this.httpClient.get(this.API_ENDPOINT + 'obtenerPaciente/'+cuenta);
+      return this.httpClient.post(this.API_ENDPOINT + 'obtenerPaciente', paciente, {headers: this.headers});
       
   }
 
@@ -258,6 +269,7 @@ export class FormularioService {
       this.API_ENDPOINT + 'pacientes_antecedentes_personales/' + $id_paciente);
   }
 
+  // OBTENGO LAS ENF AP POR PACIENTE Y ENFERMEDAD ESPECIFICA RESPECTIVAMENTE
   obtenerDesnutricionesAP(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'obtenerdesnutricionAP/' + id_paciente);
   }
@@ -273,6 +285,30 @@ export class FormularioService {
   obtenerOtrosAP(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'obtenerotrosAP/' + id_paciente);
   }
+
+  obtenerUnaDesnutricionAP(id_enfermedad: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerUnadesnutricionAP/' + id_enfermedad);
+  }
+  obtenerUnaMentalAP(id_enfermedad: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerUnamentalesAP/' + id_enfermedad);
+  }
+  obtenerUnaAlergiaAP(id_enfermedad: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerUnaalergiasAP/' + id_enfermedad);
+  }
+  obtenerUnCancerAP(id_enfermedad: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerUnacanceresAP/' + id_enfermedad);
+  }
+  obtenerUnOtroAP(id_enfermedad: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerUnaotrosAP/' + id_enfermedad);
+  }
+
+
+
+
+
+
+
+
   obtenerhospitalarias_quirurgicas(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'obtenerhospitalarias_quirurgicas/' + id_paciente);
   }
@@ -281,6 +317,9 @@ export class FormularioService {
   }
   obtenerHabitoToxicologico(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes_habitos_toxicologicos/' + id_paciente);
+  }
+  obtenerUnhabito(id_habito_toxi: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerUnhabito/' + id_habito_toxi);
   }
 
   
@@ -402,6 +441,9 @@ eliminarCualquierEnfermedadAP(id_paciente: any) {
 }
 eliminarHospitalaria(id_paciente: any) {
   return this.httpClient.delete(this.API_ENDPOINT + 'p_hospitalarias_quirurgicas/' + id_paciente);
+}
+eliminarHabitoTox(id_paciente: any) {
+  return this.httpClient.delete(this.API_ENDPOINT + 'pacientes_habitos_toxicologicos/' + id_paciente);
 }
 
 }

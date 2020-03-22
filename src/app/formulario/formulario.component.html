@@ -26,7 +26,8 @@
               <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint>
               <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido</mat-error>
               <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un número de identidad válido</mat-error>
-              <mat-error *ngIf="numero_identidad.hasError('identidadUnica')">La identidad pertenece a otra persona</mat-error>
+              <mat-error *ngIf="numero_identidad.hasError('identidadUnica')">La identidad pertenece a otra persona
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -128,7 +129,7 @@
             <mat-form-field class="example-full-width">
               <input matInput matInput formControlName="numero_telefono" name="numero_telefono" maxlength="8"
                 placeholder="N° Teléfono">
-                <mat-hint align="end">{{numero_telefono.value.length}} / 8</mat-hint>
+              <mat-hint align="end">{{numero_telefono.value.length}} / 8</mat-hint>
               <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido</mat-error>
               <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un número de teléfono válido!
               </mat-error>
@@ -140,82 +141,82 @@
           <div class="col">
             <mat-card>
 
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field>
-                      <input matInput formControlName="emergencia_persona" name="emergencia_persona" id=""
-                        placeholder="En caso de emergencia llamar a">
-                      <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido</mat-error>
-                      <mat-error *ngIf="emergencia_persona.hasError('pattern')">
-                        !introduzca un nombre válido!
-                      </mat-error>
-                    </mat-form-field>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput formControlName="emergencia_persona" name="emergencia_persona" id=""
+                      placeholder="En caso de emergencia llamar a">
+                    <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido</mat-error>
+                    <mat-error *ngIf="emergencia_persona.hasError('pattern')">
+                      !introduzca un nombre válido!
+                    </mat-error>
+                  </mat-form-field>
 
-                    &nbsp; &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp; &nbsp; &nbsp;
 
-                    <mat-form-field>
-                      <input matInput formControlName="emergencia_telefono" maxlength="8"
-                        placeholder="Teléfono de emergencia">
-                      <mat-hint align="end">{{emergencia_telefono.value.length}} / 8</mat-hint>
-                      <mat-error *ngIf="emergencia_telefono.hasError('required')">campo requerido</mat-error>
-                      <mat-error *ngIf="emergencia_telefono.hasError('pattern')">
-                        !introduzca un número de teléfono válido!
-                      </mat-error>
+                  <mat-form-field>
+                    <input matInput formControlName="emergencia_telefono" maxlength="8"
+                      placeholder="Teléfono de emergencia">
+                    <mat-hint align="end">{{emergencia_telefono.value.length}} / 8</mat-hint>
+                    <mat-error *ngIf="emergencia_telefono.hasError('required')">campo requerido</mat-error>
+                    <mat-error *ngIf="emergencia_telefono.hasError('pattern')">
+                      !introduzca un número de teléfono válido!
+                    </mat-error>
 
-                    </mat-form-field>
+                  </mat-form-field>
 
 
-                    &nbsp; &nbsp; &nbsp;
+                  &nbsp; &nbsp; &nbsp;
 
-                    <button mat-raised-button (click)="AgregarTelefonosEmergencia();">agregar</button>
-
-                  </div>
-                </div>
-
-                <div class="row medium-width" style="margin-left: 0;">
-                  <table mat-table [dataSource]="dataSourceTablaTelefonosEmergencia" class="mat-elevation-z8 tabla"
-                    *ngIf="dataSourceTablaTelefonosEmergencia != null">
-
-                    <ng-container matColumnDef="numero">
-                      <th mat-header-cell *matHeaderCellDef> # </th>
-                      <a>eliminar</a>
-                      <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
-                      <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="nombre">
-                      <th mat-header-cell *matHeaderCellDef> Persona </th>
-                      <td mat-cell *matCellDef="let element"> {{element.emergencia_persona}} </td>
-                      <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="telefono">
-                      <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-                      <td mat-cell *matCellDef="let element"> {{element.telefono_emergencia}} </td>
-                      <td mat-footer-cell *matFooterCellDef></td>
-
-                    </ng-container>
-
-                    <ng-container matColumnDef="botones">
-                      <th mat-header-cell *matHeaderCellDef></th>
-                      <td mat-cell *matCellDef="let element; index as i;">
-                        <button mat-icon-button class="botonesTabla" (click)="eliminarTelefonosEmergencia(i)">
-                          <mat-icon>delete</mat-icon>
-                        </button>
-                      </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="columnasTablaTelefonosEmergencia"></tr>
-                    <tr mat-row *matRowDef="let row; columns: columnasTablaTelefonosEmergencia;"></tr>
-                  </table>
-
+                  <button mat-raised-button (click)="AgregarTelefonosEmergencia();">agregar</button>
 
                 </div>
+              </div>
 
-                &nbsp; &nbsp; &nbsp; &nbsp;
+              <div class="row medium-width" style="margin-left: 0;">
+                <table mat-table [dataSource]="dataSourceTablaTelefonosEmergencia" class="mat-elevation-z8 tabla"
+                  *ngIf="dataSourceTablaTelefonosEmergencia != null">
+
+                  <ng-container matColumnDef="numero">
+                    <th mat-header-cell *matHeaderCellDef> # </th>
+                    <a>eliminar</a>
+                    <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef> Persona </th>
+                    <td mat-cell *matCellDef="let element"> {{element.emergencia_persona}} </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="telefono">
+                    <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+                    <td mat-cell *matCellDef="let element"> {{element.telefono_emergencia}} </td>
+                    <td mat-footer-cell *matFooterCellDef></td>
+
+                  </ng-container>
+
+                  <ng-container matColumnDef="botones">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element; index as i;">
+                      <button mat-icon-button class="botonesTabla" (click)="eliminarTelefonosEmergencia(i)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="columnasTablaTelefonosEmergencia"></tr>
+                  <tr mat-row *matRowDef="let row; columns: columnasTablaTelefonosEmergencia;"></tr>
+                </table>
 
 
-              </mat-card>
+              </div>
+
+              &nbsp; &nbsp; &nbsp; &nbsp;
+
+
+            </mat-card>
           </div>
         </div>
 
@@ -239,10 +240,10 @@
 
   <mat-step *ngIf="esAlumno==true" [stepControl]="formulario_datos_generales" label="Datos Generales">
 
-    <form [formGroup]="formulario_datos_generales"  >
+    <form [formGroup]="formulario_datos_generales">
       <div class="containerScroll">
 
-        <ng-template matStepLabel >Datos Generales</ng-template>
+        <ng-template matStepLabel>Datos Generales</ng-template>
 
 
 
@@ -251,7 +252,7 @@
           <div class="row">
             <div class="col" id="columna">
               <mat-form-field class="example-full-width">
-                <input matInput formControlName="nombre_completo" placeholder="Nombre Completo" >
+                <input matInput formControlName="nombre_completo" placeholder="Nombre Completo">
                 <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido</mat-error>
                 <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un nombre válido</mat-error>
 
@@ -291,7 +292,7 @@
                   placeholder="Lugar de Procedencia" class="rojo" id="lugar_procedencia">
                 <mat-error *ngIf="lugar_procedencia.hasError('required')">campo requerido</mat-error>
                 <mat-error *ngIf="lugar_procedencia.hasError('pattern')">ingrese datos válidos</mat-error>
-<!-- <mat-error *ngIf="checarSiSonIguales()">Las contraseñas no coinciden</mat-error> -->
+                <!-- <mat-error *ngIf="checarSiSonIguales()">Las contraseñas no coinciden</mat-error> -->
 
               </mat-form-field>
             </div>
@@ -388,92 +389,92 @@
             </div>
 
             <div class="col">
-            
-                  <mat-card>
-                  <div class="row">
-                    <div class="col">
-                      <mat-form-field>
-                        <input matInput formControlName="emergencia_persona" name="emergencia_persona" id=""
-                          placeholder="En caso de emergencia llamar a">
-                        <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido</mat-error>
-                        <mat-error *ngIf="emergencia_persona.hasError('pattern')">
-                          introduzca un nombre válido
-                        </mat-error>
-                      </mat-form-field>
 
-                      &nbsp; &nbsp; &nbsp; &nbsp;
+              <mat-card>
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field>
+                      <input matInput formControlName="emergencia_persona" name="emergencia_persona" id=""
+                        placeholder="En caso de emergencia llamar a">
+                      <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido</mat-error>
+                      <mat-error *ngIf="emergencia_persona.hasError('pattern')">
+                        introduzca un nombre válido
+                      </mat-error>
+                    </mat-form-field>
 
-                      <mat-form-field>
-                        <input matInput formControlName="emergencia_telefono" maxlength="8"
-                          placeholder="Teléfono de emergencia">
-                        <mat-hint align="end">{{emergencia_telefono.value.length}} / 8</mat-hint>
-                        <mat-error *ngIf="emergencia_telefono.hasError('required')">campo requerido</mat-error>
-                        <mat-error *ngIf="emergencia_telefono.hasError('pattern')">
-                          introduzca un número de teléfono válido
-                        </mat-error>
+                    &nbsp; &nbsp; &nbsp; &nbsp;
 
-                      </mat-form-field>
+                    <mat-form-field>
+                      <input matInput formControlName="emergencia_telefono" maxlength="8"
+                        placeholder="Teléfono de emergencia">
+                      <mat-hint align="end">{{emergencia_telefono.value.length}} / 8</mat-hint>
+                      <mat-error *ngIf="emergencia_telefono.hasError('required')">campo requerido</mat-error>
+                      <mat-error *ngIf="emergencia_telefono.hasError('pattern')">
+                        introduzca un número de teléfono válido
+                      </mat-error>
+
+                    </mat-form-field>
 
 
-                      &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; &nbsp;
 
-                      <button mat-raised-button (click)="AgregarTelefonosEmergencia();">agregar</button>
-
-                    </div>
-                  </div>
-
-                  <div class="row medium-width" style="margin-left: 0;">
-                    <table mat-table [dataSource]="dataSourceTablaTelefonosEmergencia" class="mat-elevation-z8 tabla"
-                      *ngIf="dataSourceTablaTelefonosEmergencia != null"  >
-
-                      
-
-                      <ng-container matColumnDef="numero">
-                        <th mat-header-cell *matHeaderCellDef> # </th>
-                        <a>eliminar</a>
-                        <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                      </ng-container>
-
-                      <ng-container matColumnDef="nombre">
-                        <th mat-header-cell *matHeaderCellDef> Persona </th>
-                        <td mat-cell *matCellDef="let element"  > {{element.emergencia_persona}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-                      </ng-container>
-
-                      <ng-container matColumnDef="telefono">
-                        <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-                        <td mat-cell *matCellDef="let element"> {{element.telefono_emergencia}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
-
-                      </ng-container>
-
-                      <ng-container matColumnDef="botones">
-                        <th mat-header-cell *matHeaderCellDef></th>
-                        <td mat-cell *matCellDef="let element; index as i;">
-                          <button mat-icon-button class="botonesTabla" (click)="eliminarTelefonosEmergencia(i)">
-                            <mat-icon>delete</mat-icon>
-                          </button>
-                        </td>
-                      </ng-container>
-
-                      <tr mat-header-row *matHeaderRowDef="columnasTablaTelefonosEmergencia"></tr>
-                      <tr mat-row *matRowDef="let row; columns: columnasTablaTelefonosEmergencia;"></tr>
-                    </table>
-
+                    <button mat-raised-button (click)="AgregarTelefonosEmergencia();">agregar</button>
 
                   </div>
-                </mat-card>
-              </div>
+                </div>
+
+                <div class="row medium-width" style="margin-left: 0;">
+                  <table mat-table [dataSource]="dataSourceTablaTelefonosEmergencia" class="mat-elevation-z8 tabla"
+                    *ngIf="dataSourceTablaTelefonosEmergencia != null">
+
+
+
+                    <ng-container matColumnDef="numero">
+                      <th mat-header-cell *matHeaderCellDef> # </th>
+                      <a>eliminar</a>
+                      <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+                      <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="nombre">
+                      <th mat-header-cell *matHeaderCellDef> Persona </th>
+                      <td mat-cell *matCellDef="let element"> {{element.emergencia_persona}} </td>
+                      <td mat-footer-cell *matFooterCellDef></td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="telefono">
+                      <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+                      <td mat-cell *matCellDef="let element"> {{element.telefono_emergencia}} </td>
+                      <td mat-footer-cell *matFooterCellDef></td>
+
+                    </ng-container>
+
+                    <ng-container matColumnDef="botones">
+                      <th mat-header-cell *matHeaderCellDef></th>
+                      <td mat-cell *matCellDef="let element; index as i;">
+                        <button mat-icon-button class="botonesTabla" (click)="eliminarTelefonosEmergencia(i)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="columnasTablaTelefonosEmergencia"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnasTablaTelefonosEmergencia;"></tr>
+                  </table>
+
+
+                </div>
+              </mat-card>
+            </div>
 
           </div>
         </div>
       </div>
-      
+
       <div class="botonesstep">
-        <button mat-raised-button matStepperNext
-          class="btn btn-outline-primary float-right botonperron" (click)="AgregarTelefonosEmergencia();" >Siguiente</button>
-        </div>
+        <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron"
+          (click)="AgregarTelefonosEmergencia();">Siguiente</button>
+      </div>
     </form>
   </mat-step>
 
@@ -484,7 +485,7 @@
 
   <!-- segundo step -->
   <mat-step [stepControl]="formulario_antecedentes_familiares" label="Antecedentes Familiares">
-    <form [formGroup]="formulario_antecedentes_familiares" >
+    <form [formGroup]="formulario_antecedentes_familiares">
 
       <ng-template matStepLabel>Antecedentes Familiares </ng-template>
       <div class="containerScroll">
@@ -1079,9 +1080,7 @@
       </div>
 
       <div class="botonesstep">
-        <button mat-raised-button matStepperNext
-          class="btn btn-outline-primary float-right botonperron"
-          (click)="agregarDesnutricionesAF();agregarEnfermedadesMentales();agregarAlergias();agregarCanceres();
+        <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron" (click)="agregarDesnutricionesAF();agregarEnfermedadesMentales();agregarAlergias();agregarCanceres();
           agregarOtros();">Siguiente</button>
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
       </div>
@@ -1106,8 +1105,7 @@
 
 
   <!-- tercer step -->
-  <mat-step [stepControl]="formulario_antecedentes_personales" label="Antecedentes Personales"
-  (click)="agregarDesnutricionesAP();agregarEnfermedadesMentalesAP();agregarAlergiasAP();
+  <mat-step [stepControl]="formulario_antecedentes_personales" label="Antecedentes Personales" (click)="agregarDesnutricionesAP();agregarEnfermedadesMentalesAP();agregarAlergiasAP();
   agregarCanceresAP();agregarHospitalariasQuirurgicas();agregarOtrosAP();">
     <form [formGroup]="formulario_antecedentes_personales">
       <!-- <ng-template matStepLabel>Antecedentes Personales</ng-template> -->
@@ -1172,8 +1170,8 @@
         <div class="row" style="margin-left: 0;">
           <mat-radio-group formControlName="its" aria-labelledby="example-radio-group-label"
             class="example-radio-group">
-            <mat-radio-button value={{6}} (click)="habilitarInputs([observacion_its])">Si</mat-radio-button> &nbsp;
-            &nbsp; &nbsp;
+            <mat-radio-button value={{6}} (click)="habilitarInputs([observacion_its])">Si</mat-radio-button>
+            &nbsp;&nbsp;&nbsp;
             <mat-radio-button value={{0}} (click)="borrarInputs([observacion_its])">No</mat-radio-button>
           </mat-radio-group>
 
@@ -1211,7 +1209,7 @@
               <input matInput formControlName="tipo_desnutricion" placeholder="Tipo Desnutricion"
                 id="InputDenutricionAP">
               <mat-error style="margin-left: 0;" *ngIf="tipo_desnutricion_ap.hasError('required')">
-                !campo requerido!
+                campo requerido
               </mat-error>
             </mat-form-field>
 
@@ -1816,11 +1814,8 @@
       </div>
 
       <div class="botonesstep">
-        <button mat-raised-button matStepperNext
-          class="btn btn-outline-primary float-right botonperron"
-          (click)="agregarDesnutricionesAP();agregarEnfermedadesMentalesAP();agregarAlergiasAP();
-          agregarCanceresAP();agregarHospitalariasQuirurgicas();agregarOtrosAP();"
-          >Siguiente</button>
+        <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron" (click)="agregarDesnutricionesAP();agregarEnfermedadesMentalesAP();agregarAlergiasAP();
+          agregarCanceresAP();agregarHospitalariasQuirurgicas();agregarOtrosAP();">Siguiente</button>
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
       </div>
     </form>
@@ -2388,7 +2383,8 @@
 
       <div class="botonesstep">
         <button disabled="{{formulario_habito_toxicologico_personal.invalid}}" mat-raised-button matStepperNext
-          class="btn btn-outline-primary float-right botonperron" (click)="enviarDatos();agregarOtrosHT();">Enviar</button>
+          class="btn btn-outline-primary float-right botonperron"
+          (click)="agregarOtrosHT();enviarDatos();">Enviar</button>
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
       </div>
 

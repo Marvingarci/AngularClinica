@@ -7,7 +7,7 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { PrincipalComponent,  DialogCerrarSesion2 } from './principal/principal.component';
+import { PrincipalComponent, DialogCerrarSesion2 } from './principal/principal.component';
 import { LoginadminComponent, DialogoCambiarContraseniaAdmin, /*DialogoVerificar*/ } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
@@ -17,7 +17,7 @@ import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-est
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
-import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF, BorrarDesnutricionAP, BorrarHospitalarias , CambiarFoto} from './ver-paciente/ver-paciente.component';
+import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF, BorrarDesnutricionAP, BorrarHospitalarias, CambiarFoto, BorrarHabitoToxicologico } from './ver-paciente/ver-paciente.component';
 //import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
 //import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
 //CambiarFoto,
@@ -84,13 +84,14 @@ import { IdentidadUnicaDirective } from './validations/identidad-unica.directive
 import { DialogoVerificarPermisoComponent } from './dialogo-verificar-permiso/dialogo-verificar-permiso.component';
 
 //Camara
-import {WebcamModule} from 'ngx-webcam';
+import { WebcamModule } from 'ngx-webcam';
 
 
 // Import pdfmake-wrapper and the fonts to use
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 // import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
-import pdfFonts from "../assets/custom-fonts"; // custom fonts
+import pdfFonts from "../assets/custom-fonts";
+import { AyudaComponent } from './ayuda/ayuda.component'; // custom fonts
 
 // Set the fonts to use
 // Configuring custom fonts
@@ -120,7 +121,7 @@ const routes: Route[] = [
   { path: 'inventario', component: InventarioComponent, canActivate: [AuthAdministradorGuard] },
   //{path: 'formInventario', component: FormInventarioComponent},
   { path: 'listadoEstudiantes/:id', component: ListadoEstudiantesComponent, canActivate: [AuthAdministradorGuard] },
-
+  { path: 'ayuda', component: AyudaComponent },
 
 
   { path: 'loginadmin', component: LoginadminComponent, canActivate: [AuthAdministradorGuard] },
@@ -153,6 +154,7 @@ const routes: Route[] = [
       { path: 'formulario', component: FormularioComponent },
       { path: 'consolidado', component: ConsolidadodiarioComponent },
       // {path: 'verPaciente', component: VerPacienteComponent},
+      { path: 'ayuda', component: AyudaComponent },
 
 
     ]
@@ -199,6 +201,7 @@ const routes: Route[] = [
     BorrarDesnutricionAF,
     BorrarDesnutricionAP,
     BorrarHospitalarias,
+    BorrarHabitoToxicologico,
 
 
 
@@ -209,10 +212,10 @@ const routes: Route[] = [
     FocusInvalidoInputDirective,
     IdentidadUnicaDirective,
     DialogoVerificarPermisoComponent,
-     CambiarFoto,
-    // CambiarContraseniaComponent,
+    CambiarFoto,
     DialogoCambiarContraseniaAdmin,
-    DialogoCambiarContraseniaMed
+    DialogoCambiarContraseniaMed,
+    AyudaComponent
 
 
 
@@ -290,6 +293,7 @@ const routes: Route[] = [
     BorrarDesnutricionAF,
     BorrarDesnutricionAP,
     BorrarHospitalarias,
+    BorrarHabitoToxicologico,
     DialogoVerificarPermisoComponent
   ],
   providers: [
@@ -298,7 +302,7 @@ const routes: Route[] = [
       useClass: AuthInterceptorService,
       multi: true
     },
-    //  CambiarFoto
+    CambiarFoto
   ],
   bootstrap: [AppComponent]
 })

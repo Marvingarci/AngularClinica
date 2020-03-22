@@ -118,3 +118,6 @@ input{
 mat-radio-button{
   color: black;
 }
+.mat-input-element {
+  color:black;
+}

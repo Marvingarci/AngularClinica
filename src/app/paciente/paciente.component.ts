@@ -65,10 +65,10 @@ export class PacienteComponent implements OnInit {
 
 
   loading: boolean;
-  constructor(private pacienteService: FormularioService, private httpClient: HttpClient, private router: Router) {
+  constructor(private formularioService: FormularioService, private httpClient: HttpClient, private router: Router) {
     this.getPacientes();
     this.loading = false;
-    this.pacienteService.esAlumno = true;
+    this.formularioService.esAlumno = true;
   }
 
 
@@ -108,7 +108,7 @@ export class PacienteComponent implements OnInit {
 
 
   getPacientes() {
-    this.pacienteService.obtenerPacientes().subscribe((data: Paciente[]) => {
+    this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) => {
       this.pacientes = data;
 
       console.log(this.pacientes);
@@ -149,7 +149,8 @@ export class PacienteComponent implements OnInit {
 
 
   formulario() {
-    this.pacienteService.esAlumno = false;
+    
+    this.formularioService.esAlumno = false;
 
     this.router.navigate(['principal/formulario']);
   }

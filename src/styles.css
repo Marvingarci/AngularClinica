@@ -12,7 +12,9 @@ html, body {
     padding-right: 0;
   
 }
-
+.mat-input-element {
+  color:black;
+}
 
 .botonesTabla{
   float: right;
