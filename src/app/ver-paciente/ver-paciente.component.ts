@@ -42,6 +42,7 @@ import { WebcamUtil } from '../modules/webcam/util/webcam.util';
 import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
 import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
+import { EnfermedadEditar } from '../interfaces/enfermedadeditar';
 
 
 export interface Element {
@@ -550,7 +551,7 @@ ocultar: boolean = true;
   ante_familiarcancerAP:any;
   ante_familiarotroAP:any;
   habito_toxi:any;
-  habito_toxiActu:any;  
+  VarActualizar:any;  
   act_sex:any;  
   plani_fam:any;
   hospitalaria_qui:any;
@@ -650,6 +651,7 @@ ocultar: boolean = true;
   };
 
   enfermedad: Element = {
+
     numero: null,
     enfermedad: null,
     parentesco: null,
@@ -676,6 +678,12 @@ ocultar: boolean = true;
   habito_toxicologico: HabitoToxicologico = {
     habito_toxicologico: null,
     idhabitotoxicologico:null
+  }
+
+  enfermedadeditar: EnfermedadEditar = {
+    id_enfermedadeditar:null,
+    id_grupo_enfermedad:null,
+    enfermedad:null   
   }
 
  
@@ -745,12 +753,12 @@ ocultar: boolean = true;
   columnasTablaAlergiaAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
   columnasTablaCancerAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
   columnasTablaOtroAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco','botoneseliminar'];
-  columnasTablaDesnutricionAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
-  columnasTablaMentalAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
-  columnasTablaAlergiaAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
-  columnasTablaCancerAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];
-  columnasTablaOtroAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones'];  
-  columnashospitalarias: string[] = ['fecha', 'tiempo_hospitalizacion', 'diagnostico', 'tratamiento'];
+  columnasTablaDesnutricionAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones','botonesE'];
+  columnasTablaMentalAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones','botonesE'];
+  columnasTablaAlergiaAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones','botonesE'];
+  columnasTablaCancerAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones','botonesE'];
+  columnasTablaOtroAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones','botonesE'];  
+  columnashospitalarias: string[] = ['fecha', 'tiempo_hospitalizacion', 'diagnostico', 'tratamiento','botonesE'];
   columnashospitalariaseditar: string[] = ['fecha', 'tiempo_hospitalizacion', 'diagnostico', 'tratamiento','botones'];
 
   //date picker
@@ -842,6 +850,8 @@ ocultar: boolean = true;
   
   //id que se recupera del paciente mandado a traer
   id: any;
+  ideditarAP:any
+  ideditarTX:any
   // variable que identifica si el paciente tiene imagen de perfil
   noImg: boolean = true;
 
@@ -897,6 +907,11 @@ ocultar: boolean = true;
 
   //variable para editar
   editandoToxi: boolean= false;
+  editandoDesAP: boolean= false;
+  editandoMenAP: boolean= false;
+  editandoAleAP: boolean= false;
+  editandoCanAP: boolean= false;  
+  editandoOtroAP: boolean= false;
   
 
   //variable que identifica si un paciente tiene estos campos
@@ -2160,167 +2175,345 @@ cargarHospitalarias(){
         }
 
 
+        editarDesnutricionAP(idhtml){
+          this.ideditarAP = idhtml;
+          if(this.ideditarAP){
+            this.editandoDesAP = true;
 
-        agregarDesnutricionesAP(){      
-         
-          this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
-          this.paciente_antecedente_personal.observacion = this.observacion_desnutricion_ap.value;        
+            this.formularioService.obtenerUnaDesnutricionAP(this.ideditarAP).subscribe((data)=>{
+              this.VarActualizar = data;          
+              this.tipo_desnutricion_ap.setValue(this.VarActualizar[0].enfermedad);
+              this.observacion_desnutricion_ap.setValue(this.VarActualizar[0].observacion);  
+              console.log(this.VarActualizar);                   
+              }, (error)=>{
+                console.log(error);
+              });
+          }
+        }
+        agregarDesnutricionesAP(){                
+          if(this.formulario_antecedentes_personales.valid){
+            if(this.editandoDesAP == true){
+                this.editandoDesAP = false; 
+              
+                this.enfermedadeditar.id_grupo_enfermedad = 1;              
+                this.enfermedadeditar.enfermedad = this.tipo_desnutricion_ap.value;
+                this.enfermedadeditar.id_enfermedadeditar = this.VarActualizar[0].id_enfermedad;
+
+                this.paciente_antecedente_personal.id_enfermedad = this.VarActualizar[0].id_enfermedad;  
+                this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
+                this.paciente_antecedente_personal.observacion = this.observacion_desnutricion_ap.value; 
+
+              this.formularioService.actualizarEnfermedad(this.enfermedadeditar).subscribe((data) => {    
+
+                this.formularioService.actualizarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
+                  console.log('se enviaron perron los nuevos antecedentes personales');
+                  this.cargarDesnnutricionAP();
+                }, (error) => {
+                  console.log(error);
+                }); 
+                  this.tipo_desnutricion_ap.setValue('');
+                  this.observacion_desnutricion_ap.setValue(''); 
+              });   
+            }else{
+               //agregar uno nuevo
             this.enfermedad.id_grupo_enfermedad = 1;              
             this.enfermedad.enfermedad = this.tipo_desnutricion_ap.value;
-            this.tipo_desnutricion_ap.setValue('');
-            this.observacion_desnutricion_ap.setValue('');  
+            this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
+            this.paciente_antecedente_personal.observacion = this.observacion_desnutricion_ap.value; 
 
-          this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
-            // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_enfermedad
-            // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.   
-            
-            this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
-            console.log("ultimo antecedente: " + data[0].id_enfermedad);
-            console.log(this.paciente_antecedente_personal);
+              this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {            
+                this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
+                console.log(data);
 
-            // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
-            // para ser enviado a la base de datos.
-
-            //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
-            this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-              console.log('se enviaron perron los nuevos antecedentes personales');
-              this.cargarDesnnutricionAP();
-            }, (error) => {
-              console.log(error);
-            });
-          });
+                this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
+                  console.log('se enviaron perron los nuevos antecedentes personales');
+                  this.tipo_desnutricion_ap.setValue('');
+                  this.observacion_desnutricion_ap.setValue('');  
+                  this.cargarDesnnutricionAP();
+                }, (error) => {
+                  console.log(error);
+                });
+              });
+            }  
+          }     
+        
         }
 
 
-        agregarEnfermedadesMentalesAP(){      
-         
-          this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
-          this.paciente_antecedente_personal.observacion = this.observacion_enfermedades_mentales_ap.value;        
-            this.enfermedad.id_grupo_enfermedad = 2;              
-            this.enfermedad.enfermedad = this.tipo_enfermedad_mental_ap.value;
-            this.observacion_enfermedades_mentales_ap.setValue('');  
-            this.tipo_enfermedad_mental_ap.setValue('');
 
-          this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
-            // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_enfermedad
-            // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.   
-            
-            this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
-            console.log("ultimo antecedente: " + data[0].id_enfermedad);
-            console.log(this.paciente_antecedente_personal);
 
-            // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
-            // para ser enviado a la base de datos.
 
-            //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
-            this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-              console.log('se enviaron perron los nuevos antecedentes personales');
+
+
+        editarMentalAP(idhtml){
+          this.ideditarAP = idhtml;
+          if(this.ideditarAP){
+            this.editandoMenAP = true;
+
+            this.formularioService.obtenerUnaMentalAP(this.ideditarAP).subscribe((data)=>{
+              this.VarActualizar = data;          
+              this.tipo_enfermedad_mental_ap.setValue(this.VarActualizar[0].enfermedad);
+              this.observacion_enfermedades_mentales_ap.setValue(this.VarActualizar[0].observacion);  
+              console.log(this.VarActualizar);                   
+              }, (error)=>{
+                console.log(error);
+              });
+          }
+        }
+        agregarEnfermedadesMentalesAP(){  
+          if(this.formulario_antecedentes_personales.valid){
+          if(this.editandoMenAP == true){
+            this.editandoMenAP = false;  
+
+            this.enfermedadeditar.id_grupo_enfermedad = 2;              
+            this.enfermedadeditar.enfermedad = this.tipo_enfermedad_mental_ap.value;
+            this.enfermedadeditar.id_enfermedadeditar = this.VarActualizar[0].id_enfermedad;
+
+            this.paciente_antecedente_personal.id_enfermedad = this.VarActualizar[0].id_enfermedad;  
+            this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
+            this.paciente_antecedente_personal.observacion = this.observacion_enfermedades_mentales_ap.value; 
+
+          this.formularioService.actualizarEnfermedad(this.enfermedadeditar).subscribe((data) => {    
+
+            this.formularioService.actualizarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
               this.cargarMentalAP();
             }, (error) => {
               console.log(error);
-            });
-          });
-        }
+            }); 
+              this.tipo_enfermedad_mental_ap.setValue('');
+              this.observacion_enfermedades_mentales_ap.setValue(''); 
+          });             
+          }else{
+            //agregar uno nuevo
+            this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
+            this.paciente_antecedente_personal.observacion = this.observacion_enfermedades_mentales_ap.value;        
+            this.enfermedad.id_grupo_enfermedad = 2;              
+            this.enfermedad.enfermedad = this.tipo_enfermedad_mental_ap.value;
 
-
-
-        agregarAlergiasAP(){      
-         
-          this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
-          this.paciente_antecedente_personal.observacion = this.observacion_alergias_ap.value;        
-            this.enfermedad.id_grupo_enfermedad = 3;              
-            this.enfermedad.enfermedad = this.tipo_alergia_ap.value;
-            this.observacion_alergias_ap.setValue('');  
-            this.tipo_alergia_ap.setValue('');
-
-          this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
-            // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_enfermedad
-            // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.   
-            
+            this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
             this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
-            console.log("ultimo antecedente: " + data[0].id_enfermedad);
-            console.log(this.paciente_antecedente_personal);
 
-            // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
-            // para ser enviado a la base de datos.
-
-            //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
             this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-              console.log('se enviaron perron los nuevos antecedentes personales');
-              this.cargarAlergiaAP();
+            this.observacion_enfermedades_mentales_ap.setValue('');  
+            this.tipo_enfermedad_mental_ap.setValue('');
+            this.cargarMentalAP();
             }, (error) => {
-              console.log(error);
+            console.log(error);
             });
-          });
+            });  
+          }
+        }         
+       }
+
+
+
+
+
+
+        editarAlergiaAP(idhtml){
+          this.ideditarAP = idhtml;
+          if(this.ideditarAP){
+            this.editandoAleAP = true;
+
+            this.formularioService.obtenerUnaAlergiaAP(this.ideditarAP).subscribe((data)=>{
+              this.VarActualizar = data;          
+              this.tipo_alergia_ap.setValue(this.VarActualizar[0].enfermedad);
+              this.observacion_alergias_ap.setValue(this.VarActualizar[0].observacion);  
+              console.log(this.VarActualizar);                   
+              }, (error)=>{
+                console.log(error);
+              });
+          }
         }
+      agregarAlergiasAP(){      
+        if(this.formulario_antecedentes_personales.valid){
+            if(this.editandoAleAP == true){
+                this.editandoAleAP = false;  
+
+                this.enfermedadeditar.id_grupo_enfermedad = 3;              
+                this.enfermedadeditar.enfermedad = this.tipo_alergia_ap.value;
+                this.enfermedadeditar.id_enfermedadeditar = this.VarActualizar[0].id_enfermedad;
+    
+                this.paciente_antecedente_personal.id_enfermedad = this.VarActualizar[0].id_enfermedad;  
+                this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
+                this.paciente_antecedente_personal.observacion = this.observacion_alergias_ap.value; 
+    
+              this.formularioService.actualizarEnfermedad(this.enfermedadeditar).subscribe((data) => {    
+    
+                this.formularioService.actualizarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
+                  this.cargarAlergiaAP();
+                }, (error) => {
+                  console.log(error);
+                }); 
+                  this.tipo_alergia_ap.setValue('');
+                  this.observacion_alergias_ap.setValue(''); 
+              }); 
+              
+            }else{  
+                  //agrega uno nuevo
+                  this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
+                  this.paciente_antecedente_personal.observacion = this.observacion_alergias_ap.value;        
+                  this.enfermedad.id_grupo_enfermedad = 3;              
+                  this.enfermedad.enfermedad = this.tipo_alergia_ap.value;
+
+                  this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
+                  this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
+
+                  this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
+                  this.observacion_alergias_ap.setValue('');  
+                  this.tipo_alergia_ap.setValue('');
+                  this.cargarAlergiaAP();
+                  }, (error) => {
+                  console.log(error);
+                  });
+                  });
+          }  
+        }       
+      }
 
 
 
+        editarCancerAP(idhtml){
+          this.ideditarAP = idhtml;
+          if(this.ideditarAP){
+            this.editandoCanAP = true;
 
-        agregarCanceresAP(){      
-         
-          this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
-          this.paciente_antecedente_personal.observacion = this.observacion_cancer_ap.value;        
-            this.enfermedad.id_grupo_enfermedad = 4;              
-            this.enfermedad.enfermedad = this.tipo_cancer_ap.value;
-            this.observacion_cancer_ap.setValue('');  
-            this.tipo_cancer_ap.setValue('');
-
-          this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
-            // asigno el id del tipo de enfermedad que me devuelve la funcion de mysql en el id_enfermedad
-            // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.   
-            
-            this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
-            console.log("ultimo antecedente: " + data[0].id_enfermedad);
-            console.log(this.paciente_antecedente_personal);
-
-            // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
-            // para ser enviado a la base de datos.
-
-            //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
-            this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-              console.log('se enviaron perron los nuevos antecedentes personales');
-              this.cargarCancerAP();
-            }, (error) => {
-              console.log(error);
-            });
-          });
+            this.formularioService.obtenerUnCancerAP(this.ideditarAP).subscribe((data)=>{
+              this.VarActualizar = data;          
+              this.tipo_cancer_ap.setValue(this.VarActualizar[0].enfermedad);
+              this.observacion_cancer_ap.setValue(this.VarActualizar[0].observacion);  
+              console.log(this.VarActualizar);                   
+              }, (error)=>{
+                console.log(error);
+              });
+          }
         }
+      agregarCanceresAP(){      
+        if(this.formulario_antecedentes_personales.valid){
+            if(this.editandoCanAP == true){
+                this.editandoCanAP = false;  
 
+                this.enfermedadeditar.id_grupo_enfermedad = 4;              
+                this.enfermedadeditar.enfermedad = this.tipo_cancer_ap.value;
+                this.enfermedadeditar.id_enfermedadeditar = this.VarActualizar[0].id_enfermedad;
+    
+                this.paciente_antecedente_personal.id_enfermedad = this.VarActualizar[0].id_enfermedad;  
+                this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
+                this.paciente_antecedente_personal.observacion = this.observacion_cancer_ap.value; 
+    
+              this.formularioService.actualizarEnfermedad(this.enfermedadeditar).subscribe((data) => {    
+    
+                this.formularioService.actualizarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
+                  this.cargarCancerAP();
+                }, (error) => {
+                  console.log(error);
+                }); 
+                  this.tipo_cancer_ap.setValue('');
+                  this.observacion_cancer_ap.setValue(''); 
+              });        
+              
+            }else{  
+              //agrega uno nuevo
+                this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
+                this.paciente_antecedente_personal.observacion = this.observacion_cancer_ap.value;        
+                this.enfermedad.id_grupo_enfermedad = 4;              
+                this.enfermedad.enfermedad = this.tipo_cancer_ap.value;            
+
+                this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {
+                this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
+
+                this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
+                this.observacion_cancer_ap.setValue('');  
+                this.tipo_cancer_ap.setValue('');
+                this.cargarCancerAP();
+                }, (error) => {
+                console.log(error);
+                });
+                });
+              }
+            }
+      }
+  
+
+
+
+
+         editarOtroAP(idhtml){
+          this.ideditarAP = idhtml;
+          if(this.ideditarAP){
+            this.editandoOtroAP = true;
+
+            this.formularioService.obtenerUnOtroAP(this.ideditarAP).subscribe((data)=>{
+              this.VarActualizar = data;          
+              this.otros_ap.setValue(this.VarActualizar[0].enfermedad);
+              this.observacion_otros_ap.setValue(this.VarActualizar[0].observacion);  
+              console.log(this.VarActualizar);                   
+              }, (error)=>{
+                console.log(error);
+              });
+          }
+        }
 
         agregarOtroAP(){      
-         
-          this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
-          this.paciente_antecedente_personal.observacion = this.observacion_otros_ap.value;        
-            this.enfermedad.id_grupo_enfermedad = 5;              
-            this.enfermedad.enfermedad = this.otros_ap.value;
-            this.observacion_otros_ap.setValue('');  
-            this.otros_ap.setValue('');
+          if(this.formulario_antecedentes_personales.valid){
+            if(this.editandoOtroAP == true){
+                this.editandoOtroAP = false; 
 
-          this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {            
-            this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
-            console.log("ultimo antecedente: " + data[0].id_enfermedad);
-            console.log(this.paciente_antecedente_personal);
-            this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-              console.log('se enviaron perron los nuevos antecedentes personales');
+                
+                this.enfermedadeditar.id_grupo_enfermedad = 5;              
+                this.enfermedadeditar.enfermedad = this.otros_ap.value;
+                this.enfermedadeditar.id_enfermedadeditar = this.VarActualizar[0].id_enfermedad;
+    
+                this.paciente_antecedente_personal.id_enfermedad = this.VarActualizar[0].id_enfermedad;  
+                this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
+                this.paciente_antecedente_personal.observacion = this.observacion_otros_ap.value; 
+    
+              this.formularioService.actualizarEnfermedad(this.enfermedadeditar).subscribe((data) => {    
+    
+                this.formularioService.actualizarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
+                  this.cargarOtrosAP();
+                }, (error) => {
+                  console.log(error);
+                }); 
+                  this.otros_ap.setValue('');
+                  this.observacion_otros_ap.setValue(''); 
+                this.cargarOtrosAP();
+              }); 
+
+              }else{ 
+              //agrega uno nuevo 
+              this.paciente_antecedente_personal.id_paciente = this.paciente.id_paciente;  
+              this.paciente_antecedente_personal.observacion = this.observacion_otros_ap.value;        
+              this.enfermedad.id_grupo_enfermedad = 5;              
+              this.enfermedad.enfermedad = this.otros_ap.value;      
+
+              this.formularioService.enviarEnfermedad(this.enfermedad).subscribe((data) => {            
+              this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
+
+              this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
+              this.observacion_otros_ap.setValue('');  
+              this.otros_ap.setValue('');
               this.cargarOtrosAP();
-            }, (error) => {
+              }, (error) => {
               console.log(error);
-            });
-          });
-        }
+              });
+              });
+            }
+          }
+           
+      }
         
 
         actualizarHabitosToxicologicos(idhtml){
-          this.id = idhtml;
-          if(this.id){
+          this.ideditarTX = idhtml;
+          if(this.ideditarTX){
             this.editandoToxi = true;
 
-            this.formularioService.obtenerUnhabito(this.id).subscribe((data: HabitosToxicologicosPersonales)=>{
-              this.habito_toxiActu = data;          
-              this.otros_ht.setValue(this.habito_toxiActu[0].habito_toxicologico);
-              this.observacion_otros_ht.setValue(this.habito_toxiActu[0].observacion);  
-              console.log(this.habito_toxiActu);                   
+            this.formularioService.obtenerUnhabito(this.ideditarTX).subscribe((data: HabitosToxicologicosPersonales)=>{
+              this.VarActualizar = data;          
+              this.otros_ht.setValue(this.VarActualizar[0].habito_toxicologico);
+              this.observacion_otros_ht.setValue(this.VarActualizar[0].observacion);  
+              console.log(this.VarActualizar);                   
               }, (error)=>{
                 console.log(error);
               });
@@ -2332,11 +2525,11 @@ cargarHospitalarias(){
 
             if(this.formulario_habito_toxicologico_personal.valid){
               this.habito_toxicologico.habito_toxicologico = this.otros_ht.value;
-              this.habito_toxicologico.idhabitotoxicologico = this.habito_toxiActu[0].id_habito_toxicologico;
+              this.habito_toxicologico.idhabitotoxicologico = this.VarActualizar[0].id_habito_toxicologico;
                this.paciente_habito_toxicologico.id_paciente = this.paciente.id_paciente;
                this.paciente_habito_toxicologico.observacion = this.observacion_otros_ht.value;               
-               this.paciente_habito_toxicologico.id_habito_toxicologico = this.habito_toxiActu[0].id_paciente_habito_toxicologico;
-               console.log("id actulizar: " + this.habito_toxiActu[0].id_paciente_habito_toxicologico);
+               this.paciente_habito_toxicologico.id_habito_toxicologico = this.VarActualizar[0].id_paciente_habito_toxicologico;
+               console.log("id actulizar: " + this.VarActualizar[0].id_paciente_habito_toxicologico);
 
 
                this.formularioService.actualizarHabitoToxicologico(this.habito_toxicologico).subscribe((data) => {
@@ -2387,32 +2580,19 @@ cargarHospitalarias(){
       disableClose: true,
       panelClass: 'borrar',
       data: id
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.cargarEmergenciaPersonaYa();
-    });
+    });  
     dialogRef.beforeClosed().subscribe(result => {
       this.cargarEmergenciaPersonaYa();
     });
   }
+
 
   eliminarDesnutricionAF(id) {
     const dialogRef = this.dialog.open(BorrarDesnutricionAF, {
-      disableClose: true,
-      
+      disableClose: true,      
       panelClass: 'borrar',
       data: id
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.cargarDesnnutricionAF();
-      this.cargarMentalAF();
-      this.cargarAlergiaAF();
-      this.cargarCancerAF();
-      this.cargarOtrosAF();
-    });
-
     dialogRef.beforeClosed().subscribe(result => {
       this.cargarDesnnutricionAF();
       this.cargarMentalAF();
@@ -2422,28 +2602,32 @@ cargarHospitalarias(){
     });
   }
 
-  eliminarDesnutricionAP(id) {
+
+  eliminarDesnutricionAP(id) {    
+    this.tipo_desnutricion_ap.setValue('');
+    this.observacion_desnutricion_ap.setValue(''); 
+    this.tipo_enfermedad_mental_ap.setValue('');
+    this.observacion_enfermedades_mentales_ap.setValue(''); 
+    this.tipo_alergia_ap.setValue('');
+    this.observacion_alergias_ap.setValue(''); 
+    this.tipo_cancer_ap.setValue('');
+    this.observacion_cancer_ap.setValue(''); 
+    this.otros_ap.setValue('');
+    this.observacion_otros_ap.setValue(''); 
+    
     const dialogRef = this.dialog.open(BorrarDesnutricionAP, {
       disableClose: true,      
       panelClass: 'borrar',
       data: id
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.cargarDesnnutricionAP();
-      this.cargarMentalAP();
-      this.cargarAlergiaAP();
-      this.cargarCancerAP();
-      this.cargarOtrosAP();
-    });
-
     dialogRef.beforeClosed().subscribe(result => {
       this.cargarDesnnutricionAP();
       this.cargarMentalAP();
       this.cargarAlergiaAP();
       this.cargarCancerAP();
       this.cargarOtrosAP();
-    });
+    });   
   }
 
   eliminarHospitalaria(id) {
@@ -2452,11 +2636,6 @@ cargarHospitalarias(){
       panelClass: 'borrar',
       data: id
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.cargarHospitalarias();      
-    });
-
     dialogRef.beforeClosed().subscribe(result => {
       this.cargarHospitalarias();
     });
@@ -2468,11 +2647,6 @@ cargarHospitalarias(){
       panelClass: 'borrar',
       data: id
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.cargarHabitoToxicologico();      
-    });
-
     dialogRef.beforeClosed().subscribe(result => {
       this.cargarHabitoToxicologico();
     });
