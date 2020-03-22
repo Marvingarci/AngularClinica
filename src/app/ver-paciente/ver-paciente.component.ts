@@ -758,8 +758,8 @@ ocultar: boolean = true;
   columnasTablaAlergiaAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones','botonesE'];
   columnasTablaCancerAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones','botonesE'];
   columnasTablaOtroAP: string[] = ['grupoenfermedad', 'enfermedad', 'observacion', 'botones','botonesE'];  
-  columnashospitalarias: string[] = ['fecha', 'tiempo_hospitalizacion', 'diagnostico', 'tratamiento','botonesE'];
-  columnashospitalariaseditar: string[] = ['fecha', 'tiempo_hospitalizacion', 'diagnostico', 'tratamiento','botones'];
+  columnashospitalarias: string[] = ['fecha', 'tiempo_hospitalizacion', 'diagnostico', 'tratamiento'];
+  columnashospitalariaseditar: string[] = ['fecha', 'tiempo_hospitalizacion', 'diagnostico', 'tratamiento','botones','botonesE'];
 
   //date picker
   minDate = new Date(1950, 0, 1);
@@ -912,6 +912,7 @@ ocultar: boolean = true;
   editandoAleAP: boolean= false;
   editandoCanAP: boolean= false;  
   editandoOtroAP: boolean= false;
+  editandoHospitalariaAP: boolean= false;
   
 
   //variable que identifica si un paciente tiene estos campos
@@ -2502,6 +2503,72 @@ cargarHospitalarias(){
           }
            
       }
+
+      editarHospitalariaAP(idhtml){
+        this.ideditarAP = idhtml;
+        if(this.ideditarAP){
+          this.editandoHospitalariaAP = true;
+
+          this.formularioService.obtenerUnahospitalaria_quirurgica(this.ideditarAP).subscribe((data)=>{
+            this.VarActualizar = data;          
+            this.fecha_antecedente_hospitalario.setValue(this.VarActualizar[0].fecha);
+            this.tiempo_hospitalizacion.setValue(this.VarActualizar[0].tiempo_hospitalizacion);  
+            this.tratamiento.setValue(this.VarActualizar[0].tratamiento);
+            this.diagnostico.setValue(this.VarActualizar[0].diagnostico);  
+            console.log(this.VarActualizar);                   
+            }, (error)=>{
+              console.log(error);
+            });
+        }
+      }
+      agregarHospitalariasQuirurgicas(){      
+        if(this.formulario_antecedentes_personales.valid){
+          if(this.editandoHospitalariaAP == true){
+              this.editandoHospitalariaAP = false; 
+
+              
+            this.paciente_hospitalaria_quirurgica.id_paciente = this.paciente.id_paciente;
+            this.paciente_hospitalaria_quirurgica.fecha = this.fecha_antecedente_hospitalario.value;
+            this.paciente_hospitalaria_quirurgica.tiempo_hospitalizacion = this.tiempo_hospitalizacion.value;
+            this.paciente_hospitalaria_quirurgica.diagnostico = this.diagnostico.value;
+            this.paciente_hospitalaria_quirurgica.tratamiento = this.tratamiento.value;  
+            this.paciente_hospitalaria_quirurgica.id_hospitalaria_quirurgica =this.VarActualizar[0].id_hospitalaria_quirurgica;  
+
+            console.log('la hospitalaria:  '+this.paciente_hospitalaria_quirurgica);
+            this.formularioService.actualizarPacienteHospitalariaQuirurgica(this.paciente_hospitalaria_quirurgica).subscribe(
+              (data) => {
+                this.fecha_antecedente_hospitalario.setValue('');  
+                this.tiempo_hospitalizacion.setValue(''); 
+                this.diagnostico.setValue('');  
+                this.tratamiento.setValue('');
+                this.cargarHospitalarias();
+              }
+            );
+
+            }else{ 
+            //agrega uno nuevo 
+            this.paciente_hospitalaria_quirurgica.id_paciente = this.paciente.id_paciente;
+            this.paciente_hospitalaria_quirurgica.fecha = this.fecha_antecedente_hospitalario.value;
+            this.paciente_hospitalaria_quirurgica.tiempo_hospitalizacion = this.tiempo_hospitalizacion.value;
+            this.paciente_hospitalaria_quirurgica.diagnostico = this.diagnostico.value;
+            this.paciente_hospitalaria_quirurgica.tratamiento = this.tratamiento.value;    
+            
+
+            console.log('la hospitalaria:  '+this.paciente_hospitalaria_quirurgica);
+            this.formularioService.enviarPacienteHospitalariaQuirurgica(this.paciente_hospitalaria_quirurgica).subscribe(
+              (data) => { 
+              this.fecha_antecedente_hospitalario.setValue('');  
+              this.tiempo_hospitalizacion.setValue(''); 
+              this.diagnostico.setValue('');  
+              this.tratamiento.setValue('');
+                this.cargarHospitalarias();
+              }
+            );
+
+          }
+        }
+         
+    }
         
 
         actualizarHabitosToxicologicos(idhtml){
@@ -2637,6 +2704,9 @@ cargarHospitalarias(){
       data: id
     });
     dialogRef.beforeClosed().subscribe(result => {
+      this.cargarHospitalarias();
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.cargarHospitalarias();
     });
   }
