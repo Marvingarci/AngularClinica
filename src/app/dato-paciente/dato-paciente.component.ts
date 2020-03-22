@@ -374,6 +374,7 @@ export class cambiocontraDialog {
 
   // FUNCION QUE HACE EL MACANEO
   continuar() {
+
     this.hide = true;
     this.hide1 = false;
 
@@ -399,17 +400,20 @@ export class cambiocontraDialog {
       // guardar datos del formulario en paciente y enviarlo a la api
       this.loginService.obtenerUltimoId().subscribe((data: any) => {
 
+        console.log(data[0].ultimoId);
+
         this.login.id_login = data[0].ultimoId;
-        this.login.password = this.nuevaContra.value;
+        this.login.password = this.nuevaContraRep.value;
 
         if (this.nuevaContra.value == this.nuevaContraRep.value) {
 
           this.loginService.actualizarDatos(this.login).subscribe((data) => {
+           
+            this.showError('Contraseña Guardada');
 
             if (this.formularioService.esAlumno == true) {
 
               this.router.navigate(['datoPaciente/' + this.paciente1.id_paciente]);
-              this.showError('Contraseña Guardada');
               this.Listo = true;
 
             } else {
@@ -440,6 +444,9 @@ export class cambiocontraDialog {
 
 
     }
+
+    //establezco la variable en true por que si no genera problemas al querer ingresar un paciente desde el login
+    this.formularioService.esAlumno == true;
 
   }
 
@@ -713,7 +720,7 @@ export class actualizarcontraDialog {
 
         this.loginService.actualizarDatos(this.login).subscribe((data) => {
 
-          this.router.navigate(['datoPaciente/2']);
+          
           this.showError('Cambio de contraseña exitoso');
           this.dialogRef.close();
 

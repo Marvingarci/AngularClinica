@@ -11,7 +11,7 @@ export class AuthPacienteGuard implements CanActivate {
   constructor(private loginService: LoginService, private router: Router) { }
   canActivate() {
 
-    if (this.loginService.datosUsuario.rol == 'Estudiante') {
+    if (this.loginService.datosUsuario.rol == 'Paciente') {
 
       return true;
 
