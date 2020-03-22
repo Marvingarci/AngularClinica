@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
 
             //establezco el rol del usuario como estudiante para que pueda tener permisos
             //para ver sus datos
-            this.loginService.datosUsuario = { 'rol': 'Estudiante' };
+            this.loginService.datosUsuario = { 'rol': 'Paciente' };
 
             //guardo el token en el localstorage para poder obtenerlo despues.
             localStorage.setItem("token", data.token);
@@ -159,17 +159,22 @@ export class LoginComponent implements OnInit {
               //recupero al paciente introduciendo su numero de cuenta para poder recuperar su id
               // y redireccionarlo a su respectivo informacion.
 
-              var paciente = {
-                'cuenta' : this.cuenta.value,
-              }
+              console.log('id_paciente:\n'+data.id);
 
-              this.formularioService.obtenerPacientePorCuenta(paciente).subscribe((data: Paciente) => {
+              this.router.navigate(['/datoPaciente/' + data.id]);
+              this.showError('Bienvenido');
 
-                this.paciente = data;
+              // var paciente = {
+              //   'cuenta' : this.cuenta.value,
+              // }
 
-                this.router.navigate(['/datoPaciente/' + this.paciente.id_paciente]);
-                this.showError('Bienvenido');
-              });
+              // this.formularioService.obtenerPacientePorCuenta(paciente).subscribe((data: Paciente) => {
+
+              //   this.paciente = data;
+
+              //   this.router.navigate(['/datoPaciente/' + this.paciente.id_paciente]);
+              //   this.showError('Bienvenido');
+              // });
 
             }
 
