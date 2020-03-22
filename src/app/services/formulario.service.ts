@@ -63,6 +63,11 @@ export class FormularioService {
       paciente_hospitalaria_quirurgica,
       { headers: this.headers });
   }
+  actualizarPacienteHospitalariaQuirurgica(paciente_hospitalaria_quirurgica: any) {
+    return this.httpClient.put(this.API_ENDPOINT + 'p_hospitalarias_quirurgicas/'+paciente_hospitalaria_quirurgica.id_hospitalaria_quirurgica,
+      paciente_hospitalaria_quirurgica,
+      { headers: this.headers });
+  }
 
 
   enviarEnfermedad(enfermedad: any) {
@@ -285,6 +290,9 @@ export class FormularioService {
   obtenerOtrosAP(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'obtenerotrosAP/' + id_paciente);
   }
+  obtenerhospitalarias_quirurgicas(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerhospitalarias_quirurgicas/' + id_paciente);
+  }
 
   obtenerUnaDesnutricionAP(id_enfermedad: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'obtenerUnadesnutricionAP/' + id_enfermedad);
@@ -301,17 +309,18 @@ export class FormularioService {
   obtenerUnOtroAP(id_enfermedad: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'obtenerUnaotrosAP/' + id_enfermedad);
   }
-
-
-
-
-
-
-
-
-  obtenerhospitalarias_quirurgicas(id_paciente: any) {
-    return this.httpClient.get(this.API_ENDPOINT + 'obtenerhospitalarias_quirurgicas/' + id_paciente);
+  obtenerUnahospitalaria_quirurgica(id_hospitalaria: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerUnahospitalaria_quirurgica/' + id_hospitalaria);
   }
+
+
+
+
+
+
+
+
+  
   obtenerHabitosToxicologicos() {
     return this.httpClient.get(this.API_ENDPOINT + 'habitos_toxicologicos_personales');
   }
