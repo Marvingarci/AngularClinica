@@ -1,41 +1,32 @@
-
-
-<div class="container row"  *ngIf="opcion == true">
-    <div class="col-9">
-        <div>
-            <webcam [height]="800" [width]="800" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+ <webcam  *ngIf=" showWebcam && opcion == true" [height]="570" [width]="750" style="position: static;margin-right: 15px;"
+         [trigger]="triggerObservable" (imageCapture)="handleImage($event)" 
             [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
             [videoOptions]="videoOptions"
             [imageQuality]="1"
             (cameraSwitched)="cameraWasSwitched($event)"
-            (initError)="handleInitError($event)"></webcam>
-        </div>
-    </div>
-    <div class="col-3">
-        <button class="actionBtn botonperron boton" (click)="triggerSnapshot();">tomar foto</button>
+            (initError)="handleInitError($event)"
+            (click)="triggerSnapshot();">
+            
+           
+</webcam>
+<div class="row" *ngIf=" opcion == true">
+<button *ngIf=" opcion == true"  mat-icon-button class="botontomarfoto" (click)="triggerSnapshot();" style=" outline:none; "><mat-icon  style="color: white; font-size:50px; width: inherit; ">camera</mat-icon></button>&nbsp; &nbsp;
+<button *ngIf=" opcion == true"  mat-icon-button class="botontomarfoto"  style=" outline:none; "><mat-icon  style="color: white; font-size:50px; width: inherit; ">folder_open</mat-icon></button>
+</div>
+       
 
-    </div>
+
+
 
 
 
    
-    
+<img *ngIf="opcion == false"  [height]="570" [width]="750" style="position: static;margin-right: 20px;margin-top: -20dp;" [src]="webcamImage.imageAsDataUrl"  />   
+<div class="row" *ngIf="opcion == false" >
+<button  *ngIf="opcion == false" mat-icon-button (click)="otrafoto();" class="botontomarfoto"><mat-icon  style="color: white; font-size:50px; width: inherit; ">flip_camera_android</mat-icon></button>&nbsp; &nbsp;
+<button *ngIf="opcion == false"  mat-icon-button (click)="guardar();" class="botontomarfoto"><mat-icon  style="color: white; font-size:50px; width: inherit; ">check_circle</mat-icon></button>
 </div>
 
-<div class="container row snapshot" *ngIf="opcion == false">
-    <div class="col-9">
-        <h1>Que hermoso/a</h1>
-        <img [src]="webcamImage.imageAsDataUrl"/>
-    </div>
-    <div class="col-3">
-        <button class="actionBtn botonperron" (click)="otrafoto();">Tomar otra</button>
-        <button class="actionBtn botonperron" (click)="guardar();">LISTO!</button>
-
-    </div>
-
-
-
-</div>
 
     
 
