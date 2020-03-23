@@ -30,6 +30,18 @@
               </mat-error>
             </mat-form-field>
           </div>
+          <!--Aqui va en agregado cuando es alumno desde adminitracion-->
+          <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;" *ngIf="esAlumnoAdmon == true">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName="numero_cuenta" placeholder="N° Cuenta">
+              <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint>
+              <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido</mat-error>
+              <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un número de cuenta válido</mat-error>
+
+
+            </mat-form-field>
+          </div>
+          <!--Hasta qui agregado-->
         </div>
 
         <div class="row">
@@ -47,9 +59,9 @@
             <mat-form-field class="example-full-width">
               <mat-label>Categoria Paciente</mat-label>
               <mat-select formControlName="categoria">
-                <mat-option *ngFor="let categoria of categorias" [value]="categoria.value">
-                  {{categoria.viewValue}}
-                </mat-option>
+                <mat-option (click)=" QuitarCuenta()" [value]="1"> Empleado </mat-option>
+                <mat-option (click)=" QuitarCuenta()"  [value]="2"> Visitante </mat-option>
+                <mat-option (click)="AgregarNoCuenta()" [value]="3"> Estudiante </mat-option>
               </mat-select>
               <mat-error *ngIf="categoria.hasError('required')">campo requerido</mat-error>
 

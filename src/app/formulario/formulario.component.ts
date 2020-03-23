@@ -759,7 +759,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   //date picker
   minDate = new Date(1950, 0, 1);
   maxDate = new Date();
-
+////////////////////////////////////////////////////
   //select
   categorias: Categorias[] = [
     { value: 1, viewValue: 'Empleado' },
@@ -872,7 +872,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   tablaHospitalariasQuirurgicas: HospitalariaQuirurgica[] = [];
   dataSourceTablaHospitalariasQuirurgicas: any;
 
-
+  esAlumnoAdmon: boolean = false;
 
 
   columnasTablaAF: string[] = ['numero', 'antecedente', 'parentesco', 'botones'];
@@ -912,6 +912,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   }
 
 
+
+
   submit() {
     if (this.formulario_datos_generales.valid) {
       console.log(this.formulario_datos_generales);
@@ -940,6 +942,13 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     this.autocomplete(document.getElementById('inputAlergiaAP'), this.enfermedadesAlergias, this.tipo_alergia_ap);
     this.autocomplete(document.getElementById('InputCancerAP'), this.enfermedadesCancer, this.tipo_cancer_ap);
     this.autocomplete(document.getElementById('inputOtrosHT'), this.habitosToxicologicos, this.otros_ht);
+  }
+  AgregarNoCuenta(){
+    this.esAlumnoAdmon = true;
+    this.numero_cuenta.setValue("");
+  }
+  QuitarCuenta(){
+    this.esAlumnoAdmon = false;
   }
 
 
@@ -1143,7 +1152,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     this.formularioService.getScrap().subscribe((data: Login) => {
       this.datosScraping = data;
       console.log(this.maxDate);
-
+/////
       if (this.esAlumno === true) {
         // si el paciente es un alumno 
         //establesco el valor a los formcontrol recuperados del scrapping
@@ -1157,11 +1166,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         //si el paciente no es un alumno
         //establesco el valor por defecto a los formcontrol que no pertenecen a un
         //paciente normal y les establesco un valor por defecto
+       
+
         var numAleatorio: string;
         numAleatorio = '2' + Math.floor(Math.random() * 10000000000);
         console.log(numAleatorio);
         this.carrera.setValue('no es estudiante');
-        this.numero_cuenta.setValue(numAleatorio);
+        if (this.esAlumnoAdmon == false) {
+          this.numero_cuenta.setValue(numAleatorio);  
+        }
+        
       }
 
       console.log(this.datosScraping);
@@ -2224,7 +2238,12 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         // guardar datos del formulario en paciente y enviarlo a la api
         this.paciente.id_paciente = this.datosScraping.id_login;
         this.paciente.nombre_completo = this.nombre_completo.value;
-        this.paciente.numero_cuenta = null;
+        if (this.esAlumnoAdmon == true) {
+          this.paciente.numero_cuenta = this.numero_cuenta.value;
+        }else{
+          this.paciente.numero_cuenta = null;
+        }
+        
         this.paciente.numero_identidad = this.numero_identidad.value;
         this.paciente.lugar_procedencia = this.lugar_procedencia.value;
         this.paciente.direccion = this.direccion.value;
