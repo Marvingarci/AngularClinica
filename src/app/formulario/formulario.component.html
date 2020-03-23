@@ -506,7 +506,7 @@
 
           <mat-form-field>
             <mat-label>Parentesco</mat-label>
-            <mat-select formControlName="parentesco_diabetes" name="parentesco_diabetes" multiple>
+            <mat-select  formControlName="parentesco_diabetes" name="parentesco_diabetes" multiple>
               <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
                 {{parentesco.viewValue}}
               </mat-option>
