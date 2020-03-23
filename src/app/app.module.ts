@@ -262,7 +262,7 @@ const routes: Route[] = [
     MatChipsModule,
     MatDatepickerModule,
     ChartsModule,
-    WebcamModule,
+       WebcamModule,
 
     MatCheckboxModule
 
