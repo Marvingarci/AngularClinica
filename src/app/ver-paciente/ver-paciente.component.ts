@@ -3356,7 +3356,9 @@ cargarTablaAntecedentesFamiliares(){
   }
 
   cambiarfoto(){
-    const dia = this.cambiarFoto.open(CambiarFoto);
+    const dia = this.cambiarFoto.open(CambiarFoto, {    
+      panelClass: 'tomarfoto'
+    });
     this.inven.idCita = this.id;
   }
 
