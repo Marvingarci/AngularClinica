@@ -86,22 +86,63 @@ mat-action-list{
   justify-content: center;
 }
 
-
-.img{
-  height: 140px;
-  width: 115px;  
-  background-size: cover;
-  background-position: center;
+/* AGREGAR UNA FOTO */
+.cambiarfoto{
+  height: 40px;
+  width: 40px;
+  border-radius: 30px;
+ float: right;
+ float: bottom;
+  background-color: #1928d4;
+  margin-left: 95px;
+  margin-top: 115px;
+  position: absolute;
 }
-
 .sinImg{
   height: 140px;
   width: 115px;  
   background:url('src/imagenes/image_user.png');
   background-size: cover;
-  background-position: center;
+  background-position: center;  
+  position: static;
 }
 
+#cambiarfoto:hover{
+  background-color: #f1db10;
+  transition: all 1s ease;
+}
+#cambiarfoto:hover + #sinImg { 
+  content: url('src/imagenes/agregarperfil.png');
+ }
+
+
+
+/* CAMBIAR LA FOTO */
+.cambiarConfoto{
+  height: 40px;
+  width: 40px;
+  border-radius: 30px;
+ float: right;
+ float: bottom;
+  background-color: #1928d4;
+  margin-left: 95px;
+  margin-top: 115px;
+  position: absolute;
+}
+.img{
+  height: 140px;
+  width: 115px;  
+  background-size: cover;
+  background-position: center; 
+  position: static; 
+}
+#cambiarConfoto:hover{
+  background-color: #f1db10;
+  transition: all 1s ease;
+}
+#cambiarConfoto:hover + #ima { 
+  content: url('src/imagenes/cambiarperfil.png');
+ }
 
 
 
