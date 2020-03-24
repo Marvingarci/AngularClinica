@@ -1216,7 +1216,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
 
   <button mat-raised-button class="float-right botonperron" style="margin-top: 10px;" 
-  (click)="readonlyAntecedentesFamiliares = !readonlyAntecedentesFamiliares; ">
+  (click)="readonlyAntecedentesFamiliares = !readonlyAntecedentesFamiliares;agregarDesnutricionesAF();agregarEnfermedadesMentales();agregarAlergias();agregarCanceresAF();agregarOtrosAF(); ">
   {{!readonlyAntecedentesFamiliares ? 'Regresar' : 'Editar'}}
   </button>
 
@@ -1282,8 +1282,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
     </table>
 
      <!-- TABLA DE HOSPITALARIAS QUIRURGICAS -->
-
-              <p *ngIf="tablahospitalarias == null" >Este paciente no tiene hospitalarias quirurgicas</p>
+              <h6>Hospitalarias quirúrgicas</h6>
+              <p *ngIf="tablahospitalarias == null" >Este paciente no tiene hospitalarias quirúrgicas</p>
               <table mat-table [dataSource]="tablahospitalarias" class="mat-elevation-z8 tabla" *ngIf="tablahospitalarias != null"  >  
 
                 <ng-container matColumnDef="fecha">
@@ -1890,7 +1890,9 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
 
             <button mat-raised-button class=" float-right botonperron" style="margin-top: 10px;" 
-            (click)="readonlyAntecedentesPersonales = !readonlyAntecedentesPersonales; ">
+            (click)="readonlyAntecedentesPersonales = !readonlyAntecedentesPersonales; 
+            agregarDesnutricionesAP();agregarEnfermedadesMentalesAP();agregarAlergiasAP();
+            agregarCanceresAP();agregarOtroAP();agregarHospitalariasQuirurgicas();">
             {{!readonlyAntecedentesPersonales ? 'Regresar' : 'Editar'}}
             </button>  
       
