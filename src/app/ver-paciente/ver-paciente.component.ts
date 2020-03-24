@@ -1191,26 +1191,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
          break;
      }         
    }
-
-
-   
-
- 
-
-//  obtenerDatosFormulario(){
-
-//   this.formularioService.obtenerEstadosCiviles().subscribe((data: any[])=>{
-
-//     data.forEach(element => {
-//       this.estados_civiles.push({value:element.id_estado_civil, viewValue:element.estado_civil});  
-//     });
-
-
-  
-    //cargo los datos de la tabla antecedentes familiares y telefonos emergencia
-    this.cargarTablaAntecedentesFamiliares();  
-    //establesco el valor a los formcontrol para que se visualizen
-    //en los respectivos inputs de los antecedentes familiares       
+    this.cargarTablaAntecedentesFamiliares();       
     console.log(this.ante_familiar);
   }, (error)=>{
     console.log(error);
@@ -1708,6 +1689,7 @@ cargarHospitalarias(){
                         //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                         this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
                           this.cargarDesnnutricionAF();
+                          this.cargarAntecedentesFamiliares();
                           console.log('se enviaron perron los nuevos antecedentes');
                         }, (error) => {
                           console.log(error);
@@ -1823,6 +1805,7 @@ cargarHospitalarias(){
                           //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                           this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
                             this.cargarMentalAF();
+                            this.cargarAntecedentesFamiliares();
                             console.log('se enviaron perron los nuevos antecedentes');
                           }, (error) => {
                             console.log(error);
@@ -1939,6 +1922,7 @@ cargarHospitalarias(){
                           //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                           this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
                             this.cargarAlergiaAF();
+                            this.cargarAntecedentesFamiliares();
                             console.log('se enviaron perron los nuevos antecedentes');
                           }, (error) => {
                             console.log(error);
@@ -2048,6 +2032,7 @@ cargarHospitalarias(){
 
                             this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
                               this.cargarCancerAF();
+                              this.cargarAntecedentesFamiliares();
                               console.log('se enviaron perron los nuevos antecedentes');
                             }, (error) => {
                               console.log(error);
@@ -2158,6 +2143,7 @@ cargarHospitalarias(){
 
                             this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
                               this.cargarOtrosAF();
+                              this.cargarAntecedentesFamiliares();
                               console.log('se enviaron perron los nuevos antecedentes');
                             }, (error) => {
                               console.log(error);
@@ -2209,6 +2195,7 @@ cargarHospitalarias(){
                 this.formularioService.actualizarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
                   console.log('se enviaron perron los nuevos antecedentes personales');
                   this.cargarDesnnutricionAP();
+                  this.cargarAntecedentesPersonales();
                 }, (error) => {
                   console.log(error);
                 }); 
@@ -2231,6 +2218,7 @@ cargarHospitalarias(){
                   this.tipo_desnutricion_ap.setValue('');
                   this.observacion_desnutricion_ap.setValue('');  
                   this.cargarDesnnutricionAP();
+                  this.cargarAntecedentesPersonales();
                 }, (error) => {
                   console.log(error);
                 });
@@ -2278,6 +2266,7 @@ cargarHospitalarias(){
 
             this.formularioService.actualizarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
               this.cargarMentalAP();
+              this.cargarAntecedentesPersonales();
             }, (error) => {
               console.log(error);
             }); 
@@ -2298,6 +2287,7 @@ cargarHospitalarias(){
             this.observacion_enfermedades_mentales_ap.setValue('');  
             this.tipo_enfermedad_mental_ap.setValue('');
             this.cargarMentalAP();
+            this.cargarAntecedentesPersonales();
             }, (error) => {
             console.log(error);
             });
@@ -2343,6 +2333,7 @@ cargarHospitalarias(){
     
                 this.formularioService.actualizarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
                   this.cargarAlergiaAP();
+                  this.cargarAntecedentesPersonales();
                 }, (error) => {
                   console.log(error);
                 }); 
@@ -2364,6 +2355,7 @@ cargarHospitalarias(){
                   this.observacion_alergias_ap.setValue('');  
                   this.tipo_alergia_ap.setValue('');
                   this.cargarAlergiaAP();
+                  this.cargarAntecedentesPersonales();
                   }, (error) => {
                   console.log(error);
                   });
@@ -2406,6 +2398,7 @@ cargarHospitalarias(){
     
                 this.formularioService.actualizarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
                   this.cargarCancerAP();
+                  this.cargarAntecedentesPersonales();
                 }, (error) => {
                   console.log(error);
                 }); 
@@ -2427,6 +2420,7 @@ cargarHospitalarias(){
                 this.observacion_cancer_ap.setValue('');  
                 this.tipo_cancer_ap.setValue('');
                 this.cargarCancerAP();
+                this.cargarAntecedentesPersonales();
                 }, (error) => {
                 console.log(error);
                 });
@@ -2473,6 +2467,7 @@ cargarHospitalarias(){
     
                 this.formularioService.actualizarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
                   this.cargarOtrosAP();
+                  this.cargarAntecedentesPersonales();
                 }, (error) => {
                   console.log(error);
                 }); 
@@ -2495,6 +2490,7 @@ cargarHospitalarias(){
               this.observacion_otros_ap.setValue('');  
               this.otros_ap.setValue('');
               this.cargarOtrosAP();
+              this.cargarAntecedentesPersonales();
               }, (error) => {
               console.log(error);
               });
@@ -2651,6 +2647,9 @@ cargarHospitalarias(){
     dialogRef.beforeClosed().subscribe(result => {
       this.cargarEmergenciaPersonaYa();
     });
+      dialogRef.afterClosed().subscribe(result => {
+      this.cargarEmergenciaPersonaYa();
+    });
   }
 
 
@@ -2666,6 +2665,15 @@ cargarHospitalarias(){
       this.cargarAlergiaAF();
       this.cargarCancerAF();
       this.cargarOtrosAF();
+      this.cargarAntecedentesFamiliares();
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.cargarDesnnutricionAF();
+      this.cargarMentalAF();
+      this.cargarAlergiaAF();
+      this.cargarCancerAF();
+      this.cargarOtrosAF();
+      this.cargarAntecedentesFamiliares();
     });
   }
 
@@ -2694,6 +2702,15 @@ cargarHospitalarias(){
       this.cargarAlergiaAP();
       this.cargarCancerAP();
       this.cargarOtrosAP();
+      this.cargarAntecedentesPersonales();
+    }); 
+    dialogRef.afterClosed().subscribe(result => {
+      this.cargarDesnnutricionAP();
+      this.cargarMentalAP();
+      this.cargarAlergiaAP();
+      this.cargarCancerAP();
+      this.cargarOtrosAP();
+      this.cargarAntecedentesPersonales();
     });   
   }
 
@@ -2718,6 +2735,9 @@ cargarHospitalarias(){
       data: id
     });
     dialogRef.beforeClosed().subscribe(result => {
+      this.cargarHabitoToxicologico();
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.cargarHabitoToxicologico();
     });
   }
