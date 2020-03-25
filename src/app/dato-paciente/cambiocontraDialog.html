@@ -7,11 +7,11 @@
   <form [formGroup]="Nueva">
 
           <mat-form-field class="example-full-width" style="margin-top: 5px;" >                
-              <input matInput  (keydown)="onKeydown($event)" 
-              placeholder="Ingrese su nueva contraseña" [type]="hide1 ? 'text' : 'password'"
+              <input matInput  (keydown)="onKeydown1($event)" 
+              placeholder="Ingrese su nueva contraseña" [type]="hide1 ? 'password' : 'text'"
               formControlName="nuevaContra">
               <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                  <mat-icon>{{hide1 ? 'visibility' : 'visibility_off'}}</mat-icon>
+                  <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
               <mat-error *ngIf="nuevaContra.hasError('required') ">ingrese la contraseña</mat-error>
               <mat-error *ngIf="nuevaContra.hasError('maxLength') ">contraseña muy extensa</mat-error>
@@ -40,10 +40,10 @@
 </div>
 
 <div *ngIf="Listo==true"> 
-    <h1 mat-dialog-title disableClose >Bienvenido al Portal de la clinica UNAH</h1>
+    <h1 mat-dialog-title disableClose >Bienvenido al Portal de la clínica UNAH</h1>
     <mat-dialog-content class="mat-typography">
       
-      <p>Ahora vos tenes que abocarte a la Clínica de manera personal para terminar tu expediente </p>    
+      <p>Ahora tienes que abocarte a la Clínica de manera personal para terminar tu expediente </p>    
       <p>Aquí verás tus tratamientos, citas, indicaciones y ayuda que te brindaran una vez que visites la Clínica</p>
       
         
