@@ -192,12 +192,12 @@ export class VerPacienteComponent implements OnInit {
 matcher = new MyErrorStateMatcher();
 
   formulario_datos_generales = new FormGroup({      
-    nombre_completo: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
+    nombre_completo: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)]),
     numero_cuenta: new FormControl('', [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]), 
     numero_identidad: new FormControl('', [Validators.required,Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
-    lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
+    lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)]),
     direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    carrera: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
+    carrera: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)]),
     fecha_nacimiento: new FormControl('', Validators.required),
     sexo: new FormControl('', Validators.required),
     categoria: new FormControl('',[ Validators.required]),
@@ -205,20 +205,20 @@ matcher = new MyErrorStateMatcher();
     seguro_medico: new FormControl('', Validators.required),
     numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
     emergencia_telefono: new FormControl('', [ Validators.pattern(/^\d{8}$/)]),
-    emergencia_persona: new FormControl('', [ Validators.pattern(/^[a-zA-z\s]{3,30}$/)]),
+    emergencia_persona: new FormControl('', [ Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
 
     //datos restantes
     peso : new FormControl('', [Validators.max(100),Validators.min(1)]),
     talla: new FormControl('', [ Validators.max(100),Validators.min(1)]),
-    temperatura: new FormControl('' ,[Validators.max(100) , Validators.min(1)]),
-    presion: new FormControl('', [Validators.max(100),Validators.min(1)]),
-    pulso: new FormControl('', [Validators.max(100),Validators.min(1)]),
+    temperatura: new FormControl('' ,[Validators.max(80) , Validators.min(20)]),
+    presion: new FormControl('', [Validators.max(200),Validators.min(30)]),
+    pulso: new FormControl('', [Validators.max(200),Validators.min(30)]),
     prosene: new FormControl('', []),    
   });
 
   formulario_antecedentes_familiares = new FormGroup({      
     parentesco_desnutricion : new FormControl('',[]),
-    tipo_desnutricion: new FormControl('',[Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/)]),
+    tipo_desnutricion: new FormControl('',[Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,15}$/)]),
     parentesco_enfermedades_mentales : new FormControl('',[]),
     tipo_enfermedad_mental: new FormControl('',[]),
     parentesco_alergias: new FormControl('',[]),
@@ -925,7 +925,8 @@ ocultar: boolean = true;
 constructor(private formularioService: FormularioService, private mensaje: MatSnackBar, public dialog: MatDialog,  private activatedRoute: ActivatedRoute, 
   activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, public cambiarFoto: MatDialog) { 
     activar.mostrar();
-    this.mostrarcuentaycarreca =true; 
+    this.mostrarcuentaycarreca =true;
+    this.mostrarcuentaalumno = false;
     this.id = this.activatedRoute.snapshot.params['id'];
     
    if(this.id){    
@@ -1156,6 +1157,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
  cargarPaciente(){    
   this.mostrarcuentaycarreca =true; 
+  this.mostrarcuentaalumno = false;
   this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) =>{
     this.paciente = data;
     this.cargarInformacionDatosGenerales();    
@@ -1526,17 +1528,26 @@ cargarHospitalarias(){
    console.log('dio perron');
  }
 
-  
- actualizarDatosGenerales()
- {
-   this.cargarTablaEmergenciaPersona();
+ actualizarDatosGenerales() {
+   
+  this.cargarTablaEmergenciaPersona();
   this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
   this.disabledDatosGenerales = !this.disabledDatosGenerales;
   this.datosRepetido = !this.datosRepetido;
 
-  if(this.readonlyDatosGenerales === true){    
-    if(this.formulario_datos_generales.valid){
-
+  if(this.formulario_datos_generales.valid){
+     if(this.readonlyDatosGenerales === true){    
+  this.actualizarDG();
+     }
+  }else{
+    this.showError('Ingrese correctamente los datos'); 
+    this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
+  this.disabledDatosGenerales = !this.disabledDatosGenerales;
+  this.datosRepetido = !this.datosRepetido;
+  }
+ }
+  
+ actualizarDG(){
         this.paciente.nombre_completo = this.nombre_completo.value;
         this.paciente.numero_cuenta = this.numero_cuenta.value;
         this.paciente.numero_identidad = this.numero_identidad.value;
@@ -1564,12 +1575,7 @@ cargarHospitalarias(){
         }, (error)=>{
           console.log(error);
           this.showError('Error al actualizar los datos generales'); 
-        });
-
-      } 
-    }   
-    
-  
+        });       
   }
 
 
@@ -2866,9 +2872,11 @@ cargarHospitalarias(){
     console.log(event);
     if(event ==3){
       this.mostrarcuentaycarreca =false;
+      this.mostrarcuentaalumno = false;
 
     }else{
-      this.mostrarcuentaycarreca =true;    
+      this.mostrarcuentaycarreca =true;  
+      this.mostrarcuentaalumno = true;  
     }
 
   }
