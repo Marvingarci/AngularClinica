@@ -20,29 +20,40 @@
         </div>
 
             <div class="col" style="padding-top: 20px;">
+
                 <mat-form-field class="example-full-width">
                     <input matInput value={{paciente.nombre_completo}} placeholder="Nombre"  readonly>
                 </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <input matInput value={{paciente.numero_telefono}} placeholder="Número de Teléfono" readonly>
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <input matInput value="{{paciente.numero_cuenta}}" placeholder="Número de cuenta"  readonly >
-                </mat-form-field>
-            </div>
-            <div class="col" style="padding-top: 20px;" >
 
-             
-
-                <mat-form-field class="example-full-width">
+                 <mat-form-field class="example-full-width">
                     <input matInput value={{paciente.numero_identidad}} placeholder="Número identidad" readonly>
                 </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <input matInput value={{paciente.carrera}} placeholder="Carrera" readonly>
-                </mat-form-field>
+                
+                <mat-form-field class="example-full-width" *ngIf="esAlumno === false">
+                    <input matInput value="{{paciente.numero_cuenta}}" placeholder="Número de cuenta"  readonly >
+                </mat-form-field> 
+
+             
+               
+            </div>
+
+
+            <div class="col" style="padding-top: 20px;" > 
+                 
+
+                 <mat-form-field class="example-full-width">
+                    <input matInput value={{paciente.numero_telefono}} placeholder="Número de Teléfono" readonly>
+                </mat-form-field>                
+
                 <mat-form-field class="example-full-width">
                     <input matInput value={{paciente.sexo}} placeholder="Sexo" readonly>
                 </mat-form-field>
+                
+                <mat-form-field class="example-full-width" *ngIf="esAlumno === false">
+                    <input matInput value={{paciente.carrera}} placeholder="Carrera" readonly>
+                </mat-form-field>
+                
+               
             </div>
             
             <div class="col-xs-2 " >
@@ -95,24 +106,40 @@
 
 
 
-
-   <div *ngIf="esAlumno === true">
+                                      <!-- AQUI SE VEN LOS ALUMNOS -->
+   <div *ngIf="esAlumno === false">
     <form [formGroup]="formulario_datos_generales" > 
                       
-        <div class="row"> 
+        <div class="row" *ngIf="datosRepetido == false"> 
         <div class="col">
           <mat-form-field class="example-full-width" >
-          <input matInput formControlName= "nombre_completo"  placeholder="Nombre Completo" [readonly]="readonlyDatosGenerales" >
+          <input matInput formControlName= "nombre_completo"  placeholder="Nombre Completo"  >
           <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido</mat-error>
           <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un apellido válido</mat-error>
           </mat-form-field>
         </div>
+
+        <div class="col"> 
+          <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
+          <input matInput matInput formControlName= "categoria"  placeholder="Categoría" [readonly]="readonlyDatosGenerales">            
+          </mat-form-field>
+  
+          <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
+          <mat-label>Categoria Paciente</mat-label>
+          <mat-select formControlName= "categoria" readonly="readonly">
+          <mat-option *ngFor="let categoria of categorias" [value]="categoria.value">
+          {{categoria.viewValue}}
+          </mat-option>
+          </mat-select>
+          <mat-error *ngIf="categoria.hasError('required')">campo requerido</mat-error>
+          </mat-form-field>
+        </div>
         </div>
 
-        <div class="row">
+        <div class="row" *ngIf="datosRepetido == false">
           <div class="col">
           <mat-form-field class="example-full-width">
-            <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta" readonly>
+            <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta" >
             <!-- <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint> -->
             <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido</mat-error>
             <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta válido</mat-error>
@@ -121,7 +148,7 @@
 
           <div class="col">
           <mat-form-field class="example-full-width">
-            <input matInput formControlName= "numero_identidad" placeholder="N° Identidad" [readonly]="readonlyDatosGenerales">
+            <input matInput formControlName= "numero_identidad" placeholder="N° Identidad" >
             <!-- <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint> -->
             <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido</mat-error>
             <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un número de indentidad válido</mat-error>
@@ -130,8 +157,41 @@
         </div>
 
 
-        <div class="row">
-          <div class="col">
+        <div class="row" *ngIf="datosRepetido == false">        
+
+          <div class="col" >
+          <mat-form-field class="example-full-width">
+          <input matInput formControlName= "carrera" name="carrera" placeholder="Carrera" 
+          [readonly]="readonlyDatosGenerales">
+          <mat-error *ngIf="carrera.hasError('required')">campo requerido</mat-error>
+          <mat-error *ngIf="carrera.hasError('pattern')">ingrese datos válidos</mat-error>
+          </mat-form-field>
+          </div>
+
+          <div class="col" > 
+            <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
+            <input matInput matInput formControlName= "sexo"  
+            placeholder="Sexo" [readonly]="readonlyDatosGenerales">                              
+            </mat-form-field>
+  
+            <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
+            <mat-label>Sexo</mat-label>
+            <mat-select formControlName= "sexo" readonly="readonly">
+            <mat-option value="Hombre">Hombre</mat-option>
+            <mat-option value="Mujer">Mujer</mat-option>
+            </mat-select>
+            <mat-error *ngIf="sexo.hasError('required')">campo requerido</mat-error>
+            </mat-form-field>
+          </div>
+
+
+        </div>
+
+
+      <div class="row">
+
+
+        <div class="col">
           <mat-form-field class="example-full-width">
           <input matInput formControlName= "lugar_procedencia" name="lugar_procedencia" 
           placeholder="Lugar de Procedencia"[readonly]="readonlyDatosGenerales">                      
@@ -140,18 +200,6 @@
           </mat-form-field>
           </div>
 
-          <div class="col">
-          <mat-form-field class="example-full-width">
-          <input matInput formControlName= "carrera" name="carrera" placeholder="Carrera" 
-          [readonly]="readonlyDatosGenerales">
-          <mat-error *ngIf="carrera.hasError('required')">campo requerido</mat-error>
-          <mat-error *ngIf="carrera.hasError('pattern')">ingrese datos válidos</mat-error>
-          </mat-form-field>
-          </div>
-        </div>
-
-
-      <div class="row">
         <div class="col">
         <mat-form-field class="example-full-width">
         <input matInput formControlName= "direccion" name="direccion"
@@ -161,56 +209,44 @@
         </mat-form-field>
         </div>
 
-        <div class="col">
-        <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
-          <input matInput matInput formControlName= "fecha_nacimiento" placeholder="Fecha nacimiento"
-          [readonly]="readonlyDatosGenerales">                   
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
-          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" formControlName= "fecha_nacimiento"
-          placeholder="Fecha Nacimiento" [readonly]="readonlyDatosGenerales">   
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
-          <mat-error *ngIf="fecha_nacimiento.hasError('required')">campo requerido</mat-error>
-        </mat-form-field>
-        </div>
+      
       </div>    
 
 
       <div class="row">
-        <div class="col"> 
+      
+        <div class="col">
           <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
-          <input matInput matInput formControlName= "sexo"  
-          placeholder="Sexo" [readonly]="readonlyDatosGenerales">                              
+            <input matInput matInput formControlName= "fecha_nacimiento" placeholder="Fecha nacimiento"
+            [readonly]="readonlyDatosGenerales">                   
           </mat-form-field>
-
+  
           <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
-          <mat-label>Sexo</mat-label>
-          <mat-select formControlName= "sexo" readonly="readonly">
-          <mat-option value="Hombre">Hombre</mat-option>
-          <mat-option value="Mujer">Mujer</mat-option>
-          </mat-select>
-          <mat-error *ngIf="sexo.hasError('required')">campo requerido</mat-error>
+            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" formControlName= "fecha_nacimiento"
+            placeholder="Fecha Nacimiento" [readonly]="readonlyDatosGenerales">   
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="fecha_nacimiento.hasError('required')">campo requerido</mat-error>
           </mat-form-field>
-        </div>
+          </div>
+       
 
 
-      <div class="col">
-        <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
-        <input matInput matInput formControlName= "seguro_medico"  
-        placeholder="Seguro médico" [readonly]="readonlyDatosGenerales">                                
-        </mat-form-field>
-        
-        <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
-        <mat-label>Seguro médico</mat-label>
-        <mat-select formControlName= "seguro_medico" readonly="readonly">
-        <mat-option *ngFor="let seguro_medico of seguros_medicos" [value]="seguro_medico.value">
-        {{seguro_medico.viewValue}}
-        </mat-option>
-        </mat-select>
-        <mat-error *ngIf="seguro_medico.hasError('required')">campo requerido</mat-error>
-        </mat-form-field>
+        <div class="col">
+          <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
+          <input matInput matInput formControlName= "seguro_medico"  
+          placeholder="Seguro médico" [readonly]="readonlyDatosGenerales">                                
+          </mat-form-field>
+          
+          <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
+          <mat-label>Seguro médico</mat-label>
+          <mat-select formControlName= "seguro_medico" readonly="readonly">
+          <mat-option *ngFor="let seguro_medico of seguros_medicos" [value]="seguro_medico.value">
+          {{seguro_medico.viewValue}}
+          </mat-option>
+          </mat-select>
+          <mat-error *ngIf="seguro_medico.hasError('required')">campo requerido</mat-error>
+          </mat-form-field>
       </div>
 
       <div class="col"> 
@@ -232,77 +268,7 @@
       </div>
 
 
-      <div class="row">
-
-       <div class="col">
-          <mat-form-field class="example-full-width">
-          <input matInput matInput formControlName= "numero_telefono" name="numero_telefono" 
-          id="telefono" placeholder="N° Teléfono" [readonly]="readonlyDatosGenerales">
-          <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido!</mat-error>
-          <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un número de teléfono valido</mat-error>
-          </mat-form-field>
-        </div>
-
-
-
-
-<!-- <div class="col">
-          <mat-form-field class="example-full-width">
-          <input matInput formControlName= "emergencia_persona" name="emergencia_persona" placeholder="Emergencia Persona" [readonly]="readonlyDatosGenerales">
-          <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido</mat-error>
-          <mat-error *ngIf="emergencia_persona.hasError('pattern')">introduzca un número de teléfono válido</mat-error>
-          </mat-form-field>
-          </div>
-
-        <div class="col">
-          <mat-form-field class="example-full-width">
-            <input matInput formControlName= "emergencia_telefono" name="emergencia_telefono" 
-            placeholder="Telefono de emergencia" [readonly]="readonlyDatosGenerales">
-            <mat-error *ngIf="emergencia_telefono.hasError('required')">campo requerido!</mat-error>
-            <mat-error *ngIf="emergencia_telefono.hasError('pattern')">introduzca un número de teléfono válido</mat-error>
-          </mat-form-field>
-        </div> -->
-
-
-<div class="col">
-  <mat-accordion>
-    <mat-expansion-panel>
-      
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Teléfonos en caso de emergencia
-        </mat-panel-title>
-        <mat-panel-description>
-          haz click para visualizarlos
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <table mat-table id="tabla4" [dataSource]="tablaTelefonosEmergencia" class="mat-elevation-z8">
-       
-        <ng-container matColumnDef="persona">
-        <th mat-header-cell *matHeaderCellDef> Persona </th>
-        <td mat-cell *matCellDef="let elemento"> {{elemento.persona}} </td>
-        <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
-  
-      
-        <ng-container matColumnDef="telefono">
-        <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-        <td mat-cell *matCellDef="let elemento"> {{elemento.telefono}}</td>
-        <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="columnasTablaEmergenciaPersona"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnasTablaEmergenciaPersona;"></tr>
-        <tr mat-footer-row *matFooterRowDef="columnasTablaEmergenciaPersona"></tr>
-        </table>
-      </mat-expansion-panel>
-    </mat-accordion>
-      </div>
-
-
-
-
-      </div>
+ 
 
       
 
@@ -379,11 +345,147 @@
               </div>
               </div>
               </div>
-       <!-- disabled={{formulario_datos_generales.invalid}} -->
+
+
+
+
+              <div class="row">
+
+                <div class="col" >
+                   <mat-form-field class="example-full-width">
+                   <input matInput matInput formControlName= "numero_telefono" name="numero_telefono" 
+                   id="telefono" placeholder="N° Teléfono" [readonly]="readonlyDatosGenerales">
+                   <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido!</mat-error>
+                   <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un número de teléfono valido</mat-error>
+                   </mat-form-field>
+                 </div>
+         
+         <!-- ESTA ES LA VAINA DE VER -->
+         <div class="col" *ngIf="readonlyDatosGenerales === true">
+          <mat-accordion>
+         <mat-expansion-panel>
+           
+           <mat-expansion-panel-header>
+             <mat-panel-title>
+               Teléfonos en caso de emergencia
+             </mat-panel-title>
+             <mat-panel-description>
+               haz click para visualizarlos
+             </mat-panel-description>
+           </mat-expansion-panel-header>
+   
+         <div class="row medium-width" style="margin-left: 0;">
+           <table mat-table [dataSource]="tablaTelefonosEmergencia" class="mat-elevation-z8 tabla" style="margin-right: 16px;">
+   
+             <ng-container matColumnDef="numero">
+               <th mat-header-cell *matHeaderCellDef> # </th>
+               <a>eliminar</a>
+               <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+               <td mat-footer-cell *matFooterCellDef></td>
+             </ng-container>
+   
+             <ng-container matColumnDef="persona">
+               <th mat-header-cell *matHeaderCellDef> Persona </th>
+               <td mat-cell *matCellDef="let element"  > {{element.emergencia_persona}} </td>
+               <td mat-footer-cell *matFooterCellDef></td>
+             </ng-container>
+   
+             <ng-container matColumnDef="telefono">
+               <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+               <td mat-cell *matCellDef="let element"> {{element.telefono_emergencia}} </td>
+               <td mat-footer-cell *matFooterCellDef></td>
+   
+             </ng-container>
+             <tr mat-header-row *matHeaderRowDef="columnasTablaEmergenciaPersona"></tr>
+             <tr mat-row *matRowDef="let row; columns: columnasTablaEmergenciaPersona;"></tr>
+           </table>
+         </div>    
+     </mat-expansion-panel>
+   </mat-accordion>
+   </div>
+  
+  
+  <!-- ESTA ES LA VAINA DE EDITAR -->
+   <div class="col" *ngIf="readonlyDatosGenerales === false">
+    <mat-card>
+    <div class="row">
+      <div class="col">
+  
+        <mat-form-field>
+          <input matInput formControlName="emergencia_persona" name="emergencia_persona" id=""
+            placeholder="En caso de emergencia llamar a">
+          <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido</mat-error>
+          <mat-error *ngIf="emergencia_persona.hasError('pattern')">
+            introduzca un nombre válido
+          </mat-error>
+        </mat-form-field>
+  
+        &nbsp; &nbsp; &nbsp; &nbsp;
+  
+        <mat-form-field>
+          <input matInput formControlName="emergencia_telefono" maxlength="8"
+            placeholder="Teléfono de emergencia">
+          <mat-hint align="end">{{emergencia_telefono.value.length}} / 8</mat-hint>
+          <mat-error *ngIf="emergencia_telefono.hasError('required')">campo requerido</mat-error>
+          <mat-error *ngIf="emergencia_telefono.hasError('pattern')">
+            introduzca un número de teléfono válido
+          </mat-error>
+        </mat-form-field>
+  
+        &nbsp; &nbsp; &nbsp;
+  
+        <button mat-raised-button (click)="AgregarTelefonosEmergencia();">agregar</button>
+  
+      </div>
+    </div>
+  
+    <div class="row medium-width" style="margin-left: 0;">
+      <table mat-table [dataSource]="tablaTelefonosEmergencia" class="mat-elevation-z8 tabla" *ngIf="tablaTelefonosEmergencia != null" style="margin-right: 16px;" >
+    
+        <ng-container matColumnDef="numero">
+          <th mat-header-cell *matHeaderCellDef> # </th>
+          <a>eliminar</a>
+          <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+  
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef> Persona </th>
+          <td mat-cell *matCellDef="let element"  > {{element.emergencia_persona}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+  
+        <ng-container matColumnDef="telefono">
+          <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+          <td mat-cell *matCellDef="let element"> {{element.telefono_emergencia}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+       </ng-container>
+  
+        <ng-container matColumnDef="botones">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element;">
+            <button mat-icon-button class="botonesTabla" (click)="eliminarTelefonosEmergencia(element.id_telefono_emergencia)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="columnasTablaTelefonosEmergencia"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnasTablaTelefonosEmergencia;"></tr>
+      </table>
+  
+      </div>
+      </mat-card>
+      </div> 
+         
+         
+         
+         
+               </div>
 
         <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
        
-        (click)="actualizarDatosGenerales();">
+        (click)="actualizarDatosGenerales();AgregarTelefonosEmergencia(); ">
         {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
         </button>
 
@@ -392,39 +494,21 @@
 
 
 
- <div *ngIf="esAlumno === false"> 
 
 
 
+
+                                    <!-- AQUI SE MIRAN LOS EMPLEADOS -->
+ <div *ngIf="esAlumno === true"> 
   <form [formGroup]="formulario_datos_generales">
-    <div class="row">
+
+    <div class="row" *ngIf="datosRepetido == false">
       <div class="col">
       <mat-form-field class="example-full-width" >
       <input matInput formControlName= "nombre_completo"  placeholder="Nombre Completo" [readonly]="readonlyDatosGenerales">
       <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido</mat-error>
       <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un apellido válido</mat-error>
       </mat-form-field>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-      <mat-form-field class="example-full-width">
-      <input matInput formControlName= "numero_identidad" placeholder="N° Identidad" [readonly]="readonlyDatosGenerales">
-      <!-- <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint> -->
-      <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido</mat-error>
-      <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un numero de indentidad válido</mat-error>
-      </mat-form-field>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName= "lugar_procedencia" name="lugar_procedencia" placeholder="Lugar de Procedencia" [readonly]="readonlyDatosGenerales">
-        <mat-error *ngIf="lugar_procedencia.hasError('required')">campo requerido</mat-error>
-        <mat-error *ngIf="lugar_procedencia.hasError('pattern')">ingrese datos válidos</mat-error>
-        </mat-form-field>
       </div>
 
       <div class="col"> 
@@ -444,30 +528,17 @@
       </div>
     </div>
 
-    <div class="row">
+
+
+    <div class="row" *ngIf="datosRepetido == false">
       <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName= "direccion" name="direccion" placeholder="Dirección" [readonly]="readonlyDatosGenerales">
-        <mat-error *ngIf="direccion.hasError('required')">campo requerido</mat-error>
-        <mat-error *ngIf="direccion.hasError('maxlength')">campo muy extenso</mat-error>
-        </mat-form-field>
+      <mat-form-field class="example-full-width">
+      <input matInput formControlName= "numero_identidad" placeholder="N° Identidad" [readonly]="readonlyDatosGenerales">
+      <!-- <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint> -->
+      <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido</mat-error>
+      <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un numero de indentidad válido</mat-error>
+      </mat-form-field>
       </div>
-
-      <div class="col">
-        <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
-        <input matInput matInput formControlName= "fecha_nacimiento"  placeholder="Fecha de nacimiento" [readonly]="readonlyDatosGenerales">                                 
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
-        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" formControlName= "fecha_nacimiento" placeholder="Fecha Nacimiento" [readonly]="readonly">                  
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-        <mat-error *ngIf="fecha_nacimiento.hasError('required')">campo requerido</mat-error>
-        </mat-form-field>
-      </div>
-    </div>    
-
-    <div class="row">
 
       <div class="col"> 
         <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
@@ -480,6 +551,45 @@
         <mat-option value="Mujer">Mujer</mat-option>
         </mat-select>
         <mat-error *ngIf="sexo.hasError('required')">campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="example-full-width">
+        <input matInput formControlName= "lugar_procedencia" name="lugar_procedencia" placeholder="Lugar de Procedencia" [readonly]="readonlyDatosGenerales">
+        <mat-error *ngIf="lugar_procedencia.hasError('required')">campo requerido</mat-error>
+        <mat-error *ngIf="lugar_procedencia.hasError('pattern')">ingrese datos válidos</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-form-field class="example-full-width">
+        <input matInput formControlName= "direccion" name="direccion" placeholder="Dirección" [readonly]="readonlyDatosGenerales">
+        <mat-error *ngIf="direccion.hasError('required')">campo requerido</mat-error>
+        <mat-error *ngIf="direccion.hasError('maxlength')">campo muy extenso</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+
+   
+    <div class="row">
+
+       <div class="col">
+        <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
+        <input matInput matInput formControlName= "fecha_nacimiento"  placeholder="Fecha de nacimiento" [readonly]="readonlyDatosGenerales">                                 
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
+        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" formControlName= "fecha_nacimiento" placeholder="Fecha Nacimiento" [readonly]="readonly">                  
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error *ngIf="fecha_nacimiento.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
       </div>
 
@@ -568,6 +678,10 @@
 
          </mat-form-field>
        </div>
+      </div>
+
+      
+      <div class="row">
        <div class="col">
            <mat-form-field class="example-full-width" >
              <input matInput formControlName="presion"  placeholder="Presión" [readonly]="readonlyDatosGenerales">
@@ -623,7 +737,7 @@
              </mat-expansion-panel-header>
      
            <div class="row medium-width" style="margin-left: 0;">
-             <table mat-table [dataSource]="tablaTelefonosEmergencia" class="mat-elevation-z8 tabla">
+             <table mat-table [dataSource]="tablaTelefonosEmergencia" class="mat-elevation-z8 tabla" style="margin-right: 16px;">
      
                <ng-container matColumnDef="numero">
                  <th mat-header-cell *matHeaderCellDef> # </th>
@@ -688,7 +802,7 @@
       </div>
     
       <div class="row medium-width" style="margin-left: 0;">
-        <table mat-table [dataSource]="tablaTelefonosEmergencia" class="mat-elevation-z8 tabla" *ngIf="tablaTelefonosEmergencia != null"  >
+        <table mat-table [dataSource]="tablaTelefonosEmergencia" class="mat-elevation-z8 tabla" *ngIf="tablaTelefonosEmergencia != null" style="margin-right: 16px;" >
       
           <ng-container matColumnDef="numero">
             <th mat-header-cell *matHeaderCellDef> # </th>
@@ -729,7 +843,7 @@
     
  <!-- disabled={{formulario_datos_generales.invalid}} -->
     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"    
-    (click)="actualizarDatosGenerales(); ">
+    (click)="AgregarTelefonosEmergencia(); actualizarDatosGenerales(); ">
     {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
     </button>
 
