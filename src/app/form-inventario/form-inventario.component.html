@@ -9,54 +9,56 @@
 
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label><b>Unidad</b></mat-label>
-                <input matInput placeholder="Unidad" formControlName="unidad" required>
+                <input matInput placeholder="Ingrese la cantidad de unidades" formControlName="unidad" required>
                 <mat-hint align="end">{{unidad.value.length}} / 6</mat-hint>
                 <mat-error *ngIf="unidad.hasError('required')">campo requerido</mat-error>
-                <mat-error *ngIf="unidad.hasError('pattern')">Introduzca solo números</mat-error>
+                <mat-error *ngIf="unidad.hasError('pattern')">Introduzca sólo números</mat-error>
                 <mat-error *ngIf="unidad.hasError('minLength') && unidad.hasError('maxLength')">
                     campo requerido
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label><b>Ingrese el nombre</b></mat-label>
-                <input matInput placeholder="Ingrese el nombre" formControlName="nombre" required>
+                <mat-label><b>Ingrese el nombre del medicamento</b></mat-label>
+                <input matInput placeholder="Ingrese el nombre del medicamento" formControlName="nombre" required>
                 <mat-hint align="end">{{nombre.value.length}} / 6</mat-hint>
                 <mat-error *ngIf="nombre.hasError('required')">
                     <strong>campo requerido</strong>
                 </mat-error>
                 <mat-error *ngIf="nombre.hasError('minLength') && nombre.hasError('maxLength')">
-                    <strong>campo requerido</strong>
+                    <strong>nombre no válido</strong>
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label><b>Descripcion</b></mat-label>
-                <input matInput placeholder="Descripcion" formControlName="descripcion" required>
+                <mat-label><b>Descripción</b></mat-label>
+                <input matInput placeholder="Ingrese una descripción" formControlName="descripcion" >
                 <mat-hint align="end">{{descripcion.value.length}} / 6</mat-hint>
-                <mat-error *ngIf="descripcion.hasError('required')">
-                    <strong>campo requerido</strong>
-                </mat-error>
+               
+                <mat-error *ngIf="descripcion.hasError('maxLength')">
+                    <strong>descripción muy corta</strong>
+                </mat-error> 
                 <mat-error *ngIf="descripcion.hasError('minLength')">
-                    <strong>campo requerido</strong>
+                    <strong>descripción muy extensa</strong>
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label><b>Observacion</b></mat-label>
-                <input matInput placeholder="Observacion" formControlName="observacion" required>
+                <mat-label><b>Observación</b></mat-label>
+                <input matInput placeholder="Ingrese una observación" formControlName="observacion" >
                 <mat-hint align="end">{{observacion.value.length}} / 6</mat-hint>
-                <!-- <mat-error *ngIf="observacion.hasError('required')">
-                                    <strong>campo requerido</strong>
-                                </mat-error>-->
+                <mat-error *ngIf="observacion.hasError('maxLength')">
+                    <strong>observación muy corta</strong>
+                </mat-error> 
                 <mat-error *ngIf="observacion.hasError('minLength')">
-                    <!--<strong>campo requerido</strong>-->
+                    <strong>observación muy extensa</strong>
                 </mat-error>
+            
             </mat-form-field>
 
 
             <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label><b>Presentacion</b></mat-label>
+                <mat-label><b>Presentación</b></mat-label>
                 <mat-select formControlName="presentacion">
                     <mat-option *ngFor="let presentacion of presentaciones" [value]="presentacion.value">
                         {{presentacion.viewValue}}
