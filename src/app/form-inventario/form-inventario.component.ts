@@ -25,8 +25,8 @@ export class FormInventarioComponent implements OnInit {
   formInventario = new FormGroup({
     unidad: new FormControl('',[Validators.required, Validators.pattern(/^\d/) ,Validators.minLength(1),Validators.maxLength(4)]),
     nombre: new FormControl('',[Validators.required,  Validators.minLength(4),Validators.maxLength(30)]),
-    descripcion: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
-    observacion: new FormControl('',[Validators.required,  Validators.minLength(10),Validators.maxLength(30)]),
+    descripcion: new FormControl('',[ Validators.minLength(10),Validators.maxLength(30)]),
+    observacion: new FormControl('',[ Validators.minLength(10),Validators.maxLength(30)]),
     presentacion: new FormControl('',[Validators.required]),
     //fecha_vencimiento: new FormControl('', Validators.required),
     
