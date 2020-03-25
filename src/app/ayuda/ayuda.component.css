@@ -1,0 +1,101 @@
+.container{
+    background-color: black;
+    width: 100%;
+    height: 100%;
+}
+
+
+  .paciente{  
+    height: 600px;
+    width:85%;     
+    background: url('src\imagenes\paciente.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
+  }
+  .paciente1{  
+    height: 600px;
+    width:84%;     
+    background: url('src\imagenes\paciente1.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
+  }
+  .paciente2{  
+    height: 600px;
+    width:84%;     
+    background: url('src\imagenes\paciente2.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
+  }
+  .paciente3{  
+    height: 600px;
+    width:84%;     
+    background: url('src\imagenes\paciente3.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
+  }
+  .at1{  
+    height: 600px;
+    width:100%;     
+    background: url('src\imagenes\at1.gif');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
+  }
+  .medicamento{  
+    height: 600px;
+    width:100%;     
+    background: url('src\imagenes\medicamento.gif');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
+  }
+  .consolidado{  
+    height: 600px;
+    width:100%;     
+    background: url('src\imagenes\consolidado.gif');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
+  }
+  .usuario{  
+    height: 600px;
+    width:100%;     
+    background: url('src\imagenes\usuario.gif');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
+  }
+
+  .padre{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width:100%; 
+  }
+
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  color: blue;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: blue;
+}
