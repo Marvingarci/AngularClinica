@@ -189,6 +189,7 @@ export class VerPacienteComponent implements OnInit {
     
 // });
 matcher = new MyErrorStateMatcher();
+
   formulario_datos_generales = new FormGroup({      
     nombre_completo: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
     numero_cuenta: new FormControl('', [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]), 
@@ -207,8 +208,7 @@ matcher = new MyErrorStateMatcher();
 
     //datos restantes
     peso : new FormControl('', [Validators.max(100),Validators.min(1)]),
-    talla: new FormControl('', [ Validators.max(100),Validators.min(1)]), 
-    imc: new FormControl('', [Validators.pattern(/^[0-9]{1,3}$/)]),
+    talla: new FormControl('', [ Validators.max(100),Validators.min(1)]),
     temperatura: new FormControl('' ,[Validators.max(100) , Validators.min(1)]),
     presion: new FormControl('', [Validators.max(100),Validators.min(1)]),
     pulso: new FormControl('', [Validators.max(100),Validators.min(1)]),
