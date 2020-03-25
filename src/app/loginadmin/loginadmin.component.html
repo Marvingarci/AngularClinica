@@ -6,7 +6,7 @@
       </div>
 
       <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput placeholder="Ingrese un nuevo Administrador" formControlName="usuario" required>
+        <input matInput placeholder="Ingrese un nuevo Administrador" formControlName="usuario" required cdkFocusInitial>
         <mat-label> <b>Usuario</b> </mat-label>
 
         <mat-error *ngIf="usuario.hasError('required')">

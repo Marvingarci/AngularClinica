@@ -43,6 +43,7 @@ import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
 import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { EnfermedadEditar } from '../interfaces/enfermedadeditar';
+import { PdfMakeWrapper, Txt, Canvas, Line } from 'pdfmake-wrapper';
 
 
 export interface Element {
@@ -989,8 +990,40 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
    }
  }                      //FIN DEL CONSTRUCTOR
 
+ generarPDF() {
+
+  this.formularioService.obtenerPaciente(this.id).subscribe((data: any)=>{
+    this.paciente = data;
+  }, (error)=>{
+    console.log(error);
+  });
 
 
+  const pdf = new PdfMakeWrapper();
+
+  pdf.add(
+    new Txt('Constancia').fontSize(16).alignment("center").end
+  );
+
+  pdf.add(
+    new Txt(
+    "\nEl motivo de la presente constancia es para hacerle saber que el alumno "+ this.paciente.nombre_completo +
+    " con numero de cuenta "+ this.paciente.numero_cuenta + " asistio a la cliníca medica de UNAH-TEC Danlí "+
+    "por motivos ajenos a su salud.").alignment("justify").end
+  );
+
+  pdf.footer([
+
+    new Canvas([
+      new Line([10, 10], [200, 10]).end
+    ]).alignment("center").end,
+    new Txt("firma").alignment("center").end
+
+  ]);
+
+  pdf.create().open();
+
+}
 
 
                       //AUTOCOMPLETADO
