@@ -1,6 +1,6 @@
 <div class="container">
   <mat-card style="margin-top: 15px;" [class.mat-elevation-z5]="true"> 
-    <h3 align="center">Historial de Medicamentos</h3>
+    <h3 align="center">Medicamentos</h3>
     <div class="container">
         <div>
           <mat-form-field>
@@ -27,17 +27,17 @@
 
               <!-- Weight Column -->
             <ng-container matColumnDef="descripcion">
-                <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+                <th mat-header-cell *matHeaderCellDef> Descripción </th>
                 <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
               </ng-container>
 
               <ng-container matColumnDef="presentacion">
-                  <th mat-header-cell *matHeaderCellDef> Presentacion </th>
+                  <th mat-header-cell *matHeaderCellDef> Presentación </th>
                   <td mat-cell *matCellDef="let element"> {{element.presentacion}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="observacion">
-                    <th mat-header-cell *matHeaderCellDef> Observacion </th>
+                    <th mat-header-cell *matHeaderCellDef> Observación </th>
                     <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
                   </ng-container>
           
