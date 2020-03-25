@@ -29,7 +29,7 @@
                     <input matInput value={{paciente.numero_identidad}} placeholder="Número identidad" readonly>
                 </mat-form-field>
                 
-                <mat-form-field class="example-full-width" *ngIf="esAlumno === false">
+                <mat-form-field class="example-full-width" *ngIf="esAlumno === false ">
                     <input matInput value="{{paciente.numero_cuenta}}" placeholder="Número de cuenta"  readonly >
                 </mat-form-field> 
 
@@ -49,7 +49,7 @@
                     <input matInput value={{paciente.sexo}} placeholder="Sexo" readonly>
                 </mat-form-field>
                 
-                <mat-form-field class="example-full-width" *ngIf="esAlumno === false">
+                <mat-form-field class="example-full-width" *ngIf="esAlumno === false ">
                     <input matInput value={{paciente.carrera}} placeholder="Carrera" readonly>
                 </mat-form-field>
                 
@@ -110,7 +110,7 @@
    <div *ngIf="esAlumno === false">
     <form [formGroup]="formulario_datos_generales" > 
                       
-        <div class="row" *ngIf="datosRepetido == false"> 
+        <div class="row" *ngIf="datosRepetido == false "> 
         <div class="col">
           <mat-form-field class="example-full-width" >
           <input matInput formControlName= "nombre_completo"  placeholder="Nombre Completo"  >
@@ -120,14 +120,11 @@
         </div>
 
         <div class="col"> 
-          <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
-          <input matInput matInput formControlName= "categoria"  placeholder="Categoría" [readonly]="readonlyDatosGenerales">            
-          </mat-form-field>
-  
+          
           <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
           <mat-label>Categoria Paciente</mat-label>
-          <mat-select formControlName= "categoria" readonly="readonly">
-          <mat-option *ngFor="let categoria of categorias" [value]="categoria.value">
+          <mat-select formControlName= "categoria"  [disabled]="disabledDatosGenerales">
+          <mat-option *ngFor="let categoria of categorias" [value]="categoria.value"  (click)="mostrarcuenta(categoria.value)">
           {{categoria.viewValue}}
           </mat-option>
           </mat-select>
@@ -136,28 +133,19 @@
         </div>
         </div>
 
-        <div class="row" *ngIf="datosRepetido == false">
+
+
+
+        <div class="row" *ngIf="datosRepetido == false && mostrarcuentaycarreca == false" >    
+          
           <div class="col">
-          <mat-form-field class="example-full-width">
-            <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta" >
-            <!-- <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint> -->
-            <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido</mat-error>
-            <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta válido</mat-error>
-          </mat-form-field>
-          </div>
-
-          <div class="col">
-          <mat-form-field class="example-full-width">
-            <input matInput formControlName= "numero_identidad" placeholder="N° Identidad" >
-            <!-- <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint> -->
-            <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido</mat-error>
-            <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un número de indentidad válido</mat-error>
-          </mat-form-field>
-          </div>
-        </div>
-
-
-        <div class="row" *ngIf="datosRepetido == false">        
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta" >
+              <!-- <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint> -->
+              <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido</mat-error>
+              <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta válido</mat-error>
+            </mat-form-field>
+            </div>
 
           <div class="col" >
           <mat-form-field class="example-full-width">
@@ -165,6 +153,21 @@
           [readonly]="readonlyDatosGenerales">
           <mat-error *ngIf="carrera.hasError('required')">campo requerido</mat-error>
           <mat-error *ngIf="carrera.hasError('pattern')">ingrese datos válidos</mat-error>
+          </mat-form-field>
+          </div>
+        </div>
+
+
+
+
+
+        <div class="row" *ngIf="datosRepetido == false">
+          <div class="col">
+          <mat-form-field class="example-full-width">
+            <input matInput formControlName= "numero_identidad" placeholder="N° Identidad" >
+            <!-- <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint> -->
+            <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido</mat-error>
+            <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un número de indentidad válido</mat-error>
           </mat-form-field>
           </div>
 
@@ -183,9 +186,10 @@
             <mat-error *ngIf="sexo.hasError('required')">campo requerido</mat-error>
             </mat-form-field>
           </div>
-
-
         </div>
+
+
+       
 
 
       <div class="row">
@@ -233,15 +237,11 @@
 
 
         <div class="col">
-          <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
-          <input matInput matInput formControlName= "seguro_medico"  
-          placeholder="Seguro médico" [readonly]="readonlyDatosGenerales">                                
-          </mat-form-field>
-          
-          <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
+             
+          <mat-form-field class="example-full-width"   >
           <mat-label>Seguro médico</mat-label>
-          <mat-select formControlName= "seguro_medico" readonly="readonly">
-          <mat-option *ngFor="let seguro_medico of seguros_medicos" [value]="seguro_medico.value">
+          <mat-select formControlName= "seguro_medico" [disabled]="disabledDatosGenerales">
+          <mat-option *ngFor="let seguro_medico of seguros_medicos" [value]="seguro_medico.value" >
           {{seguro_medico.viewValue}}
           </mat-option>
           </mat-select>
@@ -250,14 +250,10 @@
       </div>
 
       <div class="col"> 
-        <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
-        <input matInput matInput formControlName= "estado_civil" placeholder="Estado civil"
-        [readonly]="readonlyDatosGenerales">                                 
-        </mat-form-field>
-        
-        <mat-form-field  class="example-full-width" *ngIf="!readonlyDatosGenerales">
+             
+        <mat-form-field  class="example-full-width" >
         <mat-label>Estado civil</mat-label>
-        <mat-select formControlName= "estado_civil" readonly="readonly">
+        <mat-select formControlName= "estado_civil" [disabled]="disabledDatosGenerales">
         <mat-option *ngFor="let estado_civil of estados_civiles" [value]="estado_civil.value">
         {{estado_civil.viewValue}}
         </mat-option>
@@ -434,7 +430,7 @@
   
         &nbsp; &nbsp; &nbsp;
   
-        <button mat-raised-button (click)="AgregarTelefonosEmergencia();">agregar</button>
+        <button mat-raised-button (click)="agregarTelefonosEmergencia();">agregar</button>
   
       </div>
     </div>
@@ -485,7 +481,7 @@
 
         <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
        
-        (click)="actualizarDatosGenerales();AgregarTelefonosEmergencia(); ">
+        (click)="actualizarDatosGenerales(); ">
         {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
         </button>
 
@@ -512,19 +508,37 @@
       </div>
 
       <div class="col"> 
-        <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
-        <input matInput matInput formControlName= "categoria"  placeholder="Categoría" [readonly]="readonlyDatosGenerales">            
-        </mat-form-field>
-
+       
         <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
         <mat-label>Categoria Paciente</mat-label>
-        <mat-select formControlName= "categoria" readonly="readonly">
-        <mat-option *ngFor="let categoria of categorias" [value]="categoria.value">
+        <mat-select formControlName= "categoria" [disabled]="disabledDatosGenerales">
+        <mat-option *ngFor="let categoria of categorias" [value]="categoria.value" (click)="mostrarcuenta(categoria.value)" >
         {{categoria.viewValue}}
         </mat-option>
         </mat-select>
         <mat-error *ngIf="categoria.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="mostrarcuentaycarreca == false">
+
+      <div class="col">
+        <mat-form-field class="example-full-width">
+          <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta" >
+          <!-- <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint> -->
+          <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido</mat-error>
+          <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta válido</mat-error>
+        </mat-form-field>
+        </div>
+
+      <div class="col" >
+      <mat-form-field class="example-full-width">
+      <input matInput formControlName= "carrera" name="carrera" placeholder="Carrera" 
+      [readonly]="readonlyDatosGenerales">
+      <mat-error *ngIf="carrera.hasError('required')">campo requerido</mat-error>
+      <mat-error *ngIf="carrera.hasError('pattern')">ingrese datos válidos</mat-error>
+      </mat-form-field>
       </div>
     </div>
 
@@ -594,12 +608,10 @@
       </div>
 
       <div class="col"> 
-        <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
-        <input matInput matInput formControlName= "seguro_medico"  placeholder="Seguro médico" [readonly]="readonlyDatosGenerales">                                 
-        </mat-form-field>
-        <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
+       
+        <mat-form-field class="example-full-width" >
         <mat-label>Seguro médico</mat-label>
-        <mat-select formControlName= "seguro_medico" readonly="readonly">
+        <mat-select formControlName= "seguro_medico" [disabled]="disabledDatosGenerales">
         <mat-option *ngFor="let seguro_medico of seguros_medicos" [value]="seguro_medico.value">
         {{seguro_medico.viewValue}}
         </mat-option>
@@ -609,12 +621,10 @@
       </div>
 
       <div class="col"> 
-        <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
-        <input matInput matInput formControlName= "estado_civil"  placeholder="Estado civil"[readonly]="readonlyDatosGenerales" >                            
-        </mat-form-field>
-        <mat-form-field  class="example-full-width" *ngIf="!readonlyDatosGenerales">
+       
+        <mat-form-field  class="example-full-width" >
         <mat-label>Estado civil</mat-label>
-        <mat-select formControlName= "estado_civil" readonly="readonly">
+        <mat-select formControlName= "estado_civil" [disabled]="disabledDatosGenerales">
         <mat-option *ngFor="let estado_civil of estados_civiles" [value]="estado_civil.value">
         {{estado_civil.viewValue}}
         </mat-option>
@@ -796,7 +806,7 @@
     
           &nbsp; &nbsp; &nbsp;
     
-          <button mat-raised-button (click)="AgregarTelefonosEmergencia();">agregar</button>
+          <button mat-raised-button (click)="agregarTelefonosEmergencia();">agregar</button>
     
         </div>
       </div>
@@ -843,7 +853,7 @@
     
  <!-- disabled={{formulario_datos_generales.invalid}} -->
     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"    
-    (click)="AgregarTelefonosEmergencia(); actualizarDatosGenerales(); ">
+    (click)="actualizarDatosGenerales(); ">
     {{!readonlyDatosGenerales ? 'Guardar' : 'Editar'}}
     </button>
 
