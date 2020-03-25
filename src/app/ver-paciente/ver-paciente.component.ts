@@ -190,22 +190,15 @@ export class VerPacienteComponent implements OnInit {
 // });
 matcher = new MyErrorStateMatcher();
   formulario_datos_generales = new FormGroup({      
-    nombre_completo: new FormControl('', [Validators.required]),
-    // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    numero_cuenta: new FormControl('', [ Validators.pattern(/^[2][0-9]{10}$/)]), 
-    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
-    // "/ /" indica el inicio y el final de la expresion regular
-    // "{10}" indica le numero de digitos de lo que lo antecede
+    nombre_completo: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
+    numero_cuenta: new FormControl('', [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]), 
     numero_identidad: new FormControl('', [Validators.required,Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
-     // "\d" es lo mismo "[0-9]"
     lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
     direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    carrera: new FormControl('', []),
+    carrera: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
     fecha_nacimiento: new FormControl('', Validators.required),
     sexo: new FormControl('', Validators.required),
-    categoria: new FormControl('',[]),
+    categoria: new FormControl('',[ Validators.required]),
     estado_civil: new FormControl('', Validators.required),
     seguro_medico: new FormControl('', Validators.required),
     numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
@@ -213,16 +206,12 @@ matcher = new MyErrorStateMatcher();
     emergencia_persona: new FormControl('', [ Validators.pattern(/^[a-zA-z\s]{3,30}$/)]),
 
     //datos restantes
-    peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,4}$/)]),
-    talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]), 
-    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
-    // "/ /" indica el inicio y el final de la expresion regular
-    // "{10}" indica le numero de digitos de lo que lo antecede
-    imc: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
-     // "\d" es lo mismo "[0-9]"
-    temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]),
-    presion: new FormControl('', [Validators.required]),
-    pulso: new FormControl('', [Validators.required]),
+    peso : new FormControl('', [Validators.max(100),Validators.min(1)]),
+    talla: new FormControl('', [ Validators.max(100),Validators.min(1)]), 
+    imc: new FormControl('', [Validators.pattern(/^[0-9]{1,3}$/)]),
+    temperatura: new FormControl('' ,[Validators.max(100) , Validators.min(1)]),
+    presion: new FormControl('', [Validators.max(100),Validators.min(1)]),
+    pulso: new FormControl('', [Validators.max(100),Validators.min(1)]),
     prosene: new FormControl('', []),    
   });
 
@@ -883,6 +872,8 @@ ocultar: boolean = true;
   readonlyDatosGenerales: boolean = true;
   disabledDatosGenerales: boolean = true;
   datosRepetido: boolean = true;
+  mostrarcuentaycarreca: boolean = true;
+  mostrarcuentaalumno: boolean = true;
   readonlyAntecedentesFamiliares: boolean = true;
   readonlyAntecedentesPersonales: boolean = true;
   readonlyHabitosToxicologicos: boolean = true;
@@ -933,6 +924,7 @@ ocultar: boolean = true;
 constructor(private formularioService: FormularioService, private mensaje: MatSnackBar, public dialog: MatDialog,  private activatedRoute: ActivatedRoute, 
   activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, public cambiarFoto: MatDialog) { 
     activar.mostrar();
+    this.mostrarcuentaycarreca =true; 
     this.id = this.activatedRoute.snapshot.params['id'];
     
    if(this.id){    
@@ -940,7 +932,6 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       
       //obtener los datos de los servicios de la api
       this.cargarPaciente();
-      this.obtenerDatosFormulario();
       this.cargarEmergenciaPersonaYa();
       this.cargarAntecedentesFamiliares();
       this.cargarAntecedentesPersonales();
@@ -1130,10 +1121,13 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
  } 
 
 
- cargarPaciente(){
+ cargarPaciente(){    
+  this.mostrarcuentaycarreca =true; 
   this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) =>{
     this.paciente = data;
-    this.cargarInformacionDatosGenerales();
+    this.cargarInformacionDatosGenerales();    
+    this.obtenerDatosFormulario();
+
     //establesco el valor a los formcontrol para que se visualizen
     //en los respectivos inputs de los datos generales
     if(this.paciente.peso == null){
@@ -1144,8 +1138,8 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.paciente.talla="0";
       this.paciente.peso="0";
       this.paciente.prosene="";
-
     }
+
     //si el paciente no es alumno, cambiamos
     //el valor de la variable "esAlumno" a false
     //para mostrar diferente el contenido de los datos
@@ -1154,6 +1148,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     }else{
       this.esAlumno = true;
     }
+
     console.log('Es alumno: '+this.esAlumno);
     this.formularioService.idActualizar=this.paciente.id_paciente;
     // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
@@ -1531,7 +1526,8 @@ cargarHospitalarias(){
       
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
           console.log(data);    
-          this.cargarPaciente();    
+          this.cargarPaciente();
+          this.agregarTelefonosEmergencia();  
         this.showError('Datos generales actualizado correctamente');
         }, (error)=>{
           console.log(error);
@@ -1548,12 +1544,13 @@ cargarHospitalarias(){
 
 
 
-  AgregarTelefonosEmergencia() { 
-    if(this.formulario_datos_generales.valid){      
+  agregarTelefonosEmergencia() { 
+       
       this.telefono_Emergencias.id_paciente = this.paciente.id_paciente;
       this.telefono_Emergencias.emergencia_persona =  this.emergencia_persona.value;
       this.telefono_Emergencias.telefono_emergencia =  this.emergencia_telefono.value;
 
+ 
       this.formularioService.enviarTelefonoEmergencia(this.telefono_Emergencias).subscribe((data) => {
         console.log(data);
         console.log('se envio el numero de emergencia');
@@ -1564,7 +1561,7 @@ cargarHospitalarias(){
       this.emergencia_telefono.setValue('');
 
         this.cargarEmergenciaPersonaYa();  
-    }    
+        
   }
 
 
@@ -2831,7 +2828,17 @@ cargarHospitalarias(){
 
 
   ngOnInit() {
-    this.obtenerDatosFormulario();
+  
+  }
+  mostrarcuenta(event){
+    console.log(event);
+    if(event ==3){
+      this.mostrarcuentaycarreca =false;
+
+    }else{
+      this.mostrarcuentaycarreca =true;    
+    }
+
   }
   obtenerDatosFormulario() {
 
@@ -3033,7 +3040,7 @@ cargarTablaAntecedentesFamiliares(){
 
     switch(this.paciente.estado_civil){
       case "Soltero":
-        this.estado_civil.setValue();
+        this.estado_civil.setValue(1);
           break;
       case "Union Libre":
        this.estado_civil.setValue(2);
