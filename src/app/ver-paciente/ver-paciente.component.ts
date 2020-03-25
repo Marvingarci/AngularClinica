@@ -769,12 +769,14 @@ ocultar: boolean = true;
   categorias: Categorias[] = [
     {value: 1, viewValue: 'Empleado'},
     {value: 2, viewValue: 'Visitante'},
-    {value: 3, viewValue: 'Prosene'}
+    {value: 3, viewValue: 'Estudiante'}
   ];
 
   dataSourceTablaTelefonosEmergencia:any;
 
-  seguros_medicos: SegurosMedicos[]=[];
+  seguros_medicos: SegurosMedicos[] = [];
+
+  estados_civiles: EstadosCiviles[] = [];
 
   sexos: Sexos[] = [
     {value: 'Hombre', viewValue: 'Hombre'},
@@ -782,7 +784,6 @@ ocultar: boolean = true;
   
   ];
 
-  estados_civiles: EstadosCiviles[] = [];
 
   // parentescos: select[] = [
   //   {value: 'Padre' , viewValue: 'Padre'},
@@ -881,6 +882,7 @@ ocultar: boolean = true;
   //variable que identifica si un input es editable
   readonlyDatosGenerales: boolean = true;
   disabledDatosGenerales: boolean = true;
+  datosRepetido: boolean = true;
   readonlyAntecedentesFamiliares: boolean = true;
   readonlyAntecedentesPersonales: boolean = true;
   readonlyHabitosToxicologicos: boolean = true;
@@ -933,46 +935,12 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
     
-   if(this.id){
-      this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) =>{
-        this.paciente = data;
-        //establesco el valor a los formcontrol para que se visualizen
-        //en los respectivos inputs de los datos generales
-        if(this.paciente.peso == null){
-          this.paciente.temperatura="0";
-          this.paciente.pulso="0";
-          this.paciente.presion="0";
-          this.paciente.imc="0";
-          this.paciente.talla="0";
-          this.paciente.peso="0";
-          this.paciente.prosene="";
-
-        }
-        this.cargarInformacionDatosGenerales();
-        //si el paciente no es alumno, cambiamos
-        //el valor de la variable "esAlumno" a false
-        //para mostrar diferente el contenido de los datos
-        if(this.paciente.categoria != "Empleado"){
-          this.esAlumno = false;
-        }
-        console.log('Es alumno: '+this.esAlumno);
-        this.formularioService.idActualizar=this.paciente.id_paciente;
-        // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
-        //si el paciente tiene imagen entonces esta variable cambiara a false
-        if(this.paciente.imagen != null){
-          this.noImg = false;
-        } 
-        console.log(this.paciente);      
-      },(error)=>{
-        console.log(error);
-      });
-
-  
-
-
-     
-
+   if(this.id){    
+ 
+      
       //obtener los datos de los servicios de la api
+      this.cargarPaciente();
+      this.obtenerDatosFormulario();
       this.cargarEmergenciaPersonaYa();
       this.cargarAntecedentesFamiliares();
       this.cargarAntecedentesPersonales();
@@ -989,7 +957,8 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.cargarHabitoToxicologico();
       this.cargarActividadSexual();
       this.cargarPlanificacionFamiliar();      
-      this.cargarHospitalarias();
+      this.cargarHospitalarias();   
+      
   
 
 
@@ -1160,6 +1129,43 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
    });
  } 
 
+
+ cargarPaciente(){
+  this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) =>{
+    this.paciente = data;
+    this.cargarInformacionDatosGenerales();
+    //establesco el valor a los formcontrol para que se visualizen
+    //en los respectivos inputs de los datos generales
+    if(this.paciente.peso == null){
+      this.paciente.temperatura="0";
+      this.paciente.pulso="0";
+      this.paciente.presion="0";
+      this.paciente.imc="0";
+      this.paciente.talla="0";
+      this.paciente.peso="0";
+      this.paciente.prosene="";
+
+    }
+    //si el paciente no es alumno, cambiamos
+    //el valor de la variable "esAlumno" a false
+    //para mostrar diferente el contenido de los datos
+    if(this.paciente.categoria == "Estudiante"){
+      this.esAlumno = false;
+    }else{
+      this.esAlumno = true;
+    }
+    console.log('Es alumno: '+this.esAlumno);
+    this.formularioService.idActualizar=this.paciente.id_paciente;
+    // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
+    //si el paciente tiene imagen entonces esta variable cambiara a false
+    if(this.paciente.imagen != null){
+      this.noImg = false;
+    } 
+    console.log(this.paciente);      
+  },(error)=>{
+    console.log(error);
+  });
+ }
 
 
 
@@ -1495,46 +1501,14 @@ cargarHospitalarias(){
   
  actualizarDatosGenerales()
  {
-
-  this.cargarTablaEmergenciaPersona();
-
-  
+   this.cargarTablaEmergenciaPersona();
   this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
   this.disabledDatosGenerales = !this.disabledDatosGenerales;
-
-  switch(this.paciente.estado_civil){
-    case "Soltero":
-      this.estado_civil.setValue(1);
-        break;
-    case "Union Libre":
-     this.estado_civil.setValue(2);
-       break;
-    case "Divorciado":
-      this.estado_civil.setValue(3);
-       break;
-    case "Viudo":
-     this.estado_civil.setValue(4);
-       break;
-    default:
-      this.estado_civil.setValue(5);
-       break;
-  }
-
- switch(this.paciente.seguro_medico){
-    case "Privado":
-      this.seguro_medico.setValue(1);
-        break;
-    case "IHSS":
-      this.seguro_medico.setValue(2);
-         break;
-   default:
-      this.seguro_medico.setValue(3);
-        break;
-  }
+  this.datosRepetido = !this.datosRepetido;
 
   if(this.readonlyDatosGenerales === true){    
-      if(this.formulario_datos_generales.valid){
-        // guardar datos del formulario en paciente y enviarlo a la api
+    if(this.formulario_datos_generales.valid){
+
         this.paciente.nombre_completo = this.nombre_completo.value;
         this.paciente.numero_cuenta = this.numero_cuenta.value;
         this.paciente.numero_identidad = this.numero_identidad.value;
@@ -1556,27 +1530,26 @@ cargarHospitalarias(){
         this.paciente.prosene = this.prosene.value;
       
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
-          console.log(data);         
+          console.log(data);    
+          this.cargarPaciente();    
         this.showError('Datos generales actualizado correctamente');
         }, (error)=>{
           console.log(error);
           this.showError('Error al actualizar los datos generales'); 
         });
 
-        this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente)=>{
-            this.paciente = data;
-  
-            this.cargarInformacionDatosGenerales();
-          });
       } 
-    }     
+    }   
+    
+  
   }
 
 
 
 
 
-  AgregarTelefonosEmergencia() {       
+  AgregarTelefonosEmergencia() { 
+    if(this.formulario_datos_generales.valid){      
       this.telefono_Emergencias.id_paciente = this.paciente.id_paciente;
       this.telefono_Emergencias.emergencia_persona =  this.emergencia_persona.value;
       this.telefono_Emergencias.telefono_emergencia =  this.emergencia_telefono.value;
@@ -1585,12 +1558,13 @@ cargarHospitalarias(){
         console.log(data);
         console.log('se envio el numero de emergencia');
       }, (error) => {
-        console.log(error);
+       
       });      
       this.emergencia_persona.setValue('');
       this.emergencia_telefono.setValue('');
 
-        this.cargarEmergenciaPersonaYa();      
+        this.cargarEmergenciaPersonaYa();  
+    }    
   }
 
 
@@ -2639,7 +2613,8 @@ cargarHospitalarias(){
    
 
   eliminarTelefonosEmergencia(id) {
-    const dialogRef = this.dialog.open(Borrartelefonoemergencia, {
+    if(this.tel_emergencia.length > 1){
+        const dialogRef = this.dialog.open(Borrartelefonoemergencia, {
       disableClose: true,
       panelClass: 'borrar',
       data: id
@@ -2650,6 +2625,10 @@ cargarHospitalarias(){
       dialogRef.afterClosed().subscribe(result => {
       this.cargarEmergenciaPersonaYa();
     });
+    }else{
+      this.showError('Debe tener al menos un registro');
+    }
+    
   }
 
 
@@ -3043,25 +3022,18 @@ cargarTablaAntecedentesFamiliares(){
     this.numero_identidad.setValue(this.paciente.numero_identidad);
     this.numero_cuenta.setValue(this.paciente.numero_cuenta);
     this.carrera.setValue(this.paciente.carrera);
-
-
-   /* switch(this.paciente.sexo){
-      case "Hombre":
-        this.sexo.setValue(1);
-          break;
-     default:
-        this.sexo.setValue(2);
-          break;
-      }*/ 
-   
     this.sexo.setValue(this.paciente.sexo);
     this.lugar_procedencia.setValue(this.paciente.lugar_procedencia);
     this.direccion.setValue(this.paciente.direccion);
     this.fecha_nacimiento.setValue(this.paciente.fecha_nacimiento);
-/*
+
+    // this.estado_civil.setValue(this.paciente.estado_civil);
+    // this.categoria.setValue(this.paciente.categoria);
+    // this.seguro_medico.setValue(this.paciente.seguro_medico);
+
     switch(this.paciente.estado_civil){
       case "Soltero":
-        this.estado_civil.setValue(1);
+        this.estado_civil.setValue();
           break;
       case "Union Libre":
        this.estado_civil.setValue(2);
@@ -3072,45 +3044,36 @@ cargarTablaAntecedentesFamiliares(){
       case "Viudo":
        this.estado_civil.setValue(4);
          break;
-
       default:
         this.estado_civil.setValue(5);
          break;
-    }*/
-
-
-    this.estado_civil.setValue(this.paciente.estado_civil);
-
-    //switch(this.paciente.seguro_medico){
-      //case 1:
-        //this.paciente.seguro_medico = "Privado";
-         // break;
-     // case 2:
-       // this.paciente.seguro_medico = "IHSS";
-        //  break;
-     // default:
-       // this.paciente.seguro_medico = "No";
-         // break;
-   // }
-
-   /*switch(this.paciente.seguro_medico){
-    case "Privado":
-      this.seguro_medico.setValue(1);
-        break;
-    case "IHSS":
-      this.seguro_medico.setValue(2);
+    }
+    
+    switch(this.paciente.seguro_medico){
+      case "Privado":
+        this.seguro_medico.setValue(1);
           break;
+      case "IHSS":
+        this.seguro_medico.setValue(2);
+           break;
+     default:
+        this.seguro_medico.setValue(3);
+          break;
+    }
     
-    default:
-      this.seguro_medico.setValue(3);
-        break;
-    
+    switch(this.paciente.categoria){
+      case  "Estudiante":
+        this.categoria.setValue(3);
+          break;
+      case "Visitante":
+        this.categoria.setValue(2);
+           break;
+     default:
+        this.categoria.setValue(1);
+          break;
+    }
 
-  } */
-
-    this.seguro_medico.setValue(this.paciente.seguro_medico);
-    this.numero_telefono.setValue(this.paciente.numero_telefono);
-    this.categoria.setValue(this.paciente.categoria);
+    this.numero_telefono.setValue(this.paciente.numero_telefono);   
     this.temperatura.setValue(this.paciente.temperatura);
     this.pulso.setValue(this.paciente.pulso);
     this.presion.setValue(this.paciente.presion);
