@@ -1,1 +1,81 @@
-<p>ayuda works!</p>
+<mat-card style="margin-top: 15px;" [class.mat-elevation-z5]="true">  
+   <mat-tab-group dynamicHeight animationDuration="200ms" color="accent" backgroundColor="primary">
+        <mat-tab label="Paciente">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                </ol>
+                <div class="carousel-inner">
+                <div class="carousel-item active" >
+                    <div class="padre">
+                        <div class="paciente" id="imagen"></div>
+                    </div> 
+                </div>
+                <div class="carousel-item" >
+                    <div class="padre">
+                        <div class="paciente1" id="imagen"></div>
+                    </div> 
+                </div>
+                <div class="carousel-item">
+                    <div class="padre">
+                        <div class="paciente2" id="imagen"></div>
+                    </div> 
+                </div>
+                <div class="carousel-item">
+                    <div class="padre">
+                        <div class="paciente3" id="imagen"></div>
+                    </div> 
+                </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Atras</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Siguiente</span>
+                </a>
+            </div>
+        </mat-tab>
+        <mat-tab label="At1">
+            <div class="padre">
+                <div class="at1" id="imagen"></div>
+                </div>
+                <div class="carousel-caption d-none d-md-block" style="color: #000;">
+                    <p>En este apartado, se visualizarán todos lo registro diarios de los paciente 
+                        que han asistido a la clínica. Estos datos se actualizarán diariamente.</p>
+                  </div>
+        </mat-tab>
+        <mat-tab label="Consolidado"> 
+            <div class="padre">
+                <div class="consolidado" id="imagen"></div>
+                </div>
+                <div class="carousel-caption d-none d-md-block" style="color: #000;">
+                    <p>En este apartado se visualizarán datos estadísticos 
+                        referentes a los pacientes.</p>
+                  </div>
+        </mat-tab>
+        <mat-tab label="Medicamento">
+            <div class="padre">
+                <div class="medicamento" id="imagen"></div>
+                </div>
+                <div class="carousel-caption d-none d-md-block" style="color: #000;">
+                    <p>En este apartado se visualizaron los medicamentos en existencia
+                         en la clínica. Donde podrá crear y editar cada uno de ellos.</p>
+                  </div>
+        </mat-tab>
+        <mat-tab label="Usuarios">
+            <div class="padre">
+                <div class="usuario" id="imagen"></div>
+                </div>
+            <div class="carousel-caption d-none d-md-block" style="color: #000;">
+                <p>En este apartado podrá visualizar los usuarios administradores y médicos. 
+                    Donde podrá crear, editar y eliminar cada uno de ellos.</p>
+            </div> 
+        </mat-tab>
+    </mat-tab-group>
+</mat-card>
+        
