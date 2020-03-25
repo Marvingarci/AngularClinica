@@ -65,19 +65,15 @@
               <mat-menu #menu="matMenu">
                   <button style="outline:none;display:block;" mat-menu-item (click)="anadirCita()">
                       <mat-icon >dialpad</mat-icon>
-                      <span>Añadir cita</span>
-                  </button>
-                  <button style="outline:none;display:block;" mat-menu-item >
-                      <mat-icon > voicemail</mat-icon>
-                      <span>aun nada</span>
+                      <span>Añadir Historia Subsiguiente</span>
                   </button>
                   <button style="outline:none;display:block;" mat-menu-item (click)="mostrarHistoriasSub()">
                       <mat-icon >notifications_off</mat-icon>
-                      <span>Ver citas</span>
+                      <span>Ver Historial Cliníco</span>
                   </button>
-                  <button style="outline:none;display:block;" mat-menu-item>
+                  <button style="outline:none;display:block;" mat-menu-item (click)="generarPDF()">
                       <mat-icon >notifications_off</mat-icon>
-                      <span>Añadir historia subsiguiente</span>
+                      <span>Imprimir Constansia</span>
                   </button>
               </mat-menu> 
 
