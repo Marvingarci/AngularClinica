@@ -1549,7 +1549,6 @@ cargarHospitalarias(){
         this.paciente.seguro_medico = this.seguro_medico.value;
         this.paciente.numero_telefono = this.numero_telefono.value;
         this.paciente.categoria = this.categoria.value;
-        this.paciente.imc = this.imc.value;
         this.paciente.peso = this.peso.value;
         this.paciente.presion = this.presion.value;
         this.paciente.talla = this.talla.value;
@@ -3117,7 +3116,6 @@ cargarTablaAntecedentesFamiliares(){
     this.temperatura.setValue(this.paciente.temperatura);
     this.pulso.setValue(this.paciente.pulso);
     this.presion.setValue(this.paciente.presion);
-    this.imc.setValue(this.paciente.imc);
     this.talla.setValue(this.paciente.talla);
     this.peso.setValue(this.paciente.peso);
     this.prosene.setValue(this.paciente.prosene);
@@ -3501,7 +3499,6 @@ cargarTablaAntecedentesFamiliares(){
   // obtener los campos del formGroup formulario_datos_faltantes
   get peso(){return this.formulario_datos_generales.get('peso')};
   get talla(){return this.formulario_datos_generales.get('talla')};
-  get imc(){return this.formulario_datos_generales.get('imc')};
   get temperatura(){return this.formulario_datos_generales.get('temperatura')};
   get presion(){return this.formulario_datos_generales.get('presion')};
   get pulso(){return this.formulario_datos_generales.get('pulso')};
