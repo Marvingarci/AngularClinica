@@ -300,7 +300,7 @@ export class DatoPacienteComponent implements OnInit {
 
 })
 export class cambiocontraDialog {
-  hide1 = false;
+  hide1 = true;
   hide = true;
 
   resultado: any;
@@ -375,8 +375,7 @@ export class cambiocontraDialog {
   // FUNCION QUE HACE EL MACANEO
   continuar() {
 
-    this.hide = true;
-    this.hide1 = false;
+    
 
     this.formularioService.getUltimoID().subscribe((data) => {
       this.resultado = data;
@@ -451,12 +450,22 @@ export class cambiocontraDialog {
   }
 
   //EVENTO CUANDO SE DA ENTER
+
+ 
+
+  onKeydown1(event) {
+    if (event.key === "Enter") {
+     this.hide1 = false;
+     this.hide = true;
+    }
+  }
+
   onKeydown(event) {
     if (event.key === "Enter") {
-      this.hide = true;
-      this.hide1 = false;
-      this.continuar();
+     this.hide1 = false;
+     this.hide = true;
     }
+    this.continuar();
   }
 
   //EVENTO BOTON GUARDAR
