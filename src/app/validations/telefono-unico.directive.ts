@@ -18,7 +18,7 @@ export class TelefonoUnicoDirective implements AsyncValidator {
     return this.FormularioService.obtenerColumnaTelefono(telefono).pipe(
       map((valor: any) => {
 
-        if (valor && valor.numero_telefono == telefono) {
+        if (valor && valor.telefono == telefono) {
           return { telefonoUnico: true };
 
         } else
