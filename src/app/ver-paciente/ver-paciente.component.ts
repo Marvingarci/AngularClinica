@@ -44,6 +44,7 @@ import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxico
 import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { EnfermedadEditar } from '../interfaces/enfermedadeditar';
 import { PdfMakeWrapper, Txt, Canvas, Line } from 'pdfmake-wrapper';
+import { Telefono } from '../interfaces/telefono';
 
 
 export interface Element {
@@ -446,8 +447,15 @@ ocultar: boolean = true;
     telefono_emergencia:null,
     emergencia_persona:null,
   }
+  telefono: Telefono = {
+    id_telefono:null,
+    id_paciente:null,
+    telefono:null,
+  }
   telefonos_Emergencias:TelefonoEmergencia[];  
   tel_emergencia:any;
+  tel_persona:any;
+
   
 
   antecedente_familiar: AntecedentesFamiliares ={
@@ -699,6 +707,7 @@ ocultar: boolean = true;
   tablaAntecedentesPersonales: any;
   tablaHabitosToxicologicos: any;
   tablaTelefonosEmergencia: any;
+  tablaTelefonos: any;
   tablaDesnutricionAF:any;
   tablaMentalAF:any;
   tablaAlergiaAF:any;
@@ -737,7 +746,9 @@ ocultar: boolean = true;
   columnastablaHabitosToxicologicos: string[] = ['habito_toxicologico', 'observacion'];  
   columnastablaHabitosToxicologicosEditar: string[] = ['numero','habito_toxicologico', 'observacion','botoneliminar','botoneditar'];
   columnasTablaEmergenciaPersona:string[] = ['persona','telefono'];
+  columnasTablaTelefono:string[] = ['numero','telefono'];
   columnasTablaTelefonosEmergencia: string[] = ['numero', 'nombre', 'telefono', 'botones'];
+  columnasTablaTelefonosEditar: string[] = ['numero',  'telefono', 'botones'];
   columnasTablaDesnutricionAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
   columnasTablaMentalAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
   columnasTablaAlergiaAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
@@ -935,6 +946,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       //obtener los datos de los servicios de la api
       this.cargarPaciente();
       this.cargarEmergenciaPersonaYa();
+      this.cargarTelefono();
       this.cargarAntecedentesFamiliares();
       this.cargarAntecedentesPersonales();
       this.cargarDesnnutricionAF();
@@ -1208,6 +1220,18 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);
     this.cargarTablaEmergenciaPersona();
     console.log(this.tel_emergencia);      
+    }, (error)=>{
+      console.log(error);
+    });      
+ }
+
+ cargarTelefono(){
+  this.formularioService.obtenerTelefono(this.id).subscribe((data: TelefonoEmergencia[])=>{
+    this.tel_persona = data;        
+    //cargo los datos de la tabla antecedentes personales
+    this.tablaTelefonos = new MatTableDataSource(this.tel_persona);
+    this.cargarTablaEmergenciaPersona();
+    console.log(this.tel_persona);      
     }, (error)=>{
       console.log(error);
     });      
@@ -1572,7 +1596,8 @@ cargarHospitalarias(){
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
           console.log(data);    
           this.cargarPaciente();
-          this.agregarTelefonosEmergencia();  
+          this.agregarTelefonosEmergencia(); 
+          this.agregarTelefonos();  
         this.showError('Datos generales actualizado correctamente');
         }, (error)=>{
           console.log(error);
@@ -1586,25 +1611,34 @@ cargarHospitalarias(){
 
 
 
-  agregarTelefonosEmergencia() { 
-       
+  agregarTelefonosEmergencia() {        
       this.telefono_Emergencias.id_paciente = this.paciente.id_paciente;
       this.telefono_Emergencias.emergencia_persona =  this.emergencia_persona.value;
       this.telefono_Emergencias.telefono_emergencia =  this.emergencia_telefono.value;
-
  
       this.formularioService.enviarTelefonoEmergencia(this.telefono_Emergencias).subscribe((data) => {
         console.log(data);
         console.log('se envio el numero de emergencia');
-      }, (error) => {
-       
+      }, (error) => {       
       });      
       this.emergencia_persona.setValue('');
       this.emergencia_telefono.setValue('');
-
-        this.cargarEmergenciaPersonaYa();  
-        
+        this.cargarEmergenciaPersonaYa();          
   }
+
+
+  agregarTelefonos() {        
+    this.telefono.id_paciente = this.paciente.id_paciente;
+    this.telefono.telefono =  this.numero_telefono.value;
+
+    this.formularioService.enviarTelefonoPaciente(this.telefono).subscribe((data) => {
+      console.log(data);
+      console.log('se envio el numero de telefono');
+    }, (error) => {       
+    });      
+    this.numero_telefono.setValue('');
+      this.cargarTelefono();          
+}
 
 
 
