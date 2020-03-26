@@ -204,7 +204,7 @@ matcher = new MyErrorStateMatcher();
     categoria: new FormControl('',[ Validators.required]),
     estado_civil: new FormControl('', Validators.required),
     seguro_medico: new FormControl('', Validators.required),
-    numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+    numero_telefono: new FormControl('', [Validators.pattern(/^\d{8}$/)]),
     emergencia_telefono: new FormControl('', [ Validators.pattern(/^\d{8}$/)]),
     emergencia_persona: new FormControl('', [ Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
 
@@ -216,6 +216,8 @@ matcher = new MyErrorStateMatcher();
     pulso: new FormControl('', [Validators.max(200),Validators.min(30)]),
     prosene: new FormControl('', []),    
   });
+
+  
 
   formulario_antecedentes_familiares = new FormGroup({      
     parentesco_desnutricion : new FormControl('',[]),
@@ -1227,7 +1229,8 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
 
  cargarTelefono(){
   this.formularioService.obtenerTelefono(this.id).subscribe((data: TelefonoEmergencia[])=>{
-    this.tel_persona = data;        
+    this.tel_persona = data;
+    console.log(this.tel_persona);       
     //cargo los datos de la tabla antecedentes personales
     this.tablaTelefonos = new MatTableDataSource(this.tel_persona);
     this.cargarTablaEmergenciaPersona();
@@ -1584,7 +1587,6 @@ cargarHospitalarias(){
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
-        this.paciente.numero_telefono = this.numero_telefono.value;
         this.paciente.categoria = this.categoria.value;
         this.paciente.peso = this.peso.value;
         this.paciente.presion = this.presion.value;
@@ -1615,7 +1617,8 @@ cargarHospitalarias(){
       this.telefono_Emergencias.id_paciente = this.paciente.id_paciente;
       this.telefono_Emergencias.emergencia_persona =  this.emergencia_persona.value;
       this.telefono_Emergencias.telefono_emergencia =  this.emergencia_telefono.value;
- 
+
+      if (this.formulario_datos_generales.dirty) {
       this.formularioService.enviarTelefonoEmergencia(this.telefono_Emergencias).subscribe((data) => {
         console.log(data);
         console.log('se envio el numero de emergencia');
@@ -1625,19 +1628,22 @@ cargarHospitalarias(){
       this.emergencia_telefono.setValue('');
         this.cargarEmergenciaPersonaYa();          
   }
+}
 
 
   agregarTelefonos() {        
     this.telefono.id_paciente = this.paciente.id_paciente;
     this.telefono.telefono =  this.numero_telefono.value;
 
+if (this.formulario_datos_generales.dirty) {
     this.formularioService.enviarTelefonoPaciente(this.telefono).subscribe((data) => {
       console.log(data);
       console.log('se envio el numero de telefono');
     }, (error) => {       
     });      
     this.numero_telefono.setValue('');
-      this.cargarTelefono();          
+      this.cargarTelefono();      
+  }    
 }
 
 
@@ -2697,6 +2703,25 @@ cargarHospitalarias(){
     });
       dialogRef.afterClosed().subscribe(result => {
       this.cargarEmergenciaPersonaYa();
+    });
+    }else{
+      this.showError('Debe tener al menos un registro');
+    }
+    
+  }
+
+  eliminarTelefono(id) {
+    if(this.tel_persona.length > 1){
+        const dialogRef = this.dialog.open(Borrartelefono, {
+      disableClose: true,
+      panelClass: 'borrar',
+      data: id
+    });  
+    dialogRef.beforeClosed().subscribe(result => {
+      this.cargarTelefono();
+    });
+      dialogRef.afterClosed().subscribe(result => {
+      this.cargarTelefono();
     });
     }else{
       this.showError('Debe tener al menos un registro');
@@ -3814,6 +3839,45 @@ export class Borrartelefonoemergencia  {
   BorrarRegistro() {
     if (this.data != 0) {
      this.formularioService.eliminarEmergenciaPersona(this.data).subscribe((data) => {
+        this.showError('Registro eliminado correctamente');   
+        this.dialogRef.close();     
+      });
+    } else {
+      this.showError('El Registro no puede ser eliminado');
+    }    
+  }
+    salir(): void {
+    this.dialogRef.close();
+  }
+
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+} 
+
+
+
+
+
+@Component({
+  selector: 'borrarregistro',
+  templateUrl: 'dialog-borrar-registro.html',
+})
+
+export class Borrartelefono  {
+  constructor(public dialogRef: MatDialogRef<Borrartelefono>,
+    private formularioService: FormularioService,
+    private mensaje: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any){ 
+      console.log(this.data);
+    }
+ 
+  BorrarRegistro() {
+    if (this.data != 0) {
+     this.formularioService.eliminarTelefono(this.data).subscribe((data) => {
         this.showError('Registro eliminado correctamente');   
         this.dialogRef.close();     
       });
