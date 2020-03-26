@@ -141,6 +141,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 import * as _moment from 'moment';
+import { FormTools } from '../focus';
 // tslint:disable-next-line:no-duplicate-imports
 
 
@@ -759,7 +760,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   //date picker
   minDate = new Date(1950, 0, 1);
   maxDate = new Date();
-////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////
   //select
   categorias: Categorias[] = [
     { value: 1, viewValue: 'Empleado' },
@@ -925,6 +926,9 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
+      FormTools.focusElement(this.formulario_datos_generales, 'lugar_procedencia')
+
+
     this.mostrarLabelStep(0);
 
     let element: any = document.getElementById("select");
@@ -943,11 +947,11 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     this.autocomplete(document.getElementById('InputCancerAP'), this.enfermedadesCancer, this.tipo_cancer_ap);
     this.autocomplete(document.getElementById('inputOtrosHT'), this.habitosToxicologicos, this.otros_ht);
   }
-  AgregarNoCuenta(){
+  AgregarNoCuenta() {
     this.esAlumnoAdmon = true;
     this.numero_cuenta.setValue("");
   }
-  QuitarCuenta(){
+  QuitarCuenta() {
     this.esAlumnoAdmon = false;
   }
 
@@ -1152,7 +1156,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     this.formularioService.getScrap().subscribe((data: Login) => {
       this.datosScraping = data;
       console.log(this.maxDate);
-/////
+      /////
       if (this.esAlumno === true) {
         // si el paciente es un alumno 
         //establesco el valor a los formcontrol recuperados del scrapping
@@ -1166,16 +1170,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         //si el paciente no es un alumno
         //establesco el valor por defecto a los formcontrol que no pertenecen a un
         //paciente normal y les establesco un valor por defecto
-       
+
 
         var numAleatorio: string;
         numAleatorio = '2' + Math.floor(Math.random() * 10000000000);
         console.log(numAleatorio);
         this.carrera.setValue('no es estudiante');
         if (this.esAlumnoAdmon == false) {
-          this.numero_cuenta.setValue(numAleatorio);  
+          this.numero_cuenta.setValue(numAleatorio);
         }
-        
+
       }
 
       console.log(this.datosScraping);
@@ -2206,6 +2210,22 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.paciente.categoria = this.categoria.value;
 
         this.formularioService.guardarDatosGenerales(this.paciente).subscribe((data) => {
+
+          var telefono_paciente: any ={
+            'id_paciente' : this.paciente.id_paciente,
+            'telefono' : this.paciente.numero_telefono
+          }
+
+          this.formularioService.enviarTelefonoPaciente(telefono_paciente).subscribe((result)=>{
+            
+            console.log('se envio perron el numero de telefono');
+
+          }, (error)=>{
+
+            console.log(error);
+
+          });
+          
           this.obtener();
         }, (error) => {
           console.log(error);
@@ -2213,7 +2233,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
           alert('ocurrion un error');
         });
 
-        console.log(this.telefonos_emergencia);
 
         if (this.tablaTelefonosEmergencia.length) {
           this.tablaTelefonosEmergencia.forEach(telefono_emergencia => {
@@ -2240,10 +2259,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.paciente.nombre_completo = this.nombre_completo.value;
         if (this.esAlumnoAdmon == true) {
           this.paciente.numero_cuenta = this.numero_cuenta.value;
-        }else{
+        } else {
           this.paciente.numero_cuenta = null;
         }
-        
+
         this.paciente.numero_identidad = this.numero_identidad.value;
         this.paciente.lugar_procedencia = this.lugar_procedencia.value;
         this.paciente.direccion = this.direccion.value;
