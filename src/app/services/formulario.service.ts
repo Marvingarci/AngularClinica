@@ -103,6 +103,12 @@ export class FormularioService {
 
   }
 
+  enviarTelefonoPaciente(telefono_paciente) {
+
+    return this.httpClient.post(this.API_ENDPOINT + 'telefonos_pacientes', telefono_paciente, { headers: this.headers });
+
+  }
+
 
   actualizarPaciente(paciente: Paciente) {
     return this.httpClient.put(
