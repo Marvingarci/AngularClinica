@@ -1548,6 +1548,8 @@ cargarHospitalarias(){
  }
   
  actualizarDG(){
+
+  if (this.formulario_datos_generales.dirty) {
         this.paciente.nombre_completo = this.nombre_completo.value;
         this.paciente.numero_cuenta = this.numero_cuenta.value;
         this.paciente.numero_identidad = this.numero_identidad.value;
@@ -1575,7 +1577,9 @@ cargarHospitalarias(){
         }, (error)=>{
           console.log(error);
           this.showError('Error al actualizar los datos generales'); 
-        });       
+        });  
+        
+      }
   }
 
 
