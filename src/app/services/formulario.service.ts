@@ -241,7 +241,10 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT + 'telefonos_emergencia/' + id_paciente);
   }
   obtenerTelefono(id_paciente: any) {
-    return this.httpClient.get(this.API_ENDPOINT + 'telefonos_emergencia/' + id_paciente);
+    return this.httpClient.get(this.API_ENDPOINT + 'telefonos_pacientes/' + id_paciente);
+  }
+  obtenerTelefonos() {
+    return this.httpClient.get(this.API_ENDPOINT + 'telefonos_pacientes/');
   }
   obtenerEmergenciaPersonas() {
     return this.httpClient.get(this.API_ENDPOINT + 'telefonos_emergencia/' );
