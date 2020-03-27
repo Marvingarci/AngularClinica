@@ -141,6 +141,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 import * as _moment from 'moment';
+import { FormTools } from '../focus';
 //import { FormTools } from '../focus';
 // tslint:disable-next-line:no-duplicate-imports
 
@@ -169,6 +170,25 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   telefonos_emergencia = [];
+
+
+  select(valor) {
+
+    if (valor == "Hombre") {
+
+      this.ocultar = true;
+
+    } else {
+
+      this.ocultar = false;
+
+      setTimeout(() => {
+        this.mostrarLabelStep(0);
+      }, 0);
+
+    }
+
+  }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -322,8 +342,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   formulario_actividad_sexual = new FormGroup({
     actividad_sexual: new FormControl('', Validators.required),
-    edad_inicio_sexual: new FormControl('', [Validators.maxLength(1000), Validators.minLength(0)]),
-    numero_parejas_sexuales: new FormControl('', [Validators.maxLength(1000), Validators.minLength(0)]),
+    edad_inicio_sexual: new FormControl(''),
+    numero_parejas_sexuales: new FormControl(''),
     practicas_sexuales_riesgo: new FormControl(''),
   });
 
@@ -333,8 +353,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     fum: new FormControl('', [Validators.required]),
     citologia: new FormControl('', [Validators.required]),
     fecha_citologia: new FormControl(''),
-    resultado_citologia: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
-    duracion_ciclo_menstrual: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
+    resultado_citologia: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
+    duracion_ciclo_menstrual: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     periocidad_ciclo_menstrual: new FormControl('', [Validators.required]),
     caracteristicas_ciclo_menstrual: new FormControl('', [Validators.required])
   });
@@ -343,19 +363,19 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   formulario_planificacion_familiar = new FormGroup({
     planificacion_familiar: new FormControl('', Validators.required),
     metodo_planificacion: new FormControl(''),
-    observacion_planificacion: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
+    observacion_planificacion: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
   });
 
 
   formulario_antecedente_obstetrico = new FormGroup({
-    partos: new FormControl('', [Validators.required, Validators.max(100), Validators.min(0)]),
-    abortos: new FormControl('', [Validators.required, Validators.max(100), Validators.min(0)]),
-    cesarias: new FormControl('', [Validators.required, Validators.max(100), Validators.min(0)]),
-    hijos_vivos: new FormControl('', [Validators.required, Validators.max(100), Validators.min(0)]),
-    hijos_muertos: new FormControl('', [Validators.required, Validators.max(100), Validators.min(0)]),
+    partos: new FormControl('', [Validators.max(100), Validators.min(0)]),
+    abortos: new FormControl('', [Validators.max(100), Validators.min(0)]),
+    cesarias: new FormControl('', [Validators.max(100), Validators.min(0)]),
+    hijos_vivos: new FormControl('', [Validators.max(100), Validators.min(0)]),
+    hijos_muertos: new FormControl('', [Validators.max(100), Validators.min(0)]),
     fecha_termino_ult_embarazo: new FormControl(''),
-    descripcion_termino_ult_embarazo: new FormControl(''),
-    observaciones: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
+    descripcion_termino_ult_embarazo: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
+    observaciones: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
   });
 
 
@@ -519,11 +539,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   }
 
 
-  ya() {
-    alert('macizo');
-  }
-
-
   hidden1 = true;
   readonly = true;
   read15 = true;
@@ -535,33 +550,140 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
   csi15(formControl: FormControl[]) {
+
     formControl.forEach(controlador => {
       controlador.enable({ onlySelf: true });
     });
-    console.log(this.formulario_datos_generales.get('sexo').value);
+
+    this.edad_inicio_sexual.setValidators([Validators.required, Validators.max(99), Validators.min(1)]);
+    this.edad_inicio_sexual.updateValueAndValidity();
+
+    this.numero_parejas_sexuales.setValidators([Validators.required, Validators.max(1000), Validators.min(1)]);
+    this.numero_parejas_sexuales.updateValueAndValidity();
+
+    this.practicas_sexuales_riesgo.setValidators(Validators.required);
+    this.practicas_sexuales_riesgo.updateValueAndValidity();
+
+
     if (this.formulario_datos_generales.get('sexo').value == "Hombre") {
+
       this.ocultar1 = false;
+
+      setTimeout(() => {
+
+        this.mostrarLabelStep(3);
+
+      }, 0);
+
     } else {
+
       this.ocultar1 = false;
+
+      setTimeout(() => {
+
+        this.mostrarLabelStep(3);
+
+      }, 0);
     }
   }
 
   cno15(formControl: FormControl[]) {
+
     formControl.forEach(controlador => {
       controlador.setValue('');
       controlador.disable({ onlySelf: true });
+
     });
+
+    this.edad_inicio_sexual.clearValidators();
+    this.edad_inicio_sexual.updateValueAndValidity();
+
+    this.numero_parejas_sexuales.clearValidators();
+    this.numero_parejas_sexuales.updateValueAndValidity();
+
+    this.practicas_sexuales_riesgo.clearValidators();
+    this.practicas_sexuales_riesgo.updateValueAndValidity();
+
     if (this.sexo.value == "Hombre") {
+
       this.ocultar1 = true;
+
     } else {
+
       this.ocultar1 = true;
+
     }
   }
 
+  radioPlanificacionFamiliar(valor, formControl: FormControl[]) {
+
+    console.log(valor);
+
+    if (valor == "Si") {
+
+      formControl.forEach(controlador => {
+        controlador.enable({ onlySelf: true });
+      });
+
+      this.metodo_planificacion.setValidators([Validators.required]);
+      this.metodo_planificacion.updateValueAndValidity();
+
+      this.observacion_planificacion.setValidators([Validators.maxLength(150), Validators.minLength(4)])
+      this.observacion_planificacion.updateValueAndValidity();
+
+    } else {
+
+      formControl.forEach(controlador => {
+        controlador.setValue('');
+        controlador.disable({ onlySelf: true });
+
+      });
+
+      this.metodo_planificacion.clearValidators();
+      this.metodo_planificacion.updateValueAndValidity();
+
+      this.observacion_planificacion.clearValidators()
+      this.observacion_planificacion.updateValueAndValidity();
 
 
+    }
 
 
+  }
+
+  radioCitologias(valor, formControl: FormControl[]) {
+
+    if (valor == "Si") {
+
+      formControl.forEach(controlador => {
+        controlador.enable({ onlySelf: true });
+      });
+
+
+      this.fecha_citologia.setValidators(Validators.required);
+      this.fecha_citologia.updateValueAndValidity();
+
+      this.resultado_citologia.setValidators([Validators.required, Validators.maxLength(150), Validators.minLength(4)])
+      this.resultado_citologia.updateValueAndValidity();
+
+    } else {
+
+      formControl.forEach(controlador => {
+        controlador.setValue('');
+        controlador.disable({ onlySelf: true });
+
+      });
+
+      this.fecha_citologia.clearValidators();
+      this.fecha_citologia.updateValueAndValidity();
+
+      this.resultado_citologia.clearValidators()
+      this.resultado_citologia.updateValueAndValidity();
+
+    }
+
+
+  }
 
 
   public onStepChange(event: any): void {
@@ -587,15 +709,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.agregarHospitalariasQuirurgicas();
       this.agregarOtrosAP();
     }
-  }
-
-
-
-  mostrarS() {
-    this.ocultar = false;
-  }
-  mostrarN() {
-    this.ocultar = true;
   }
 
   //muestra solo el step que le manda
@@ -665,7 +778,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     sexo: null,
     estado_civil: null,
     seguro_medico: null,
-    numero_telefono: null,
+    telefono: null,
     categoria: null
   };
 
@@ -926,7 +1039,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
-      FormTools.focusElement(this.formulario_datos_generales, 'lugar_procedencia')
+    FormTools.focusElement(this.formulario_datos_generales, 'lugar_procedencia')
 
 
     this.mostrarLabelStep(0);
@@ -2206,35 +2319,39 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
-        this.paciente.numero_telefono = this.numero_telefono.value;
+        this.paciente.telefono = this.numero_telefono.value;
         this.paciente.categoria = this.categoria.value;
 
         this.formularioService.guardarDatosGenerales(this.paciente).subscribe((data) => {
 
-          var telefono_paciente: any ={
-            'id_paciente' : this.paciente.id_paciente,
-            'telefono' : this.paciente.numero_telefono
+          var telefono_paciente: any = {
+            'id_paciente': this.paciente.id_paciente,
+            'telefono': this.paciente.telefono
           }
 
-          this.formularioService.enviarTelefonoPaciente(telefono_paciente).subscribe((result)=>{
-            
-            console.log('se envio perron el numero de telefono');
+          this.formularioService.enviarTelefonoPaciente(telefono_paciente).subscribe((result) => {
 
-          }, (error)=>{
+
+          }, (error) => {
 
             console.log(error);
 
           });
-          
+
           this.obtener();
+
         }, (error) => {
+
           console.log(error);
+
           this.error = true;
+
           alert('ocurrion un error');
         });
 
 
         if (this.tablaTelefonosEmergencia.length) {
+
           this.tablaTelefonosEmergencia.forEach(telefono_emergencia => {
 
             this.telefono_emergencia.id_paciente = this.paciente.id_paciente;
@@ -2242,9 +2359,11 @@ export class FormularioComponent implements OnInit, AfterViewInit {
             this.telefono_emergencia.telefono_emergencia = telefono_emergencia.telefono_emergencia;
 
             this.formularioService.enviarTelefonoEmergencia(this.telefono_emergencia).subscribe((data) => {
-              console.log('se envio el numero de emergencia');
+
             }, (error) => {
+
               console.log(error);
+
             });
           });
         }
@@ -2271,31 +2390,52 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
-        this.paciente.numero_telefono = this.numero_telefono.value;
+        this.paciente.telefono = this.numero_telefono.value;
         this.paciente.categoria = this.categoria.value;
 
 
         this.formularioService.guardarDatosGenerales(this.paciente).subscribe((data) => {
 
+          var telefono_paciente: any = {
+            'id_paciente': this.paciente.id_paciente,
+            'telefono': this.paciente.telefono
+          }
+
+          this.formularioService.enviarTelefonoPaciente(telefono_paciente).subscribe((result) => {
+
+
+          }, (error) => {
+
+            console.log(error);
+
+          });
+
           this.obtener();
 
         }, (error) => {
+
           console.log(error);
+
           this.error = true;
+
           alert('ocurrion un error');
+
         });
 
 
         if (this.telefonos_emergencia.length) {
+
           this.telefonos_emergencia.forEach(telefono_emergencia => {
 
             this.telefono_emergencia.id_paciente = this.paciente.id_paciente;
             this.telefono_emergencia.telefono_emergencia = telefono_emergencia;
 
             this.formularioService.enviarTelefonoEmergencia(this.telefono_emergencia).subscribe((data) => {
-              console.log('se envio el numero de emergencia');
+
             }, (error) => {
+
               console.log(error);
+
             });
           });
         }
@@ -2317,7 +2457,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
         if (element.antecedente != 0) {
 
-          console.log('valor del elemento: ' + element.antecedente);
           this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
 
 
