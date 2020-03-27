@@ -580,7 +580,7 @@ paciente: Paciente={
   sexo: null,
   estado_civil: null,
   seguro_medico: null,
-  numero_telefono: null,
+  telefono: null,
   categoria: null,
   peso: null,
   presion: null,
@@ -606,7 +606,7 @@ paciente1: Paciente={
   sexo: null,
   estado_civil: null,
   seguro_medico: null,
-  numero_telefono: null,  
+  telefono: null,  
   categoria: null,
  
 
@@ -1227,7 +1227,7 @@ dataSource: any;
     this.fecha_nacimiento.setValue(this.paciente.fecha_nacimiento);
     this.estado_civil.setValue(this.paciente.estado_civil);
     this.seguro_medico.setValue(this.paciente.seguro_medico);
-    this.numero_telefono.setValue(this.paciente.numero_telefono);
+    this.numero_telefono.setValue(this.paciente.telefono);
     this.categoria.setValue(this.paciente.categoria);
   }
 
