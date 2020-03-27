@@ -42,7 +42,7 @@
                  
 
                  <mat-form-field class="example-full-width">
-                    <input matInput value={{tel_persona[0].telefono}} placeholder="Número de Teléfono" readonly>
+                    <input matInput  placeholder="Número de Teléfono" readonly>
                 </mat-form-field>                
 
                 <mat-form-field class="example-full-width">
@@ -2572,7 +2572,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
         <label id="example-radio-group-label">Citologías</label>
         <mat-error style="margin-inline-start: 5px;" *ngIf="citologia.hasError('required')">campo requerido</mat-error>
         <mat-radio-group formControlName="citologia" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-        <mat-radio-button value="Si" (click)="habilitarInputs([fecha_citologia, resultado_citologia])"> Si</mat-radio-button> &nbsp;   
+        <mat-radio-button value="Si" (click)="habilitarInputsfecha([fecha_citologia, resultado_citologia])"> Si</mat-radio-button> &nbsp;   
         <mat-radio-button value="No" (click)="borrarInputs([fecha_citologia, resultado_citologia])">No</mat-radio-button>        
         </mat-radio-group>  
         </div>
@@ -2581,7 +2581,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
       <div class="row"  style="margin-left: 0;">
         <div class="col"  style="text-align: left;padding-left: 0;">
         <mat-form-field class="example-full-width">
-        <input matInput formControlName="fecha_citologia" [min]="minDate" [max]="maxDate"  [matDatepicker]="picker4" placeholder="Fecha Citología"  readonly="readonly">
+        <input matInput formControlName="fecha_citologia"  [matDatepicker]="picker4" placeholder="Fecha Citología"  readonly="readonly">
         <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
         <mat-datepicker #picker4></mat-datepicker>
         </mat-form-field>
