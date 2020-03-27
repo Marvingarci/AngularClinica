@@ -9,13 +9,17 @@
 
         <div style="width: 216.5px;height: 216.5px;padding-left:50.75px;padding-right: 50.75px;padding-top: 38.25px;padding-bottom: 38.25px;margin-left: 20px;">
             <div>
-            <button *ngIf="noImg==true" mat-icon-button style="color: aliceblue;" class="cambiarfoto" id="cambiarfoto" (click)="cambiarfoto()" ><mat-icon>add_a_photo</mat-icon></button>
+             
+            <button *ngIf="noImg==true"  mat-icon-button style="color: aliceblue;" class="cambiarfoto" id="cambiarfoto" (click)="cambiarfoto()" ><mat-icon>add_a_photo</mat-icon></button>
             <img *ngIf="noImg==true" id="sinImg" class="sinImg" />
+            <div *ngIf="loading1==true" class="uploader-status">
+              <mat-spinner [diameter]="100"></mat-spinner>
+            </div>
             </div>
 
             <div>
               <button *ngIf="noImg == false" mat-icon-button style="color: aliceblue;" class="cambiarConfoto" id="cambiarConfoto" (click)="cambiarfoto()" ><mat-icon>flip_camera_ios</mat-icon></button>
-              <img id="ima" *ngIf="noImg == false"  class="img"  src ={{paciente.imagen}} />
+              <img id="ima" *ngIf="noImg == false" #CambiarFoto class="img"  src ={{paciente.imagen}} />
             </div>
         </div>
 

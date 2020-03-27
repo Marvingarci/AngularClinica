@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input, OnDestroy, Inject, Injectable } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input, OnDestroy, Inject, Injectable, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormularioService } from "../services/formulario.service";
 import { Paciente } from "../interfaces/paciente";
@@ -37,7 +37,7 @@ import { MentalAP } from '../interfaces/MentalAP';
 import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
 import { WebcamInitError } from '../modules/webcam/domain/webcam-init-error';
 import { WebcamImage } from '../modules/webcam/domain/webcam-image';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, timer } from 'rxjs';
 import { WebcamUtil } from '../modules/webcam/util/webcam.util';
 import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
@@ -958,14 +958,15 @@ ocultar: boolean = true;
 
 
 constructor(private formularioService: FormularioService, private mensaje: MatSnackBar, public dialog: MatDialog,  private activatedRoute: ActivatedRoute, 
-  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, public cambiarFoto: MatDialog) { 
+  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, public cambiarFoto: MatDialog, private renderer: Renderer2) { 
+   // @ViewChild("CambiarFoto")foto: ElementRef;
     activar.mostrar();
     this.mostrarcuentaycarreca =true;
     this.mostrarcuentaalumno = false;
     this.id = this.activatedRoute.snapshot.params['id'];
     
    if(this.id){    
- 
+    
       
       //obtener los datos de los servicios de la api
       this.cargarPaciente();
@@ -989,8 +990,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.cargarHospitalarias();  
       this.cargarAntecedentesGinecologicos(); 
       
-  
-
+    
 
    
 
@@ -1236,6 +1236,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       console.log(error);
     });      
  }
+ loading1: boolean = false;
 
  cargarTelefono(){
   this.formularioService.obtenerTelefono(this.id).subscribe((data: TelefonoEmergencia[])=>{
@@ -1250,9 +1251,34 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     });      
  }
  actualizarfoto(){
-  this.paciente.imagen = this.inven.imagenactual;
+  const tiempo = timer(4000); 
+
+  tiempo.subscribe((n)=>{
+    this.loading1 = false;
+    console.log("foto actualizada");
+    this.paciente.imagen = this.inven.imagenactual;
+  });
+  
 }
 
+//timer para foto
+timeLeft: number = 60;
+  interval;
+
+startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.timeLeft = 60;
+      }
+    },1000)
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
+  }
+  //hasta aqui timer
  cargarAntecedentesFamiliares(){
   this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
     this.ante_familiar = data;       
@@ -3485,10 +3511,16 @@ cargarTablaAntecedentesFamiliares(){
     config.duration = 2000;
     this.mensaje.open(message, null, config);
   }
+  
 
   cambiarfoto(){
     const dia = this.cambiarFoto.open(CambiarFoto, {    
       panelClass: 'tomarfoto'
+    });
+
+    dia.afterClosed().subscribe(result =>{
+      this.actualizarfoto();
+      this.loading1 = true;
     });
     this.inven.idCita = this.id;
   }
@@ -4136,6 +4168,7 @@ export class CambiarFoto {
     opcion: boolean = true;
     id: any;
     imagen : any;
+    imagenAlter: boolean=false;
     // webcam snapshot trigger
     private trigger: Subject<void> = new Subject<void>();
     // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
@@ -4175,30 +4208,24 @@ export class CambiarFoto {
 
     }
     public guardar(){
-      this.dialogo.close();
+      
 
       this.id=this.servicio.idCita;
-      console.log(this.id);
-
-      this.imagen = this.webcamImage.imageAsDataUrl;
-      console.log(this.imagen);
       
-      // this.formulario.obtenerPaciente(this.id).subscribe( (data: Paciente) =>{
-      //      this.paciente = data;
-      //      console.log(this.paciente);
-      //     this.paciente.imagen = this.imagen;
-      //       this.formulario.actualizarPaciente(this.paciente).subscribe( (data) =>{
-      //            console.log('imagen guardado con exito');
-      //          }, (error) => {
-      //            console.log(error);
-      //          });
+      if (this.imagenAlter == true) {
+        
+      }else{
+        this.imagen = this.webcamImage.imageAsDataUrl;
+        this.imagenAlter = false;
+      }
 
-      //    }, (error) => {
-      //      console.log(error);
-      //    });
+      
+      
       
       this.NuevaImagen.id_paciente = this.id;
-      this.NuevaImagen.imagen = this.imagen;
+      this.NuevaImagen.imagen =this.imagen;
+      console.log(this.NuevaImagen.imagen);
+
       this.servicio.ActualizarImagen(this.NuevaImagen).subscribe( (data) =>{
          console.log('imagen guardado con exito');
          this.servicio.imagenactual = this.imagen;
@@ -4206,8 +4233,35 @@ export class CambiarFoto {
        }, (error) => {
          console.log(error);
        });
+       this.dialogo.close(this.imagen);
     }
-  
+
+
+    seleccionarArchivo(event){
+      var files= event.target.files;
+      var file = files[0];
+
+      if (files && file) {
+        var reader = new FileReader();
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(file);
+        this.imagenAlter = true;
+        this.guardar();
+        this.dialogo.close;
+      }
+      
+
+    }
+    _handleReaderLoaded(readerEvent){
+      var binaryString = readerEvent.target.result;
+      this.imagen ="data:image/jpeg;base64,"+btoa(binaryString);
+      console.log(this.imagen);
+    }
+
+    ///////////////////////codigo 
+   
+
+
     public handleImage(webcamImage: WebcamImage): void {
       console.log('received webcam image', webcamImage);
       this.webcamImage = webcamImage;
