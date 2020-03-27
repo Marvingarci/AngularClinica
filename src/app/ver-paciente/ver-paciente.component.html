@@ -2466,17 +2466,19 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
           
       <div class="row">
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="edad_inicio_menstruacion" type= "number" placeholder="Edad inicio menstruacion">
-        <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido</mat-error>
-        <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
-        <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">          
+            <mat-label><b>Edad inicio menstruación</b></mat-label> 
+            <input matInput formControlName="edad_inicio_menstruacion" type= "number" placeholder="No especificada aún" readonly="readonly" >
+            <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido</mat-error>
+            <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
+            <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>               
         </mat-form-field>
         </div>
 
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="fum" placeholder="Fecha ultima menstruación">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Fecha ultima menstruación</b></mat-label>
+        <input matInput formControlName="fum" placeholder="No especificada aún" readonly="readonly">
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido</mat-error>
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>
@@ -2486,48 +2488,57 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
         <mat-divider></mat-divider>
 
-      <div class="row">
-        <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="citologia" placeholder="Citologías">
+      <div class="row" style="margin-top: 19px;">
+        <div class="col-md-4">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Citologías</b></mat-label>
+        <input matInput formControlName="citologia" placeholder="No especificada aún" readonly="readonly" >
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido</mat-error>
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>
         </mat-form-field>
         </div>
 
-        <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="fecha_citologia" placeholder="Fecha Citología" readonly="readonly" >
+        <div class="col-md-4" *ngIf="vercitologia == true">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Fecha Citología</b></mat-label>
+        <input matInput formControlName="fecha_citologia" placeholder="No especificada aún" readonly="readonly" >
         </mat-form-field>
         </div>
-      </div>
-
-        <mat-form-field class="example-full-width" >
-        <textarea matInput formControlName="resultado_citologia"  placeholder="Resultado Citología" [readonly]="read17" 
+        
+        <div class="col-md-4" *ngIf="vercitologia == true">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Resultado Citología</b></mat-label>
+        <textarea matInput formControlName="resultado_citologia"  placeholder="No especificado aún"  readonly="readonly" 
         cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
         ></textarea>
         </mat-form-field>
+      </div>
+      </div>
+
+       
 
         <mat-divider></mat-divider>
 
-        <label >Ciclo menstrual</label>
-      <div class="row">
+      <div class="row" style="margin-top: 19px;">
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="duracion_ciclo_menstrual" placeholder="Duración ciclo menstrual">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Duración ciclo menstrual</b></mat-label>
+        <input matInput formControlName="duracion_ciclo_menstrual" placeholder="No especificado aún"  readonly="readonly" >
         </mat-form-field>
         </div>
 
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="periocidad_ciclo_menstrual" placeholder="Periocidad ciclo menstrual">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Periocidad ciclo menstrual </b></mat-label>
+        <input matInput formControlName="periocidad_ciclo_menstrual" placeholder="No especificado aún"  readonly="readonly" >
         </mat-form-field>
         </div>
 
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="caracteristicas_ciclo_menstrual" placeholder="Periocidad ciclo menstrual">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Caracteristicas ciclo menstrual </b></mat-label>
+        <input matInput formControlName="caracteristicas_ciclo_menstrual" placeholder="No especificadas aún"  readonly="readonly" >
         </mat-form-field>
         </div>
       </div>   
@@ -2567,19 +2578,17 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
       <mat-divider></mat-divider>
 
-      <div class="row">
-        <div class="col" >
-        <label id="example-radio-group-label">Citologías</label>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md-3" >
+        <label id="example-radio-group-label">Citologías</label>&nbsp;&nbsp;
         <mat-error style="margin-inline-start: 5px;" *ngIf="citologia.hasError('required')">campo requerido</mat-error>
         <mat-radio-group formControlName="citologia" aria-labelledby="example-radio-group-label" class="example-radio-group">        
         <mat-radio-button value="Si" (click)="habilitarInputsfecha([fecha_citologia, resultado_citologia])"> Si</mat-radio-button> &nbsp;   
         <mat-radio-button value="No" (click)="borrarInputs([fecha_citologia, resultado_citologia])">No</mat-radio-button>        
         </mat-radio-group>  
         </div>
-      </div>
-
-      <div class="row"  style="margin-left: 0;">
-        <div class="col"  style="text-align: left;padding-left: 0;">
+     
+        <div class="col-md-4.5"  style="text-align: left;padding-left: 0;">
         <mat-form-field class="example-full-width">
         <input matInput formControlName="fecha_citologia"  [matDatepicker]="picker4" placeholder="Fecha Citología"  readonly="readonly">
         <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
@@ -2587,7 +2596,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
         </mat-form-field>
         </div>
 
-        <div class="col"  style="text-align: left;padding-left: 0;">
+        <div class="col-md-4.5"  style="text-align: left;padding-left: 0;">
         <mat-form-field class="example-full-width" >
         <textarea matInput formControlName="resultado_citologia"  placeholder="Resultado Citología"  
         cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
@@ -2597,8 +2606,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
     <mat-divider></mat-divider>
 
-        <label >Ciclo menstrual</label>
-      <div class="row">
+        
+      <div class="row" style="margin-top: 20px;">
         <div class="col">
         <mat-form-field class="example-full-width">
         <input matInput formControlName="duracion_ciclo_menstrual" placeholder="Duración ciclo menstrual">
@@ -2617,9 +2626,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
         <mat-error *ngIf="periocidad_ciclo_menstrual.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
         </div>
-      </div>
-
-      <div class="row" style="margin-left: 0;">
+     
+        <div class="col">
         <mat-form-field class="example-full-width">
         <mat-label>Características ciclo menstrual</mat-label>
         <mat-select formControlName="caracteristicas_ciclo_menstrual"  name="Características ciclo menstrual">
@@ -2629,6 +2637,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
         </mat-select>
         <mat-error *ngIf="caracteristicas_ciclo_menstrual.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
+         </div>
       </div>
 
   </form>
