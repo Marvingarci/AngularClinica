@@ -3982,6 +3982,7 @@ export class CambiarFoto {
     opcion: boolean = true;
     id: any;
     imagen : any;
+    imagenAlter: boolean=false;
     // webcam snapshot trigger
     private trigger: Subject<void> = new Subject<void>();
     // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
@@ -4025,26 +4026,20 @@ export class CambiarFoto {
 
       this.id=this.servicio.idCita;
       
+      if (this.imagenAlter == true) {
+        
+      }else{
+        this.imagen = this.webcamImage.imageAsDataUrl;
+        this.imagenAlter = false;
+      }
 
-      this.imagen = this.webcamImage.imageAsDataUrl;
       
       
-      // this.formulario.obtenerPaciente(this.id).subscribe( (data: Paciente) =>{
-      //      this.paciente = data;
-      //      console.log(this.paciente);
-      //     this.paciente.imagen = this.imagen;
-      //       this.formulario.actualizarPaciente(this.paciente).subscribe( (data) =>{
-      //            console.log('imagen guardado con exito');
-      //          }, (error) => {
-      //            console.log(error);
-      //          });
-
-      //    }, (error) => {
-      //      console.log(error);
-      //    });
       
       this.NuevaImagen.id_paciente = this.id;
-      this.NuevaImagen.imagen = this.imagen;
+      this.NuevaImagen.imagen =this.imagen;
+      console.log(this.NuevaImagen.imagen);
+
       this.servicio.ActualizarImagen(this.NuevaImagen).subscribe( (data) =>{
          console.log('imagen guardado con exito');
          this.servicio.imagenactual = this.imagen;
@@ -4054,6 +4049,33 @@ export class CambiarFoto {
        });
        this.dialogo.close(this.imagen);
     }
+
+
+    seleccionarArchivo(event){
+      var files= event.target.files;
+      var file = files[0];
+
+      if (files && file) {
+        var reader = new FileReader();
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(file);
+        this.imagenAlter = true;
+        this.guardar();
+        this.dialogo.close;
+      }
+      
+
+    }
+    _handleReaderLoaded(readerEvent){
+      var binaryString = readerEvent.target.result;
+      this.imagen ="data:image/jpeg;base64,"+btoa(binaryString);
+      console.log(this.imagen);
+    }
+
+    ///////////////////////codigo 
+   
+
+
     public handleImage(webcamImage: WebcamImage): void {
       console.log('received webcam image', webcamImage);
       this.webcamImage = webcamImage;
