@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input, OnDestroy, Inject, Injectable } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input, OnDestroy, Inject, Injectable, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormularioService } from "../services/formulario.service";
 import { Paciente } from "../interfaces/paciente";
@@ -37,7 +37,7 @@ import { MentalAP } from '../interfaces/MentalAP';
 import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
 import { WebcamInitError } from '../modules/webcam/domain/webcam-init-error';
 import { WebcamImage } from '../modules/webcam/domain/webcam-image';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, timer } from 'rxjs';
 import { WebcamUtil } from '../modules/webcam/util/webcam.util';
 import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
@@ -931,12 +931,13 @@ ocultar: boolean = true;
 
 
 constructor(private formularioService: FormularioService, private mensaje: MatSnackBar, public dialog: MatDialog,  private activatedRoute: ActivatedRoute, 
-  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, public cambiarFoto: MatDialog) { 
+  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, public cambiarFoto: MatDialog, private renderer: Renderer2) { 
+   // @ViewChild("CambiarFoto")foto: ElementRef;
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
     
    if(this.id){    
- 
+    
       
       //obtener los datos de los servicios de la api
       this.cargarPaciente();
@@ -959,8 +960,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.cargarPlanificacionFamiliar();      
       this.cargarHospitalarias();   
       
-  
-
+    
 
       this.formularioService.obtenerAntecedenteGinecologico(this.id).subscribe((data : AntecedentesGinecologicos)=>{
       this.antecedente_ginecologico = data;
@@ -1182,10 +1182,36 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       console.log(error);
     });      
  }
+ loading1: boolean = false;
  actualizarfoto(){
-  this.paciente.imagen = this.inven.imagenactual;
+  const tiempo = timer(4000); 
+
+  tiempo.subscribe((n)=>{
+    this.loading1 = false;
+    console.log("foto actualizada");
+    this.paciente.imagen = this.inven.imagenactual;
+  });
+  
 }
 
+//timer para foto
+timeLeft: number = 60;
+  interval;
+
+startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.timeLeft = 60;
+      }
+    },1000)
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
+  }
+  //hasta aqui timer
  cargarAntecedentesFamiliares(){
   this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
     this.ante_familiar = data;       
@@ -3033,7 +3059,7 @@ cargarTablaAntecedentesFamiliares(){
 
     switch(this.paciente.estado_civil){
       case "Soltero":
-        this.estado_civil.setValue();
+        this.estado_civil.setValue(1);
           break;
       case "Union Libre":
        this.estado_civil.setValue(2);
@@ -3337,10 +3363,16 @@ cargarTablaAntecedentesFamiliares(){
     config.duration = 2000;
     this.mensaje.open(message, null, config);
   }
+  
 
   cambiarfoto(){
     const dia = this.cambiarFoto.open(CambiarFoto, {    
       panelClass: 'tomarfoto'
+    });
+
+    dia.afterClosed().subscribe(result =>{
+      this.actualizarfoto();
+      this.loading1 = true;
     });
     this.inven.idCita = this.id;
   }
@@ -3989,13 +4021,13 @@ export class CambiarFoto {
 
     }
     public guardar(){
-      this.dialogo.close();
+      
 
       this.id=this.servicio.idCita;
-      console.log(this.id);
+      
 
       this.imagen = this.webcamImage.imageAsDataUrl;
-      console.log(this.imagen);
+      
       
       // this.formulario.obtenerPaciente(this.id).subscribe( (data: Paciente) =>{
       //      this.paciente = data;
@@ -4020,8 +4052,8 @@ export class CambiarFoto {
        }, (error) => {
          console.log(error);
        });
+       this.dialogo.close(this.imagen);
     }
-  
     public handleImage(webcamImage: WebcamImage): void {
       console.log('received webcam image', webcamImage);
       this.webcamImage = webcamImage;

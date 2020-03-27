@@ -24,7 +24,7 @@
 <img *ngIf="opcion == false"  [height]="570" [width]="750" style="position: static;margin-right: 20px;margin-top: -20dp;" [src]="webcamImage.imageAsDataUrl"  />   
 <div class="row" *ngIf="opcion == false" >
 <button  *ngIf="opcion == false" mat-icon-button (click)="otrafoto();" class="botontomarfoto"><mat-icon  style="color: white; font-size:50px; width: inherit; ">flip_camera_android</mat-icon></button>&nbsp; &nbsp;
-<button *ngIf="opcion == false"  mat-icon-button (click)="guardar();" class="botontomarfoto"><mat-icon  style="color: white; font-size:50px; width: inherit; ">check_circle</mat-icon></button>
+<button *ngIf="opcion == false"  mat-icon-button (click)="guardar();" class="botontomarfoto" [mat-dialog-close]="true"><mat-icon  style="color: white; font-size:50px; width: inherit; ">check_circle</mat-icon></button>
 </div>
 
 
