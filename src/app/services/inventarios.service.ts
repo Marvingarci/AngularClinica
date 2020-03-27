@@ -10,6 +10,7 @@ export class InventariosService {
   idCita: any;
   imagenactual: string;
   API_ENDPOINT = 'http://127.0.0.1:8000/api'
+  sihayimagen: boolean = false;
   getInventario(id_inventario: any){
     return this.httpClient.get(this.API_ENDPOINT+'/inventarios/'+id_inventario);
   }

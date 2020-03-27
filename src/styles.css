@@ -50,11 +50,8 @@ html, body {
     height: 190px;  
   }
 
-  .tomarfoto .mat-dialog-container{
-    width: 98%;
-    height: 80%;
+  .tomarfoto .mat-dialog-container{  
     padding-top: 20px;
-    padding-bottom: 10px;
     background:#1928d4 81% ;  
   }
 
@@ -148,11 +145,13 @@ body { margin: 0; font-family:Poppins-Regular,sans-serif;
       transition: all 1s ease;
   }
 
-  .botontomarfoto{
-    bottom: 0px;
-    left: 45%;
-    margin-top: 20px;
-  }
+  
+ 
+ #upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+ }
 
        
 
