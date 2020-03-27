@@ -263,14 +263,16 @@ matcher = new MyErrorStateMatcher();
   });
 
   formulario_antecedente_ginecologico = new FormGroup ({
-    edad_inicio_menstruacion : new FormControl('',[Validators.required,Validators.max(15),Validators.min(7)]),
-    fum : new FormControl('',[Validators.required]),
-    citologia : new FormControl('',[Validators.required]),
+    edad_inicio_menstruacion : new FormControl('',[Validators.max(18),Validators.min(7)]),
+    fum : new FormControl('',[]),
+
+    citologia : new FormControl('',[]),
     fecha_citologia : new FormControl(''),
     resultado_citologia : new FormControl('', [ Validators.maxLength(60),Validators.minLength(3)]),
+
     duracion_ciclo_menstrual : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
-    periocidad_ciclo_menstrual : new FormControl('',[Validators.required]),
-    caracteristicas_ciclo_menstrual : new FormControl('',[Validators.required])
+    periocidad_ciclo_menstrual : new FormControl('',[]),
+    caracteristicas_ciclo_menstrual : new FormControl('',[])
   });
 
   formulario_planificacion_familiar = new FormGroup({
@@ -313,6 +315,25 @@ matcher = new MyErrorStateMatcher();
       
      
     
+    });
+  }
+
+  habilitarInputsfecha(formControl: FormControl[]) {
+    formControl.forEach(controlador => {
+      controlador.enable({ onlySelf: true });    
+    });
+  }
+
+  borrarInputs(formControl: FormControl[]) {
+    formControl.forEach(controlador => {
+      controlador.setValue('');
+      controlador.disable({ onlySelf: true });
+
+      if (controlador.parent == this.formulario_antecedentes_familiares) {
+        //elimino todas la validaciones que tenga el controlador
+        controlador.clearValidators();
+        controlador.updateValueAndValidity();
+      }
     });
   }
 
@@ -3273,7 +3294,12 @@ cargarTablaAntecedentesFamiliares(){
 
 
   cargarInformacionAntecedentesGinecologicos(){
+    if(!this.antecedente_ginecologico.edad_inicio_menstruacion.length){   
+      this.edad_inicio_menstruacion.setValue('No especificado aún');   
+    }else{
     this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);
+    }
+    
     this.fum.setValue(this.antecedente_ginecologico.fum);
     this.citologia.setValue(this.antecedente_ginecologico.citologia);
     this.fecha_citologia.setValue(this.antecedente_ginecologico.fecha_citologia);
