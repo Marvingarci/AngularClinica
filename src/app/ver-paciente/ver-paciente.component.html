@@ -9,13 +9,17 @@
 
         <div style="width: 216.5px;height: 216.5px;padding-left:50.75px;padding-right: 50.75px;padding-top: 38.25px;padding-bottom: 38.25px;margin-left: 20px;">
             <div>
-            <button *ngIf="noImg==true" mat-icon-button style="color: aliceblue;" class="cambiarfoto" id="cambiarfoto" (click)="cambiarfoto()" ><mat-icon>add_a_photo</mat-icon></button>
+             
+            <button *ngIf="noImg==true"  mat-icon-button style="color: aliceblue;" class="cambiarfoto" id="cambiarfoto" (click)="cambiarfoto()" ><mat-icon>add_a_photo</mat-icon></button>
             <img *ngIf="noImg==true" id="sinImg" class="sinImg" />
+            <div *ngIf="loading1==true" class="uploader-status">
+              <mat-spinner [diameter]="100"></mat-spinner>
+            </div>
             </div>
 
             <div>
               <button *ngIf="noImg == false" mat-icon-button style="color: aliceblue;" class="cambiarConfoto" id="cambiarConfoto" (click)="cambiarfoto()" ><mat-icon>flip_camera_ios</mat-icon></button>
-              <img id="ima" *ngIf="noImg == false"  class="img"  src ={{paciente.imagen}} />
+              <img id="ima" *ngIf="noImg == false" #CambiarFoto class="img"  src ={{paciente.imagen}} />
             </div>
         </div>
 
@@ -42,7 +46,7 @@
                  
 
                  <mat-form-field class="example-full-width">
-                    <input matInput value={{paciente.numero_telefono}} placeholder="Número de Teléfono" readonly>
+                    <input matInput  placeholder="Número de Teléfono" readonly>
                 </mat-form-field>                
 
                 <mat-form-field class="example-full-width">
@@ -314,26 +318,117 @@
 
  <div class="row">
 
-        <div class="col" >
-        <mat-form-field class="example-full-width">
-        <input matInput matInput formControlName= "numero_telefono" name="numero_telefono" 
-        id="telefono" placeholder="N° Teléfono" [readonly]="readonlyDatosGenerales">
-        <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido!</mat-error>
-        <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un número de teléfono valido</mat-error>
-        </mat-form-field>
-        </div>
 
-        <div class="col">
-        <div style="padding-top: 20px;">
-        <label id="example-radio-group-label" style="margin-right: 40px;">Prosene</label>
-        <mat-radio-group  formControlName="prosene"  aria-labelledby="example-radio-group-label" class="example-radio-group" [disabled]="disabledDatosGenerales" >        
-        <mat-radio-button  value="Si" >Si</mat-radio-button> &nbsp; &nbsp;&nbsp;   
-        <mat-radio-button  value="No" >No</mat-radio-button>                
-        </mat-radio-group>
-        </div>
-        </div>
+
+
+
+         <!-- ESTA ES LA VAINA DE VER TELEFONO-->
+         <div class="col" *ngIf="readonlyDatosGenerales === true">
+          <mat-accordion>
+         <mat-expansion-panel>
+           
+           <mat-expansion-panel-header>
+             <mat-panel-title>
+               Teléfonos del paciente
+             </mat-panel-title>
+             <mat-panel-description>
+               haz click para visualizarlos
+             </mat-panel-description>
+           </mat-expansion-panel-header>
+   
+         <div class="row medium-width" style="margin-left: 0;">
+           <table mat-table [dataSource]="tablaTelefonos" class="mat-elevation-z8 tabla" style="margin-right: 16px;">
+   
+             <ng-container matColumnDef="numero">
+               <th mat-header-cell *matHeaderCellDef> # </th>
+               <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+               <td mat-footer-cell *matFooterCellDef></td>
+             </ng-container>             
+   
+             <ng-container matColumnDef="telefono">
+               <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+               <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+               <td mat-footer-cell *matFooterCellDef></td>
+   
+             </ng-container>
+             <tr mat-header-row *matHeaderRowDef="columnasTablaTelefono"></tr>
+             <tr mat-row *matRowDef="let row; columns: columnasTablaTelefono;"></tr>
+           </table>
+         </div>    
+     </mat-expansion-panel>
+   </mat-accordion>
+   </div>
+  
+  
+  <!-- ESTA ES LA VAINA DE EDITAR TELEFONO PACIENTE-->
+   <div class="col" *ngIf="readonlyDatosGenerales === false">
+    <mat-card>
+    <div class="row">
+      <div class="col">
+  
+        
+        <mat-form-field>
+          <input matInput formControlName="numero_telefono" maxlength="8"
+            placeholder="Teléfono del paciente">
+          <!-- <mat-hint align="end">{{numero_telefono.value.length}} / 8</mat-hint> -->
+          <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido</mat-error>
+          <mat-error *ngIf="numero_telefono.hasError('pattern')">
+            introduzca un número de teléfono válido
+          </mat-error>
+        </mat-form-field>
+  
+        &nbsp; &nbsp; &nbsp;
+  
+        <button mat-raised-button (click)="agregarTelefonos();">agregar</button>
+  
+      </div>
+    </div>
+  
+    <div class="row medium-width" style="margin-left: 0;">
+      <table mat-table [dataSource]="tablaTelefonos" class="mat-elevation-z8 tabla" *ngIf="tablaTelefonos != null" style="margin-right: 16px;" >
+    
+        <ng-container matColumnDef="numero">
+          <th mat-header-cell *matHeaderCellDef> # </th>
+          <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+  
+        <ng-container matColumnDef="telefono">
+          <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+          <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+       </ng-container>
+  
+        <ng-container matColumnDef="botones">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element;">
+            <button mat-icon-button class="botonesTabla" (click)="eliminarTelefono(element.id_telefono_paciente)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="columnasTablaTelefonosEditar"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnasTablaTelefonosEditar;"></tr>
+      </table>
+  
+      </div>
+      </mat-card>
+      </div> 
+
+
+
+
+
+      
+
+
+
+
+
+        
          
-         <!-- ESTA ES LA VAINA DE VER -->
+         <!-- ESTA ES LA VAINA DE VER TELEFONO EMERGENCIA -->
          <div class="col" *ngIf="readonlyDatosGenerales === true">
           <mat-accordion>
          <mat-expansion-panel>
@@ -450,6 +545,16 @@
       </div>
       </mat-card>
       </div> 
+
+      <div class="col">
+        <div style="padding-top: 20px;">
+        <label id="example-radio-group-label" style="margin-right: 40px;">Prosene</label>
+        <mat-radio-group  formControlName="prosene"  aria-labelledby="example-radio-group-label" class="example-radio-group" [disabled]="disabledDatosGenerales" >        
+        <mat-radio-button  value="Si" >Si</mat-radio-button> &nbsp; &nbsp;&nbsp;   
+        <mat-radio-button  value="No" >No</mat-radio-button>                
+        </mat-radio-group>
+        </div>
+        </div>
          
          
          
@@ -659,25 +764,102 @@
    
    
   <div class="row">
-          <div class="col">
-          <mat-form-field class="example-full-width">
-          <input matInput formControlName= "numero_telefono"  name="numero_telefono" id="telefono" placeholder="N° Teléfono"[readonly]="readonlyDatosGenerales">
-          <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido</mat-error>
-          <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un número de teléfono valido</mat-error>
+          <!-- ESTA ES LA VAINA DE VER TELEFONO-->
+          <div class="col" *ngIf="readonlyDatosGenerales === true">
+            <mat-accordion>
+           <mat-expansion-panel>
+             
+             <mat-expansion-panel-header>
+               <mat-panel-title>
+                 Teléfonos en caso de emergencia
+               </mat-panel-title>
+               <mat-panel-description>
+                 haz click para visualizarlos
+               </mat-panel-description>
+             </mat-expansion-panel-header>
+     
+           <div class="row medium-width" style="margin-left: 0;">
+             <table mat-table [dataSource]="tablaTelefonos" class="mat-elevation-z8 tabla" style="margin-right: 16px;">
+     
+               <ng-container matColumnDef="numero">
+                 <th mat-header-cell *matHeaderCellDef> # </th>
+                 <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+                 <td mat-footer-cell *matFooterCellDef></td>
+               </ng-container>             
+     
+               <ng-container matColumnDef="telefono">
+                 <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+                 <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+                 <td mat-footer-cell *matFooterCellDef></td>
+     
+               </ng-container>
+               <tr mat-header-row *matHeaderRowDef="columnasTablaTelefono"></tr>
+               <tr mat-row *matRowDef="let row; columns: columnasTablaTelefono;"></tr>
+             </table>
+           </div>    
+       </mat-expansion-panel>
+     </mat-accordion>
+     </div>
+    
+    
+    <!-- ESTA ES LA VAINA DE EDITAR TELEFONO PACIENTE-->
+     <div class="col" *ngIf="readonlyDatosGenerales === false">
+      <mat-card>
+      <div class="row">
+        <div class="col">
+    
+          
+          <mat-form-field>
+            <input matInput formControlName="numero_telefono" maxlength="8"
+              placeholder="Teléfono del paciente">
+            <!-- <mat-hint align="end">{{numero_telefono.value.length}} / 8</mat-hint> -->
+            <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido</mat-error>
+            <mat-error *ngIf="numero_telefono.hasError('pattern')">
+              introduzca un número de teléfono válido
+            </mat-error>
           </mat-form-field>
-          </div>
+    
+          &nbsp; &nbsp; &nbsp;
+    
+          <button mat-raised-button (click)="agregarTelefonos();">agregar</button>
+    
+        </div>
+      </div>
+    
+      <div class="row medium-width" style="margin-left: 0;">
+        <table mat-table [dataSource]="tablaTelefonos" class="mat-elevation-z8 tabla" *ngIf="tablaTelefonos != null" style="margin-right: 16px;" >
+      
+          <ng-container matColumnDef="numero">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+    
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+            <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+         </ng-container>
+    
+          <ng-container matColumnDef="botones">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element;">
+              <button mat-icon-button class="botonesTabla" (click)="eliminarTelefono(element.id_telefono_paciente)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="columnasTablaTelefonosEditar"></tr>
+          <tr mat-row *matRowDef="let row; columns: columnasTablaTelefonosEditar;"></tr>
+        </table>
+    
+        </div>
+        </mat-card>
+        </div> 
           
           
-          <div class="col">
-            <div style="padding-top: 20px;">
-              <label id="example-radio-group-label" style="margin-right: 40px;">Prosene</label>
-          <mat-radio-group  formControlName="prosene"  aria-labelledby="example-radio-group-label" class="example-radio-group" [disabled]="disabledDatosGenerales" >        
-            <mat-radio-button  value="Si" >Si</mat-radio-button> &nbsp; &nbsp;&nbsp;   
-            <mat-radio-button  value="No" >No</mat-radio-button>
-            <!-- que pedos -->
-          </mat-radio-group>
-        </div>
-        </div>
+          
     
     
           <!-- ESTA ES LA VAINA DE VER -->
@@ -797,6 +979,16 @@
         </div>
         </mat-card>
         </div>  
+
+        <div class="col">
+          <div style="padding-top: 20px;">
+            <label id="example-radio-group-label" style="margin-right: 40px;">Prosene</label>
+        <mat-radio-group  formControlName="prosene"  aria-labelledby="example-radio-group-label" class="example-radio-group" [disabled]="disabledDatosGenerales" >        
+          <mat-radio-button  value="Si" >Si</mat-radio-button> &nbsp; &nbsp;&nbsp;   
+          <mat-radio-button  value="No" >No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      </div>
     </div>
     
  <!-- disabled={{formulario_datos_generales.invalid}} -->
@@ -2278,17 +2470,19 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
           
       <div class="row">
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="edad_inicio_menstruacion" type= "number" placeholder="Edad inicio menstruacion">
-        <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido</mat-error>
-        <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
-        <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">          
+            <mat-label><b>Edad inicio menstruación</b></mat-label> 
+            <input matInput formControlName="edad_inicio_menstruacion" type= "number" placeholder="No especificada aún" readonly="readonly" >
+            <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido</mat-error>
+            <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
+            <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>               
         </mat-form-field>
         </div>
 
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="fum" placeholder="Fecha ultima menstruación">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Fecha ultima menstruación</b></mat-label>
+        <input matInput formControlName="fum" placeholder="No especificada aún" readonly="readonly">
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido</mat-error>
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>
@@ -2298,48 +2492,57 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
         <mat-divider></mat-divider>
 
-      <div class="row">
-        <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="citologia" placeholder="Citologías">
+      <div class="row" style="margin-top: 19px;">
+        <div class="col-md-4">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Citologías</b></mat-label>
+        <input matInput formControlName="citologia" placeholder="No especificada aún" readonly="readonly" >
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido</mat-error>
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>
         </mat-form-field>
         </div>
 
-        <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="fecha_citologia" placeholder="Fecha Citología" readonly="readonly" >
+        <div class="col-md-4" *ngIf="vercitologia == true">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Fecha Citología</b></mat-label>
+        <input matInput formControlName="fecha_citologia" placeholder="No especificada aún" readonly="readonly" >
         </mat-form-field>
         </div>
-      </div>
-
-        <mat-form-field class="example-full-width" >
-        <textarea matInput formControlName="resultado_citologia"  placeholder="Resultado Citología" [readonly]="read17" 
+        
+        <div class="col-md-4" *ngIf="vercitologia == true">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Resultado Citología</b></mat-label>
+        <textarea matInput formControlName="resultado_citologia"  placeholder="No especificado aún"  readonly="readonly" 
         cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
         ></textarea>
         </mat-form-field>
+      </div>
+      </div>
+
+       
 
         <mat-divider></mat-divider>
 
-        <label >Ciclo menstrual</label>
-      <div class="row">
+      <div class="row" style="margin-top: 19px;">
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="duracion_ciclo_menstrual" placeholder="Duración ciclo menstrual">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Duración ciclo menstrual</b></mat-label>
+        <input matInput formControlName="duracion_ciclo_menstrual" placeholder="No especificado aún"  readonly="readonly" >
         </mat-form-field>
         </div>
 
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="periocidad_ciclo_menstrual" placeholder="Periocidad ciclo menstrual">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Periocidad ciclo menstrual </b></mat-label>
+        <input matInput formControlName="periocidad_ciclo_menstrual" placeholder="No especificado aún"  readonly="readonly" >
         </mat-form-field>
         </div>
 
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="caracteristicas_ciclo_menstrual" placeholder="Periocidad ciclo menstrual">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Caracteristicas ciclo menstrual </b></mat-label>
+        <input matInput formControlName="caracteristicas_ciclo_menstrual" placeholder="No especificadas aún"  readonly="readonly" >
         </mat-form-field>
         </div>
       </div>   
@@ -2379,27 +2582,25 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
       <mat-divider></mat-divider>
 
-      <div class="row">
-        <div class="col" >
-        <label id="example-radio-group-label">Citologías</label>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md-3" >
+        <label id="example-radio-group-label">Citologías</label>&nbsp;&nbsp;
         <mat-error style="margin-inline-start: 5px;" *ngIf="citologia.hasError('required')">campo requerido</mat-error>
         <mat-radio-group formControlName="citologia" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-        <mat-radio-button value="Si" (click)="habilitarInputs([fecha_citologia, resultado_citologia])"> Si</mat-radio-button> &nbsp;   
+        <mat-radio-button value="Si" (click)="habilitarInputsfecha([fecha_citologia, resultado_citologia])"> Si</mat-radio-button> &nbsp;   
         <mat-radio-button value="No" (click)="borrarInputs([fecha_citologia, resultado_citologia])">No</mat-radio-button>        
         </mat-radio-group>  
         </div>
-      </div>
-
-      <div class="row"  style="margin-left: 0;">
-        <div class="col"  style="text-align: left;padding-left: 0;">
+     
+        <div class="col-md-4.5"  style="text-align: left;padding-left: 0;">
         <mat-form-field class="example-full-width">
-        <input matInput formControlName="fecha_citologia" [min]="minDate" [max]="maxDate"  [matDatepicker]="picker4" placeholder="Fecha Citología"  readonly="readonly">
+        <input matInput formControlName="fecha_citologia"  [matDatepicker]="picker4" placeholder="Fecha Citología"  readonly="readonly">
         <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
         <mat-datepicker #picker4></mat-datepicker>
         </mat-form-field>
         </div>
 
-        <div class="col"  style="text-align: left;padding-left: 0;">
+        <div class="col-md-4.5"  style="text-align: left;padding-left: 0;">
         <mat-form-field class="example-full-width" >
         <textarea matInput formControlName="resultado_citologia"  placeholder="Resultado Citología"  
         cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
@@ -2409,8 +2610,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
     <mat-divider></mat-divider>
 
-        <label >Ciclo menstrual</label>
-      <div class="row">
+        
+      <div class="row" style="margin-top: 20px;">
         <div class="col">
         <mat-form-field class="example-full-width">
         <input matInput formControlName="duracion_ciclo_menstrual" placeholder="Duración ciclo menstrual">
@@ -2429,9 +2630,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
         <mat-error *ngIf="periocidad_ciclo_menstrual.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
         </div>
-      </div>
-
-      <div class="row" style="margin-left: 0;">
+     
+        <div class="col">
         <mat-form-field class="example-full-width">
         <mat-label>Características ciclo menstrual</mat-label>
         <mat-select formControlName="caracteristicas_ciclo_menstrual"  name="Características ciclo menstrual">
@@ -2441,6 +2641,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
         </mat-select>
         <mat-error *ngIf="caracteristicas_ciclo_menstrual.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
+         </div>
       </div>
 
   </form>

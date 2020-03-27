@@ -4,6 +4,7 @@ export interface Paciente {
     nombre_completo: string;
     numero_cuenta: string;
     numero_identidad: string;
+    numero_telefono?:number;
     imagen?: string;
     lugar_procedencia: string;
     direccion: string;

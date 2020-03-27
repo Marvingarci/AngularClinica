@@ -1039,7 +1039,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    FormTools.focusElement(this.formulario_datos_generales, 'lugar_procedencia')
+      //FormTools.focusElement(this.formulario_datos_generales, 'lugar_procedencia')
 
 
     this.mostrarLabelStep(0);

@@ -90,7 +90,6 @@ export class FormularioService {
 
 
   enviarTipoEnfermedad(tipo_enfermedad: any) {
-
     return this.httpClient.post(this.API_ENDPOINT + 'tipos_enfermedades', tipo_enfermedad, { headers: this.headers });
 
   }
@@ -98,15 +97,11 @@ export class FormularioService {
 
 
   enviarTelefonoEmergencia(telefono_emergencia) {
-
     return this.httpClient.post(this.API_ENDPOINT + 'telefonos_emergencia', telefono_emergencia, { headers: this.headers });
-
   }
 
   enviarTelefonoPaciente(telefono_paciente) {
-
     return this.httpClient.post(this.API_ENDPOINT + 'telefonos_pacientes', telefono_paciente, { headers: this.headers });
-
   }
 
 
@@ -244,6 +239,12 @@ export class FormularioService {
   
   obtenerEmergenciaPersona(id_paciente: any) {
     return this.httpClient.get(this.API_ENDPOINT + 'telefonos_emergencia/' + id_paciente);
+  }
+  obtenerTelefono(id_paciente: any) {
+    return this.httpClient.get(this.API_ENDPOINT + 'telefonos_pacientes/' + id_paciente);
+  }
+  obtenerTelefonos() {
+    return this.httpClient.get(this.API_ENDPOINT + 'telefonos_pacientes/');
   }
   obtenerEmergenciaPersonas() {
     return this.httpClient.get(this.API_ENDPOINT + 'telefonos_emergencia/' );
@@ -447,6 +448,9 @@ export class FormularioService {
 
 eliminarEmergenciaPersona(id_paciente: any) {
   return this.httpClient.delete(this.API_ENDPOINT + 'telefonos_emergencia/' + id_paciente);
+}
+eliminarTelefono(id_paciente: any) {
+  return this.httpClient.delete(this.API_ENDPOINT + 'telefonos_pacientes/' + id_paciente);
 }
 eliminarCualquierEnfermedadAF(id_paciente: any) {
   return this.httpClient.delete(this.API_ENDPOINT + 'pacientes_antecedentes_familiares/' + id_paciente);

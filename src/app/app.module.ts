@@ -17,7 +17,7 @@ import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-est
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
-import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF, BorrarDesnutricionAP, BorrarHospitalarias, CambiarFoto, BorrarHabitoToxicologico } from './ver-paciente/ver-paciente.component';
+import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia,Borrartelefono, BorrarDesnutricionAF, BorrarDesnutricionAP, BorrarHospitalarias, CambiarFoto, BorrarHabitoToxicologico } from './ver-paciente/ver-paciente.component';
 //import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
 //import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
 //CambiarFoto,
@@ -198,6 +198,7 @@ const routes: Route[] = [
     TelefonoUnicoDirective,
     DialogoMedico,
     Borrartelefonoemergencia,
+    Borrartelefono,
     BorrarDesnutricionAF,
     BorrarDesnutricionAP,
     BorrarHospitalarias,
@@ -287,6 +288,7 @@ const routes: Route[] = [
     DialogoVerificarPermisoComponent,
     CambiarFoto,
     Borrartelefonoemergencia,
+    Borrartelefono,
     DialogoVerificarPermisoComponent,
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed,

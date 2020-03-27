@@ -466,7 +466,6 @@ export class cambiocontraDialog {
      this.hide1 = false;
      this.hide = true;
     }
-    this.continuar();
   }
 
   //EVENTO BOTON GUARDAR

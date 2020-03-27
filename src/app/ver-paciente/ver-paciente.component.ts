@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input, OnDestroy, Inject, Injectable } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input, OnDestroy, Inject, Injectable, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormularioService } from "../services/formulario.service";
 import { Paciente } from "../interfaces/paciente";
@@ -37,13 +37,14 @@ import { MentalAP } from '../interfaces/MentalAP';
 import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
 import { WebcamInitError } from '../modules/webcam/domain/webcam-init-error';
 import { WebcamImage } from '../modules/webcam/domain/webcam-image';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, timer } from 'rxjs';
 import { WebcamUtil } from '../modules/webcam/util/webcam.util';
 import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
 import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { EnfermedadEditar } from '../interfaces/enfermedadeditar';
 import { PdfMakeWrapper, Txt, Canvas, Line } from 'pdfmake-wrapper';
+import { Telefono } from '../interfaces/telefono';
 
 
 export interface Element {
@@ -203,7 +204,7 @@ matcher = new MyErrorStateMatcher();
     categoria: new FormControl('',[ Validators.required]),
     estado_civil: new FormControl('', Validators.required),
     seguro_medico: new FormControl('', Validators.required),
-    numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+    numero_telefono: new FormControl('', [Validators.pattern(/^\d{8}$/)]),
     emergencia_telefono: new FormControl('', [ Validators.pattern(/^\d{8}$/)]),
     emergencia_persona: new FormControl('', [ Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
 
@@ -215,6 +216,8 @@ matcher = new MyErrorStateMatcher();
     pulso: new FormControl('', [Validators.max(200),Validators.min(30)]),
     prosene: new FormControl('', []),    
   });
+
+  
 
   formulario_antecedentes_familiares = new FormGroup({      
     parentesco_desnutricion : new FormControl('',[]),
@@ -260,14 +263,16 @@ matcher = new MyErrorStateMatcher();
   });
 
   formulario_antecedente_ginecologico = new FormGroup ({
-    edad_inicio_menstruacion : new FormControl('',[Validators.required,Validators.max(15),Validators.min(7)]),
-    fum : new FormControl('',[Validators.required]),
-    citologia : new FormControl('',[Validators.required]),
+    edad_inicio_menstruacion : new FormControl('',[Validators.max(18),Validators.min(7)]),
+    fum : new FormControl('',[]),
+
+    citologia : new FormControl('',[]),
     fecha_citologia : new FormControl(''),
     resultado_citologia : new FormControl('', [ Validators.maxLength(60),Validators.minLength(3)]),
+
     duracion_ciclo_menstrual : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
-    periocidad_ciclo_menstrual : new FormControl('',[Validators.required]),
-    caracteristicas_ciclo_menstrual : new FormControl('',[Validators.required])
+    periocidad_ciclo_menstrual : new FormControl('',[]),
+    caracteristicas_ciclo_menstrual : new FormControl('',[])
   });
 
   formulario_planificacion_familiar = new FormGroup({
@@ -310,6 +315,25 @@ matcher = new MyErrorStateMatcher();
       
      
     
+    });
+  }
+
+  habilitarInputsfecha(formControl: FormControl[]) {
+    formControl.forEach(controlador => {
+      controlador.enable({ onlySelf: true });    
+    });
+  }
+
+  borrarInputs(formControl: FormControl[]) {
+    formControl.forEach(controlador => {
+      controlador.setValue('');
+      controlador.disable({ onlySelf: true });
+
+      if (controlador.parent == this.formulario_antecedentes_familiares) {
+        //elimino todas la validaciones que tenga el controlador
+        controlador.clearValidators();
+        controlador.updateValueAndValidity();
+      }
     });
   }
 
@@ -446,8 +470,15 @@ ocultar: boolean = true;
     telefono_emergencia:null,
     emergencia_persona:null,
   }
+  telefono: Telefono = {
+    id_telefono:null,
+    id_paciente:null,
+    telefono:null,
+  }
   telefonos_Emergencias:TelefonoEmergencia[];  
   tel_emergencia:any;
+  tel_persona:any;
+
   
 
   antecedente_familiar: AntecedentesFamiliares ={
@@ -699,6 +730,7 @@ ocultar: boolean = true;
   tablaAntecedentesPersonales: any;
   tablaHabitosToxicologicos: any;
   tablaTelefonosEmergencia: any;
+  tablaTelefonos: any;
   tablaDesnutricionAF:any;
   tablaMentalAF:any;
   tablaAlergiaAF:any;
@@ -737,7 +769,9 @@ ocultar: boolean = true;
   columnastablaHabitosToxicologicos: string[] = ['habito_toxicologico', 'observacion'];  
   columnastablaHabitosToxicologicosEditar: string[] = ['numero','habito_toxicologico', 'observacion','botoneliminar','botoneditar'];
   columnasTablaEmergenciaPersona:string[] = ['persona','telefono'];
+  columnasTablaTelefono:string[] = ['numero','telefono'];
   columnasTablaTelefonosEmergencia: string[] = ['numero', 'nombre', 'telefono', 'botones'];
+  columnasTablaTelefonosEditar: string[] = ['numero',  'telefono', 'botones'];
   columnasTablaDesnutricionAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
   columnasTablaMentalAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
   columnasTablaAlergiaAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
@@ -894,6 +928,7 @@ ocultar: boolean = true;
   ocultarbtnagregarotroAP: boolean = true;
   ocultarbtnagregarhospitalaria: boolean = true;
   ocultarbtnagregartoxicologico: boolean = true;
+  vercitologia: boolean = true;
 
   //variable que identifica si un paciente es un alumno
   esAlumno: boolean = true;
@@ -923,18 +958,20 @@ ocultar: boolean = true;
 
 
 constructor(private formularioService: FormularioService, private mensaje: MatSnackBar, public dialog: MatDialog,  private activatedRoute: ActivatedRoute, 
-  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, public cambiarFoto: MatDialog) { 
+  activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, public cambiarFoto: MatDialog, private renderer: Renderer2) { 
+   // @ViewChild("CambiarFoto")foto: ElementRef;
     activar.mostrar();
     this.mostrarcuentaycarreca =true;
     this.mostrarcuentaalumno = false;
     this.id = this.activatedRoute.snapshot.params['id'];
     
    if(this.id){    
- 
+    
       
       //obtener los datos de los servicios de la api
       this.cargarPaciente();
       this.cargarEmergenciaPersonaYa();
+      this.cargarTelefono();
       this.cargarAntecedentesFamiliares();
       this.cargarAntecedentesPersonales();
       this.cargarDesnnutricionAF();
@@ -950,25 +987,12 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.cargarHabitoToxicologico();
       this.cargarActividadSexual();
       this.cargarPlanificacionFamiliar();      
-      this.cargarHospitalarias();   
+      this.cargarHospitalarias();  
+      this.cargarAntecedentesGinecologicos(); 
       
-  
+    
 
-
-      this.formularioService.obtenerAntecedenteGinecologico(this.id).subscribe((data : AntecedentesGinecologicos)=>{
-      this.antecedente_ginecologico = data;
-      //verifico si el paciente tiene antecedentes ginecologicos para mostrarlos
-      if(this.antecedente_ginecologico != null){
-      this.mostrarAntecedenteGinecologico = true;
-      //establesco el valor a los formcontrol para que se visualizen
-      //en los respectivos inputs de los antecedentes ginecologicos
-      this.cargarInformacionAntecedentesGinecologicos();
-      console.log(this.antecedente_ginecologico);
-      }
-      console.log('mostrarAncedententeGinecologico: '+this.mostrarAntecedenteGinecologico);
-      }, (error)=>{
-      console.log(error);
-      });
+   
 
 
 
@@ -1212,10 +1236,49 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       console.log(error);
     });      
  }
+ loading1: boolean = false;
+
+ cargarTelefono(){
+  this.formularioService.obtenerTelefono(this.id).subscribe((data: TelefonoEmergencia[])=>{
+    this.tel_persona = data;
+    console.log(this.tel_persona);       
+    //cargo los datos de la tabla antecedentes personales
+    this.tablaTelefonos = new MatTableDataSource(this.tel_persona);
+    this.cargarTablaEmergenciaPersona();
+    console.log(this.tel_persona);      
+    }, (error)=>{
+      console.log(error);
+    });      
+ }
  actualizarfoto(){
-  this.paciente.imagen = this.inven.imagenactual;
+  const tiempo = timer(4000); 
+
+  tiempo.subscribe((n)=>{
+    this.loading1 = false;
+    console.log("foto actualizada");
+    this.paciente.imagen = this.inven.imagenactual;
+  });
+  
 }
 
+//timer para foto
+timeLeft: number = 60;
+  interval;
+
+startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.timeLeft = 60;
+      }
+    },1000)
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
+  }
+  //hasta aqui timer
  cargarAntecedentesFamiliares(){
   this.formularioService.obtenerAntecedenteFamiliar(this.id).subscribe((data: AntecedentesFamiliares)=>{
     this.ante_familiar = data;       
@@ -1459,6 +1522,33 @@ this.cargarTablaOtroAP();
     });
  }
 
+ cargarAntecedentesGinecologicos(){
+ this.formularioService.obtenerAntecedenteGinecologico(this.id).subscribe((data : AntecedentesGinecologicos)=>{
+  this.antecedente_ginecologico = data;
+  //verifico si el paciente tiene antecedentes ginecologicos para mostrarlos
+  if(this.antecedente_ginecologico != null){
+  this.mostrarAntecedenteGinecologico = true;
+
+  if(this.antecedente_ginecologico.citologia == 'No'){
+      this.vercitologia = false;
+  }else if(this.antecedente_ginecologico.citologia == 'Si'){
+    this.vercitologia = true;
+  }
+
+  if(this.antecedente_ginecologico.edad_inicio_menstruacion == null){
+    this.antecedente_ginecologico.edad_inicio_menstruacion = "No especificado aún";
+  }
+  //establesco el valor a los formcontrol para que se visualizen
+  //en los respectivos inputs de los antecedentes ginecologicos
+  this.cargarInformacionAntecedentesGinecologicos();
+  console.log(this.antecedente_ginecologico);
+  }
+  console.log('mostrarAncedententeGinecologico: '+this.mostrarAntecedenteGinecologico);
+  }, (error)=>{
+  console.log(error);
+  });
+}
+
  cargarActividadSexual(){
  this.formularioService.obtenerActividadSexual(this.id).subscribe((data : ActividadSexual)=>{
   this.actividad_sexual = data;
@@ -1572,7 +1662,8 @@ cargarHospitalarias(){
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
           console.log(data);    
           this.cargarPaciente();
-          this.agregarTelefonosEmergencia();  
+          this.agregarTelefonosEmergencia(); 
+          this.agregarTelefonos();  
         this.showError('Datos generales actualizado correctamente');
         }, (error)=>{
           console.log(error);
@@ -1586,25 +1677,38 @@ cargarHospitalarias(){
 
 
 
-  agregarTelefonosEmergencia() { 
-       
+  agregarTelefonosEmergencia() {        
       this.telefono_Emergencias.id_paciente = this.paciente.id_paciente;
       this.telefono_Emergencias.emergencia_persona =  this.emergencia_persona.value;
       this.telefono_Emergencias.telefono_emergencia =  this.emergencia_telefono.value;
 
- 
+      if (this.formulario_datos_generales.dirty) {
       this.formularioService.enviarTelefonoEmergencia(this.telefono_Emergencias).subscribe((data) => {
         console.log(data);
         console.log('se envio el numero de emergencia');
-      }, (error) => {
-       
+      }, (error) => {       
       });      
       this.emergencia_persona.setValue('');
       this.emergencia_telefono.setValue('');
-
-        this.cargarEmergenciaPersonaYa();  
-        
+        this.cargarEmergenciaPersonaYa();          
   }
+}
+
+
+  agregarTelefonos() {        
+    this.telefono.id_paciente = this.paciente.id_paciente;
+    this.telefono.telefono =  this.numero_telefono.value;
+
+if (this.formulario_datos_generales.dirty) {
+    this.formularioService.enviarTelefonoPaciente(this.telefono).subscribe((data) => {
+      console.log(data);
+      console.log('se envio el numero de telefono');
+    }, (error) => {       
+    });      
+    this.numero_telefono.setValue('');
+      this.cargarTelefono();      
+  }    
+}
 
 
 
@@ -2670,6 +2774,25 @@ cargarHospitalarias(){
     
   }
 
+  eliminarTelefono(id) {
+    if(this.tel_persona.length > 1){
+        const dialogRef = this.dialog.open(Borrartelefono, {
+      disableClose: true,
+      panelClass: 'borrar',
+      data: id
+    });  
+    dialogRef.beforeClosed().subscribe(result => {
+      this.cargarTelefono();
+    });
+      dialogRef.afterClosed().subscribe(result => {
+      this.cargarTelefono();
+    });
+    }else{
+      this.showError('Debe tener al menos un registro');
+    }
+    
+  }
+
 
   eliminarDesnutricionAF(id) {
     const dialogRef = this.dialog.open(BorrarDesnutricionAF, {
@@ -2793,6 +2916,7 @@ cargarHospitalarias(){
 
   actualizarAntecedentesGinecologicos(){
     if(this.readonlyAntecedentesGinecologicos == true){
+      if (this.formulario_antecedente_ginecologico.dirty) {
       if(this.formulario_antecedente_ginecologico.valid){
         // guardar datos del formulario en antecedente_genicologico y enviarlo a la api
         this.antecedente_ginecologico.edad_inicio_menstruacion = this.edad_inicio_menstruacion.value;
@@ -2804,8 +2928,8 @@ cargarHospitalarias(){
         this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
         this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
 
-        this.formularioService.actualizarAntecedenteGinecologico(this.antecedente_ginecologico).subscribe((data)=>{
-          this.cargarInformacionAntecedentesGinecologicos();
+        this.formularioService.actualizarAntecedenteGinecologico(this.antecedente_ginecologico).subscribe((data)=>{         
+      this.cargarAntecedentesGinecologicos(); 
           //alert('se actualizaron perron los antecedentes ginecologicos');
           this.showError('Antecedentes ginecologicos actualizado correctamente');
         }, (error)=> {
@@ -2813,6 +2937,7 @@ cargarHospitalarias(){
           this.showError('Error al actualizar los antecedentes ginecologicos');
         });
       }
+    }
     }
   }
 
@@ -3213,8 +3338,8 @@ cargarTablaAntecedentesFamiliares(){
 
 
 
-  cargarInformacionAntecedentesGinecologicos(){
-    this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);
+  cargarInformacionAntecedentesGinecologicos(){ 
+    this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);  
     this.fum.setValue(this.antecedente_ginecologico.fum);
     this.citologia.setValue(this.antecedente_ginecologico.citologia);
     this.fecha_citologia.setValue(this.antecedente_ginecologico.fecha_citologia);
@@ -3387,10 +3512,16 @@ cargarTablaAntecedentesFamiliares(){
     config.duration = 2000;
     this.mensaje.open(message, null, config);
   }
+  
 
   cambiarfoto(){
     const dia = this.cambiarFoto.open(CambiarFoto, {    
       panelClass: 'tomarfoto'
+    });
+
+    dia.afterClosed().subscribe(result =>{
+      this.actualizarfoto();
+      this.loading1 = true;
     });
     this.inven.idCita = this.id;
   }
@@ -3803,6 +3934,45 @@ export class Borrartelefonoemergencia  {
 
 
 
+@Component({
+  selector: 'borrarregistro',
+  templateUrl: 'dialog-borrar-registro.html',
+})
+
+export class Borrartelefono  {
+  constructor(public dialogRef: MatDialogRef<Borrartelefono>,
+    private formularioService: FormularioService,
+    private mensaje: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any){ 
+      console.log(this.data);
+    }
+ 
+  BorrarRegistro() {
+    if (this.data != 0) {
+     this.formularioService.eliminarTelefono(this.data).subscribe((data) => {
+        this.showError('Registro eliminado correctamente');   
+        this.dialogRef.close();     
+      });
+    } else {
+      this.showError('El Registro no puede ser eliminado');
+    }    
+  }
+    salir(): void {
+    this.dialogRef.close();
+  }
+
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+} 
+
+
+
+
+
 
 @Component({
   selector: 'borrarregistro',
@@ -3999,6 +4169,7 @@ export class CambiarFoto {
     opcion: boolean = true;
     id: any;
     imagen : any;
+    imagenAlter: boolean=false;
     // webcam snapshot trigger
     private trigger: Subject<void> = new Subject<void>();
     // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
@@ -4038,30 +4209,24 @@ export class CambiarFoto {
 
     }
     public guardar(){
-      this.dialogo.close();
+      
 
       this.id=this.servicio.idCita;
-      console.log(this.id);
-
-      this.imagen = this.webcamImage.imageAsDataUrl;
-      console.log(this.imagen);
       
-      // this.formulario.obtenerPaciente(this.id).subscribe( (data: Paciente) =>{
-      //      this.paciente = data;
-      //      console.log(this.paciente);
-      //     this.paciente.imagen = this.imagen;
-      //       this.formulario.actualizarPaciente(this.paciente).subscribe( (data) =>{
-      //            console.log('imagen guardado con exito');
-      //          }, (error) => {
-      //            console.log(error);
-      //          });
+      if (this.imagenAlter == true) {
+        
+      }else{
+        this.imagen = this.webcamImage.imageAsDataUrl;
+        this.imagenAlter = false;
+      }
 
-      //    }, (error) => {
-      //      console.log(error);
-      //    });
+      
+      
       
       this.NuevaImagen.id_paciente = this.id;
-      this.NuevaImagen.imagen = this.imagen;
+      this.NuevaImagen.imagen =this.imagen;
+      console.log(this.NuevaImagen.imagen);
+
       this.servicio.ActualizarImagen(this.NuevaImagen).subscribe( (data) =>{
          console.log('imagen guardado con exito');
          this.servicio.imagenactual = this.imagen;
@@ -4069,8 +4234,35 @@ export class CambiarFoto {
        }, (error) => {
          console.log(error);
        });
+       this.dialogo.close(this.imagen);
     }
-  
+
+
+    seleccionarArchivo(event){
+      var files= event.target.files;
+      var file = files[0];
+
+      if (files && file) {
+        var reader = new FileReader();
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(file);
+        this.imagenAlter = true;
+        this.guardar();
+        this.dialogo.close;
+      }
+      
+
+    }
+    _handleReaderLoaded(readerEvent){
+      var binaryString = readerEvent.target.result;
+      this.imagen ="data:image/jpeg;base64,"+btoa(binaryString);
+      console.log(this.imagen);
+    }
+
+    ///////////////////////codigo 
+   
+
+
     public handleImage(webcamImage: WebcamImage): void {
       console.log('received webcam image', webcamImage);
       this.webcamImage = webcamImage;
