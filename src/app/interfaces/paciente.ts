@@ -13,7 +13,7 @@ export interface Paciente {
     sexo: any;
     estado_civil: any;
     seguro_medico?: any;
-    numero_telefono: string;
+    telefono: string;
     peso?: string;
     talla?: string;
     imc?: string;
