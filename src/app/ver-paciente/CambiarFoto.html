@@ -10,9 +10,11 @@
            
 </webcam>
 <div class="row" *ngIf=" opcion == true">
-<input type="file" accept="image/*" (change)="seleccionarArchivo($event)">
+
+<label for="upload-photo" class="botontomarfoto"><mat-icon  style="color: white; font-size:50px; width: inherit; ">file</mat-icon></label>
+<input id="upload-photo" type="file" accept="image/*" (change)="seleccionarArchivo($event)">
 <button *ngIf=" opcion == true"  mat-icon-button class="botontomarfoto" (click)="triggerSnapshot();" style=" outline:none; "><mat-icon  style="color: white; font-size:50px; width: inherit; ">camera</mat-icon></button>&nbsp; &nbsp;
-<mat-icon  style="color: white; font-size:50px; width: inherit; "></mat-icon>
+
 
 </div>
        
