@@ -1035,7 +1035,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   // minDate: new Date(1969,0,1);
   minDate: Date;
-  maxDate:  Date;
+  // maxDate:  Date;
+  maxDate =   new Date();
 
 
   constructor(private formularioService: FormularioService, private formBuilder: FormBuilder,
@@ -1048,7 +1049,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
     this.minDate = new Date(currentYear - 100, 0, 1);
-    this.maxDate = new Date(currentMonth - 0, 9 ,1);
+    // this.maxDate = new Date(currentYear - current);
 
 
     // this.obtenerDatosFormulario();
