@@ -928,6 +928,7 @@ ocultar: boolean = true;
   ocultarbtnagregarotroAP: boolean = true;
   ocultarbtnagregarhospitalaria: boolean = true;
   ocultarbtnagregartoxicologico: boolean = true;
+  vercitologia: boolean = true;
 
   //variable que identifica si un paciente es un alumno
   esAlumno: boolean = true;
@@ -985,25 +986,13 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.cargarHabitoToxicologico();
       this.cargarActividadSexual();
       this.cargarPlanificacionFamiliar();      
-      this.cargarHospitalarias();   
+      this.cargarHospitalarias();  
+      this.cargarAntecedentesGinecologicos(); 
       
   
 
 
-      this.formularioService.obtenerAntecedenteGinecologico(this.id).subscribe((data : AntecedentesGinecologicos)=>{
-      this.antecedente_ginecologico = data;
-      //verifico si el paciente tiene antecedentes ginecologicos para mostrarlos
-      if(this.antecedente_ginecologico != null){
-      this.mostrarAntecedenteGinecologico = true;
-      //establesco el valor a los formcontrol para que se visualizen
-      //en los respectivos inputs de los antecedentes ginecologicos
-      this.cargarInformacionAntecedentesGinecologicos();
-      console.log(this.antecedente_ginecologico);
-      }
-      console.log('mostrarAncedententeGinecologico: '+this.mostrarAntecedenteGinecologico);
-      }, (error)=>{
-      console.log(error);
-      });
+   
 
 
 
@@ -1506,6 +1495,33 @@ this.cargarTablaOtroAP();
       console.log(error);
     });
  }
+
+ cargarAntecedentesGinecologicos(){
+ this.formularioService.obtenerAntecedenteGinecologico(this.id).subscribe((data : AntecedentesGinecologicos)=>{
+  this.antecedente_ginecologico = data;
+  //verifico si el paciente tiene antecedentes ginecologicos para mostrarlos
+  if(this.antecedente_ginecologico != null){
+  this.mostrarAntecedenteGinecologico = true;
+
+  if(this.antecedente_ginecologico.citologia == 'No'){
+      this.vercitologia = false;
+  }else if(this.antecedente_ginecologico.citologia == 'Si'){
+    this.vercitologia = true;
+  }
+
+  if(this.antecedente_ginecologico.edad_inicio_menstruacion == null){
+    this.antecedente_ginecologico.edad_inicio_menstruacion = "No especificado aún";
+  }
+  //establesco el valor a los formcontrol para que se visualizen
+  //en los respectivos inputs de los antecedentes ginecologicos
+  this.cargarInformacionAntecedentesGinecologicos();
+  console.log(this.antecedente_ginecologico);
+  }
+  console.log('mostrarAncedententeGinecologico: '+this.mostrarAntecedenteGinecologico);
+  }, (error)=>{
+  console.log(error);
+  });
+}
 
  cargarActividadSexual(){
  this.formularioService.obtenerActividadSexual(this.id).subscribe((data : ActividadSexual)=>{
@@ -2873,6 +2889,7 @@ if (this.formulario_datos_generales.dirty) {
 
   actualizarAntecedentesGinecologicos(){
     if(this.readonlyAntecedentesGinecologicos == true){
+      if (this.formulario_antecedente_ginecologico.dirty) {
       if(this.formulario_antecedente_ginecologico.valid){
         // guardar datos del formulario en antecedente_genicologico y enviarlo a la api
         this.antecedente_ginecologico.edad_inicio_menstruacion = this.edad_inicio_menstruacion.value;
@@ -2884,8 +2901,8 @@ if (this.formulario_datos_generales.dirty) {
         this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
         this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
 
-        this.formularioService.actualizarAntecedenteGinecologico(this.antecedente_ginecologico).subscribe((data)=>{
-          this.cargarInformacionAntecedentesGinecologicos();
+        this.formularioService.actualizarAntecedenteGinecologico(this.antecedente_ginecologico).subscribe((data)=>{         
+      this.cargarAntecedentesGinecologicos(); 
           //alert('se actualizaron perron los antecedentes ginecologicos');
           this.showError('Antecedentes ginecologicos actualizado correctamente');
         }, (error)=> {
@@ -2893,6 +2910,7 @@ if (this.formulario_datos_generales.dirty) {
           this.showError('Error al actualizar los antecedentes ginecologicos');
         });
       }
+    }
     }
   }
 
@@ -3293,13 +3311,8 @@ cargarTablaAntecedentesFamiliares(){
 
 
 
-  cargarInformacionAntecedentesGinecologicos(){
-    if(!this.antecedente_ginecologico.edad_inicio_menstruacion.length){   
-      this.edad_inicio_menstruacion.setValue('No especificado aún');   
-    }else{
-    this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);
-    }
-    
+  cargarInformacionAntecedentesGinecologicos(){ 
+    this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);  
     this.fum.setValue(this.antecedente_ginecologico.fum);
     this.citologia.setValue(this.antecedente_ginecologico.citologia);
     this.fecha_citologia.setValue(this.antecedente_ginecologico.fecha_citologia);
