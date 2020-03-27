@@ -8,19 +8,24 @@
       <div class="row">
 
         <div style="width: 216.5px;height: 216.5px;padding-left:50.75px;padding-right: 50.75px;padding-top: 38.25px;padding-bottom: 38.25px;margin-left: 20px;">
-            <div>
-             
+             <div style="position: fixed;margin-top: 20px;margin-left: 7.5px;" *ngIf="loading1==true" class="uploader-status">
+              <mat-spinner  [diameter]="100"></mat-spinner>
+            </div>
+            
+            <div>             
             <button *ngIf="noImg==true"  mat-icon-button style="color: aliceblue;" class="cambiarfoto" id="cambiarfoto" (click)="cambiarfoto()" ><mat-icon>add_a_photo</mat-icon></button>
-            <img *ngIf="noImg==true" id="sinImg" class="sinImg" />
-            <div *ngIf="loading1==true" class="uploader-status">
-              <mat-spinner [diameter]="100"></mat-spinner>
+            <img *ngIf="noImg==true" id="sinImg" class="sinImg" />          
             </div>
-            </div>
+            
+           
 
             <div>
               <button *ngIf="noImg == false" mat-icon-button style="color: aliceblue;" class="cambiarConfoto" id="cambiarConfoto" (click)="cambiarfoto()" ><mat-icon>flip_camera_ios</mat-icon></button>
               <img id="ima" *ngIf="noImg == false" #CambiarFoto class="img"  src ={{paciente.imagen}} />
             </div>
+            
+           
+         
         </div>
 
             <div class="col" style="padding-top: 20px;">
@@ -2353,28 +2358,32 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
       <div class="row">
 
       <div class="col">
-      <mat-form-field class="example-full-width" >
-      <input matInput  formControlName="actividad_sexual" placeholder="Actividad Sexual" [readonly]= "readonlyActividadSexual">
+      <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'" >
+        <mat-label><b>Actividad Sexual</b></mat-label>
+      <input matInput  formControlName="actividad_sexual" placeholder="No especificada aún" [readonly]= "readonlyActividadSexual">
       <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso</mat-error>
       <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación válida</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width">
-      <input matInput formControlName="numero_parejas_sexuales" placeholder="Número de parejas sexuales" [readonly]= "readonlyActividadSexual">
+      <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+        <mat-label><b>Número de parejas sexuales</b></mat-label>
+      <input matInput formControlName="numero_parejas_sexuales" placeholder="No especificada aún" [readonly]= "readonlyActividadSexual">
       <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso</mat-error>
       <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación válida</mat-error>
       </mat-form-field>
       </div>
 
       <div class="col">
-      <mat-form-field class="example-full-width">
-      <input matInput formControlName="edad_inicio_sexual" placeholder="Edad inicio sexual" [readonly]= "readonlyActividadSexual">
+      <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+        <mat-label><b>Edad inicio sexual</b></mat-label>
+      <input matInput formControlName="edad_inicio_sexual" placeholder="No especificada aún" [readonly]= "readonlyActividadSexual">
       <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso</mat-error>
       <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación válida</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width" >
-      <input matInput formControlName="practicas_sexuales_riesgo" placeholder="Prácticas sexuales de riesgo" [readonly]= "readonlyActividadSexual">
+      <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+        <mat-label><b>Práctica sexual de riesgo</b></mat-label>
+      <input matInput formControlName="practicas_sexuales_riesgo" placeholder="No especificada aún" [readonly]= "readonlyActividadSexual">
       <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso</mat-error>
       <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación válida</mat-error>
       </mat-form-field>
@@ -2393,39 +2402,46 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
       <div *ngIf="!readonlyActividadSexual">
     <form [formGroup]="formulario_actividad_sexual">
-      <label id="example-radio-group-label">Actividad Sexual</label>
-      <mat-error style="margin-inline-start: 5px;" *ngIf="actividad_sexuall.hasError('required')">campo requerido</mat-error>
+      
       <div class="row">
+        <div class="col">
         <mat-radio-group formControlName="actividad_sexual" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-        <mat-radio-button value="Si" (click)="habilitarInputs([edad_inicio_sexual, numero_parejas_sexuales, practicas_sexuales_riesgo])">Si</mat-radio-button> &nbsp;   
+        <mat-radio-button value="Si" (click)="habilitarInputsinvalidacion([edad_inicio_sexual, numero_parejas_sexuales, practicas_sexuales_riesgo])">Si</mat-radio-button> &nbsp;   
         <mat-radio-button value="No" (click)="borrarInputs([edad_inicio_sexual, numero_parejas_sexuales, practicas_sexuales_riesgo])">No</mat-radio-button>
         </mat-radio-group>
+        <mat-error style="margin-inline-start: 5px;" *ngIf="actividad_sexuall.hasError('required')">campo requerido</mat-error>
+        </div>
 
-        &nbsp; &nbsp; &nbsp; &nbsp; 
-
-        <mat-form-field class="sexual">
-        <input matInput formControlName="edad_inicio_sexual" type= "number" placeholder="Edad inicio vida sexual" >
+        <div class="col">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label><b>Edad inicio vida sexual</b></mat-label>
+        <input matInput formControlName="edad_inicio_sexual" type= "number" placeholder="Ingrese la edad inicio vida sexual" >
         <mat-error *ngIf="edad_inicio_sexual.hasError('max')">edad invalida</mat-error>
         </mat-form-field>
+        </div>
+      </div>
 
-        &nbsp; &nbsp; &nbsp; &nbsp; 
-
-        <mat-form-field class="sexual">
-        <input matInput formControlName="numero_parejas_sexuales" type= "number" placeholder="Numero de parejas sexuales" >
+      <div class="row">
+        <div class="col">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label><b>Número de parejas sexuales</b></mat-label>
+        <input matInput formControlName="numero_parejas_sexuales" type= "number" placeholder="Ingrese el número de parejas sexuales" >
         <mat-error *ngIf="numero_parejas_sexuales.hasError('max')">muy extenso</mat-error>
         </mat-form-field>
+        </div>
 
-        &nbsp; &nbsp; &nbsp; &nbsp; 
-
-        <mat-form-field class="sexual">
-        <mat-label>Practica sexual de riesgo</mat-label>
+        <div class="col">
+        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Práctica sexual de riesgo</mat-label>
         <mat-select formControlName="practicas_sexuales_riesgo">
         <mat-option *ngFor="let practica_sexual of practicas_sexuales" [value]="practica_sexual.value">
         {{practica_sexual.viewValue}}
         </mat-option>
         </mat-select>
         </mat-form-field>
+        </div>
       </div>
+
     </form>
 
       <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyActividadSexual = !readonlyActividadSexual; actualizarActividadSexual(); cambiarInformacionActividadSexual()"
@@ -2490,6 +2506,32 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
         </div>
       </div>  
 
+
+      <mat-divider></mat-divider>
+
+      <div class="row" style="margin-top: 19px;">
+        <div class="col">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Duración ciclo menstrual</b></mat-label>
+        <input matInput formControlName="duracion_ciclo_menstrual" placeholder="No especificado aún"  readonly="readonly" >
+        </mat-form-field>
+        </div>
+
+        <div class="col">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Periocidad ciclo menstrual </b></mat-label>
+        <input matInput formControlName="periocidad_ciclo_menstrual" placeholder="No especificado aún"  readonly="readonly" >
+        </mat-form-field>
+        </div>
+
+        <div class="col">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Caracteristicas ciclo menstrual </b></mat-label>
+        <input matInput formControlName="caracteristicas_ciclo_menstrual" placeholder="No especificadas aún"  readonly="readonly" >
+        </mat-form-field>
+        </div>
+      </div> 
+
         <mat-divider></mat-divider>
 
       <div class="row" style="margin-top: 19px;">
@@ -2522,34 +2564,11 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
        
 
-        <mat-divider></mat-divider>
-
-      <div class="row" style="margin-top: 19px;">
-        <div class="col">
-        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
-          <mat-label><b>Duración ciclo menstrual</b></mat-label>
-        <input matInput formControlName="duracion_ciclo_menstrual" placeholder="No especificado aún"  readonly="readonly" >
-        </mat-form-field>
-        </div>
-
-        <div class="col">
-        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
-          <mat-label><b>Periocidad ciclo menstrual </b></mat-label>
-        <input matInput formControlName="periocidad_ciclo_menstrual" placeholder="No especificado aún"  readonly="readonly" >
-        </mat-form-field>
-        </div>
-
-        <div class="col">
-        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
-          <mat-label><b>Caracteristicas ciclo menstrual </b></mat-label>
-        <input matInput formControlName="caracteristicas_ciclo_menstrual" placeholder="No especificadas aún"  readonly="readonly" >
-        </mat-form-field>
-        </div>
-      </div>   
+        
     </form>
 
         <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
-        (click)="readonlyAntecedentesGinecologicos = !readonlyAntecedentesGinecologicos; culitoPelado()">
+        (click)="readonlyAntecedentesGinecologicos = !readonlyAntecedentesGinecologicos; ">
         {{!readonlyAntecedentesGinecologicos ? 'Guardar' : 'Editar'}}
         </button> 
   </div>
@@ -2562,8 +2581,9 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
     <form [formGroup]="formulario_antecedente_ginecologico">
       <div class="row">
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="edad_inicio_menstruacion" name="edad_inicio_menstruacion" type= "number" placeholder="Edad inicio menstruacion">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Edad inicio menstruación</mat-label>
+        <input matInput formControlName="edad_inicio_menstruacion" name="edad_inicio_menstruacion" type= "number" placeholder="Ingrese la edad de inicio menstruación ">
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('required')">campo requerido</mat-error>
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('max')">edad incorrecta</mat-error>
         <mat-error *ngIf="edad_inicio_menstruacion.hasError('min')">edad incorrecta</mat-error>
@@ -2571,7 +2591,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
         </div>
         <div class="col">
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="example-full-width" appearance="fill">
         <input matInput formControlName="fum" readonly="readonly" [min]="minDate" [max]="maxDate" [matDatepicker]="picker3" placeholder="Fecha ultima menstruación">
         <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
         <mat-datepicker #picker3></mat-datepicker>
@@ -2583,26 +2603,29 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
       <mat-divider></mat-divider>
 
       <div class="row" style="margin-top: 20px;">
-        <div class="col-md-3" >
+        <div class="col" >
+          <div style="margin-top: 20px;">
         <label id="example-radio-group-label">Citologías</label>&nbsp;&nbsp;
         <mat-error style="margin-inline-start: 5px;" *ngIf="citologia.hasError('required')">campo requerido</mat-error>
         <mat-radio-group formControlName="citologia" aria-labelledby="example-radio-group-label" class="example-radio-group">        
-        <mat-radio-button value="Si" (click)="habilitarInputsfecha([fecha_citologia, resultado_citologia])"> Si</mat-radio-button> &nbsp;   
+        <mat-radio-button value="Si" (click)="habilitarInputsinvalidacion([fecha_citologia, resultado_citologia])"> Si</mat-radio-button> &nbsp;   
         <mat-radio-button value="No" (click)="borrarInputs([fecha_citologia, resultado_citologia])">No</mat-radio-button>        
         </mat-radio-group>  
+      </div>
         </div>
      
-        <div class="col-md-4.5"  style="text-align: left;padding-left: 0;">
-        <mat-form-field class="example-full-width">
+        <div class="col"  style="text-align: left;padding-left: 0;">
+        <mat-form-field class="example-full-width" appearance="fill">
         <input matInput formControlName="fecha_citologia"  [matDatepicker]="picker4" placeholder="Fecha Citología"  readonly="readonly">
         <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
         <mat-datepicker #picker4></mat-datepicker>
         </mat-form-field>
         </div>
 
-        <div class="col-md-4.5"  style="text-align: left;padding-left: 0;">
-        <mat-form-field class="example-full-width" >
-        <textarea matInput formControlName="resultado_citologia"  placeholder="Resultado Citología"  
+        <div class="col"  style="text-align: left;padding-left: 0;">
+        <mat-form-field class="example-full-width"appearance="fill" >
+          <mat-label>Resultado Citología</mat-label>
+        <textarea matInput formControlName="resultado_citologia"  placeholder="Ingrese el resultado citología"  
         cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
         </mat-form-field>
         </div>
@@ -2613,14 +2636,15 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
         
       <div class="row" style="margin-top: 20px;">
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName="duracion_ciclo_menstrual" placeholder="Duración ciclo menstrual">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Duración ciclo menstrual</mat-label>
+        <input matInput formControlName="duracion_ciclo_menstrual" placeholder="Ingrese la duración ciclo menstrual">
         <mat-error *ngIf="duracion_ciclo_menstrual.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
         </div>
 
         <div class="col">
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Periodicidad ciclo menstrual</mat-label>
         <mat-select formControlName="periocidad_ciclo_menstrual" name="periocidad_ciclo_menstrual">
         <mat-option *ngFor="let periocidad of periocidades" [value]="periocidad.value">
@@ -2632,7 +2656,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
         </div>
      
         <div class="col">
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Características ciclo menstrual</mat-label>
         <mat-select formControlName="caracteristicas_ciclo_menstrual"  name="Características ciclo menstrual">
         <mat-option *ngFor="let caracteristica of caracteristicas" [value]="caracteristica.value">
@@ -2684,18 +2708,20 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 <div>
   <form [formGroup]="formulario_antecedente_obstetrico">
       <div class="row">
-
-        <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName= "partos" type= "number" placeholder="Numero de partos" [readonly]="readonlyAntecedentesObstetricos">
+        
+       <div class="col">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Número de partos</b></mat-label>
+        <input matInput formControlName= "partos" type= "number" placeholder="No especificado aún" [readonly]="readonlyAntecedentesObstetricos">
         <mat-error *ngIf="partos.hasError('max')">invalido</mat-error>
         <mat-error *ngIf="partos.hasError('min')">invalido</mat-error>
         </mat-form-field>
         </div>
 
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName= "abortos" type= "number" placeholder="Numero de abortos" [readonly]= "readonlyAntecedentesObstetricos">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Número de abortos</b></mat-label>
+        <input matInput formControlName= "abortos" type= "number" placeholder="No especificado aún" [readonly]= "readonlyAntecedentesObstetricos">
         <mat-error *ngIf="abortos.hasError('max')">invalido</mat-error>
         <mat-error *ngIf="abortos.hasError('min')">invalido</mat-error>
         </mat-form-field>
@@ -2704,16 +2730,18 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
       <div class="row">
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName= "cesarias" type= "number" placeholder="Numero de cesarias" [readonly]= "readonlyAntecedentesObstetricos">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Número de cesarias</b></mat-label>
+        <input matInput formControlName= "cesarias" type= "number" placeholder="No especificado aún" [readonly]= "readonlyAntecedentesObstetricos">
         <mat-error *ngIf="cesarias.hasError('max')">invalido</mat-error>
         <mat-error *ngIf="cesarias.hasError('min')">invalido</mat-error>
         </mat-form-field>
         </div>
 
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName= "hijos_vivos" type= "number" placeholder="Numero de hijos vivos" [readonly]="readonlyAntecedentesObstetricos">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Número de hijos vivos</b></mat-label>
+        <input matInput formControlName= "hijos_vivos" type= "number" placeholder="No especificado aún" [readonly]="readonlyAntecedentesObstetricos">
         <mat-error *ngIf="hijos_vivos.hasError('max')">invalido</mat-error>
         <mat-error *ngIf="hijos_vivos.hasError('min')">invalido</mat-error>
         </mat-form-field>
@@ -2722,22 +2750,25 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
       <div class="row">
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName= "hijos_muertos" type= "number" placeholder="Numero de hijos muertos" [readonly]= "readonlyAntecedentesObstetricos">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Número de hijos muertos</b></mat-label>
+        <input matInput formControlName= "hijos_muertos" type= "number" placeholder="No especificado aún" [readonly]= "readonlyAntecedentesObstetricos">
         <mat-error *ngIf="hijos_muertos.hasError('max')">invalido</mat-error>
         <mat-error *ngIf="hijos_muertos.hasError('min')">invalido</mat-error>
         </mat-form-field>
         </div>
 
-        <div class="col">
-        <mat-form-field class="example-full-width" *ngIf="readonlyAntecedentesObstetricos">
-        <input matInput formControlName= "fecha_termino_ult_embarazo" placeholder="Fecha termino ultimo embarazo" [readonly]= "readonlyAntecedentesObstetricos">
+        <div class="col"  >
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'" *ngIf="readonlyAntecedentesObstetricos">
+          <mat-label><b>Fecha termino último embarazo</b></mat-label>
+        <input matInput formControlName= "fecha_termino_ult_embarazo" placeholder="No especificada aún" [readonly]= "readonlyAntecedentesObstetricos">
         <mat-error *ngIf="hijos_muertos.hasError('max')">invalido</mat-error>
         <mat-error *ngIf="hijos_muertos.hasError('min')">invalido</mat-error>
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" *ngIf="!readonlyAntecedentesObstetricos">
-        <input matInput formControlName= "fecha_termino_ult_embarazo" [min]="minDate" [max]="maxDate" [matDatepicker]="picker5" placeholder="Fecha ultimo embarazo" readonly="readonly"> 
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'" *ngIf="!readonlyAntecedentesObstetricos">
+          <mat-label><b>Fecha último embarazo</b></mat-label>
+        <input matInput formControlName= "fecha_termino_ult_embarazo" [min]="minDate" [max]="maxDate" [matDatepicker]="picker5" placeholder="No especificada aún" readonly="readonly"> 
         <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
         <mat-datepicker #picker5></mat-datepicker>
         </mat-form-field>            
@@ -2746,11 +2777,12 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
       <div class="row">
         <div class="col">
-        <mat-form-field class="example-full-width" *ngIf="readonlyAntecedentesObstetricos">
-        <input matInput formControlName= "descripcion_termino_ult_embarazo" placeholder="Resultado ultimo embarazo"[readonly]= "readonlyAntecedentesObstetricos">
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'" *ngIf="readonlyAntecedentesObstetricos">
+          <mat-label><b>Resultado último embarazo</b></mat-label>
+        <input matInput formControlName= "descripcion_termino_ult_embarazo" placeholder="No especificado aún" [readonly]= "readonlyAntecedentesObstetricos">
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" *ngIf="!readonlyAntecedentesObstetricos"> 
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'" *ngIf="!readonlyAntecedentesObstetricos"> 
         <mat-label>Resultado ultimo embarazo</mat-label>
         <mat-select formControlName= "descripcion_termino_ult_embarazo" name="descripcion_termino_ult_embarazo">
         <mat-option *ngFor="let resultado_embarazo of resultados_embarazos" [value]="resultado_embarazo.value">
@@ -2761,8 +2793,9 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
         </div>
 
         <div class="col">
-        <mat-form-field class="example-full-width">
-        <textarea matInput formControlName= "observaciones" placeholder="Observaciones" [readonly]= "readonlyAntecedentesObstetricos" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Observaciones</b></mat-label>
+        <textarea matInput formControlName= "observaciones" placeholder="No especificadas aún" [readonly]= "readonlyAntecedentesObstetricos" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
         cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
         <mat-error *ngIf="observaciones.hasError('maxlength')">campo muy extenso</mat-error>
         <mat-error *ngIf="observaciones.hasError('minlength')">introduzca una observación válida</mat-error>
@@ -2810,28 +2843,31 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
       <form [formGroup]="formulario_planificacion_familiar"  >
         <div class="row">
 
-          <div class="col">
-          <mat-form-field class="example-full-width">
-          <input matInput formControlName= "planificacion_familiar" placeholder="Planificación familiar" [readonly]= "readonlyPlanificacionFamiliar">
+          <div class="col-md-4">
+          <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+            <mat-label><b>Planificación familiar</b></mat-label>
+          <input matInput formControlName= "planificacion_familiar" placeholder="No especificada aún" [readonly]= "readonlyPlanificacionFamiliar">
           </mat-form-field>
           </div>
 
-          <div class="col">
-          <mat-form-field class="example-full-width">
-          <input matInput formControlName= "metodo_planificacion" placeholder="Método de planificación" [readonly]= "readonlyPlanificacionFamiliar">
+          <div class="col-md-4" *ngIf="verplanificacion == true" >
+          <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+            <mat-label><b>Método de planificación</b></mat-label>
+          <input matInput formControlName= "metodo_planificacion" placeholder="No especificado aún" [readonly]= "readonlyPlanificacionFamiliar">
           </mat-form-field>
           </div>
 
-          <div class="col">
-          <mat-form-field class="example-full-width">
-          <textarea matInput formControlName= "observacion_planificacion" placeholder="Observación" [readonly]= "readonlyPlanificacionFamiliar"
+          <div class="col-md-4" *ngIf="verplanificacion == true" >
+          <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+            <mat-label><b>Observación</b></mat-label>
+          <textarea matInput formControlName= "observacion_planificacion" placeholder="No especificada aún" [readonly]= "readonlyPlanificacionFamiliar"
           cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
           </mat-form-field>
           </div>
         </div>
       </form>
 
-          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar;   cambiarInformacionPlanificacionFamiliar();">
+          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar;actualizarPlanificacionFamiliar();">
           {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
           </button> 
     </div>
@@ -2841,16 +2877,17 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
     <div *ngIf="!readonlyPlanificacionFamiliar">
       <form [formGroup]="formulario_planificacion_familiar">
-          <mat-error style="margin-inline-start: 5px;" *ngIf="planificacion_familiarr.hasError('required')">campo requerido</mat-error>
-          <div>  
-          <p><mat-radio-group formControlName="planificacion_familiar"  aria-labelledby="example-radio-group-label" class="example-radio-group">        
-          <mat-radio-button value="Si" (click)="habilitarInputs([metodo_planificacion, observacion_planificacion])">Si</mat-radio-button> &nbsp;   
+
+        <div class="row">  
+        <div class="col">  
+         <mat-radio-group formControlName="planificacion_familiar"  aria-labelledby="example-radio-group-label" class="example-radio-group">        
+          <mat-radio-button value="Si" (click)="habilitarInputsinvalidacion([metodo_planificacion, observacion_planificacion])">Si</mat-radio-button> &nbsp;   
           <mat-radio-button value="No" (click)="borrarInputs([metodo_planificacion, observacion_planificacion]);">No</mat-radio-button>
-          </mat-radio-group></p> 
+          </mat-radio-group> 
           </div>
 
-          <div>
-          <mat-form-field>
+          <div class="col">
+          <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Método de planificación</mat-label>
           <mat-select  formControlName="metodo_planificacion">
           <mat-option *ngFor="let metodo of metodos" [value]="metodo.value">
@@ -2860,15 +2897,20 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
           </mat-form-field>
           </div>
 
-          <mat-form-field class="medium-width">
-          <textarea matInput formControlName="observacion_planificacion" placeholder="Observación"
+          <div class="col">  
+           <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Observación</mat-label>
+          <textarea matInput formControlName="observacion_planificacion" placeholder="Ingrese una observación"
           cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
           <mat-error *ngIf="observacion_planificacion.hasError('maxlength')">campo muy extenso</mat-error>
           <mat-error *ngIf="observacion_planificacion.hasError('minlength')">introduzca una observación válida</mat-error>
           </mat-form-field>
+        </div>
+      </div>
+
       </form>
           <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_planificacion_familiar.invalid}}
-          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; actualizarPlanificacionFamiliar();   cambiarInformacionPlanificacionFamiliar()">
+          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; actualizarPlanificacionFamiliar();">
           {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
           </button> 
     </div>           
