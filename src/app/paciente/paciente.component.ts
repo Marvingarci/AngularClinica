@@ -6,32 +6,34 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Router, RouterModule } from '@angular/router';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { PdfMakeWrapper, Txt, Canvas, Line } from 'pdfmake-wrapper';
+import { Paciente } from '../interfaces/paciente';
 
 
 
-export interface Paciente {
-  id_paciente?: number;
-  numero_paciente?: string;
-  contrasenia?: string;
-  nombre_completo?: string;
-  numero_cuenta?: string;
-  numero_identidad?: string;
-  lugar_procedencia?: string;
-  direccion?: string;
-  carrera?: string;
-  fecha_nacimiento?: string;
-  sexo?: string;
-  estado_civil?: string;
-  seguro_medico?: string;
-  emergencia_telefono?: string;
-  peso?: string;
-  talla?: string;
-  imc?: string;
-  temperatura?: string;
-  presion?: string;
-  pulso?: string;
-  categoria?: any;
-  prosene?: any;}
+// export interface Paciente {
+//   id_paciente?: number;
+//   numero_paciente?: string;
+//   contrasenia?: string;
+//   nombre_completo?: string;
+//   numero_cuenta?: string;
+//   numero_identidad?: string;
+//   lugar_procedencia?: string;
+//   direccion?: string;
+//   carrera?: string;
+//   fecha_nacimiento?: string;
+//   sexo?: string;
+//   estado_civil?: string;
+//   seguro_medico?: string;
+//   emergencia_telefono?: string;
+//   telefono?: string;
+//   peso?: string;
+//   talla?: string;
+//   imc?: string;
+//   temperatura?: string;
+//   presion?: string;
+//   pulso?: string;
+//   categoria?: any;
+//   prosene?: any;}
 
 
 
