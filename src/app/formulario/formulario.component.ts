@@ -172,7 +172,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   telefonos_emergencia = [];
 
 
-  select(valor) {
+  selectSexo(valor) {
 
     if (valor == "Hombre") {
 
@@ -187,6 +187,28 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       }, 0);
 
     }
+
+  }
+
+
+  selectCategoria(valor) {
+
+    if (valor == 3) {
+
+      this.esAlumnoAdmon = true;
+      this.numero_cuenta.setValue("");
+      this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]);
+      this.numero_cuenta.updateValueAndValidity();
+
+    } else {
+
+      this.esAlumnoAdmon = false;
+      this.numero_cuenta.clearValidators();
+      this.numero_cuenta.updateValueAndValidity();
+
+    }
+
+
 
   }
 
@@ -870,9 +892,9 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   error: boolean = false;
 
-  //date picker
-  minDate = new Date(1950, 0, 1);
-  maxDate = new Date();
+
+
+
   ////////////////////////////////////////////////////
   //select
   categorias: Categorias[] = [
@@ -1011,35 +1033,36 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   habitosToxicologicos: string[] = [];
 
 
-
+  // minDate: new Date(1969,0,1);
+  minDate: Date;
+  maxDate:  Date;
 
 
   constructor(private formularioService: FormularioService, private formBuilder: FormBuilder,
     private router: Router, activar: AppComponent, public dialog: MatDialog, public loginService: LoginService,
     private formulario: FormularioService, private TelefonoUnicoService: TelefonoUnicoService,
     private IdentidadUnicoService: IdentidadUnicoService) {
+
+
+    // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth();
+    this.minDate = new Date(currentYear - 100, 0, 1);
+    this.maxDate = new Date(currentMonth - 0, 9 ,1);
+
+
     // this.obtenerDatosFormulario();
     this.getDatosScraping();
-    this.loginService.obtenerUltimoId().subscribe((data: any) => {
-      console.log(data[0].ultimoId);
-    });
+    this.loginService.obtenerUltimoId().subscribe();
   }
 
-
-
-
-  submit() {
-    if (this.formulario_datos_generales.valid) {
-      console.log(this.formulario_datos_generales);
-    }
-  }
 
   // para que se le quite la cosa fea al text area
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
 
   ngAfterViewInit(): void {
 
-      //FormTools.focusElement(this.formulario_datos_generales, 'lugar_procedencia')
+    //FormTools.focusElement(this.formulario_datos_generales, 'lugar_procedencia')
 
 
     this.mostrarLabelStep(0);
@@ -1059,13 +1082,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     this.autocomplete(document.getElementById('inputAlergiaAP'), this.enfermedadesAlergias, this.tipo_alergia_ap);
     this.autocomplete(document.getElementById('InputCancerAP'), this.enfermedadesCancer, this.tipo_cancer_ap);
     this.autocomplete(document.getElementById('inputOtrosHT'), this.habitosToxicologicos, this.otros_ht);
-  }
-  AgregarNoCuenta() {
-    this.esAlumnoAdmon = true;
-    this.numero_cuenta.setValue("");
-  }
-  QuitarCuenta() {
-    this.esAlumnoAdmon = false;
   }
 
 
