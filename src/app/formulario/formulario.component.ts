@@ -2186,7 +2186,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     ];
 
 
-
+    
     if (this.esAlumno == true) {
 
 
