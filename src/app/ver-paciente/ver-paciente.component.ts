@@ -43,6 +43,8 @@ import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
 import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { EnfermedadEditar } from '../interfaces/enfermedadeditar';
+import { PdfMakeWrapper, Txt, Canvas, Line } from 'pdfmake-wrapper';
+import { Telefono } from '../interfaces/telefono';
 
 
 export interface Element {
@@ -189,46 +191,37 @@ export class VerPacienteComponent implements OnInit {
     
 // });
 matcher = new MyErrorStateMatcher();
+
   formulario_datos_generales = new FormGroup({      
-    nombre_completo: new FormControl('', [Validators.required]),
-    // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    numero_cuenta: new FormControl('', [ Validators.pattern(/^[2][0-9]{10}$/)]), 
-    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
-    // "/ /" indica el inicio y el final de la expresion regular
-    // "{10}" indica le numero de digitos de lo que lo antecede
+    nombre_completo: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)]),
+    numero_cuenta: new FormControl('', [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]), 
     numero_identidad: new FormControl('', [Validators.required,Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
-     // "\d" es lo mismo "[0-9]"
-    lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z\s]{5,30}$/)]),
+    lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)]),
     direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    carrera: new FormControl('', []),
+    carrera: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)]),
     fecha_nacimiento: new FormControl('', Validators.required),
     sexo: new FormControl('', Validators.required),
-    categoria: new FormControl('',[]),
+    categoria: new FormControl('',[ Validators.required]),
     estado_civil: new FormControl('', Validators.required),
     seguro_medico: new FormControl('', Validators.required),
-    numero_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]),
+    numero_telefono: new FormControl('', [Validators.pattern(/^\d{8}$/)]),
     emergencia_telefono: new FormControl('', [ Validators.pattern(/^\d{8}$/)]),
-    emergencia_persona: new FormControl('', [ Validators.pattern(/^[a-zA-z\s]{3,30}$/)]),
+    emergencia_persona: new FormControl('', [ Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
 
     //datos restantes
-    peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,4}$/)]),
-    talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]), 
-    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
-    // "/ /" indica el inicio y el final de la expresion regular
-    // "{10}" indica le numero de digitos de lo que lo antecede
-    imc: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
-     // "\d" es lo mismo "[0-9]"
-    temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]),
-    presion: new FormControl('', [Validators.required]),
-    pulso: new FormControl('', [Validators.required]),
+    peso : new FormControl('', [Validators.max(100),Validators.min(1)]),
+    talla: new FormControl('', [ Validators.max(100),Validators.min(1)]),
+    temperatura: new FormControl('' ,[Validators.max(80) , Validators.min(20)]),
+    presion: new FormControl('', [Validators.max(200),Validators.min(30)]),
+    pulso: new FormControl('', [Validators.max(200),Validators.min(30)]),
     prosene: new FormControl('', []),    
   });
 
+  
+
   formulario_antecedentes_familiares = new FormGroup({      
     parentesco_desnutricion : new FormControl('',[]),
-    tipo_desnutricion: new FormControl('',[Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/)]),
+    tipo_desnutricion: new FormControl('',[Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,15}$/)]),
     parentesco_enfermedades_mentales : new FormControl('',[]),
     tipo_enfermedad_mental: new FormControl('',[]),
     parentesco_alergias: new FormControl('',[]),
@@ -270,14 +263,16 @@ matcher = new MyErrorStateMatcher();
   });
 
   formulario_antecedente_ginecologico = new FormGroup ({
-    edad_inicio_menstruacion : new FormControl('',[Validators.required,Validators.max(15),Validators.min(7)]),
-    fum : new FormControl('',[Validators.required]),
-    citologia : new FormControl('',[Validators.required]),
+    edad_inicio_menstruacion : new FormControl('',[Validators.max(18),Validators.min(7)]),
+    fum : new FormControl('',[]),
+
+    citologia : new FormControl('',[]),
     fecha_citologia : new FormControl(''),
     resultado_citologia : new FormControl('', [ Validators.maxLength(60),Validators.minLength(3)]),
+
     duracion_ciclo_menstrual : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),
-    periocidad_ciclo_menstrual : new FormControl('',[Validators.required]),
-    caracteristicas_ciclo_menstrual : new FormControl('',[Validators.required])
+    periocidad_ciclo_menstrual : new FormControl('',[]),
+    caracteristicas_ciclo_menstrual : new FormControl('',[])
   });
 
   formulario_planificacion_familiar = new FormGroup({
@@ -320,6 +315,25 @@ matcher = new MyErrorStateMatcher();
       
      
     
+    });
+  }
+
+  habilitarInputsfecha(formControl: FormControl[]) {
+    formControl.forEach(controlador => {
+      controlador.enable({ onlySelf: true });    
+    });
+  }
+
+  borrarInputs(formControl: FormControl[]) {
+    formControl.forEach(controlador => {
+      controlador.setValue('');
+      controlador.disable({ onlySelf: true });
+
+      if (controlador.parent == this.formulario_antecedentes_familiares) {
+        //elimino todas la validaciones que tenga el controlador
+        controlador.clearValidators();
+        controlador.updateValueAndValidity();
+      }
     });
   }
 
@@ -456,8 +470,15 @@ ocultar: boolean = true;
     telefono_emergencia:null,
     emergencia_persona:null,
   }
+  telefono: Telefono = {
+    id_telefono:null,
+    id_paciente:null,
+    telefono:null,
+  }
   telefonos_Emergencias:TelefonoEmergencia[];  
   tel_emergencia:any;
+  tel_persona:any;
+
   
 
   antecedente_familiar: AntecedentesFamiliares ={
@@ -709,6 +730,7 @@ ocultar: boolean = true;
   tablaAntecedentesPersonales: any;
   tablaHabitosToxicologicos: any;
   tablaTelefonosEmergencia: any;
+  tablaTelefonos: any;
   tablaDesnutricionAF:any;
   tablaMentalAF:any;
   tablaAlergiaAF:any;
@@ -747,7 +769,9 @@ ocultar: boolean = true;
   columnastablaHabitosToxicologicos: string[] = ['habito_toxicologico', 'observacion'];  
   columnastablaHabitosToxicologicosEditar: string[] = ['numero','habito_toxicologico', 'observacion','botoneliminar','botoneditar'];
   columnasTablaEmergenciaPersona:string[] = ['persona','telefono'];
+  columnasTablaTelefono:string[] = ['numero','telefono'];
   columnasTablaTelefonosEmergencia: string[] = ['numero', 'nombre', 'telefono', 'botones'];
+  columnasTablaTelefonosEditar: string[] = ['numero',  'telefono', 'botones'];
   columnasTablaDesnutricionAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
   columnasTablaMentalAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
   columnasTablaAlergiaAF: string[] = ['grupoenfermedad', 'enfermedad', 'parentesco', 'botones'];
@@ -883,6 +907,8 @@ ocultar: boolean = true;
   readonlyDatosGenerales: boolean = true;
   disabledDatosGenerales: boolean = true;
   datosRepetido: boolean = true;
+  mostrarcuentaycarreca: boolean = true;
+  mostrarcuentaalumno: boolean = true;
   readonlyAntecedentesFamiliares: boolean = true;
   readonlyAntecedentesPersonales: boolean = true;
   readonlyHabitosToxicologicos: boolean = true;
@@ -934,6 +960,8 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
   activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService, public cambiarFoto: MatDialog, private renderer: Renderer2) { 
    // @ViewChild("CambiarFoto")foto: ElementRef;
     activar.mostrar();
+    this.mostrarcuentaycarreca =true;
+    this.mostrarcuentaalumno = false;
     this.id = this.activatedRoute.snapshot.params['id'];
     
    if(this.id){    
@@ -941,8 +969,8 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       
       //obtener los datos de los servicios de la api
       this.cargarPaciente();
-      this.obtenerDatosFormulario();
       this.cargarEmergenciaPersonaYa();
+      this.cargarTelefono();
       this.cargarAntecedentesFamiliares();
       this.cargarAntecedentesPersonales();
       this.cargarDesnnutricionAF();
@@ -998,8 +1026,40 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
    }
  }                      //FIN DEL CONSTRUCTOR
 
+ generarPDF() {
+
+  this.formularioService.obtenerPaciente(this.id).subscribe((data: any)=>{
+    this.paciente = data;
+  }, (error)=>{
+    console.log(error);
+  });
 
 
+  const pdf = new PdfMakeWrapper();
+
+  pdf.add(
+    new Txt('Constancia').fontSize(16).alignment("center").end
+  );
+
+  pdf.add(
+    new Txt(
+    "\nEl motivo de la presente constancia es para hacerle saber que el alumno "+ this.paciente.nombre_completo +
+    " con numero de cuenta "+ this.paciente.numero_cuenta + " asistio a la cliníca medica de UNAH-TEC Danlí "+
+    "por motivos ajenos a su salud.").alignment("justify").end
+  );
+
+  pdf.footer([
+
+    new Canvas([
+      new Line([10, 10], [200, 10]).end
+    ]).alignment("center").end,
+    new Txt("firma").alignment("center").end
+
+  ]);
+
+  pdf.create().open();
+
+}
 
 
                       //AUTOCOMPLETADO
@@ -1130,10 +1190,14 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
  } 
 
 
- cargarPaciente(){
+ cargarPaciente(){    
+  this.mostrarcuentaycarreca =true; 
+  this.mostrarcuentaalumno = false;
   this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) =>{
     this.paciente = data;
-    this.cargarInformacionDatosGenerales();
+    this.cargarInformacionDatosGenerales();    
+    this.obtenerDatosFormulario();
+
     //establesco el valor a los formcontrol para que se visualizen
     //en los respectivos inputs de los datos generales
     if(this.paciente.peso == null){
@@ -1144,8 +1208,8 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.paciente.talla="0";
       this.paciente.peso="0";
       this.paciente.prosene="";
-
     }
+
     //si el paciente no es alumno, cambiamos
     //el valor de la variable "esAlumno" a false
     //para mostrar diferente el contenido de los datos
@@ -1154,6 +1218,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     }else{
       this.esAlumno = true;
     }
+
     console.log('Es alumno: '+this.esAlumno);
     this.formularioService.idActualizar=this.paciente.id_paciente;
     // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
@@ -1183,6 +1248,19 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     });      
  }
  loading1: boolean = false;
+
+ cargarTelefono(){
+  this.formularioService.obtenerTelefono(this.id).subscribe((data: TelefonoEmergencia[])=>{
+    this.tel_persona = data;
+    console.log(this.tel_persona);       
+    //cargo los datos de la tabla antecedentes personales
+    this.tablaTelefonos = new MatTableDataSource(this.tel_persona);
+    this.cargarTablaEmergenciaPersona();
+    console.log(this.tel_persona);      
+    }, (error)=>{
+      console.log(error);
+    });      
+ }
  actualizarfoto(){
   const tiempo = timer(4000); 
 
@@ -1524,17 +1602,28 @@ cargarHospitalarias(){
    console.log('dio perron');
  }
 
-  
- actualizarDatosGenerales()
- {
-   this.cargarTablaEmergenciaPersona();
+ actualizarDatosGenerales() {
+   
+  this.cargarTablaEmergenciaPersona();
   this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
   this.disabledDatosGenerales = !this.disabledDatosGenerales;
   this.datosRepetido = !this.datosRepetido;
 
-  if(this.readonlyDatosGenerales === true){    
-    if(this.formulario_datos_generales.valid){
+  if(this.formulario_datos_generales.valid){
+     if(this.readonlyDatosGenerales === true){    
+  this.actualizarDG();
+     }
+  }else{
+    this.showError('Ingrese correctamente los datos'); 
+    this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
+  this.disabledDatosGenerales = !this.disabledDatosGenerales;
+  this.datosRepetido = !this.datosRepetido;
+  }
+ }
+  
+ actualizarDG(){
 
+  if (this.formulario_datos_generales.dirty) {
         this.paciente.nombre_completo = this.nombre_completo.value;
         this.paciente.numero_cuenta = this.numero_cuenta.value;
         this.paciente.numero_identidad = this.numero_identidad.value;
@@ -1545,9 +1634,7 @@ cargarHospitalarias(){
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
-        this.paciente.numero_telefono = this.numero_telefono.value;
         this.paciente.categoria = this.categoria.value;
-        this.paciente.imc = this.imc.value;
         this.paciente.peso = this.peso.value;
         this.paciente.presion = this.presion.value;
         this.paciente.talla = this.talla.value;
@@ -1557,41 +1644,54 @@ cargarHospitalarias(){
       
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
           console.log(data);    
-          this.cargarPaciente();    
+          this.cargarPaciente();
+          this.agregarTelefonosEmergencia(); 
+          this.agregarTelefonos();  
         this.showError('Datos generales actualizado correctamente');
         }, (error)=>{
           console.log(error);
           this.showError('Error al actualizar los datos generales'); 
-        });
-
-      } 
-    }   
-    
-  
+        });  
+        
+      }
   }
 
 
 
 
 
-  AgregarTelefonosEmergencia() { 
-    if(this.formulario_datos_generales.valid){      
+  agregarTelefonosEmergencia() {        
       this.telefono_Emergencias.id_paciente = this.paciente.id_paciente;
       this.telefono_Emergencias.emergencia_persona =  this.emergencia_persona.value;
       this.telefono_Emergencias.telefono_emergencia =  this.emergencia_telefono.value;
 
+      if (this.formulario_datos_generales.dirty) {
       this.formularioService.enviarTelefonoEmergencia(this.telefono_Emergencias).subscribe((data) => {
         console.log(data);
         console.log('se envio el numero de emergencia');
-      }, (error) => {
-       
+      }, (error) => {       
       });      
       this.emergencia_persona.setValue('');
       this.emergencia_telefono.setValue('');
-
-        this.cargarEmergenciaPersonaYa();  
-    }    
+        this.cargarEmergenciaPersonaYa();          
   }
+}
+
+
+  agregarTelefonos() {        
+    this.telefono.id_paciente = this.paciente.id_paciente;
+    this.telefono.telefono =  this.numero_telefono.value;
+
+if (this.formulario_datos_generales.dirty) {
+    this.formularioService.enviarTelefonoPaciente(this.telefono).subscribe((data) => {
+      console.log(data);
+      console.log('se envio el numero de telefono');
+    }, (error) => {       
+    });      
+    this.numero_telefono.setValue('');
+      this.cargarTelefono();      
+  }    
+}
 
 
 
@@ -2657,6 +2757,25 @@ cargarHospitalarias(){
     
   }
 
+  eliminarTelefono(id) {
+    if(this.tel_persona.length > 1){
+        const dialogRef = this.dialog.open(Borrartelefono, {
+      disableClose: true,
+      panelClass: 'borrar',
+      data: id
+    });  
+    dialogRef.beforeClosed().subscribe(result => {
+      this.cargarTelefono();
+    });
+      dialogRef.afterClosed().subscribe(result => {
+      this.cargarTelefono();
+    });
+    }else{
+      this.showError('Debe tener al menos un registro');
+    }
+    
+  }
+
 
   eliminarDesnutricionAF(id) {
     const dialogRef = this.dialog.open(BorrarDesnutricionAF, {
@@ -2857,7 +2976,19 @@ cargarHospitalarias(){
 
 
   ngOnInit() {
-    this.obtenerDatosFormulario();
+  
+  }
+  mostrarcuenta(event){
+    console.log(event);
+    if(event ==3){
+      this.mostrarcuentaycarreca =false;
+      this.mostrarcuentaalumno = false;
+
+    }else{
+      this.mostrarcuentaycarreca =true;  
+      this.mostrarcuentaalumno = true;  
+    }
+
   }
   obtenerDatosFormulario() {
 
@@ -3103,7 +3234,6 @@ cargarTablaAntecedentesFamiliares(){
     this.temperatura.setValue(this.paciente.temperatura);
     this.pulso.setValue(this.paciente.pulso);
     this.presion.setValue(this.paciente.presion);
-    this.imc.setValue(this.paciente.imc);
     this.talla.setValue(this.paciente.talla);
     this.peso.setValue(this.paciente.peso);
     this.prosene.setValue(this.paciente.prosene);
@@ -3190,7 +3320,12 @@ cargarTablaAntecedentesFamiliares(){
 
 
   cargarInformacionAntecedentesGinecologicos(){
+    if(!this.antecedente_ginecologico.edad_inicio_menstruacion.length){   
+      this.edad_inicio_menstruacion.setValue('No especificado aún');   
+    }else{
     this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);
+    }
+    
     this.fum.setValue(this.antecedente_ginecologico.fum);
     this.citologia.setValue(this.antecedente_ginecologico.citologia);
     this.fecha_citologia.setValue(this.antecedente_ginecologico.fecha_citologia);
@@ -3493,7 +3628,6 @@ cargarTablaAntecedentesFamiliares(){
   // obtener los campos del formGroup formulario_datos_faltantes
   get peso(){return this.formulario_datos_generales.get('peso')};
   get talla(){return this.formulario_datos_generales.get('talla')};
-  get imc(){return this.formulario_datos_generales.get('imc')};
   get temperatura(){return this.formulario_datos_generales.get('temperatura')};
   get presion(){return this.formulario_datos_generales.get('presion')};
   get pulso(){return this.formulario_datos_generales.get('pulso')};
@@ -3763,6 +3897,45 @@ export class Borrartelefonoemergencia  {
   BorrarRegistro() {
     if (this.data != 0) {
      this.formularioService.eliminarEmergenciaPersona(this.data).subscribe((data) => {
+        this.showError('Registro eliminado correctamente');   
+        this.dialogRef.close();     
+      });
+    } else {
+      this.showError('El Registro no puede ser eliminado');
+    }    
+  }
+    salir(): void {
+    this.dialogRef.close();
+  }
+
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }
+} 
+
+
+
+
+
+@Component({
+  selector: 'borrarregistro',
+  templateUrl: 'dialog-borrar-registro.html',
+})
+
+export class Borrartelefono  {
+  constructor(public dialogRef: MatDialogRef<Borrartelefono>,
+    private formularioService: FormularioService,
+    private mensaje: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any){ 
+      console.log(this.data);
+    }
+ 
+  BorrarRegistro() {
+    if (this.data != 0) {
+     this.formularioService.eliminarTelefono(this.data).subscribe((data) => {
         this.showError('Registro eliminado correctamente');   
         this.dialogRef.close();     
       });

@@ -4,6 +4,7 @@ export interface Paciente {
     nombre_completo: string;
     numero_cuenta: string;
     numero_identidad: string;
+    numero_telefono?:number;
     imagen?: string;
     lugar_procedencia: string;
     direccion: string;
@@ -13,7 +14,6 @@ export interface Paciente {
     sexo: any;
     estado_civil: any;
     seguro_medico?: any;
-    numero_telefono: string;
     peso?: string;
     talla?: string;
     imc?: string;

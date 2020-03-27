@@ -23,7 +23,6 @@ export interface Paciente {
   sexo?: string;
   estado_civil?: string;
   seguro_medico?: string;
-  numero_telefono?: string;
   emergencia_telefono?: string;
   peso?: string;
   talla?: string;
@@ -32,9 +31,7 @@ export interface Paciente {
   presion?: string;
   pulso?: string;
   categoria?: any;
-  prosene?: any;
-
-}
+  prosene?: any;}
 
 
 
@@ -79,32 +76,7 @@ export class PacienteComponent implements OnInit {
   //     this.loading = $event;
   //   }
 
-  generarPDF() {
-
-    const pdf = new PdfMakeWrapper();
-
-    pdf.add(
-      new Txt('Constancia').fontSize(16).alignment("center").end
-    );
-
-    pdf.add(
-      new Txt(
-      "\nEl motivo de la presente constancia es para hacerle saber que el alumno "+
-      "quien esta leyendo esto se la come toda y no deja para la cena.").alignment("justify").end
-    );
-
-    pdf.add([
-      new Canvas([
-        new Line([10, 10], [200, 10]).end
-      ]).alignment("center").end,
-      new Txt("firma").alignment("center").end
-    ]);
-
-
-
-    pdf.create().open();
-
-  }
+  
 
 
   getPacientes() {
@@ -133,8 +105,8 @@ export class PacienteComponent implements OnInit {
 
 
 
-  displayedColumns: string[] = ['id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'];
-  displayedColumns2: string[] = ['id_paciente', 'nombre_completo', 'numero_cuenta', 'sexo', 'numero_telefono'];
+  displayedColumns: string[] = ['id_paciente', 'nombre_completo', 'numero_identidad', 'sexo'];
+  displayedColumns2: string[] = ['id_paciente', 'nombre_completo', 'numero_cuenta', 'numero_identidad','sexo'];
 
 
   applyFilter(filterValue: string) {
