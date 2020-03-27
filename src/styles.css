@@ -154,6 +154,14 @@ body { margin: 0; font-family:Poppins-Regular,sans-serif;
     margin-top: 20px;
   }
 
+  
+ 
+ #upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+ }
+
        
 
     /* Tamaño del scroll */
