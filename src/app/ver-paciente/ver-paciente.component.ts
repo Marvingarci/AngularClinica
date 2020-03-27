@@ -37,7 +37,7 @@ import { MentalAP } from '../interfaces/MentalAP';
 import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
 import { WebcamInitError } from '../modules/webcam/domain/webcam-init-error';
 import { WebcamImage } from '../modules/webcam/domain/webcam-image';
-import { Subject, Observable, timer } from 'rxjs';
+import { Subject, Observable, timer, interval } from 'rxjs';
 import { WebcamUtil } from '../modules/webcam/util/webcam.util';
 import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
@@ -878,7 +878,7 @@ ocultar: boolean = true;
   ideditarAP:any
   ideditarTX:any
   // variable que identifica si el paciente tiene imagen de perfil
-  noImg: boolean = true;
+  public noImg: boolean = true;
 
 
   // arreglos de cada tipo de interfaz en los que se guardan los datos que se mandan  
@@ -1255,6 +1255,7 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     this.loading1 = false;
     console.log("foto actualizada");
     this.paciente.imagen = this.inven.imagenactual;
+    this.noImg = false;
   });
   
 }
@@ -3531,8 +3532,12 @@ cargarTablaAntecedentesFamiliares(){
     });
 
     dia.afterClosed().subscribe(result =>{
-      this.actualizarfoto();
-      this.loading1 = true;
+    
+        this.actualizarfoto();
+        this.loading1 = true;
+        
+      
+      
     });
     this.inven.idCita = this.id;
   }
@@ -4200,10 +4205,10 @@ export class CambiarFoto {
       this.id=this.servicio.idCita;
       
       if (this.imagenAlter == true) {
-        
+        this.imagenAlter = false;
+
       }else{
         this.imagen = this.webcamImage.imageAsDataUrl;
-        this.imagenAlter = false;
       }
 
       
@@ -4211,16 +4216,31 @@ export class CambiarFoto {
       
       this.NuevaImagen.id_paciente = this.id;
       this.NuevaImagen.imagen =this.imagen;
+      const intervalo= interval(1000);
+      
+      
+      console.log(this.imagen);
       console.log(this.NuevaImagen.imagen);
 
       this.servicio.ActualizarImagen(this.NuevaImagen).subscribe( (data) =>{
          console.log('imagen guardado con exito');
+         this.servicio.sihayimagen = true;
          this.servicio.imagenactual = this.imagen;
          //this.verPaciente.actualizarfoto();
        }, (error) => {
          console.log(error);
        });
-       this.dialogo.close(this.imagen);
+       this.dialogo.close();
+    }
+    _handleReaderLoaded(readerEvent){
+      var binaryString = readerEvent.target.result;
+      this.imagen ="data:image/jpeg;base64,"+btoa(binaryString);
+      console.log(this.imagen);
+        this.imagenAlter = true;
+        this.guardar();
+        this.dialogo.close;
+        
+      
     }
 
 
@@ -4231,19 +4251,15 @@ export class CambiarFoto {
       if (files && file) {
         var reader = new FileReader();
         reader.onload = this._handleReaderLoaded.bind(this);
+        
+        
         reader.readAsBinaryString(file);
-        this.imagenAlter = true;
-        this.guardar();
-        this.dialogo.close;
+        
       }
       
 
     }
-    _handleReaderLoaded(readerEvent){
-      var binaryString = readerEvent.target.result;
-      this.imagen ="data:image/jpeg;base64,"+btoa(binaryString);
-      console.log(this.imagen);
-    }
+    
 
     ///////////////////////codigo 
    

@@ -7,8 +7,8 @@
 
   .paciente{  
     height: 600px;
-    width:85%;     
-    background: url('src\imagenes\paciente.png');
+    width:100%;     
+    background: url('src\imagenes\paciente.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -16,8 +16,8 @@
   }
   .paciente1{  
     height: 600px;
-    width:84%;     
-    background: url('src\imagenes\paciente1.png');
+    width:100%;     
+    background: url('src\imagenes\paciente1.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -25,8 +25,8 @@
   }
   .paciente2{  
     height: 600px;
-    width:84%;     
-    background: url('src\imagenes\paciente2.png');
+    width:100%;     
+    background: url('src\imagenes\paciente2.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -34,8 +34,35 @@
   }
   .paciente3{  
     height: 600px;
-    width:84%;     
-    background: url('src\imagenes\paciente3.png');
+    width:100%;     
+    background: url('src\imagenes\paciente3.gif');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
+  }
+  .paciente4{  
+    height: 600px;
+    width:100%;     
+    background: url('src\imagenes\paciente4.gif');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
+  }
+  .paciente5{  
+    height: 600px;
+    width:100%;     
+    background: url('src\imagenes\paciente5.gif');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
+  }
+  .paciente6{  
+    height: 600px;
+    width:100%;     
+    background: url('src\imagenes\paciente6.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
