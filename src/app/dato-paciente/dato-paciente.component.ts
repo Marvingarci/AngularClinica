@@ -99,7 +99,7 @@ export class DatoPacienteComponent implements OnInit {
     sexo: null,
     estado_civil: null,
     seguro_medico: null,
-    numero_telefono: null,
+    telefono: null,
     peso: null,
     talla: null,
     imc: null,
@@ -142,7 +142,7 @@ export class DatoPacienteComponent implements OnInit {
         this.numero_cuenta.setValue(this.paciente.numero_cuenta);
         this.carrera.setValue(this.paciente.carrera);
         this.sexo.setValue(this.paciente.sexo);
-        this.numero_telefono.setValue(this.paciente.numero_telefono);
+        this.numero_telefono.setValue(this.paciente.telefono);
 
         this.formularioService.idActualizar = this.paciente.id_paciente;
 
@@ -222,14 +222,15 @@ export class DatoPacienteComponent implements OnInit {
     // this.nombre_completo.setValue('hola');
   }
 
-  cerrarsesion() {
+  cambiarContra() {
     const dialogRef = this.dialog.open(verificarDialog, { disableClose: false, closeOnNavigation: true, panelClass: 'cambiarcontrasenia' });
     console.log(this.paciente);
 
 
   }
 
-  cambiarcontra() {
+  cerrarSesion() {
+
     const dialogRef = this.dialog.open(DialogCerrarSesion, { disableClose: false, panelClass: 'cerrarsesion' });
 
   }
@@ -244,7 +245,7 @@ export class DatoPacienteComponent implements OnInit {
         this.paciente.numero_identidad = this.numero_identidad.value;
         this.paciente.carrera = this.carrera.value;
         this.paciente.sexo = this.sexo.value;
-        this.paciente.numero_telefono = this.numero_telefono.value;
+        this.paciente.telefono = this.numero_telefono.value;
 
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data) => {
           console.log(data);
@@ -257,7 +258,7 @@ export class DatoPacienteComponent implements OnInit {
             this.numero_cuenta.setValue(this.paciente.numero_cuenta);
             this.carrera.setValue(this.paciente.carrera);
             this.sexo.setValue(this.paciente.sexo);
-            this.numero_telefono.setValue(this.paciente.numero_telefono);
+            this.numero_telefono.setValue(this.paciente.telefono);
           });
 
           this.showError('Todo correcto');
@@ -318,7 +319,7 @@ export class cambiocontraDialog {
     sexo: null,
     estado_civil: null,
     seguro_medico: null,
-    numero_telefono: null,
+    telefono: null,
     peso: null,
     talla: null,
     imc: null,
@@ -504,7 +505,7 @@ export class verificarDialog {
     sexo: null,
     estado_civil: null,
     seguro_medico: null,
-    numero_telefono: null,
+    telefono: null,
     peso: null,
     talla: null,
     imc: null,
@@ -657,7 +658,7 @@ export class actualizarcontraDialog {
     sexo: null,
     estado_civil: null,
     seguro_medico: null,
-    numero_telefono: null,
+    telefono: null,
     peso: null,
     talla: null,
     imc: null,
@@ -786,10 +787,10 @@ export class actualizarcontraDialog {
 export class DialogCerrarSesion {
   constructor(public dialog: MatDialog, private router: Router) {
 
-    this.dialog.closeAll;
   }
   salir() {
     //borro el token para que el usuario no ya no tenga acceso
+    this.dialog.closeAll();
     localStorage.removeItem('token');
     this.router.navigate(['']);
 

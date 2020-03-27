@@ -276,7 +276,7 @@ matcher = new MyErrorStateMatcher();
   });
 
   formulario_planificacion_familiar = new FormGroup({
-    planificacion_familiar : new FormControl('',Validators.required),
+    planificacion_familiar : new FormControl(''),
     metodo_planificacion : new FormControl(''),
     observacion_planificacion : new FormControl('', [ Validators.maxLength(60),Validators.minLength(6)]),    
   });
@@ -318,7 +318,7 @@ matcher = new MyErrorStateMatcher();
     });
   }
 
-  habilitarInputsfecha(formControl: FormControl[]) {
+  habilitarInputsinvalidacion(formControl: FormControl[]) {
     formControl.forEach(controlador => {
       controlador.enable({ onlySelf: true });    
     });
@@ -451,7 +451,7 @@ ocultar: boolean = true;
     sexo: null,
     estado_civil: null,
     seguro_medico: null,
-    numero_telefono: null,  
+    telefono: null,  
     categoria: null,
   }
 
@@ -652,7 +652,7 @@ ocultar: boolean = true;
     id_paciente : null
   };
 
-  planificacion_familiar: PlanificacionesFamiliares = {
+  planificacion_familiardata: PlanificacionesFamiliares = {
     planificacion_familiar : null,
     metodo_planificacion : null,
     observacion_planificacion : null,
@@ -928,6 +928,8 @@ ocultar: boolean = true;
   ocultarbtnagregarotroAP: boolean = true;
   ocultarbtnagregarhospitalaria: boolean = true;
   ocultarbtnagregartoxicologico: boolean = true;
+  vercitologia: boolean = true;  
+  verplanificacion: boolean = true;
 
   //variable que identifica si un paciente es un alumno
   esAlumno: boolean = true;
@@ -986,34 +988,19 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.cargarHabitoToxicologico();
       this.cargarActividadSexual();
       this.cargarPlanificacionFamiliar();      
-      this.cargarHospitalarias();   
+      this.cargarHospitalarias();  
+      this.cargarAntecedentesGinecologicos(); 
       
     
 
-      this.formularioService.obtenerAntecedenteGinecologico(this.id).subscribe((data : AntecedentesGinecologicos)=>{
-      this.antecedente_ginecologico = data;
-      //verifico si el paciente tiene antecedentes ginecologicos para mostrarlos
-      if(this.antecedente_ginecologico != null){
-      this.mostrarAntecedenteGinecologico = true;
-      //establesco el valor a los formcontrol para que se visualizen
-      //en los respectivos inputs de los antecedentes ginecologicos
-      this.cargarInformacionAntecedentesGinecologicos();
-      console.log(this.antecedente_ginecologico);
-      }
-      console.log('mostrarAncedententeGinecologico: '+this.mostrarAntecedenteGinecologico);
-      }, (error)=>{
-      console.log(error);
-      });
+   
 
 
 
       this.formularioService.obtenerAntecedenteObstetrico(this.id).subscribe((data: AntecedentesObstetricos)=>{
         this.antecedente_obstetrico = data;
-      //verifico si el paciente tiene antecedentes obstetricos para mostrarlos
         if(this.antecedente_obstetrico!= null){
           this.mostrarAntecedenteObstetrico = true;
-        //establesco el valor a los formcontrol para que se visualizen
-        //en los respectivos inputs de los antecedentes obstetricos
         this.cargarInformacionAntecedentesObstetricos();
           console.log(this.antecedente_obstetrico);
         }
@@ -1534,6 +1521,49 @@ this.cargarTablaOtroAP();
     });
  }
 
+ cargarAntecedentesGinecologicos(){
+ this.formularioService.obtenerAntecedenteGinecologico(this.id).subscribe((data : AntecedentesGinecologicos)=>{
+  this.antecedente_ginecologico = data;
+  //verifico si el paciente tiene antecedentes ginecologicos para mostrarlos
+  if(this.antecedente_ginecologico != null){
+  this.mostrarAntecedenteGinecologico = true;
+
+  if(this.antecedente_ginecologico.citologia == 'No'){
+      this.vercitologia = false;
+  }else if(this.antecedente_ginecologico.citologia == 'Si'){
+    this.vercitologia = true;
+  }
+
+  this.cargarInformacionAntecedentesGinecologicos();
+  }
+  }, (error)=>{
+  console.log(error);
+  });
+}
+
+
+
+cargarPlanificacionFamiliar(){
+  this.formularioService.obtenerPlanificacionFamiliar(this.id).subscribe((data: PlanificacionesFamiliares)=>{
+    this.planificacion_familiardata = data;
+    
+this.cargarInformacionPlanificacionfamiliar();
+
+if(this.planificacion_familiardata.planificacion_familiar == 'No'){
+      this.verplanificacion = false;
+    }else if(this.planificacion_familiardata.planificacion_familiar == 'Si'){
+      this.verplanificacion = true;
+    }
+    if(this.planificacion_familiardata != null){
+     this.mostrarPlanificacionFamiliar = true;   
+  
+    }
+    },(error)=>{
+    console.log(error);
+    });
+    }
+
+
  cargarActividadSexual(){
  this.formularioService.obtenerActividadSexual(this.id).subscribe((data : ActividadSexual)=>{
   this.actividad_sexual = data;
@@ -1549,29 +1579,7 @@ this.cargarTablaOtroAP();
   });
 }
 
-cargarPlanificacionFamiliar(){
-  this.formularioService.obtenerPlanificacionFamiliar(this.id).subscribe((data: PlanificacionesFamiliares)=>{
-    this.planificacion_familiar = data;
-    console.log('los datos de planificacion    '+this.planificacion_familiar);
 
-    //si no hay datos se muestra un label en html que no hay
-    if (this.planificacion_familiar) {
-      this.mostrarmensajeplanificacionfamiliar != null;     
-    } 
-
-
-    if(this.planificacion_familiar!= null){
-      this.mostrarPlanificacionFamiliar = true;
-      //establesco el valor a los formcontrol para que se visualizen
-      //en los respectivos inputs de la planificacion familiar
-      this.cargarInformacionPlanificacionfamiliar();
-      console.log(this.planificacion_familiar);
-    }
-    console.log('mostrarPlanificacionFamiliar: '+this.mostrarPlanificacionFamiliar);
-  },(error)=>{
-    console.log(error);
-  });
-}
 
 
 cargarHospitalarias(){
@@ -1635,6 +1643,7 @@ cargarHospitalarias(){
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
+        this.paciente.telefono = this.numero_telefono.value;
         this.paciente.categoria = this.categoria.value;
         this.paciente.peso = this.peso.value;
         this.paciente.presion = this.presion.value;
@@ -2900,6 +2909,7 @@ if (this.formulario_datos_generales.dirty) {
 
   actualizarAntecedentesGinecologicos(){
     if(this.readonlyAntecedentesGinecologicos == true){
+      if (this.formulario_antecedente_ginecologico.dirty) {
       if(this.formulario_antecedente_ginecologico.valid){
         // guardar datos del formulario en antecedente_genicologico y enviarlo a la api
         this.antecedente_ginecologico.edad_inicio_menstruacion = this.edad_inicio_menstruacion.value;
@@ -2911,8 +2921,8 @@ if (this.formulario_datos_generales.dirty) {
         this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
         this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
 
-        this.formularioService.actualizarAntecedenteGinecologico(this.antecedente_ginecologico).subscribe((data)=>{
-          this.cargarInformacionAntecedentesGinecologicos();
+        this.formularioService.actualizarAntecedenteGinecologico(this.antecedente_ginecologico).subscribe((data)=>{         
+      this.cargarAntecedentesGinecologicos(); 
           //alert('se actualizaron perron los antecedentes ginecologicos');
           this.showError('Antecedentes ginecologicos actualizado correctamente');
         }, (error)=> {
@@ -2921,12 +2931,47 @@ if (this.formulario_datos_generales.dirty) {
         });
       }
     }
+    }
   }
 
+
+  actualizarPlanificacionFamiliar(){
+    this.cargarPlanificacionFamiliar();
+    console.log(this.planificacion_familiardata.planificacion_familiar);
+    if(this.readonlyPlanificacionFamiliar){
+      if(this.formulario_planificacion_familiar.dirty){
+      if(this.formulario_planificacion_familiar.valid){
+        // guardar datos del formulario en planificacion_familiar y enviarlo a la api
+        this.planificacion_familiardata.planificacion_familiar = this.planificacion_familiarr.value;
+        this.planificacion_familiardata.metodo_planificacion = this.metodo_planificacion.value;
+        this.planificacion_familiardata.observacion_planificacion = this.observacion_planificacion.value;
+if(this.planificacion_familiardata.planificacion_familiar === 'undefined'){
+  this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiardata).subscribe((data)=>{
+    this.cargarPlanificacionFamiliar();            
+    this.showError('Planificacion Familiar actualizado correctamente');
+  }, (error)=>{
+    console.log(error);
+    this.showError('Error al actualizar los Planificacion Familiar');
+  });
+}else{
+        this.formularioService.actualizarPlanificacionFamiliar(this.planificacion_familiardata).subscribe((data)=>{
+            this.cargarPlanificacionFamiliar();            
+            this.showError('Planificacion Familiar actualizado correctamente');
+          }, (error)=>{
+            console.log(error);
+            this.showError('Error al actualizar los Planificacion Familiar');
+          });
+}
+
+      }
+    }
+    }
+  }
 
 
   actualizarAntecedentesObstetricos(){
     if(this.readonlyAntecedentesObstetricos == true){
+      if(this.formulario_antecedente_obstetrico.dirty){
       if(this.formulario_antecedente_obstetrico.valid){
         // guardar datos del formulario en antecedente_obstetrico y enviarlo a la api
         this.antecedente_obstetrico.partos = this.partos.value;
@@ -2948,29 +2993,12 @@ if (this.formulario_datos_generales.dirty) {
         });
       }
     }
-  }
-
-
-
-  actualizarPlanificacionFamiliar(){
-    if(this.readonlyPlanificacionFamiliar){
-      if(this.formulario_planificacion_familiar.valid){
-        // guardar datos del formulario en planificacion_familiar y enviarlo a la api
-        this.planificacion_familiar.planificacion_familiar = this.planificacion_familiarr.value;
-        this.planificacion_familiar.metodo_planificacion = this.metodo_planificacion.value;
-        this.planificacion_familiar.observacion_planificacion = this.observacion_planificacion.value;
-
-        this.formularioService.actualizarPlanificacionFamiliar(this.planificacion_familiar).subscribe((data)=>{
-            this.cargarInformacionPlanificacionfamiliar();            
-            //alert('se actualizaron perron la Planificacion Familiar');
-            this.showError('Planificacion Familiar actualizado correctamente');
-          }, (error)=>{
-            console.log(error);
-            this.showError('Error al actualizar los Planificacion Familiar');
-          });
-      }
     }
   }
+
+
+
+
 
 
 
@@ -3231,7 +3259,7 @@ cargarTablaAntecedentesFamiliares(){
           break;
     }
 
-    this.numero_telefono.setValue(this.paciente.numero_telefono);   
+    this.numero_telefono.setValue(this.paciente.telefono);   
     this.temperatura.setValue(this.paciente.temperatura);
     this.pulso.setValue(this.paciente.pulso);
     this.presion.setValue(this.paciente.presion);
@@ -3320,13 +3348,8 @@ cargarTablaAntecedentesFamiliares(){
 
 
 
-  cargarInformacionAntecedentesGinecologicos(){
-    if(!this.antecedente_ginecologico.edad_inicio_menstruacion.length){   
-      this.edad_inicio_menstruacion.setValue('No especificado aún');   
-    }else{
-    this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);
-    }
-    
+  cargarInformacionAntecedentesGinecologicos(){ 
+    this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);  
     this.fum.setValue(this.antecedente_ginecologico.fum);
     this.citologia.setValue(this.antecedente_ginecologico.citologia);
     this.fecha_citologia.setValue(this.antecedente_ginecologico.fecha_citologia);
@@ -3349,6 +3372,7 @@ cargarTablaAntecedentesFamiliares(){
     this.abortos.setValue(this.antecedente_obstetrico.abortos);
     this.cesarias.setValue(this.antecedente_obstetrico.cesarias);
     this.hijos_vivos.setValue(this.antecedente_obstetrico.hijos_vivos);
+
     this.hijos_muertos.setValue(this.antecedente_obstetrico.hijos_muertos);
     this.fecha_termino_ult_embarazo.setValue(this.antecedente_obstetrico.fecha_termino_ult_embarazo);
     this.descripcion_termino_ult_embarazo.setValue(this.antecedente_obstetrico.descripcion_termino_ult_embarazo);
@@ -3356,115 +3380,116 @@ cargarTablaAntecedentesFamiliares(){
   }
 
 
-  cambiarInformacionPlanificacionFamiliar(){
-    if(this.readonlyPlanificacionFamiliar){
-      switch(this.metodo_planificacion.value){
-        case 1:
-            this.metodo_planificacion.setValue("DIU");
-            break;
-        case 2:
-            this.metodo_planificacion.setValue("Condón");
-              break;
-        case 3:
-            this.metodo_planificacion.setValue("Pastilla");
-            break;
-        case 4:
-            this.metodo_planificacion.setValue("Implante");
-            break;
-        case 5:
-            this.metodo_planificacion.setValue("Inyección trimestral");
-            break;
-        case 6:
-            this.metodo_planificacion.setValue("Inyección trimestral");
-            break;
-        case 7:
-            this.metodo_planificacion.setValue("Inyección mensual");
-            break;
-        case 8:
-            this.metodo_planificacion.setValue("Ritmo");
-            break;
-        default:
-            this.metodo_planificacion.setValue("Esterilización");
-            break;
+  // cambiarInformacionPlanificacionFamiliar(){
+  //   if(this.readonlyPlanificacionFamiliar){
+  //     switch(this.metodo_planificacion.value){
+  //       case 1:
+  //           this.metodo_planificacion.setValue("DIU");
+  //           break;
+  //       case 2:
+  //           this.metodo_planificacion.setValue("Condón");
+  //             break;
+  //       case 3:
+  //           this.metodo_planificacion.setValue("Pastilla");
+  //           break;
+  //       case 4:
+  //           this.metodo_planificacion.setValue("Implante");
+  //           break;
+  //       case 5:
+  //           this.metodo_planificacion.setValue("Inyección trimestral");
+  //           break;
+  //       case 6:
+  //           this.metodo_planificacion.setValue("Inyección trimestral");
+  //           break;
+  //       case 7:
+  //           this.metodo_planificacion.setValue("Inyección mensual");
+  //           break;
+  //       case 8:
+  //           this.metodo_planificacion.setValue("Ritmo");
+  //           break;
+  //       default:
+  //           this.metodo_planificacion.setValue("Esterilización");
+  //           break;
         
   
-      }
-    }else{
-      switch(this.metodo_planificacion.value){
-        case "DIU":
-            this.metodo_planificacion.setValue(1);
-            break;
-        case "Condón":
-            this.metodo_planificacion.setValue(2);
-              break;
-        case "Pastilla":
-            this.metodo_planificacion.setValue(3);
-            break;
-        case "Implante":
-            this.metodo_planificacion.setValue(4);
-            break;
-        case "Inyección trimestral":
-            this.metodo_planificacion.setValue(5);
-            break;
-        case "Inyección trimestral":
-            this.metodo_planificacion.setValue(6);
-            break;
-        case "Inyección mensual":
-            this.metodo_planificacion.setValue(7);
-            break;
-        case "Ritmo":
-            this.metodo_planificacion.setValue(8);
-            break;
-        default:
-            this.metodo_planificacion.setValue(9);
-            break;
+  //     }
+  //   }else{
+  //     switch(this.metodo_planificacion.value){
+  //       case "DIU":
+  //           this.metodo_planificacion.setValue(1);
+  //           break;
+  //       case "Condón":
+  //           this.metodo_planificacion.setValue(2);
+  //             break;
+  //       case "Pastilla":
+  //           this.metodo_planificacion.setValue(3);
+  //           break;
+  //       case "Implante":
+  //           this.metodo_planificacion.setValue(4);
+  //           break;
+  //       case "Inyección trimestral":
+  //           this.metodo_planificacion.setValue(5);
+  //           break;
+  //       case "Inyección trimestral":
+  //           this.metodo_planificacion.setValue(6);
+  //           break;
+  //       case "Inyección mensual":
+  //           this.metodo_planificacion.setValue(7);
+  //           break;
+  //       case "Ritmo":
+  //           this.metodo_planificacion.setValue(8);
+  //           break;
+  //       default:
+  //           this.metodo_planificacion.setValue(9);
+  //           break;
         
   
-      }
-    }
-  }
+  //     }
+  //   }
+  // }
 
 
   cargarInformacionPlanificacionfamiliar(){    
-    this.planificacion_familiarr.setValue(this.planificacion_familiar.planificacion_familiar);    
-    switch(this.planificacion_familiar.metodo_planificacion){
-      case 1:
-          this.planificacion_familiar.metodo_planificacion = "DIU";
-          break;
-      case 2:
-            this.planificacion_familiar.metodo_planificacion = "Condón";
-            break;
-      case 3:
-          this.planificacion_familiar.metodo_planificacion = "Pastilla";
-          break;
-      case 4:
-          this.planificacion_familiar.metodo_planificacion = "Implante";
-          break;
-      case 5:
-          this.planificacion_familiar.metodo_planificacion = "Inyección trimestral";
-          break;
-      case 6:
-          this.planificacion_familiar.metodo_planificacion = "Inyección trimestral";
-          break;
-      case 7:
-          this.planificacion_familiar.metodo_planificacion = "Inyección mensual";
-          break;
-      case 8:
-          this.planificacion_familiar.metodo_planificacion = "Ritmo";
-          break;
-      default:
-          this.planificacion_familiar.metodo_planificacion = "Esterilización";
-          break;
-            }
-  
-
-    this.metodo_planificacion.setValue(this.planificacion_familiar.metodo_planificacion);
-    this.observacion_planificacion.setValue(this.planificacion_familiar.observacion_planificacion);
-
+    this.planificacion_familiarr.setValue(this.planificacion_familiardata.planificacion_familiar);  
     if(this.planificacion_familiarr.value == "No"){
       this.metodo_planificacion.disable({onlySelf: true});
       this.observacion_planificacion.disable({onlySelf: true});
-    }
+    }  
+    // switch(this.planificacion_familiar.metodo_planificacion){
+    //   case 1:
+    //       this.planificacion_familiar.metodo_planificacion = "DIU";
+    //       break;
+    //   case 2:
+    //         this.planificacion_familiar.metodo_planificacion = "Condón";
+    //         break;
+    //   case 3:
+    //       this.planificacion_familiar.metodo_planificacion = "Pastilla";
+    //       break;
+    //   case 4:
+    //       this.planificacion_familiar.metodo_planificacion = "Implante";
+    //       break;
+    //   case 5:
+    //       this.planificacion_familiar.metodo_planificacion = "Inyección trimestral";
+    //       break;
+    //   case 6:
+    //       this.planificacion_familiar.metodo_planificacion = "Inyección trimestral";
+    //       break;
+    //   case 7:
+    //       this.planificacion_familiar.metodo_planificacion = "Inyección mensual";
+    //       break;
+    //   case 8:
+    //       this.planificacion_familiar.metodo_planificacion = "Ritmo";
+    //       break;
+    //   default:
+    //       this.planificacion_familiar.metodo_planificacion = "Esterilización";
+    //       break;
+    //         }
+  
+
+    this.metodo_planificacion.setValue(this.planificacion_familiardata.metodo_planificacion);
+    this.observacion_planificacion.setValue(this.planificacion_familiardata.observacion_planificacion);
+
+  
   }
 
 
@@ -3517,31 +3542,6 @@ cargarTablaAntecedentesFamiliares(){
     this.inven.idCita = this.id;
   }
 
-
-  guardarDatos(){
-
-    //  if(this.formulario_datos_faltantes.valid){
-    //   this.paciente.imc = this.formulario_datos_faltantes.get('imc').value;
-    //   this.paciente.peso = this.formulario_datos_faltantes.get('peso').value;
-    //   this.paciente.presion = this.formulario_datos_faltantes.get('presion').value;
-    //   this.paciente.talla = this.formulario_datos_faltantes.get('talla').value;
-    //   this.paciente.temperatura = this.formulario_datos_faltantes.get('temperatura').value;
-    //   this.paciente.pulso = this.formulario_datos_faltantes.get('pulso').value;
-      
-      
-
-    //    this.formularioService.actualizarPaciente(this.paciente).subscribe((data)=>{
-    //      this.mensaje.open('Datos guardados', '', {duration:2000});
-    //      this.sidenav.toggle();
-
-    //    }, (error)=>{
-    //      console.log(error);
-    //      this.mensaje.open('there was an error!', '', {duration:2000});
-    // });
-
-
-    //  }
-  }
 
 
 

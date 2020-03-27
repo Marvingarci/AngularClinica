@@ -1,4 +1,4 @@
-import { Component, OnInit, RootRenderer } from '@angular/core';
+import { Component, OnInit, RootRenderer, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Router, RouterModule } from '@angular/router';
 import { Login } from '../interfaces/login';
@@ -13,6 +13,7 @@ import { Medicos } from '../interfaces/medicos';
 import { MedicosService } from '../services/medicos.service';
 //import * as CryptoJS from 'crypto-js';
 import { isNullOrUndefined } from "util";
+import { FormTools } from '../focus';
 
 
 @Component({
@@ -21,7 +22,9 @@ import { isNullOrUndefined } from "util";
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
+  @ViewChild('inputClave', {static: false}) inputClave : ElementRef;
+
   hide = true;
   loading: boolean = false;
 
@@ -65,6 +68,11 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('token');
 
   }
+  ngAfterViewInit(): void {
+
+    FormTools.validatorForm(this.login_form);
+    // this.inputClave.nativeElement.focus();
+  }
 
   showError(message: string) {
     const config = new MatSnackBarConfig();
@@ -83,11 +91,11 @@ export class LoginComponent implements OnInit {
 
       this.hide = false;
       this.loading = true;
-      this.loginService.porMientras = this.clave.value;
+      this.loginService.porMientras = this.ControlClave.value;
 
 
       this.login.cuenta = this.cuenta.value;
-      this.login.password = this.clave.value;
+      this.login.password = this.ControlClave.value;
 
 
       //verifico en la base de datos si el usuario fue logueado ya anteriormente ó es primera vez.
@@ -103,7 +111,7 @@ export class LoginComponent implements OnInit {
 
 
           this.login.cuenta = this.cuenta.value;
-          this.login.password = this.clave.value;
+          this.login.password = this.ControlClave.value;
 
           // si el usuario es nuevo entonces lo registro.
           this.loginService.guardarDatos(this.login).subscribe((data: any) => {
@@ -219,5 +227,5 @@ export class LoginComponent implements OnInit {
   }
 
   get cuenta() { return this.login_form.get('cuenta') };
-  get clave() { return this.login_form.get('clave') };
+  get ControlClave() { return this.login_form.get('clave') };
 }
