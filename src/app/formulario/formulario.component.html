@@ -58,10 +58,10 @@
           <div class="col">
             <mat-form-field class="example-full-width">
               <mat-label>Categoria Paciente</mat-label>
-              <mat-select formControlName="categoria">
-                <mat-option (click)=" QuitarCuenta()" [value]="1"> Empleado </mat-option>
-                <mat-option (click)=" QuitarCuenta()" [value]="2"> Visitante </mat-option>
-                <mat-option (click)="AgregarNoCuenta()" [value]="3"> Estudiante </mat-option>
+              <mat-select formControlName="categoria" (selectionChange)="selectCategoria($event.value)">
+                <mat-option  [value]="1"> Empleado </mat-option>
+                <mat-option  [value]="2"> Visitante </mat-option>
+                <mat-option  [value]="3"> Estudiante </mat-option>
               </mat-select>
               <mat-error *ngIf="categoria.hasError('required')">campo requerido</mat-error>
 
@@ -98,7 +98,7 @@
           <div class="col">
             <mat-form-field class="example-full-width">
               <mat-label>Sexo</mat-label>
-              <mat-select formControlName="sexo" (selectionChange)="select($event.value)">
+              <mat-select formControlName="sexo" (selectionChange)="selectSexo($event.value)">
                 <mat-option value="Hombre">Hombre</mat-option>
                 <mat-option value="Mujer">Mujer</mat-option>
 
