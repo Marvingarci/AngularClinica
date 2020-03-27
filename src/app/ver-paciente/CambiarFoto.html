@@ -1,4 +1,4 @@
- <webcam  *ngIf=" showWebcam && opcion == true" [height]="570" [width]="750" style="position: static;margin-right: 15px;"
+ <webcam  *ngIf=" showWebcam && opcion == true"  style="position: static;"
          [trigger]="triggerObservable" (imageCapture)="handleImage($event)" 
             [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
             [videoOptions]="videoOptions"
@@ -9,13 +9,19 @@
             
            
 </webcam>
-<div class="row" *ngIf=" opcion == true">
+<div class="row" *ngIf=" opcion == true"  style="margin-top: 10px;">
+        <div class="col" style="padding: 0px; ">
+        <label style="cursor: pointer;" for="upload-photo" style="float: right;margin: 0px;height: 40px;">
+           <mat-icon  style="color: white; font-size:50px; width: inherit; ">insert_photo</mat-icon>
+        </label>
+        <input id="upload-photo" type="file" accept="image/*" (change)="seleccionarArchivo($event)">&nbsp; 
+        </div>
 
-<label for="upload-photo" class="botontomarfoto"><mat-icon  style="color: white; font-size:50px; width: inherit; ">file</mat-icon></label>
-<input id="upload-photo" type="file" accept="image/*" (change)="seleccionarArchivo($event)">
-<button *ngIf=" opcion == true"  mat-icon-button class="botontomarfoto" (click)="triggerSnapshot();" style=" outline:none; "><mat-icon  style="color: white; font-size:50px; width: inherit; ">camera</mat-icon></button>&nbsp; &nbsp;
-
-
+        <div class="col" style="padding: 0px;height: min-content" style="margin-top: 5px; padding: 0px;">
+                &nbsp; <button *ngIf=" opcion == true"  mat-icon-button (click)="triggerSnapshot();" style=" outline:none; ">
+                <mat-icon  style="color: white; font-size:50px; width: inherit; ">camera</mat-icon>
+        </button>
+        </div>
 </div>
        
 
@@ -25,10 +31,20 @@
 
 
    
-<img *ngIf="opcion == false"  [height]="570" [width]="750" style="position: static;margin-right: 20px;margin-top: -20dp;" [src]="webcamImage.imageAsDataUrl"  />   
-<div class="row" *ngIf="opcion == false" >
-<button  *ngIf="opcion == false" mat-icon-button (click)="otrafoto();" class="botontomarfoto"><mat-icon  style="color: white; font-size:50px; width: inherit; ">flip_camera_android</mat-icon></button>&nbsp; &nbsp;
-<button *ngIf="opcion == false"  mat-icon-button (click)="guardar();" class="botontomarfoto" [mat-dialog-close]="true"><mat-icon  style="color: white; font-size:50px; width: inherit; ">check_circle</mat-icon></button>
+<img *ngIf="opcion == false"   [src]="webcamImage.imageAsDataUrl" />   
+<div class="row" *ngIf="opcion == false" style="margin-top: 20px;">
+
+                <div class="col" style="padding: 0px;margin-right: 10px;">
+                <button  *ngIf="opcion == false" mat-icon-button (click)="otrafoto();" style="float: right;">
+                <mat-icon  style="color: white; font-size:50px; width: inherit; ">flip_camera_android</mat-icon>
+                </button>  
+                </div>
+
+                <div class="col" style="padding: 0px;margin-left: 10px;">
+                        <button *ngIf="opcion == false"  mat-icon-button (click)="guardar();" [mat-dialog-close]="true">
+                <mat-icon  style="color: white; font-size:50px; width: inherit; ">check_circle</mat-icon>
+                </button>       
+                </div>
 </div>
 
 
