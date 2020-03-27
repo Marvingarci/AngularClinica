@@ -427,7 +427,7 @@ ocultar: boolean = true;
     sexo: null,
     estado_civil: null,
     seguro_medico: null,
-    numero_telefono: null,  
+    telefono: null,  
     categoria: null,
   }
 
@@ -1560,7 +1560,7 @@ cargarHospitalarias(){
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
-        this.paciente.numero_telefono = this.numero_telefono.value;
+        this.paciente.telefono = this.numero_telefono.value;
         this.paciente.categoria = this.categoria.value;
         this.paciente.peso = this.peso.value;
         this.paciente.presion = this.presion.value;
@@ -3124,7 +3124,7 @@ cargarTablaAntecedentesFamiliares(){
           break;
     }
 
-    this.numero_telefono.setValue(this.paciente.numero_telefono);   
+    this.numero_telefono.setValue(this.paciente.telefono);   
     this.temperatura.setValue(this.paciente.temperatura);
     this.pulso.setValue(this.paciente.pulso);
     this.presion.setValue(this.paciente.presion);
