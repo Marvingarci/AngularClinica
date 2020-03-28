@@ -11,8 +11,10 @@
     background: url('src\imagenes\paciente.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
+    background-repeat:no-repeat;
     -o-background-size: cover;
-    background-size: cover;     
+    background-size: cover;
+    background-size: 100% 100%;     
   }
   .paciente1{  
     height: 600px;
@@ -74,8 +76,10 @@
     background: url('src\imagenes\at1.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
+    background-repeat:no-repeat;
     -o-background-size: cover;
-    background-size: cover;     
+    background-size: cover;
+    background-size: 100% 100%;     
   }
   .medicamento{  
     height: 600px;
@@ -92,8 +96,10 @@
     background: url('src\imagenes\consolidado.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
+    background-repeat:no-repeat;
     -o-background-size: cover;
-    background-size: cover;     
+    background-size: cover; 
+    background-size: 100% 100%;     
   }
   .usuario{  
     height: 600px;
@@ -101,8 +107,10 @@
     background: url('src\imagenes\usuario.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
+    background-repeat:no-repeat;
     -o-background-size: cover;
-    background-size: cover;     
+    background-size: cover; 
+    background-size: 100% 100%;     
   }
 
   .padre{
