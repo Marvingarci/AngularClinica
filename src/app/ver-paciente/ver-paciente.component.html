@@ -2571,7 +2571,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
     </form>
 
         <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
-        (click)="readonlyAntecedentesGinecologicos = !readonlyAntecedentesGinecologicos; ">
+        (click)="readonlyAntecedentesGinecologicos = !readonlyAntecedentesGinecologicos;cargarAntecedentesGinecologicos(); ">
         {{!readonlyAntecedentesGinecologicos ? 'Guardar' : 'Editar'}}
         </button> 
   </div>
@@ -2808,7 +2808,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
     </form>
         
       <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" 
-          disabled={{formulario_antecedente_obstetrico.invalid}} (click)="readonlyAntecedentesObstetricos = !readonlyAntecedentesObstetricos; actualizarAntecedentesObstetricos()">
+          disabled={{formulario_antecedente_obstetrico.invalid}} 
+          (click)="readonlyAntecedentesObstetricos = !readonlyAntecedentesObstetricos; actualizarAntecedentesObstetricos();cargarAntecedentesObstetricosActualizar();">
           {{!readonlyAntecedentesObstetricos ? 'Guardar' : 'Editar'}}
       </button> 
 </div> 
@@ -2849,7 +2850,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
           <div class="col-md-4">
           <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
             <mat-label><b>Planificación familiar</b></mat-label>
-          <input matInput formControlName= "planificacion_familiar" placeholder="No especificada aún" [readonly]= "readonlyPlanificacionFamiliar">
+          <input matInput formControlName= "planificacion_familiar" placeholder="No" [readonly]= "readonlyPlanificacionFamiliar">
           </mat-form-field>
           </div>
 
@@ -2870,7 +2871,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
         </div>
       </form>
 
-          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar;actualizarPlanificacionFamiliar();">
+          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" 
+          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar;cargarPlanificacionFamiliarActualizar();cambiarInformacionPlanificacionFamiliar();">
           {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
           </button> 
     </div>
@@ -2887,6 +2889,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
           <mat-radio-button value="Si" (click)="habilitarInputsinvalidacion([metodo_planificacion, observacion_planificacion])">Si</mat-radio-button> &nbsp;   
           <mat-radio-button value="No" (click)="borrarInputs([metodo_planificacion, observacion_planificacion]);">No</mat-radio-button>
           </mat-radio-group> 
+          <mat-error style="margin-left: 0;" *ngIf="planificacion_familiarr.hasError('required')">Campo requerido
+          </mat-error>
           </div>
 
           <div class="col">
@@ -2910,12 +2914,12 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
           </mat-form-field>
         </div>
       </div>
-
-      </form>
-          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_planificacion_familiar.invalid}}
-          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; actualizarPlanificacionFamiliar();">
+<button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_planificacion_familiar.invalid}}
+          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; actualizarPlanificacionFamiliar();cambiarInformacionPlanificacionFamiliar();">
           {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
           </button> 
+      </form>
+          
     </div>           
 </mat-expansion-panel>
 
