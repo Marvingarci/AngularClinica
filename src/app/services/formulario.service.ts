@@ -151,7 +151,7 @@ export class FormularioService {
 
   actualizarAntecedenteGinecologico(antecedente_ginecologico: AntecedentesGinecologicos) {
     return this.httpClient.put(
-      this.API_ENDPOINT + 'antecedentes_ginecologicos/' + antecedente_ginecologico.id_paciente,
+      this.API_ENDPOINT + 'antecedentes_ginecologicos/' + antecedente_ginecologico.id_antecedente__ginecologico,
       antecedente_ginecologico,
       { headers: this.headers }
     );
@@ -159,7 +159,7 @@ export class FormularioService {
 
   actualizarAntecedenteObstetrico(antecedente_obstetrico: AntecedentesObstetricos) {
     return this.httpClient.put(
-      this.API_ENDPOINT + 'antecedentes_obstetricos/' + antecedente_obstetrico.id_paciente,
+      this.API_ENDPOINT + 'antecedentes_obstetricos/' + antecedente_obstetrico.id_antecedente_obstetrico,
       antecedente_obstetrico,
       { headers: this.headers }
     );
@@ -167,7 +167,7 @@ export class FormularioService {
 
   actualizarPlanificacionFamiliar(planificacion_familiar: PlanificacionesFamiliares) {
     return this.httpClient.put(
-      this.API_ENDPOINT + 'planificaciones_familiares/' + planificacion_familiar.id_paciente,
+      this.API_ENDPOINT + 'planificaciones_familiares/' + planificacion_familiar.id_planificacion_familiar,
       planificacion_familiar,
       { headers: this.headers }
     );
@@ -470,6 +470,9 @@ eliminarHabitoTox(id_paciente: any) {
 }
 eliminarActividadSexual(id_paciente: any) {
   return this.httpClient.delete(this.API_ENDPOINT + 'actividad_sexual/' + id_paciente);
+}
+eliminarPlanificacionFam(id_paciente: any) {
+  return this.httpClient.delete(this.API_ENDPOINT + 'planificaciones_familiares/' + id_paciente);
 }
 
 }
