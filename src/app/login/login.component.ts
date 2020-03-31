@@ -13,9 +13,9 @@ import { Medicos } from '../interfaces/medicos';
 import { MedicosService } from '../services/medicos.service';
 //import * as CryptoJS from 'crypto-js';
 import { isNullOrUndefined } from "util";
-import { FormTools } from '../focus';
+//import { FormTools } from '../focus';
 
-
+ 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
 
-    FormTools.validatorForm(this.login_form);
+  //  FormTools.validatorForm(this.login_form);
     // this.inputClave.nativeElement.focus();
   }
 
