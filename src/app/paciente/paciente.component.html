@@ -68,7 +68,7 @@
 
 <div class="container">
   <mat-card style="width: 50%;" style="margin: 15px;" [class.mat-elevation-z5]="true">
-    <mat-tab-group animationDuration="200ms" color="colorPrueba" backgroundColor="primario">
+    <mat-tab-group dynamicHeight animationDuration="200ms" mat-align-tabs="center" color="accent" backgroundColor="primary" >
       <mat-tab label="Alumnos">
         <mat-form-field class="search">
           <input matInput (keyup)="applyFilter($event.target.value)" style="width: 50%;">
