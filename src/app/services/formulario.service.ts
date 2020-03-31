@@ -139,7 +139,7 @@ export class FormularioService {
 
   actualizarActividadSexual(actividad_sexual: ActividadSexual) {
     return this.httpClient.put(
-      this.API_ENDPOINT + 'actividad_sexual/' + actividad_sexual.id_paciente,
+      this.API_ENDPOINT + 'actividad_sexual/' + actividad_sexual.id_actividad_sexual,
       actividad_sexual,
       { headers: this.headers }
     );
@@ -463,6 +463,9 @@ eliminarHospitalaria(id_paciente: any) {
 }
 eliminarHabitoTox(id_paciente: any) {
   return this.httpClient.delete(this.API_ENDPOINT + 'pacientes_habitos_toxicologicos/' + id_paciente);
+}
+eliminarActividadSexual(id_paciente: any) {
+  return this.httpClient.delete(this.API_ENDPOINT + 'actividad_sexual/' + id_paciente);
 }
 
 }
