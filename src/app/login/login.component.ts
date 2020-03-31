@@ -15,6 +15,7 @@ import { MedicosService } from '../services/medicos.service';
 import { isNullOrUndefined } from "util";
 //import { FormTools } from '../focus';
 
+
  
 @Component({
   selector: 'app-login',
@@ -71,6 +72,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
 
   //  FormTools.validatorForm(this.login_form);
+   // FormTools.validatorForm(this.login_form);//comente este
     // this.inputClave.nativeElement.focus();
   }
 
