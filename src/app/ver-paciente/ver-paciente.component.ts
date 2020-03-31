@@ -45,6 +45,7 @@ import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { EnfermedadEditar } from '../interfaces/enfermedadeditar';
 import { PdfMakeWrapper, Txt, Canvas, Line } from 'pdfmake-wrapper';
 import { Telefono } from '../interfaces/telefono';
+import { ActividadSexualAdd } from '../interfaces/actividad_sexual_add';
 
 
 export interface Element {
@@ -640,6 +641,15 @@ ocultar: boolean = true;
     id_paciente : null
   };
 
+  
+  actividad_sexual_add: ActividadSexualAdd = {
+    actividad_sexual : null,
+    edad_inicio_sexual : null,
+    numero_parejas_sexuales : null,
+    practicas_sexuales_riesgo : null,
+    id_paciente : null
+  };
+
   antecedente_ginecologico: AntecedentesGinecologicos = {
     edad_inicio_menstruacion : null,
     fum : null,
@@ -964,6 +974,8 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
     activar.mostrar();
     this.mostrarcuentaycarreca =true;
     this.mostrarcuentaalumno = false;
+    //para que se mire el telefono arriba    
+    this.telefono.telefono =  this.numero_telefono.value;
     this.id = this.activatedRoute.snapshot.params['id'];
     
    if(this.id){    
@@ -987,9 +999,11 @@ constructor(private formularioService: FormularioService, private mensaje: MatSn
       this.cargarOtrosAP();
       this.cargarHabitoToxicologico();
       this.cargarActividadSexual();
+      
       this.cargarPlanificacionFamiliar();      
       this.cargarHospitalarias();  
       this.cargarAntecedentesGinecologicos(); 
+
       
     
 
@@ -1566,18 +1580,24 @@ if(this.planificacion_familiardata.planificacion_familiar == 'No'){
 
  cargarActividadSexual(){
  this.formularioService.obtenerActividadSexual(this.id).subscribe((data : ActividadSexual)=>{
-  this.actividad_sexual = data;
+  this.actividad_sexual = data;  
+  this.cargarInformacionActividadSexual();
+  console.log('los datos de actividad sexual'+   this.actividad_sexual);
   this.act_sex = data;
   if (this.act_sex == null) {
     this.mostrarmensajeactividadsexual = null;     
-  }  
-  //establesco el valor a los formcontrol para que se visualizen
-  //en los respectivos inputs de la actividad sexual
-  this.cargarInformacionActividadSexual();
+  }
   },(error)=>{
   console.log(error);
   });
 }
+cargarActSexParaAct(){
+  this.formularioService.obtenerActividadSexual(this.id).subscribe((data : ActividadSexual)=>{
+   this.actividad_sexual = data;  
+   },(error)=>{
+   console.log(error);
+   });
+ }
 
 
 
@@ -2888,19 +2908,40 @@ if (this.formulario_datos_generales.dirty) {
     if(this.readonlyActividadSexual == true){
       if(this.formulario_actividad_sexual.valid){
          // guardar datos del formulario en actividad_sexual y enviarlo a la api
-         this.actividad_sexual.actividad_sexual = this.actividad_sexuall.value;
+
+        if(this.actividad_sexual != null){
+            this.actividad_sexual.actividad_sexual = this.actividad_sexuall.value;
          this.actividad_sexual.edad_inicio_sexual = this.edad_inicio_sexual.value;
          this.actividad_sexual.numero_parejas_sexuales = this.numero_parejas_sexuales.value;
          this.actividad_sexual.practicas_sexuales_riesgo = this.practicas_sexuales_riesgo.value;
 
-         this.formularioService.actualizarActividadSexual(this.actividad_sexual).subscribe((data)=>{
-          this.cargarInformacionActividadSexual();
-          //alert('se actualizaron perron la actividad sexual');
-          this.showError('Actividad sexual actualizado correctamente');           
+         this.formularioService.actualizarActividadSexual(this.actividad_sexual).subscribe((data)=>{          
+          this.showError('Actividad sexual actualizado correctamente');      
          },(error)=>{
            console.log(error);
            this.showError('Error al actualizar los Actividad sexual');
          });
+         }else{
+          this.actividad_sexual_add.actividad_sexual = this.actividad_sexuall.value;
+          this.actividad_sexual_add.edad_inicio_sexual = this.edad_inicio_sexual.value;
+          this.actividad_sexual_add.numero_parejas_sexuales = this.numero_parejas_sexuales.value;
+          this.actividad_sexual_add.practicas_sexuales_riesgo = this.practicas_sexuales_riesgo.value;
+          this.actividad_sexual_add.id_paciente = this.paciente.id_paciente;
+          console.log(this.actividad_sexual_add);
+
+          this.formularioService.eliminarActividadSexual(this.id).subscribe((data) => {
+            console.log(data);
+           this.formularioService.guardarActividadSexual(this.actividad_sexual_add).subscribe((data) => {
+           this.showError('Agrego');
+            console.log(data);
+          }, (error) => {
+             console.log(error);
+            this.showError('Error al agregar los Actividad sexual');           
+          });
+
+           });       
+         }
+        
       }
     }
   }
@@ -3282,6 +3323,7 @@ cargarTablaAntecedentesFamiliares(){
  
 
   cambiarInformacionActividadSexual(){
+    
     if(this.readonlyActividadSexual){
       switch(this.practicas_sexuales_riesgo.value){
         case 1:
@@ -3290,22 +3332,28 @@ cargarTablaAntecedentesFamiliares(){
         case 2:
             this.practicas_sexuales_riesgo.setValue("Vaginal");
               break;
+              case 3:
+                this.practicas_sexuales_riesgo.setValue("Oral");
+                  break;
         default:
-            this.practicas_sexuales_riesgo.setValue("Oral");
+            this.practicas_sexuales_riesgo.setValue("No especificado aún");
             break;
         
   
       }
     }else{
+      
       switch(this.practicas_sexuales_riesgo.value){
         case "Anal":
             this.practicas_sexuales_riesgo.setValue(1);
             break;
         case "Vaginal":
             this.practicas_sexuales_riesgo.setValue(2);
-              break;
+              break;  case "Oral":
+              this.practicas_sexuales_riesgo.setValue(3);
+                break;            
         default:
-            this.practicas_sexuales_riesgo.setValue(3);
+           
             break;
         
   
@@ -3326,10 +3374,12 @@ cargarTablaAntecedentesFamiliares(){
           break;
       case 2:
         this.actividad_sexual.practicas_sexuales_riesgo = "Vaginal";
-            break;
-
+            break;  
+            case 3:
+              this.actividad_sexual.practicas_sexuales_riesgo = "Oral";
+                  break;            
       default:
-        this.actividad_sexual.practicas_sexuales_riesgo = "Oral";
+        
           break;
     }      
 
@@ -3342,7 +3392,7 @@ cargarTablaAntecedentesFamiliares(){
     }else{
       this.edad_inicio_sexual.setValidators([Validators.required]);
       this.numero_parejas_sexuales.setValidators([Validators.required]);
-      this.practicas_sexuales_riesgo.setValidators([Validators.required]);
+     // this.practicas_sexuales_riesgo.setValidators([Validators.required]);
     }
   }
 
