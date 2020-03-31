@@ -49,10 +49,11 @@
 
             <div class="col" style="padding-top: 20px;" > 
                  
-
+              <form [formGroup]="formulario_datos_generales" > 
                  <mat-form-field class="example-full-width">
-                    <input matInput  placeholder="Número de Teléfono" readonly>
-                </mat-form-field>                
+                    <input matInput formControlName="numero_telefono" placeholder="Número de Teléfono" readonly>
+                </mat-form-field>  
+              </form>              
 
                 <mat-form-field class="example-full-width">
                     <input matInput value={{paciente.sexo}} placeholder="Sexo" readonly>
@@ -2360,7 +2361,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
       <div class="col">
       <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'" >
         <mat-label><b>Actividad Sexual</b></mat-label>
-      <input matInput  formControlName="actividad_sexual" placeholder="No especificada aún" [readonly]= "readonlyActividadSexual">
+      <input matInput  formControlName="actividad_sexual" placeholder="No" [readonly]= "readonlyActividadSexual">
       <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso</mat-error>
       <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación válida</mat-error>
       </mat-form-field>
@@ -2394,7 +2395,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
       </form>
      
     </div>
-     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyActividadSexual = !readonlyActividadSexual; cambiarInformacionActividadSexual();">
+     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" 
+     (click)="readonlyActividadSexual = !readonlyActividadSexual; cambiarInformacionActividadSexual(); cargarActSexParaAct();">
       {{!readonlyActividadSexual ? 'Guardar' : 'Editar'}}
       </button> 
       </div>
@@ -2444,7 +2446,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
     </form>
 
-      <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyActividadSexual = !readonlyActividadSexual; actualizarActividadSexual(); cambiarInformacionActividadSexual()"
+      <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
+       (click)="readonlyActividadSexual = !readonlyActividadSexual; actualizarActividadSexual();cambiarInformacionActividadSexual();"
       disabled={{formulario_actividad_sexual.invalid}}>
       {{!readonlyActividadSexual ? 'Guardar' : 'Editar'}}
       </button> 
