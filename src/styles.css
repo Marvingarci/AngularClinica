@@ -92,6 +92,15 @@ html, body {
     color: #ffffff;
   }
 
+/* PARA CAMBIAR EL COLOR AL MAT-TAB */
+.mat-tab-group.mat-accent .mat-ink-bar, .mat-tab-nav-bar.mat-accent .mat-ink-bar {
+  background-color: #f1db10;
+  height: 5px;
+}
+.mat-tab-labels {
+  display: flex;
+  background-color:#1928d4  ;
+}
 
 
 
