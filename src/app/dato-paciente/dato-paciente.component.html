@@ -130,10 +130,10 @@
 
     <mat-card style="margin-top: 15px;" [class.mat-elevation-z5]="true">
         
-        <mat-tab-group dynamicHeight animationDuration="200ms" color="accent" backgroundColor="primary">
+        <mat-tab-group dynamicHeight animationDuration="200ms" mat-align-tabs="center"  color="accent" backgroundColor="primary">
             <mat-tab label="Citas">
               <div class="example-large-box mat-elevation-z4">
-                <p *ngIf="dataSourceTablaDatoPaciente == null" style="margin-top: 5px;">  Este paciente aun no tiene una cita  </p>
+                <p *ngIf="dataSourceTablaDatoPaciente == null" style="margin-top: 5px;">  Aún no tienes una cita  </p>
                 <table mat-table [dataSource]="dataSourceTablaDatoPaciente" class="tabla" *ngIf="dataSourceTablaDatoPaciente != null">
                     <ng-container matColumnDef="siguiente_cita">
                         <th mat-header-cell *matHeaderCellDef> </th>
@@ -147,7 +147,7 @@
 
             <mat-tab label="Tratamientos">
                 <div class="example-large-box mat-elevation-z4">
-                    <p *ngIf="dataSourceTablaDatoPaciente1 == null" style="margin-top: 5px;">  Este paciente aun no cuenta con un medicamento  </p>
+                    <p *ngIf="dataSourceTablaDatoPaciente1 == null" style="margin-top: 5px;"> Aún no tienes recetas médicas  </p>
                   <table mat-table [dataSource]="dataSourceTablaDatoPaciente1" class="tabla" *ngIf="dataSourceTablaDatoPaciente1 != null">
                       <ng-container matColumnDef="nombre">
                           <th mat-header-cell *matHeaderCellDef> </th>
@@ -160,7 +160,7 @@
               </mat-tab>
               <mat-tab label="Indicaciones">
                 <div class="example-large-box mat-elevation-z4">
-                    <p *ngIf="dataSourceTablaDatoPaciente2 == null" style="margin-top: 5px;">  Este paciente no tiene indicaciones  </p>
+                    <p *ngIf="dataSourceTablaDatoPaciente2 == null" style="margin-top: 5px;">  Aún no tienes indicaciones  </p>
                   <table mat-table [dataSource]="dataSourceTablaDatoPaciente2" class="tabla" *ngIf="dataSourceTablaDatoPaciente2 != null">
                       <ng-container matColumnDef="indicaciones">
                           <th mat-header-cell *matHeaderCellDef> </th>
@@ -173,7 +173,7 @@
               </mat-tab>
               <mat-tab label="Observaciones">
                 <div class="example-large-box mat-elevation-z4">
-                    <p *ngIf="dataSourceTablaDatoPaciente3 == null" style="margin-top: 5px;">  Este paciente no tiene observaciones  </p>
+                    <p *ngIf="dataSourceTablaDatoPaciente3 == null" style="margin-top: 5px;">  Aún tienes observaciones  </p>
                   <table mat-table [dataSource]="dataSourceTablaDatoPaciente3" class="tabla" *ngIf="dataSourceTablaDatoPaciente3 != null">
                       <ng-container matColumnDef="observaciones">
                           <th mat-header-cell *matHeaderCellDef> </th>
