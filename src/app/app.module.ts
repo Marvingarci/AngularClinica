@@ -63,6 +63,7 @@ import { TelefonoUnicoDirective } from './validations/telefono-unico.directive';
 import { MatChipsModule } from '@angular/material/chips';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -263,9 +264,9 @@ const routes: Route[] = [
     MatChipsModule,
     MatDatepickerModule,
     ChartsModule,
-       WebcamModule,
-
-    MatCheckboxModule
+    WebcamModule,
+    MatCheckboxModule,
+    MatTooltipModule
 
 
 
