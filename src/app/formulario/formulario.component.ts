@@ -338,9 +338,9 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     tipo_cancer: new FormControl('', []),
     hospitalarias_quirurgicas: new FormControl('', [Validators.required]),
     fecha_antecedente_hospitalario: new FormControl('', []),
-    tratamiento: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
-    diagnostico: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
-    tiempo_hospitalizacion: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    tratamiento: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
+    diagnostico: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
+    tiempo_hospitalizacion: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     traumaticos: new FormControl('', [Validators.required]),
     observacion_traumaticos: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
     otros: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
@@ -704,6 +704,57 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     }
 
+
+  }
+
+  radioHospitalariasQuirurgicas(valor, formControl: FormControl[]){
+
+    if (valor == 7) {
+
+      this.mostrarCamposHospitalariasQuirurgicas();
+
+      formControl.forEach(controlador => {
+        controlador.enable({ onlySelf: true });
+      });
+
+
+      this.fecha_antecedente_hospitalario.setValidators(Validators.required);
+      this.fecha_antecedente_hospitalario.updateValueAndValidity();
+
+      this.tiempo_hospitalizacion.setValidators([Validators.required, Validators.maxLength(150), Validators.minLength(4)])
+      this.tiempo_hospitalizacion.updateValueAndValidity();
+
+      this.diagnostico.setValidators([Validators.required, Validators.maxLength(150), Validators.minLength(4)])
+      this.diagnostico.updateValueAndValidity();
+
+      this.tratamiento.setValidators([Validators.required, Validators.maxLength(150), Validators.minLength(4)])
+      this.tratamiento.updateValueAndValidity();
+
+    } else {
+
+      this.ocultarCamposHospitalariaQuirurgica();
+
+      formControl.forEach(controlador => {
+        controlador.setValue('');
+        controlador.disable({ onlySelf: true });
+
+      });
+
+      this.fecha_antecedente_hospitalario.clearValidators();
+      this.fecha_antecedente_hospitalario.updateValueAndValidity();
+
+      this.tiempo_hospitalizacion.clearValidators()
+      this.tiempo_hospitalizacion.updateValueAndValidity();
+
+      this.diagnostico.clearValidators()
+      this.diagnostico.updateValueAndValidity();
+
+      this.tratamiento.clearValidators()
+      this.tratamiento.updateValueAndValidity();
+
+      
+
+    }
 
   }
 
