@@ -15,7 +15,7 @@
               <div>
                   <mat-form-field class="example-full-width">
                     <input matInput  (keydown)="onKeydown($event)"
-                    placeholder="Ingrese su cuenta" formControlName= "cuenta" required>
+                    placeholder="Ingrese su cuenta" formControlName= "cuenta" >
                     <mat-label><mat-icon>person</mat-icon>&nbsp;    <b>Cuenta</b> </mat-label>
                     <mat-error *ngIf="cuenta.hasError('required')">ingrese la cuenta!</mat-error>
                     <mat-error *ngIf="cuenta.hasError('pattern')">ingrese un numero de cuenta valido!</mat-error>
