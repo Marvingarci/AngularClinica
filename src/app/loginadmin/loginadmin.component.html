@@ -6,7 +6,7 @@
       </div>
 
       <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput placeholder="Ingrese un nuevo Administrador" formControlName="usuario" required cdkFocusInitial>
+        <input matInput placeholder="Ingrese un nuevo Administrador" formControlName="usuario"  cdkFocusInitial>
         <mat-label> <b>Usuario</b> </mat-label>
 
         <mat-error *ngIf="usuario.hasError('required')">
@@ -55,7 +55,7 @@
 
 
       <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput placeholder="Ingrese el nombre completo" formControlName="nombre" required>
+        <input matInput placeholder="Ingrese el nombre completo" formControlName="nombre" >
         <mat-label> <b>Nombre</b> </mat-label>
         <mat-error *ngIf="nombre.hasError('required')">
           <strong>Escriba el nombre completo</strong>
@@ -66,7 +66,7 @@
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput placeholder="Ingrese el número de identidad" formControlName="identidad" required>
+        <input matInput placeholder="Ingrese el número de identidad" formControlName="identidad" >
         <mat-hint align="end">{{identidad.value.length}} / 13</mat-hint>
         <mat-label> <b>Número de identidad</b> </mat-label>
         <mat-error *ngIf="identidad.hasError('required')">
