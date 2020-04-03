@@ -49,10 +49,11 @@
 
             <div class="col" style="padding-top: 20px;" > 
                  
-
+              <form [formGroup]="formulario_datos_generales" > 
                  <mat-form-field class="example-full-width">
-                    <input matInput  placeholder="Número de Teléfono" readonly>
-                </mat-form-field>                
+                    <input matInput formControlName="numero_telefono" placeholder="Número de Teléfono" readonly>
+                </mat-form-field>  
+              </form>              
 
                 <mat-form-field class="example-full-width">
                     <input matInput value={{paciente.sexo}} placeholder="Sexo" readonly>
@@ -73,15 +74,15 @@
               </button>
               <mat-menu #menu="matMenu">
                   <button style="outline:none;display:block;" mat-menu-item (click)="anadirCita()">
-                      <mat-icon >dialpad</mat-icon>
+                      <mat-icon >add</mat-icon>
                       <span>Añadir Historia Subsiguiente</span>
                   </button>
                   <button style="outline:none;display:block;" mat-menu-item (click)="mostrarHistoriasSub()">
-                      <mat-icon >notifications_off</mat-icon>
+                      <mat-icon>history</mat-icon>
                       <span>Ver Historial Cliníco</span>
                   </button>
                   <button style="outline:none;display:block;" mat-menu-item (click)="generarPDF()">
-                      <mat-icon >notifications_off</mat-icon>
+                      <mat-icon >local_printshop</mat-icon>
                       <span>Imprimir Constansia</span>
                   </button>
               </mat-menu> 
@@ -2360,7 +2361,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
       <div class="col">
       <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'" >
         <mat-label><b>Actividad Sexual</b></mat-label>
-      <input matInput  formControlName="actividad_sexual" placeholder="No especificada aún" [readonly]= "readonlyActividadSexual">
+      <input matInput  formControlName="actividad_sexual" placeholder="No" [readonly]= "readonlyActividadSexual">
       <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">campo muy extenso</mat-error>
       <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">introduzca una observación válida</mat-error>
       </mat-form-field>
@@ -2394,7 +2395,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
       </form>
      
     </div>
-     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyActividadSexual = !readonlyActividadSexual; cambiarInformacionActividadSexual();">
+     <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" 
+     (click)="readonlyActividadSexual = !readonlyActividadSexual; cambiarInformacionActividadSexual(); cargarActSexParaAct();">
       {{!readonlyActividadSexual ? 'Guardar' : 'Editar'}}
       </button> 
       </div>
@@ -2444,7 +2446,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
     </form>
 
-      <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyActividadSexual = !readonlyActividadSexual; actualizarActividadSexual(); cambiarInformacionActividadSexual()"
+      <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
+       (click)="readonlyActividadSexual = !readonlyActividadSexual; actualizarActividadSexual();cambiarInformacionActividadSexual();"
       disabled={{formulario_actividad_sexual.invalid}}>
       {{!readonlyActividadSexual ? 'Guardar' : 'Editar'}}
       </button> 
@@ -2568,7 +2571,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
     </form>
 
         <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;"
-        (click)="readonlyAntecedentesGinecologicos = !readonlyAntecedentesGinecologicos; ">
+        (click)="readonlyAntecedentesGinecologicos = !readonlyAntecedentesGinecologicos;cargarAntecedentesGinecologicos(); ">
         {{!readonlyAntecedentesGinecologicos ? 'Guardar' : 'Editar'}}
         </button> 
   </div>
@@ -2805,7 +2808,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
     </form>
         
       <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" 
-          disabled={{formulario_antecedente_obstetrico.invalid}} (click)="readonlyAntecedentesObstetricos = !readonlyAntecedentesObstetricos; actualizarAntecedentesObstetricos()">
+          disabled={{formulario_antecedente_obstetrico.invalid}} 
+          (click)="readonlyAntecedentesObstetricos = !readonlyAntecedentesObstetricos; actualizarAntecedentesObstetricos();cargarAntecedentesObstetricosActualizar();">
           {{!readonlyAntecedentesObstetricos ? 'Guardar' : 'Editar'}}
       </button> 
 </div> 
@@ -2846,7 +2850,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
           <div class="col-md-4">
           <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
             <mat-label><b>Planificación familiar</b></mat-label>
-          <input matInput formControlName= "planificacion_familiar" placeholder="No especificada aún" [readonly]= "readonlyPlanificacionFamiliar">
+          <input matInput formControlName= "planificacion_familiar" placeholder="No" [readonly]= "readonlyPlanificacionFamiliar">
           </mat-form-field>
           </div>
 
@@ -2867,7 +2871,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
         </div>
       </form>
 
-          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar;actualizarPlanificacionFamiliar();">
+          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" 
+          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar;cargarPlanificacionFamiliarActualizar();cambiarInformacionPlanificacionFamiliar();">
           {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
           </button> 
     </div>
@@ -2884,6 +2889,8 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
           <mat-radio-button value="Si" (click)="habilitarInputsinvalidacion([metodo_planificacion, observacion_planificacion])">Si</mat-radio-button> &nbsp;   
           <mat-radio-button value="No" (click)="borrarInputs([metodo_planificacion, observacion_planificacion]);">No</mat-radio-button>
           </mat-radio-group> 
+          <mat-error style="margin-left: 0;" *ngIf="planificacion_familiarr.hasError('required')">Campo requerido
+          </mat-error>
           </div>
 
           <div class="col">
@@ -2907,12 +2914,12 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
           </mat-form-field>
         </div>
       </div>
-
-      </form>
-          <button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_planificacion_familiar.invalid}}
-          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; actualizarPlanificacionFamiliar();">
+<button mat-raised-button class="btn btn-outline-primary float-right botonperron" style="margin-top: 10px;" disabled={{formulario_planificacion_familiar.invalid}}
+          (click)="readonlyPlanificacionFamiliar = !readonlyPlanificacionFamiliar; actualizarPlanificacionFamiliar();cambiarInformacionPlanificacionFamiliar();">
           {{!readonlyPlanificacionFamiliar ? 'Guardar' : 'Editar'}}
           </button> 
+      </form>
+          
     </div>           
 </mat-expansion-panel>
 

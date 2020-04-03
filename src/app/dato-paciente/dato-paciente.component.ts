@@ -55,6 +55,9 @@ export class DatoPacienteComponent implements OnInit {
   dataSourceTablaDatoPaciente1: any;
   dataSourceTablaDatoPaciente2: any;
   dataSourceTablaDatoPaciente3: any;
+
+  
+  tienemedicamento: boolean = true;
  
 
 
@@ -118,6 +121,7 @@ export class DatoPacienteComponent implements OnInit {
   noImg: boolean = true;
   pacientes: Paciente[];
   citas: Cita[];
+  medicamento:any;
 
 
   //variable que identifica si un input es editable
@@ -164,19 +168,30 @@ export class DatoPacienteComponent implements OnInit {
 
     this.inven.obtenerCita(this.id).subscribe((data: Cita[]) => {
       this.citas = data;
+      this.medicamento = data;
       console.log(this.citas);
+
+      if(!this.medicamento.nombre){        
+        this.tienemedicamento = false; 
+      }
+
       this.dataSourceTablaDatoPaciente = new MatTableDataSource(this.citas);
       if (!this.citas.length) {
         this.dataSourceTablaDatoPaciente = null;     
       } 
+
       this.dataSourceTablaDatoPaciente1 = new MatTableDataSource(this.citas);
       if (!this.citas.length) {
-        this.dataSourceTablaDatoPaciente1 = null;     
+        this.dataSourceTablaDatoPaciente1 = null; 
       } 
+
+
       this.dataSourceTablaDatoPaciente2 = new MatTableDataSource(this.citas);
       if (!this.citas.length) {
-        this.dataSourceTablaDatoPaciente2 = null;     
+        this.dataSourceTablaDatoPaciente2 = null; 
+        
       } 
+
       this.dataSourceTablaDatoPaciente3 = new MatTableDataSource(this.citas);
       if (!this.citas.length) {
         this.dataSourceTablaDatoPaciente3 = null;     

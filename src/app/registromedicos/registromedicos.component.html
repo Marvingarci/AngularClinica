@@ -6,7 +6,7 @@
       </div>
 
       <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput placeholder="Usuario" formControlName="usuario" required>
+        <input matInput placeholder="Usuario" formControlName="usuario" >
         <mat-hint align="end">{{usuario.value.length}} / 6</mat-hint>
         <mat-label> <b>Usuario</b> </mat-label>
         <mat-error *ngIf="usuario.hasError('required')">
@@ -23,7 +23,7 @@
 
         <mat-form-field class="example-full-width" appearance="outline">
           <input matInput (keydown)="onKeydown($event)" placeholder="Ingrese la contraseña"
-            formControlName="contrasenia" [type]="hide1 ? 'text' : 'password'" required>
+            formControlName="contrasenia" [type]="hide1 ? 'text' : 'password'" >
           <mat-hint align="end">{{contrasenia.value.length}} / 6</mat-hint>
           <mat-label> <b>Contraseña</b> </mat-label>
           <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
@@ -40,7 +40,7 @@
 
         <mat-form-field class="example-full-width" appearance="outline">
           <input matInput (keydown)="onKeydown($event)" placeholder="Reescriba la contraseña anterior"
-            formControlName="contraseniaC" [type]="hide ? 'password' : 'text'" required>
+            formControlName="contraseniaC" [type]="hide ? 'password' : 'text'" >
           <mat-hint align="end">{{contraseniaC.value.length}} / 6</mat-hint>
           <mat-label> <b>Confirmación de contraseña</b> </mat-label>
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
@@ -59,7 +59,7 @@
 
 
       <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput placeholder="Ingrese el nombre completo" formControlName="nombre" required>
+        <input matInput placeholder="Ingrese el nombre completo" formControlName="nombre" >
         <mat-label> <b>Nombre</b> </mat-label>
         <mat-error *ngIf="nombre.hasError('required')">
           <strong>Escriba el nombre completo</strong>
@@ -70,7 +70,7 @@
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput placeholder="Ingrese el número de indentidad" formControlName="identidad" required>
+        <input matInput placeholder="Ingrese el número de indentidad" formControlName="identidad" >
         <mat-hint align="end">{{identidad.value.length}} / 13</mat-hint>
         <mat-label> <b>Número de identidad</b> </mat-label>
         <mat-error *ngIf="identidad.hasError('required')">

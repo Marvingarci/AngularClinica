@@ -16,6 +16,7 @@ import { isNullOrUndefined } from "util";
 //import { FormTools } from '../focus';
 
 
+ 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -70,6 +71,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
 
+  //  FormTools.validatorForm(this.login_form);
    // FormTools.validatorForm(this.login_form);//comente este
     // this.inputClave.nativeElement.focus();
   }
