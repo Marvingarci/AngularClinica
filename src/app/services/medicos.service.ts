@@ -10,7 +10,8 @@ export class MedicosService {
   idActualizar: number;
   datosMedico: any;
   datasourceService: any;
-  API_ENDPOINT = 'http://127.0.0.1:8000/api'
+ // API_ENDPOINT = 'http://64.225.37.202:8081/api'
+ API_ENDPOINT ='http://127.0.0.1:8000/api'
 
 
   obtenerMedicos(){

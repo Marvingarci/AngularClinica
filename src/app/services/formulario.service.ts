@@ -24,8 +24,8 @@ export class FormularioService {
   esAlumno: boolean = true;
 
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  API_ENDPOINT = "http://127.0.0.1:8000/api/"
-
+  //API_ENDPOINT = "http://64.225.37.202:8081/api/"
+  API_ENDPOINT = 'http://127.0.0.1:8000/api/'
 
   constructor(private httpClient: HttpClient) {
 
@@ -466,6 +466,3 @@ eliminarHabitoTox(id_paciente: any) {
 }
 
 }
-
-
-

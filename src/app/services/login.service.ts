@@ -15,7 +15,9 @@ export class LoginService {
   idActualizar: number;
 
 
+ // API_ENDPOINT = 'http://64.225.37.202:8081/api/';
   API_ENDPOINT = 'http://127.0.0.1:8000/api/';
+
   headers = new HttpHeaders({
     'Content-Type':'application/json',
     // 'Authorization': "Bearer "+localStorage.getItem('token')
