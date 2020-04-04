@@ -118,8 +118,9 @@
                       
         <div class="row" *ngIf="datosRepetido == false "> 
         <div class="col">
-          <mat-form-field class="example-full-width" >
-          <input matInput formControlName= "nombre_completo"  placeholder="Nombre Completo"  >
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label><b>Nombre Completo</b></mat-label>
+          <input matInput formControlName= "nombre_completo"  placeholder="Ingrese el nombre Completo"  >
           <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido</mat-error>
           <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un apellido válido</mat-error>
           </mat-form-field>
@@ -127,7 +128,7 @@
 
         <div class="col"> 
           
-          <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
+          <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales" appearance="fill">
           <mat-label>Categoria Paciente</mat-label>
           <mat-select formControlName= "categoria"  [disabled]="disabledDatosGenerales">
           <mat-option *ngFor="let categoria of categorias" [value]="categoria.value"  (click)="mostrarcuenta(categoria.value)">
@@ -145,8 +146,9 @@
         <div class="row" *ngIf="datosRepetido == false && mostrarcuentaalumno == false" >    
           
           <div class="col">
-            <mat-form-field class="example-full-width">
-              <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta" >
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label><b>N° Cuenta</b></mat-label>
+              <input matInput formControlName= "numero_cuenta" placeholder="Ingrese el N° Cuenta" >
               <!-- <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint> -->
               <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido</mat-error>
               <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta válido</mat-error>
@@ -154,8 +156,9 @@
             </div>
 
           <div class="col" >
-          <mat-form-field class="example-full-width">
-          <input matInput formControlName= "carrera" name="carrera" placeholder="Carrera" 
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label><b>Carrera</b></mat-label>
+          <input matInput formControlName= "carrera" name="carrera" placeholder="Ingrese la carrera" 
           [readonly]="readonlyDatosGenerales">
           <mat-error *ngIf="carrera.hasError('required')">campo requerido</mat-error>
           <mat-error *ngIf="carrera.hasError('pattern')">ingrese datos válidos</mat-error>
@@ -169,8 +172,9 @@
 
         <div class="row" *ngIf="datosRepetido == false">
           <div class="col">
-          <mat-form-field class="example-full-width">
-            <input matInput formControlName= "numero_identidad" placeholder="N° Identidad" >
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label><b>N° Identidad</b></mat-label>
+            <input matInput formControlName= "numero_identidad" placeholder="Ingrese el N° Identidad" >
             <!-- <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint> -->
             <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido</mat-error>
             <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un número de indentidad válido</mat-error>
@@ -178,13 +182,13 @@
           </div>
 
           <div class="col" > 
-            <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
+            <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales" appearance="fill">
             <input matInput matInput formControlName= "sexo"  
             placeholder="Sexo" [readonly]="readonlyDatosGenerales">                              
             </mat-form-field>
   
-            <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
-            <mat-label>Sexo</mat-label>
+            <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales" appearance="fill">
+            <mat-label><b>Sexo</b></mat-label>
             <mat-select formControlName= "sexo" readonly="readonly">
             <mat-option value="Hombre">Hombre</mat-option>
             <mat-option value="Mujer">Mujer</mat-option>
@@ -202,18 +206,20 @@
 
 
         <div class="col">
-          <mat-form-field class="example-full-width">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label><b>Lugar de Procedencia</b></mat-label>
           <input matInput formControlName= "lugar_procedencia" name="lugar_procedencia" 
-          placeholder="Lugar de Procedencia"[readonly]="readonlyDatosGenerales">                      
+          placeholder="Ingrese el lugar de Procedencia"[readonly]="readonlyDatosGenerales">                      
           <mat-error *ngIf="lugar_procedencia.hasError('required')">campo requerido</mat-error>
           <mat-error *ngIf="lugar_procedencia.hasError('pattern')">ingrese datos válidos</mat-error>
           </mat-form-field>
           </div>
 
         <div class="col">
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label><b>Dirección</b></mat-label>
         <input matInput formControlName= "direccion" name="direccion"
-        placeholder="Dirección"[readonly]="readonlyDatosGenerales">
+        placeholder="Ingrese la dirección"[readonly]="readonlyDatosGenerales">
         <mat-error *ngIf="direccion.hasError('required')">campo requerido</mat-error>
         <mat-error *ngIf="direccion.hasError('maxlength')">campo muy extenso</mat-error>
         </mat-form-field>
@@ -226,14 +232,16 @@
       <div class="row">
       
         <div class="col">
-          <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
-            <input matInput matInput formControlName= "fecha_nacimiento" placeholder="Fecha nacimiento"
+          <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales" appearance="fill">
+            <mat-label><b>Fecha nacimiento</b></mat-label>
+            <input matInput matInput formControlName= "fecha_nacimiento" placeholder="Ingrese la fecha de nacimiento"
             [readonly]="readonlyDatosGenerales">                   
           </mat-form-field>
   
-          <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
+          <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales" appearance="fill">
+            <mat-label><b>Fecha Nacimiento</b></mat-label>
             <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" formControlName= "fecha_nacimiento"
-            placeholder="Fecha Nacimiento" [readonly]="readonlyDatosGenerales">   
+            placeholder="Ingrese la fecha de nacimiento" [readonly]="readonlyDatosGenerales">   
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
             <mat-error *ngIf="fecha_nacimiento.hasError('required')">campo requerido</mat-error>
@@ -244,8 +252,8 @@
 
         <div class="col">
              
-          <mat-form-field class="example-full-width"   >
-          <mat-label>Seguro médico</mat-label>
+          <mat-form-field class="example-full-width"  appearance="fill" >
+          <mat-label><b>Seguro médico</b></mat-label>
           <mat-select formControlName= "seguro_medico" [disabled]="disabledDatosGenerales">
           <mat-option *ngFor="let seguro_medico of seguros_medicos" [value]="seguro_medico.value" >
           {{seguro_medico.viewValue}}
@@ -257,8 +265,8 @@
 
       <div class="col"> 
              
-        <mat-form-field  class="example-full-width" >
-        <mat-label>Estado civil</mat-label>
+        <mat-form-field  class="example-full-width" appearance="fill" >
+        <mat-label><b>Estado civil</b></mat-label>
         <mat-select formControlName= "estado_civil" [disabled]="disabledDatosGenerales">
         <mat-option *ngFor="let estado_civil of estados_civiles" [value]="estado_civil.value">
         {{estado_civil.viewValue}}
@@ -280,54 +288,61 @@
        <!--Datos restantes-->
        <div class="row">
 
-       <div class="col" >
-        <mat-form-field  class="example-full-width" >
-          <input  matInput formControlName="peso"  placeholder="Peso(en Kg)" [readonly]="readonlyDatosGenerales">          
-          <mat-error *ngIf="peso.hasError('max')">no válido</mat-error> 
-          <mat-error *ngIf="peso.hasError('min')">no válido</mat-error>    
+       <div class="col" >         
+        <mat-form-field  class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Peso(en Kg)</b></mat-label>
+          <input  matInput formControlName="peso"  placeholder="Aún no especificado" [readonly]="readonlyDatosGenerales">
+          <mat-error *ngIf="peso.hasError('pattern')">solo se permiten números</mat-error>  
+          <mat-error *ngIf="peso.hasError('max')">peso no válido</mat-error> 
+          <mat-error *ngIf="peso.hasError('min')">peso no válido</mat-error>    
         </mat-form-field> 
       </div>
 
       <div class="col">
-          <mat-form-field class="example-full-width" >
-            <input matInput formControlName="talla"  placeholder="Talla" [readonly]="readonlyDatosGenerales">            
-            <mat-error *ngIf="talla.hasError('required')">no válido</mat-error>  
-            <mat-error *ngIf="peso.hasError('pattern')">no válido</mat-error>    
+          <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'" >
+            <mat-label><b>Talla</b></mat-label>
+            <input matInput formControlName="talla"  placeholder="Aún no especificado" [readonly]="readonlyDatosGenerales"> 
+            <mat-error *ngIf="talla.hasError('pattern')">solo se permiten números</mat-error>   
+            <mat-error *ngIf="talla.hasError('max')">talla no válida</mat-error>  
+            <mat-error *ngIf="talla.hasError('min')">talla no válida</mat-error>    
           </mat-form-field>
         </div>
        
       <div class="col">
-          <mat-form-field class="example-full-width" >
-            <input matInput formControlName="temperatura"  placeholder="Temperatura"[readonly]="readonlyDatosGenerales">            
-            <mat-error *ngIf="temperatura.hasError('required')">no válido</mat-error> 
-            <mat-error *ngIf="peso.hasError('pattern')">no válido</mat-error>    
+          <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+            <mat-label><b>Temperatura(en ºC)</b></mat-label>
+            <input matInput formControlName="temperatura"  placeholder="Aún no especificado"[readonly]="readonlyDatosGenerales"> 
+            <mat-error *ngIf="temperatura.hasError('pattern')">solo se permiten números</mat-error>  
+            <mat-error *ngIf="temperatura.hasError('max')">temperatura no válida</mat-error>  
+            <mat-error *ngIf="temperatura.hasError('min')">temperatura no válida</mat-error>    
           </mat-form-field>
         </div>
       
              
      <div class="col">
-        <mat-form-field class="example-full-width" >
-          <input matInput formControlName="presion"  placeholder="Presión" [readonly]="readonlyDatosGenerales">          
-          <mat-error *ngIf="presion.hasError('max')">no válido</mat-error>   
-          <mat-error *ngIf="presion.hasError('min')">no válido</mat-error>    
+        <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Presión</b></mat-label>
+          <input matInput formControlName="presion"  placeholder="Aún no especificado" [readonly]="readonlyDatosGenerales"> 
+          <mat-error *ngIf="presion.hasError('pattern')">solo se permiten números</mat-error>           
+          <mat-error *ngIf="presion.hasError('max')">presión no válida</mat-error>   
+          <mat-error *ngIf="presion.hasError('min')">presión no válida</mat-error>    
         </mat-form-field>
       </div>
 
       <div class="col">
-          <mat-form-field class="example-full-width" >
-            <input matInput formControlName="pulso"  placeholder="Pulso" [readonly]="readonlyDatosGenerales">
-            <mat-error *ngIf="pulso.hasError('max')">no válido</mat-error>  
-            <mat-error *ngIf="pulso.hasError('min')">no válido</mat-error>    
+          <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+            <mat-label><b>Pulso</b></mat-label>
+            <input matInput formControlName="pulso"  placeholder="Aún no especificado" [readonly]="readonlyDatosGenerales">
+            <mat-error *ngIf="pulso.hasError('pattern')">solo se permiten números</mat-error>  
+            <mat-error *ngIf="pulso.hasError('max')">pulso no válido</mat-error>  
+            <mat-error *ngIf="pulso.hasError('min')">pulso no válido</mat-error>    
           </mat-form-field>
       </div>
     </div>
 
+
+
  <div class="row">
-
-
-
-
-
          <!-- ESTA ES LA VAINA DE VER TELEFONO-->
          <div class="col" *ngIf="readonlyDatosGenerales === true">
           <mat-accordion>
@@ -373,12 +388,13 @@
       <div class="col">
   
         
-        <mat-form-field>
-          <input matInput formControlName="numero_telefono" maxlength="8"
-            placeholder="Teléfono del paciente">
+        <mat-form-field appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Teléfono del paciente</b></mat-label>
+          <input matInput formControlName="numero_telefono_agregar" maxlength="8"           
+          placeholder="Ingrese el teléfono">
           <!-- <mat-hint align="end">{{numero_telefono.value.length}} / 8</mat-hint> -->
-          <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido</mat-error>
-          <mat-error *ngIf="numero_telefono.hasError('pattern')">
+          <mat-error *ngIf="numero_telefono_agregar.hasError('required')">campo requerido</mat-error>
+          <mat-error *ngIf="numero_telefono_agregar.hasError('pattern')">
             introduzca un número de teléfono válido
           </mat-error>
         </mat-form-field>
@@ -485,10 +501,10 @@
     <div class="row">
       <div class="col">
   
-        <mat-form-field>
+        <mat-form-field appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>En caso de emergencia llamar a:</b></mat-label>
           <input matInput formControlName="emergencia_persona" name="emergencia_persona" id=""
-            placeholder="En caso de emergencia llamar a">
-          <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido</mat-error>
+            placeholder="Nombre del conocido">
           <mat-error *ngIf="emergencia_persona.hasError('pattern')">
             introduzca un nombre válido
           </mat-error>
@@ -496,11 +512,11 @@
   
         &nbsp; &nbsp; &nbsp; &nbsp;
   
-        <mat-form-field>
+        <mat-form-field appearance="fill" [floatLabel]="'always'">
+          <mat-label><b>Teléfono </b></mat-label>
           <input matInput formControlName="emergencia_telefono" maxlength="8"
-            placeholder="Teléfono de emergencia">
+          placeholder="Teléfono del conocido">
           <mat-hint align="end">{{emergencia_telefono.value.length}} / 8</mat-hint>
-          <mat-error *ngIf="emergencia_telefono.hasError('required')">campo requerido</mat-error>
           <mat-error *ngIf="emergencia_telefono.hasError('pattern')">
             introduzca un número de teléfono válido
           </mat-error>
@@ -587,8 +603,9 @@
 
     <div class="row" *ngIf="datosRepetido == false">
       <div class="col">
-      <mat-form-field class="example-full-width" >
-      <input matInput formControlName= "nombre_completo"  placeholder="Nombre Completo" [readonly]="readonlyDatosGenerales">
+      <mat-form-field class="example-full-width" appearance="fill" >
+        <mat-label><b>Nombre Completo</b></mat-label>
+      <input matInput formControlName= "nombre_completo"  placeholder="Ingrese el nombre Completo" [readonly]="readonlyDatosGenerales">
       <mat-error *ngIf="nombre_completo.hasError('required')">campo requerido</mat-error>
       <mat-error *ngIf="nombre_completo.hasError('pattern')">ingrese un apellido válido</mat-error>
       </mat-form-field>
@@ -596,7 +613,7 @@
 
       <div class="col"> 
        
-        <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
+        <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales" appearance="fill">
         <mat-label>Categoria Paciente</mat-label>
         <mat-select formControlName= "categoria" [disabled]="disabledDatosGenerales">
         <mat-option *ngFor="let categoria of categorias" [value]="categoria.value" (click)="mostrarcuenta(categoria.value)" >
@@ -611,8 +628,9 @@
     <div class="row" *ngIf="mostrarcuentaycarreca == false">
 
       <div class="col">
-        <mat-form-field class="example-full-width">
-          <input matInput formControlName= "numero_cuenta" placeholder="N° Cuenta" >
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label><b>N° Cuenta</b></mat-label>
+          <input matInput formControlName= "numero_cuenta" placeholder="Ingrese el N° Cuenta" >
           <!-- <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint> -->
           <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido</mat-error>
           <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta válido</mat-error>
@@ -620,8 +638,9 @@
         </div>
 
       <div class="col" >
-      <mat-form-field class="example-full-width">
-      <input matInput formControlName= "carrera" name="carrera" placeholder="Carrera" 
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label><b>Carrera</b></mat-label>
+      <input matInput formControlName= "carrera" name="carrera" placeholder="Ingrese la carrera" 
       [readonly]="readonlyDatosGenerales">
       <mat-error *ngIf="carrera.hasError('required')">campo requerido</mat-error>
       <mat-error *ngIf="carrera.hasError('pattern')">ingrese datos válidos</mat-error>
@@ -633,8 +652,9 @@
 
     <div class="row" *ngIf="datosRepetido == false">
       <div class="col">
-      <mat-form-field class="example-full-width">
-      <input matInput formControlName= "numero_identidad" placeholder="N° Identidad" [readonly]="readonlyDatosGenerales">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label><b>N° Identidad</b></mat-label>
+      <input matInput formControlName= "numero_identidad" placeholder="ingree el N° Identidad" [readonly]="readonlyDatosGenerales">
       <!-- <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint> -->
       <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido</mat-error>
       <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un numero de indentidad válido</mat-error>
@@ -642,11 +662,11 @@
       </div>
 
       <div class="col"> 
-        <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
+        <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales" appearance="fill">
         <input matInput matInput formControlName= "sexo"  placeholder="Sexo" [readonly]="readonlyDatosGenerales">                                 
         </mat-form-field>
-        <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
-        <mat-label>Sexo</mat-label>
+        <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales" appearance="fill">
+        <mat-label><b>Sexo</b></mat-label>
         <mat-select formControlName= "sexo" readonly="readonly">
         <mat-option value="Hombre">Hombre</mat-option>
         <mat-option value="Mujer">Mujer</mat-option>
@@ -660,16 +680,18 @@
 
     <div class="row">
       <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName= "lugar_procedencia" name="lugar_procedencia" placeholder="Lugar de Procedencia" [readonly]="readonlyDatosGenerales">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label><b>Lugar de Procedencia</b></mat-label>
+        <input matInput formControlName= "lugar_procedencia" name="lugar_procedencia" placeholder="Ingrese el lugar de Procedencia" [readonly]="readonlyDatosGenerales">
         <mat-error *ngIf="lugar_procedencia.hasError('required')">campo requerido</mat-error>
         <mat-error *ngIf="lugar_procedencia.hasError('pattern')">ingrese datos válidos</mat-error>
         </mat-form-field>
       </div>
 
       <div class="col">
-        <mat-form-field class="example-full-width">
-        <input matInput formControlName= "direccion" name="direccion" placeholder="Dirección" [readonly]="readonlyDatosGenerales">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label><b>Dirección</b></mat-label>
+        <input matInput formControlName= "direccion" name="direccion" placeholder="Ingrese la dirección" [readonly]="readonlyDatosGenerales">
         <mat-error *ngIf="direccion.hasError('required')">campo requerido</mat-error>
         <mat-error *ngIf="direccion.hasError('maxlength')">campo muy extenso</mat-error>
         </mat-form-field>
@@ -682,12 +704,14 @@
     <div class="row">
 
        <div class="col">
-        <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales">
+        <mat-form-field class="example-full-width" *ngIf="readonlyDatosGenerales" appearance="fill">
+        <mat-label><b>Fecha de Nacimiento</b></mat-label>
         <input matInput matInput formControlName= "fecha_nacimiento"  placeholder="Fecha de nacimiento" [readonly]="readonlyDatosGenerales">                                 
         </mat-form-field>
 
-        <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales">
-        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" formControlName= "fecha_nacimiento" placeholder="Fecha Nacimiento" [readonly]="readonly">                  
+        <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales" appearance="fill">
+        <mat-label><b>Fecha de Nacimiento</b></mat-label>
+        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" formControlName= "fecha_nacimiento" placeholder="Fecha de Nacimiento" [readonly]="readonly">                  
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
         <mat-error *ngIf="fecha_nacimiento.hasError('required')">campo requerido</mat-error>
@@ -696,8 +720,8 @@
 
       <div class="col"> 
        
-        <mat-form-field class="example-full-width" >
-        <mat-label>Seguro médico</mat-label>
+        <mat-form-field class="example-full-width" appearance="fill" >
+        <mat-label><b>Seguro médico</b></mat-label>
         <mat-select formControlName= "seguro_medico" [disabled]="disabledDatosGenerales">
         <mat-option *ngFor="let seguro_medico of seguros_medicos" [value]="seguro_medico.value">
         {{seguro_medico.viewValue}}
@@ -709,8 +733,8 @@
 
       <div class="col"> 
        
-        <mat-form-field  class="example-full-width" >
-        <mat-label>Estado civil</mat-label>
+        <mat-form-field  class="example-full-width" appearance="fill" >
+        <mat-label><b>Estado civil</b></mat-label>
         <mat-select formControlName= "estado_civil" [disabled]="disabledDatosGenerales">
         <mat-option *ngFor="let estado_civil of estados_civiles" [value]="estado_civil.value">
         {{estado_civil.viewValue}}
@@ -722,50 +746,60 @@
     </div>
 
    
-  <!--Datos restantes-->
-  <div class="row">
+          <!--Datos restantes-->
+          <div class="row">
 
-    <div class="col" >
-     <mat-form-field  class="example-full-width" >
-       <input  matInput formControlName="peso"  placeholder="Peso(en Kg)" [readonly]="readonlyDatosGenerales">          
-       <mat-error *ngIf="peso.hasError('max')">no válido</mat-error> 
-       <mat-error *ngIf="peso.hasError('min')">no válido</mat-error>    
-     </mat-form-field> 
-   </div>
-
-   <div class="col">
-       <mat-form-field class="example-full-width" >
-         <input matInput formControlName="talla"  placeholder="Talla" [readonly]="readonlyDatosGenerales">            
-         <mat-error *ngIf="talla.hasError('required')">no válido</mat-error>  
-         <mat-error *ngIf="peso.hasError('pattern')">no válido</mat-error>    
-       </mat-form-field>
-     </div>
-    
-   <div class="col">
-       <mat-form-field class="example-full-width" >
-         <input matInput formControlName="temperatura"  placeholder="Temperatura"[readonly]="readonlyDatosGenerales">            
-         <mat-error *ngIf="temperatura.hasError('required')">no válido</mat-error> 
-         <mat-error *ngIf="peso.hasError('pattern')">no válido</mat-error>    
-       </mat-form-field>
-     </div>
-   
-          
-  <div class="col">
-     <mat-form-field class="example-full-width" >
-       <input matInput formControlName="presion"  placeholder="Presión" [readonly]="readonlyDatosGenerales">          
-       <mat-error *ngIf="presion.hasError('max')">no válido</mat-error>   
-       <mat-error *ngIf="presion.hasError('min')">no válido</mat-error>    
-     </mat-form-field>
-   </div>
-
-   <div class="col">
-       <mat-form-field class="example-full-width" >
-         <input matInput formControlName="pulso"  placeholder="Pulso" [readonly]="readonlyDatosGenerales">
-         <mat-error *ngIf="pulso.hasError('max')">no válido</mat-error>  
-         <mat-error *ngIf="pulso.hasError('min')">no válido</mat-error>    
-       </mat-form-field>
-   </div>
- </div>
+            <div class="col" >         
+             <mat-form-field  class="example-full-width" appearance="fill" [floatLabel]="'always'">
+               <mat-label><b>Peso(en Kg)</b></mat-label>
+               <input  matInput formControlName="peso"  placeholder="Aún no especificado" [readonly]="readonlyDatosGenerales">
+               <mat-error *ngIf="peso.hasError('pattern')">solo se permiten números</mat-error>  
+               <mat-error *ngIf="peso.hasError('max')">peso no válido</mat-error> 
+               <mat-error *ngIf="peso.hasError('min')">peso no válido</mat-error>    
+             </mat-form-field> 
+           </div>
+     
+           <div class="col">
+               <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'" >
+                 <mat-label><b>Talla</b></mat-label>
+                 <input matInput formControlName="talla"  placeholder="Aún no especificado" [readonly]="readonlyDatosGenerales"> 
+                 <mat-error *ngIf="talla.hasError('pattern')">solo se permiten números</mat-error>   
+                 <mat-error *ngIf="talla.hasError('max')">talla no válida</mat-error>  
+                 <mat-error *ngIf="talla.hasError('min')">talla no válida</mat-error>    
+               </mat-form-field>
+             </div>
+            
+           <div class="col">
+               <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+                 <mat-label><b>Temperatura(en ºC)</b></mat-label>
+                 <input matInput formControlName="temperatura"  placeholder="Aún no especificado"[readonly]="readonlyDatosGenerales"> 
+                 <mat-error *ngIf="temperatura.hasError('pattern')">solo se permiten números</mat-error>  
+                 <mat-error *ngIf="temperatura.hasError('max')">temperatura no válida</mat-error>  
+                 <mat-error *ngIf="temperatura.hasError('min')">temperatura no válida</mat-error>    
+               </mat-form-field>
+             </div>
+           
+                  
+          <div class="col">
+             <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+               <mat-label><b>Presión</b></mat-label>
+               <input matInput formControlName="presion"  placeholder="Aún no especificado" [readonly]="readonlyDatosGenerales"> 
+               <mat-error *ngIf="presion.hasError('pattern')">solo se permiten números</mat-error>           
+               <mat-error *ngIf="presion.hasError('max')">presión no válida</mat-error>   
+               <mat-error *ngIf="presion.hasError('min')">presión no válida</mat-error>    
+             </mat-form-field>
+           </div>
+     
+           <div class="col">
+               <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+                 <mat-label><b>Pulso</b></mat-label>
+                 <input matInput formControlName="pulso"  placeholder="Aún no especificado" [readonly]="readonlyDatosGenerales">
+                 <mat-error *ngIf="pulso.hasError('pattern')">solo se permiten números</mat-error>  
+                 <mat-error *ngIf="pulso.hasError('max')">pulso no válido</mat-error>  
+                 <mat-error *ngIf="pulso.hasError('min')">pulso no válido</mat-error>    
+               </mat-form-field>
+           </div>
+         </div>
 
    
    
@@ -815,12 +849,13 @@
         <div class="col">
     
           
-          <mat-form-field>
-            <input matInput formControlName="numero_telefono" maxlength="8"
-              placeholder="Teléfono del paciente">
-            <!-- <mat-hint align="end">{{numero_telefono.value.length}} / 8</mat-hint> -->
-            <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido</mat-error>
-            <mat-error *ngIf="numero_telefono.hasError('pattern')">
+          <mat-form-field appearance="fill" [floatLabel]="'always'">
+            <mat-label><b>Teléfono del paciente</b></mat-label>
+            <input matInput formControlName="numero_telefono_agregar" maxlength="8"
+              placeholder="Ingrese el teléfono">
+              <mat-hint align="end">{{numero_telefono_agregar.value.length}} / 8</mat-hint>
+            <mat-error *ngIf="numero_telefono_agregar.hasError('required')">campo requerido</mat-error>
+            <mat-error *ngIf="numero_telefono_agregar.hasError('pattern')">
               introduzca un número de teléfono válido
             </mat-error>
           </mat-form-field>
@@ -919,9 +954,10 @@
       <div class="row">
         <div class="col">
     
-          <mat-form-field>
+          <mat-form-field appearance="fill" [floatLabel]="'always'"> 
+            <mat-label><b>En caso de emergencia llamar a:</b></mat-label>
             <input matInput formControlName="emergencia_persona" name="emergencia_persona" id=""
-              placeholder="En caso de emergencia llamar a">
+              placeholder="Nombre del conocido">
             <mat-error *ngIf="emergencia_persona.hasError('required')">campo requerido</mat-error>
             <mat-error *ngIf="emergencia_persona.hasError('pattern')">
               introduzca un nombre válido
@@ -930,9 +966,10 @@
     
           &nbsp; &nbsp; &nbsp; &nbsp;
     
-          <mat-form-field>
+          <mat-form-field appearance="fill" [floatLabel]="'always'">
+            <mat-label><b>Teléfono</b></mat-label>
             <input matInput formControlName="emergencia_telefono" maxlength="8"
-              placeholder="Teléfono de emergencia">
+              placeholder="Teléfono del conocido">
             <mat-hint align="end">{{emergencia_telefono.value.length}} / 8</mat-hint>
             <mat-error *ngIf="emergencia_telefono.hasError('required')">campo requerido</mat-error>
             <mat-error *ngIf="emergencia_telefono.hasError('pattern')">
@@ -987,6 +1024,7 @@
         </div>  
 
         <div class="col">
+          
           <div style="padding-top: 20px;">
             <label id="example-radio-group-label" style="margin-right: 40px;">Prosene</label>
         <mat-radio-group  formControlName="prosene"  aria-labelledby="example-radio-group-label" class="example-radio-group" [disabled]="disabledDatosGenerales" >        
