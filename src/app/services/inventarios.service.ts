@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inventario } from '../interfaces/inventario';
-import { Cita } from "../interfaces/Cita";
+import { HistoriaSubsiguiente } from "../interfaces/historia_subsiguiente";
 
 @Injectable({
   providedIn: 'root'
 })
 export class InventariosService {
-  idCita: any;
+  id_historia_subsiguiente: any;
   imagenactual: string;
   API_ENDPOINT = 'http://127.0.0.1:8000/api'
   sihayimagen: boolean = false;
@@ -30,17 +30,17 @@ export class InventariosService {
     return this.httpClient.put(this.API_ENDPOINT+'/inventarios/' + inventario.id_inventario, inventario,{headers:headers});
   }
 
-  guardarCita(cita: Cita){
+  guardarHistoriaSubsiguiente(historia_subsiguiente: HistoriaSubsiguiente){
     const headers = new HttpHeaders({'Content-Type':'application/json'});
-    return this.httpClient.post(this.API_ENDPOINT+'/citas',cita,{headers:headers});
+    return this.httpClient.post(this.API_ENDPOINT+'/historias_subsiguientes',historia_subsiguiente,{headers:headers});
   }
   
-  obtenerCita(id_paciente: any){
-    return this.httpClient.get(this.API_ENDPOINT+'/citas/'+id_paciente);
+  obtenerHistoriaSubsiguiente(id_paciente: any){
+    return this.httpClient.get(this.API_ENDPOINT+'/historias_subsiguientes/'+id_paciente);
   }
   // Obtener las citas diarias para consolidado  
   obtenerTodasCita(){
-    return this.httpClient.get(this.API_ENDPOINT+'/citas');
+    return this.httpClient.get(this.API_ENDPOINT+'/historias_subsiguientes');
   }
   obtenerMedicamento(){
     return this.httpClient.get(this.API_ENDPOINT+'/medicamentos');
