@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { InventariosService } from '../services/inventarios.service';
-import { Cita } from '../interfaces/Cita';
+import { HistoriaSubsiguiente } from '../interfaces/historia_subsiguiente';
 
 @Component({
   selector: 'app-at1',
@@ -21,7 +21,7 @@ export class At1Component implements OnInit {
   }
 
   constructor(private inventario: InventariosService) {
-    this.inventario.obtenerTodasCita().subscribe((data: Cita[])=>{
+    this.inventario.obtenerTodasCita().subscribe((data: HistoriaSubsiguiente[])=>{
       this.dataSource1 = new MatTableDataSource(data);
       console.log(data);
     }, (error)=>{
