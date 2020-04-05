@@ -20,8 +20,9 @@ import { PlanificacionesFamiliares } from '../interfaces/planificaciones-familia
 import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { InventariosService } from '../services/inventarios.service';
-import { Cita } from '../interfaces/Cita';
+import { HistoriaSubsiguiente } from '../interfaces/historia_subsiguiente';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { PacienteService } from '../services/paciente.service';
 
 
 export interface Select {
@@ -75,7 +76,7 @@ export class ListadoEstudiantesComponent implements OnInit {
   @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
   dataSource1:any;
   columnsToDisplay = ['fechayHora', 'observaciones', 'impresion', 'indicaciones'];
-  expandedElement: Cita | null;
+  expandedElement: HistoriaSubsiguiente | null;
 
 
   
@@ -255,7 +256,7 @@ formulario_antecedente_obstetrico = new FormGroup({
 step;
 //variable que esconde el acorden para mostrar la tabla de historias
 mostrarHisorias: boolean = false;
-citasPaciente: Cita[];
+historias_subsiguientes_paciente: HistoriaSubsiguiente[];
 
 setStep(index: number) {
   this.step = index;
@@ -881,7 +882,11 @@ esAlumno: boolean = true;
 
 
 dataSource: any;
-  constructor(private formularioService: FormularioService, private router: Router, private mensaje: MatSnackBar, private activatedRoute: ActivatedRoute, activar: AppComponent, private subsiguiente: MatDialog,private inven: InventariosService) { 
+  constructor(private formularioService: FormularioService, 
+    private router: Router, private mensaje: MatSnackBar, 
+    private activatedRoute: ActivatedRoute, activar: AppComponent, 
+    private subsiguiente: MatDialog,
+    private inventarioService: InventariosService) { 
     activar.mostrar();
     this.id = this.activatedRoute.snapshot.params['id'];
     
@@ -1321,9 +1326,9 @@ dataSource: any;
     this.practicas_sexuales_riesgo.setValue(this.actividad_sexual.practicas_sexuales_riesgo);
   }
 
-  anadirCita(){
-    const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente, {disableClose:true, width:"70%"});
-    this.inven.idCita=this.id;
+  anadirHistoriaSubsiguiente(){
+    const dialogRef = this.subsiguiente.open(HistoriaSubsiguienteClase, {disableClose:true, width:"70%"});
+    this.inventarioService.id_historia_subsiguiente=this.id;
   }
 
    //obtener los campos del formGroup: formulario_datos_generales
@@ -1458,10 +1463,10 @@ dataSource: any;
   mostrarHistoriasSub(){
     this.mostrarHisorias=true;
 
-    this.inven.obtenerCita(this.id).subscribe((data: Cita[])=>{
-      this.citasPaciente = data;
-      console.log(this.citasPaciente);
-      this.dataSource1= this.citasPaciente;
+    this.inventarioService.obtenerHistoriaSubsiguiente(this.id).subscribe((data: HistoriaSubsiguiente[])=>{
+      this.historias_subsiguientes_paciente = data;
+      console.log(this.historias_subsiguientes_paciente);
+      this.dataSource1= this.historias_subsiguientes_paciente;
     }, (error)=>{
       
       console.log(error);
@@ -1517,7 +1522,7 @@ dataSource: any;
 
 @Component({
   selector: 'historiaSubsiguiente',
-  templateUrl: 'HistoriaSubsiguiente.html',
+  templateUrl: 'historiaSubsiguiente.html',
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
   }]
@@ -1525,14 +1530,16 @@ dataSource: any;
 
 
 
-export class HistoriaSubsiguiente{
+export class HistoriaSubsiguienteClase{
 
-  constructor(private form: InventariosService, private dialogRef:MatDialogRef<HistoriaSubsiguiente>){//para cerrar el dialogo desde la misma interfaz
+  constructor(private form: InventariosService, 
+    private dialogRef:MatDialogRef<HistoriaSubsiguienteClase>,//para cerrar el dialogo desde la misma interfaz
+    private pacienteService: PacienteService){
     
   }
 
   
-  citaGuardar: Cita={
+  citaGuardar: HistoriaSubsiguiente={
     id_paciente: null,
     peso:null,
     imc:null,
@@ -1574,17 +1581,6 @@ export class HistoriaSubsiguiente{
 });
   matcher = new MyErrorStateMatcher();
 
-  
-
-  // parentescos: Parentescos[] = [
-  //   {value: 1 , viewValue: 'Psicologia'},
-  //   {value: 2 , viewValue: 'Nutricion'},
-  //   {value: 3 , viewValue: 'Odontologia'},
-  //   {value: 4 , viewValue: 'Terapia Funcional'},
-  //   {value: 5 , viewValue: 'CATFA'},
-  //   {value: 6 , viewValue: 'Trabajo Social'}
-  // ];
-
   habilitarInputs(formControl : FormControl[]){  
     formControl.forEach(controlador => {
       controlador.enable({onlySelf: true});    
@@ -1602,7 +1598,7 @@ export class HistoriaSubsiguiente{
 
   guardarCita(){
    if(this.formulario_cita.valid){
-      this.citaGuardar.id_paciente = this.form.idCita;
+      this.citaGuardar.id_paciente = this.form.id_historia_subsiguiente;
       this.citaGuardar.peso= this.peso.value;
       this.citaGuardar.imc=this.presion.value;
       this.citaGuardar.presion=this.presion.value;
@@ -1615,7 +1611,7 @@ export class HistoriaSubsiguiente{
       this.citaGuardar.remitido=this.remitira.value;
       this.citaGuardar.siguiente_cita= this.fecha_nacimiento.value;
       
-      this.form.guardarCita(this.citaGuardar).subscribe( (data) =>{
+      this.form.guardarHistoriaSubsiguiente(this.citaGuardar).subscribe( (data) =>{
         console.log(data);
         this.dialogRef.close();
       }, (error) => {
