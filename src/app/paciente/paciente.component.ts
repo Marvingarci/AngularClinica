@@ -7,34 +7,10 @@ import { Router, RouterModule } from '@angular/router';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { PdfMakeWrapper, Txt, Canvas, Line } from 'pdfmake-wrapper';
 import { Paciente } from '../interfaces/paciente';
-
-
-
-// export interface Paciente {
-//   id_paciente?: number;
-//   numero_paciente?: string;
-//   contrasenia?: string;
-//   nombre_completo?: string;
-//   numero_cuenta?: string;
-//   numero_identidad?: string;
-//   lugar_procedencia?: string;
-//   direccion?: string;
-//   carrera?: string;
-//   fecha_nacimiento?: string;
-//   sexo?: string;
-//   estado_civil?: string;
-//   seguro_medico?: string;
-//   emergencia_telefono?: string;
-//   telefono?: string;
-//   peso?: string;
-//   talla?: string;
-//   imc?: string;
-//   temperatura?: string;
-//   presion?: string;
-//   pulso?: string;
-//   categoria?: any;
-//   prosene?: any;}
-
+import { MatDialog } from '@angular/material';
+import { DialogoVerCitasComponent } from '../dialogo-ver-citas/dialogo-ver-citas.component';
+import { PacienteService } from '../services/paciente.service';
+import { Cita } from '../interfaces/cita';
 
 
 
@@ -57,6 +33,11 @@ export class PacienteComponent implements OnInit {
   dataSource2: any;
   dataSource3: any;
   dataSource4: any;
+  dataSourceCitas: any;
+
+  columnasTablaCitas = ['numero_cita', 'paciente', 'fecha'];
+
+  mostrarCitas: boolean = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -64,21 +45,16 @@ export class PacienteComponent implements OnInit {
 
 
   loading: boolean;
-  constructor(private formularioService: FormularioService, private httpClient: HttpClient, private router: Router) {
+  constructor(private formularioService: FormularioService,
+    private pacienteService: PacienteService,
+    private httpClient: HttpClient,
+    private router: Router,
+    public dialogo: MatDialog) {
     this.getPacientes();
     this.loading = false;
     this.formularioService.esAlumno = true;
   }
 
-
-  // esto es para mandar string de un componente a atro
-  //  loading:boolean;  
-
-  //   receiveMessage($event) {
-  //     this.loading = $event;
-  //   }
-
-  
 
 
   getPacientes() {
@@ -108,7 +84,7 @@ export class PacienteComponent implements OnInit {
 
 
   displayedColumns: string[] = ['id_paciente', 'nombre_completo', 'numero_identidad', 'sexo'];
-  displayedColumns2: string[] = ['id_paciente', 'nombre_completo', 'numero_cuenta', 'numero_identidad','sexo'];
+  displayedColumns2: string[] = ['id_paciente', 'nombre_completo', 'numero_cuenta', 'numero_identidad', 'sexo'];
 
 
   applyFilter(filterValue: string) {
@@ -123,10 +99,47 @@ export class PacienteComponent implements OnInit {
 
 
   formulario() {
-    
+
     this.formularioService.esAlumno = false;
 
     this.router.navigate(['principal/formulario']);
+  }
+
+  cargarCitas() {
+
+    this.pacienteService.obtenerCitas().subscribe((data: Cita[]) => {
+      console.log(data);
+
+
+
+      this.dataSourceCitas = new MatTableDataSource(data);
+    });
+  }
+
+  verCitas() {
+
+    if (!this.mostrarCitas) {
+
+      this.cargarCitas();
+
+      this.mostrarCitas = true;
+
+
+    } else {
+      this.mostrarCitas = false;
+    }
+
+
+
+    // const dialogRef = this.dialogo.open(DialogoVerCitasComponent, {
+    //   // disableClose: true,
+    //   height: '400px',
+    //   width: '600px',
+
+
+    // });
+
+    // dialogRef.afterClosed().subscribe(confirmacion => {});
   }
 
 }
