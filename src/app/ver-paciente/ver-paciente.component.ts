@@ -197,29 +197,46 @@ export class VerPacienteComponent implements OnInit {
 matcher = new MyErrorStateMatcher();
 
   formulario_datos_generales = new FormGroup({      
-    nombre_completo: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)]),
-    numero_cuenta: new FormControl('', [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]), 
-    numero_identidad: new FormControl('', [Validators.required,Validators.pattern(/^\d{4}\d{4}\d{5}$/)]),
-    lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)]),
-    direccion: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    carrera: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)]),
+    nombre_completo: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,40}$/)
+    ,Validators.maxLength(40),Validators.minLength(5)]),
+
+    numero_cuenta: new FormControl('', [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)
+    ,Validators.maxLength(11),Validators.minLength(11)]), 
+
+    numero_identidad: new FormControl('', [Validators.required,Validators.pattern(/^\d{4}\d{4}\d{5}$/)
+      ,Validators.maxLength(13),Validators.minLength(13)]),  
+
+    lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)
+    ,Validators.maxLength(30),Validators.minLength(5)]),
+
+    direccion: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)
+      ,Validators.maxLength(30),Validators.minLength(5)]),
+
+    carrera: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)
+    ,Validators.maxLength(30),Validators.minLength(5)]),
+
     fecha_nacimiento: new FormControl('', Validators.required),
     sexo: new FormControl('', Validators.required),
     categoria: new FormControl('',[ Validators.required]),
     estado_civil: new FormControl('', Validators.required),
     seguro_medico: new FormControl('', Validators.required),
+
+    //datos de lso telefonos
     numero_telefono: new FormControl('', [Validators.pattern(/^\d{8}$/)]),
+    numero_telefono_agregar: new FormControl('', [Validators.pattern(/^\d{8}$/)]),
     emergencia_telefono: new FormControl('', [ Validators.pattern(/^\d{8}$/)]),
     emergencia_persona: new FormControl('', [ Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
 
     //datos restantes
-    peso : new FormControl('', [Validators.max(100),Validators.min(1)]),
-    talla: new FormControl('', [ Validators.max(100),Validators.min(1)]),
-    temperatura: new FormControl('' ,[Validators.max(80) , Validators.min(20)]),
-    presion: new FormControl('', [Validators.max(200),Validators.min(30)]),
-    pulso: new FormControl('', [Validators.max(200),Validators.min(30)]),
+    peso : new FormControl('', [Validators.max(500),Validators.min(2),Validators.pattern('[0-9]*')]),
+    talla: new FormControl('', [ Validators.max(100),Validators.min(1),Validators.pattern('[0-9]*')]),
+    temperatura: new FormControl('' ,[Validators.max(60) , Validators.min(20),Validators.pattern('[0-9]*')]),
+    presion: new FormControl('', [Validators.max(200),Validators.min(50),Validators.pattern('[0-9]*')]),
+    pulso: new FormControl('', [Validators.max(140),Validators.min(40),Validators.pattern('[0-9]*')]),
     prosene: new FormControl('', []),    
   });
+
+  
 
   
 
@@ -1606,10 +1623,12 @@ cargarAntecedentesObstetricosActualizar(){
 
       this.cargarInformacionPlanificacionfamiliar();
 
+      if(this.planificacion_familiardata){
       if(this.planificacion_familiardata.planificacion_familiar == 'No'){
       this.verplanificacion = false;
       }else if(this.planificacion_familiardata.planificacion_familiar == 'Si'){
       this.verplanificacion = true;  }
+      }
 
       },(error)=>{
       console.log(error);
@@ -1716,7 +1735,6 @@ cargarHospitalarias(){
         this.paciente.sexo = this.sexo.value;
         this.paciente.estado_civil = this.estado_civil.value;
         this.paciente.seguro_medico = this.seguro_medico.value;
-        this.paciente.telefono = this.numero_telefono.value;
         this.paciente.categoria = this.categoria.value;
         this.paciente.peso = this.peso.value;
         this.paciente.presion = this.presion.value;
@@ -1743,36 +1761,32 @@ cargarHospitalarias(){
 
 
 
-  agregarTelefonosEmergencia() {        
+  agregarTelefonosEmergencia() {
+     if (this.emergencia_persona.dirty &&  this.emergencia_telefono.dirty ) {
       this.telefono_Emergencias.id_paciente = this.paciente.id_paciente;
       this.telefono_Emergencias.emergencia_persona =  this.emergencia_persona.value;
       this.telefono_Emergencias.telefono_emergencia =  this.emergencia_telefono.value;
-
-      if (this.formulario_datos_generales.dirty) {
       this.formularioService.enviarTelefonoEmergencia(this.telefono_Emergencias).subscribe((data) => {
         console.log(data);
-        console.log('se envio el numero de emergencia');
+        this.cargarEmergenciaPersonaYa();
       }, (error) => {       
       });      
       this.emergencia_persona.setValue('');
-      this.emergencia_telefono.setValue('');
-        this.cargarEmergenciaPersonaYa();          
+      this.emergencia_telefono.setValue('');          
   }
 }
 
 
-  agregarTelefonos() {        
+  agregarTelefonos() {
+    if (this.numero_telefono_agregar.dirty) {
     this.telefono.id_paciente = this.paciente.id_paciente;
-    this.telefono.telefono =  this.numero_telefono.value;
-
-if (this.formulario_datos_generales.dirty) {
+    this.telefono.telefono =  this.numero_telefono_agregar.value;
     this.formularioService.enviarTelefonoPaciente(this.telefono).subscribe((data) => {
       console.log(data);
-      console.log('se envio el numero de telefono');
+      this.cargarTelefono();   
     }, (error) => {       
     });      
-    this.numero_telefono.setValue('');
-      this.cargarTelefono();      
+    this.numero_telefono_agregar.setValue('');   
   }    
 }
 
@@ -3463,7 +3477,10 @@ cargarTablaAntecedentesFamiliares(){
 
 
 
-  cargarInformacionActividadSexual(){    
+  cargarInformacionActividadSexual(){  
+    if(this.actividad_sexual){
+
+      
     this.actividad_sexuall.setValue(this.actividad_sexual.actividad_sexual);
     this.edad_inicio_sexual.setValue(this.actividad_sexual.edad_inicio_sexual);
     this.numero_parejas_sexuales.setValue(this.actividad_sexual.numero_parejas_sexuales);
@@ -3494,6 +3511,7 @@ cargarTablaAntecedentesFamiliares(){
       this.numero_parejas_sexuales.setValidators([Validators.required]);
      // this.practicas_sexuales_riesgo.setValidators([Validators.required]);
     }
+  }
   }
 
 
@@ -3605,12 +3623,16 @@ cargarTablaAntecedentesFamiliares(){
   }
 
 
-  cargarInformacionPlanificacionfamiliar(){    
+  cargarInformacionPlanificacionfamiliar(){ 
+     if(this.planificacion_familiardata){   
     this.planificacion_familiarr.setValue(this.planificacion_familiardata.planificacion_familiar);  
-    if(this.planificacion_familiarr.value == "No"){
+   
+      if(this.planificacion_familiarr.value == "No"){
       this.metodo_planificacion.disable({onlySelf: true});
       this.observacion_planificacion.disable({onlySelf: true});
-    }  
+    }
+   
+      
     switch(this.planificacion_familiardata.metodo_planificacion){
       case 1:
           this.planificacion_familiardata.metodo_planificacion = "DIU";
@@ -3648,7 +3670,7 @@ cargarTablaAntecedentesFamiliares(){
     this.metodo_planificacion.setValue(this.planificacion_familiardata.metodo_planificacion);
     this.observacion_planificacion.setValue(this.planificacion_familiardata.observacion_planificacion);
 
-  
+  }
   }
 
 
@@ -3715,7 +3737,8 @@ cargarTablaAntecedentesFamiliares(){
    get sexo(){return this.formulario_datos_generales.get('sexo')};
    get estado_civil(){return this.formulario_datos_generales.get('estado_civil')};
    get seguro_medico(){return this.formulario_datos_generales.get('seguro_medico')};
-   get numero_telefono(){return this.formulario_datos_generales.get('numero_telefono')};
+   get numero_telefono(){return this.formulario_datos_generales.get('numero_telefono')};   
+   get numero_telefono_agregar(){return this.formulario_datos_generales.get('numero_telefono_agregar')};
    get emergencia_telefono(){return this.formulario_datos_generales.get('emergencia_telefono')};
    get emergencia_persona(){return this.formulario_datos_generales.get('emergencia_persona')};
    get categoria(){return this.formulario_datos_generales.get('categoria')};
