@@ -202,11 +202,11 @@
                   <mat-form-field class="example-full-width">
                     <input matInput style="width:100%"
                     [matDatepicker]="picker1"[min]="minDate"
-                    formControlName= "fecha_nacimiento" placeholder="Fecha siguiente cita"
+                    formControlName= "fecha_cita" placeholder="Fecha siguiente cita"
                     readonly="readonly">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
-                  <mat-error *ngIf="fecha_nacimiento.hasError('required')">campo requerido</mat-error>
+                  <mat-error *ngIf="fecha_cita.hasError('required')">campo requerido</mat-error>
       
                   </mat-form-field>
               </div>
