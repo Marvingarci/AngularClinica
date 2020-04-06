@@ -90,7 +90,7 @@ import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import pdfFonts from "../assets/custom-fonts";
 import { AyudaComponent } from './ayuda/ayuda.component';
 
-import { DialogoVerCitasComponent } from './dialogo-ver-citas/dialogo-ver-citas.component'; // custom fonts
+//import { DialogoVerCitasComponent } from './dialogo-ver-citas/dialogo-ver-citas.component'; // custom fonts
 
 // Set the fonts to use
 // Configuring custom fonts
@@ -212,8 +212,8 @@ const routes: Route[] = [
     DialogoCambiarContraseniaMed,
     AyudaComponent,
     Loginayuda,
-    DialogoVerCitasComponent,
-    DialogoVerCitasComponent,
+    //DialogoVerCitasComponent,
+    //DialogoVerCitasComponent,
 
 
 
@@ -295,7 +295,7 @@ const routes: Route[] = [
     BorrarHabitoToxicologico,
     DialogoVerificarPermisoComponent,
     Loginayuda,
-    DialogoVerCitasComponent
+    //DialogoVerCitasComponent
   ],
   providers: [
     {
