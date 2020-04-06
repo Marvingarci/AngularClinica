@@ -13,17 +13,13 @@ import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
 import { DatoPacienteComponent, cambiocontraDialog, actualizarcontraDialog, DialogCerrarSesion, verificarDialog } from './dato-paciente/dato-paciente.component';
 import { PacienteComponent } from './paciente/paciente.component';
-import { ListadoEstudiantesComponent, HistoriaSubsiguiente } from './listado-estudiantes/listado-estudiantes.component';
+import { ListadoEstudiantesComponent, HistoriaSubsiguienteClase } from './listado-estudiantes/listado-estudiantes.component';
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
 import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia,Borrartelefono, BorrarDesnutricionAF, BorrarDesnutricionAP, BorrarHospitalarias, CambiarFoto, BorrarHabitoToxicologico } from './ver-paciente/ver-paciente.component';
-//import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia } from './ver-paciente/ver-paciente.component';
-//import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia, BorrarDesnutricionAF } from './ver-paciente/ver-paciente.component';
-//CambiarFoto,
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-//import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { InventarioComponent } from './inventario/inventario.component';
 import { FormInventarioComponent } from './form-inventario/form-inventario.component';
 
@@ -61,7 +57,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ConsolidadodiarioComponent } from './consolidadodiario/consolidadodiario.component';
 import { TelefonoUnicoDirective } from './validations/telefono-unico.directive';
 import { MatChipsModule } from '@angular/material/chips';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
+import { MAT_DATE_LOCALE } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
@@ -94,6 +90,7 @@ import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import pdfFonts from "../assets/custom-fonts";
 import { AyudaComponent } from './ayuda/ayuda.component';
 
+import { DialogoVerCitasComponent } from './dialogo-ver-citas/dialogo-ver-citas.component'; // custom fonts
 
 // Set the fonts to use
 // Configuring custom fonts
@@ -187,7 +184,7 @@ const routes: Route[] = [
     actualizarcontraDialog,
     verificarDialog,
     DialogCerrarSesion,
-    HistoriaSubsiguiente,
+    HistoriaSubsiguienteClase,
     HistoriaSubsiguiente1,
     Borraradministrador,
     DialogCerrarSesion2,
@@ -205,11 +202,6 @@ const routes: Route[] = [
     BorrarDesnutricionAP,
     BorrarHospitalarias,
     BorrarHabitoToxicologico,
-
-
-
-
-
     UsuarioAdminUnicoDirective,
     UsuarioMedicoUnicoDirective,
     FocusInvalidoInputDirective,
@@ -220,6 +212,9 @@ const routes: Route[] = [
     DialogoCambiarContraseniaMed,
     AyudaComponent,
     Loginayuda,
+    DialogoVerCitasComponent,
+    DialogoVerCitasComponent,
+
 
 
 
@@ -282,12 +277,11 @@ const routes: Route[] = [
     actualizarcontraDialog,
     verificarDialog,
     DialogCerrarSesion,
-    HistoriaSubsiguiente,
+    HistoriaSubsiguienteClase,
     HistoriaSubsiguiente1,
     Borraradministrador,
     DialogCerrarSesion2,
     DialogoMedico,
-    // DialogoVerificar,
     DialogoVerificarPermisoComponent,
     CambiarFoto,
     Borrartelefonoemergencia,
@@ -300,7 +294,8 @@ const routes: Route[] = [
     BorrarHospitalarias,
     BorrarHabitoToxicologico,
     DialogoVerificarPermisoComponent,
-    Loginayuda
+    Loginayuda,
+    DialogoVerCitasComponent
   ],
   providers: [
     {
@@ -308,7 +303,9 @@ const routes: Route[] = [
       useClass: AuthInterceptorService,
       multi: true
     },
-    CambiarFoto
+    CambiarFoto,
+    {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
+
   ],
   bootstrap: [AppComponent]
 })

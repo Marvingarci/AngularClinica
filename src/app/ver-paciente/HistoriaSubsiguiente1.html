@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Historia Subsiguiente</h2>
 <mat-dialog-content class="mat-typography">
 
-            <form [formGroup]="formulario_cita">
+            <form [formGroup]="formulario_historia_subsiguiente">
             <ng-template matStepLabel >Cita</ng-template>
 
 
@@ -193,8 +193,8 @@
                     class="example-radio-group" 
                     (selectionChange)="onControlChange($event)"> 
                        
-                    <mat-radio-button value={{1}} (click)="habilitarInputs([fecha_nacimiento])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp; &nbsp;   
-                    <mat-radio-button value={{0}} (click)="borrarInputs([fecha_nacimiento])">No</mat-radio-button>
+                    <mat-radio-button value={{1}} (click)="habilitarInputs([fecha_cita])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp; &nbsp;   
+                    <mat-radio-button value={{0}} (click)="borrarInputs([fecha_cita])">No</mat-radio-button>
                       
                   </mat-radio-group>          
                   &nbsp; &nbsp; &nbsp; &nbsp;      
@@ -202,11 +202,11 @@
                   <mat-form-field class="example-full-width">
                     <input matInput style="width:100%"
                     [matDatepicker]="picker1"[min]="minDate"
-                    formControlName= "fecha_nacimiento" placeholder="Fecha siguiente cita"
+                    formControlName= "fecha_cita" placeholder="Fecha siguiente cita"
                     readonly="readonly">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
-                  <mat-error *ngIf="fecha_nacimiento.hasError('required')">campo requerido</mat-error>
+                  <mat-error *ngIf="fecha_cita.hasError('required')">campo requerido</mat-error>
       
                   </mat-form-field>
               </div>
