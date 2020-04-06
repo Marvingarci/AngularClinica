@@ -1,39 +1,39 @@
 <h2 mat-dialog-title>Historia Subsiguiente</h2>
 <mat-dialog-content class="mat-typography">
 
-            <form [formGroup]="formulario_historia_subsiguiente">
-            <ng-template matStepLabel >Cita</ng-template>
+  <form [formGroup]="formulario_historia_subsiguiente">
+    <ng-template matStepLabel>Cita</ng-template>
 
 
-            <div class="container3">
-              
-              <div class="row">
-                <div class="col">
-                  <mat-form-field style=" width: 100%;">
-                    <input matInput  formControlName= "peso"  placeholder="Peso(kg)" >
-                    
-                    <mat-error *ngIf="peso.hasError('required')">campo requerido!</mat-error>
-                    <mat-error *ngIf="peso.hasError('pattern')">ingrese un peso valido!</mat-error>
-        
-                  </mat-form-field>
-                </div>
+    <div class="container3">
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field style=" width: 100%;">
+            <input matInput formControlName="peso" placeholder="Peso(kg)">
+
+            <mat-error *ngIf="peso.hasError('required')">campo requerido!</mat-error>
+            <mat-error *ngIf="peso.hasError('pattern')">ingrese un peso valido!</mat-error>
+
+          </mat-form-field>
+        </div>
 
 
-                <div class="col">
-                    <mat-form-field style=" width: 100%;" >
-                      <input matInput class="example-full-width"  formControlName= "talla"  placeholder="Altura(en metros)" >
-                      
-                      <mat-error *ngIf="talla.hasError('required')">campo requerido!</mat-error>
-                      <mat-error *ngIf="talla.hasError('pattern')">ingrese una talla valido!</mat-error>
-          
-                    </mat-form-field>
-                  </div>
-                
-              </div>
-        
-                <div class="row">
-                 
-                  <!-- <div class="col">
+        <div class="col">
+          <mat-form-field style=" width: 100%;">
+            <input matInput class="example-full-width" formControlName="talla" placeholder="Altura(en metros)">
+
+            <mat-error *ngIf="talla.hasError('required')">campo requerido!</mat-error>
+            <mat-error *ngIf="talla.hasError('pattern')">ingrese una talla valido!</mat-error>
+
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <!-- <div class="col">
                     <mat-form-field style=" width: 100%;">
                       <input matInput formControlName= "IMC" placeholder="IMC" disabled="true" >
                      <mat-error *ngIf="IMC.hasError('required')">campo requerido!</mat-error>
@@ -43,192 +43,196 @@
                   </div> -->
 
 
-                  <div class="col">
-                    <mat-form-field style=" width: 100%;">
-                      <input matInput formControlName= "temperatura" placeholder="Temperatura"  >
-                     <mat-error *ngIf="temperatura.hasError('required')">campo requerido!</mat-error>
-                    <mat-error *ngIf="temperatura.hasError('pattern')">ingrese una temperatura que este en el rango!</mat-error>
-        
-                    </mat-form-field>
-                  </div>
+        <div class="col">
+          <mat-form-field style=" width: 100%;">
+            <input matInput formControlName="temperatura" placeholder="Temperatura">
+            <mat-error *ngIf="temperatura.hasError('required')">campo requerido!</mat-error>
+            <mat-error *ngIf="temperatura.hasError('pattern')">ingrese una temperatura que este en el rango!</mat-error>
+
+          </mat-form-field>
+        </div>
 
 
 
 
-                </div>
-                  
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field style=" width: 100%;">
-                      <input matInput formControlName= "presion" name="presion" placeholder="Presion Arterial">
-                    <mat-error *ngIf="presion.hasError('required')">campo requerido!</mat-error>
-                    <mat-error *ngIf="presion.hasError('pattern')">ingrese una presion valido!</mat-error>
-                    
-        
-                    </mat-form-field>
-                  </div>
-                  <div class="col"> 
-                    <mat-form-field style=" width: 100%;">
-                        <input matInput formControlName= "pulso" name="pulso" placeholder="Pulso">
-                      <mat-error *ngIf="pulso.hasError('required')">campo requerido!</mat-error>
-                      <mat-error *ngIf="pulso.hasError('pattern')">ingrese una medida de pulso valido!</mat-error>
-                      
-          
-                      </mat-form-field>
-                  </div>
-                </div>
-          
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field style=" width: 100%;">
-                      <textarea matInput formControlName= "observaciones_examen" name="observaciones_examen" placeholder="Observaciones del examen fisico"
-                      cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
-                    <mat-error *ngIf="observaciones_examen.hasError('required')">campo requerido!</mat-error>
-                    <mat-error *ngIf="observaciones_examen.hasError('maxlength')">campo muy extenso!</mat-error>
-                    <mat-error *ngIf="observaciones_examen.hasError('minlength')">sea especifico!</mat-error>
-                    
-        
-                    </mat-form-field>
-                  </div>
-                  
-                </div>  
-                
-                
-                <div class="row">
-                    <div class="col">
-                      <mat-form-field style=" width: 100%;">
-                        <textarea matInput formControlName= "impresion_diagnostica" name="impresion_diagnostica" id="" placeholder="impresion diagnostica"
-                        cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
-                      <mat-error *ngIf="impresion_diagnostica.hasError('required')">campo requerido!</mat-error>
-                      <mat-error *ngIf="impresion_diagnostica.hasError('maxlength')">campo muy extenso!</mat-error>
-                      <mat-error *ngIf="impresion_diagnostica.hasError('minlength')">sea especifico!</mat-error>
-                      
-          
-                      </mat-form-field>
-                    </div>
-                    
-                  </div>
-                  
-                  <div class="row">
-                      
-                    <div class="col"> 
-                      <mat-form-field  style=" width: 100%;">
-                        <mat-select formControlName= "nombre" placeholder="Medicamento" [(value)]="seleccion">
-                          <mat-option *ngFor="let nombre of nombres" [value]="nombre.value" (click)="medicamentoUnidad(nombre.value)">
-                            {{nombre.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                      
+      </div>
 
-                      </mat-form-field>
-                    </div>
-                    <div class="col">
-                      <mat-form-field style=" width: 100%;">
-                          <input  matInput placeholder="{{texto}}" formControlName= "unidad" required>
-                          <mat-error *ngIf="unidad.hasError('required')">
-                          <strong>campo requerido</strong>
-                          </mat-error>
-                          <mat-error *ngIf="unidad.hasError('pattern')">
-                            tienen que ser numeros positivos
-                            </mat-error>
-                          <mat-error *ngIf="unidad.hasError('maxLength')">
-                            No hay tantas en existencia
-                          </mat-error>
-                          
-
-                          
-                      </mat-form-field>
-                      </div>
-                  </div>
-                  
-                  <div class="row">
-                    <div class="col">
-                      <mat-form-field style=" width: 100%;">
-                        <textarea matInput formControlName= "indicaciones" name="indicaciones" id="" placeholder="Indicaciones y procedimientos"
-                        cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
-                      
-                      <mat-error *ngIf="indicaciones.hasError('maxlength')">campo muy extenso</mat-error>
-                      <mat-error *ngIf="indicaciones.hasError('minlength')">sea especifico</mat-error>
-                      
-          
-                      </mat-form-field>
-                    </div>
-                    
-                  </div>  
+      <div class="row">
+        <div class="col">
+          <mat-form-field style=" width: 100%;">
+            <input matInput formControlName="presion" name="presion" placeholder="Presion Arterial">
+            <mat-error *ngIf="presion.hasError('required')">campo requerido!</mat-error>
+            <mat-error *ngIf="presion.hasError('pattern')">ingrese una presion valido!</mat-error>
 
 
-                  <label id="example-radio-group-label">Remitirlo</label>  
-                <div class="row" style="margin-left: 0;">         
-                  <mat-radio-group formControlName= "remitir" style="padding-top:18px;"
-                    aria-labelledby="example-radio-group-label"
-                    class="example-radio-group" 
-                    (selectionChange)="onControlChange($event)"> 
-                       
-                    <mat-radio-button value={{1}} (click)="habilitarInputs([remitira])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp; &nbsp;   
-                    <mat-radio-button value={{0}} (click)="borrarInputs([remitira])">No</mat-radio-button>
-                      
-                  </mat-radio-group>          
-                  &nbsp; &nbsp; &nbsp; &nbsp;      
-                
-                  <mat-form-field>
-                    <mat-label>Seccion</mat-label>
-                    <mat-select  formControlName= "remitira" >
-                      <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
-                        {{parentesco.viewValue}}
-                      </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="remitira.hasError('required')">campo requerido</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field style=" width: 100%;">
+            <input matInput formControlName="pulso" name="pulso" placeholder="Pulso">
+            <mat-error *ngIf="pulso.hasError('required')">campo requerido!</mat-error>
+            <mat-error *ngIf="pulso.hasError('pattern')">ingrese una medida de pulso valido!</mat-error>
 
-                  </mat-form-field>
-                  
-                  
-              </div>
 
-            <!--Aqui van las citas-->
-              <label id="example-radio-group-label">Cita</label>
-                  <mat-error style="margin-left: 0;" *ngIf="cita.hasError('required')">campo requerido</mat-error>   
-                <div class="row" style="margin-left: 0;">         
-                  <mat-radio-group formControlName= "cita" style="padding-top:18px;"
-                    aria-labelledby="example-radio-group-label"
-                    class="example-radio-group" 
-                    (selectionChange)="onControlChange($event)"> 
-                       
-                    <mat-radio-button value={{1}} (click)="habilitarInputs([fecha_cita])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp; &nbsp;   
-                    <mat-radio-button value={{0}} (click)="borrarInputs([fecha_cita])">No</mat-radio-button>
-                      
-                  </mat-radio-group>          
-                  &nbsp; &nbsp; &nbsp; &nbsp;      
-                
-                  <mat-form-field class="example-full-width">
-                    <input matInput style="width:100%"
-                    [matDatepicker]="picker1"[min]="minDate"
-                    formControlName= "fecha_cita" placeholder="Fecha siguiente cita"
-                    readonly="readonly">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                  <mat-error *ngIf="fecha_cita.hasError('required')">campo requerido</mat-error>
-      
-                  </mat-form-field>
-              </div>
-              
+          </mat-form-field>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col">
+          <mat-form-field style=" width: 100%;">
+            <textarea matInput formControlName="observaciones_examen" name="observaciones_examen"
+              placeholder="Observaciones del examen fisico" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+            <mat-error *ngIf="observaciones_examen.hasError('required')">campo requerido!</mat-error>
+            <mat-error *ngIf="observaciones_examen.hasError('maxlength')">campo muy extenso!</mat-error>
+            <mat-error *ngIf="observaciones_examen.hasError('minlength')">sea especifico!</mat-error>
+
+
+          </mat-form-field>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field style=" width: 100%;">
+            <textarea matInput formControlName="impresion_diagnostica" name="impresion_diagnostica" id=""
+              placeholder="impresion diagnostica" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+            <mat-error *ngIf="impresion_diagnostica.hasError('required')">campo requerido!</mat-error>
+            <mat-error *ngIf="impresion_diagnostica.hasError('maxlength')">campo muy extenso!</mat-error>
+            <mat-error *ngIf="impresion_diagnostica.hasError('minlength')">sea especifico!</mat-error>
+
+
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col">
+          <mat-form-field style=" width: 100%;">
+            <mat-select formControlName="nombre" placeholder="Medicamento" [(value)]="seleccion"
+              (selectionChange)="selectMedicamento($event.value, [unidad])">
+              <mat-option *ngFor="let nombre of nombres" [value]="nombre.value">
+                {{nombre.viewValue}}
+              </mat-option>
+            </mat-select>
+
+
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field style=" width: 100%;">
+            <input matInput placeholder="{{texto}}" formControlName="unidad">
+            <mat-error *ngIf="unidad.hasError('required')">
+              <strong>campo requerido</strong>
+            </mat-error>
+            <mat-error *ngIf="unidad.hasError('pattern')">
+              tienen que ser numeros positivos
+            </mat-error>
+            <mat-error *ngIf="unidad.hasError('maxLength')">
+              No hay tantas en existencia
+            </mat-error>
+
+
+
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field style=" width: 100%;">
+            <textarea matInput formControlName="indicaciones" name="indicaciones" id=""
+              placeholder="Indicaciones y procedimientos" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
+
+            <mat-error *ngIf="indicaciones.hasError('maxlength')">campo muy extenso</mat-error>
+            <mat-error *ngIf="indicaciones.hasError('minlength')">sea especifico</mat-error>
+
+
+          </mat-form-field>
+        </div>
+
+      </div>
+
+
+      <label id="example-radio-group-label">Remitirlo</label>
+      <div class="row" style="margin-left: 0;">
+        <mat-radio-group formControlName="remitir" style="padding-top:18px;" aria-labelledby="example-radio-group-label"
+          class="example-radio-group" (selectionChange)="onControlChange($event)">
+
+          <mat-radio-button value={{1}} (click)="habilitarInputs([remitira])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;
+          &nbsp;
+          <mat-radio-button value={{0}} (click)="borrarInputs([remitira])">No</mat-radio-button>
+
+        </mat-radio-group>
+        &nbsp; &nbsp; &nbsp; &nbsp;
+
+        <mat-form-field>
+          <mat-label>Seccion</mat-label>
+          <mat-select formControlName="remitira">
+            <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
+              {{parentesco.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="remitira.hasError('required')">campo requerido</mat-error>
+
+        </mat-form-field>
+
+
+      </div>
+
+      <!--Aqui van las citas-->
+      <label id="example-radio-group-label">Cita</label>
+      <mat-error style="margin-left: 0;" *ngIf="cita.hasError('required')">campo requerido</mat-error>
+      <div class="row" style="margin-left: 0;">
+        <mat-radio-group formControlName="cita" style="padding-top:18px;" aria-labelledby="example-radio-group-label"
+          class="example-radio-group" (change)="radioCita($event.value, [fecha_cita])">
+
+          <mat-radio-button value={{1}}>Si</mat-radio-button> &nbsp;&nbsp;&nbsp;
+          &nbsp;
+          <mat-radio-button value={{0}}>No</mat-radio-button>
+
+        </mat-radio-group>
+        &nbsp; &nbsp; &nbsp; &nbsp;
+
+        <mat-form-field class="example-full-width">
+          <input matInput style="width:100%" [matDatepicker]="picker1" [min]="minDate" formControlName="fecha_cita"
+            placeholder="Fecha siguiente cita" readonly="readonly">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          <mat-error *ngIf="fecha_cita.hasError('required')">campo requerido</mat-error>
+
+        </mat-form-field>
+      </div>
 
 
 
 
+    </div>
+
+
+    <div align="end">
+
+      <button mat-button mat-dialog-close class="btn btn-danger" >Cancelar</button>
+      <button mat-raised-button class="btn btn-outline-primary botonperron" (click)="guardarCita()" cdkFocusInitial>Guardar</button>
+
+    </div>
+
+  </form>
 
 
 
-          
-              
-            </div>
-            
-              
-          </form>
-
-    
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+
+
+
+<!-- <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancelar</button>
   <button mat-button (click)="guardarCita()" cdkFocusInitial>Guardar</button>
-</mat-dialog-actions>
+</mat-dialog-actions> -->
