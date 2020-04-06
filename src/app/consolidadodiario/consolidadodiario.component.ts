@@ -10,6 +10,7 @@ import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { runInThisContext } from 'vm';
+import { PacienteService } from '../services/paciente.service';
 
 
 export interface elementos{
@@ -300,8 +301,8 @@ export class ConsolidadodiarioComponent implements OnInit {
 
 
   
-  constructor(private inventario: InventariosService) {
-    this.inventario.obtenerTodasCita().subscribe((data: HistoriaSubsiguiente[])=>{
+  constructor(private pacienteService: PacienteService) {
+    this.pacienteService.obtenerHistoriasSubsiguientes().subscribe((data: HistoriaSubsiguiente[])=>{
       this.seter();
 
     this.datos=data;
