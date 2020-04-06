@@ -174,18 +174,44 @@ background-image: linear-gradient(315deg, #f1db10 5%, #1928d4 81%);
 
 }
 
-.divayuda{
-width: 100px;
-  height: 100px;
-  background-color: red;
-  position: relative;
-  animation: ayuda;
-  animation-duration: 10s;
-}
 
-@keyframes ayuda {
-  
-  0%   {background-color:red; left:-100px; top:0px;}
-  25%  {background-color:yellow; left:200px; top:0px;} 
-  100% {background-color:yellow; left:200px; top:0px;} 
+
+.divayudauno{
+width: 360px;
+  height: 50px;
+  background-color: transparent;
+  position: relative;
+  animation: ayudauno;
+  animation-duration: 7s;
 }
+@keyframes ayudauno {
+  
+  0%   {background-color:#f1db10; right:-310px; bottom:0px;}
+  75%  {background-color:#1928d4; right:0px; bottom:0px;} 
+  100% {background-color: #1928d4; right:0px; bottom:0px;} 
+}
+.divayudados{
+  width: 360px;
+    height: 50px;
+    background-color: transparent;
+    position: relative;
+    animation: ayudados;
+    animation-duration: 7s;
+  }
+  @keyframes ayudados {
+  
+    0%   {background-color:#f1db10; right: -310px; bottom:0px;}
+    75%  {background-color:#1928d4; right:0px; bottom:0px;} 
+    100% {background-color: #1928d4; right:0px; bottom:0px;} 
+  }
+  .mat-icon-button{
+    outline:none;  
+    display:block;
+  }
+
+
+
+
+
+  
+ 
