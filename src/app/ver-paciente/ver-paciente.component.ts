@@ -117,22 +117,22 @@ export interface familiar {
   id_parentesco?: string;
 }
 
-export interface cita1 {
-  id_paciente?: string,
-  peso?: string,
-  talla?: string,
-  imc?: string,
-  temperatura?: string,
-  presion?: string,
-  pulso?: string,
-  siguiente_cita?: string,
-  observaciones?: string,
-  impresion?: string,
-  indicaciones?: string,
-  remitido?: any,
-  fechayHora?: any,
-  nombre?: string
-}
+// export interface HistoriaSubsiguiente {
+//   id_paciente?: string,
+//   peso?: string,
+//   talla?: string,
+//   imc?: string,
+//   temperatura?: string,
+//   presion?: string,
+//   pulso?: string,
+//   siguiente_cita?: string,
+//   observaciones?: string,
+//   impresion?: string,
+//   indicaciones?: string,
+//   remitido?: any,
+//   fechayHora?: any,
+//   nombre?: string
+// }
 
 
 
@@ -167,7 +167,7 @@ export class VerPacienteComponent implements OnInit {
   }
   @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
   dataSource1: any;
-  columnsToDisplay = ['fechayHora', 'observaciones', 'impresion', 'indicaciones'];
+  columnsToDisplay = ['fecha', 'observaciones', 'impresion', 'indicaciones'];
   expandedElement: Cita | null;
 
   events: string[] = [];
@@ -3693,8 +3693,6 @@ export class VerPacienteComponent implements OnInit {
 
     }
   }
-
-
 
 
   anadirCita() {
