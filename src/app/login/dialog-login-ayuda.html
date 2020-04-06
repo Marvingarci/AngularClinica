@@ -1,4 +1,18 @@
-<h2 mat-dialog-title disableClose>Ayuda</h2>
+<div class="row">
+    <div class="col">        
+        <h2  mat-dialog-title disableClose>Ayuda</h2>
+    </div>
+
+    <div class="col">
+    <mat-dialog-actions align="end" style="margin:0px ;padding: 0px;min-height: 24px;">
+    <div class="col" style="position: fixed;margin: 0px;padding: 0px; ">
+    <button mat-icon-button mat-dialog-close style="width: 24px;height: 24px;outline: none;" ><mat-icon style="color: red;">cancel</mat-icon></button>
+    </div>    
+    </mat-dialog-actions>
+    </div>
+</div>
+
+
 <mat-dialog-content class="mat-typography">
 
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -82,9 +96,4 @@
   
 
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-    <div style="position: fixed; bottom: 10px;right: 15px;">
-        <button mat-button mat-dialog-close class="botonperron">Cancelar</button>
-    </div>
-    
-</mat-dialog-actions>
+
