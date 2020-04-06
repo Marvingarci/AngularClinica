@@ -1,73 +1,6 @@
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pagina Principal</title>
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
- <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
- <script src="../node_modules/pooper.js/dist/js/pooper.min.js"></script>
-</head>
-<body>
-
-<div class="page-wrapper chiller-theme toggled">
-    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
-      <i class="fas fa-bars"></i>
-    </a>
-    <nav id="sidebar" class="sidebar-wrapper">
-      <div class="sidebar-content">
-        
-        <div >
-          <div >
-            <img class="img-responsive img-rounded" src="https://www.unah.edu.hn/themes/portalunah/assets/images/logo-unah-blanco.png"
-              alt="User picture">
-              <div class="sidebar-brand">
-                    <a style="text-align: center; color:aliceblue" routerLink="/principal" ><h5>Clinica UNAH Tec Danli</h5></a>
-                    <div id="close-sidebar">
-                      <i class="fas fa-times"></i>
-                    </div>
-                  </div>
-          </div>
-          
-        </div>
-      sidebar-header  
-        
-        
-        <div class="sidebar-menu">
-                <div class="col-12">
-                        <div class="list-group" id="list-tab" role="tablist">
-                                <a [routerLink]="['/at1']" class="list-group-item list-group-item-action" id="list-home-list" role="tab" aria-controls="home">At1</a>
-                                <a [routerLink]="['/registroPaciente']" class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"  role="tab" aria-controls="profile">Pacientes</a>
-                                <a [routerLink]="['/inventario']" class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Inventario</a>
-                                <a [routerLink]="['/Consolidado']" class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Consolidado Diario</a>
-                              </div>
-                          
-                        
-                      </div>
-        </div>
-      </div>
-      <div class="sidebar-footer">
-            <a href="#">Ayuda?
-              <i class="fa fa-bell"></i>
-              
-            </a>       
-          </div>
-    </nav>
-    <main class="page-content" style="margin-top: 0px">
-    <nav class="navbar" style="background: #003399">
-                    <a class="navbar-brand" style="color: aliceblue">Pagina principal</a>
-                    <form class="form-inline">
-                      <input class="form-control mr-sm-2" type="search" placeholder="Paciente" aria-label="Search">
-                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                    </form>
-                  </nav>
-
-                  <br> -->
-<!-- Contenido individual  -->
 
 <div class="container">
-  <mat-card style="width: 50%;" style="margin: 15px;" [class.mat-elevation-z5]="true">
+  <mat-card style="width: 50%;" style="margin: 15px;" [class.mat-elevation-z5]="true" *ngIf = "!mostrarCitas">
     <mat-tab-group dynamicHeight animationDuration="200ms" mat-align-tabs="center" color="accent" backgroundColor="primary" >
       <mat-tab label="Alumnos">
         <mat-form-field class="search">
@@ -270,28 +203,49 @@
     </mat-tab-group>
   </mat-card>
 
+  <mat-card style="width: 50%;" style="margin: 15px;" [class.mat-elevation-z5]="true" *ngIf="mostrarCitas">
+
+    <table [dataSource]="dataSourceCitas" mat-table class="mat-elevation-z8">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="numero_cita">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td style="cursor:pointer;outline: none;"
+          mat-cell *matCellDef="let element;index as i;">{{i+1}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="paciente">
+        <th mat-header-cell *matHeaderCellDef> Paciente </th>
+        <td style="cursor:pointer;outline: none; "
+          mat-cell *matCellDef="let element"> {{element.paciente}} </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+        <td style="cursor:pointer;outline: none; "
+          mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+      </ng-container>
+  
+      
+      <tr mat-header-row *matHeaderRowDef="columnasTablaCitas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnasTablaCitas;"></tr>
+    </table>
+
+
+  </mat-card>
+
 
 
   <div style="position: fixed; bottom: 10px;right: 15px;">
     <button mat-raised-button (click)="formulario()" class="btn btn-outline-primary float-right botonperron"> 
       Crear Nuevo Paciente
     </button>
+   
+    <button mat-raised-button (click)="verCitas()" style="margin-right: 10px" class="btn btn-outline-primary float-right botonperron">
+      {{!mostrarCitas ? 'Ver citas' : 'Ver pacientes'}} 
+    </button>
   </div>
 
 </div>
-
-
-
-<!--
-    </main>
-    
-   
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js"></script>
-  
-    
-</body>
-</html>
--->

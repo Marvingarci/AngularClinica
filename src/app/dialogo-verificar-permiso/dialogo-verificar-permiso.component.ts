@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
   templateUrl: './dialogo-verificar-permiso.component.html',
   styleUrls: ['./dialogo-verificar-permiso.component.css']
 })
+
 export class DialogoVerificarPermisoComponent {
 
   esconderClave: boolean;
