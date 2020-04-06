@@ -8,7 +8,6 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { PdfMakeWrapper, Txt, Canvas, Line } from 'pdfmake-wrapper';
 import { Paciente } from '../interfaces/paciente';
 import { MatDialog } from '@angular/material';
-import { DialogoVerCitasComponent } from '../dialogo-ver-citas/dialogo-ver-citas.component';
 import { PacienteService } from '../services/paciente.service';
 import { Cita } from '../interfaces/cita';
 
