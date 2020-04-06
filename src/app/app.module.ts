@@ -6,7 +6,7 @@ import { FormularioComponent } from './formulario/formulario.component';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent, Loginayuda } from './login/login.component';
 import { PrincipalComponent, DialogCerrarSesion2 } from './principal/principal.component';
 import { LoginadminComponent, DialogoCambiarContraseniaAdmin, /*DialogoVerificar*/ } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
@@ -89,7 +89,8 @@ import { PdfMakeWrapper } from 'pdfmake-wrapper';
 // import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
 import pdfFonts from "../assets/custom-fonts";
 import { AyudaComponent } from './ayuda/ayuda.component';
-import { DialogoVerCitasComponent } from './dialogo-ver-citas/dialogo-ver-citas.component'; // custom fonts
+
+//import { DialogoVerCitasComponent } from './dialogo-ver-citas/dialogo-ver-citas.component'; // custom fonts
 
 // Set the fonts to use
 // Configuring custom fonts
@@ -210,8 +211,9 @@ const routes: Route[] = [
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed,
     AyudaComponent,
-    DialogoVerCitasComponent,
-    DialogoVerCitasComponent,
+    Loginayuda,
+    //DialogoVerCitasComponent,
+    //DialogoVerCitasComponent,
 
 
 
@@ -292,7 +294,8 @@ const routes: Route[] = [
     BorrarHospitalarias,
     BorrarHabitoToxicologico,
     DialogoVerificarPermisoComponent,
-    DialogoVerCitasComponent
+    Loginayuda,
+    //DialogoVerCitasComponent
   ],
   providers: [
     {

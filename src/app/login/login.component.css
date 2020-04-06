@@ -173,3 +173,19 @@ background-image: linear-gradient(315deg, #f1db10 5%, #1928d4 81%);
 
 
 }
+
+.divayuda{
+width: 100px;
+  height: 100px;
+  background-color: red;
+  position: relative;
+  animation: ayuda;
+  animation-duration: 10s;
+}
+
+@keyframes ayuda {
+  
+  0%   {background-color:red; left:-100px; top:0px;}
+  25%  {background-color:yellow; left:200px; top:0px;} 
+  100% {background-color:yellow; left:200px; top:0px;} 
+}

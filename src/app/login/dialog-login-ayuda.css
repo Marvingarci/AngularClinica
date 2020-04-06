@@ -10,7 +10,7 @@ p {
 }
 
   .paciente{  
-    height: 600px;
+    height: 500px;
     width:100%;     
     background: url('src\imagenes\paciente.gif');
     -webkit-background-size: cover;
@@ -86,58 +86,6 @@ p {
     background-size: cover; 
     background-size: 100% 100%;    
   }
-  .at1{  
-    height: 600px;
-    width:100%;     
-    background: url('src\imagenes\at1.gif');
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-repeat:no-repeat;
-    -o-background-size: cover;
-    background-size: cover;
-    background-size: 100% 100%;     
-  }
-  .medicamento{  
-    height: 600px;
-    width:100%;     
-    background: url('src\imagenes\medicamento.gif');
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-repeat:no-repeat;
-    background-size: cover; 
-    background-size: 100% 100%;     
-  }
-  .consolidado{  
-    height: 600px;
-    width:100%;     
-    background: url('src\imagenes\consolidado.gif');
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-repeat:no-repeat;
-    -o-background-size: cover;
-    background-size: cover; 
-    background-size: 100% 100%;     
-  }
-  .usuario{  
-    height: 600px;
-    width:100%;     
-    background: url('src\imagenes\usuario.gif');
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-repeat:no-repeat;
-    -o-background-size: cover;
-    background-size: cover; 
-    background-size: 100% 100%;     
-  }
-
-  .padre{
-    display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width:100%; 
-  }
 
 
 .carousel-control-next-icon:after
@@ -152,3 +100,34 @@ p {
   font-size: 55px;
   color:transparent;
 }
+
+/* Tamaño del scroll */
+.container::-webkit-scrollbar {
+    width: 12px;
+    height: 10px;
+  }
+  
+   /* Estilos barra (thumb) de scroll */
+  .container::-webkit-scrollbar-thumb {
+    background: rgb(104, 71, 250);
+    border-radius: 4px;
+  }
+  .container::-webkit-scrollbar-thumb:active {
+    background-color: #1fb7f3;
+  }
+  
+  .container::-webkit-scrollbar-thumb:hover {
+    background: #1100fd;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+  }
+  
+   /* Estilos track de scroll */
+  .container::-webkit-scrollbar-track {
+    background: #a7a0ff;
+    border-radius: 4px;
+  }
+  
+  .container::-webkit-scrollbar-track:hover, 
+  .container::-webkit-scrollbar-track:active {
+    background: #787bff;
+  }

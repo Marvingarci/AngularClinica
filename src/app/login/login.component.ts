@@ -13,19 +13,26 @@ import { Medicos } from '../interfaces/medicos';
 import { MedicosService } from '../services/medicos.service';
 //import * as CryptoJS from 'crypto-js';
 import { isNullOrUndefined } from "util";
+import { MatDialog } from '@angular/material';
 //import { FormTools } from '../focus';
 
 
- 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  // animations:[
+  //   trigger('',[
+  //     state('void',style({
+
+  //     })),
+  //   ])
+  // ]
 })
 
 export class LoginComponent implements OnInit, AfterViewInit {
-  @ViewChild('inputClave', {static: false}) inputClave : ElementRef;
-
+  @ViewChild('inputClave', {static: false}) inputClave : ElementRef; 
   hide = true;
   loading: boolean = false;
 
@@ -59,20 +66,24 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   pase: boolean = true;
 
-  constructor(private LoginAdminService: LoginadminService, private loginService: LoginService, private medicosService: MedicosService,
+  constructor(public dialog: MatDialog, private LoginAdminService: LoginadminService, private loginService: LoginService, private medicosService: MedicosService,
     private router: Router, private activar: AppComponent, private formularioService: FormularioService, private mensaje: MatSnackBar) {
     activar.esconder();
-
-
     // cada vez que el usuario se devuelva al login borro los token para que tenga
     // que volver a loguearse y crear otro nuevo token.
     localStorage.removeItem('token');
-
   }
+
+  openBottomSheet() {
+    document.getElementById('ayudadiv').style.animation = " ayuda";
+  }
+
+
+
   ngAfterViewInit(): void {
 
-  //  FormTools.validatorForm(this.login_form);
-   // FormTools.validatorForm(this.login_form);//comente este
+    //  FormTools.validatorForm(this.login_form);
+    // FormTools.validatorForm(this.login_form);//comente este
     // this.inputClave.nativeElement.focus();
   }
 
@@ -169,7 +180,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
               //recupero al paciente introduciendo su numero de cuenta para poder recuperar su id
               // y redireccionarlo a su respectivo informacion.
 
-              console.log('id_paciente:\n'+data.id);
+              console.log('id_paciente:\n' + data.id);
 
               this.router.navigate(['/datoPaciente/' + data.id]);
               this.showError('Bienvenido');
@@ -207,7 +218,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 
   }
-
+  ayuda() {
+    const dialogRef = this.dialog.open(Loginayuda, {
+      disableClose: false,width:"90%",height:"90%",
+      panelClass: 'loginayuda',
+    });
+ }
 
   //EVENTO CUANDO SE DA ENTER
   onKeydown1(event) {
@@ -231,3 +247,20 @@ export class LoginComponent implements OnInit, AfterViewInit {
   get cuenta() { return this.login_form.get('cuenta') };
   get ControlClave() { return this.login_form.get('clave') };
 }
+
+
+
+
+
+
+@Component({
+  selector: 'loginayuda',
+  templateUrl: 'dialog-login-ayuda.html',
+  styleUrls: ['dialog-login-ayuda.css'],
+})
+
+export class Loginayuda {
+  constructor() {
+
+  }
+} 

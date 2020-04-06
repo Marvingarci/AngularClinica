@@ -22,7 +22,7 @@
         <div>
           <mat-form-field class="example-full-width" appearance="outline">
             <input matInput #inputCuenta (keydown)="onKeydown1($event)" placeholder="Ingrese su cuenta"
-              formControlName="cuenta" >
+              formControlName="cuenta">
             <mat-label>
               <mat-icon>person</mat-icon>&nbsp; <b>Cuenta</b>
             </mat-label>
@@ -51,5 +51,14 @@
 
     </div>
   </form>
+  
+  <div style="position: fixed; bottom: 10px;right: 15px;">
+    <button mat-raised-button (click)="ayuda()" class="btn btn-outline-primary float-right botonperron">
+      Ayuda
+    </button>
+  </div>
 
+  <div class="divayuda" id="ayudadiv"> 
+  <button (click)="openBottomSheet();">open</button>
+</div>
 </div>
