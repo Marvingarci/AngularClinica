@@ -6,7 +6,7 @@ import { FormularioComponent } from './formulario/formulario.component';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent, Loginayuda } from './login/login.component';
 import { PrincipalComponent, DialogCerrarSesion2 } from './principal/principal.component';
 import { LoginadminComponent, DialogoCambiarContraseniaAdmin, /*DialogoVerificar*/ } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
@@ -92,7 +92,8 @@ import { WebcamModule } from 'ngx-webcam';
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 // import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
 import pdfFonts from "../assets/custom-fonts";
-import { AyudaComponent } from './ayuda/ayuda.component'; // custom fonts
+import { AyudaComponent } from './ayuda/ayuda.component';
+
 
 // Set the fonts to use
 // Configuring custom fonts
@@ -217,7 +218,8 @@ const routes: Route[] = [
     CambiarFoto,
     DialogoCambiarContraseniaAdmin,
     DialogoCambiarContraseniaMed,
-    AyudaComponent
+    AyudaComponent,
+    Loginayuda,
 
 
 
@@ -297,7 +299,8 @@ const routes: Route[] = [
     BorrarDesnutricionAP,
     BorrarHospitalarias,
     BorrarHabitoToxicologico,
-    DialogoVerificarPermisoComponent
+    DialogoVerificarPermisoComponent,
+    Loginayuda
   ],
   providers: [
     {
