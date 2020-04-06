@@ -13,7 +13,7 @@ import { Medicos } from '../interfaces/medicos';
 import { MedicosService } from '../services/medicos.service';
 //import * as CryptoJS from 'crypto-js';
 import { isNullOrUndefined } from "util";
-import { MatBottomSheet, MatBottomSheetRef, MatBottomSheetConfig } from '@angular/material';
+import { MatBottomSheet, MatBottomSheetRef, MatBottomSheetConfig, MatDialog } from '@angular/material';
 import { trigger, state, style } from '@angular/animations';
 //import { FormTools } from '../focus';
 
@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   pase: boolean = true;
 
-  constructor(private LoginAdminService: LoginadminService, private loginService: LoginService,
+  constructor(public dialog: MatDialog,private LoginAdminService: LoginadminService, private loginService: LoginService,
      private medicosService: MedicosService,private router: Router, private activar: AppComponent, 
      private formularioService: FormularioService, private mensaje: MatSnackBar,private ayudasheet: MatBottomSheet) {
     activar.esconder();
@@ -82,6 +82,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
     localStorage.removeItem('token');
   }
 
+
+
+  ayuda() {
+    const dialogRef = this.dialog.open(Loginayuda, {
+      disableClose: false,width:"90%",height:"90%",
+      panelClass: 'loginayuda',
+    });
+ }
   startanimation() {  
       var x = document.getElementById("ayudadiv");
     // If "mystyle" exist, overwrite it with "mystyle2"
@@ -265,3 +273,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
   get ControlClave() { return this.login_form.get('clave') };
   
 }
+
+
+@Component({
+  selector: 'loginayuda',
+  templateUrl: 'dialog-login-ayuda.html',
+  styleUrls: ['dialog-login-ayuda.css'],
+})
+
+export class Loginayuda {
+  constructor() {
+
+  }
+} 
