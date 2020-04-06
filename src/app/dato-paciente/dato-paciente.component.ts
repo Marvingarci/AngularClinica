@@ -16,6 +16,7 @@ import { Login } from '../interfaces/login';
 import { InventariosService } from '../services/inventarios.service';
 import { HistoriaSubsiguiente } from '../interfaces/historia_subsiguiente';
 import { MatTableDataSource } from '@angular/material/table';
+import { PacienteService } from '../services/paciente.service';
 
 export interface select {
   value: string;
@@ -129,8 +130,8 @@ export class DatoPacienteComponent implements OnInit {
 
 
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, private router: Router,
-    principal: AppComponent, public dialog: MatDialog, login: LoginService,
-    private formBuilder: FormBuilder, private mensaje: MatSnackBar, private inven: InventariosService) {
+    principal: AppComponent, public dialog: MatDialog,
+    private formBuilder: FormBuilder, private mensaje: MatSnackBar, private pacienteService: PacienteService) {
     this.dialog.closeAll;
     this.id = this.activatedRoute.snapshot.params['id'];
 
@@ -166,7 +167,7 @@ export class DatoPacienteComponent implements OnInit {
 
     principal.esconder();
 
-    this.inven.obtenerHistoriaSubsiguiente(this.id).subscribe((data: HistoriaSubsiguiente[]) => {
+    this.pacienteService.obtenerHistoriaSubsiguiente(this.id).subscribe((data: HistoriaSubsiguiente[]) => {
       this.historias_subsiguientes = data;
       this.medicamento = data;
       console.log(this.historias_subsiguientes);
