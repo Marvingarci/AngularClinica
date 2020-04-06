@@ -117,23 +117,6 @@ export interface familiar {
   id_parentesco?: string;
 }
 
-// export interface HistoriaSubsiguiente {
-//   id_paciente?: string,
-//   peso?: string,
-//   talla?: string,
-//   imc?: string,
-//   temperatura?: string,
-//   presion?: string,
-//   pulso?: string,
-//   siguiente_cita?: string,
-//   observaciones?: string,
-//   impresion?: string,
-//   indicaciones?: string,
-//   remitido?: any,
-//   fechayHora?: any,
-//   nombre?: string
-// }
-
 
 
 export interface antecedentesFamiliares {
@@ -3839,9 +3822,11 @@ export class VerPacienteComponent implements OnInit {
 
 
 export interface Inventario {
+
   id_inventario?: number,
   unidades?: number,
   medicamento?: string,
+
 }
 export interface selecto {
   value: number,
@@ -3864,6 +3849,33 @@ export class HistoriaSubsiguiente1 {
   seleccion = 0;
   maximoMedicamento: number = 2;
   minDate = new Date();
+
+  formulario_historia_subsiguiente = new FormGroup({
+
+
+    peso: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(4)]),
+    // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
+    talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(4)]),
+    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
+    // "/ /" indica el inicio y el final de la expresion regular
+    // "{10}" indica le numero de digitos de lo que lo antecede
+    // "\d" es lo mismo "[0-9]"
+    temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(3)]),
+    observaciones_examen: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(5)]),
+    impresion_diagnostica: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(5)]),
+    indicaciones: new FormControl('', [Validators.maxLength(50), Validators.minLength(5)]),
+    presion: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(3)]),
+    fecha_cita: new FormControl('', Validators.required),
+    pulso: new FormControl(''),
+    remitir: new FormControl(''),
+    cita: new FormControl('', Validators.required),
+    remitira: new FormControl(''),
+    nombre: new FormControl(''),
+    unidad: new FormControl('', [Validators.pattern(/^[0-9]+/), Validators.maxLength(3)])
+
+  });
 
 
 
@@ -3898,6 +3910,82 @@ export class HistoriaSubsiguiente1 {
     cantidad: null
   }
 
+  radioCita(valor, formControl: FormControl[]) {
+
+    if (valor == 1) {
+
+      console.log(valor);
+
+      formControl.forEach(controlador => {
+        controlador.enable({ onlySelf: true });
+      });
+
+      this.fecha_cita.setValidators(Validators.required);
+      this.fecha_cita.updateValueAndValidity();
+
+
+
+    } else {
+
+      formControl.forEach(controlador => {
+        controlador.setValue('');
+        controlador.disable({ onlySelf: true });
+      });
+
+      this.fecha_cita.clearValidators();
+      this.fecha_cita.updateValueAndValidity();
+
+    }
+
+  }
+
+  selectMedicamento(valor, formControl: FormControl[]) {
+
+    if (valor == 0) {
+
+      console.log(valor);
+
+      this.texto = "No hay producto en existencia";
+
+      formControl.forEach(controlador => {
+        controlador.setValue('');
+        controlador.disable({ onlySelf: true });
+      });
+
+      this.unidad.clearValidators();
+      this.unidad.updateValueAndValidity();
+
+
+
+    } else {
+
+
+      formControl.forEach(controlador => {
+        controlador.enable({ onlySelf: true });
+      });
+
+      this.maximoMedicamento = this.inventario[valor - 1].unidades;
+
+      if (this.maximoMedicamento == 0) {
+        this.texto = "No hay producto en existencia";
+        this.borrarInputs([<FormControl>this.unidad]);
+        this.seleccionado = false;
+      } else {
+        this.texto = "El valor en existencia es: " + this.maximoMedicamento;
+        this.seleccionado = true;
+        this.habilitarInputs([<FormControl>this.unidad]);
+      }
+
+      this.unidad.setValidators([Validators.required,
+      Validators.pattern(/^[0-9]+/), Validators.maxLength(3),
+      Validators.max(this.maximoMedicamento)]);
+
+      this.unidad.updateValueAndValidity();
+
+    }
+
+
+  }
 
   showError(message: string) {
     const config = new MatSnackBarConfig();
@@ -3930,32 +4018,7 @@ export class HistoriaSubsiguiente1 {
 
   }
 
-  formulario_historia_subsiguiente = new FormGroup({
 
-
-    peso: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(4)]),
-    // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(4)]),
-    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
-    // "/ /" indica el inicio y el final de la expresion regular
-    // "{10}" indica le numero de digitos de lo que lo antecede
-    // "\d" es lo mismo "[0-9]"
-    temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(3)]),
-    observaciones_examen: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(5)]),
-    impresion_diagnostica: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(5)]),
-    indicaciones: new FormControl('', [Validators.maxLength(50), Validators.minLength(5)]),
-    presion: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(3)]),
-    fecha_cita: new FormControl('', Validators.required),
-    pulso: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(3)]),
-    remitir: new FormControl(''),
-    cita: new FormControl('', Validators.required),
-    remitira: new FormControl(''),
-    nombre: new FormControl(''),
-    unidad: new FormControl('', [Validators.pattern(/^[0-9]+/), Validators.maxLength(3)])
-
-  });
   matcher = new MyErrorStateMatcher();
 
   datos: any;
@@ -3987,10 +4050,12 @@ export class HistoriaSubsiguiente1 {
   }
 
   medicamentoUnidad(numero: number) {
+
     if (numero == 0) {
       this.borrarInputs([<FormControl>this.unidad]);
       this.seleccionado = false;
     }
+
     this.maximoMedicamento = this.inventario[numero - 1].unidades;
     this.unidad.setValidators(Validators.max(this.maximoMedicamento));
     if (this.maximoMedicamento == 0) {
@@ -4023,27 +4088,30 @@ export class HistoriaSubsiguiente1 {
       this.historia_subsiguiente.observaciones = this.observaciones_examen.value;
       this.historia_subsiguiente.remitido = this.remitira.value;
 
-      var fechaCita = moment(this.fecha_cita.value).format("YYYY-MM-DD");
-      console.log(fechaCita);
+      if (this.fecha_cita.value) {
+
+        var fechaCita = moment(this.fecha_cita.value).format("YYYY-MM-DD");
+        console.log(fechaCita);
 
 
-      var cita: any = {
-        'fecha': fechaCita,
-        'paciente': this.pacienteService.id_historia_subsiguiente
+        var cita: any = {
+          'fecha': fechaCita,
+          'paciente': this.pacienteService.id_historia_subsiguiente
+        }
+
+
+        this.pacienteService.guardarCita(cita).subscribe((result: any) => {
+
+          console.log('se envio todo perron');
+
+        }, (error) => {
+
+          console.log(error);
+        });
+
       }
 
-      this.pacienteService.guardarCita(cita).subscribe((result: any) => {
-
-        console.log('se envio todo perron');
-
-      }, (error) => {
-
-        console.log(error);
-      });
-
-
       this.historia_subsiguiente.nombre = this.nombre.value;
-
 
 
       if (this.historia_subsiguiente.remitido == null || this.historia_subsiguiente.remitido == "") {
