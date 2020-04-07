@@ -13,7 +13,6 @@ import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
 import { DatoPacienteComponent, cambiocontraDialog, actualizarcontraDialog, DialogCerrarSesion, verificarDialog } from './dato-paciente/dato-paciente.component';
 import { PacienteComponent } from './paciente/paciente.component';
-import { ListadoEstudiantesComponent, HistoriaSubsiguienteClase } from './listado-estudiantes/listado-estudiantes.component';
 import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
 import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
 import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
@@ -212,8 +211,7 @@ const routes: Route[] = [
     DialogoCambiarContraseniaMed,
     AyudaComponent,
     Loginayuda,
-    //DialogoVerCitasComponent,
-    //DialogoVerCitasComponent,
+  
 
 
 
