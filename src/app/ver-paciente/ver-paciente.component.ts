@@ -3947,10 +3947,13 @@ export class HistoriaSubsiguiente1 {
       this.maximoMedicamento = this.inventario[valor - 1].unidades;
 
       if (this.maximoMedicamento == 0) {
+        
         this.texto = "No hay producto en existencia";
         this.borrarInputs([<FormControl>this.unidad]);
         this.seleccionado = false;
+
       } else {
+
         this.texto = "El valor en existencia es: " + this.maximoMedicamento;
         this.seleccionado = true;
         this.habilitarInputs([<FormControl>this.unidad]);
@@ -4069,23 +4072,20 @@ export class HistoriaSubsiguiente1 {
       this.historia_subsiguiente.remitido = this.remitira.value;
       this.historia_subsiguiente.hora_cita = this.hora_cita.value;
 
-      if (this.fecha_cita.value) {
+      if (this.fecha_cita.value && this.hora_cita.value) {
 
         var fechaCita = moment(this.fecha_cita.value).format("YYYY-MM-DD");
-        console.log(fechaCita);
-        
-
 
         var cita: any = {
           'hora_cita':this.hora_cita.value,
           'fecha': fechaCita,
-          'paciente': this.pacienteService.id_historia_subsiguiente
+          'hora' : this.hora_cita.value,
+          'id_paciente': this.pacienteService.id_historia_subsiguiente
         }
 
 
         this.pacienteService.guardarCita(cita).subscribe((result: any) => {
 
-          console.log('se envio todo perron');
 
         }, (error) => {
 
