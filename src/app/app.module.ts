@@ -13,10 +13,6 @@ import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
 import { DatoPacienteComponent, cambiocontraDialog, actualizarcontraDialog, DialogCerrarSesion, verificarDialog } from './dato-paciente/dato-paciente.component';
 import { PacienteComponent } from './paciente/paciente.component';
-import { ListadoEstudiantesComponent, HistoriaSubsiguienteClase } from './listado-estudiantes/listado-estudiantes.component';
-import { ListadoTrabajadoresComponent } from './listado-trabajadores/listado-trabajadores.component';
-import { ListadoVisitantesComponent } from './listado-visitantes/listado-visitantes.component';
-import { ListadoProseneComponent } from './listado-prosene/listado-prosene.component';
 import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia,Borrartelefono, BorrarDesnutricionAF, BorrarDesnutricionAP, BorrarHospitalarias, CambiarFoto, BorrarHabitoToxicologico } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -118,8 +114,6 @@ const routes: Route[] = [
   { path: 'datoPaciente', component: DatoPacienteComponent, canActivate: [AuthPacienteGuard] },
   { path: 'verPaciente/:id', component: VerPacienteComponent, canActivate: [AuthAdministradorGuard] },
   { path: 'inventario', component: InventarioComponent, canActivate: [AuthAdministradorGuard] },
-  //{path: 'formInventario', component: FormInventarioComponent},
-  { path: 'listadoEstudiantes/:id', component: ListadoEstudiantesComponent, canActivate: [AuthAdministradorGuard] },
   { path: 'ayuda', component: AyudaComponent },
 
 
@@ -135,9 +129,6 @@ const routes: Route[] = [
     children: [
       { path: 'at1', component: At1Component },
       { path: 'registro', component: PacienteComponent },
-      { path: 'listadotrabajadores', component: ListadoTrabajadoresComponent },
-      { path: 'listadoVisitantes', component: ListadoVisitantesComponent },
-      { path: 'listadoProsene', component: ListadoProseneComponent },
       { path: 'inventario', component: InventarioComponent },
       { path: 'paseadmin', component: PaseAdminComponent },
       { path: 'veradministradores', component: VerAdministradoresComponent },
@@ -174,17 +165,12 @@ const routes: Route[] = [
     LoginadminComponent,
     At1Component,
     PacienteComponent,
-    ListadoEstudiantesComponent,
-    ListadoTrabajadoresComponent,
-    ListadoVisitantesComponent,
-    ListadoProseneComponent,
     VerPacienteComponent,
     cambiocontraDialog,
     InventarioComponent,
     actualizarcontraDialog,
     verificarDialog,
     DialogCerrarSesion,
-    HistoriaSubsiguienteClase,
     HistoriaSubsiguiente1,
     Borraradministrador,
     DialogCerrarSesion2,
@@ -277,7 +263,6 @@ const routes: Route[] = [
     actualizarcontraDialog,
     verificarDialog,
     DialogCerrarSesion,
-    HistoriaSubsiguienteClase,
     HistoriaSubsiguiente1,
     Borraradministrador,
     DialogCerrarSesion2,
