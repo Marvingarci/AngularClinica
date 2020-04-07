@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ayuda() {
     const dialogRef = this.dialog.open(Loginayuda, {
-      disableClose: false,width:"90%",height:"90%",
+      disableClose: true,width:"90%",height:"95%",
       panelClass: 'loginayuda',
     });
  }
