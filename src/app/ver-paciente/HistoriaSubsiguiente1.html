@@ -2,7 +2,6 @@
 <mat-dialog-content class="mat-typography">
 
   <form [formGroup]="formulario_historia_subsiguiente">
-    <ng-template matStepLabel>Cita</ng-template>
 
 
 <div class="container3">
@@ -14,7 +13,9 @@
             <mat-label><b>Peso(kg)</b></mat-label>
             <input matInput formControlName="peso" placeholder="Ingrese el peso">
              <mat-error *ngIf="peso.hasError('required')">campo requerido</mat-error>
-            <mat-error *ngIf="peso.hasError('pattern')">ingrese un peso valido</mat-error>
+             <mat-error *ngIf="peso.hasError('pattern')">solo números con dos cifras decimales</mat-error>
+             <mat-error *ngIf="peso.hasError('max')">peso no válido</mat-error>
+             <mat-error *ngIf="peso.hasError('min')">peso no válido</mat-error>
            </mat-form-field>
         </div>
 
@@ -24,17 +25,21 @@
             <mat-label><b>Altura(en metros)</b></mat-label>
             <input matInput class="example-full-width" formControlName="talla" placeholder="Ingrese la altura">
             <mat-error *ngIf="talla.hasError('required')">campo requerido</mat-error>
-            <mat-error *ngIf="talla.hasError('pattern')">ingrese una talla valido!</mat-error>
+            <mat-error *ngIf="talla.hasError('pattern')">solo números con dos cifras decimales</mat-error>
+            <mat-error *ngIf="talla.hasError('max')">talla no válida</mat-error>
+            <mat-error *ngIf="talla.hasError('min')">talla no válida</mat-error>
          </mat-form-field>
         </div>
 
     
         <div class="col" >
           <mat-form-field style="width: 177.95px;">
-            <mat-label><b>Temperatura</b></mat-label>
+            <mat-label><b>Temperatura(en ºC)</b></mat-label>
             <input matInput formControlName="temperatura" placeholder="Ingrese la temperatura">
             <mat-error *ngIf="temperatura.hasError('required')">campo requerido</mat-error>
-            <mat-error *ngIf="temperatura.hasError('pattern')">ingrese una temperatura que este en el rango</mat-error>
+            <mat-error *ngIf="temperatura.hasError('pattern')">solo números con dos cifras decimales</mat-error>
+            <mat-error *ngIf="temperatura.hasError('max')">temperatura no válida</mat-error>
+            <mat-error *ngIf="temperatura.hasError('min')">temperatura no válida</mat-error>
           </mat-form-field>
         </div>
 
@@ -44,7 +49,9 @@
             <mat-label><b>Presión Arterial</b></mat-label>
             <input matInput formControlName="presion" name="presion" placeholder="Ingrese la presión arterial">
             <mat-error *ngIf="presion.hasError('required')">campo requerido</mat-error>
-            <mat-error *ngIf="presion.hasError('pattern')">ingrese una presion valido</mat-error>
+            <mat-error *ngIf="presion.hasError('pattern')">solo números con dos cifras decimales</mat-error>
+            <mat-error *ngIf="presion.hasError('max')">presión no válida</mat-error>
+            <mat-error *ngIf="presion.hasError('min')">presión no válida</mat-error>
           </mat-form-field>
         </div>
 
@@ -54,8 +61,10 @@
             <mat-label><b>Pulso</b></mat-label>
             <input matInput formControlName="pulso" name="pulso" placeholder="Ingrese el pulso">
             <mat-error *ngIf="pulso.hasError('required')">campo requerido</mat-error>
-            <mat-error *ngIf="pulso.hasError('pattern')">ingrese una medida de pulso valido</mat-error>
-           </mat-form-field>
+            <mat-error *ngIf="pulso.hasError('pattern')">solo números con dos cifras decimales</mat-error>
+            <mat-error *ngIf="pulso.hasError('max')">pulso no válido</mat-error>
+            <mat-error *ngIf="pulso.hasError('min')">pulso no válido</mat-error>
+           </mat-form-field> 
         </div>
 
       </div>
@@ -76,7 +85,7 @@
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
             <mat-error *ngIf="observaciones_examen.hasError('required')">campo requerido</mat-error>
             <mat-error *ngIf="observaciones_examen.hasError('maxlength')">campo muy extenso</mat-error>
-            <mat-error *ngIf="observaciones_examen.hasError('minlength')">sea especifico</mat-error>
+            <mat-error *ngIf="observaciones_examen.hasError('minlength')">sea especí bfico</mat-error>
          </mat-form-field>
         </div>
 
@@ -89,7 +98,7 @@
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"></textarea>
             <mat-error *ngIf="impresion_diagnostica.hasError('required')">campo requerido</mat-error>
             <mat-error *ngIf="impresion_diagnostica.hasError('maxlength')">campo muy extenso</mat-error>
-            <mat-error *ngIf="impresion_diagnostica.hasError('minlength')">sea especifico</mat-error>
+            <mat-error *ngIf="impresion_diagnostica.hasError('minlength')">sea específico</mat-error>
           </mat-form-field>
         </div>
 
@@ -119,7 +128,7 @@
             <input matInput placeholder="{{texto}}" formControlName="unidad">
             <mat-error *ngIf="unidad.hasError('required')"><strong>campo requerido</strong> </mat-error>
             <mat-error *ngIf="unidad.hasError('pattern')">tienen que ser numeros positivos</mat-error>
-            <mat-error *ngIf="unidad.hasError('maxLength')"> No hay tantas en existencia </mat-error>
+            <mat-error *ngIf="unidad.hasError('max')"> No hay tantas en existencia </mat-error>
           </mat-form-field>
         </div>
      
@@ -193,7 +202,15 @@
           <mat-datepicker #picker1></mat-datepicker>
           <mat-error *ngIf="fecha_cita.hasError('required')">campo requerido</mat-error>
           </mat-form-field>
+          
+          &nbsp; &nbsp; &nbsp; &nbsp;
 
+        
+
+            <mat-form-field class="example-full-width">
+              <mat-label><b>Hora cita</b></mat-label>
+              <input mat-timepicker matInput type="time" formControlName="hora_cita">             
+            </mat-form-field>
       </div>
 
 
