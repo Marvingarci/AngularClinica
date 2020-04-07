@@ -124,8 +124,8 @@
 
         <div class="col">
           <mat-form-field style=" width: 100%;">
-            <mat-label><b>Unidades</b></mat-label>
-            <input matInput placeholder="{{texto}}" formControlName="unidad">
+            <mat-label><b>{{texto}}</b></mat-label>
+            <input matInput  formControlName="unidad">
             <mat-error *ngIf="unidad.hasError('required')"><strong>campo requerido</strong> </mat-error>
             <mat-error *ngIf="unidad.hasError('pattern')">tienen que ser numeros positivos</mat-error>
             <mat-error *ngIf="unidad.hasError('max')"> No hay tantas en existencia </mat-error>
