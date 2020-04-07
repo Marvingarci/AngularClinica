@@ -1,99 +1,93 @@
 <div class="row">
-    <div class="col">        
-        <h2  mat-dialog-title disableClose>Ayuda</h2>
+    <div class="col">
+        <h2 mat-dialog-title disableClose>Ayuda</h2>
     </div>
 
     <div class="col">
-    <mat-dialog-actions align="end" style="margin:0px ;padding: 0px;min-height: 24px;">
-    <div class="col" style="position: fixed;margin: 0px;padding: 0px; ">
-    <button mat-icon-button mat-dialog-close style="width: 24px;height: 24px;outline: none;" ><mat-icon style="color: red;">cancel</mat-icon></button>
-    </div>    
-    </mat-dialog-actions>
+        <mat-dialog-actions align="end" style="margin:0px ;padding: 0px;min-height: 24px;">
+            <div class="col" style="position: fixed;margin: 0px;padding: 0px; ">
+                <button mat-icon-button mat-dialog-close style="width: 24px;height: 24px;outline: none;">
+                    <mat-icon style="color: red;">cancel</mat-icon>
+                </button>
+            </div>
+        </mat-dialog-actions>
     </div>
 </div>
 
 
-<mat-dialog-content class="mat-typography">
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
 
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
+            <div class="paciente" id="imagen"></div>
 
-                        <div class="paciente" id="imagen"></div>
-
-                        <div class="carousel-caption d-none d-md-block" style="color: #000000;">
-                            <p>En el apartado de paciente se visualizarán cada uno de los pacientes
-                                los cuales han sido registrados en la plataforma y sus respectivas categorías.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-
-                        <div class="paciente1" id="imagen"></div>
-
-                        <div class="carousel-caption d-none d-md-block" style="color: #000;">
-                            <p>A cada uno de los pacientes que se muestra en este apartado, se podrá
-                                visualizar toda la información referente a él haciendo “Click” sobre su respectivo
-                                nombre.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-
-                        <div class="paciente2" id="imagen"></div>
-
-                        <div class="carousel-caption d-none d-md-block" style="color: #000;">
-                            <p>Al dar click en cada uno de los acordeones se desplegará
-                                la información que estos contienen y donde se podrá editar dicha información.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-
-                        <div class="paciente3" id="imagen"></div>
-
-                        <div class="carousel-caption d-none d-md-block" style="color: #000;">
-                            <p>Aqui tendrán las opciones de añadir historia subsiguiente y ver
-                                citas. Al dar click en historia subsiguiente se mostrará un formulario que deberá llenar
-                                según lo que presente el paciente.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-
-                        <div class="paciente4" id="imagen"></div>
-
-                        <div class="carousel-caption d-none d-md-block" style="color: #000;">
-                            <p>Al dar click en ver historias subsiguientes, podrá ver el registro de las
-                                consultas a las cuales ha asistido el paciente.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-
-                        <div class="paciente5" id="imagen"></div>
-
-                        <div class="carousel-caption d-none d-md-block" style="color: #000;">
-                            <p>Aquí podrá imprimir una constancia en caso de que el paciente la necesite.</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-
-                        <div class="paciente6" id="imagen"></div>
-
-                        <div class="carousel-caption d-none d-md-block" style="color: #000;">
-                            <p>Al dar click en el botón crear nuevo paciente, será redirigido a un formulario el cual
-                                será necesario para elaborar la historia clínica del paciente.</p>
-                        </div>
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Atras</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Siguiente</span>
-                </a>
+            <div class="carousel-caption d-none d-md-block" style="color: #000000;">
+                <p>En el apartado de paciente se visualizarán cada uno de los pacientes
+                    los cuales han sido registrados en la plataforma y sus respectivas categorías.</p>
             </div>
-      
+        </div>
+        <div class="carousel-item">
 
-  
+            <div class="paciente1" id="imagen"></div>
 
-</mat-dialog-content>
+            <div class="carousel-caption d-none d-md-block" style="color: #000;">
+                <p>A cada uno de los pacientes que se muestra en este apartado, se podrá
+                    visualizar toda la información referente a él haciendo “Click” sobre su respectivo
+                    nombre.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
 
+            <div class="paciente2" id="imagen"></div>
+
+            <div class="carousel-caption d-none d-md-block" style="color: #000;">
+                <p>Al dar click en cada uno de los acordeones se desplegará
+                    la información que estos contienen y donde se podrá editar dicha información.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+
+            <div class="paciente3" id="imagen"></div>
+
+            <div class="carousel-caption d-none d-md-block" style="color: #000;">
+                <p>Aqui tendrán las opciones de añadir historia subsiguiente y ver
+                    citas. Al dar click en historia subsiguiente se mostrará un formulario que deberá llenar
+                    según lo que presente el paciente.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+
+            <div class="paciente4" id="imagen"></div>
+
+            <div class="carousel-caption d-none d-md-block" style="color: #000;">
+                <p>Al dar click en ver historias subsiguientes, podrá ver el registro de las
+                    consultas a las cuales ha asistido el paciente.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+
+            <div class="paciente5" id="imagen"></div>
+
+            <div class="carousel-caption d-none d-md-block" style="color: #000;">
+                <p>Aquí podrá imprimir una constancia en caso de que el paciente la necesite.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+
+            <div class="paciente6" id="imagen"></div>
+
+            <div class="carousel-caption d-none d-md-block" style="color: #000;">
+                <p>Al dar click en el botón crear nuevo paciente, será redirigido a un formulario el cual
+                    será necesario para elaborar la historia clínica del paciente.</p>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Atras</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Siguiente</span>
+    </a>
+</div>
