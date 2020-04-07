@@ -787,7 +787,7 @@
                     <mat-label><b>Peso(en Kg)</b></mat-label>
                     <input matInput formControlName="peso" placeholder="Aún no especificado"
                       [readonly]="readonlyDatosGenerales">
-                    <mat-error *ngIf="peso.hasError('pattern')">solo se permiten números</mat-error>
+                    <mat-error *ngIf="peso.hasError('pattern')">solo números con dos cifras decimales</mat-error>
                     <mat-error *ngIf="peso.hasError('max')">peso no válido</mat-error>
                     <mat-error *ngIf="peso.hasError('min')">peso no válido</mat-error>
                   </mat-form-field>
@@ -798,7 +798,7 @@
                     <mat-label><b>Talla</b></mat-label>
                     <input matInput formControlName="talla" placeholder="Aún no especificado"
                       [readonly]="readonlyDatosGenerales">
-                    <mat-error *ngIf="talla.hasError('pattern')">solo se permiten números</mat-error>
+                    <mat-error *ngIf="talla.hasError('pattern')">solo números con dos cifras decimales</mat-error>
                     <mat-error *ngIf="talla.hasError('max')">talla no válida</mat-error>
                     <mat-error *ngIf="talla.hasError('min')">talla no válida</mat-error>
                   </mat-form-field>
@@ -809,7 +809,7 @@
                     <mat-label><b>Temperatura(en ºC)</b></mat-label>
                     <input matInput formControlName="temperatura" placeholder="Aún no especificado"
                       [readonly]="readonlyDatosGenerales">
-                    <mat-error *ngIf="temperatura.hasError('pattern')">solo se permiten números</mat-error>
+                    <mat-error *ngIf="temperatura.hasError('pattern')">solo números con dos cifras decimales</mat-error>
                     <mat-error *ngIf="temperatura.hasError('max')">temperatura no válida</mat-error>
                     <mat-error *ngIf="temperatura.hasError('min')">temperatura no válida</mat-error>
                   </mat-form-field>
@@ -821,7 +821,7 @@
                     <mat-label><b>Presión</b></mat-label>
                     <input matInput formControlName="presion" placeholder="Aún no especificado"
                       [readonly]="readonlyDatosGenerales">
-                    <mat-error *ngIf="presion.hasError('pattern')">solo se permiten números</mat-error>
+                    <mat-error *ngIf="presion.hasError('pattern')">solo números con dos cifras decimales</mat-error>
                     <mat-error *ngIf="presion.hasError('max')">presión no válida</mat-error>
                     <mat-error *ngIf="presion.hasError('min')">presión no válida</mat-error>
                   </mat-form-field>
@@ -832,7 +832,7 @@
                     <mat-label><b>Pulso</b></mat-label>
                     <input matInput formControlName="pulso" placeholder="Aún no especificado"
                       [readonly]="readonlyDatosGenerales">
-                    <mat-error *ngIf="pulso.hasError('pattern')">solo se permiten números</mat-error>
+                    <mat-error *ngIf="pulso.hasError('pattern')">solo números con dos cifras decimales</mat-error>
                     <mat-error *ngIf="pulso.hasError('max')">pulso no válido</mat-error>
                     <mat-error *ngIf="pulso.hasError('min')">pulso no válido</mat-error>
                   </mat-form-field>

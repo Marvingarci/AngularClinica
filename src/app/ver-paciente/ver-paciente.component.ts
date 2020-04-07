@@ -160,26 +160,8 @@ export class VerPacienteComponent implements OnInit {
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
   titulo = 'Ingreso de datos restantes';
 
-  // getTotalCost() {
-  //   return this.transactions.map(t => t.cost).reduce((acc, value) => acc + value, 0);
-  // }
 
 
-
-
-  //   formulario_datos_faltantes = new FormGroup({  
-  //     peso : new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
-  //     talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]), 
-  //     // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
-  //     // "/ /" indica el inicio y el final de la expresion regular
-  //     // "{10}" indica le numero de digitos de lo que lo antecede
-  //     imc: new FormControl('', [Validators.required,Validators.pattern(/^[0-9]{1,3}$/)]),
-  //      // "\d" es lo mismo "[0-9]"
-  //     temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{1,3}$/)]),
-  //     presion: new FormControl('', [Validators.required]),
-  //     pulso: new FormControl('', [Validators.required]),
-
-  // });
   matcher = new MyErrorStateMatcher();
 
   formulario_datos_generales = new FormGroup({
@@ -214,11 +196,11 @@ export class VerPacienteComponent implements OnInit {
     emergencia_persona: new FormControl('', [Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
 
     //datos restantes
-    peso: new FormControl('', [Validators.max(500), Validators.min(2), Validators.pattern('[0-9]*')]),
-    talla: new FormControl('', [Validators.max(100), Validators.min(1), Validators.pattern('[0-9]*')]),
-    temperatura: new FormControl('', [Validators.max(60), Validators.min(20), Validators.pattern('[0-9]*')]),
-    presion: new FormControl('', [Validators.max(200), Validators.min(50), Validators.pattern('[0-9]*')]),
-    pulso: new FormControl('', [Validators.max(140), Validators.min(40), Validators.pattern('[0-9]*')]),
+    peso: new FormControl('', [Validators.max(500), Validators.min(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    talla: new FormControl('', [Validators.max(2.5), Validators.min(0.2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    temperatura: new FormControl('', [Validators.max(60), Validators.min(20), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    presion: new FormControl('', [Validators.max(200), Validators.min(50), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    pulso: new FormControl('', [Validators.max(140), Validators.min(40), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
     prosene: new FormControl('', []),
   });
 
@@ -3850,32 +3832,29 @@ export class HistoriaSubsiguiente1 {
   maximoMedicamento: number = 2;
   minDate = new Date();
 
-  formulario_historia_subsiguiente = new FormGroup({
+  formulario_historia_subsiguiente = new FormGroup({   
 
+    peso: new FormControl('', [Validators.required,Validators.max(500), Validators.min(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    talla: new FormControl('', [Validators.required,Validators.max(2.5), Validators.min(0.20), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    temperatura: new FormControl('', [Validators.required,Validators.max(60), Validators.min(20), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    presion: new FormControl('', [Validators.required,Validators.max(200), Validators.min(50), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    pulso: new FormControl('', [Validators.required,Validators.max(140), Validators.min(40), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
 
-    peso: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(4)]),
-    // segundo_apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    // primer_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    // segundo_nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-z]{2,15}$/)]),
-    talla: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(4)]),
-    // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
-    // "/ /" indica el inicio y el final de la expresion regular
-    // "{10}" indica le numero de digitos de lo que lo antecede
-    // "\d" es lo mismo "[0-9]"
-    temperatura: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(3)]),
-    observaciones_examen: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(5)]),
-    impresion_diagnostica: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(5)]),
-    indicaciones: new FormControl('', [Validators.maxLength(50), Validators.minLength(5)]),
-    presion: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+/), Validators.maxLength(3)]),
-    fecha_cita: new FormControl('', Validators.required),
-    pulso: new FormControl(''),
-    remitir: new FormControl(''),
-    cita: new FormControl('', Validators.required),
-    remitira: new FormControl(''),
+    observaciones_examen: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(5)]),
+    impresion_diagnostica: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(5)]),
+
     nombre: new FormControl(''),
-    unidad: new FormControl('', [Validators.pattern(/^[0-9]+/), Validators.maxLength(3)])
+    unidad: new FormControl('', [Validators.pattern(/^[0-9]+/), Validators.maxLength(3)]),
+    indicaciones: new FormControl('', [Validators.maxLength(100), Validators.minLength(5)]),   
 
-  });
+    remitir: new FormControl(''),
+    remitira: new FormControl(''),
+
+    cita: new FormControl('', Validators.required),
+    fecha_cita: new FormControl('', Validators.required),
+    hora_cita: new FormControl(''),
+    
+ });
 
 
 
@@ -3902,6 +3881,7 @@ export class HistoriaSubsiguiente1 {
     observaciones: null,
     remitido: null,
     siguiente_cita: null,
+    hora_cita:null,
     nombre: null
   }
 
@@ -4087,14 +4067,17 @@ export class HistoriaSubsiguiente1 {
       this.historia_subsiguiente.indicaciones = this.indicaciones.value;
       this.historia_subsiguiente.observaciones = this.observaciones_examen.value;
       this.historia_subsiguiente.remitido = this.remitira.value;
+      this.historia_subsiguiente.hora_cita = this.hora_cita.value;
 
       if (this.fecha_cita.value) {
 
         var fechaCita = moment(this.fecha_cita.value).format("YYYY-MM-DD");
         console.log(fechaCita);
+        
 
 
         var cita: any = {
+          'hora_cita':this.hora_cita.value,
           'fecha': fechaCita,
           'paciente': this.pacienteService.id_historia_subsiguiente
         }
@@ -4164,6 +4147,7 @@ export class HistoriaSubsiguiente1 {
   get observaciones_examen() { return this.formulario_historia_subsiguiente.get('observaciones_examen') };
   get impresion_diagnostica() { return this.formulario_historia_subsiguiente.get('impresion_diagnostica') };
   get fecha_cita() { return this.formulario_historia_subsiguiente.get('fecha_cita') };
+  get hora_cita() { return this.formulario_historia_subsiguiente.get('hora_cita') };
   get indicaciones() { return this.formulario_historia_subsiguiente.get('indicaciones') };
   get presion() { return this.formulario_historia_subsiguiente.get('presion') };
   get nombre() { return this.formulario_historia_subsiguiente.get('nombre') };

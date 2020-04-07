@@ -34,7 +34,7 @@ export class PacienteComponent implements OnInit {
   dataSource4: any;
   dataSourceCitas: any;
 
-  columnasTablaCitas = ['numero_cita', 'paciente', 'fecha'];
+  columnasTablaCitas = ['numero_cita', 'paciente', 'fecha','hora'];
 
   mostrarCitas: boolean = false;
 

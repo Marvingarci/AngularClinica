@@ -227,6 +227,12 @@
         <td style="cursor:pointer;outline: none; "
           mat-cell *matCellDef="let element"> {{element.fecha}} </td>
       </ng-container>
+
+      <ng-container matColumnDef="hora">
+        <th mat-header-cell *matHeaderCellDef> Hora </th>
+        <td style="cursor:pointer;outline: none; "
+          mat-cell *matCellDef="let element"> {{element.hora_cita}} </td>
+      </ng-container>
   
       
       <tr mat-header-row *matHeaderRowDef="columnasTablaCitas"></tr>
