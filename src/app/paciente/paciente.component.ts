@@ -92,6 +92,12 @@ export class PacienteComponent implements OnInit {
   }
 
 
+  filtroCitas(filterValue: string) {
+    this.dataSourceCitas.filter = filterValue.trim().toLowerCase();
+    this.dataSourceCitas.paginator = this.paginator;
+  }
+
+
   ngOnInit() {
 
   }
