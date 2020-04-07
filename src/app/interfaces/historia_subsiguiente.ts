@@ -13,6 +13,6 @@ observaciones?: string,
 impresion?:string,
 indicaciones?:string,
 remitido?:any,
-fechayHora?:any,
+fecha?:any,
 nombre?:string
 }
