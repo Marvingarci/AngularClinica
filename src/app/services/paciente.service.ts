@@ -49,4 +49,10 @@ export class PacienteService {
 
   }
 
+  obtenerEstadisticasPacientes(){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/contarPacientes',{headers:this.headers});
+
+  }
+
 }
