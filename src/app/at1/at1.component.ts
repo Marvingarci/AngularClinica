@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { InventariosService } from '../services/inventarios.service';
-import { Cita } from '../interfaces/Cita';
+import { HistoriaSubsiguiente } from '../interfaces/historia_subsiguiente';
+import { PacienteService } from '../services/paciente.service';
 
 @Component({
   selector: 'app-at1',
@@ -20,8 +21,8 @@ export class At1Component implements OnInit {
     this.dataSource1.filter = filterValue.trim().toLowerCase();
   }
 
-  constructor(private inventario: InventariosService) {
-    this.inventario.obtenerTodasCita().subscribe((data: Cita[])=>{
+  constructor(private pacienteService: PacienteService) {
+    this.pacienteService.obtenerHistoriasSubsiguientes().subscribe((data: HistoriaSubsiguiente[])=>{
       this.dataSource1 = new MatTableDataSource(data);
       console.log(data);
     }, (error)=>{

@@ -14,8 +14,9 @@ import { PacienteComponent } from '../paciente/paciente.component';
 //import { DialogContentExampleDialog1 } from '../principal/principal.component';
 import { Login } from '../interfaces/login';
 import { InventariosService } from '../services/inventarios.service';
-import { Cita } from '../interfaces/Cita';
+import { HistoriaSubsiguiente } from '../interfaces/historia_subsiguiente';
 import { MatTableDataSource } from '@angular/material/table';
+import { PacienteService } from '../services/paciente.service';
 
 export interface select {
   value: string;
@@ -120,7 +121,7 @@ export class DatoPacienteComponent implements OnInit {
   id: any;
   noImg: boolean = true;
   pacientes: Paciente[];
-  citas: Cita[];
+  historias_subsiguientes: HistoriaSubsiguiente[];
   medicamento:any;
 
 
@@ -129,8 +130,8 @@ export class DatoPacienteComponent implements OnInit {
 
 
   constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, private router: Router,
-    principal: AppComponent, public dialog: MatDialog, login: LoginService,
-    private formBuilder: FormBuilder, private mensaje: MatSnackBar, private inven: InventariosService) {
+    principal: AppComponent, public dialog: MatDialog,
+    private formBuilder: FormBuilder, private mensaje: MatSnackBar, private pacienteService: PacienteService) {
     this.dialog.closeAll;
     this.id = this.activatedRoute.snapshot.params['id'];
 
@@ -166,34 +167,34 @@ export class DatoPacienteComponent implements OnInit {
 
     principal.esconder();
 
-    this.inven.obtenerCita(this.id).subscribe((data: Cita[]) => {
-      this.citas = data;
+    this.pacienteService.obtenerHistoriaSubsiguiente(this.id).subscribe((data: HistoriaSubsiguiente[]) => {
+      this.historias_subsiguientes = data;
       this.medicamento = data;
-      console.log(this.citas);
+      console.log(this.historias_subsiguientes);
 
       if(!this.medicamento.nombre){        
         this.tienemedicamento = false; 
       }
 
-      this.dataSourceTablaDatoPaciente = new MatTableDataSource(this.citas);
-      if (!this.citas.length) {
+      this.dataSourceTablaDatoPaciente = new MatTableDataSource(this.historias_subsiguientes);
+      if (!this.historias_subsiguientes.length) {
         this.dataSourceTablaDatoPaciente = null;     
       } 
 
-      this.dataSourceTablaDatoPaciente1 = new MatTableDataSource(this.citas);
-      if (!this.citas.length) {
+      this.dataSourceTablaDatoPaciente1 = new MatTableDataSource(this.historias_subsiguientes);
+      if (!this.historias_subsiguientes.length) {
         this.dataSourceTablaDatoPaciente1 = null; 
       } 
 
 
-      this.dataSourceTablaDatoPaciente2 = new MatTableDataSource(this.citas);
-      if (!this.citas.length) {
+      this.dataSourceTablaDatoPaciente2 = new MatTableDataSource(this.historias_subsiguientes);
+      if (!this.historias_subsiguientes.length) {
         this.dataSourceTablaDatoPaciente2 = null; 
         
       } 
 
-      this.dataSourceTablaDatoPaciente3 = new MatTableDataSource(this.citas);
-      if (!this.citas.length) {
+      this.dataSourceTablaDatoPaciente3 = new MatTableDataSource(this.historias_subsiguientes);
+      if (!this.historias_subsiguientes.length) {
         this.dataSourceTablaDatoPaciente3 = null;     
       } 
 
@@ -691,7 +692,7 @@ export class actualizarcontraDialog {
   id: any;
   resultado: any;
   pac: Paciente[];
-  citas: Cita[];
+  historias_subsiguientes: HistoriaSubsiguiente[];
 
   constructor(
     private dialogRef: MatDialogRef<verificarDialog>,

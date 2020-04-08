@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { InventariosService } from '../services/inventarios.service';
-import { Cita } from '../interfaces/Cita';
+import { HistoriaSubsiguiente } from '../interfaces/historia_subsiguiente';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 //importaciones graficas
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
@@ -10,6 +10,7 @@ import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { runInThisContext } from 'vm';
+import { PacienteService } from '../services/paciente.service';
 
 
 export interface elementos{
@@ -300,8 +301,8 @@ export class ConsolidadodiarioComponent implements OnInit {
 
 
   
-  constructor(private inventario: InventariosService) {
-    this.inventario.obtenerTodasCita().subscribe((data: Cita[])=>{
+  constructor(private pacienteService: PacienteService) {
+    this.pacienteService.obtenerHistoriasSubsiguientes().subscribe((data: HistoriaSubsiguiente[])=>{
       this.seter();
 
     this.datos=data;

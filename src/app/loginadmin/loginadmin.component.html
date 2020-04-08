@@ -1,96 +1,116 @@
 <div class="container">
   <form id="form" [formGroup]="loginadmin_form">
-    <mat-card style="margin-top: 15px;" [class.mat-elevation-z5]="true">
-      <div class="titulo">
-        <h2>Registro Administrador</h2>
-      </div>
+    <div>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput placeholder="Ingrese un nuevo Administrador" formControlName="usuario"  cdkFocusInitial>
-        <mat-label> <b>Usuario</b> </mat-label>
-
-        <mat-error *ngIf="usuario.hasError('required')">
-          <strong>Ingrese el usuario</strong>
-        </mat-error>
-        <mat-error *ngIf="usuario.hasError('minLength') && usuario.hasError('maxLength')">
-          <strong>usuario invalido</strong>
-        </mat-error>
-        <mat-error *ngIf="usuario.hasError('usuarioAdminUnico')">El usuario pertenece a otra persona</mat-error>
-      </mat-form-field>
-
-      <div *ngIf="!editando">
+      <mat-card style="margin-top: 15px;" [class.mat-elevation-z5]="true">
+        <div class="titulo">
+          <h2>Registro Administrador</h2>
+        </div>
+  
         <mat-form-field class="example-full-width" appearance="outline">
-          <input matInput placeholder="Nueva contraseña" formControlName="contraseniaNueva"
-            [type]="esconderClave ? 'password' : 'text'">
-          <mat-label> <b>Contraseña</b> </mat-label>
-          <button mat-icon-button matSuffix (click)="esconderClave = !esconderClave" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="esconderClave">
-            <mat-icon>{{esconderClave ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-          <mat-error *ngIf="contraseniaNueva.hasError('required')">
-            <strong>Ingrese la contraseña</strong>
+          <input matInput placeholder="Ingrese un nuevo Administrador" formControlName="usuario"  cdkFocusInitial>
+          <mat-label> <b>Usuario</b> </mat-label>
+  
+          <mat-error *ngIf="usuario.hasError('required')">
+            <strong>Ingrese el usuario</strong>
           </mat-error>
-          <mat-error *ngIf="contraseniaNueva.hasError('minLength') && contraseniaNueva.hasError('maxLength')">
-            <strong>Contrasenia inválida</strong>
+          <mat-error *ngIf="usuario.hasError('minLength') && usuario.hasError('maxLength')">
+            <strong>usuario invalido</strong>
+          </mat-error>
+          <mat-error *ngIf="usuario.hasError('usuarioAdminUnico')">El usuario pertenece a otra persona</mat-error>
+        </mat-form-field>
+  
+        <div *ngIf="!editando">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Nueva contraseña" formControlName="contraseniaNueva"
+              [type]="esconderClave ? 'password' : 'text'">
+            <mat-label> <b>Contraseña</b> </mat-label>
+            <button mat-icon-button matSuffix (click)="esconderClave = !esconderClave" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="esconderClave">
+              <mat-icon>{{esconderClave ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="contraseniaNueva.hasError('required')">
+              <strong>Ingrese la contraseña</strong>
+            </mat-error>
+            <mat-error *ngIf="contraseniaNueva.hasError('minLength') && contraseniaNueva.hasError('maxLength')">
+              <strong>Contrasenia inválida</strong>
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Confirme la nueva contraseña" formControlName="confirmarContrasenia"
+              [type]="esconderConfirmacionClave ? 'password' : 'text'">
+            <mat-label> <b>Confirme la contraseña</b> </mat-label>
+            <button mat-icon-button matSuffix (click)="esconderConfirmacionClave = !esconderConfirmacionClave"
+              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="esconderConfirmacionClave">
+              <mat-icon>{{esconderConfirmacionClave ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="confirmarContrasenia.hasError('required')">
+              <strong>Confirme la contraseña</strong>
+            </mat-error>
+            <mat-error *ngIf="confirmarContrasenia.hasError('minLength') && confirmarContrasenia.hasError('maxLength')">
+              <strong>Contraseña no confirmada</strong>
+            </mat-error>
+          </mat-form-field>
+  
+        </div>
+  
+  
+        <mat-form-field class="example-full-width" appearance="outline">
+          <input matInput placeholder="Ingrese el nombre completo" formControlName="nombre" >
+          <mat-label> <b>Nombre</b> </mat-label>
+          <mat-error *ngIf="nombre.hasError('required')">
+            <strong>Escriba el nombre completo</strong>
+          </mat-error>
+          <mat-error *ngIf="nombre.hasError('minLength') && nombre.hasError('maxLength')">
+            <strong>Escriba el nombre completo</strong>
           </mat-error>
         </mat-form-field>
-
+  
         <mat-form-field class="example-full-width" appearance="outline">
-          <input matInput placeholder="Confirme la nueva contraseña" formControlName="confirmarContrasenia"
-            [type]="esconderConfirmacionClave ? 'password' : 'text'">
-          <mat-label> <b>Confirme la contraseña</b> </mat-label>
-          <button mat-icon-button matSuffix (click)="esconderConfirmacionClave = !esconderConfirmacionClave"
-            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="esconderConfirmacionClave">
-            <mat-icon>{{esconderConfirmacionClave ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-          <mat-error *ngIf="confirmarContrasenia.hasError('required')">
-            <strong>Confirme la contraseña</strong>
+          <input matInput placeholder="Ingrese el número de identidad" formControlName="identidad" >
+          <mat-hint align="end">{{identidad.value.length}} / 13</mat-hint>
+          <mat-label> <b>Número de identidad</b> </mat-label>
+          <mat-error *ngIf="identidad.hasError('required')">
+            <strong>Escriba correctamente el número de identidad</strong>
           </mat-error>
-          <mat-error *ngIf="confirmarContrasenia.hasError('minLength') && confirmarContrasenia.hasError('maxLength')">
-            <strong>Contraseña no confirmada</strong>
+          <mat-error *ngIf="identidad.hasError('minLength')">
+            <strong>Escriba correctamente el número de identidad</strong>
+          </mat-error>
+          <mat-error *ngIf="identidad.hasError('maxLength')">
+            <strong>Escriba correctamente el número de identidad</strong>
+          </mat-error>
+          <mat-error *ngIf="identidad.hasError('pattern')">
+            <strong>sólo se permiten números</strong>
           </mat-error>
         </mat-form-field>
+  
+        <div *ngIf="editando">
+  
+          <a mat-button (click)="cambiarContra()"><strong>Cambiar contraseña</strong></a>
+  
+        </div>
+  
+  
+      </mat-card>
 
-      </div>
+    </div>
+    
+    
+    <!-- <div align="end" class="row float-right" >
 
-
-      <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput placeholder="Ingrese el nombre completo" formControlName="nombre" >
-        <mat-label> <b>Nombre</b> </mat-label>
-        <mat-error *ngIf="nombre.hasError('required')">
-          <strong>Escriba el nombre completo</strong>
-        </mat-error>
-        <mat-error *ngIf="nombre.hasError('minLength') && nombre.hasError('maxLength')">
-          <strong>Escriba el nombre completo</strong>
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput placeholder="Ingrese el número de identidad" formControlName="identidad" >
-        <mat-hint align="end">{{identidad.value.length}} / 13</mat-hint>
-        <mat-label> <b>Número de identidad</b> </mat-label>
-        <mat-error *ngIf="identidad.hasError('required')">
-          <strong>Escriba correctamente el número de identidad</strong>
-        </mat-error>
-        <mat-error *ngIf="identidad.hasError('minLength')">
-          <strong>Escriba correctamente el número de identidad</strong>
-        </mat-error>
-        <mat-error *ngIf="identidad.hasError('maxLength')">
-          <strong>Escriba correctamente el número de identidad</strong>
-        </mat-error>
-        <mat-error *ngIf="identidad.hasError('pattern')">
-          <strong>sólo se permiten números</strong>
-        </mat-error>
-      </mat-form-field>
-
-      <div *ngIf="editando">
-
-        <a mat-button (click)="cambiarContra()"><strong>Cambiar contraseña</strong></a>
-
-      </div>
+      <button mat-raised-button class="btn btn-outline-primary botonperron" 
+        (click)="comprobarDatos()">
+        Guardar
+      </button>
+      <button mat-raised-button class="btn btn-danger "
+        [routerLink]="['/principal/veradministradores']">
+        Cancelar
+      </button>
+    </div> -->
 
 
-    </mat-card>
+
 
   
     <div>
