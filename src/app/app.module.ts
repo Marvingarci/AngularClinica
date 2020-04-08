@@ -21,6 +21,7 @@ import { FormInventarioComponent } from './form-inventario/form-inventario.compo
 
 
 
+
 //Material Angular
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -56,6 +57,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 
 
@@ -85,6 +87,7 @@ import { PdfMakeWrapper } from 'pdfmake-wrapper';
 // import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
 import pdfFonts from "../assets/custom-fonts";
 import { AyudaComponent } from './ayuda/ayuda.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 //import { DialogoVerCitasComponent } from './dialogo-ver-citas/dialogo-ver-citas.component'; // custom fonts
 
@@ -209,6 +212,8 @@ const routes: Route[] = [
 
   ],
   imports: [
+    [NgxMaterialTimepickerModule],
+    LayoutModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
