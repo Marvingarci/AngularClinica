@@ -2,119 +2,111 @@
   <div class="row" id="contenedor">
     <div class="col-1"></div>
     <div class="col-10">
-<mat-card style="margin: 15px;" [class.mat-elevation-z20]="true"> 
-                        
-                     
-  
-  
-    <!-- <mat-form-field>
+      <mat-card style="margin: 15px;" [class.mat-elevation-z20]="true">
+
+
+
+
+        <!-- <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field> -->
-    <h5>Sexo</h5>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <h5>Sexo</h5>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-      <ng-container matColumnDef="sexo">
-        <th mat-header-cell *matHeaderCellDef> Sexo </th>
-        <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
-      </ng-container>
+          <ng-container matColumnDef="sexo">
+            <th mat-header-cell *matHeaderCellDef> Sexo </th>
+            <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
+          </ng-container>
 
-      <ng-container matColumnDef="m">
-        <th mat-header-cell *matHeaderCellDef> Maculino </th>
-        <td mat-cell *matCellDef="let element"> {{element.masculino}} </td>
-      </ng-container>
+          <ng-container matColumnDef="m">
+            <th mat-header-cell *matHeaderCellDef> Maculino </th>
+            <td mat-cell *matCellDef="let element"> {{element.masculino}} </td>
+          </ng-container>
 
-      <ng-container matColumnDef="f">
-        <th mat-header-cell *matHeaderCellDef> Femenino </th>
-        <td mat-cell *matCellDef="let element"> {{element.femenino}} </td>
-      </ng-container>
+          <ng-container matColumnDef="f">
+            <th mat-header-cell *matHeaderCellDef> Femenino </th>
+            <td mat-cell *matCellDef="let element"> {{element.femenino}} </td>
+          </ng-container>
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef> Total </th>
-        <td mat-cell *matCellDef="let element"> {{element.masculino + element.femenino}} </td>
-      </ng-container>
-   
-    
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+          <!-- Position Column -->
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef> Total </th>
+            <td mat-cell *matCellDef="let element"> {{element.masculino + element.femenino}} </td>
+          </ng-container>
 
-    <!--Graficos de barra-->
 
-      <div style="position: relative">
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <!--Graficos de barra-->
+
+        <div style="position: relative">
           <div style="display: block">
-            <canvas baseChart #baseChart="base-chart"
-              [datasets]="barChartData"
-              [labels]="barChartLabels"
-              [options]="barChartOptions"
-              [plugins]="barChartPlugins"
-              [legend]="barChartLegend"
+            <canvas baseChart #baseChart="base-chart" [datasets]="barChartData" [labels]="barChartLabels"
+              [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
               [chartType]="barChartType">
             </canvas>
           </div>
         </div>
-  
-    
 
 
-    <!--Hasta Aqui grafivos de barra-->
-    
-
-   <BR>
-   <br>
-      <h5>Rango de Edad</h5>
-      <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
-  
-        <ng-container matColumnDef="sexo">
-          <th mat-header-cell *matHeaderCellDef> Menor 19 Años </th>
-          <td mat-cell *matCellDef="let element"> {{element.menos19}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="m">
-          <th mat-header-cell *matHeaderCellDef> 20-24 </th>
-          <td mat-cell *matCellDef="let element"> {{element.primerRango}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="f">
-          <th mat-header-cell *matHeaderCellDef> 25-29 </th>
-          <td mat-cell *matCellDef="let element"> {{element.segundoRango}} </td>
-        </ng-container>
-  
-        <!-- Position Column -->
-        <ng-container matColumnDef="total">
-          <th mat-header-cell *matHeaderCellDef> mayor a 30</th>
-          <td mat-cell *matCellDef="let element"> {{element.tercerRango}} </td>
-        </ng-container>
-        <ng-container matColumnDef="total2">
-          <th mat-header-cell *matHeaderCellDef> Total </th>
-          <td mat-cell *matCellDef="let element"> {{element.cuartoRango}} </td>
-        </ng-container>
-     
-      
-        <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
-      </table>
-
-      <!--Aqui va el grafico de barra edad-->
-      
-          <div style="display: block">
-            <canvas baseChart #baseChart1="base-chart"
-              [datasets]="barChartData1"
-              [labels]="barChartLabels1"
-              [options]="barChartOptions1"
-              [plugins]="barChartPlugins1"
-              [legend]="barChartLegend1"
-              [chartType]="barChartType1">
-            </canvas>
-          </div>
 
 
-         
-        
-        
-      <!--HASta aqui grafico edad-->
+        <!--Hasta Aqui grafivos de barra-->
 
-      <!--
+
+        <BR>
+        <br>
+        <h5>Rango de Edad</h5>
+        <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="sexo">
+            <th mat-header-cell *matHeaderCellDef> Menor 19 Años </th>
+            <td mat-cell *matCellDef="let element"> {{element.menos19}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="m">
+            <th mat-header-cell *matHeaderCellDef> 20-24 </th>
+            <td mat-cell *matCellDef="let element"> {{element.primerRango}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="f">
+            <th mat-header-cell *matHeaderCellDef> 25-29 </th>
+            <td mat-cell *matCellDef="let element"> {{element.segundoRango}} </td>
+          </ng-container>
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef> mayor a 30</th>
+            <td mat-cell *matCellDef="let element"> {{element.tercerRango}} </td>
+          </ng-container>
+          <ng-container matColumnDef="total2">
+            <th mat-header-cell *matHeaderCellDef> Total </th>
+            <td mat-cell *matCellDef="let element"> {{element.cuartoRango}} </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+        </table>
+
+        <!--Aqui va el grafico de barra edad-->
+
+        <div style="display: block">
+          <canvas baseChart #baseChart1="base-chart" [datasets]="barChartData1" [labels]="barChartLabels1"
+            [options]="barChartOptions1" [plugins]="barChartPlugins1" [legend]="barChartLegend1"
+            [chartType]="barChartType1">
+          </canvas>
+        </div>
+
+
+
+
+
+        <!--HASta aqui grafico edad-->
+
+        <!--
       <div class="flex">
         <div class="flex-item">
           <div style="display: block;">
@@ -148,8 +140,8 @@
       </div>
       -->
 
-</mat-card>
-</div>
-<div class="col-1"></div>
-</div>
+      </mat-card>
+    </div>
+    <div class="col-1"></div>
+  </div>
 </div>
