@@ -52,6 +52,7 @@ import { PlanificacionesFamiliaresAdd } from '../interfaces/planificaciones-fami
 import { HistoriaSubsiguiente } from '../interfaces/historia_subsiguiente';
 import { PacienteService } from '../services/paciente.service';
 import * as moment from 'moment';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 
 export interface Element {
@@ -3661,7 +3662,7 @@ export class VerPacienteComponent implements OnInit {
 
 
   anadirCita() {
-    const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, { disableClose: true, width: "70%" });
+    const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, { disableClose: true, width: "70%",panelClass: 'historiasubsiguiente'});
     this.pacienteService.id_historia_subsiguiente = this.id;
   }
   public mostrarHistoriasSub() {
@@ -3826,6 +3827,12 @@ export interface selecto {
 
 
 
+
+
+
+
+
+
 export class HistoriaSubsiguiente1 {
   seleccionado: boolean;
   seleccion = 0;
@@ -3864,8 +3871,13 @@ export class HistoriaSubsiguiente1 {
   constructor(private pacienteService: PacienteService,
     private inventarioService: InventariosService,
     private dialogRef: MatDialogRef<HistoriaSubsiguiente1>,//para cerrar el dialogo desde la misma interfaz
-    private mensaje: MatSnackBar) {
+    private mensaje: MatSnackBar,
+    private breakpointObserver: BreakpointObserver) {
   }
+
+  get isMobile() {
+    return this.breakpointObserver.isMatched('(max-width: 767px)');
+}
 
 
   historia_subsiguiente: HistoriaSubsiguiente = {
