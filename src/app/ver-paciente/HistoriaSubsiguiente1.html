@@ -206,11 +206,15 @@
           &nbsp; &nbsp; &nbsp; &nbsp;
 
         
+          <mat-form-field class="example-full-width">
+            <mat-label><b>Fecha siguiente cita</b></mat-label>
+            <input matInput style="width:100%" [ngxTimepicker]="toggleTimepicker" [disableClick]="true" readonly formControlName="hora_cita">
+            <ngx-material-timepicker-toggle matSuffix [for]="toggleTimepicker"></ngx-material-timepicker-toggle>
+            <ngx-material-timepicker #toggleTimepicker></ngx-material-timepicker>          
+        </mat-form-field>  
 
-            <mat-form-field class="example-full-width">
-              <mat-label><b>Hora cita</b></mat-label>
-              <input mat-timepicker matInput type="time" formControlName="hora_cita">             
-            </mat-form-field>
+            
+
       </div>
 
 
