@@ -39,7 +39,7 @@ export class PacienteComponent implements OnInit {
   gradient = true;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = '';
+  xAxisLabel = 'Pacientes';
   showYAxisLabel = true;
   yAxisLabel = 'Número de pacientes';
 
