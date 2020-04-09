@@ -28,6 +28,20 @@
     }
   }
 
+
+  .example-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background:rgb(253, 253, 253);
+    }
+
+   
+  
+
+
   .search{
     padding-top: 10px;
   }
