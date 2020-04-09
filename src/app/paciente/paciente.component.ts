@@ -36,7 +36,7 @@ export class PacienteComponent implements OnInit {
   // options
   showXAxis = true;
   showYAxis = true;
-  gradient = false;
+  gradient = true;
   showLegend = true;
   showXAxisLabel = true;
   xAxisLabel = 'Pacientes';
@@ -44,9 +44,8 @@ export class PacienteComponent implements OnInit {
   yAxisLabel = 'Numero de pacientes';
 
   colorScheme = {
-    domain: ['#1928d4', '#f1db10', '#EF09F2', '#D11A0B']
+    domain: ['#D11A0B', '#f1db10', '#EF09F2', '#D11A0B']
   };
-
 
   onSelect(event) {
     console.log(event);
@@ -83,12 +82,14 @@ export class PacienteComponent implements OnInit {
     // Object.assign(this, { single })
 
     this.cargarGraficas();
+    
 
 
     this.getPacientes();
     this.loading = false;
     this.formularioService.esAlumno = true;
   }
+
 
 
 
