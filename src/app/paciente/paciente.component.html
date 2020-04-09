@@ -3,230 +3,249 @@
 
 <mat-drawer-container class="example-container" [hasBackdrop]="true">
 
-  <mat-drawer #drawer [mode]="side" position="end" style="width: 100%;background: rgb(25,40,212, 0.7);color: white;"  >       
-    <div class="row">
+  <mat-drawer #drawer [mode]="side" position="end" style="width: 100%;background: rgb(25,40,212, 0.3);color: white;"  >      
+   <div class="padre">
+    <div class="hijo">
+      
       <ngx-charts-bar-vertical style="fill: white;"  [scheme]="colorScheme" [results]="single" [gradient]="gradient"
         [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-        (select)="onSelect($event)" >
+        (select)="onSelect($event)" legendTitle="Categorias">
+        <header class="legend-tittle ng-star-inserted">
+          <span class="legend-tittle-text">Categorias</span>
+        </header>
       </ngx-charts-bar-vertical>
+
+      <div style="position: fixed; bottom: 10px;right: 15px;">      
+        <button mat-raised-button (click)="drawer.toggle()"  class="btn btn-outline-primary float-right botonperron">
+             Estadisticacamente
+            </button>             
+      </div>
+  
+    </div>
     </div>
   </mat-drawer>
 
+  
+
   <mat-drawer-content> 
-    
-    
+        
+        <div class="padre" *ngIf="!mostrarCitas">
+          <div class="hijo">
+            <mat-card style="margin: 15px;" [class.mat-elevation-z5]="true" >
+              <mat-tab-group dynamicHeight animationDuration="200ms" mat-align-tabs="center" color="accent"
+                backgroundColor="primary">
+                <mat-tab label="Alumnos">
+                  <mat-form-field class="search">
+                    <input matInput (keyup)="applyFilter($event.target.value)" style="width: 50%;">
+                    <mat-label>
+                      <mat-icon>search</mat-icon> &nbsp; <b>Buscar Alumno</b>
+                    </mat-label>
+                  </mat-form-field>
+                  <!--'id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'-->
+                  <table mat-table [dataSource]="dataSource" class="tabla">
+          
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="id_paciente">
+                      <th mat-header-cell *matHeaderCellDef> # </th>
+                      <td style="cursor:pointer;outline: none; " routerLink="/principal/verPaciente/{{element.id_paciente}}"
+                        mat-cell *matCellDef="let element;index as i;">{{i+1}} </td>
+                    </ng-container>
+          
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="nombre_completo">
+                      <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
+                      <td style="cursor:pointer;outline: none; " routerLink="/principal/verPaciente/{{element.id_paciente}}"
+                        mat-cell *matCellDef="let element"> {{element.nombre_completo}} </td>
+                    </ng-container>
+          
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="numero_cuenta">
+                      <th mat-header-cell *matHeaderCellDef> Número de Cuenta </th>
+                      <td style="cursor:pointer;outline: none; " routerLink="/principal/verPaciente/{{element.id_paciente}}"
+                        mat-cell *matCellDef="let element"> {{element.numero_cuenta}} </td>
+                    </ng-container>
+          
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="numero_identidad">
+                      <th mat-header-cell *matHeaderCellDef> Número de Identidad </th>
+                      <td style="cursor:pointer;outline: none; " routerLink="/principal/verPaciente/{{element.id_paciente}}"
+                        mat-cell *matCellDef="let element"> {{element.numero_identidad}} </td>
+                    </ng-container>
+          
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="sexo">
+                      <th mat-header-cell *matHeaderCellDef> Sexo </th>
+                      <td style="cursor:pointer;outline: none; " routerLink="/principal/verPaciente/{{element.id_paciente}}"
+                        mat-cell *matCellDef="let element"> {{element.sexo}} </td>
+                    </ng-container>
+          
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                  </table>
+                </mat-tab>
+          
+          
+          
+          
+          
+          
+                <!--Empleados-->
+                <mat-tab label="Empleados">
+                  <mat-form-field class="search">
+                    <input matInput (keyup)="applyFilter($event.target.value)">
+                    <mat-label>
+                      <mat-icon>search</mat-icon> &nbsp; <b>Buscar Empleado</b>
+                    </mat-label>
+                  </mat-form-field>
+                  <!--'id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'-->
+                  <table mat-table [dataSource]="dataSource2" class="tabla">
+          
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="id_paciente">
+                      <th mat-header-cell *matHeaderCellDef>#</th>
+                      <td mat-cell *matCellDef="let element; index as i;" style="cursor:pointer;outline: none; "
+                        routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{i+1}} </td>
+          
+                    </ng-container>
+          
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="nombre_completo">
+                      <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
+                      <td mat-cell *matCellDef="let element" style="cursor:pointer ;outline: none;"
+                        routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.nombre_completo}} </td>
+                    </ng-container>
+          
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="numero_identidad">
+                      <th mat-header-cell *matHeaderCellDef> Número Identidad </th>
+                      <td mat-cell *matCellDef="let element" style="cursor:pointer ;outline: none;"
+                        routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.numero_identidad}} </td>
+                    </ng-container>
+          
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="sexo">
+                      <th mat-header-cell *matHeaderCellDef> Sexo </th>
+                      <td mat-cell *matCellDef="let element" style="cursor:pointer ;outline: none;"
+                        routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.sexo}} </td>
+                    </ng-container>
+          
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                </mat-tab>
+          
+          
+          
+          
+          
+          
+                <!--Visitanes-->
+                <mat-tab label="Visitantes">
+          
+                  <mat-form-field class="search">
+                    <input matInput (keyup)="applyFilter($event.target.value)">
+                    <mat-label>
+                      <mat-icon>search</mat-icon> &nbsp; <b>Buscar Visitante</b>
+                    </mat-label>
+                  </mat-form-field>
+                  <!--'id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'-->
+                  <table mat-table [dataSource]="dataSource3" class="tabla">
+          
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="id_paciente">
+                      <th mat-header-cell *matHeaderCellDef> # </th>
+                      <td mat-cell *matCellDef="let element;index as i;" style="cursor:pointer;outline: none; "
+                        routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{i+1}} </td>
+                    </ng-container>
+          
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="nombre_completo">
+                      <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
+                      <td mat-cell *matCellDef="let element" style="cursor:pointer ;outline: none;"
+                        routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.nombre_completo}} </td>
+                    </ng-container>
+          
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="numero_identidad">
+                      <th mat-header-cell *matHeaderCellDef> Número Identidad </th>
+                      <td mat-cell *matCellDef="let element" style="cursor:pointer;outline: none; "
+                        routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.numero_identidad}} </td>
+                    </ng-container>
+          
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="sexo">
+                      <th mat-header-cell *matHeaderCellDef> Sexo </th>
+                      <td mat-cell *matCellDef="let element" style="cursor:pointer ;outline: none;"
+                        routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.sexo}} </td>
+                    </ng-container>
+          
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                </mat-tab>
+          
+          
+          
+          
+          
+          
+                <!--Prosene-->
+                <mat-tab label="Prosene">
+                  <mat-form-field class="search">
+                    <input matInput (keyup)="applyFilter($event.target.value)">
+                    <mat-label>
+                      <mat-icon>search</mat-icon> &nbsp; <b>Buscar Persona Prosene</b>
+                    </mat-label>
+                  </mat-form-field>
+                  <!--'id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'-->
+                  <table mat-table [dataSource]="dataSource4" class="tabla">
+          
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="id_paciente">
+                      <th mat-header-cell *matHeaderCellDef> #</th>
+                      <td mat-cell *matCellDef="let element;index as i;" style="cursor:pointer ;outline: none;"
+                        routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{i+1}} </td>
+                    </ng-container>
+          
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="nombre_completo">
+                      <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
+                      <td mat-cell *matCellDef="let element" style="cursor:pointer;outline: none; "
+                        routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.nombre_completo}} </td>
+                    </ng-container>
+          
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="numero_identidad">
+                      <th mat-header-cell *matHeaderCellDef> Número Identidad </th>
+                      <td mat-cell *matCellDef="let element" style="cursor:pointer ;outline: none;"
+                        routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.numero_identidad}} </td>
+                    </ng-container>
+          
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="sexo">
+                      <th mat-header-cell *matHeaderCellDef> Sexo </th>
+                      <td mat-cell *matCellDef="let element" style="cursor:pointer "
+                        routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.sexo}} </td>
+                    </ng-container>
+          
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                </mat-tab>
+              </mat-tab-group>
+            </mat-card>
+
+          </div>
+        </div>
 
 
-    <div class="container">
 
-      <div class="row">
-    
-        <mat-card style="margin: 15px;" [class.mat-elevation-z5]="true" *ngIf="!mostrarCitas">
-          <mat-tab-group dynamicHeight animationDuration="200ms" mat-align-tabs="center" color="accent"
-            backgroundColor="primary">
-            <mat-tab label="Alumnos">
-              <mat-form-field class="search">
-                <input matInput (keyup)="applyFilter($event.target.value)" style="width: 50%;">
-                <mat-label>
-                  <mat-icon>search</mat-icon> &nbsp; <b>Buscar Alumno</b>
-                </mat-label>
-              </mat-form-field>
-              <!--'id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'-->
-              <table mat-table [dataSource]="dataSource" class="tabla">
-      
-                <!-- Position Column -->
-                <ng-container matColumnDef="id_paciente">
-                  <th mat-header-cell *matHeaderCellDef> # </th>
-                  <td style="cursor:pointer;outline: none; " routerLink="/principal/verPaciente/{{element.id_paciente}}"
-                    mat-cell *matCellDef="let element;index as i;">{{i+1}} </td>
-                </ng-container>
-      
-                <!-- Name Column -->
-                <ng-container matColumnDef="nombre_completo">
-                  <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
-                  <td style="cursor:pointer;outline: none; " routerLink="/principal/verPaciente/{{element.id_paciente}}"
-                    mat-cell *matCellDef="let element"> {{element.nombre_completo}} </td>
-                </ng-container>
-      
-                <!-- Weight Column -->
-                <ng-container matColumnDef="numero_cuenta">
-                  <th mat-header-cell *matHeaderCellDef> Número de Cuenta </th>
-                  <td style="cursor:pointer;outline: none; " routerLink="/principal/verPaciente/{{element.id_paciente}}"
-                    mat-cell *matCellDef="let element"> {{element.numero_cuenta}} </td>
-                </ng-container>
-      
-                <!-- Weight Column -->
-                <ng-container matColumnDef="numero_identidad">
-                  <th mat-header-cell *matHeaderCellDef> Número de Identidad </th>
-                  <td style="cursor:pointer;outline: none; " routerLink="/principal/verPaciente/{{element.id_paciente}}"
-                    mat-cell *matCellDef="let element"> {{element.numero_identidad}} </td>
-                </ng-container>
-      
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="sexo">
-                  <th mat-header-cell *matHeaderCellDef> Sexo </th>
-                  <td style="cursor:pointer;outline: none; " routerLink="/principal/verPaciente/{{element.id_paciente}}"
-                    mat-cell *matCellDef="let element"> {{element.sexo}} </td>
-                </ng-container>
-      
-                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
-              </table>
-            </mat-tab>
-      
-      
-      
-      
-      
-      
-            <!--Empleados-->
-            <mat-tab label="Empleados">
-              <mat-form-field class="search">
-                <input matInput (keyup)="applyFilter($event.target.value)">
-                <mat-label>
-                  <mat-icon>search</mat-icon> &nbsp; <b>Buscar Empleado</b>
-                </mat-label>
-              </mat-form-field>
-              <!--'id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'-->
-              <table mat-table [dataSource]="dataSource2" class="tabla">
-      
-                <!-- Position Column -->
-                <ng-container matColumnDef="id_paciente">
-                  <th mat-header-cell *matHeaderCellDef>#</th>
-                  <td mat-cell *matCellDef="let element; index as i;" style="cursor:pointer;outline: none; "
-                    routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{i+1}} </td>
-      
-                </ng-container>
-      
-                <!-- Name Column -->
-                <ng-container matColumnDef="nombre_completo">
-                  <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
-                  <td mat-cell *matCellDef="let element" style="cursor:pointer ;outline: none;"
-                    routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.nombre_completo}} </td>
-                </ng-container>
-      
-                <!-- Weight Column -->
-                <ng-container matColumnDef="numero_identidad">
-                  <th mat-header-cell *matHeaderCellDef> Número Identidad </th>
-                  <td mat-cell *matCellDef="let element" style="cursor:pointer ;outline: none;"
-                    routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.numero_identidad}} </td>
-                </ng-container>
-      
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="sexo">
-                  <th mat-header-cell *matHeaderCellDef> Sexo </th>
-                  <td mat-cell *matCellDef="let element" style="cursor:pointer ;outline: none;"
-                    routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.sexo}} </td>
-                </ng-container>
-      
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-            </mat-tab>
-      
-      
-      
-      
-      
-      
-            <!--Visitanes-->
-            <mat-tab label="Visitantes">
-      
-              <mat-form-field class="search">
-                <input matInput (keyup)="applyFilter($event.target.value)">
-                <mat-label>
-                  <mat-icon>search</mat-icon> &nbsp; <b>Buscar Visitante</b>
-                </mat-label>
-              </mat-form-field>
-              <!--'id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'-->
-              <table mat-table [dataSource]="dataSource3" class="tabla">
-      
-                <!-- Position Column -->
-                <ng-container matColumnDef="id_paciente">
-                  <th mat-header-cell *matHeaderCellDef> # </th>
-                  <td mat-cell *matCellDef="let element;index as i;" style="cursor:pointer;outline: none; "
-                    routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{i+1}} </td>
-                </ng-container>
-      
-                <!-- Name Column -->
-                <ng-container matColumnDef="nombre_completo">
-                  <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
-                  <td mat-cell *matCellDef="let element" style="cursor:pointer ;outline: none;"
-                    routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.nombre_completo}} </td>
-                </ng-container>
-      
-                <!-- Weight Column -->
-                <ng-container matColumnDef="numero_identidad">
-                  <th mat-header-cell *matHeaderCellDef> Número Identidad </th>
-                  <td mat-cell *matCellDef="let element" style="cursor:pointer;outline: none; "
-                    routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.numero_identidad}} </td>
-                </ng-container>
-      
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="sexo">
-                  <th mat-header-cell *matHeaderCellDef> Sexo </th>
-                  <td mat-cell *matCellDef="let element" style="cursor:pointer ;outline: none;"
-                    routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.sexo}} </td>
-                </ng-container>
-      
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-            </mat-tab>
-      
-      
-      
-      
-      
-      
-            <!--Prosene-->
-            <mat-tab label="Prosene">
-              <mat-form-field class="search">
-                <input matInput (keyup)="applyFilter($event.target.value)">
-                <mat-label>
-                  <mat-icon>search</mat-icon> &nbsp; <b>Buscar Persona Prosene</b>
-                </mat-label>
-              </mat-form-field>
-              <!--'id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'-->
-              <table mat-table [dataSource]="dataSource4" class="tabla">
-      
-                <!-- Position Column -->
-                <ng-container matColumnDef="id_paciente">
-                  <th mat-header-cell *matHeaderCellDef> #</th>
-                  <td mat-cell *matCellDef="let element;index as i;" style="cursor:pointer ;outline: none;"
-                    routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{i+1}} </td>
-                </ng-container>
-      
-                <!-- Name Column -->
-                <ng-container matColumnDef="nombre_completo">
-                  <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
-                  <td mat-cell *matCellDef="let element" style="cursor:pointer;outline: none; "
-                    routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.nombre_completo}} </td>
-                </ng-container>
-      
-                <!-- Weight Column -->
-                <ng-container matColumnDef="numero_identidad">
-                  <th mat-header-cell *matHeaderCellDef> Número Identidad </th>
-                  <td mat-cell *matCellDef="let element" style="cursor:pointer ;outline: none;"
-                    routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.numero_identidad}} </td>
-                </ng-container>
-      
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="sexo">
-                  <th mat-header-cell *matHeaderCellDef> Sexo </th>
-                  <td mat-cell *matCellDef="let element" style="cursor:pointer "
-                    routerLink="/principal/verPaciente/{{element.id_paciente}}"> {{element.sexo}} </td>
-                </ng-container>
-      
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-            </mat-tab>
-          </mat-tab-group>
-        </mat-card>
-    
-        <mat-card style="margin: 15px;" [class.mat-elevation-z5]="true" *ngIf="mostrarCitas">
+
+
+        <div class="padre" *ngIf="mostrarCitas">
+          <div class="hijo">
+          <mat-card style="margin: 15px;" [class.mat-elevation-z5]="true" >
     
           <mat-form-field class="search">
             <input matInput (keyup)="filtroCitas($event.target.value)" style="width: 50%;">
@@ -264,38 +283,23 @@
             <tr mat-header-row *matHeaderRowDef="columnasTablaCitas"></tr>
             <tr mat-row *matRowDef="let row; columns: columnasTablaCitas;"></tr>
           </table>
-    
-    
         </mat-card>
-    
       </div>
+    </div>     
+    
+     
     
     
     <div style="position: fixed; bottom: 10px;right: 15px;">
-        
-      
-    <button mat-raised-button (click)="drawer.toggle()"  class="btn btn-outline-primary float-right botonperron">
-         Ver graficamente
-        </button> 
-        
-        <button mat-raised-button (click)="formulario()" style="margin-right: 10px" class="btn btn-outline-primary float-right botonperron">
-          Crear Nuevo Paciente
-        </button>
-        
-        <button mat-raised-button (click)="verCitas()" style="margin-right: 10px"  class="btn btn-outline-primary float-right botonperron">
-          {{!mostrarCitas ? 'Ver citas' : 'Ver pacientes'}}
-        </button>
-        
-        
-      </div>
-    
+      <button mat-raised-button (click)="drawer.toggle()"  class="btn btn-outline-primary float-right botonperron">
+      Ver graficamente</button> 
+      <button mat-raised-button (click)="formulario()" style="margin-right: 10px" class="btn btn-outline-primary float-right botonperron">
+      Crear Nuevo Paciente</button>
+      <button mat-raised-button (click)="verCitas()" style="margin-right: 10px"  class="btn btn-outline-primary float-right botonperron">
+      {{!mostrarCitas ? 'Ver citas' : 'Ver pacientes'}} </button>
     </div>
 
 
 
-
-
-
-    
-  </mat-drawer-content>
+ </mat-drawer-content>
 </mat-drawer-container>
