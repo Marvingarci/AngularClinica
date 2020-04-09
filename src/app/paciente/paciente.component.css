@@ -1,32 +1,20 @@
-@keyframes swing {
-    0% {
-      transform: rotate(0deg);
-    }
-    10% {
-      transform: rotate(10deg);
-    }
-    30% {
-      transform: rotate(0deg);
-    }
-    40% {
-      transform: rotate(-10deg);
-    }
-    50% {
-      transform: rotate(0deg);
-    }
-    60% {
-      transform: rotate(5deg);
-    }
-    70% {
-      transform: rotate(0deg);
-    }
-    80% {
-      transform: rotate(-5deg);
-    }
-    100% {
-      transform: rotate(0deg);
-    }
+  .hijo{  
+    height: 90%;
+    width:90%;     
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-repeat:no-repeat;
+    -o-background-size: cover;
+    background-size: cover; 
+    background-size: 100% 100%;     
   }
+
+  .padre{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  }  
 
 
   .example-container {
@@ -47,9 +35,7 @@
   }
 
  
-  .container{
-    position: absolute;
-  }
+ 
   
 
   .botonee{
