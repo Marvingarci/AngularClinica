@@ -39,12 +39,12 @@ export class PacienteComponent implements OnInit {
   gradient = true;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Pacientes';
+  xAxisLabel = '';
   showYAxisLabel = true;
-  yAxisLabel = 'Numero de pacientes';
+  yAxisLabel = 'Número de pacientes';
 
   colorScheme = {
-    domain: ['#D11A0B', '#f1db10', '#EF09F2', '#D11A0B']
+    domain: ['#ffd900be', 'rgb(255, 238, 0)', '#F6F94D', 'rgb(245, 240, 175)']
   };
 
   onSelect(event) {
