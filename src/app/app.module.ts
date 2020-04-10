@@ -60,6 +60,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 
+//graficas
+
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+
 
 // Interceptors
 import { AuthInterceptorService } from './auth-interceptor.service';
@@ -253,7 +258,8 @@ const routes: Route[] = [
     ChartsModule,
     WebcamModule,
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgxChartsModule,
 
 
 

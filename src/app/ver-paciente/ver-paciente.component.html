@@ -1211,9 +1211,12 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
                   <!-- TABLA DE SOLO DESNUTRICIONES FAMILIARES -->
                   <div class="row medium-width" style="margin-left: 0;">
                     <div class="col">
-                      <div class="row" *ngIf="ocultarbtnagregardesnutricionAF == true "><button class="botonperron"
+                      <div class="row" *ngIf="ocultarbtnagregardesnutricionAF == true ">
+                        <button class="botonperron"
                           (click)="ocultarbtnagregardesnutricionAF = !ocultarbtnagregardesnutricionAF;habilitarInputs([tipo_desnutricion]); mostrarCamposDesnutricionAF()">
-                          Agregar desnutrición</button></div>
+                          Agregar desnutrición
+                        </button>
+                      </div>
                       <div class="row" *ngIf="tablaDesnutricionAF == null" style="margin-top: 5px;"> Este paciente no
                         tiene desnutrición </div>
                     </div>
@@ -2429,7 +2432,7 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
                 <div style="display: none;padding: 0px;" id="divAgregarToxicologicos">
                   <div class="row" style="margin-left: 0;">
                     <mat-form-field>
-                      <input matInput formControlName="otros" placeholder="agrega otro hábito toxicológico">
+                      <input matInput formControlName="otros" placeholder="agrega otro hábito toxicológico" id="inputOtrosHT">
                       <mat-error *ngIf="otros_ht.hasError('maxlength')">campo muy extenso</mat-error>
                       <mat-error *ngIf="otros_ht.hasError('minlength')">introduzca una observación válida</mat-error>
                     </mat-form-field>

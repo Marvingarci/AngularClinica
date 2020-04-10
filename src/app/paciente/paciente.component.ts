@@ -3,9 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormularioService } from '../services/formulario.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { Router, RouterModule } from '@angular/router';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { PdfMakeWrapper, Txt, Canvas, Line } from 'pdfmake-wrapper';
+import { Router } from '@angular/router';
 import { Paciente } from '../interfaces/paciente';
 import { MatDialog } from '@angular/material';
 import { PacienteService } from '../services/paciente.service';
@@ -19,9 +17,37 @@ import { Cita } from '../interfaces/cita';
   styleUrls: ['./paciente.component.css']
 })
 
-export class PacienteComponent implements OnInit {
 
-  API_ENDPOINT = 'http://apiclinicaunah.test/api/';
+
+
+
+
+export class PacienteComponent implements OnInit {
+  
+
+  single: any[];
+  multi: any[];
+
+  view: any[] = [0, 0];
+
+  // options
+  showXAxis = true;
+  showYAxis = true;
+  gradient = true;
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Pacientes';
+  showYAxisLabel = true;
+  yAxisLabel = 'Número de pacientes';
+
+  colorScheme = {
+    domain: ['#ffd900be', 'rgb(255, 238, 0)', '#F6F94D', 'rgb(245, 240, 175)']
+  };
+
+  onSelect(event) {
+    console.log(event);
+  }
+
   pacientes: Paciente[];
   alumnos: Paciente[];
   empleados: Paciente[];
@@ -34,7 +60,7 @@ export class PacienteComponent implements OnInit {
   dataSource4: any;
   dataSourceCitas: any;
 
-  columnasTablaCitas = ['numero_cita', 'paciente', 'fecha','hora'];
+  columnasTablaCitas = ['numero_cita', 'paciente', 'fecha', 'hora'];
 
   mostrarCitas: boolean = false;
 
@@ -49,10 +75,14 @@ export class PacienteComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     public dialogo: MatDialog) {
+
+      this.cargarGraficas();
+
     this.getPacientes();
     this.loading = false;
     this.formularioService.esAlumno = true;
   }
+
 
 
 
@@ -108,6 +138,34 @@ export class PacienteComponent implements OnInit {
     this.formularioService.esAlumno = false;
 
     this.router.navigate(['principal/formulario']);
+  }
+
+
+  cargarGraficas(){
+
+    this.pacienteService.obtenerEstadisticasPacientes().subscribe((data:any)=>{
+
+      this.single = [
+        {
+          "name": "Estudiantes",
+          "value": data.estudiantes
+        },
+        {
+          "name": "Empleados",
+          "value": data.empleados
+        },
+        {
+          "name": "Prosene",
+          "value": data.prosenes
+        },
+    
+        {
+            "name": "Visitantes",
+            "value": data.visitantes
+          }
+      ];
+      
+    });
   }
 
   cargarCitas() {
