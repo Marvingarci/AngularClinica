@@ -213,6 +213,8 @@ export class PacienteComponent implements OnInit {
       //   }
       // ];
     });
+
+    console.log(this.single);
   }
 
   cargarCitas() {
