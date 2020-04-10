@@ -2,14 +2,12 @@ import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input, OnDes
 import { ActivatedRoute } from '@angular/router';
 import { FormularioService } from "../services/formulario.service";
 import { Paciente } from "../interfaces/paciente";
-import { MatMonthView } from '@angular/material/datepicker';
 import { AppComponent } from '../app.component';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { select, MyErrorStateMatcher, antecedentesPersonales, habitosToxicologicos } from '../formulario/formulario.component';
 import { AntecedentesFamiliares } from '../interfaces/antecedentes-familiares';
 import { MatTableDataSource, MatSidenav, MatDialog, MatSnackBar, MatDialogRef, MatSnackBarConfig, SimpleSnackBar, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
 import { AntecedentesPersonales } from '../interfaces/antecedentes-personales';
-import { ThrowStmt, analyzeAndValidateNgModules } from '@angular/compiler';
 import { HabitosToxicologicosPersonales } from '../interfaces/habitos-toxicologicos-personales';
 import { ActividadSexual } from '../interfaces/actividad-sexual';
 import { AntecedentesGinecologicos } from '../interfaces/antecedentes-ginecologicos';
@@ -28,7 +26,6 @@ import { MentalAF } from '../interfaces/mentalAF';
 import { AlergiaAF } from '../interfaces/alergiaAF';
 import { CancerAF } from '../interfaces/cancerAF';
 import { OtroAF } from '../interfaces/OtrosAF';
-import { duration } from 'moment';
 import { DesnutricionAP } from '../interfaces/desnutricionAP';
 import { AlergiaAP } from '../interfaces/alergiaAP';
 import { CancerAP } from '../interfaces/cancerAP';
@@ -149,6 +146,7 @@ export class VerPacienteComponent implements OnInit {
   static mostrarHistoriasSub() {
     throw new Error("Method not implemented.");
   }
+  
   @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
   dataSource1: any;
   columnsToDisplay = ['fecha', 'observaciones', 'impresion', 'indicaciones'];
@@ -330,21 +328,31 @@ export class VerPacienteComponent implements OnInit {
   mostrarCamposDesnutricionAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposDesnutricionAF').style.display = "block";
+    console.log(document.getElementById('InputDesnutricion'));
+    this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedadesDesnutricion, this.tipo_desnutricion);
+
+    
   }
 
   mostrarCamposEnfermedadesMentalesAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposEnfermedadesMentalesAF').style.display = "block";
+    this.autocomplete(document.getElementById('InputEnfermedadAF'), this.enfermedadesMentales, this.tipo_enfermedad_mental);
+
   }
 
   mostrarCamposAlergiasAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposAlergiasAF').style.display = "block";
+    this.autocomplete(document.getElementById('InputAlergiaAF'), this.enfermedadesAlergias, this.tipo_alergia);
+
   }
 
   mostrarCamposCancerAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposCancerAF').style.display = "block";
+    this.autocomplete(document.getElementById('InputCancerAF'), this.enfermedadesCancer, this.tipo_cancer);
+
   }
 
   mostrarCamposOtroAF() {
@@ -355,21 +363,29 @@ export class VerPacienteComponent implements OnInit {
   mostrarCamposDesnutricionAP() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposDesnutricionAP').style.display = "block";
+    this.autocomplete(document.getElementById('InputDenutricionAP'), this.enfermedadesDesnutricion, this.tipo_desnutricion_ap);
+
   }
 
   mostrarCamposEnfermedadesMentalesAP() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposEnfermedadesMentalesAP').style.display = "block";
+    this.autocomplete(document.getElementById('InputEnfermedadAP'), this.enfermedadesMentales, this.tipo_enfermedad_mental_ap);
+
   }
 
   mostrarCamposAlergiasAP() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposAlergiasAP').style.display = "block";
+    this.autocomplete(document.getElementById('inputAlergiaAP'), this.enfermedadesAlergias, this.tipo_alergia_ap);
+
   }
 
   mostrarCamposCancerAP() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposCanceresAP').style.display = "block";
+    this.autocomplete(document.getElementById('InputCancerAP'), this.enfermedadesCancer, this.tipo_cancer_ap);
+
   }
 
   mostrarCamposOtroAP() {
@@ -385,6 +401,7 @@ export class VerPacienteComponent implements OnInit {
   mostrarCamposToxicologicos() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarToxicologicos').style.display = "block";
+    this.autocomplete(document.getElementById('inputOtrosHT'), this.habitosToxicologicos, this.otros_ht);
   }
 
   des = true;
@@ -991,7 +1008,6 @@ export class VerPacienteComponent implements OnInit {
   mostrarAntecedenteObstetrico: boolean = false;
   mostrarPlanificacionFamiliar: boolean = false;
 
-  // myControl = new FormControl();
   enfermedadesDesnutricion: string[] = [];
   enfermedadesMentales: string[] = [];
   enfermedadesAlergias: string[] = [];
@@ -1003,9 +1019,8 @@ export class VerPacienteComponent implements OnInit {
     private mensaje: MatSnackBar, public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
     activar: AppComponent, private subsiguiente: MatDialog,
-    private pacienteService: PacienteService, public cambiarFoto: MatDialog,
-    private renderer: Renderer2) {
-    // @ViewChild("CambiarFoto")foto: ElementRef;
+    private pacienteService: PacienteService, public cambiarFoto: MatDialog) {
+
     activar.mostrar();
     this.mostrarcuentaycarreca = true;
     this.mostrarcuentaalumno = false;
@@ -1084,24 +1099,6 @@ export class VerPacienteComponent implements OnInit {
   // para que se le quite la cosa fea al text area
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
 
-  ngAfterViewInit(): void {
-
-    let element: any = document.getElementById("select");
-    console.log(element);
-    element.addEventListener('click', function (e) {
-      console.log('se toco el select');
-    })
-
-    this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedadesDesnutricion, this.tipo_desnutricion);
-    this.autocomplete(document.getElementById('InputEnfermedadAF'), this.enfermedadesMentales, this.tipo_enfermedad_mental);
-    this.autocomplete(document.getElementById('InputAlergiaAF'), this.enfermedadesAlergias, this.tipo_alergia);
-    this.autocomplete(document.getElementById('InputCancerAF'), this.enfermedadesCancer, this.tipo_cancer);
-    this.autocomplete(document.getElementById('InputDenutricionAP'), this.enfermedadesDesnutricion, this.tipo_desnutricion_ap);
-    this.autocomplete(document.getElementById('InputEnfermedadAP'), this.enfermedadesMentales, this.tipo_enfermedad_mental_ap);
-    this.autocomplete(document.getElementById('inputAlergiaAP'), this.enfermedadesAlergias, this.tipo_alergia_ap);
-    this.autocomplete(document.getElementById('InputCancerAP'), this.enfermedadesCancer, this.tipo_cancer_ap);
-    this.autocomplete(document.getElementById('inputOtrosHT'), this.habitosToxicologicos, this.otros_ht);
-  }
 
 
   autocomplete(inp, arr, control): void {
@@ -3662,7 +3659,7 @@ export class VerPacienteComponent implements OnInit {
 
 
   anadirCita() {
-    const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, { disableClose: true, width: "70%",panelClass: 'historiasubsiguiente'});
+    const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, { disableClose: true, width: "70%", panelClass: 'historiasubsiguiente' });
     this.pacienteService.id_historia_subsiguiente = this.id;
   }
   public mostrarHistoriasSub() {
@@ -3839,20 +3836,20 @@ export class HistoriaSubsiguiente1 {
   maximoMedicamento: number = 2;
   minDate = new Date();
 
-  formulario_historia_subsiguiente = new FormGroup({   
+  formulario_historia_subsiguiente = new FormGroup({
 
-    peso: new FormControl('', [Validators.required,Validators.max(500), Validators.min(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
-    talla: new FormControl('', [Validators.required,Validators.max(2.5), Validators.min(0.20), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
-    temperatura: new FormControl('', [Validators.required,Validators.max(60), Validators.min(20), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
-    presion: new FormControl('', [Validators.required,Validators.max(200), Validators.min(50), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
-    pulso: new FormControl('', [Validators.required,Validators.max(140), Validators.min(40), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    peso: new FormControl('', [Validators.required, Validators.max(500), Validators.min(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    talla: new FormControl('', [Validators.required, Validators.max(2.5), Validators.min(0.20), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    temperatura: new FormControl('', [Validators.required, Validators.max(60), Validators.min(20), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    presion: new FormControl('', [Validators.required, Validators.max(200), Validators.min(50), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    pulso: new FormControl('', [Validators.required, Validators.max(140), Validators.min(40), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
 
     observaciones_examen: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(5)]),
     impresion_diagnostica: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(5)]),
 
     nombre: new FormControl(''),
     unidad: new FormControl('', [Validators.pattern(/^[0-9]+/), Validators.maxLength(3)]),
-    indicaciones: new FormControl('', [Validators.maxLength(100), Validators.minLength(5)]),   
+    indicaciones: new FormControl('', [Validators.maxLength(100), Validators.minLength(5)]),
 
     remitir: new FormControl(''),
     remitira: new FormControl(''),
@@ -3860,8 +3857,8 @@ export class HistoriaSubsiguiente1 {
     cita: new FormControl('', Validators.required),
     fecha_cita: new FormControl('', Validators.required),
     hora_cita: new FormControl(''),
-    
- });
+
+  });
 
 
 
@@ -3877,7 +3874,7 @@ export class HistoriaSubsiguiente1 {
 
   get isMobile() {
     return this.breakpointObserver.isMatched('(max-width: 767px)');
-}
+  }
 
 
   historia_subsiguiente: HistoriaSubsiguiente = {
@@ -3893,7 +3890,7 @@ export class HistoriaSubsiguiente1 {
     observaciones: null,
     remitido: null,
     siguiente_cita: null,
-    hora_cita:null,
+    hora_cita: null,
     nombre: null
   }
 
@@ -3959,7 +3956,7 @@ export class HistoriaSubsiguiente1 {
       this.maximoMedicamento = this.inventario[valor - 1].unidades;
 
       if (this.maximoMedicamento == 0) {
-        
+
         this.texto = "No hay producto en existencia";
         this.borrarInputs([<FormControl>this.unidad]);
         this.seleccionado = false;
@@ -4089,9 +4086,9 @@ export class HistoriaSubsiguiente1 {
         var fechaCita = moment(this.fecha_cita.value).format("YYYY-MM-DD");
 
         var cita: any = {
-          'hora_cita':this.hora_cita.value,
+          'hora_cita': this.hora_cita.value,
           'fecha': fechaCita,
-          'hora' : this.hora_cita.value,
+          'hora': this.hora_cita.value,
           'id_paciente': this.pacienteService.id_historia_subsiguiente
         }
 

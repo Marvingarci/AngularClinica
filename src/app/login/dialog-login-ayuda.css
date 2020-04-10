@@ -9,10 +9,10 @@ p {
   
 }
 
-  .formulario{  
-    height: 485px;
+  .login{  
+    height: 600px;
     width:100%;     
-    background: url('src\imagenes\formulario.gif');
+    background: url('src\imagenes\login.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-repeat:no-repeat;
@@ -21,7 +21,7 @@ p {
     background-size: 100% 100%;     
   }
   .formulario1{  
-    height: 485px;
+    height: 490px;
     width:100%;     
     background: url('src\imagenes\formulario1.gif');
     -webkit-background-size: cover;
@@ -31,10 +31,10 @@ p {
     background-size: cover;
     background-size: 100% 100%;      
   }
-  .paciente2{  
+  .formulario2{  
     height: 490px;
     width:100%;     
-    background: url('src\imagenes\paciente2.gif');
+    background: url('src\imagenes\formulario2.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-repeat:no-repeat;
@@ -42,10 +42,10 @@ p {
     background-size: cover;
     background-size: 100% 100%;      
   }
-  .paciente3{  
+  .formulario3{  
     height: 490px;
     width:100%;     
-    background: url('src\imagenes\paciente3.gif');
+    background: url('src\imagenes\formulario3.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-repeat:no-repeat;
@@ -53,10 +53,10 @@ p {
     background-size: cover;
     background-size: 100% 100%;      
   }
-  .paciente4{  
+  .formulario4{  
     height: 490px;
     width:100%;     
-    background: url('src\imagenes\paciente4.gif');
+    background: url('src\imagenes\formulario4.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-repeat:no-repeat;
@@ -64,10 +64,10 @@ p {
     background-size: cover;
     background-size: 100% 100%;      
   }
-  .paciente5{  
+  .formulario5{  
     height: 490px;
     width:100%;     
-    background: url('src\imagenes\paciente5.gif');
+    background: url('src\imagenes\formulario5.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-repeat:no-repeat;
@@ -75,10 +75,54 @@ p {
     background-size: cover; 
     background-size: 100% 100%;     
   }
-  .paciente6{  
+  .formulario6{  
     height: 490px;
     width:100%;     
-    background: url('src\imagenes\paciente6.gif');
+    background: url('src\imagenes\formulario6.gif');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-repeat:no-repeat;
+    -o-background-size: cover;
+    background-size: cover; 
+    background-size: 100% 100%;     
+  }
+  .formulario7{  
+    height: 490px;
+    width:100%;     
+    background: url('src\imagenes\formulario7.gif');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-repeat:no-repeat;
+    -o-background-size: cover;
+    background-size: cover; 
+    background-size: 100% 100%;     
+  }
+  .formulario8{  
+    height: 490px;
+    width:100%;     
+    background: url('src\imagenes\formulario8.gif');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-repeat:no-repeat;
+    -o-background-size: cover;
+    background-size: cover; 
+    background-size: 100% 100%;     
+  }
+  .contraseña{  
+    height: 490px;
+    width:100%;     
+    background: url('src\imagenes\contraseña.gif');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-repeat:no-repeat;
+    -o-background-size: cover;
+    background-size: cover; 
+    background-size: 100% 100%;     
+  }
+  .datopaciente{  
+    height: 490px;
+    width:100%;     
+    background: url('src\imagenes\datopaciente.gif');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-repeat:no-repeat;

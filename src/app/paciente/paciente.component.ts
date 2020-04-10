@@ -3,14 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { FormularioService } from '../services/formulario.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { Router, RouterModule } from '@angular/router';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { PdfMakeWrapper, Txt, Canvas, Line } from 'pdfmake-wrapper';
+import { Router } from '@angular/router';
 import { Paciente } from '../interfaces/paciente';
 import { MatDialog } from '@angular/material';
 import { PacienteService } from '../services/paciente.service';
 import { Cita } from '../interfaces/cita';
-import { single } from './data';
 
 
 
@@ -39,7 +36,7 @@ export class PacienteComponent implements OnInit {
   gradient = true;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = '';
+  xAxisLabel = 'Pacientes';
   showYAxisLabel = true;
   yAxisLabel = 'Número de pacientes';
 

@@ -1113,18 +1113,12 @@ constructor(private formularioService: FormularioService, private formBuilder: F
 
 ngAfterViewInit(): void {
 
-  //FormTools.focusElement(this.formulario_datos_generales, 'lugar_procedencia')
-
-
   this.mostrarLabelStep(0);
 
-  let element: any = document.getElementById("select");
-  console.log(element);
-  element.addEventListener('click', function (e) {
-    console.log('se toco el select');
-  })
+  console.log(document.getElementById('InputDesnutricion'));
 
-    this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedadesDesnutricion, this.tipo_desnutricion);
+
+  this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedadesDesnutricion, this.tipo_desnutricion);
   this.autocomplete(document.getElementById('InputEnfermedadAF'), this.enfermedadesMentales, this.tipo_enfermedad_mental);
   this.autocomplete(document.getElementById('InputAlergiaAF'), this.enfermedadesAlergias, this.tipo_alergia);
   this.autocomplete(document.getElementById('InputCancerAF'), this.enfermedadesCancer, this.tipo_cancer);
