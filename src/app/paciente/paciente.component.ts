@@ -79,11 +79,7 @@ export class PacienteComponent implements OnInit {
     private router: Router,
     public dialogo: MatDialog) {
 
-    // Object.assign(this, { single })
-
-    this.cargarGraficas();
-    
-
+      this.cargarGraficas();
 
     this.getPacientes();
     this.loading = false;
@@ -172,49 +168,6 @@ export class PacienteComponent implements OnInit {
           }
       ];
       
-      // multi = [
-      //   {
-      //     "name": "Germany",
-      //     "series": [
-      //       {
-      //         "name": "2010",
-      //         "value": 7300000
-      //       },
-      //       {
-      //         "name": "2011",
-      //         "value": 8940000
-      //       }
-      //     ]
-      //   },
-      
-      //   {
-      //     "name": "USA",
-      //     "series": [
-      //       {
-      //         "name": "2010",
-      //         "value": 7870000
-      //       },
-      //       {
-      //         "name": "2011",
-      //         "value": 8270000
-      //       }
-      //     ]
-      //   },
-      
-      //   {
-      //     "name": "France",
-      //     "series": [
-      //       {
-      //         "name": "2010",
-      //         "value": 5000002
-      //       },
-      //       {
-      //         "name": "2011",
-      //         "value": 5800000
-      //       }
-      //     ]
-      //   }
-      // ];
     });
   }
 
