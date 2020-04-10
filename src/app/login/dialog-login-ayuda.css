@@ -10,7 +10,7 @@ p {
 }
 
   .login{  
-    height: 600px;
+    height: 490px;
     width:100%;     
     background: url('src\imagenes\login.gif');
     -webkit-background-size: cover;
