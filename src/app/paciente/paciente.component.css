@@ -6,7 +6,8 @@
     background-repeat:no-repeat;
     -o-background-size: cover;
     background-size: cover; 
-    background-size: 100% 100%;     
+    background-size: 100% 100%;        
+    text-align: -webkit-center;
   }
 
   .padre{
