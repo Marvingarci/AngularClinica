@@ -1,147 +1,70 @@
-<div class="container">
-  <div class="row" id="contenedor">
-    <div class="col-1"></div>
-    <div class="col-10">
-      <mat-card style="margin: 15px;" [class.mat-elevation-z20]="true">
 
-
-
-
-        <!-- <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field> -->
-        <h5>Sexo</h5>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-          <ng-container matColumnDef="sexo">
-            <th mat-header-cell *matHeaderCellDef> Sexo </th>
-            <td mat-cell *matCellDef="let element"> {{element.sexo}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="m">
-            <th mat-header-cell *matHeaderCellDef> Maculino </th>
-            <td mat-cell *matCellDef="let element"> {{element.masculino}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="f">
-            <th mat-header-cell *matHeaderCellDef> Femenino </th>
-            <td mat-cell *matCellDef="let element"> {{element.femenino}} </td>
-          </ng-container>
-
-          <!-- Position Column -->
-          <ng-container matColumnDef="total">
-            <th mat-header-cell *matHeaderCellDef> Total </th>
-            <td mat-cell *matCellDef="let element"> {{element.masculino + element.femenino}} </td>
-          </ng-container>
-
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-        <!--Graficos de barra-->
-
-        <div style="position: relative">
-          <div style="display: block">
-            <canvas baseChart #baseChart="base-chart" [datasets]="barChartData" [labels]="barChartLabels"
-              [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
-              [chartType]="barChartType">
-            </canvas>
+      <mat-tab-group dynamicHeight animationDuration="200ms" mat-align-tabs="center" color="accent"
+                backgroundColor="primary"
+      style="width: 100%; height: 100%;background: #4f5387;">
+        
+   <!--Rango edades-->
+        <mat-tab label="Rango edades">
+        
+        <div class="row" style="margin-top: 10px;">
+          <div class="col" style="text-align: center;">
+            <label  >Menor de 19 Años:  {{edad[0].menos19}}</label>
           </div>
-        </div>
-
-
-
-
-        <!--Hasta Aqui grafivos de barra-->
-
-
-        <BR>
-        <br>
-        <h5>Rango de Edad</h5>
-        <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
-
-          <ng-container matColumnDef="sexo">
-            <th mat-header-cell *matHeaderCellDef> Menor 19 Años </th>
-            <td mat-cell *matCellDef="let element"> {{element.menos19}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="m">
-            <th mat-header-cell *matHeaderCellDef> 20-24 </th>
-            <td mat-cell *matCellDef="let element"> {{element.primerRango}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="f">
-            <th mat-header-cell *matHeaderCellDef> 25-29 </th>
-            <td mat-cell *matCellDef="let element"> {{element.segundoRango}} </td>
-          </ng-container>
-
-          <!-- Position Column -->
-          <ng-container matColumnDef="total">
-            <th mat-header-cell *matHeaderCellDef> mayor a 30</th>
-            <td mat-cell *matCellDef="let element"> {{element.tercerRango}} </td>
-          </ng-container>
-          <ng-container matColumnDef="total2">
-            <th mat-header-cell *matHeaderCellDef> Total </th>
-            <td mat-cell *matCellDef="let element"> {{element.cuartoRango}} </td>
-          </ng-container>
-
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
-        </table>
-
-        <!--Aqui va el grafico de barra edad-->
-
-        <div style="display: block">
-          <canvas baseChart #baseChart1="base-chart" [datasets]="barChartData1" [labels]="barChartLabels1"
-            [options]="barChartOptions1" [plugins]="barChartPlugins1" [legend]="barChartLegend1"
-            [chartType]="barChartType1">
-          </canvas>
-        </div>
-
-
-
-
-
-        <!--HASta aqui grafico edad-->
-
-        <!--
-      <div class="flex">
-        <div class="flex-item">
-          <div style="display: block;">
-          <canvas baseChart width="400" height="400"
-                      [datasets]="lineChartData"
-                      [labels]="lineChartLabels"
-                      [options]="lineChartOptions"
-                      [colors]="lineChartColors"
-                      [legend]="lineChartLegend"
-                      [chartType]="lineChartType"
-                      [plugins]="lineChartPlugins"
-                      (chartHover)="chartHovered($event)"
-                      (chartClick)="chartClicked($event)"></canvas>
+          <div class="col" style="text-align: center;">
+            <label  >Entre 20-24 años:  {{edad[0].primerRango}}</label>
           </div>
+          <div class="col"  style="text-align: center;">
+            <label  >Entre 25-29 años:  {{edad[0].segundoRango}}</label>
+          </div> 
+          <div class="col"  style="text-align: center;">
+            <label  >Mayor de 30 años:  {{edad[0].tercerRango}}</label>
+          </div> 
+          <div class="col"  style="text-align: center;">
+            <label  >Total: {{edad[0].cuartoRango}}</label>
+          </div>          
         </div>
-        <div class="flex-item">
-          <table class="table table-responsive table-condensed">
-            <tr>
-              <th *ngFor="let label of lineChartLabels">{{label}}</th>
-            </tr>
-            <tr *ngFor="let d of lineChartData; let i=index" [class]="'line-'+i">
-              <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
-            </tr>
-          </table>
-          <button mat-button mat-raised-button color="primary" (click)="randomize()">Randomize</button>
-          <button mat-button mat-raised-button color="primary" (click)="pushOne()">Push</button>
-          <button mat-button mat-raised-button color="primary" (click)="changeColor()">Recolor</button>
-          <button mat-button mat-raised-button color="primary" (click)="hideOne()">Toggle Series B</button>
-          <button mat-button mat-raised-button color="primary" (click)="changeLabel()">Change Label</button>
-        </div>
-      </div>
-      -->
 
-      </mat-card>
-    </div>
-    <div class="col-1"></div>
-  </div>
-</div>
+        <div class="hijo" > 
+          <ngx-charts-bar-vertical style="fill: white;"  [scheme]="colorSchemeedad" [results]="singleedad" [gradient]="gradientedad"
+          [xAxis]="showXAxisedad" [yAxis]="showYAxisedad" [legend]="showLegendedad" [showXAxisLabel]="showXAxisLabeledad"
+          [showYAxisLabel]="showYAxisLabeledad" [xAxisLabel]="xAxisLabeledad" [yAxisLabel]="yAxisLabeledad"
+          (select)="onSelect($event)" legendTitle="Rangos de edad">       
+        </ngx-charts-bar-vertical>
+        </div>
+      
+        
+        </mat-tab>   
+        <!--Sexo-->
+        <mat-tab label="Sexo" >   
+            
+          <div class="row" style="margin-top: 10px;margin-bottom: 50px;">
+            <div class="col" style="text-align: center;">
+              <label  >Hombre:  {{elemetos[0].masculino}}</label>
+            </div>
+            <div class="col" style="text-align: center;">
+              <label  >Mujeres:  {{elemetos[0].femenino}}</label>
+            </div>
+            <div class="col"  style="text-align: center;">
+              <label  >Total:  {{elemetos[0].masculino + elemetos[0].femenino}}</label>
+            </div>          
+          </div>
+     
+            
+  <div class="hijo" >      
+          <ngx-charts-bar-vertical style="fill: white;min-height: 90%;"  [scheme]="colorSchemesexo" [results]="singlesexo" [gradient]="gradientsexo"
+          [xAxis]="showXAxissexo" [yAxis]="showYAxissexo" [legend]="showLegendsexo" [showXAxisLabel]="showXAxisLabelsexo"
+          [showYAxisLabel]="showYAxisLabelsexo" [xAxisLabel]="xAxisLabelsexo" [yAxisLabel]="yAxisLabelsexo"
+          (select)="onSelect($event)" legendTitle="Sexos">       
+        </ngx-charts-bar-vertical>
+        </div>
+       
+        </mat-tab>
+
+       
+       
+       
+       
+       
+           
+  
+      </mat-tab-group>
