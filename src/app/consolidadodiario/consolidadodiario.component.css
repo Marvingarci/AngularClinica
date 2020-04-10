@@ -1,7 +1,4 @@
-table {
-    width: 100%;
-  }
-  
+
   .mat-form-field {
     font-size: 14px;
     width: 30%;
@@ -23,8 +20,15 @@ table {
       background: #B721FF;
       }
 
+      .padre{
+        display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      }  
+      
       .hijo{  
-        height: 98%;
+        height: 95%;
         width:98%;     
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -32,13 +36,6 @@ table {
         -o-background-size: cover;
         background-size: cover; 
         background-size: 100% 100%;     
+        text-align: -webkit-center;
+        padding: 10px;
       }
-    
-      .padre{
-        display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      }  
-    
-  
