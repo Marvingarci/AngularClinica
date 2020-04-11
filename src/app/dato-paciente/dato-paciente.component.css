@@ -17,6 +17,35 @@ table {
   /* background-color: rgb(225, 236, 250); */
 }
 
+/* side nav */
+
+.example-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background:rgb(253, 253, 253);
+}
+
+.hijo{  
+  height: 90%;
+  width:90%;     
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-repeat:no-repeat;
+  -o-background-size: cover;
+  background-size: cover; 
+  background-size: 100% 100%;     
+}
+
+.padre{
+  display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+} 
+
 .mat-icon-button{
   position: absolute;
   right:20px;

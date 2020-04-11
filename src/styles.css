@@ -234,7 +234,9 @@ body { margin: 0; font-family:Poppins-Regular,sans-serif;
     background: #a7a0ff;
   }
 
-
+  .loginayuda .mat-dialog-container{
+padding: 0px;
+  }
 
 
    

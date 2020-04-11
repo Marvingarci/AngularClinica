@@ -1,42 +1,12 @@
 
-    <mat-card style="margin: 15px;" [class.mat-elevation-z5]="true" >
       <mat-tab-group dynamicHeight animationDuration="200ms" mat-align-tabs="center" color="accent"
-      style="width: 100%;background: rgba(9, 29, 248, 0.774);color: white;" >
+                backgroundColor="primary"
+      style="width: 100%; height: 100%;background: #4f5387;">
         
-  
-        <!--Sexo-->
-        <mat-tab label="Sexo" style="color: white;">   
-            
-          <div class="row">
-            <div class="col" style="text-align: center;">
-              <label  >Hombre:  {{elemetos[0].masculino}}</label>
-            </div>
-            <div class="col" style="text-align: center;">
-              <label  >Mujeres:  {{elemetos[0].femenino}}</label>
-            </div>
-            <div class="col"  style="text-align: center;">
-              <label  >Total:  {{elemetos[0].masculino + elemetos[0].femenino}}</label>
-            </div>          
-          </div>
-     
-          <div class="row">            
-          <ngx-charts-bar-vertical style="fill: white;"  [scheme]="colorSchemesexo" [results]="singlesexo" [gradient]="gradientsexo"
-          [xAxis]="showXAxissexo" [yAxis]="showYAxissexo" [legend]="showLegendsexo" [showXAxisLabel]="showXAxisLabelsexo"
-          [showYAxisLabel]="showYAxisLabelsexo" [xAxisLabel]="xAxisLabelsexo" [yAxisLabel]="yAxisLabelsexo"
-          (select)="onSelect($event)" legendTitle="Sexos">       
-        </ngx-charts-bar-vertical>
-        </div>
-        </mat-tab>
-
-       
-       
-       
-       
-       
-        <!--Rango edades-->
-        <mat-tab label="Rango edades" >
+   <!--Rango edades-->
+        <mat-tab label="Rango edades">
         
-        <div class="row">
+        <div class="row" style="margin-top: 10px;">
           <div class="col" style="text-align: center;">
             <label  >Menor de 19 Años:  {{edad[0].menos19}}</label>
           </div>
@@ -54,15 +24,47 @@
           </div>          
         </div>
 
-       <div class="row">
-        <ngx-charts-bar-vertical style="fill: white;"  [scheme]="colorScheme" [results]="singleedad" [gradient]="gradient"
-        [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-        (select)="onSelect($event)" legendTitle="Categorias">       
-      </ngx-charts-bar-vertical>
-      </div>
-        </mat-tab>
+        <div class="hijo" > 
+          <ngx-charts-bar-vertical style="fill: white;"  [scheme]="colorSchemeedad" [results]="singleedad" [gradient]="gradientedad"
+          [xAxis]="showXAxisedad" [yAxis]="showYAxisedad" [legend]="showLegendedad" [showXAxisLabel]="showXAxisLabeledad"
+          [showYAxisLabel]="showYAxisLabeledad" [xAxisLabel]="xAxisLabeledad" [yAxisLabel]="yAxisLabeledad"
+          (select)="onSelect($event)" legendTitle="Rangos de edad">       
+        </ngx-charts-bar-vertical>
+        </div>
+      
         
+        </mat-tab>   
+        <!--Sexo-->
+        <mat-tab label="Sexo" >   
+            
+          <div class="row" style="margin-top: 10px;margin-bottom: 50px;">
+            <div class="col" style="text-align: center;">
+              <label  >Hombre:  {{elemetos[0].masculino}}</label>
+            </div>
+            <div class="col" style="text-align: center;">
+              <label  >Mujeres:  {{elemetos[0].femenino}}</label>
+            </div>
+            <div class="col"  style="text-align: center;">
+              <label  >Total:  {{elemetos[0].masculino + elemetos[0].femenino}}</label>
+            </div>          
+          </div>
+     
+            
+  <div class="hijo" >      
+          <ngx-charts-bar-vertical style="fill: white;min-height: 90%;"  [scheme]="colorSchemesexo" [results]="singlesexo" [gradient]="gradientsexo"
+          [xAxis]="showXAxissexo" [yAxis]="showYAxissexo" [legend]="showLegendsexo" [showXAxisLabel]="showXAxisLabelsexo"
+          [showYAxisLabel]="showYAxisLabelsexo" [xAxisLabel]="xAxisLabelsexo" [yAxisLabel]="yAxisLabelsexo"
+          (select)="onSelect($event)" legendTitle="Sexos">       
+        </ngx-charts-bar-vertical>
+        </div>
+       
+        </mat-tab>
+
+       
+       
+       
+       
+       
+           
   
       </mat-tab-group>
-    </mat-card>

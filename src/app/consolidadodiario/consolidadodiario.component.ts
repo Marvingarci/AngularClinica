@@ -57,15 +57,15 @@ export class ConsolidadodiarioComponent implements OnInit {
   singleedad: any[];
   singlesexo: any[]; 
   // options edades
-  showXAxis = true;
-  showYAxis = true;
-  gradient = true;
-  showLegend = true;
-  showXAxisLabel = true;
-  xAxisLabel = '';
-  showYAxisLabel = true;
-  yAxisLabel = 'Rango de edades';
-  colorScheme = {
+  showXAxisedad = true;
+  showYAxisedad = true;
+  gradientedad = true;
+  showLegendedad = true;
+  showXAxisLabeledad = true;
+  xAxisLabeledad = '';
+  showYAxisLabeledad = true;
+  yAxisLabeledad = 'Número de pacientes';
+  colorSchemeedad = {
     domain: ['#ffd900be', 'rgb(255, 238, 0)', '#F6F94D', 'rgb(245, 240, 175)']
   };
 
@@ -77,7 +77,7 @@ export class ConsolidadodiarioComponent implements OnInit {
   showXAxisLabelsexo = true;
   xAxisLabelsexo = '';
   showYAxisLabelsexo = true;
-  yAxisLabelsexo = 'Rango de edades';
+  yAxisLabelsexo = 'Número de pacientes';
   colorSchemesexo = {
     domain: ['#ffd900be', 'rgb(245, 240, 175)']
   };
@@ -144,25 +144,23 @@ elemetos: elementos[]=[
       console.log(this.edad);
       console.log(this.carreras);
       
-      this.dataSource1 = new MatTableDataSource(this.edad);
-      this.dataSource = new MatTableDataSource(this.elemetos);
    
       this.singleedad = [
         {
-          "name": "menos 19",
+          "name": "Menor de 19 Años",
           "value": this.menos19
         },
         {
-          "name": "rango 1",
+          "name": "Entre 20-24 años",
           "value": this.veinte
         },
         {
-          "name": "rango 2",
+          "name": "Entre 25-29 años",
           "value": this.veintecinco
         },
     
         {
-            "name": "rango 3",
+            "name": "Mayor de 30 años",
             "value": this.treinta
           }
       ]; 
@@ -184,15 +182,6 @@ elemetos: elementos[]=[
     });
    }//fin constructor
 
-  dataSource:any;
-  dataSource1: any;  
-
-  displayedColumns: string[] = ['sexo','m', 'f', 'total'];
-  displayedColumns1: string[] = ['sexo','m', 'f', 'total', 'total2'];
-
-  applyFilter(filterValue: string) {
-  this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
 
 ngOnInit() { }
 
