@@ -1,46 +1,11 @@
-
-
-
 <mat-drawer-container class="example-container" [hasBackdrop]="true">
 
     <mat-drawer #drawer [mode]="side" position="end" style="width: 100%;">
         <div class="padre">
             <div class="hijo">
 
-                <div class="row">
-
-                    <h2>Peso</h2>
-
-                    <div class="col">
-
-
-                        <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="single"
-                            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-                            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
-                        </ngx-charts-bar-vertical>
-
-
-
-
-
-                    </div>
-
-                    <div class="col" [formGroup]="formulario_graficas">
-
-                        <h4><b>Comparar pesos</b></h4>
-                        <mat-form-field>
-                            <mat-label><b>Fechas</b></mat-label>
-                            <mat-select formControlName="pesos" multiple (selectionChange)="cambioPesos($event.value)">
-                              <mat-option *ngFor="let peso of selectPesos" [value]="peso">{{peso}}</mat-option>
-                            </mat-select>
-                          </mat-form-field>
-
-                    </div>
-
-                </div>
-
-
+                <!-- llama al componente donde estan las graficas -->
+                <app-estadisticas-fisicas-paciente></app-estadisticas-fisicas-paciente>
 
                 <div style="position: fixed; bottom: 10px;right: 15px;">
                     <button mat-raised-button (click)="drawer.toggle()"
@@ -57,26 +22,26 @@
     <mat-drawer-content>
         <mat-toolbar class="toolbar">
             <span>Clinica UNAH-TEC Danli</span>
-        
+
             <button mat-icon-button [matMenuTriggerFor]="menu" style=" outline:none;display:block;">
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-        
+
                 <button mat-menu-item (click)="cambiarContra()" style=" outline:none;display:block;">
                     <mat-icon>loop</mat-icon>
                     <span>Cambiar contraseña</span>
                 </button>
-        
+
                 <button mat-menu-item (click)="cerrarSesion()" style=" outline:none;display:block;">
                     <mat-icon>power_settings_new</mat-icon>
                     <span>Cerrar sesión</span>
                 </button>
-        
+
             </mat-menu>
-        
-        
-        
+
+
+
         </mat-toolbar>
 
         <div class="container">
@@ -171,7 +136,7 @@
                         <div class="col">
                             <div style="text-align: right;">
                                 <button mat-raised-button class="btn btn-outline-primary float-right botonperron"
-                                    (click)="drawer.toggle();cargarGraficaPeso()">
+                                    (click)="drawer.toggle();">
 
                                     historial
 

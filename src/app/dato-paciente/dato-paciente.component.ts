@@ -13,7 +13,6 @@ import { Login } from '../interfaces/login';
 import { HistoriaSubsiguiente } from '../interfaces/historia_subsiguiente';
 import { MatTableDataSource } from '@angular/material/table';
 import { PacienteService } from '../services/paciente.service';
-import { single } from './data';
 
 export interface select {
   value: string;
@@ -42,29 +41,7 @@ export interface cita1 {
   templateUrl: './dato-paciente.component.html',
   styleUrls: ['./dato-paciente.component.css']
 })
-export class DatoPacienteComponent implements OnInit, AfterViewInit {
-
-  single: any[];
-  view: any[] = [700, 300];
-
-  // options
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = true;
-  showXAxisLabel = true;
-  xAxisLabel = 'Fecha';
-  showYAxisLabel = true;
-  yAxisLabel = 'Peso(kg)';
-
-  colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
-  };
-
-  onSelect(event) {
-    console.log(event);
-  }
-
+export class DatoPacienteComponent implements OnInit {
 
   columnaTablaDatoPaciente: string[] = ['siguiente_cita'];
   columnaTablaDatoPaciente1: string[] = ['nombre'];
@@ -108,15 +85,7 @@ export class DatoPacienteComponent implements OnInit, AfterViewInit {
 
   });
 
-  formulario_graficas = new FormGroup({
 
-    pesos: new FormControl('')
-
-
-
-
-
-  });
 
   paciente: Paciente = {
     id_paciente: null,
@@ -137,7 +106,8 @@ export class DatoPacienteComponent implements OnInit, AfterViewInit {
     talla: null,
     imc: null,
     temperatura: null,
-    presion: null,
+    presion_sistolica: null,
+    presion_diastolica: null,
     pulso: null,
     categoria: null,
 
@@ -154,8 +124,6 @@ export class DatoPacienteComponent implements OnInit, AfterViewInit {
   readonly: boolean = true;
 
 
-  selectPesos: string[] = [];
-
 
   constructor(private formularioService: FormularioService,
     private activatedRoute: ActivatedRoute, private router: Router,
@@ -167,9 +135,6 @@ export class DatoPacienteComponent implements OnInit, AfterViewInit {
     this.dialog.closeAll;
     this.id = this.activatedRoute.snapshot.params['id'];
 
-
-    // Object.assign(this, { single });
-    this.cargarSelectPesos();
 
     if (this.id) {
 
@@ -244,108 +209,6 @@ export class DatoPacienteComponent implements OnInit, AfterViewInit {
 
 
   }
-  ngAfterViewInit(): void {
-    
-
-  }
-
-
-  cargarGraficaPeso() {
-
-    var arreglo: any[] = [];
-    this.pacienteService.obtenerPesosPaciente(this.id).subscribe((data: any) => {
-
-      data.forEach(element => {
-
-        arreglo.push(
-          {
-            "name": element.fecha,
-            "value": element.peso
-          }
-
-        );
-
-      });
-
-
-      this.single = arreglo;
-
-
-    })
-  }
-
-  cargarGraficaPesoConParametros(pesos: any[]) {
-
-    var arreglo: any[] = [];
-
-    pesos.forEach(element => {
-
-      arreglo.push(
-        {
-          "name": element.fecha,
-          "value": element.peso
-        }
-
-      );
-
-    });
-
-
-    this.single = arreglo;
-
-
-
-  }
-
-
-  cargarSelectPesos() {
-
-
-    this.pacienteService.obtenerTodosPesosPaciente(this.id).subscribe((data: any) => {
-
-      this.pacienteService.pesosPaciente = data;
-
-      data.forEach(element => {
-
-        this.selectPesos.push(element.fecha);
-
-      });
-
-      console.log(this.selectPesos);
-
-    }, (error) => {
-      console.log(error)
-    });
-
-  }
-
-
-  cambioPesos(valor) {
-
-    console.log(this.pacienteService.pesosPaciente);
-    var resultado: any;
-    var arreglo: any[] = [];
-
-    if(valor.length != 0){
-
-      valor.forEach(element => {
-
-        resultado = this.pacienteService.pesosPaciente.find( peso => peso.fecha === element );
-        arreglo.push(resultado);
-  
-        
-      });
-  
-      this.cargarGraficaPesoConParametros(arreglo);
-
-    }else{
-
-      this.cargarGraficaPeso();
-    }
-
-  
-
-  }
 
 
 
@@ -370,10 +233,12 @@ export class DatoPacienteComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
+
+
   editar() {
+
     this.readonly = !this.readonly;
 
-    // this.nombre_completo.setValue('hola');
   }
 
   cambiarContra() {
@@ -443,8 +308,6 @@ export class DatoPacienteComponent implements OnInit, AfterViewInit {
   get emergencia_telefono() { return this.formulario_datos_generales.get('emergencia_telefono') };
   get categoria() { return this.formulario_datos_generales.get('categoria') };
 
-  get pesos() { return this.formulario_graficas.get('pesos') };
-
 
 }
 
@@ -481,7 +344,8 @@ export class cambiocontraDialog {
     talla: null,
     imc: null,
     temperatura: null,
-    presion: null,
+    presion_sistolica: null,
+    presion_diastolica: null,
     pulso: null,
     categoria: null
   }
@@ -667,7 +531,8 @@ export class verificarDialog {
     talla: null,
     imc: null,
     temperatura: null,
-    presion: null,
+    presion_sistolica: null,
+    presion_diastolica: null,
     pulso: null,
     categoria: null
   }
@@ -820,7 +685,8 @@ export class actualizarcontraDialog {
     talla: null,
     imc: null,
     temperatura: null,
-    presion: null,
+    presion_sistolica: null,
+    presion_diastolica: null,
     pulso: null,
     categoria: null
   }

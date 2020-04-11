@@ -19,7 +19,8 @@ export interface Paciente {
     talla?: string;
     imc?: string;
     temperatura?: string;
-    presion?: string;
+    presion_sistolica?: string;
+    presion_diastolica?: string;
     pulso?: string;
     prosene?:string;
     categoria?:string;
