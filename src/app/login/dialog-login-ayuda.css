@@ -10,7 +10,7 @@ p {
 }
 
   .login{  
-    height: 490px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\login.gif');
     -webkit-background-size: cover;
@@ -21,7 +21,7 @@ p {
     background-size: 100% 100%;     
   }
   .formulario1{  
-    height: 490px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\formulario1.gif');
     -webkit-background-size: cover;
@@ -32,7 +32,7 @@ p {
     background-size: 100% 100%;      
   }
   .formulario2{  
-    height: 490px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\formulario2.gif');
     -webkit-background-size: cover;
@@ -43,7 +43,7 @@ p {
     background-size: 100% 100%;      
   }
   .formulario3{  
-    height: 490px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\formulario3.gif');
     -webkit-background-size: cover;
@@ -54,7 +54,7 @@ p {
     background-size: 100% 100%;      
   }
   .formulario4{  
-    height: 490px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\formulario4.gif');
     -webkit-background-size: cover;
@@ -65,7 +65,7 @@ p {
     background-size: 100% 100%;      
   }
   .formulario5{  
-    height: 490px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\formulario5.gif');
     -webkit-background-size: cover;
@@ -76,7 +76,7 @@ p {
     background-size: 100% 100%;     
   }
   .formulario6{  
-    height: 490px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\formulario6.gif');
     -webkit-background-size: cover;
@@ -87,7 +87,7 @@ p {
     background-size: 100% 100%;     
   }
   .formulario7{  
-    height: 490px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\formulario7.gif');
     -webkit-background-size: cover;
@@ -98,7 +98,7 @@ p {
     background-size: 100% 100%;     
   }
   .formulario8{  
-    height: 490px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\formulario8.gif');
     -webkit-background-size: cover;
@@ -109,7 +109,7 @@ p {
     background-size: 100% 100%;     
   }
   .contraseña{  
-    height: 490px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\contraseña.gif');
     -webkit-background-size: cover;
@@ -120,7 +120,7 @@ p {
     background-size: 100% 100%;     
   }
   .datopaciente{  
-    height: 490px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\datopaciente.gif');
     -webkit-background-size: cover;
