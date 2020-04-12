@@ -1,16 +1,16 @@
 <mat-drawer-container class="example-container" [hasBackdrop]="true">
 
-    <mat-drawer #drawer [mode]="side" position="end" style="width: 100%;">
+    <mat-drawer #drawer [mode]="side" position="end" style="width: 100%;background: rgb(25,40,212, 0.3);color: white;">
         <div class="padre">
-            <div class="hijo">
+          <div class="hijo2">
 
                 <!-- llama al componente donde estan las graficas -->
                 <app-estadisticas-fisicas-paciente></app-estadisticas-fisicas-paciente>
 
-                <div style="position: fixed; bottom: 10px;right: 15px;">
+                <div style="position: absolute; bottom: 10px;right: 15px;">
                     <button mat-raised-button (click)="drawer.toggle()"
                         class="btn btn-outline-primary float-right botonperron">
-                        Estadisticacamente
+                        Regresar
                     </button>
                 </div>
 

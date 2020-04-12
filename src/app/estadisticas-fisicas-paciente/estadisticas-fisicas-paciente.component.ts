@@ -18,7 +18,7 @@ export class EstadisticasFisicasPacienteComponent implements OnInit {
   gradient = false;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabelGP = 'Fecha';
+  xAxisLabelGP = 'Fechas';
   showYAxisLabel = true;
   yAxisLabelGP = 'Peso(kg)';
 
@@ -36,21 +36,21 @@ export class EstadisticasFisicasPacienteComponent implements OnInit {
 
   datosGraficaRitmo: any[];
 
-  xAxisLabelGR = 'Fecha';
+  xAxisLabelGR = 'Fechas';
   yAxisLabelGR = 'Pulsaciones(ppm)';
 
   // grafica altura
 
   datosGraficaAltura: any[];
 
-  xAxisLabelGA = 'Fecha';
+  xAxisLabelGA = 'Fechas';
   yAxisLabelGA = 'Metros(m)';
 
   //grafica temperatura
 
   datosGraficaTemperatura: any[];
 
-  xAxisLabelGT = 'Fecha';
+  xAxisLabelGT = 'Fechas';
   yAxisLabelGT = 'grados(°C)';
 
 
@@ -59,7 +59,7 @@ export class EstadisticasFisicasPacienteComponent implements OnInit {
   // multi: any[];
   datosGraficaPresion: any[];
  
-  xAxisLabelGPr: string = 'Fecha';
+  xAxisLabelGPr: string = 'Fechas';
   yAxisLabelGPr: string = 'Presió arterial(mmHg)';
   legendTitle: string = 'Presiones';
 

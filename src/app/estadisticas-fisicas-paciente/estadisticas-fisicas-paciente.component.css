@@ -1,0 +1,19 @@
+.padre{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  }  
+  
+  .hijo{  
+    height: 88%;
+    width:98%;     
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-repeat:no-repeat;
+    -o-background-size: cover;
+    background-size: cover; 
+    background-size: 100% 100%;     
+    text-align: -webkit-center;
+    padding: 10px;
+  }

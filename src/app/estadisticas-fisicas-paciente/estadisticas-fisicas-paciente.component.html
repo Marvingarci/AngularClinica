@@ -1,175 +1,163 @@
-<div class="row">
-
-    <h2>Peso</h2>
-
-    <div class="col">
+<mat-tab-group dynamicHeight animationDuration="200ms" mat-align-tabs="center" color="accent"
+      backgroundColor="primary"  
+style="width: 100%; height: 100%;">
 
 
-        <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="datosGraficaPeso"
-            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelGP" [yAxisLabel]="yAxisLabelGP" (select)="onSelect($event)">
-        </ngx-charts-bar-vertical>
+<mat-tab label="Peso" >    
 
+<div class="hijo">
 
-
-
-
-    </div>
-
-    <div class="col">
-
-        <h4><b>Comparar pesos</b></h4>
-        <mat-form-field>
-            <mat-label><b>Fechas</b></mat-label>
+    <div class="row" style="margin-top: 10px;">
+        <div class="col" style="text-align: center;margin-bottom: 40px;">
+            <label style="color: white;"><b>Comparar pesos</b></label> &nbsp;&nbsp;&nbsp;&nbsp;
+        <mat-form-field>            
+            <mat-label style="color: white;"><b>Fechas</b></mat-label>
             <mat-select multiple (selectionChange)="cambioPeso($event.value)">
                 <mat-option *ngFor="let peso of selectPesos" [value]="peso">{{peso}}</mat-option>
             </mat-select>
         </mat-form-field>
+        </div>               
+      </div>
 
-    </div>
-
-</div>
-
-<mat-divider></mat-divider>
-
-<div class="row">
-
-    <h2>Ritmo cardíaco</h2>
-
-    <div class="col">
-
-
-        <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="datosGraficaRitmo"
+      <div class="row" >
+        <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaPeso"
             [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
             [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelGR" [yAxisLabel]="yAxisLabelGR" (select)="onSelect($event)">
+            [xAxisLabel]="xAxisLabelGP" [yAxisLabel]="yAxisLabelGP" (select)="onSelect($event)" legendTitle="Fechas">
         </ngx-charts-bar-vertical>
+        </div>
 
 
-
-
-
-    </div>
-
-    <div class="col">
-
-        <h4><b>Comparar ritmo cardíaco</b></h4>
-        <mat-form-field>
-            <mat-label><b>Fechas</b></mat-label>
-            <mat-select multiple (selectionChange)="cambioRitmo($event.value)">
-                <mat-option *ngFor="let pulso of selectPulsos" [value]="pulso">{{pulso}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-    </div>
+        
 
 </div>
 
-<mat-divider></mat-divider>
-
-<div class="row">
-
-    <h2>Temperatura</h2>
-
-    <div class="col">
+</mat-tab>
 
 
-        <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="datosGraficaTemperatura"
-            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelGT" [yAxisLabel]="yAxisLabelGT" (select)="onSelect($event)">
-        </ngx-charts-bar-vertical>
+<mat-tab label="Ritmo cardíaco" >    
 
+    <div class="hijo">
 
+        <div class="row" style="margin-top: 10px;">
+            <div class="col" style="text-align: center;margin-bottom: 40px;">
+                <label style="color: white;"><b>Comparar ritmo cardíaco</b></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                <mat-form-field>
+                <mat-label style="color: white;"><b>Fechas</b></mat-label>
+                <mat-select multiple (selectionChange)="cambioRitmo($event.value)">
+                    <mat-option *ngFor="let pulso of selectPulsos" [value]="pulso">{{pulso}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>               
+          </div>
 
-
-
+          <div>
+            <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaRitmo"
+                [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabelGR" [yAxisLabel]="yAxisLabelGR" (select)="onSelect($event)" legendTitle="Fechas">
+            </ngx-charts-bar-vertical>
+        </div>
+            
     </div>
 
-    <div class="col">
+</mat-tab>
 
-        <h4><b>Comparar temperatura</b></h4>
-        <mat-form-field>
-            <mat-label><b>Fechas</b></mat-label>
-            <mat-select multiple (selectionChange)="cambioTemperatura($event.value)">
-                <mat-option *ngFor="let temperatura of selectTemperaturas" [value]="temperatura">
-                    {{temperatura}}</mat-option>
-            </mat-select>
-        </mat-form-field>
 
+
+<mat-tab label="Temperatura" >    
+
+    <div class="hijo">
+
+        <div class="row" style="margin-top: 10px;">
+            <div class="col" style="text-align: center;margin-bottom: 40px;">
+                <label style="color: white;"><b>Comparar temperatura</b></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                <mat-form-field>
+                <mat-label style="color: white;"><b>Fechas</b></mat-label>
+                <mat-select multiple (selectionChange)="cambioTemperatura($event.value)">
+                    <mat-option *ngFor="let temperatura of selectTemperaturas" [value]="temperatura">
+                        {{temperatura}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>               
+          </div>
+
+          <div class="row" >
+            <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaTemperatura"
+                [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabelGT" [yAxisLabel]="yAxisLabelGT" (select)="onSelect($event)" legendTitle="Fechas">
+            </ngx-charts-bar-vertical>
+            </div>
+                   
+        </div>
+
+</mat-tab>
+
+
+
+
+<mat-tab label="Altura" >    
+
+    <div class="hijo">
+
+        <div class="row" style="margin-top: 10px;margin-bottom: 40px;">
+            <div class="col" style="text-align: center;">
+                <label style="color: white;"><b>Comparar altura</b></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                <mat-form-field>
+                <mat-label style="color: white;"><b>Fechas</b></mat-label>
+                <mat-select multiple (selectionChange)="cambioAltura($event.value)">
+                    <mat-option *ngFor="let altura of selectAlturas" [value]="altura">{{altura}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>               
+          </div>
+
+          <div class="row" >
+            <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaAltura"
+                [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabelGA" [yAxisLabel]="yAxisLabelGA" (select)="onSelect($event)" legendTitle="Fechas">
+            </ngx-charts-bar-vertical>     
+        </div>
+            
+        </div>
+
+</mat-tab>
+
+
+
+
+<mat-tab label="Presión arterial" >    
+
+    <div class="hijo">
+
+        <div class="row" style="margin-top: 10px;margin-bottom: 40px;">
+            <div class="col" style="text-align: center;">
+                <label style="color: white;"><b>Comparar presión arterial</b></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                <mat-form-field>
+                <mat-label style="color: white;"><b>Fechas</b></mat-label>
+                <mat-select multiple (selectionChange)="cambioPresion($event.value)">
+                    <mat-option *ngFor="let presion of selectPresiones" [value]="presion" >{{presion}} 
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>               
+          </div>
+
+           
+            <div class="row" >
+ <ngx-charts-bar-vertical-2d style="fill: white;"  [scheme]="colorScheme" [results]="datosGraficaPresion"
+                [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabelGPr" [yAxisLabel]="yAxisLabelGPr" [legendTitle]="legendTitle" legendTitle="Fechas"
+                (select)="onSelect($event)">
+            </ngx-charts-bar-vertical-2d> 
+            </div>   
+              
+            
     </div>
 
-</div>
-
-<mat-divider></mat-divider>
-
-<div class="row">
-
-    <h2>Altura</h2>
-
-    <div class="col">
-
-
-        <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="datosGraficaAltura"
-            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelGA" [yAxisLabel]="yAxisLabelGA" (select)="onSelect($event)">
-        </ngx-charts-bar-vertical>
-
-
-
-
-
-    </div>
-
-    <div class="col">
-
-        <h4><b>Comparar altura</b></h4>
-        <mat-form-field>
-            <mat-label><b>Fechas</b></mat-label>
-            <mat-select multiple (selectionChange)="cambioAltura($event.value)">
-                <mat-option *ngFor="let altura of selectAlturas" [value]="altura">{{altura}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-    </div>
-
-</div>
-
-
-<div class="row">
-
-    <h2>Presion arterial</h2>
-
-    <div class="col">
-
-
-        <ngx-charts-bar-vertical-2d [scheme]="colorScheme" [results]="datosGraficaPresion"
-            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelGPr" [yAxisLabel]="yAxisLabelGPr" [legendTitle]="legendTitle"
-            (select)="onSelect($event)">
-        </ngx-charts-bar-vertical-2d>
-
-
-
-
-
-    </div>
-
-    <div class="col">
-
-        <h4><b>Comparar presión arterial</b></h4>
-        <mat-form-field>
-            <mat-label><b>Fechas</b></mat-label>
-            <mat-select multiple (selectionChange)="cambioPresion($event.value)">
-                <mat-option *ngFor="let presion of selectPresiones" [value]="presion">{{presion}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-    </div>
-
-</div>
+</mat-tab>
+</mat-tab-group>
