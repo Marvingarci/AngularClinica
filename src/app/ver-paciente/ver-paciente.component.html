@@ -1,4 +1,25 @@
-<!--desde aqui es lo normal-->
+<mat-drawer-container class="example-container2" [hasBackdrop]="true">
+
+  <mat-drawer #drawer [mode]="side" position="end" style="width: 100%;background: rgb(25,40,212, 0.3);color: white;">
+      <div class="padre">
+        <div class="hijo2">
+
+              <!-- llama al componente donde estan las graficas -->
+              <app-estadisticas-fisicas-paciente></app-estadisticas-fisicas-paciente>
+
+              <div style="bottom: 10px;margin-right: 10px;">
+                  <button  mat-raised-button (click)="drawer.toggle()"
+                      class="btn btn-outline-primary float-right botonperron">
+                      Regresar
+                  </button>
+              </div>  
+
+          </div>
+      </div>
+  </mat-drawer>
+
+
+  <mat-drawer-content>
 <div>
 
   <div class="containerScroll">
@@ -78,7 +99,7 @@
                     display:block;">
             <mat-icon>more_vert</mat-icon>
           </button>
-          <mat-menu #menu="matMenu">
+          <mat-menu #menu="matMenu">            
             <button style="outline:none;display:block;" mat-menu-item (click)="anadirCita()">
               <mat-icon>add</mat-icon>
               <span>Añadir Historia Subsiguiente</span>
@@ -86,7 +107,13 @@
             <button style="outline:none;display:block;" mat-menu-item (click)="mostrarHistoriasSub()">
               <mat-icon>history</mat-icon>
               <span>Ver Historial Cliníco</span>
+            </button>            
+
+            <button style="outline:none;display:block;" mat-menu-item (click)="drawer.toggle();">
+              <mat-icon>bar_chart</mat-icon>
+              <span>Estadística física</span>
             </button>
+
             <button style="outline:none;display:block;" mat-menu-item (click)="generarPDF()">
               <mat-icon>local_printshop</mat-icon>
               <span>Imprimir Constansia</span>
@@ -3332,3 +3359,6 @@ ocultarbtnagregarcancerAF=true;    ocultarbtnagregarotroAF=true;    ">
 
 
 </div>
+
+</mat-drawer-content>
+</mat-drawer-container>
