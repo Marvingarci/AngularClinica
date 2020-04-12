@@ -1,5 +1,16 @@
   .hijo{  
-    height: 90%;
+    height: 100%;
+    width:100%;     
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-repeat:no-repeat;
+    -o-background-size: cover;
+    background-size: cover; 
+    background-size: 100% 100%;        
+    text-align: -webkit-center;
+  }
+  .hijo2{  
+    height: 80%;
     width:90%;     
     -webkit-background-size: cover;
     -moz-background-size: cover;
