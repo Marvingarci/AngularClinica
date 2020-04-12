@@ -2,17 +2,15 @@
 
   <mat-drawer #drawer [mode]="side" position="end" style="width: 100%;background: rgb(25,40,212, 0.3);color: white;">
     <div class="padre">
-      <div class="hijo">
+      <div class="hijo2">
 
+       
         <ngx-charts-bar-vertical style="fill: white;" [scheme]="colorScheme" [results]="single" [gradient]="gradient"
           [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
           [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-          (select)="onSelect($event)" legendTitle="Categorias">
-          <header class="legend-tittle ng-star-inserted">
-            <span class="legend-tittle-text">Categorias</span>
-          </header>
+          (select)="onSelect($event)" legendTitle="Categorias">        
         </ngx-charts-bar-vertical>
-
+    
         <div style="position: fixed; bottom: 10px;right: 15px;">
           <button mat-raised-button (click)="drawer.toggle()" class="btn btn-outline-primary float-right botonperron">
             Estadisticacamente
