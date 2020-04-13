@@ -15,7 +15,7 @@ export class EstadisticasFisicasPacienteComponent implements OnInit {
 
   showXAxis = true;
   showYAxis = true;
-  gradient = false;
+  gradient = true;
   showLegend = true;
   showXAxisLabel = true;
   xAxisLabelGP = 'Fechas';
@@ -23,7 +23,7 @@ export class EstadisticasFisicasPacienteComponent implements OnInit {
   yAxisLabelGP = 'Peso(kg)';
 
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#ffd900be', 'rgb(255, 238, 0)', '#F6F94D', 'rgb(245, 240, 175)']
   };
 
 

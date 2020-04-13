@@ -5,42 +5,38 @@ style="width: 100%; height: 100%;">
 
 <mat-tab label="Peso" >    
 
-<div class="hijo">
+    <div class="col" style="margin-bottom:18px;text-align: center;">
+        <div class="row">
 
-    <div class="row" style="margin-top: 10px;">
-        <div class="col" style="text-align: center;margin-bottom: 40px;">
-            <label style="color: white;"><b>Comparar pesos</b></label> &nbsp;&nbsp;&nbsp;&nbsp;
-        <mat-form-field>            
-            <mat-label style="color: white;"><b>Fechas</b></mat-label>
-            <mat-select multiple (selectionChange)="cambioPeso($event.value)">
-                <mat-option *ngFor="let peso of selectPesos" [value]="peso">{{peso}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        </div>               
-      </div>
-
-      <div class="row" >
-        <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaPeso"
-            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabelGP" [yAxisLabel]="yAxisLabelGP" (select)="onSelect($event)" legendTitle="Fechas">
-        </ngx-charts-bar-vertical>
+                <div class="col" style="text-align: center;margin-bottom: 5px;">
+                <label style="color: white;"><b>Comparar pesos</b></label> &nbsp;&nbsp;&nbsp;&nbsp;
+                <mat-form-field>            
+                <mat-label style="color: white;"><b>Fechas</b></mat-label>
+                <mat-select multiple (selectionChange)="cambioPeso($event.value)">
+                    <mat-option *ngFor="let peso of selectPesos" [value]="peso">{{peso}}</mat-option>
+                </mat-select>
+                </mat-form-field>
+                </div>  
         </div>
 
-
-        
-
-</div>
+        <div class="row" >
+                <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaPeso"
+                [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabelGP" [yAxisLabel]="yAxisLabelGP" (select)="onSelect($event)" legendTitle="Fechas">
+                </ngx-charts-bar-vertical>
+        </div>
+    </div>
 
 </mat-tab>
 
 
 <mat-tab label="Ritmo cardíaco" >    
 
-    <div class="hijo">
-
-        <div class="row" style="margin-top: 10px;">
-            <div class="col" style="text-align: center;margin-bottom: 40px;">
+ 
+    <div class="col" style="margin-bottom:18px;text-align: center;">
+        <div class="row">
+            <div class="col" style="text-align: center;margin-bottom: 5px;">
                 <label style="color: white;"><b>Comparar ritmo cardíaco</b></label> &nbsp;&nbsp;&nbsp;&nbsp;
                 <mat-form-field>
                 <mat-label style="color: white;"><b>Fechas</b></mat-label>
@@ -49,16 +45,15 @@ style="width: 100%; height: 100%;">
                 </mat-select>
             </mat-form-field>
             </div>               
-          </div>
+        </div>
 
-          <div>
+        <div class="row" >
             <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaRitmo"
                 [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
                 [xAxisLabel]="xAxisLabelGR" [yAxisLabel]="yAxisLabelGR" (select)="onSelect($event)" legendTitle="Fechas">
             </ngx-charts-bar-vertical>
         </div>
-            
     </div>
 
 </mat-tab>
@@ -67,10 +62,10 @@ style="width: 100%; height: 100%;">
 
 <mat-tab label="Temperatura" >    
 
-    <div class="hijo">
-
-        <div class="row" style="margin-top: 10px;">
-            <div class="col" style="text-align: center;margin-bottom: 40px;">
+  
+    <div class="col" style="margin-bottom:18px;text-align: center;">
+        <div class="row">
+            <div class="col" style="text-align: center;margin-bottom: 5px;">
                 <label style="color: white;"><b>Comparar temperatura</b></label> &nbsp;&nbsp;&nbsp;&nbsp;
                 <mat-form-field>
                 <mat-label style="color: white;"><b>Fechas</b></mat-label>
@@ -80,17 +75,16 @@ style="width: 100%; height: 100%;">
                 </mat-select>
             </mat-form-field>
             </div>               
-          </div>
+        </div>
 
-          <div class="row" >
+        <div class="row" >
             <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaTemperatura"
                 [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
                 [xAxisLabel]="xAxisLabelGT" [yAxisLabel]="yAxisLabelGT" (select)="onSelect($event)" legendTitle="Fechas">
             </ngx-charts-bar-vertical>
-            </div>
-                   
         </div>
+    </div>
 
 </mat-tab>
 
@@ -99,10 +93,9 @@ style="width: 100%; height: 100%;">
 
 <mat-tab label="Altura" >    
 
-    <div class="hijo">
-
-        <div class="row" style="margin-top: 10px;margin-bottom: 40px;">
-            <div class="col" style="text-align: center;">
+    <div class="col" style="margin-bottom:18px;text-align: center;">
+        <div class="row">
+            <div class="col" style="text-align: center;margin-bottom: 5px;">
                 <label style="color: white;"><b>Comparar altura</b></label> &nbsp;&nbsp;&nbsp;&nbsp;
                 <mat-form-field>
                 <mat-label style="color: white;"><b>Fechas</b></mat-label>
@@ -112,17 +105,16 @@ style="width: 100%; height: 100%;">
                 </mat-select>
             </mat-form-field>
             </div>               
-          </div>
+        </div>
 
-          <div class="row" >
+        <div class="row" >
             <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaAltura"
                 [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
                 [xAxisLabel]="xAxisLabelGA" [yAxisLabel]="yAxisLabelGA" (select)="onSelect($event)" legendTitle="Fechas">
             </ngx-charts-bar-vertical>     
         </div>
-            
-        </div>
+    </div> 
 
 </mat-tab>
 
@@ -131,10 +123,9 @@ style="width: 100%; height: 100%;">
 
 <mat-tab label="Presión arterial" >    
 
-    <div class="hijo">
-
-        <div class="row" style="margin-top: 10px;margin-bottom: 40px;">
-            <div class="col" style="text-align: center;">
+    <div class="col" style="margin-bottom:18px;text-align: center;">
+        <div class="row">
+            <div class="col" style="text-align: center;margin-bottom: 5px;">
                 <label style="color: white;"><b>Comparar presión arterial</b></label> &nbsp;&nbsp;&nbsp;&nbsp;
                 <mat-form-field>
                 <mat-label style="color: white;"><b>Fechas</b></mat-label>
@@ -144,19 +135,16 @@ style="width: 100%; height: 100%;">
                 </mat-select>
             </mat-form-field>
             </div>               
-          </div>
+        </div>
 
-           
-            <div class="row" >
+        <div class="row" >
  <ngx-charts-bar-vertical-2d style="fill: white;"  [scheme]="colorScheme" [results]="datosGraficaPresion"
                 [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
                 [xAxisLabel]="xAxisLabelGPr" [yAxisLabel]="yAxisLabelGPr" [legendTitle]="legendTitle" legendTitle="Fechas"
                 (select)="onSelect($event)">
             </ngx-charts-bar-vertical-2d> 
-            </div>   
-              
-            
+        </div>
     </div>
 
 </mat-tab>

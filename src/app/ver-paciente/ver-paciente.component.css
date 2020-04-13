@@ -3,6 +3,18 @@
   color: #000;
 }
 
+.hijo2{  
+  height: 84%;
+  width:100%;     
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-repeat:no-repeat;
+  -o-background-size: cover;
+  background-size: cover; 
+  background-size: 100% 100%;        
+  text-align: -webkit-center;
+}
+
 /* contenido principal */
 .containerScroll{
   height: 100%;
@@ -25,6 +37,16 @@
   right: 0;
   background:rgb(253, 253, 253);
 margin-bottom: -2px; 
+}
+
+
+.example-container2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background:rgb(253, 253, 253);
 }
 
 .router-link-active{
