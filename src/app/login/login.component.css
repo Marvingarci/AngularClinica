@@ -196,7 +196,7 @@ width: 360px;
     background-color: transparent;
     position: relative;
     animation: ayudados;
-    animation-duration: 7s;
+    animation-duration: 5s;
   }
   @keyframes ayudados {
   
