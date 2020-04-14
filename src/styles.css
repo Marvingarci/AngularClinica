@@ -242,5 +242,9 @@ body { margin: 0; font-family:Poppins-Regular,sans-serif;
 padding: 0px;
   }
 
-
+  .mat-grid-tile .mat-figure {
+  
+    align-items:inherit !important;
+  
+}
    
