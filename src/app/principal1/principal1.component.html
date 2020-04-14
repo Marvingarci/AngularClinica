@@ -2,44 +2,59 @@
 
 <div class="fondo">
 
-    <mat-grid-list class="animado" id="imagen" cols="4" rowHeight="2:1">
-        <mat-grid-tile>
-            <mat-card class="example-card">
-                <div class="hijo "></div>
-              </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <mat-card class="example-card">
-                <mat-card-header>
-                  <div mat-card-avatar class="example-header-image"></div>
-                  <mat-card-title>Atendidos</mat-card-title>
-                  <mat-card-title>22</mat-card-title>
-                </mat-card-header>
-                
-              </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile >
-            <mat-card class="example-card">
-                <mat-card-header>
-                  <div mat-card-avatar class="example-header-image2"></div>
-                  <mat-card-title>Registrados</mat-card-title>
-                  <mat-card-title>522</mat-card-title>
-                </mat-card-header>
-                
-              </mat-card>
+ 
+  
+
+ 
+
+    <mat-grid-list class="animado" id="imagen" cols="4" rowHeight="2:1" style="margin-top: 10px;margin-bottom: 10px;">
+
+      <mat-grid-tile style="margin-top: 20px;align-items: flex-end;"> 
+            <div  style="  margin-bottom: 2px;position:absolute;margin-top: 20px;">
+                <div class="scene">
+    <div class="cube">
+      <div class="cube__face cube__face--front"></div>
+      <div class="cube__face cube__face--back"></div>
+      <div class="cube__face cube__face--right"></div>
+      <div class="cube__face cube__face--left"></div>
+      <div class="cube__face cube__face--top"></div>
+      <div class="cube__face cube__face--bottom"></div>
+    </div>
+  </div>
+</div>
         </mat-grid-tile>
 
-        <mat-grid-tile >
-            <mat-card class="example-card ">
-                <mat-card-header>
-                  <div mat-card-avatar class="example-header-image3"></div>
-                  <mat-card-title>Remitidos</mat-card-title>
-                  <mat-card-title>120</mat-card-title>
-                </mat-card-header>
-                
-              </mat-card>
+        <mat-grid-tile style="margin-top: 20px;align-items: flex-end;">           
+          <mat-card class="example-card" style="  position: static;height: 80px;    margin-bottom: 2px;">
+                <mat-card-header style="flex-direction: column; margin-top: 30px;">
+                  <div mat-card-avatar style="position: absolute;top: 10px;width: 80px;height: 80px;" class="example-header-image"></div>
+                  <mat-card-title><div class="col" style="text-align: center;">Atendidos: 20</div>  </mat-card-title>
+                </mat-card-header>                
+          </mat-card>
         </mat-grid-tile>
-    </mat-grid-list>
+
+        <mat-grid-tile style="margin-top: 20px;align-items: flex-end;">           
+          <mat-card class="example-card" style="  position: static;height: 80px;    margin-bottom: 2px;">
+                <mat-card-header style="flex-direction: column; margin-top: 30px;">
+                  <div mat-card-avatar style="position: absolute;top: 10px;width: 80px;height: 80px;" class="example-header-image2"></div>
+                  <mat-card-title><div class="col" style="text-align: center;">Registrados: 22</div>  </mat-card-title>
+                </mat-card-header>                
+          </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile style="margin-top: 20px;align-items: flex-end;">           
+          <mat-card class="example-card" style="  position: static;height: 80px;    margin-bottom: 2px;">
+                <mat-card-header style="flex-direction: column; margin-top: 30px;">
+                  <div mat-card-avatar style="position: absolute;top: 10px;width: 80px;height: 80px;" class="example-header-image3"></div>
+                  <mat-card-title><div class="col" style="text-align: center;">Remitidos: 23</div>  </mat-card-title>
+                </mat-card-header>                
+          </mat-card>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+
+
+      
 <!--ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd-->
     <mat-grid-list  cols="4" rowHeight="2:1">
 
