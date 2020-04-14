@@ -10,7 +10,7 @@ p {
 }
 
   .paciente{  
-    height: 600px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\paciente.gif');
     -webkit-background-size: cover;
@@ -21,7 +21,7 @@ p {
     background-size: 100% 100%;     
   }
   .paciente1{  
-    height: 600px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\paciente1.gif');
     -webkit-background-size: cover;
@@ -32,7 +32,7 @@ p {
     background-size: 100% 100%;      
   }
   .paciente2{  
-    height: 600px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\paciente2.gif');
     -webkit-background-size: cover;
@@ -43,7 +43,7 @@ p {
     background-size: 100% 100%;      
   }
   .paciente3{  
-    height: 600px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\paciente3.gif');
     -webkit-background-size: cover;
@@ -54,7 +54,7 @@ p {
     background-size: 100% 100%;      
   }
   .paciente4{  
-    height: 600px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\paciente4.gif');
     -webkit-background-size: cover;
@@ -65,7 +65,7 @@ p {
     background-size: 100% 100%;      
   }
   .paciente5{  
-    height: 600px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\paciente5.gif');
     -webkit-background-size: cover;
@@ -76,7 +76,7 @@ p {
     background-size: 100% 100%;     
   }
   .paciente6{  
-    height: 600px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\paciente6.gif');
     -webkit-background-size: cover;
@@ -87,7 +87,7 @@ p {
     background-size: 100% 100%;    
   }
   .at1{  
-    height: 600px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\at1.gif');
     -webkit-background-size: cover;
@@ -98,7 +98,7 @@ p {
     background-size: 100% 100%;     
   }
   .medicamento{  
-    height: 600px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\medicamento.gif');
     -webkit-background-size: cover;
@@ -109,7 +109,7 @@ p {
     background-size: 100% 100%;     
   }
   .consolidado{  
-    height: 600px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\consolidado.gif');
     -webkit-background-size: cover;
@@ -120,7 +120,7 @@ p {
     background-size: 100% 100%;     
   }
   .usuario{  
-    height: 600px;
+    height: 520px;
     width:100%;     
     background: url('src\imagenes\usuario.gif');
     -webkit-background-size: cover;
