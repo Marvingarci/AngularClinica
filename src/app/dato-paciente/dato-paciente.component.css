@@ -36,7 +36,20 @@ table {
   background-repeat:no-repeat;
   -o-background-size: cover;
   background-size: cover; 
-  background-size: 100% 100%;     
+  background-size: 100% 100%;        
+  text-align: -webkit-center;
+}
+
+.hijo2{  
+  height: 100%;
+  width:100%;     
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-repeat:no-repeat;
+  -o-background-size: cover;
+  background-size: cover; 
+  background-size: 100% 100%;        
+  text-align: -webkit-center;
 }
 
 .padre{
@@ -44,7 +57,8 @@ table {
 justify-content: center;
 align-items: center;
 height: 100%;
-} 
+}  
+
 
 .mat-icon-button{
   position: absolute;
