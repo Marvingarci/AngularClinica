@@ -56,6 +56,13 @@ export class PacienteService {
 
   }
 
+  obtenerCitasPorPaciente(id_paciente){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/citas/'+id_paciente,{headers:this.headers});
+
+
+  }
+
   obtenerEstadisticasPacientes(){
 
     return this.httpClient.get(this.API_ENDPOINT+'/contarPacientes',{headers:this.headers});
