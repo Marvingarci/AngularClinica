@@ -166,7 +166,7 @@
 
                   <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales" appearance="fill">
                     <mat-label>Categoria Paciente</mat-label>
-                    <mat-select formControlName="categoria" [disabled]="disabledDatosGenerales">
+                    <mat-select formControlName="categoria" [disabled]="disabledDatosGenerales" (selectionChange)="selectCategoria(categoria.value)">
                       <mat-option *ngFor="let categoria of categorias" [value]="categoria.value"
                         (click)="mostrarcuenta(categoria.value)">
                         {{categoria.viewValue}}
@@ -360,69 +360,50 @@
                   </mat-form-field>
                 </div>
 
-
-                <div class="col">
-
-                    <mat-accordion>
-                      <mat-expansion-panel>
-                        <mat-expansion-panel-header>
-                          <mat-panel-title>
-                            Presión arterial
-                          </mat-panel-title>
-                          <mat-panel-description>
-                            toque para completar
-                          </mat-panel-description>
-                        </mat-expansion-panel-header>
-
-                        <mat-form-field>
-                          <mat-label><b>Sistólica</b></mat-label>
-                          <input matInput formControlName="presion_sistolica" name="presion_sistolica"
-                            placeholder="Ingrese la presión arterial">
-                          <mat-error *ngIf="presion_sistolica.hasError('required')">campo requerido</mat-error>
-                          <mat-error *ngIf="presion_sistolica.hasError('pattern')">solo números con dos cifras decimales
-                          </mat-error>
-                          <mat-error *ngIf="presion_sistolica.hasError('max')">presión no válida</mat-error>
-                          <mat-error *ngIf="presion_sistolica.hasError('min')">presión no válida</mat-error>
-                        </mat-form-field>
-
-                        <mat-form-field>
-                          <mat-label><b>Diastólica</b></mat-label>
-                          <input matInput formControlName="presion_diastolica" name="presion_diastolica"
-                            placeholder="Ingrese la presión arterial">
-                          <mat-error *ngIf="presion_diastolica.hasError('required')">campo requerido</mat-error>
-                          <mat-error *ngIf="presion_diastolica.hasError('pattern')">solo números con dos cifras
-                            decimales
-                          </mat-error>
-                          <mat-error *ngIf="presion_diastolica.hasError('max')">presión no válida</mat-error>
-                          <mat-error *ngIf="presion_diastolica.hasError('min')">presión no válida</mat-error>
-                        </mat-form-field>
-
-
-                      </mat-expansion-panel>
-                    </mat-accordion>
-                    
-                  <!-- <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
-                    <mat-label><b>Presión</b></mat-label>
-                    <input matInput formControlName="presion" placeholder="Aún no especificado"
-                      [readonly]="readonlyDatosGenerales">
-                    <mat-error *ngIf="presion.hasError('pattern')">solo se permiten números</mat-error>
-                    <mat-error *ngIf="presion.hasError('max')">presión no válida</mat-error>
-                    <mat-error *ngIf="presion.hasError('min')">presión no válida</mat-error>
-                  </mat-form-field> -->
-
-                </div>
-
-                <div class="col">
-                  <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
-                    <mat-label><b>Pulso</b></mat-label>
-                    <input matInput formControlName="pulso" placeholder="Aún no especificado"
-                      [readonly]="readonlyDatosGenerales">
-                    <mat-error *ngIf="pulso.hasError('pattern')">solo se permiten números</mat-error>
-                    <mat-error *ngIf="pulso.hasError('max')">pulso no válido</mat-error>
-                    <mat-error *ngIf="pulso.hasError('min')">pulso no válido</mat-error>
-                  </mat-form-field>
-                </div>
               </div>
+
+
+            <div class="row">
+
+            <div class="col">
+            <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'"> 
+            <mat-label><b>Presión arterial sistólica</b></mat-label>
+            <input matInput formControlName="presion_sistolica" name="presion_sistolica"
+            placeholder="Aún no especificado">
+            <mat-error *ngIf="presion_sistolica.hasError('required')">campo requerido</mat-error>
+            <mat-error *ngIf="presion_sistolica.hasError('pattern')">solo números con dos cifras decimales
+            </mat-error>
+            <mat-error *ngIf="presion_sistolica.hasError('max')">presión no válida</mat-error>
+            <mat-error *ngIf="presion_sistolica.hasError('min')">presión no válida</mat-error>
+            </mat-form-field>
+            </div>
+
+            <div class="col">
+            <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+            <mat-label><b>Presión arterial diastólica</b></mat-label>
+            <input matInput formControlName="presion_diastolica" name="presion_diastolica"
+            placeholder="Aún no especificado">
+            <mat-error *ngIf="presion_diastolica.hasError('required')">campo requerido</mat-error>
+            <mat-error *ngIf="presion_diastolica.hasError('pattern')">solo números con dos cifras
+            decimales
+            </mat-error>
+            <mat-error *ngIf="presion_diastolica.hasError('max')">presión no válida</mat-error>
+            <mat-error *ngIf="presion_diastolica.hasError('min')">presión no válida</mat-error>
+            </mat-form-field>
+            </div>
+
+            <div class="col">
+            <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+            <mat-label><b>Pulso</b></mat-label>
+            <input matInput formControlName="pulso" placeholder="Aún no especificado"
+            [readonly]="readonlyDatosGenerales">
+            <mat-error *ngIf="pulso.hasError('pattern')">solo se permiten números</mat-error>
+            <mat-error *ngIf="pulso.hasError('max')">pulso no válido</mat-error>
+            <mat-error *ngIf="pulso.hasError('min')">pulso no válido</mat-error>
+            </mat-form-field>
+            </div>
+
+            </div>
 
 
 
@@ -707,9 +688,9 @@
 
                   <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales" appearance="fill">
                     <mat-label>Categoria Paciente</mat-label>
-                    <mat-select formControlName="categoria" [disabled]="disabledDatosGenerales">
+                    <mat-select formControlName="categoria" [disabled]="disabledDatosGenerales" (selectionChange)="selectCategoria(categoria.value)">
                       <mat-option *ngFor="let categoria of categorias" [value]="categoria.value"
-                        (click)="mostrarcuenta(categoria.value)">
+                        (click)="mostrarcuenta(categoria.value);" >
                         {{categoria.viewValue}}
                       </mat-option>
                     </mat-select>
@@ -881,58 +862,50 @@
                     <mat-error *ngIf="temperatura.hasError('min')">temperatura no válida</mat-error>
                   </mat-form-field>
                 </div>
-
-
-                <mat-form-field class="col">
-                  <mat-accordion>
-                    <mat-expansion-panel>
-                      <mat-expansion-panel-header>
-                        <mat-panel-title>
-                          Presión arterial
-                        </mat-panel-title>
-                        <mat-panel-description>
-                          toque para completar
-                        </mat-panel-description>
-                      </mat-expansion-panel-header>
-
-                      <mat-form-field style="width: 177.95px;">
-                        <mat-label><b>Sistólica</b></mat-label>
-                        <input matInput formControlName="presion_sistolica" name="presion"
-                          placeholder="Ingrese la presión arterial">
-                        <mat-error *ngIf="presion_sistolica.hasError('required')">campo requerido</mat-error>
-                        <mat-error *ngIf="presion_sistolica.hasError('pattern')">solo números con dos cifras decimales
-                        </mat-error>
-                        <mat-error *ngIf="presion_sistolica.hasError('max')">presión no válida</mat-error>
-                        <mat-error *ngIf="presion_sistolica.hasError('min')">presión no válida</mat-error>
-                      </mat-form-field>
-
-                      <mat-form-field style="width: 177.95px;">
-                        <mat-label><b>Diastólica</b></mat-label>
-                        <input matInput formControlName="presion_diastolica" name="presion"
-                          placeholder="Ingrese la presión arterial">
-                        <mat-error *ngIf="presion_diastolica.hasError('required')">campo requerido</mat-error>
-                        <mat-error *ngIf="presion_diastolica.hasError('pattern')">solo números con dos cifras decimales
-                        </mat-error>
-                        <mat-error *ngIf="presion_diastolica.hasError('max')">presión no válida</mat-error>
-                        <mat-error *ngIf="presion_diastolica.hasError('min')">presión no válida</mat-error>
-                      </mat-form-field>
-
-
-                    </mat-expansion-panel>
-                  </mat-accordion>
-                </mat-form-field>
-
-                <div class="col">
-                  <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
-                    <mat-label><b>Pulso</b></mat-label>
-                    <input matInput formControlName="pulso" placeholder="Aún no especificado"
-                      [readonly]="readonlyDatosGenerales">
-                    <mat-error *ngIf="pulso.hasError('pattern')">solo números con dos cifras decimales</mat-error>
-                    <mat-error *ngIf="pulso.hasError('max')">pulso no válido</mat-error>
-                    <mat-error *ngIf="pulso.hasError('min')">pulso no válido</mat-error>
-                  </mat-form-field>
-                </div>
               </div>
+
+               
+                <div class="row">
+
+                  <div class="col">
+                  <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'"> 
+                  <mat-label><b>Presión arterial sistólica</b></mat-label>
+                  <input matInput formControlName="presion_sistolica" name="presion_sistolica"
+                  placeholder="Aún no especificado">
+                  <mat-error *ngIf="presion_sistolica.hasError('required')">campo requerido</mat-error>
+                  <mat-error *ngIf="presion_sistolica.hasError('pattern')">solo números con dos cifras decimales
+                  </mat-error>
+                  <mat-error *ngIf="presion_sistolica.hasError('max')">presión no válida</mat-error>
+                  <mat-error *ngIf="presion_sistolica.hasError('min')">presión no válida</mat-error>
+                  </mat-form-field>
+                  </div>
+      
+                  <div class="col">
+                  <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+                  <mat-label><b>Presión arterial diastólica</b></mat-label>
+                  <input matInput formControlName="presion_diastolica" name="presion_diastolica"
+                  placeholder="Aún no especificado">
+                  <mat-error *ngIf="presion_diastolica.hasError('required')">campo requerido</mat-error>
+                  <mat-error *ngIf="presion_diastolica.hasError('pattern')">solo números con dos cifras
+                  decimales
+                  </mat-error>
+                  <mat-error *ngIf="presion_diastolica.hasError('max')">presión no válida</mat-error>
+                  <mat-error *ngIf="presion_diastolica.hasError('min')">presión no válida</mat-error>
+                  </mat-form-field>
+                  </div>
+      
+                  <div class="col">
+                  <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
+                  <mat-label><b>Pulso</b></mat-label>
+                  <input matInput formControlName="pulso" placeholder="Aún no especificado"
+                  [readonly]="readonlyDatosGenerales">
+                  <mat-error *ngIf="pulso.hasError('pattern')">solo se permiten números</mat-error>
+                  <mat-error *ngIf="pulso.hasError('max')">pulso no válido</mat-error>
+                  <mat-error *ngIf="pulso.hasError('min')">pulso no válido</mat-error>
+                  </mat-form-field>
+                  </div>
+      
+                  </div>
 
 
 
