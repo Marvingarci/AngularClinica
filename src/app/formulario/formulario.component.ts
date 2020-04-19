@@ -2159,7 +2159,7 @@ eliminarsHopitalariasQuirurgicas(index) {
 }
 
 AgregarTelefonosEmergencia() {
-  this.otros.value.toString().trim()
+
 
   if (this.emergencia_persona.value.toString().trim() && this.emergencia_telefono.valid &&
     this.emergencia_telefono.value.toString().trim() && this.emergencia_telefono.valid) {
@@ -2481,13 +2481,13 @@ enviarDatos() {
 
       });
 
+      if (this.tablaTelefonosEmergencia.length) {
 
-      if (this.telefonos_emergencia.length) {
-
-        this.telefonos_emergencia.forEach(telefono_emergencia => {
+        this.tablaTelefonosEmergencia.forEach(telefono_emergencia => {
 
           this.telefono_emergencia.id_paciente = this.paciente.id_paciente;
-          this.telefono_emergencia.telefono_emergencia = telefono_emergencia;
+          this.telefono_emergencia.emergencia_persona = telefono_emergencia.emergencia_persona;
+          this.telefono_emergencia.telefono_emergencia = telefono_emergencia.telefono_emergencia;
 
           this.formularioService.enviarTelefonoEmergencia(this.telefono_emergencia).subscribe((data) => {
 
