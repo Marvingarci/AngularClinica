@@ -106,6 +106,12 @@ export class DatoPacienteComponent implements OnInit {
   medicamento: any;
 
 
+  siHayCitas: boolean = false;
+  siHayMedicamentos: boolean = false;
+  siHayIndicaciones: boolean = false;
+  siHayObservaciones: boolean = false;
+
+
   //variable que identifica si un input es editable
   readonly: boolean = true;
 
@@ -121,7 +127,7 @@ export class DatoPacienteComponent implements OnInit {
     this.dialog.closeAll;
     this.id = this.activatedRoute.snapshot.params['id'];
 
-    this.obtenerCitas();
+    // this.obtenerCitas();
 
 
     if (this.id) {
@@ -160,12 +166,19 @@ export class DatoPacienteComponent implements OnInit {
   
 
   }
+ 
 
   obtenerCitas(){
     
     this.pacienteService.obtenerCitasPorPaciente(this.id).subscribe((data:any)=>{
 
       this.citas = data;
+
+      if(this.citas != null){
+
+        this.siHayCitas = true;
+
+      }
 
       console.log(this.citas);
 
@@ -178,7 +191,23 @@ export class DatoPacienteComponent implements OnInit {
     this.pacienteService.obtenerHistoriaSubsiguiente(this.id).subscribe((data: any) => {
 
       this.historia_subsiguiente = data;
-      console.log(this.historia_subsiguiente);
+
+      if(this.historia_subsiguiente.medicamento != null){
+
+          this.siHayMedicamentos = true;
+
+      }
+      if(this.historia_subsiguiente.indicaciones != null){
+
+        this.siHayIndicaciones = true;
+
+      }
+
+      if(this.historia_subsiguiente.observaciones != null){
+
+        this.siHayObservaciones = true;
+
+      }
       
 
     }, (error) => {
