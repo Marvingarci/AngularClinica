@@ -167,7 +167,7 @@ export class VerPacienteComponent implements OnInit {
     nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,40}$/)
       , Validators.maxLength(40), Validators.minLength(5)]),
 
-    numero_cuenta: new FormControl('', [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)
+    numero_cuenta: new FormControl('', [Validators.pattern(/^[2][0-9]{10}$/)
       , Validators.maxLength(11), Validators.minLength(11)]),
 
     numero_identidad: new FormControl('', [Validators.required, Validators.pattern(/^\d{4}\d{4}\d{5}$/)
@@ -179,7 +179,7 @@ export class VerPacienteComponent implements OnInit {
     direccion: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)
       , Validators.maxLength(30), Validators.minLength(5)]),
 
-    carrera: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)
+    carrera: new FormControl('', [ Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)
       , Validators.maxLength(30), Validators.minLength(5)]),
 
     fecha_nacimiento: new FormControl('', Validators.required),
@@ -301,9 +301,6 @@ export class VerPacienteComponent implements OnInit {
     formControl.forEach(controlador => {
       controlador.enable({ onlySelf: true });
       controlador.setValidators(Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,15}$/));
-
-
-
     });
   }
 
@@ -1688,22 +1685,17 @@ export class VerPacienteComponent implements OnInit {
     this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
     this.disabledDatosGenerales = !this.disabledDatosGenerales;
     this.datosRepetido = !this.datosRepetido;
-
-    if (this.formulario_datos_generales.valid) {
+ 
       if (this.readonlyDatosGenerales === true) {
-        this.actualizarDG();
-      }
-    } else {
-      this.showError('Ingrese correctamente los datos');
-      this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
-      this.disabledDatosGenerales = !this.disabledDatosGenerales;
-      this.datosRepetido = !this.datosRepetido;
-    }
+        this.actualizarDG();      
+    } 
   }
 
   actualizarDG() {
 
     if (this.formulario_datos_generales.dirty) {
+      
+    if (this.formulario_datos_generales.valid) {
       this.paciente.nombre_completo = this.nombre_completo.value;
       this.paciente.numero_cuenta = this.numero_cuenta.value;
       this.paciente.numero_identidad = this.numero_identidad.value;
@@ -1733,7 +1725,12 @@ export class VerPacienteComponent implements OnInit {
         console.log(error);
         this.showError('Error al actualizar los datos generales');
       });
-
+    }else{
+      this.showError('Ingrese correctamente los datos');
+      this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
+      this.disabledDatosGenerales = !this.disabledDatosGenerales;
+      this.datosRepetido = !this.datosRepetido;
+    }
     }
   }
 
@@ -3142,18 +3139,38 @@ export class VerPacienteComponent implements OnInit {
   ngOnInit() {
 
   }
+
   mostrarcuenta(event) {
     console.log(event);
     if (event == 3) {
       this.mostrarcuentaycarreca = false;
       this.mostrarcuentaalumno = false;
-
     } else {
       this.mostrarcuentaycarreca = true;
       this.mostrarcuentaalumno = true;
     }
-
   }
+  selectCategoria(valor) {
+
+    if (valor == 3) {
+
+     // this.numero_cuenta.setValue("");
+      this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]);
+      this.numero_cuenta.updateValueAndValidity();
+     // this.carrera.setValue("");
+      this.carrera.setValidators([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/), Validators.maxLength(30), Validators.minLength(5)]);
+      this.carrera.updateValueAndValidity();
+
+    } else {
+
+      this.numero_cuenta.clearValidators();
+      this.numero_cuenta.updateValueAndValidity(); 
+      this.carrera.clearValidators();
+      this.carrera.updateValueAndValidity();
+
+    }
+  }
+
   obtenerDatosFormulario() {
 
     this.formularioService.obtenerParentescos().subscribe((data: any[]) => {
