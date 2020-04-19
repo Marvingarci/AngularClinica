@@ -33,7 +33,7 @@ export class InventariosService {
   }
 
   
-  obtenerMedicamento(){
+  obtenerMedicamentos(){
     return this.httpClient.get(this.API_ENDPOINT+'/medicamentos');
   }
 
