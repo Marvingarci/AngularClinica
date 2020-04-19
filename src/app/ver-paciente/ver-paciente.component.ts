@@ -3819,16 +3819,10 @@ export interface selecto {
 })
 
 
-
-
-
-
-
-
-
 export class HistoriaSubsiguiente1 {
   seleccionado: boolean;
   seleccion = 0;
+  medicamentos: string[] = [];
   maximoMedicamento: number = 2;
   minDate = new Date();
 
@@ -3844,7 +3838,7 @@ export class HistoriaSubsiguiente1 {
     observaciones_examen: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(5)]),
     impresion_diagnostica: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(5)]),
 
-    nombre: new FormControl(''),
+    medicamento: new FormControl(''),
     unidad: new FormControl('', [Validators.pattern(/^[0-9]+/), Validators.maxLength(3)]),
     indicaciones: new FormControl('', [Validators.maxLength(100), Validators.minLength(5)]),
 
@@ -3858,21 +3852,18 @@ export class HistoriaSubsiguiente1 {
   });
 
 
-
-
-
-
   constructor(private pacienteService: PacienteService,
     private inventarioService: InventariosService,
     private dialogRef: MatDialogRef<HistoriaSubsiguiente1>,//para cerrar el dialogo desde la misma interfaz
     private mensaje: MatSnackBar,
     private breakpointObserver: BreakpointObserver) {
+
+      
   }
 
   get isMobile() {
     return this.breakpointObserver.isMatched('(max-width: 767px)');
   }
-
 
   historia_subsiguiente: HistoriaSubsiguiente = {
     id_paciente: null,
@@ -3889,12 +3880,7 @@ export class HistoriaSubsiguiente1 {
     remitido: null,
     siguiente_cita: null,
     hora_cita: null,
-    nombre: null
-  }
-
-  medicamento: any = {
-    id: null,
-    cantidad: null
+    medicamento: null
   }
 
   radioCita(valor, formControl: FormControl[]) {
@@ -3928,7 +3914,7 @@ export class HistoriaSubsiguiente1 {
 
   selectMedicamento(valor, formControl: FormControl[]) {
 
-    if (valor == 0) {
+    if (valor == null) {
 
       console.log(valor);
 
@@ -3951,7 +3937,10 @@ export class HistoriaSubsiguiente1 {
         controlador.enable({ onlySelf: true });
       });
 
-      this.maximoMedicamento = this.inventario[valor - 1].unidades;
+      
+      var medicamento = this.inventario.find( medicamento => medicamento.medicamento === valor );
+      this.maximoMedicamento = medicamento.unidades;
+      console.log("unidad medicamento: "+medicamento.unidades);
 
       if (this.maximoMedicamento == 0) {
 
@@ -3991,18 +3980,30 @@ export class HistoriaSubsiguiente1 {
 
   obtenerMedicamentos() {
 
-    this.inventarioService.obtenerMedicamento().subscribe((data: Inventario[]) => {
-      this.datos = data;
-      this.inventario = data;
-      this.nombres.push({ value: 0, viewValue: 'Ninguno' });
-      this.datos.forEach(element => {
-        this.nombres.push({ value: element.id_inventario, viewValue: element.medicamento });
+    this.inventarioService.obtenerMedicamentos().subscribe((data:any)=>{
+      this.inventario = data
+
+      if(Object.entries(data).length === 0){
+
+        this.borrarInputs([<FormControl>this.unidad, <FormControl>this.medicamento]);
+
+
+      }else{
+
+        this.habilitarInputs([<FormControl>this.unidad, <FormControl>this.medicamento])
+
+      }
+
+
+      data.forEach(elemento => {
+
+        this.medicamentos.push(elemento.medicamento)
+        
       });
 
-      console.log(this.nombres);
+      console.log(Object.entries(data).length === 0)
+      console.log(this.medicamentos);
       console.log(this.inventario);
-      console.log(this.unidad.value);
-
 
     });
 
@@ -4038,29 +4039,6 @@ export class HistoriaSubsiguiente1 {
       controlador.disable({ onlySelf: true });
     });
   }
-
-  medicamentoUnidad(numero: number) {
-
-    if (numero == 0) {
-      this.borrarInputs([<FormControl>this.unidad]);
-      this.seleccionado = false;
-    }
-
-    this.maximoMedicamento = this.inventario[numero - 1].unidades;
-    this.unidad.setValidators(Validators.max(this.maximoMedicamento));
-    if (this.maximoMedicamento == 0) {
-      this.texto = "No hay producto en existencia";
-      this.borrarInputs([<FormControl>this.unidad]);
-      this.seleccionado = false;
-    } else {
-      this.texto = "El valor en existencia es: " + this.maximoMedicamento;
-      this.seleccionado = true;
-      this.habilitarInputs([<FormControl>this.unidad]);
-    }
-
-  }
-
-
 
   guardarHistoriaSubSiguiente() {
 
@@ -4102,7 +4080,7 @@ export class HistoriaSubsiguiente1 {
 
       }
 
-      this.historia_subsiguiente.nombre = this.nombre.value;
+      this.historia_subsiguiente.medicamento = this.medicamento.value;
 
 
       if (this.historia_subsiguiente.remitido == null || this.historia_subsiguiente.remitido == "") {
@@ -4119,12 +4097,19 @@ export class HistoriaSubsiguiente1 {
       });
 
 
+      // aqui disminuyo el inventario que se le da al paciente
       if (this.seleccionado == true) {
 
-        this.medicamento.id = this.nombre.value;
-        this.medicamento.cantidad = this.unidad.value;
+        var medicamento = this.inventario.find( medicamento => medicamento.medicamento === this.medicamento.value );
 
-        this.inventarioService.EgresoMedicamentos(this.medicamento).subscribe((data) => {
+        var medicamentoAEgresar: any ={
+
+          "id": medicamento.id_inventario,
+          "cantidad": this.unidad.value
+        }
+
+      
+        this.inventarioService.EgresoMedicamentos(medicamentoAEgresar).subscribe((data) => {
 
         }, (error) => {
 
@@ -4160,7 +4145,7 @@ export class HistoriaSubsiguiente1 {
   // get presion() { return this.formulario_historia_subsiguiente.get('presion') };
   get presion_sistolica() { return this.formulario_historia_subsiguiente.get('presion_sistolica') };
   get presion_diastolica() { return this.formulario_historia_subsiguiente.get('presion_diastolica') };
-  get nombre() { return this.formulario_historia_subsiguiente.get('nombre') };
+  get medicamento() { return this.formulario_historia_subsiguiente.get('medicamento') };
   get unidad() { return this.formulario_historia_subsiguiente.get('unidad') };
   get cita() { return this.formulario_historia_subsiguiente.get('cita') };
 
