@@ -77,8 +77,8 @@ export class Principal1Component implements OnInit {
   yAxis: boolean = true;
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Dias';
-  yAxisLabel: string = 'Numero de Pacientes';
+  xAxisLabel: string = 'Días';
+  yAxisLabel: string = 'Número de Pacientes';
   timeline: boolean = true;
 
   colorScheme = {
@@ -177,7 +177,7 @@ dataSource :any;
                 "value": this.fechas.Martes
               },
               {
-                "name": "Miercoles",
+                "name": "Miércoles",
                 "value": this.fechas.Miercoles
               },
               {
