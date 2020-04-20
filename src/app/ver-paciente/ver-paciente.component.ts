@@ -173,7 +173,7 @@ export class VerPacienteComponent implements OnInit {
     numero_cuenta: new FormControl('', {
         validators: [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)
         , Validators.maxLength(11), Validators.minLength(11)],
-        asyncValidators: [this.CuentaUnicaService.validate.bind(this.CuentaUnicaService)]
+        // asyncValidators: [this.CuentaUnicaService.validate.bind(this.CuentaUnicaService)]
       }),
 
     numero_identidad: new FormControl('', {
