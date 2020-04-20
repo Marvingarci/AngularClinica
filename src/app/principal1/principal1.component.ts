@@ -239,7 +239,7 @@ dataSource :any;
 
   //tablas
 
-  displayedColumns: string[] = ['id_cita', 'paciente', 'fecha', 'hora'];
+  displayedColumns: string[] = [ 'paciente', 'fecha', 'hora'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
