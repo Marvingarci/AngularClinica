@@ -1,22 +1,19 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, AfterViewInit } from '@angular/core';
 import { FormularioService } from '../services/formulario.service';
 import { Paciente } from "../interfaces/paciente";
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from "../app.component";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from "../services/login.service";
-import { LoginComponent } from '../login/login.component';
-import { FormularioComponent } from '../formulario/formulario.component';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { PacienteComponent } from '../paciente/paciente.component';
 //import { DialogContentExampleDialog1 } from '../principal/principal.component';
 import { Login } from '../interfaces/login';
-import { InventariosService } from '../services/inventarios.service';
 import { HistoriaSubsiguiente } from '../interfaces/historia_subsiguiente';
 import { MatTableDataSource } from '@angular/material/table';
 import { PacienteService } from '../services/paciente.service';
+import { single } from './data';
 
 export interface select {
   value: string;
@@ -45,7 +42,29 @@ export interface cita1 {
   templateUrl: './dato-paciente.component.html',
   styleUrls: ['./dato-paciente.component.css']
 })
-export class DatoPacienteComponent implements OnInit {
+export class DatoPacienteComponent implements OnInit, AfterViewInit {
+
+  single: any[];
+  view: any[] = [700, 300];
+
+  // options
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Fecha';
+  showYAxisLabel = true;
+  yAxisLabel = 'Peso(kg)';
+
+  colorScheme = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
+
+  onSelect(event) {
+    console.log(event);
+  }
+
 
   columnaTablaDatoPaciente: string[] = ['siguiente_cita'];
   columnaTablaDatoPaciente1: string[] = ['nombre'];
@@ -57,9 +76,9 @@ export class DatoPacienteComponent implements OnInit {
   dataSourceTablaDatoPaciente2: any;
   dataSourceTablaDatoPaciente3: any;
 
-  
+
   tienemedicamento: boolean = true;
- 
+
 
 
   formulario_datos_generales = new FormGroup({
@@ -89,6 +108,16 @@ export class DatoPacienteComponent implements OnInit {
 
   });
 
+  formulario_graficas = new FormGroup({
+
+    pesos: new FormControl('')
+
+
+
+
+
+  });
+
   paciente: Paciente = {
     id_paciente: null,
     numero_paciente: null,
@@ -114,26 +143,33 @@ export class DatoPacienteComponent implements OnInit {
 
   }
 
-
-
-
-
   id: any;
   noImg: boolean = true;
   pacientes: Paciente[];
   historias_subsiguientes: HistoriaSubsiguiente[];
-  medicamento:any;
+  medicamento: any;
 
 
   //variable que identifica si un input es editable
   readonly: boolean = true;
 
 
-  constructor(private formularioService: FormularioService, private activatedRoute: ActivatedRoute, private router: Router,
+  selectPesos: string[] = [];
+
+
+  constructor(private formularioService: FormularioService,
+    private activatedRoute: ActivatedRoute, private router: Router,
     principal: AppComponent, public dialog: MatDialog,
-    private formBuilder: FormBuilder, private mensaje: MatSnackBar, private pacienteService: PacienteService) {
+    private mensaje: MatSnackBar, private pacienteService: PacienteService) {
+
+
+
     this.dialog.closeAll;
     this.id = this.activatedRoute.snapshot.params['id'];
+
+
+    // Object.assign(this, { single });
+    this.cargarSelectPesos();
 
     if (this.id) {
 
@@ -172,31 +208,31 @@ export class DatoPacienteComponent implements OnInit {
       this.medicamento = data;
       console.log(this.historias_subsiguientes);
 
-      if(!this.medicamento.nombre){        
-        this.tienemedicamento = false; 
+      if (!this.medicamento.nombre) {
+        this.tienemedicamento = false;
       }
 
       this.dataSourceTablaDatoPaciente = new MatTableDataSource(this.historias_subsiguientes);
       if (!this.historias_subsiguientes.length) {
-        this.dataSourceTablaDatoPaciente = null;     
-      } 
+        this.dataSourceTablaDatoPaciente = null;
+      }
 
       this.dataSourceTablaDatoPaciente1 = new MatTableDataSource(this.historias_subsiguientes);
       if (!this.historias_subsiguientes.length) {
-        this.dataSourceTablaDatoPaciente1 = null; 
-      } 
+        this.dataSourceTablaDatoPaciente1 = null;
+      }
 
 
       this.dataSourceTablaDatoPaciente2 = new MatTableDataSource(this.historias_subsiguientes);
       if (!this.historias_subsiguientes.length) {
-        this.dataSourceTablaDatoPaciente2 = null; 
-        
-      } 
+        this.dataSourceTablaDatoPaciente2 = null;
+
+      }
 
       this.dataSourceTablaDatoPaciente3 = new MatTableDataSource(this.historias_subsiguientes);
       if (!this.historias_subsiguientes.length) {
-        this.dataSourceTablaDatoPaciente3 = null;     
-      } 
+        this.dataSourceTablaDatoPaciente3 = null;
+      }
 
     }, (error) => {
 
@@ -206,6 +242,108 @@ export class DatoPacienteComponent implements OnInit {
 
 
 
+
+  }
+  ngAfterViewInit(): void {
+    
+
+  }
+
+
+  cargarGraficaPeso() {
+
+    var arreglo: any[] = [];
+    this.pacienteService.obtenerPesosPaciente(this.id).subscribe((data: any) => {
+
+      data.forEach(element => {
+
+        arreglo.push(
+          {
+            "name": element.fecha,
+            "value": element.peso
+          }
+
+        );
+
+      });
+
+
+      this.single = arreglo;
+
+
+    })
+  }
+
+  cargarGraficaPesoConParametros(pesos: any[]) {
+
+    var arreglo: any[] = [];
+
+    pesos.forEach(element => {
+
+      arreglo.push(
+        {
+          "name": element.fecha,
+          "value": element.peso
+        }
+
+      );
+
+    });
+
+
+    this.single = arreglo;
+
+
+
+  }
+
+
+  cargarSelectPesos() {
+
+
+    this.pacienteService.obtenerTodosPesosPaciente(this.id).subscribe((data: any) => {
+
+      this.pacienteService.pesosPaciente = data;
+
+      data.forEach(element => {
+
+        this.selectPesos.push(element.fecha);
+
+      });
+
+      console.log(this.selectPesos);
+
+    }, (error) => {
+      console.log(error)
+    });
+
+  }
+
+
+  cambioPesos(valor) {
+
+    console.log(this.pacienteService.pesosPaciente);
+    var resultado: any;
+    var arreglo: any[] = [];
+
+    if(valor.length != 0){
+
+      valor.forEach(element => {
+
+        resultado = this.pacienteService.pesosPaciente.find( peso => peso.fecha === element );
+        arreglo.push(resultado);
+  
+        
+      });
+  
+      this.cargarGraficaPesoConParametros(arreglo);
+
+    }else{
+
+      this.cargarGraficaPeso();
+    }
+
+  
 
   }
 
@@ -305,6 +443,9 @@ export class DatoPacienteComponent implements OnInit {
   get emergencia_telefono() { return this.formulario_datos_generales.get('emergencia_telefono') };
   get categoria() { return this.formulario_datos_generales.get('categoria') };
 
+  get pesos() { return this.formulario_graficas.get('pesos') };
+
+
 }
 
 /////////de aqui para abajo///////////////////////////////////
@@ -392,7 +533,7 @@ export class cambiocontraDialog {
   // FUNCION QUE HACE EL MACANEO
   continuar() {
 
-    
+
 
     this.formularioService.getUltimoID().subscribe((data) => {
       this.resultado = data;
@@ -424,7 +565,7 @@ export class cambiocontraDialog {
         if (this.nuevaContra.value == this.nuevaContraRep.value) {
 
           this.loginService.actualizarDatos(this.login).subscribe((data) => {
-           
+
             this.showError('Contraseña Guardada');
 
             if (this.formularioService.esAlumno == true) {
@@ -468,19 +609,19 @@ export class cambiocontraDialog {
 
   //EVENTO CUANDO SE DA ENTER
 
- 
+
 
   onKeydown1(event) {
     if (event.key === "Enter") {
-     this.hide1 = false;
-     this.hide = true;
+      this.hide1 = false;
+      this.hide = true;
     }
   }
 
   onKeydown(event) {
     if (event.key === "Enter") {
-     this.hide1 = false;
-     this.hide = true;
+      this.hide1 = false;
+      this.hide = true;
     }
   }
 
@@ -745,7 +886,7 @@ export class actualizarcontraDialog {
 
         this.loginService.actualizarDatos(this.login).subscribe((data) => {
 
-          
+
           this.showError('Cambio de contraseña exitoso');
           this.dialogRef.close();
 
