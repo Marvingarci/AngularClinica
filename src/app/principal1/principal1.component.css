@@ -63,10 +63,18 @@ body { font-family: sans-serif; }
 
 
 
-.logoo{
+#logoo{
   height: 100px;
-  width:  200px;     
-  background: url('src\imagenes\voaesalud.png');
+  width:  180px;     
+  background: url('src\imagenes\voae.png');
+  border: 0px;
+animation: giros 8s infinite ease-in-out;
+}
+
+
+@keyframes giros {
+    0% { transform: translateY(0px) rotateY(  0deg) rotateY(  0deg); }
+  100% { transform: translateY(0px) rotateY(360deg) rotateY(360deg); }
 }
 .hijo{  
     height: 100px;
@@ -160,4 +168,8 @@ margin:0;
 
 #formstyle{  
   position: absolute;
+}
+
+
+img {border:0px !important;
 }
