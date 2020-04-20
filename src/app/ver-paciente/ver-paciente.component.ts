@@ -50,6 +50,9 @@ import { HistoriaSubsiguiente } from '../interfaces/historia_subsiguiente';
 import { PacienteService } from '../services/paciente.service';
 import * as moment from 'moment';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { IdentidadUnicoService } from '../validations/identidad-unica.directive';
+import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
+import { CuentaUnicaService } from '../validations/cuenta-unica.directive';
 
 
 export interface Element {
@@ -167,11 +170,16 @@ export class VerPacienteComponent implements OnInit {
     nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,40}$/)
       , Validators.maxLength(40), Validators.minLength(5)]),
 
-    numero_cuenta: new FormControl('', [Validators.pattern(/^[2][0-9]{10}$/)
-      , Validators.maxLength(11), Validators.minLength(11)]),
+    numero_cuenta: new FormControl('', {
+        validators: [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)
+        , Validators.maxLength(11), Validators.minLength(11)],
+        asyncValidators: [this.CuentaUnicaService.validate.bind(this.CuentaUnicaService)]
+      }),
 
-    numero_identidad: new FormControl('', [Validators.required, Validators.pattern(/^\d{4}\d{4}\d{5}$/)
-      , Validators.maxLength(13), Validators.minLength(13)]),
+    numero_identidad: new FormControl('', {
+      validators: [Validators.required, Validators.pattern(/^\d{4}\d{4}\d{5}$/)],
+      // asyncValidators: [this.IdentidadUnicoService.validate.bind(this.IdentidadUnicoService)]
+    }),
 
     lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)
       , Validators.maxLength(30), Validators.minLength(5)]),
@@ -190,7 +198,10 @@ export class VerPacienteComponent implements OnInit {
 
     //datos de lso telefonos
     numero_telefono: new FormControl('', [Validators.pattern(/^\d{8}$/)]),
-    numero_telefono_agregar: new FormControl('', [Validators.pattern(/^\d{8}$/)]),
+    numero_telefono_agregar:  new FormControl('', {
+      validators: [Validators.pattern(/^\d{8}$/)],
+      // asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]
+    }),
     emergencia_telefono: new FormControl('', [Validators.pattern(/^\d{8}$/)]),
     emergencia_persona: new FormControl('', [Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
 
@@ -1010,7 +1021,9 @@ export class VerPacienteComponent implements OnInit {
     private mensaje: MatSnackBar, public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
     activar: AppComponent, private subsiguiente: MatDialog,
-    private pacienteService: PacienteService, public cambiarFoto: MatDialog) {
+    private pacienteService: PacienteService, public cambiarFoto: MatDialog,
+    private IdentidadUnicoService: IdentidadUnicoService,
+    private TelefonoUnicoService:TelefonoUnicoService,private CuentaUnicaService:CuentaUnicaService) {
 
     activar.mostrar();
     this.mostrarcuentaycarreca = true;
