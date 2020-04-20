@@ -247,6 +247,6 @@ body { margin: 0; font-family:Poppins-Regular,sans-serif;
   .mat-grid-tile .mat-figure {
   
     align-items:inherit !important;
-  
+    height: 120px !important;  
 }
    
