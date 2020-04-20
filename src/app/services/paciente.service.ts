@@ -12,6 +12,7 @@ export class PacienteService {
   imagenactual: string;
   API_ENDPOINT = 'http://127.0.0.1:8000/api'
   sihayimagen: boolean = false;
+  pesosPaciente: any;
 
    headers = new HttpHeaders({'Content-Type':'application/json'});
 
@@ -54,5 +55,19 @@ export class PacienteService {
     return this.httpClient.get(this.API_ENDPOINT+'/contarPacientes',{headers:this.headers});
 
   }
+
+  obtenerPesosPaciente(id_paciente){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/pesosPaciente/'+ id_paciente,{headers:this.headers});
+
+  }
+
+  obtenerTodosPesosPaciente(id_paciente){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/todosPesosPaciente/'+ id_paciente,{headers:this.headers});
+
+  }
+
+  
 
 }
