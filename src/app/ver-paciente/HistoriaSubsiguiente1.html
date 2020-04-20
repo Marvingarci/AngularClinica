@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Historia Subsiguiente</h2>
-<mat-dialog-content class="mat-typography">
+
 
   <form [formGroup]="formulario_historia_subsiguiente">
 
@@ -9,7 +9,7 @@
       <div class="row">
 
         <div class="col">
-          <mat-form-field style="width: 177.95px;">
+          <mat-form-field style="width: 100%;" >
             <mat-label><b>Peso(kg)</b></mat-label>
             <input matInput formControlName="peso" placeholder="Ingrese el peso">
             <mat-error *ngIf="peso.hasError('required')">campo requerido</mat-error>
@@ -21,7 +21,7 @@
 
 
         <div class="col">
-          <mat-form-field style="width: 177.95px;">
+          <mat-form-field style="width: 100%;" >
             <mat-label><b>Altura(en metros)</b></mat-label>
             <input matInput class="example-full-width" formControlName="talla" placeholder="Ingrese la altura">
             <mat-error *ngIf="talla.hasError('required')">campo requerido</mat-error>
@@ -33,7 +33,7 @@
 
 
         <div class="col">
-          <mat-form-field style="width: 177.95px;">
+          <mat-form-field style="width: 100%;"  >
             <mat-label><b>Temperatura(en ºC)</b></mat-label>
             <input matInput formControlName="temperatura" placeholder="Ingrese la temperatura">
             <mat-error *ngIf="temperatura.hasError('required')">campo requerido</mat-error>
@@ -47,17 +47,14 @@
       </div>
 
 
-      <div class="row">
+     
 
-        <div class="col">
+        <div class="row">
 
-          <mat-card>
-            <b>Presión Arteríal</b>
-
-            <br>
-
-            <mat-form-field>
-              <mat-label><b>Sistólica</b></mat-label>
+         
+          <div class="col">
+            <mat-form-field style="width: 100%;" >
+              <mat-label><b>Presión arteríal sistólica</b></mat-label>
               <input matInput formControlName="presion_sistolica" name="presion_sistolica"
                 placeholder="Ingrese la presión arterial">
               <mat-error *ngIf="presion_sistolica.hasError('required')">campo requerido</mat-error>
@@ -66,9 +63,11 @@
               <mat-error *ngIf="presion_sistolica.hasError('max')">presión no válida</mat-error>
               <mat-error *ngIf="presion_sistolica.hasError('min')">presión no válida</mat-error>
             </mat-form-field>
+          </div>
 
-            <mat-form-field>
-              <mat-label><b>Diastólica</b></mat-label>
+            <div class="col">
+              <mat-form-field style="width: 100%;" >
+              <mat-label><b>Presión arteríal diastólica</b></mat-label>
               <input matInput formControlName="presion_diastolica" name="presion_diastolica"
                 placeholder="Ingrese la presión arterial">
               <mat-error *ngIf="presion_diastolica.hasError('required')">campo requerido</mat-error>
@@ -77,16 +76,10 @@
               <mat-error *ngIf="presion_diastolica.hasError('max')">presión no válida</mat-error>
               <mat-error *ngIf="presion_diastolica.hasError('min')">presión no válida</mat-error>
             </mat-form-field>
-
-          </mat-card>
-
-          
-
         </div>
 
-
-        <div class="col">
-          <mat-form-field style="width: 177.95px;">
+<div class="col">
+  <mat-form-field style="width: 100%;"  >
             <mat-label><b>Pulso</b></mat-label>
             <input matInput formControlName="pulso" name="pulso" placeholder="Ingrese el pulso">
             <mat-error *ngIf="pulso.hasError('required')">campo requerido</mat-error>
@@ -261,4 +254,3 @@
     </div>
 
   </form>
-</mat-dialog-content>
