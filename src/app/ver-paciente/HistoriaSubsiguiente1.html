@@ -170,8 +170,8 @@
       <div class="col">
         <mat-radio-group formControlName="remitir" style="padding-top:18px;" aria-labelledby="example-radio-group-label"
           class="example-radio-group">
-          <mat-radio-button value={{1}} (click)="habilitarInputs([remitira])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;
-          &nbsp;
+          <mat-radio-button value={{1}} (click)="habilitarInputs([remitira])">Si</mat-radio-button> 
+          <br>
           <mat-radio-button value={{0}} (click)="borrarInputs([remitira])">No</mat-radio-button>
         </mat-radio-group>
       </div>
@@ -205,32 +205,34 @@
 
       <div class="row">
 
-        <div class="col">
+        <div class="col-md-4">
         <mat-radio-group formControlName="cita" style="padding-top:18px;" aria-labelledby="example-radio-group-label"
           class="example-radio-group" (change)="radioCita($event.value, [fecha_cita,hora_cita])">
-          <mat-radio-button value={{1}}>Si</mat-radio-button> &nbsp;&nbsp;&nbsp;
-          &nbsp;
+          <mat-radio-button value={{1}}>Si</mat-radio-button>
+       <br>
           <mat-radio-button value={{0}}>No</mat-radio-button>
         </mat-radio-group>
       </div>
 
-      <div class="col">
+      <div class="col-md-4">
         <mat-form-field appearance="outline" style="width: 100%;font-size: small;">
           <mat-label><b>Fecha siguiente cita</b></mat-label>
           <input matInput style="width:100%;font-size: small;" [matDatepicker]="picker1" [min]="minDate" formControlName="fecha_cita"
             placeholder="Fecha siguiente cita" readonly="readonly">
+
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
           <mat-error *ngIf="fecha_cita.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
       </div>
 
-      <div class="col">
+      <div class="col-md-4">
         <mat-form-field  appearance="outline" style="font-size: small;width: 100%;">
-          <mat-label><b>Fecha siguiente cita</b></mat-label>
+          <mat-label><b>Hora siguiente cita</b></mat-label>
           <input matInput style="width:100%;font-size: small;" [ngxTimepicker]="toggleTimepicker" [disableClick]="true" readonly
             formControlName="hora_cita">
-          <ngx-material-timepicker-toggle matSuffix [for]="toggleTimepicker"></ngx-material-timepicker-toggle>
+          <ngx-material-timepicker-toggle matSuffix [for]="toggleTimepicker">
+          </ngx-material-timepicker-toggle>
           <ngx-material-timepicker #toggleTimepicker></ngx-material-timepicker>
         </mat-form-field>
       </div>
