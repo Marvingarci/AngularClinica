@@ -206,14 +206,12 @@
       <div class="row">
 
         <div class="col">
-          <mat-form-field appearance="outline" style="width: 100%;font-size: small;">
         <mat-radio-group formControlName="cita" style="padding-top:18px;" aria-labelledby="example-radio-group-label"
           class="example-radio-group" (change)="radioCita($event.value, [fecha_cita,hora_cita])">
           <mat-radio-button value={{1}}>Si</mat-radio-button> &nbsp;&nbsp;&nbsp;
           &nbsp;
           <mat-radio-button value={{0}}>No</mat-radio-button>
         </mat-radio-group>
-      </mat-form-field>
       </div>
 
       <div class="col">
