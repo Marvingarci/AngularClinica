@@ -96,6 +96,7 @@ import pdfFonts from "../assets/custom-fonts";
 import { AyudaComponent } from './ayuda/ayuda.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { EstadisticasFisicasPacienteComponent } from './estadisticas-fisicas-paciente/estadisticas-fisicas-paciente.component';
+import { CuentaUnicaDirective } from './validations/cuenta-unica.directive';
 
 //import { DialogoVerCitasComponent } from './dialogo-ver-citas/dialogo-ver-citas.component'; // custom fonts
 
@@ -210,6 +211,7 @@ const routes: Route[] = [
     AyudaComponent,
     Loginayuda,
     EstadisticasFisicasPacienteComponent,
+    CuentaUnicaDirective,
   
 
 
