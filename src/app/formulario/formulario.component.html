@@ -46,6 +46,8 @@
 
               <mat-error *ngIf="numero_cuenta.hasError('required')">Campo requerido</mat-error>
               <mat-error *ngIf="numero_cuenta.hasError('pattern')">Ingrese un número de cuenta válido</mat-error>
+              <mat-error *ngIf="numero_cuenta.hasError('cuentaUnica')">La cuenta pertenece a otra persona
+              </mat-error>
 
 
             </mat-form-field>

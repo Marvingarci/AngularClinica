@@ -28,6 +28,7 @@ import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxico
 import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitalaria-quirurgica';
 import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
 import { IdentidadUnicoService } from '../validations/identidad-unica.directive';
+import { CuentaUnicaService } from '../validations/cuenta-unica.directive';
 
 
 import * as moment from 'moment';
@@ -259,7 +260,11 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   formulario_datos_generales = new FormGroup({
     nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,100}$/)]),
-    numero_cuenta: new FormControl('', [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]),
+    
+    numero_cuenta: new FormControl('', {
+      validators: [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)],
+      asyncValidators: [this.CuentaUnicaService.validate.bind(this.CuentaUnicaService)]
+    }),
     // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
     // "/ /" indica el inicio y el final de la expresion regular
     // "{10}" indica le numero de digitos de lo que lo antecede
@@ -1092,7 +1097,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 constructor(private formularioService: FormularioService, private formBuilder: FormBuilder,
   private router: Router, activar: AppComponent, public dialog: MatDialog, public loginService: LoginService,
   private formulario: FormularioService, private TelefonoUnicoService: TelefonoUnicoService,
-  private IdentidadUnicoService: IdentidadUnicoService) {
+  private IdentidadUnicoService: IdentidadUnicoService, private CuentaUnicaService:CuentaUnicaService) {
 
 
   // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
