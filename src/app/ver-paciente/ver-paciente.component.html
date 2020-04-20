@@ -189,6 +189,8 @@
                     <!-- <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint> -->
                     <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido</mat-error>
                     <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta válido</mat-error>
+                    <mat-error *ngIf="numero_cuenta.hasError('cuentaUnica')">La cuenta pertenece a otra persona
+                    </mat-error>
                   </mat-form-field>
                 </div>
 
@@ -215,6 +217,8 @@
                     <!-- <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint> -->
                     <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido</mat-error>
                     <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un número de indentidad válido
+                    </mat-error>
+                    <mat-error *ngIf="numero_identidad.hasError('identidadUnica')">La identidad pertenece a otra persona
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -462,6 +466,8 @@
                           <mat-error *ngIf="numero_telefono_agregar.hasError('required')">campo requerido</mat-error>
                           <mat-error *ngIf="numero_telefono_agregar.hasError('pattern')">
                             introduzca un número de teléfono válido
+                          </mat-error>
+                          <mat-error *ngIf="numero_telefono_agregar.hasError('telefonoUnico')">El numero pertenece a otra persona
                           </mat-error>
                         </mat-form-field>
 
