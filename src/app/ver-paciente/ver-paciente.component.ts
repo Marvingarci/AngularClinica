@@ -3684,7 +3684,7 @@ export class VerPacienteComponent implements OnInit {
 
 
   anadirCita() {
-    const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, { disableClose: true });
+    const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, { disableClose: true,height:'90%' });
     this.pacienteService.id_historia_subsiguiente = this.id;
   }
   public mostrarHistoriasSub() {
