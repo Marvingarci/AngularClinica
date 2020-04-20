@@ -3,13 +3,10 @@
 
   <form [formGroup]="formulario_historia_subsiguiente">
 
-
-    <div class="container3">
-
-      <div class="row">
+      <div class="row" >
 
         <div class="col">
-          <mat-form-field style="width: 100%;" >
+          <mat-form-field style="width: 100%; font-size: small;" appearance="outline">
             <mat-label><b>Peso(kg)</b></mat-label>
             <input matInput formControlName="peso" placeholder="Ingrese el peso">
             <mat-error *ngIf="peso.hasError('required')">campo requerido</mat-error>
@@ -21,7 +18,7 @@
 
 
         <div class="col">
-          <mat-form-field style="width: 100%;" >
+          <mat-form-field style="width: 100%;  font-size: small;" appearance="outline">
             <mat-label><b>Altura(en metros)</b></mat-label>
             <input matInput class="example-full-width" formControlName="talla" placeholder="Ingrese la altura">
             <mat-error *ngIf="talla.hasError('required')">campo requerido</mat-error>
@@ -33,7 +30,7 @@
 
 
         <div class="col">
-          <mat-form-field style="width: 100%;"  >
+          <mat-form-field style="width: 100%;  font-size: small;"  appearance="outline">
             <mat-label><b>Temperatura(en ºC)</b></mat-label>
             <input matInput formControlName="temperatura" placeholder="Ingrese la temperatura">
             <mat-error *ngIf="temperatura.hasError('required')">campo requerido</mat-error>
@@ -42,18 +39,13 @@
             <mat-error *ngIf="temperatura.hasError('min')">temperatura no válida</mat-error>
           </mat-form-field>
         </div>
-
-
       </div>
-
 
      
 
         <div class="row">
-
-         
           <div class="col">
-            <mat-form-field style="width: 100%;" >
+            <mat-form-field style="width: 100%;font-size: small;" appearance="outline"  >
               <mat-label><b>Presión arteríal sistólica</b></mat-label>
               <input matInput formControlName="presion_sistolica" name="presion_sistolica"
                 placeholder="Ingrese la presión arterial">
@@ -65,31 +57,29 @@
             </mat-form-field>
           </div>
 
-            <div class="col">
-              <mat-form-field style="width: 100%;" >
-              <mat-label><b>Presión arteríal diastólica</b></mat-label>
-              <input matInput formControlName="presion_diastolica" name="presion_diastolica"
-                placeholder="Ingrese la presión arterial">
-              <mat-error *ngIf="presion_diastolica.hasError('required')">campo requerido</mat-error>
-              <mat-error *ngIf="presion_diastolica.hasError('pattern')">solo números con dos cifras decimales
-              </mat-error>
-              <mat-error *ngIf="presion_diastolica.hasError('max')">presión no válida</mat-error>
-              <mat-error *ngIf="presion_diastolica.hasError('min')">presión no válida</mat-error>
-            </mat-form-field>
-        </div>
+              <div class="col">
+          <mat-form-field style="width: 100%;font-size: small;" appearance="outline">
+          <mat-label><b>Presión arteríal diastólica</b></mat-label>
+          <input matInput formControlName="presion_diastolica" name="presion_diastolica"
+            placeholder="Ingrese la presión arterial">
+          <mat-error *ngIf="presion_diastolica.hasError('required')">campo requerido</mat-error>
+          <mat-error *ngIf="presion_diastolica.hasError('pattern')">solo números con dos cifras decimales
+          </mat-error>
+          <mat-error *ngIf="presion_diastolica.hasError('max')">presión no válida</mat-error>
+          <mat-error *ngIf="presion_diastolica.hasError('min')">presión no válida</mat-error>
+        </mat-form-field>
+    </div>
 
 <div class="col">
-  <mat-form-field style="width: 100%;"  >
-            <mat-label><b>Pulso</b></mat-label>
-            <input matInput formControlName="pulso" name="pulso" placeholder="Ingrese el pulso">
-            <mat-error *ngIf="pulso.hasError('required')">campo requerido</mat-error>
-            <mat-error *ngIf="pulso.hasError('pattern')">solo números con dos cifras decimales</mat-error>
-            <mat-error *ngIf="pulso.hasError('max')">pulso no válido</mat-error>
-            <mat-error *ngIf="pulso.hasError('min')">pulso no válido</mat-error>
-          </mat-form-field>
-        </div>
-
-
+<mat-form-field style="width: 100%;font-size: small;" appearance="outline" >
+        <mat-label><b>Pulso</b></mat-label>
+        <input matInput formControlName="pulso" name="pulso" placeholder="Ingrese el pulso">
+        <mat-error *ngIf="pulso.hasError('required')">campo requerido</mat-error>
+        <mat-error *ngIf="pulso.hasError('pattern')">solo números con dos cifras decimales</mat-error>
+        <mat-error *ngIf="pulso.hasError('max')">pulso no válido</mat-error>
+        <mat-error *ngIf="pulso.hasError('min')">pulso no válido</mat-error>
+      </mat-form-field>
+    </div>
       </div>
 
 
@@ -99,9 +89,8 @@
 
 
       <div class="row">
-
-        <div class="col">
-          <mat-form-field style=" width: 100%;">
+      <div class="col">
+          <mat-form-field style=" width: 100%;font-size: small;" appearance="outline">
             <mat-label><b>Observación del examen físico</b></mat-label>
             <textarea matInput formControlName="observaciones_examen" name="observaciones_examen"
               placeholder="Ingrese la Observación del examen físico" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
@@ -114,7 +103,7 @@
 
 
         <div class="col">
-          <mat-form-field style=" width: 100%;">
+          <mat-form-field style=" width: 100%;font-size: small;" appearance="outline">
             <mat-label><b>Impresión diagnóstica</b></mat-label>
             <textarea matInput formControlName="impresion_diagnostica" name="impresion_diagnostica" id=""
               placeholder="Ingrese la impresión diagnóstica" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
@@ -134,7 +123,7 @@
       <div class="row">
 
         <div class="col">
-          <mat-form-field style=" width: 100%;">
+          <mat-form-field style=" width: 100%;font-size: small;" appearance="outline">
             <mat-label><b>Medicamento</b></mat-label>
             <mat-select formControlName="medicamento" [(value)]="seleccion"
               (selectionChange)="selectMedicamento($event.value, [unidad])">
@@ -146,7 +135,7 @@
         </div>
 
         <div class="col">
-          <mat-form-field style=" width: 100%;">
+          <mat-form-field style=" width: 100%;font-size: small;" appearance="outline">
             <mat-label><b>{{texto}}</b></mat-label>
             <input matInput formControlName="unidad" >
             <mat-error *ngIf="unidad.hasError('required')"><strong>campo requerido</strong> </mat-error>
@@ -156,7 +145,7 @@
         </div>
 
         <div class="col">
-          <mat-form-field style=" width: 100%;">
+          <mat-form-field style=" width: 100%;font-size: small;" appearance="outline">
             <mat-label><b>Indicaciones y procedimientos</b></mat-label>
             <textarea matInput formControlName="indicaciones" name="indicaciones"
               placeholder="Ingrese las indicaciones y procedimientos" cdkTextareaAutosize
@@ -176,18 +165,20 @@
 
 
       <label style="margin-bottom: 0px;margin-top: 8px;"><b>Remitirlo</b></label>
-      <div class="row" style="margin-left: 0;">
+      <div class="row">
 
+      <div class="col">
         <mat-radio-group formControlName="remitir" style="padding-top:18px;" aria-labelledby="example-radio-group-label"
           class="example-radio-group">
           <mat-radio-button value={{1}} (click)="habilitarInputs([remitira])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;
           &nbsp;
           <mat-radio-button value={{0}} (click)="borrarInputs([remitira])">No</mat-radio-button>
         </mat-radio-group>
+      </div>
 
-        &nbsp; &nbsp; &nbsp; &nbsp;
-
-        <mat-form-field>
+       
+      <div class="col">
+        <mat-form-field appearance="outline" style=" width: 100%;font-size: small;">
           <mat-label><b>Sección</b></mat-label>
           <mat-select formControlName="remitira">
             <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco.value">
@@ -196,6 +187,11 @@
           </mat-select>
           <mat-error *ngIf="remitira.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
+        </div>
+
+        <div class="col">
+          
+        </div>
 
       </div>
 
@@ -207,44 +203,45 @@
       <label style="margin-bottom: 0px;margin-top: 8px;"><b>Añadir Cita</b></label>
       <mat-error style="margin-left: 0;" *ngIf="cita.hasError('required')">campo requerido</mat-error>
 
-      <div class="row" style="margin-left: 0;">
+      <div class="row">
 
+        <div class="col">
+          <mat-form-field appearance="outline" style="width: 100%;font-size: small;">
         <mat-radio-group formControlName="cita" style="padding-top:18px;" aria-labelledby="example-radio-group-label"
           class="example-radio-group" (change)="radioCita($event.value, [fecha_cita,hora_cita])">
           <mat-radio-button value={{1}}>Si</mat-radio-button> &nbsp;&nbsp;&nbsp;
           &nbsp;
           <mat-radio-button value={{0}}>No</mat-radio-button>
         </mat-radio-group>
+      </mat-form-field>
+      </div>
 
-        &nbsp; &nbsp; &nbsp; &nbsp;
-
-        <mat-form-field class="example-full-width">
+      <div class="col">
+        <mat-form-field appearance="outline" style="width: 100%;font-size: small;">
           <mat-label><b>Fecha siguiente cita</b></mat-label>
-          <input matInput style="width:100%" [matDatepicker]="picker1" [min]="minDate" formControlName="fecha_cita"
+          <input matInput style="width:100%;font-size: small;" [matDatepicker]="picker1" [min]="minDate" formControlName="fecha_cita"
             placeholder="Fecha siguiente cita" readonly="readonly">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
           <mat-error *ngIf="fecha_cita.hasError('required')">campo requerido</mat-error>
         </mat-form-field>
+      </div>
 
-        &nbsp; &nbsp; &nbsp; &nbsp;
-
-
-        <mat-form-field class="example-full-width">
+      <div class="col">
+        <mat-form-field  appearance="outline" style="font-size: small;width: 100%;">
           <mat-label><b>Fecha siguiente cita</b></mat-label>
-          <input matInput style="width:100%" [ngxTimepicker]="toggleTimepicker" [disableClick]="true" readonly
+          <input matInput style="width:100%;font-size: small;" [ngxTimepicker]="toggleTimepicker" [disableClick]="true" readonly
             formControlName="hora_cita">
           <ngx-material-timepicker-toggle matSuffix [for]="toggleTimepicker"></ngx-material-timepicker-toggle>
           <ngx-material-timepicker #toggleTimepicker></ngx-material-timepicker>
         </mat-form-field>
-
+      </div>
 
 
       </div>
 
 
 
-    </div>
 
 
     <div align="end">
