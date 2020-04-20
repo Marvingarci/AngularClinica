@@ -4,6 +4,7 @@
     height: 100%;
 }
 p {
+  text-align: center;
   color: white;
   font-family: fantasy;
   font: 160% sans-serif;
