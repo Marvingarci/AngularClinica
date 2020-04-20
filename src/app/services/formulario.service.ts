@@ -235,6 +235,9 @@ export class FormularioService {
   obtenerColumnaIdentidad(numero_identidad) {
     return this.httpClient.get(this.API_ENDPOINT + 'obtenerColumnaIdentidad/' + numero_identidad);
   }
+  obtenerColumnaNumeroCuenta(numero_cuenta) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerColumnaNumeroCuenta/' + numero_cuenta);
+  }
 
   obtenerAntecedentesFamiliares() {
     return this.httpClient.get(this.API_ENDPOINT + 'antecedentes_familiares');
