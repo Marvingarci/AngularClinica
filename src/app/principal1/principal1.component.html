@@ -1,142 +1,119 @@
 
-
-<div class="fondo">
-
- 
-  
-
  
 
-    <mat-grid-list class="animado" id="imagen" cols="4" rowHeight="2:1" style="margin-top: 10px;margin-bottom: 10px;">
-
-      <mat-grid-tile style="margin-top: 20px;align-items: flex-end;padding-left: 10px;padding-right: 10px;"> 
-            <div  style="  margin-bottom: 2px;position:absolute;height: 156px;">
-                <div class="scene">
-    <div class="cube">
-      <div class="cube__face cube__face--front"></div>
-      <div class="cube__face cube__face--back"></div>
-      <div class="cube__face cube__face--right"></div>
-      <div class="cube__face cube__face--left"></div>
-      <div class="cube__face cube__face--top"></div>
-      <div class="cube__face cube__face--bottom"></div>
-    </div>
-  </div>
-</div>
-        </mat-grid-tile>
-
-        <mat-grid-tile style="margin-top: 20px;align-items: flex-end;">           
-          <mat-card class="example-card" style="  position: static;height: 80px;    margin-bottom: 2px;">
-                  <div mat-card-avatar style="position: absolute;bottom:30px;width: 80px;height: 80px;" class="example-header-image"></div>
-                <mat-card-header style="flex-direction: column; margin-top: 30px;">
-                  <mat-card-title><div class="col" style="text-align: center;">Atendidos: {{totalHistorias}}</div>  </mat-card-title>
-                </mat-card-header>                
-          </mat-card>
-        </mat-grid-tile>
-
-        <mat-grid-tile style="margin-top: 20px;align-items: flex-end;">           
-          <mat-card class="example-card" style="  position: static;height: 80px;    margin-bottom: 2px;">
-                <mat-card-header style="flex-direction: column; margin-top: 30px;">
-                  <div mat-card-avatar style="position: absolute;bottom: 30px;width: 80px;height: 80px;" class="example-header-image2"></div>
-                  <mat-card-title><div class="col" style="text-align: center;">Registrados: {{totalPacientes}}</div>  </mat-card-title>
-                </mat-card-header>                
-          </mat-card>
-        </mat-grid-tile>
-
-        <mat-grid-tile style="margin-top: 20px;align-items: flex-end;">           
-          <mat-card class="example-card" style="  position: static;height: 80px;    margin-bottom: 2px;">
-                <mat-card-header style="flex-direction: column; margin-top: 30px;">
-                  <div mat-card-avatar style="position: absolute;bottom: 30px;width: 80px;height: 80px;" class="example-header-image3"></div>
-                  <mat-card-title><div class="col" style="text-align: center;">Remitidos: {{totalRemitidos}}</div>  </mat-card-title>
-                </mat-card-header>                
-          </mat-card>
-        </mat-grid-tile>
-
-      </mat-grid-list>
 
 
-      
-<!--ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd-->
-    <mat-grid-list  cols="4" rowHeight="2:1">
-
-        <!--cuarto mat grid-->
-        <mat-grid-tile rowspan="2.5" colspan="2" >
-            <mat-card  class="example-card">
-                <mat-card-header>
-                    <mat-card-title>Esta semana</mat-card-title>
-                  </mat-card-header>
-
-                <ngx-charts-line-chart  class="grafica" [view]="view" [scheme]="colorScheme" [legend]="legend" [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel"
-            [yAxisLabel]="yAxisLabel" [timeline]="timeline" [results]="multi" (select)="onSelect($event)"
-            (activate)="true" (deactivate)="onDeactivate($event)">
-        </ngx-charts-line-chart>
-                
-              </mat-card>
-        </mat-grid-tile>
-    
-
-        <!--quinto tabla-->
-        <mat-grid-tile rowspan="2.5" colspan="2" >
-            <mat-card class="example-card animado" id="imagen2">
-                <mat-card-header>
-                    <mat-card-title>Citas para hoy</mat-card-title>
-                  </mat-card-header>
+ 
+    <div class="row" style="margin-top: 20px;margin-bottom: 10px;margin-left: 0px;margin-right: 0px;">
+   
+             <div class="col" style="margin-top: 20px;align-items: flex-end;padding-left: 10px;padding-right: 10px;"> 
+             <div  style="  margin-bottom: 2px;position:absolute;height: 156px;">
+             <div class="scene">
+             <div class="cube">
+             <div class="cube__face cube__face--front"></div>
+             <div class="cube__face cube__face--back"></div>
+             <div class="cube__face cube__face--right"></div>
+             <div class="cube__face cube__face--left"></div>
+             <div class="cube__face cube__face--top"></div>
+             <div class="cube__face cube__face--bottom"></div>
+             </div>
+             </div>
+             </div>
+             </div>
+   
+           <div class="col"  style="margin-top: 20px;align-items: flex-end;">           
+             <mat-card class="example-card" style="  position: static;height: 80px;    margin-bottom: 2px;">
+                     <div mat-card-avatar style="position: absolute;bottom:30px;width: 80px;height: 80px;" class="example-header-image"></div>
+                   <mat-card-header style="flex-direction: column; margin-top: 30px;">
+                     <mat-card-title><div class="col" style="text-align: center;">Atendidos: {{totalHistorias}}</div>  </mat-card-title>
+                   </mat-card-header>                
+             </mat-card>
+           </div>
+   
+           <div class="col"  style="margin-top: 20px;align-items: flex-end;">           
+             <mat-card class="example-card" style="  position: static;height: 80px;    margin-bottom: 2px;">
+                   <mat-card-header style="flex-direction: column; margin-top: 30px;">
+                     <div mat-card-avatar style="position: absolute;bottom: 30px;width: 80px;height: 80px;" class="example-header-image2"></div>
+                     <mat-card-title><div class="col" style="text-align: center;">Registrados: {{totalPacientes}}</div>  </mat-card-title>
+                   </mat-card-header>                
+             </mat-card>
+           </div>
+   
+           <div class="col"  style="margin-top: 20px;align-items: flex-end;">           
+             <mat-card class="example-card" style="  position: static;height: 80px;    margin-bottom: 2px;">
+                   <mat-card-header style="flex-direction: column; margin-top: 30px;">
+                     <div mat-card-avatar style="position: absolute;bottom: 30px;width: 80px;height: 80px;" class="example-header-image3"></div>
+                     <mat-card-title><div class="col" style="text-align: center;">Remitidos: {{totalRemitidos}}</div>  </mat-card-title>
+                   </mat-card-header>                
+             </mat-card>
+           </div>
+   
+         </div>
+   
+   
+   
+   
+   
+   
+   
+         
+   <!--ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd-->
+       <div class="row " style="margin-top: 0;margin-bottom: -20px; margin-left: 0;margin-right: 0;">
+   
+             <div class="col">
+                 <mat-card style="width: 100%;height: 97%;" >
+                 <mat-card-header>
+                 <mat-card-title>Visitas de esta semana</mat-card-title>
+                 </mat-card-header>
        
-
-                <!--Tabla -->
-                <div class="mat-elevation-z8 tabla">
-                    <table mat-table class="tabla" [dataSource]="dataSource">
-                  
-                      <!-- Position Column -->
-                      <ng-container matColumnDef="id_cita">
-                        <th mat-header-cell *matHeaderCellDef> No </th>
-                        <td mat-cell *matCellDef="let element"> {{element.id_cita}} </td>
-                      </ng-container>
-                  
-                      <!-- Name Column -->
-                      <ng-container matColumnDef="paciente">
-                        <th mat-header-cell *matHeaderCellDef> Nombre  </th>
-                        <td mat-cell *matCellDef="let element"> {{element.paciente}} </td>
-                      </ng-container>
-                  
-                      <!-- Weight Column -->
-                      <ng-container matColumnDef="fecha">
-                        <th mat-header-cell *matHeaderCellDef> Hora </th>
-                        <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
-                      </ng-container>
-                  
-                      <!-- Symbol Column -->
-                      <ng-container matColumnDef="hora">
-                        <th mat-header-cell *matHeaderCellDef> </th>
-                        <td mat-cell *matCellDef="let element"> {{element.hora}} </td>
-                      </ng-container>
-                  
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </table>
-                  
-                    <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
-                  </div>
-                  
-                <!--Hasta aqui tabla-->
-            </mat-card>
-            
-        </mat-grid-tile>
+                 <ngx-charts-line-chart  class="grafica" [view]="view" [scheme]="colorScheme"  [showXAxisLabel]="showXAxisLabel"
+                 [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel"
+                 [yAxisLabel]="yAxisLabel" [timeline]="timeline" [results]="multi" (select)="onSelect($event)"
+                 (activate)="true" (deactivate)="onDeactivate($event)">
+                 </ngx-charts-line-chart>
        
-      </mat-grid-list>
-
-
-
-    <div class="row" >
-        
-
-       
-
-    </div>
-       
-       
-
-    
-
-</div>
-
+                 </mat-card>
+                 </div>
+                 
+                 
+                 <div class="col">
+               <mat-card  id="imagen2" style="width: 100%;height: 97%;">
+                   <mat-card-header>
+                       <mat-card-title>Citas para hoy</mat-card-title>
+                     </mat-card-header>
+          
+   
+                   <!--Tabla -->
+                   <div class="mat-elevation-z8 tabla">
+                       <table mat-table class="tabla" [dataSource]="dataSource">
+                     
+                        <!-- Name Column -->
+                         <ng-container matColumnDef="paciente">
+                           <th mat-header-cell *matHeaderCellDef> Nombre  </th>
+                           <td mat-cell *matCellDef="let element"> {{element.paciente}} </td>
+                         </ng-container>
+                     
+                         <!-- Weight Column -->
+                         <ng-container matColumnDef="fecha">
+                           <th mat-header-cell *matHeaderCellDef> Hora </th>
+                           <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+                         </ng-container>
+                     
+                         <!-- Symbol Column -->
+                         <ng-container matColumnDef="hora">
+                           <th mat-header-cell *matHeaderCellDef> </th>
+                           <td mat-cell *matCellDef="let element"> {{element.hora}} </td>
+                         </ng-container>
+                     
+                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                       </table>
+                     
+                       <!-- <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator> -->
+                     </div>
+                     
+               </mat-card>
+               </div>
+               
+           </div>
+   
