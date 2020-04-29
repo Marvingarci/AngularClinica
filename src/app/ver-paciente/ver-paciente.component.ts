@@ -146,7 +146,7 @@ export class VerPacienteComponent implements OnInit {
   static mostrarHistoriasSub() {
     throw new Error("Method not implemented.");
   }
-  
+
   @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
   dataSource1: any;
   columnsToDisplay = ['fecha', 'observaciones', 'impresion', 'indicaciones'];
@@ -198,7 +198,8 @@ export class VerPacienteComponent implements OnInit {
     peso: new FormControl('', [Validators.max(500), Validators.min(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
     talla: new FormControl('', [Validators.max(2.5), Validators.min(0.2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
     temperatura: new FormControl('', [Validators.max(60), Validators.min(20), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
-    presion: new FormControl('', [Validators.max(200), Validators.min(50), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    presion_sistolica: new FormControl('', [Validators.max(200), Validators.min(50), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    presion_diastolica: new FormControl('', [Validators.max(200), Validators.min(50), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
     pulso: new FormControl('', [Validators.max(140), Validators.min(40), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
     prosene: new FormControl('', []),
   });
@@ -331,7 +332,7 @@ export class VerPacienteComponent implements OnInit {
     console.log(document.getElementById('InputDesnutricion'));
     this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedadesDesnutricion, this.tipo_desnutricion);
 
-    
+
   }
 
   mostrarCamposEnfermedadesMentalesAF() {
@@ -812,13 +813,6 @@ export class VerPacienteComponent implements OnInit {
   tablaCanceresAF: Element[] = [];
 
 
-
-
-
-
-
-
-
   dataSourceTablaTelefonosEmergenciaActualizar: any;
 
   //creo un arreglo en el cual se añaden las columnas que se van a mostrar en la tabla en el html
@@ -1218,7 +1212,8 @@ export class VerPacienteComponent implements OnInit {
       if (this.paciente.peso == null) {
         this.paciente.temperatura = "0";
         this.paciente.pulso = "0";
-        this.paciente.presion = "0";
+        this.paciente.presion_sistolica = "0";
+        this.paciente.presion_diastolica = "0";
         this.paciente.imc = "0";
         this.paciente.talla = "0";
         this.paciente.peso = "0";
@@ -1721,7 +1716,8 @@ export class VerPacienteComponent implements OnInit {
       this.paciente.seguro_medico = this.seguro_medico.value;
       this.paciente.categoria = this.categoria.value;
       this.paciente.peso = this.peso.value;
-      this.paciente.presion = this.presion.value;
+      this.paciente.presion_sistolica = this.presion_sistolica.value;
+      this.paciente.presion_diastolica = this.presion_diastolica.value;
       this.paciente.talla = this.talla.value;
       this.paciente.temperatura = this.temperatura.value;
       this.paciente.pulso = this.pulso.value;
@@ -3341,6 +3337,7 @@ export class VerPacienteComponent implements OnInit {
 
 
   cargarInformacionDatosGenerales() {
+
     //establesco el valor a los formControl de formulario_datos_generales
     //para que aparescan cargados en los inputs 
     this.nombre_completo.setValue(this.paciente.nombre_completo);
@@ -3352,9 +3349,6 @@ export class VerPacienteComponent implements OnInit {
     this.direccion.setValue(this.paciente.direccion);
     this.fecha_nacimiento.setValue(this.paciente.fecha_nacimiento);
 
-    // this.estado_civil.setValue(this.paciente.estado_civil);
-    // this.categoria.setValue(this.paciente.categoria);
-    // this.seguro_medico.setValue(this.paciente.seguro_medico);
 
     switch (this.paciente.estado_civil) {
       case "Soltero":
@@ -3401,7 +3395,8 @@ export class VerPacienteComponent implements OnInit {
     this.numero_telefono.setValue(this.paciente.telefono);
     this.temperatura.setValue(this.paciente.temperatura);
     this.pulso.setValue(this.paciente.pulso);
-    this.presion.setValue(this.paciente.presion);
+    this.presion_sistolica.setValue(this.paciente.presion_sistolica);
+    this.presion_diastolica.setValue(this.paciente.presion_diastolica);
     this.talla.setValue(this.paciente.talla);
     this.peso.setValue(this.paciente.peso);
     this.prosene.setValue(this.paciente.prosene);
@@ -3795,7 +3790,8 @@ export class VerPacienteComponent implements OnInit {
   get peso() { return this.formulario_datos_generales.get('peso') };
   get talla() { return this.formulario_datos_generales.get('talla') };
   get temperatura() { return this.formulario_datos_generales.get('temperatura') };
-  get presion() { return this.formulario_datos_generales.get('presion') };
+  get presion_sistolica() { return this.formulario_datos_generales.get('presion_sistolica') };
+  get presion_diastolica() { return this.formulario_datos_generales.get('presion_diastolica') };
   get pulso() { return this.formulario_datos_generales.get('pulso') };
   get prosene() { return this.formulario_datos_generales.get('prosene') };
 }
@@ -3841,7 +3837,8 @@ export class HistoriaSubsiguiente1 {
     peso: new FormControl('', [Validators.required, Validators.max(500), Validators.min(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
     talla: new FormControl('', [Validators.required, Validators.max(2.5), Validators.min(0.20), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
     temperatura: new FormControl('', [Validators.required, Validators.max(60), Validators.min(20), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
-    presion: new FormControl('', [Validators.required, Validators.max(200), Validators.min(50), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    presion_sistolica: new FormControl('', [Validators.required, Validators.max(200), Validators.min(50), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    presion_diastolica: new FormControl('', [Validators.required, Validators.max(200), Validators.min(50), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
     pulso: new FormControl('', [Validators.required, Validators.max(140), Validators.min(40), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
 
     observaciones_examen: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(5)]),
@@ -3881,7 +3878,8 @@ export class HistoriaSubsiguiente1 {
     id_paciente: null,
     peso: null,
     imc: null,
-    presion: null,
+    presion_sistolica: null,
+    presion_diastolica: null,
     pulso: null,
     talla: null,
     temperatura: null,
@@ -4064,14 +4062,15 @@ export class HistoriaSubsiguiente1 {
 
 
 
-  guardarCita() {
+  guardarHistoriaSubSiguiente() {
 
     if (this.formulario_historia_subsiguiente.valid) {
 
       this.historia_subsiguiente.id_paciente = this.pacienteService.id_historia_subsiguiente;
       this.historia_subsiguiente.peso = this.peso.value;
       this.historia_subsiguiente.imc = 1;
-      this.historia_subsiguiente.presion = this.presion.value;
+      this.historia_subsiguiente.presion_sistolica = this.presion_sistolica.value;
+      this.historia_subsiguiente.presion_diastolica = this.presion_diastolica.value;
       this.historia_subsiguiente.pulso = this.pulso.value;
       this.historia_subsiguiente.talla = this.talla.value;
       this.historia_subsiguiente.temperatura = this.temperatura.value;
@@ -4113,7 +4112,7 @@ export class HistoriaSubsiguiente1 {
       this.pacienteService.guardarHistoriaSubsiguiente(this.historia_subsiguiente).subscribe((data) => {
         console.log(data);
         this.dialogRef.close();
-        this.showError('Cita guardada con exito');
+        this.showError('Historia Subsiguiente guardada con exito');
       }, (error) => {
         console.log(error);
         this.showError('ocurrion un error');
@@ -4121,15 +4120,15 @@ export class HistoriaSubsiguiente1 {
 
 
       if (this.seleccionado == true) {
+
         this.medicamento.id = this.nombre.value;
         this.medicamento.cantidad = this.unidad.value;
-        console.log(this.medicamento);
+
         this.inventarioService.EgresoMedicamentos(this.medicamento).subscribe((data) => {
-          console.log(data);
-          this.showError('medicamento guardado con exito');
+
         }, (error) => {
+
           console.log(error);
-          //alert('ocurrion un error en medicamento');
           this.showError('ocurrion un error en medicamento');
 
         });
@@ -4158,7 +4157,9 @@ export class HistoriaSubsiguiente1 {
   get fecha_cita() { return this.formulario_historia_subsiguiente.get('fecha_cita') };
   get hora_cita() { return this.formulario_historia_subsiguiente.get('hora_cita') };
   get indicaciones() { return this.formulario_historia_subsiguiente.get('indicaciones') };
-  get presion() { return this.formulario_historia_subsiguiente.get('presion') };
+  // get presion() { return this.formulario_historia_subsiguiente.get('presion') };
+  get presion_sistolica() { return this.formulario_historia_subsiguiente.get('presion_sistolica') };
+  get presion_diastolica() { return this.formulario_historia_subsiguiente.get('presion_diastolica') };
   get nombre() { return this.formulario_historia_subsiguiente.get('nombre') };
   get unidad() { return this.formulario_historia_subsiguiente.get('unidad') };
   get cita() { return this.formulario_historia_subsiguiente.get('cita') };
