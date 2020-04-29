@@ -12,7 +12,13 @@ export class PacienteService {
   imagenactual: string;
   API_ENDPOINT = 'http://127.0.0.1:8000/api'
   sihayimagen: boolean = false;
+
+  //graficas
   pesosPaciente: any;
+  pulsosPaciente:any;
+  alturasPaciente: any;
+  temperaturasPaciente: any;
+  presionesPaciente: any;
 
    headers = new HttpHeaders({'Content-Type':'application/json'});
 
@@ -67,6 +73,56 @@ export class PacienteService {
     return this.httpClient.get(this.API_ENDPOINT+'/todosPesosPaciente/'+ id_paciente,{headers:this.headers});
 
   }
+
+  obtenerPulsosPaciente(id_paciente){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/pulsosPaciente/'+ id_paciente,{headers:this.headers});
+
+  }
+
+  obtenerTodosPulsosPaciente(id_paciente){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/todosPulsosPaciente/'+ id_paciente,{headers:this.headers});
+
+  }
+
+  obtenerAlturasPaciente(id_paciente){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/alturasPaciente/'+ id_paciente,{headers:this.headers});
+
+  }
+
+  obtenerTodasAlturasPaciente(id_paciente){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/todasAlturasPaciente/'+ id_paciente,{headers:this.headers});
+
+  }
+
+  obtenerTemperaturasPaciente(id_paciente){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/temperaturasPaciente/'+ id_paciente,{headers:this.headers});
+
+  }
+
+  obtenerTodasTemperaturasPaciente(id_paciente){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/todasTemperaturasPaciente/'+ id_paciente,{headers:this.headers});
+
+  }
+
+  obtenerPresionesPaciente(id_paciente){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/presionesPaciente/'+ id_paciente,{headers:this.headers});
+
+  }
+
+  obtenerTodasPresionesPaciente(id_paciente){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/todasPresionesPaciente/'+ id_paciente,{headers:this.headers});
+
+  }
+
+  
 
   
 
