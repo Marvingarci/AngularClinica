@@ -108,19 +108,19 @@ animation: giros 8s infinite ease-in-out;
   }
   
   .example-header-image {
-    background-image: url('./paciente.png');
+    background-image: url('./pacientes_atendidos.png');
     height: 100px;
     width: 100px;
     background-size: cover;
   }
   .example-header-image2 {
-    background-image: url('./resgitro.png');
+    background-image: url('./registrados.png');
     height: 100px;
     width: 100px;
     background-size: cover;
   }
   .example-header-image3 {
-    background-image: url('./remitifo.jpg');
+    background-image: url('./remitidos.png');
     height: 100px;
     width: 100px;
     background-size: cover;
