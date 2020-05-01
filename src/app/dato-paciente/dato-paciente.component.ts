@@ -8,11 +8,11 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 import { LoginService } from "../services/login.service";
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
-//import { DialogContentExampleDialog1 } from '../principal/principal.component';
 import { Login } from '../interfaces/login';
 import { HistoriaSubsiguiente } from '../interfaces/historia_subsiguiente';
 import { MatTableDataSource } from '@angular/material/table';
 import { PacienteService } from '../services/paciente.service';
+import { Cita } from '../interfaces/cita';
 
 export interface select {
   value: string;
@@ -42,21 +42,6 @@ export interface cita1 {
   styleUrls: ['./dato-paciente.component.css']
 })
 export class DatoPacienteComponent implements OnInit {
-
-  columnaTablaDatoPaciente: string[] = ['siguiente_cita'];
-  columnaTablaDatoPaciente1: string[] = ['nombre'];
-  columnaTablaDatoPaciente2: string[] = ['indicaciones'];
-  columnaTablaDatoPaciente3: string[] = ['observaciones'];
-
-  dataSourceTablaDatoPaciente: any;
-  dataSourceTablaDatoPaciente1: any;
-  dataSourceTablaDatoPaciente2: any;
-  dataSourceTablaDatoPaciente3: any;
-
-
-  tienemedicamento: boolean = true;
-
-
 
   formulario_datos_generales = new FormGroup({
 
@@ -116,8 +101,15 @@ export class DatoPacienteComponent implements OnInit {
   id: any;
   noImg: boolean = true;
   pacientes: Paciente[];
-  historias_subsiguientes: HistoriaSubsiguiente[];
+  citas: Cita[];
+  historia_subsiguiente: any;
   medicamento: any;
+
+
+  siHayCitas: boolean = false;
+  siHayMedicamentos: boolean = false;
+  siHayIndicaciones: boolean = false;
+  siHayObservaciones: boolean = false;
 
 
   //variable que identifica si un input es editable
@@ -135,8 +127,12 @@ export class DatoPacienteComponent implements OnInit {
     this.dialog.closeAll;
     this.id = this.activatedRoute.snapshot.params['id'];
 
+    // this.obtenerCitas();
+
 
     if (this.id) {
+
+      this.obtenerDatosPaciente();
 
       this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) => {
         this.paciente = data;
@@ -153,7 +149,6 @@ export class DatoPacienteComponent implements OnInit {
         this.formularioService.idActualizar = this.paciente.id_paciente;
 
 
-
         // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
         //si el paciente tiene imagen entonces esta variable cambiara a false
         if (this.paciente.imagen != null) {
@@ -168,46 +163,67 @@ export class DatoPacienteComponent implements OnInit {
 
     principal.esconder();
 
-    this.pacienteService.obtenerHistoriaSubsiguiente(this.id).subscribe((data: HistoriaSubsiguiente[]) => {
-      this.historias_subsiguientes = data;
-      this.medicamento = data;
-      console.log(this.historias_subsiguientes);
+  
 
-      if (!this.medicamento.nombre) {
-        this.tienemedicamento = false;
-      }
+  }
+ 
 
-      this.dataSourceTablaDatoPaciente = new MatTableDataSource(this.historias_subsiguientes);
-      if (!this.historias_subsiguientes.length) {
-        this.dataSourceTablaDatoPaciente = null;
-      }
+  obtenerCitas(){
+    
+    this.pacienteService.obtenerCitasPorPaciente(this.id).subscribe((data:any)=>{
 
-      this.dataSourceTablaDatoPaciente1 = new MatTableDataSource(this.historias_subsiguientes);
-      if (!this.historias_subsiguientes.length) {
-        this.dataSourceTablaDatoPaciente1 = null;
-      }
+      this.citas = data;
 
+      if(this.citas != null){
 
-      this.dataSourceTablaDatoPaciente2 = new MatTableDataSource(this.historias_subsiguientes);
-      if (!this.historias_subsiguientes.length) {
-        this.dataSourceTablaDatoPaciente2 = null;
+        this.siHayCitas = true;
 
       }
 
-      this.dataSourceTablaDatoPaciente3 = new MatTableDataSource(this.historias_subsiguientes);
-      if (!this.historias_subsiguientes.length) {
-        this.dataSourceTablaDatoPaciente3 = null;
+      console.log(this.citas);
+
+
+    });
+  }
+
+  obtenerDatosHistoriaSubsiguiente(){
+
+    this.pacienteService.obtenerHistoriaSubsiguiente(this.id).subscribe((data: any) => {
+
+      this.historia_subsiguiente = data;
+
+      if(this.historia_subsiguiente.medicamento != null){
+
+          this.siHayMedicamentos = true;
+
       }
+      if(this.historia_subsiguiente.indicaciones != null){
+
+        this.siHayIndicaciones = true;
+
+      }
+
+      if(this.historia_subsiguiente.observaciones != null){
+
+        this.siHayObservaciones = true;
+
+      }
+      
 
     }, (error) => {
 
       console.log(error);
+
     });
 
+  }
 
+  obtenerDatosPaciente(){
 
+    this.obtenerCitas();
+    this.obtenerDatosHistoriaSubsiguiente();
 
-
+    
   }
 
 
@@ -230,8 +246,7 @@ export class DatoPacienteComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 
 

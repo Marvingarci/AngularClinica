@@ -15,5 +15,5 @@ impresion?:string,
 indicaciones?:string,
 remitido?:any,
 fecha?:any,
-nombre?:string
+medicamento?:string
 }

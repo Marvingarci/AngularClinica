@@ -143,10 +143,10 @@
         <div class="col">
           <mat-form-field style=" width: 100%;">
             <mat-label><b>Medicamento</b></mat-label>
-            <mat-select formControlName="nombre" [(value)]="seleccion"
+            <mat-select formControlName="medicamento" [(value)]="seleccion"
               (selectionChange)="selectMedicamento($event.value, [unidad])">
-              <mat-option *ngFor="let nombre of nombres" [value]="nombre.value">
-                {{nombre.viewValue}}
+              <mat-option *ngFor="let medicamento of medicamentos" [value]="medicamento">
+                {{medicamento}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -155,7 +155,7 @@
         <div class="col">
           <mat-form-field style=" width: 100%;">
             <mat-label><b>{{texto}}</b></mat-label>
-            <input matInput formControlName="unidad">
+            <input matInput formControlName="unidad" >
             <mat-error *ngIf="unidad.hasError('required')"><strong>campo requerido</strong> </mat-error>
             <mat-error *ngIf="unidad.hasError('pattern')">tienen que ser numeros positivos</mat-error>
             <mat-error *ngIf="unidad.hasError('max')"> No hay tantas en existencia </mat-error>
@@ -165,7 +165,7 @@
         <div class="col">
           <mat-form-field style=" width: 100%;">
             <mat-label><b>Indicaciones y procedimientos</b></mat-label>
-            <textarea matInput formControlName="indicaciones" name="indicaciones" id=""
+            <textarea matInput formControlName="indicaciones" name="indicaciones"
               placeholder="Ingrese las indicaciones y procedimientos" cdkTextareaAutosize
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3"
               style="overflow: hidden;"></textarea>
@@ -186,7 +186,7 @@
       <div class="row" style="margin-left: 0;">
 
         <mat-radio-group formControlName="remitir" style="padding-top:18px;" aria-labelledby="example-radio-group-label"
-          class="example-radio-group" (selectionChange)="onControlChange($event)">
+          class="example-radio-group">
           <mat-radio-button value={{1}} (click)="habilitarInputs([remitira])">Si</mat-radio-button> &nbsp;&nbsp;&nbsp;
           &nbsp;
           <mat-radio-button value={{0}} (click)="borrarInputs([remitira])">No</mat-radio-button>
@@ -217,7 +217,7 @@
       <div class="row" style="margin-left: 0;">
 
         <mat-radio-group formControlName="cita" style="padding-top:18px;" aria-labelledby="example-radio-group-label"
-          class="example-radio-group" (change)="radioCita($event.value, [fecha_cita])">
+          class="example-radio-group" (change)="radioCita($event.value, [fecha_cita,hora_cita])">
           <mat-radio-button value={{1}}>Si</mat-radio-button> &nbsp;&nbsp;&nbsp;
           &nbsp;
           <mat-radio-button value={{0}}>No</mat-radio-button>
