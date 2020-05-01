@@ -44,4 +44,19 @@ export class MedicosService {
   obtenerColumnaUsuarioMedicos(usuario) {
     return this.httpClient.get(this.API_ENDPOINT + '/obtenerColumnaUsuarioMedicos/' + usuario);
   }
+  cantidadPacientesTotal() {
+    return this.httpClient.get(this.API_ENDPOINT + '/cantidadPacientesTotal');
+  }
+  cantidadHistoriasTotal() {
+    return this.httpClient.get(this.API_ENDPOINT + '/cantidadHistoriasTotal');
+  }
+  citasHoy() {
+    return this.httpClient.get(this.API_ENDPOINT + '/citasHoy');
+  }
+  totalRemitidos() {
+    return this.httpClient.get(this.API_ENDPOINT + '/totalRemitidos');
+  }
+  getpacientesPorDia() {
+    return this.httpClient.get(this.API_ENDPOINT + '/pacientesPorDia');
+  }
 }

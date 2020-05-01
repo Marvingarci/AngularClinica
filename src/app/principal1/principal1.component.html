@@ -28,7 +28,7 @@
           <mat-card class="example-card" style="  position: static;height: 80px;    margin-bottom: 2px;">
                   <div mat-card-avatar style="position: absolute;bottom:30px;width: 80px;height: 80px;" class="example-header-image"></div>
                 <mat-card-header style="flex-direction: column; margin-top: 30px;">
-                  <mat-card-title><div class="col" style="text-align: center;">Atendidos: 20</div>  </mat-card-title>
+                  <mat-card-title><div class="col" style="text-align: center;">Atendidos: {{totalHistorias}}</div>  </mat-card-title>
                 </mat-card-header>                
           </mat-card>
         </mat-grid-tile>
@@ -37,7 +37,7 @@
           <mat-card class="example-card" style="  position: static;height: 80px;    margin-bottom: 2px;">
                 <mat-card-header style="flex-direction: column; margin-top: 30px;">
                   <div mat-card-avatar style="position: absolute;bottom: 30px;width: 80px;height: 80px;" class="example-header-image2"></div>
-                  <mat-card-title><div class="col" style="text-align: center;">Registrados: 22</div>  </mat-card-title>
+                  <mat-card-title><div class="col" style="text-align: center;">Registrados: {{totalPacientes}}</div>  </mat-card-title>
                 </mat-card-header>                
           </mat-card>
         </mat-grid-tile>
@@ -46,7 +46,7 @@
           <mat-card class="example-card" style="  position: static;height: 80px;    margin-bottom: 2px;">
                 <mat-card-header style="flex-direction: column; margin-top: 30px;">
                   <div mat-card-avatar style="position: absolute;bottom: 30px;width: 80px;height: 80px;" class="example-header-image3"></div>
-                  <mat-card-title><div class="col" style="text-align: center;">Remitidos: 23</div>  </mat-card-title>
+                  <mat-card-title><div class="col" style="text-align: center;">Remitidos: {{totalRemitidos}}</div>  </mat-card-title>
                 </mat-card-header>                
           </mat-card>
         </mat-grid-tile>
@@ -88,27 +88,27 @@
                     <table mat-table class="tabla" [dataSource]="dataSource">
                   
                       <!-- Position Column -->
-                      <ng-container matColumnDef="position">
+                      <ng-container matColumnDef="id_cita">
                         <th mat-header-cell *matHeaderCellDef> No </th>
-                        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.id_cita}} </td>
                       </ng-container>
                   
                       <!-- Name Column -->
-                      <ng-container matColumnDef="name">
+                      <ng-container matColumnDef="paciente">
                         <th mat-header-cell *matHeaderCellDef> Nombre  </th>
-                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.paciente}} </td>
                       </ng-container>
                   
                       <!-- Weight Column -->
-                      <ng-container matColumnDef="weight">
+                      <ng-container matColumnDef="fecha">
                         <th mat-header-cell *matHeaderCellDef> Hora </th>
-                        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
                       </ng-container>
                   
                       <!-- Symbol Column -->
-                      <ng-container matColumnDef="symbol">
+                      <ng-container matColumnDef="hora">
                         <th mat-header-cell *matHeaderCellDef> </th>
-                        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.hora}} </td>
                       </ng-container>
                   
                       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

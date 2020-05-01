@@ -1,19 +1,69 @@
 import { Component, OnInit, NgModule, ViewChild} from '@angular/core';
 import { timer, from } from 'rxjs';
 import { element } from 'protractor';
-import { multi } from './data';
-import {multi2} from './data';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import { MedicosService } from "../services/medicos.service";
+import { DatePipe } from '@angular/common';
 
+export var multi = [
+  {
+    "name": "Visitas",
+    "series": [
+      {
+        "name": "Lunes",
+        "value": 62
+      },
+      {
+        "name": "Martes",
+        "value": 73
+      },
+      {
+        "name": "Miercoles",
+        "value": 10
+      },
+      {
+          "name": "Jueves",
+          "value": 120
+        },
+        {
+          "name": "Viernes",
+          "value": 46
+        }
+    ]
+  }
+];
 @Component({
   selector: 'app-principal1',
   templateUrl: './principal1.component.html',
-  styleUrls: ['./principal1.component.css']
+  styleUrls: ['./principal1.component.css'],
+  providers: [DatePipe]
 })
 export class Principal1Component implements OnInit {
+
+  /////variables
+  totalPacientes: number = 0;
+  totalRemitidos: number=0;
+  totalCitasHoy: any={
+    id_cita: null,
+    paciente: null,
+    fecha: null,
+    hora: null
+  };
+  totalHistorias:number=0;
+  fechas:any={
+    Lunes: 0,
+    Martes: 0,
+    Miercoles: 0,
+    Jueves: 0,
+    Viernes: 0
+  }
+
+//////
+ 
 
   ////////////Primer Grafico puto
   multi: any[];
@@ -35,7 +85,8 @@ export class Principal1Component implements OnInit {
     domain: ['#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
 
-////Aqte aqio
+////traer datos
+
 
 ////////////segungo Grafico puto
 multi2: any[];
@@ -52,17 +103,105 @@ showXAxisLabel2: boolean = true;
 xAxisLabel2: string = 'Dias';
 yAxisLabel2: string = 'Numero de pacientes';
 timeline2: boolean = true;
+//////
+myDate = new Date();
 
 colorScheme2 = {
   domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
 };
 
 ////Aqte aqio
+dataSource :any;
+  
 
-  constructor() { 
+  constructor( public servicio: MedicosService, private datePipe: DatePipe) { 
     Object.assign(this, { multi });
-    Object.assign(this, { multi2 });
+    this.servicio.totalRemitidos().subscribe( (data: number)=>
+      {
+        this.totalRemitidos= data;
+        
+        console.log(data);
+        console.log(this.totalRemitidos);
+      
+      },(error) => {
+      console.log(error);
+    });;
+    this.servicio.cantidadPacientesTotal().subscribe( data=>
+      {
+        this.totalPacientes= data[0].CantidadTotal;
+        
+        console.log(data);
+        console.log(this.totalPacientes);
+      
+      },(error) => {
+      console.log(error);
+    });;
+    this.servicio.cantidadHistoriasTotal().subscribe( (data: number)=>
+      {
+        this.totalHistorias= data;
+        
+        console.log(data);
+        console.log(this.totalHistorias);
+      
+      },(error) => {
+      console.log(error);
+    });;
+    this.servicio.citasHoy().subscribe( data=>
+      {
+        this.totalCitasHoy= data;
+        this.dataSource = new MatTableDataSource(this.totalCitasHoy);
+
+        
+        console.log(data);
+        console.log(this.totalCitasHoy);
+      
+      },(error) => {
+      console.log(error);
+    });
+    this.servicio.getpacientesPorDia().subscribe( data=>
+      {
+        this.fechas= data;
+        console.log(this.fechas);
+        console.log(data);
+         
+        this.multi = [
+          {
+            "name": "Visitas",
+            "series": [
+              {
+                "name": "Lunes",
+                "value": this.fechas.Lunes
+              },
+              {
+                "name": "Martes",
+                "value": this.fechas.Martes
+              },
+              {
+                "name": "Miercoles",
+                "value": this.fechas.Miercoles
+              },
+              {
+                  "name": "Jueves",
+                  "value":this.fechas.Jueves},
+                  
+                {
+                  "name": "Viernes",
+                 "value": this.fechas.Viernes
+                }
+            ]
+          }
+        ];
+      
+      },(error) => {
+      console.log(error);
+    });
+
+
+  
+
+
   }
+  
 
   solo:any;
   tiempo = timer(1000);
@@ -82,7 +221,7 @@ colorScheme2 = {
 
   
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+   // this.dataSource.paginator = this.paginator;
 
   }
 
@@ -100,13 +239,10 @@ colorScheme2 = {
 
   //tablas
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  displayedColumns: string[] = ['id_cita', 'paciente', 'fecha', 'hora'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  
-  
   //hasta aqui tablas
 
 }
