@@ -56,6 +56,13 @@ export class PacienteService {
 
   }
 
+  obtenerCitasVigetentesPorPaciente(id_paciente){
+
+    return this.httpClient.get(this.API_ENDPOINT+'/citas_vigentes/'+id_paciente,{headers:this.headers});
+
+
+  }
+
   obtenerCitasPorPaciente(id_paciente){
 
     return this.httpClient.get(this.API_ENDPOINT+'/citas/'+id_paciente,{headers:this.headers});
