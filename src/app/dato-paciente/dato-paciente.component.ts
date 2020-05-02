@@ -170,11 +170,11 @@ export class DatoPacienteComponent implements OnInit {
 
   obtenerCitas(){
     
-    this.pacienteService.obtenerCitasPorPaciente(this.id).subscribe((data:any)=>{
+    this.pacienteService.obtenerCitasVigetentesPorPaciente(this.id).subscribe((data:any)=>{
 
       this.citas = data;
 
-      if(this.citas != null){
+      if(this.citas.length != 0){
 
         this.siHayCitas = true;
 
