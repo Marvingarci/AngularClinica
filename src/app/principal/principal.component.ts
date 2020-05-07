@@ -66,7 +66,7 @@ abrirside() {
   }
   cerrarsesion(){
     
-  const dialogRef = this.dialog.open(DialogCerrarSesion2, {disableClose:false,panelClass: 'cerrarsesion2'});
+  const dialogRef = this.dialog.open(DialogCerrarSesion2, {disableClose:false,});
   }
       
       
