@@ -642,8 +642,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   radioPlanificacionFamiliar(valor, formControl: FormControl[]) {
 
-    console.log(valor);
-
     if (valor == "Si") {
 
       formControl.forEach(controlador => {
@@ -763,8 +761,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
   public onStepChange(event: any): void {
-    console.log('step index seleccionado');
-    console.log(event.selectedIndex);
+
     this.mostrarLabelStep(event.selectedIndex);
 
     if (event.selectedIndex == 1) {
@@ -793,9 +790,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < elementos.length; i++) {
       const element: any = elementos[i];
       element.style.display = "none";
-      console.log(element);
     }
-    console.log(index);
     elementos[index].style.display = "";
   }
 
@@ -1120,9 +1115,6 @@ ngAfterViewInit(): void {
 
   this.mostrarLabelStep(0);
 
-  console.log(document.getElementById('InputDesnutricion'));
-
-
   this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedadesDesnutricion, this.tipo_desnutricion);
   this.autocomplete(document.getElementById('InputEnfermedadAF'), this.enfermedadesMentales, this.tipo_enfermedad_mental);
   this.autocomplete(document.getElementById('InputAlergiaAF'), this.enfermedadesAlergias, this.tipo_alergia);
@@ -1351,7 +1343,6 @@ getDatosScraping() {
 
       var numAleatorio: string;
       numAleatorio = '2' + Math.floor(Math.random() * 10000000000);
-      console.log(numAleatorio);
       this.carrera.setValue('no es estudiante');
       if (this.esAlumnoAdmon == false) {
         this.numero_cuenta.setValue(numAleatorio);
@@ -1359,14 +1350,11 @@ getDatosScraping() {
 
     }
 
-    console.log(this.datosScraping);
-
     //Obtencion de Paciente ultimo paciente regitrado
     this.formularioService.getUltimoID().subscribe((data) => {
       this.resultado = data;
       if (this.resultado[0].ultimoId == null) {
         this.resultado[0].ultimoId = 0;
-        console.log(this.resultado[0].ultimoId);
       }
 
 
@@ -1378,19 +1366,15 @@ getDatosScraping() {
         this.datosScraping.imagen = null;
       }
       var numero = 1;
-      console.log(this.resultado[0].ultimoId);
       this.datosScraping.id_login = parseInt(this.resultado[0].ultimoId) + numero;
-      console.log(this.datosScraping.id_login);
 
     }, (error) => {
       console.log(error);
     });
 
-    console.log(this.datosScraping);
   },
     (error) => {
-      console.log(error),
-        alert('ocurrio un error');
+      console.log(error)
     });
 }
 
@@ -2089,7 +2073,6 @@ eliminarOtrosHT(index) {
 
 agregarHospitalariasQuirurgicas() {
 
-  console.log('agregado');
 
   if (this.fecha_antecedente_hospitalario.value && this.fecha_antecedente_hospitalario.valid
     && this.tratamiento.value && this.tratamiento.valid && this.tiempo_hospitalizacion.value
@@ -2482,7 +2465,6 @@ enviarDatos() {
 
         this.error = true;
 
-        alert('ocurrion un error');
 
       });
 
@@ -2544,14 +2526,11 @@ enviarDatos() {
                 // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
                 this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
 
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
-
 
 
                 // separo el string de parentesco que se guarda en la tabla
                 // y lo convierto en un arreglo.
                 stringParentesco = element.parentesco.split(' ');
-                console.log(stringParentesco);
 
 
                 // comparo cada string del arreglo de parentesco que se recupera de la tabla
@@ -2582,7 +2561,7 @@ enviarDatos() {
 
                   //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                   this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
-                    console.log('se enviaron perron los nuevos antecedentes');
+
                   }, (error) => {
                     console.log(error);
                   });
@@ -2613,14 +2592,11 @@ enviarDatos() {
                 // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
                 this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
 
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
-
 
 
                 // separo el string de parentesco que se guarda en la tabla
                 // y lo convierto en un arreglo.
                 stringParentesco = element.parentesco.split(' ');
-                console.log(stringParentesco);
 
 
                 // comparo cada string del arreglo de parentesco que se recupera de la tabla
@@ -2651,7 +2627,7 @@ enviarDatos() {
 
                   //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                   this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
-                    console.log('se enviaron perron los nuevos antecedentes');
+
                   }, (error) => {
                     console.log(error);
                   });
@@ -2682,14 +2658,11 @@ enviarDatos() {
                 // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
                 this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
 
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
-
 
 
                 // separo el string de parentesco que se guarda en la tabla
                 // y lo convierto en un arreglo.
                 stringParentesco = element.parentesco.split(' ');
-                console.log(stringParentesco);
 
 
                 // comparo cada string del arreglo de parentesco que se recupera de la tabla
@@ -2720,7 +2693,7 @@ enviarDatos() {
 
                   //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                   this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
-                    console.log('se enviaron perron los nuevos antecedentes');
+
                   }, (error) => {
                     console.log(error);
                   });
@@ -2751,14 +2724,11 @@ enviarDatos() {
                 // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
                 this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
 
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
-
 
 
                 // separo el string de parentesco que se guarda en la tabla
                 // y lo convierto en un arreglo.
                 stringParentesco = element.parentesco.split(' ');
-                console.log(stringParentesco);
 
 
                 // comparo cada string del arreglo de parentesco que se recupera de la tabla
@@ -2789,7 +2759,7 @@ enviarDatos() {
 
                   //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                   this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
-                    console.log('se enviaron perron los nuevos antecedentes');
+
                   }, (error) => {
                     console.log(error);
                   });
@@ -2818,7 +2788,7 @@ enviarDatos() {
             this.paciente_antecedente_familiar.id_parentesco = parentesco;
 
             this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
-              console.log('se envio perron la prueba');
+
             }, (error) => {
               console.log(error);
             });
@@ -2844,7 +2814,6 @@ enviarDatos() {
         this.enfermedad.enfermedad = element.enfermedad;
         this.enfermedad.id_grupo_enfermedad = 5;
 
-        console.log('enfermedad: ' + element.enfermedad);
 
         // guardo cada uno de los antecedentes de la tabla en el html a la tabla antecedentes de la base de datos
         // cuando se va insertar un antecedente se hace por medio de una funcion en mysql que inserta y a la vez 
@@ -2856,14 +2825,10 @@ enviarDatos() {
           // de la interfaz de antecedente que se va enviar a paciente_antecedentes_familiares.
           this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
 
-          console.log("ultimo antecedente: " + data[0].id_enfermedad);
-          // console.log(data);              
-
 
           // separo el string de parentesco que se guarda en la tabla
           // y lo convierto en un arreglo.
           stringParentesco = element.parentesco.split(' ');
-          console.log(stringParentesco);
 
 
           // comparo cada string del arreglo de parentesco que se recupera de la tabla
@@ -2893,7 +2858,7 @@ enviarDatos() {
 
             //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
             this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
-              console.log('se enviaron perron los nuevos antecedentes');
+
             }, (error) => {
               console.log(error);
             });
@@ -2936,11 +2901,7 @@ enviarDatos() {
               this.paciente_hospitalaria_quirurgica.diagnostico = element.diagnostico;
               this.paciente_hospitalaria_quirurgica.tratamiento = element.tratamiento;
 
-              this.formularioService.enviarPacienteHospitalariaQuirurgica(this.paciente_hospitalaria_quirurgica).subscribe(
-                (data) => {
-                  console.log('perron');
-                }
-              );
+              this.formularioService.enviarPacienteHospitalariaQuirurgica(this.paciente_hospitalaria_quirurgica).subscribe();
 
 
 
@@ -2968,7 +2929,6 @@ enviarDatos() {
                 // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.
                 this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
 
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
 
                 // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
                 // para ser enviado a la base de datos.
@@ -2976,7 +2936,6 @@ enviarDatos() {
 
                 //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                 this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-                  console.log('se enviaron perron los nuevos antecedentes personales');
 
                 }, (error) => {
                   console.log(error);
@@ -3011,7 +2970,6 @@ enviarDatos() {
                 // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.
                 this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
 
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
 
                 // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
                 // para ser enviado a la base de datos.
@@ -3019,7 +2977,6 @@ enviarDatos() {
 
                 //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                 this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-                  console.log('se enviaron perron los nuevos antecedentes personales');
 
                 }, (error) => {
                   console.log(error);
@@ -3054,7 +3011,6 @@ enviarDatos() {
                 // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.
                 this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
 
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
 
                 // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
                 // para ser enviado a la base de datos.
@@ -3062,7 +3018,6 @@ enviarDatos() {
 
                 //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                 this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-                  console.log('se enviaron perron los nuevos antecedentes personales');
 
                 }, (error) => {
                   console.log(error);
@@ -3096,7 +3051,6 @@ enviarDatos() {
                 // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.
                 this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
 
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
 
                 // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
                 // para ser enviado a la base de datos.
@@ -3104,7 +3058,6 @@ enviarDatos() {
 
                 //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                 this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-                  console.log('se enviaron perron los nuevos antecedentes personales');
 
                 }, (error) => {
                   console.log(error);
@@ -3128,7 +3081,7 @@ enviarDatos() {
 
 
           this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-            console.log('se envio perron el antecedente personal');
+
           }, (error) => {
             console.log(error);
           });
@@ -3160,7 +3113,6 @@ enviarDatos() {
           // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_personales.
           this.paciente_antecedente_personal.id_enfermedad = data[0].id_enfermedad;
 
-          console.log("ultimo antecedente: " + data[0].id_enfermedad);
 
           // establezco el valor al atributo observacion de la interfaz paciente_antecedente_personal
           // para ser enviado a la base de datos.
@@ -3168,7 +3120,6 @@ enviarDatos() {
 
           //envio el antecedente personal del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
           this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-            console.log('se enviaron perron los nuevos antecedentes personales');
 
           }, (error) => {
             console.log(error);
@@ -3200,7 +3151,7 @@ enviarDatos() {
         this.paciente_habito_toxicologico.observacion = element.observacion;
 
         this.formularioService.enviarPacienteHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data) => {
-          console.log('todo cheke con los pacientes_habitos_toxicologico');
+
         }, (error) => {
           console.log(error);
         });
@@ -3229,7 +3180,6 @@ enviarDatos() {
           // de la interfaz de habito_toxicologico que se va enviar a paciente_habito_toxicologico.
           this.paciente_habito_toxicologico.id_habito_toxicologico = data[0].id_habito_toxicologico;
 
-          console.log("ultimo habito: " + data[0].id_habito_toxicologico);
 
           // establezco el valor al atributo observacion de la interfaz paciente_habito_toxicologico
           // para ser enviado a la base de datos.
@@ -3237,7 +3187,6 @@ enviarDatos() {
 
           //envio el habito toxicologico del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
           this.formularioService.enviarPacienteHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data) => {
-            console.log('se enviaron perron los nuevos habitos toxicologicos');
 
           }, (error) => {
             console.log(error);
@@ -3264,11 +3213,10 @@ enviarDatos() {
     this.actividad_sexual.id_paciente = this.datosScraping.id_login;
 
     this.formularioService.guardarActividadSexual(this.actividad_sexual).subscribe((data) => {
-      console.log(data);
+
     }, (error) => {
       this.error = true;
       console.log(error);
-      alert('ocurrion un error');
     });
 
   }
@@ -3290,11 +3238,10 @@ enviarDatos() {
       this.antecedente_obstetrico.id_paciente = this.datosScraping.id_login;
 
       this.formularioService.guardarAntecedentesObstetricos(this.antecedente_obstetrico).subscribe((data) => {
-        console.log(data);
+
       }, (error) => {
         this.error = true;
         console.log(error);
-        alert('ocurrion un error');
       });
     }
 
@@ -3307,11 +3254,10 @@ enviarDatos() {
       this.planificacion_familiar.id_paciente = this.datosScraping.id_login;
 
       this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiar).subscribe((data) => {
-        console.log(data);
+
       }, (error) => {
         this.error = true;
         console.log(error);
-        alert('ocurrion un error');
       });
 
     } else {
@@ -3334,11 +3280,10 @@ enviarDatos() {
     this.antecedente_ginecologico.id_paciente = this.datosScraping.id_login;
 
     this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico).subscribe((data) => {
-      console.log(data);
+
     }, (error) => {
       this.error = true;
       console.log(error);
-      alert('ocurrion un error');
     });
 
   }
@@ -3349,7 +3294,6 @@ obtener() {
   //Obtencion de Paciente recien registrado
   this.formularioService.getUltimoID().subscribe((data) => {
     this.resultado = data;
-    console.log(this.resultado);
     if (this.resultado != null) {
       if (this.resultado[0].ultimoId != null) {
         this.loading = false;
