@@ -1569,12 +1569,14 @@ export class VerPacienteComponent implements OnInit {
       this.antecedente_ginecologico = data;
       console.log('los datos ginecologicos     :' + this.antecedente_ginecologico);
       //verifico si el paciente tiene antecedentes ginecologicos para mostrarlos
-
-      if (this.antecedente_ginecologico.citologia == 'No') {
+      if(this.antecedente_ginecologico){
+         if (this.antecedente_ginecologico.citologia == 'No') {
         this.vercitologia = false;
       } else if (this.antecedente_ginecologico.citologia == 'Si') {
         this.vercitologia = true;
       }
+      }
+     
 
       this.cargarInformacionAntecedentesGinecologicos();
 
@@ -1627,11 +1629,13 @@ export class VerPacienteComponent implements OnInit {
     this.formularioService.obtenerPlanificacionFamiliar(this.id).subscribe((data: PlanificacionesFamiliares) => {
       this.planificacion_familiardata = data;
 
+      if (this.planificacion_familiardata) {
       if (this.planificacion_familiardata.planificacion_familiar == 'No') {
         this.verplanificacion = false;
       } else if (this.planificacion_familiardata.planificacion_familiar == 'Si') {
         this.verplanificacion = true;
       }
+    }
 
     }, (error) => {
       console.log(error);
@@ -2989,7 +2993,7 @@ export class VerPacienteComponent implements OnInit {
           this.formularioService.eliminarActividadSexual(this.id).subscribe((data) => {
             console.log(data);
             this.formularioService.guardarActividadSexual(this.actividad_sexual_add).subscribe((data) => {
-              this.showError('Agrego');
+              this.showError('Actividad sexual actualizado correctamente');
               console.log(data);
             }, (error) => {
               console.log(error);
@@ -3023,7 +3027,7 @@ export class VerPacienteComponent implements OnInit {
             console.log(this.antecedente_ginecologico_add);
             this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico_add).subscribe((data) => {
               console.log(data);
-              this.showError('GUARDO');
+              this.showError('Antecedentes ginecologicos actualizado correctamente');
             }, (error) => {
               console.log(error);
               this.showError('Error al actualizar los antecedentes ginecologicos');
@@ -3068,7 +3072,7 @@ export class VerPacienteComponent implements OnInit {
               console.log(data);
 
               this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiardata_add).subscribe((data) => {
-                this.showError('GUARDO');
+                this.showError('Planificacion Familiar actualizado correctamente');
               }, (error) => {
                 console.log(error);
                 this.showError('Error al actualizar los Planificacion Familiar');
@@ -3111,7 +3115,7 @@ export class VerPacienteComponent implements OnInit {
             this.antecedente_obstetrico_add.id_paciente = this.paciente.id_paciente;
 
             this.formularioService.guardarAntecedentesObstetricos(this.antecedente_obstetrico_add).subscribe((data) => {
-              this.showError('GUARDO');
+              this.showError('Antecedentes obstetricos actualizado correctamente');
             }, (error) => {
               console.log(error);
               this.showError('Error al actualizar los antecedentes obstetricos');
@@ -3526,7 +3530,8 @@ export class VerPacienteComponent implements OnInit {
 
 
   cargarInformacionAntecedentesGinecologicos() {
-    this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);
+    if(this.antecedente_ginecologico){
+       this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);
     this.fum.setValue(this.antecedente_ginecologico.fum);
     this.citologia.setValue(this.antecedente_ginecologico.citologia);
     this.fecha_citologia.setValue(this.antecedente_ginecologico.fecha_citologia);
@@ -3540,11 +3545,14 @@ export class VerPacienteComponent implements OnInit {
     this.duracion_ciclo_menstrual.setValue(this.antecedente_ginecologico.duracion_ciclo_menstrual);
     this.periocidad_ciclo_menstrual.setValue(this.antecedente_ginecologico.periocidad_ciclo_menstrual);
     this.caracteristicas_ciclo_menstrual.setValue(this.antecedente_ginecologico.caracteristicas_ciclo_menstrual);
+    }
+   
   }
 
 
 
   cargarInformacionAntecedentesObstetricos() {
+    if(this.antecedente_obstetrico){
     this.partos.setValue(this.antecedente_obstetrico.partos);
     this.abortos.setValue(this.antecedente_obstetrico.abortos);
     this.cesarias.setValue(this.antecedente_obstetrico.cesarias);
@@ -3554,6 +3562,7 @@ export class VerPacienteComponent implements OnInit {
     this.fecha_termino_ult_embarazo.setValue(this.antecedente_obstetrico.fecha_termino_ult_embarazo);
     this.descripcion_termino_ult_embarazo.setValue(this.antecedente_obstetrico.descripcion_termino_ult_embarazo);
     this.observaciones.setValue(this.antecedente_obstetrico.observaciones);
+    }
   }
 
 
