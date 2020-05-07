@@ -127,7 +127,6 @@ export class DatoPacienteComponent implements OnInit {
     this.dialog.closeAll;
     this.id = this.activatedRoute.snapshot.params['id'];
 
-    // this.obtenerCitas();
 
 
     if (this.id) {
@@ -136,7 +135,6 @@ export class DatoPacienteComponent implements OnInit {
 
       this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) => {
         this.paciente = data;
-        console.log(this.paciente);
 
         //establesco el valor a los formcontrol para que se visualizen en los respectivos inputs
         this.nombre_completo.setValue(this.paciente.nombre_completo);
@@ -179,8 +177,6 @@ export class DatoPacienteComponent implements OnInit {
         this.siHayCitas = true;
 
       }
-
-      console.log(this.citas);
 
 
     });
@@ -257,9 +253,11 @@ export class DatoPacienteComponent implements OnInit {
   }
 
   cambiarContra() {
-    const dialogRef = this.dialog.open(verificarDialog, { disableClose: false, closeOnNavigation: true, panelClass: 'cambiarcontrasenia' });
-    console.log(this.paciente);
 
+    const dialogRef = this.dialog.open(verificarDialog, 
+      { 
+        disableClose: false, closeOnNavigation: true, panelClass: 'cambiarcontrasenia' 
+      });
 
   }
 
@@ -282,7 +280,6 @@ export class DatoPacienteComponent implements OnInit {
         this.paciente.telefono = this.numero_telefono.value;
 
         this.formularioService.actualizarPaciente(this.paciente).subscribe((data) => {
-          console.log(data);
 
           this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) => {
             this.paciente = data;
@@ -377,11 +374,10 @@ export class cambiocontraDialog {
     private loginService: LoginService, private router: Router, private mensaje: MatSnackBar) {
 
     this.paciente1.id_paciente = this.formularioService.idActualizar;
-    console.log(this.paciente1.id_paciente);
     ///////
     this.formularioService.getUltimoID().subscribe((data) => {
       this.resultado = data;
-      console.log(this.resultado);
+
       if (this.resultado != null) {
         if (this.resultado[0].ultimoId != null) {
           this.paciente1.id_paciente = this.resultado[0].ultimoId;
@@ -416,11 +412,9 @@ export class cambiocontraDialog {
 
     this.formularioService.getUltimoID().subscribe((data) => {
       this.resultado = data;
-      console.log(this.resultado);
       if (this.resultado != null) {
         if (this.resultado[0].ultimoId != null) {
           this.paciente1.id_paciente = this.resultado[0].ultimoId;
-          console.log(this.paciente1.id_paciente);
 
         }
       }
@@ -435,8 +429,6 @@ export class cambiocontraDialog {
 
       // guardar datos del formulario en paciente y enviarlo a la api
       this.loginService.obtenerUltimoId().subscribe((data: any) => {
-
-        console.log(data[0].ultimoId);
 
         this.login.id_login = data[0].ultimoId;
         this.login.password = this.nuevaContraRep.value;
@@ -577,7 +569,6 @@ export class verificarDialog {
 
     this.formularioService.obtenerPaciente(this.formularioService.idActualizar).subscribe((data: any) => {
       this.paciente = data;
-      console.log(data);
     }, (error) => {
 
       console.log(error);
