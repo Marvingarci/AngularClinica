@@ -23,7 +23,7 @@ style="width: 100%; height: 100%;">
                 <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaPeso"
                 [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xAxisLabelGP" [yAxisLabel]="yAxisLabelGP" (select)="onSelect($event)" legendTitle="Fechas">
+                [xAxisLabel]="xAxisLabelGP" [yAxisLabel]="yAxisLabelGP"  legendTitle="Fechas">
                 </ngx-charts-bar-vertical>
         </div>
     </div>
@@ -51,7 +51,7 @@ style="width: 100%; height: 100%;">
             <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaRitmo"
                 [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xAxisLabelGR" [yAxisLabel]="yAxisLabelGR" (select)="onSelect($event)" legendTitle="Fechas">
+                [xAxisLabel]="xAxisLabelGR" [yAxisLabel]="yAxisLabelGR"  legendTitle="Fechas">
             </ngx-charts-bar-vertical>
         </div>
     </div>
@@ -81,7 +81,7 @@ style="width: 100%; height: 100%;">
             <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaTemperatura"
                 [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xAxisLabelGT" [yAxisLabel]="yAxisLabelGT" (select)="onSelect($event)" legendTitle="Fechas">
+                [xAxisLabel]="xAxisLabelGT" [yAxisLabel]="yAxisLabelGT" legendTitle="Fechas">
             </ngx-charts-bar-vertical>
         </div>
     </div>
@@ -111,7 +111,7 @@ style="width: 100%; height: 100%;">
             <ngx-charts-bar-vertical style="fill: white;"   [scheme]="colorScheme" [results]="datosGraficaAltura"
                 [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xAxisLabelGA" [yAxisLabel]="yAxisLabelGA" (select)="onSelect($event)" legendTitle="Fechas">
+                [xAxisLabel]="xAxisLabelGA" [yAxisLabel]="yAxisLabelGA"  legendTitle="Fechas">
             </ngx-charts-bar-vertical>     
         </div>
     </div> 
@@ -141,8 +141,7 @@ style="width: 100%; height: 100%;">
  <ngx-charts-bar-vertical-2d style="fill: white;"  [scheme]="colorScheme" [results]="datosGraficaPresion"
                 [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                 [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xAxisLabelGPr" [yAxisLabel]="yAxisLabelGPr" [legendTitle]="legendTitle" legendTitle="Fechas"
-                (select)="onSelect($event)">
+                [xAxisLabel]="xAxisLabelGPr" [yAxisLabel]="yAxisLabelGPr" [legendTitle]="legendTitle" legendTitle="Fechas">
             </ngx-charts-bar-vertical-2d> 
         </div>
     </div>
