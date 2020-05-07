@@ -44,9 +44,6 @@ export class PacienteComponent implements OnInit {
     domain: ['#ffd900be', 'rgb(255, 238, 0)', '#F6F94D', 'rgb(245, 240, 175)']
   };
 
-  onSelect(event) {
-    console.log(event);
-  }
 
   pacientes: Paciente[];
   alumnos: Paciente[];
@@ -90,12 +87,10 @@ export class PacienteComponent implements OnInit {
     this.formularioService.obtenerPacientes().subscribe((data: Paciente[]) => {
       this.pacientes = data;
 
-      console.log(this.pacientes);
       this.alumnos = this.pacientes.filter(paciente => paciente.categoria === 'Estudiante');
       this.empleados = this.pacientes.filter(paciente => paciente.categoria === 'Empleado');
       this.visitantes = this.pacientes.filter(paciente => paciente.categoria === 'Visitante');
       this.prosene = this.pacientes.filter(paciente => paciente.prosene === 'Si');
-      console.log(this.pacientes[0].prosene);
 
       this.dataSource = new MatTableDataSource(this.alumnos);
       this.dataSource2 = new MatTableDataSource(this.empleados);
@@ -104,8 +99,9 @@ export class PacienteComponent implements OnInit {
 
 
     }, (error) => {
+
       console.log(error);
-      alert('Ocurrio un error');
+
     });
   }
 
@@ -167,17 +163,14 @@ export class PacienteComponent implements OnInit {
       
     });
 
-    console.log(this.single);
   }
 
   cargarCitas() {
 
     this.pacienteService.obtenerCitas().subscribe((data: Cita[]) => {
-      console.log(data);
-
-
 
       this.dataSourceCitas = new MatTableDataSource(data);
+
     });
   }
 
@@ -194,17 +187,6 @@ export class PacienteComponent implements OnInit {
       this.mostrarCitas = false;
     }
 
-
-
-    // const dialogRef = this.dialogo.open(DialogoVerCitasComponent, {
-    //   // disableClose: true,
-    //   height: '400px',
-    //   width: '600px',
-
-
-    // });
-
-    // dialogRef.afterClosed().subscribe(confirmacion => {});
   }
 
 }
