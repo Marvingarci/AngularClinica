@@ -120,50 +120,46 @@ dataSource :any;
       {
         this.totalRemitidos= data;
         
-        console.log(data);
-        console.log(this.totalRemitidos);
       
       },(error) => {
+
       console.log(error);
-    });;
+
+    });
     this.servicio.cantidadPacientesTotal().subscribe( data=>
       {
         this.totalPacientes= data[0].CantidadTotal;
-        
-        console.log(data);
-        console.log(this.totalPacientes);
       
       },(error) => {
+
       console.log(error);
+
     });;
     this.servicio.cantidadHistoriasTotal().subscribe( (data: number)=>
       {
+
         this.totalHistorias= data;
         
-        console.log(data);
-        console.log(this.totalHistorias);
-      
       },(error) => {
+
       console.log(error);
-    });;
+
+    });
     this.servicio.citasHoy().subscribe( data=>
       {
+
         this.totalCitasHoy= data;
         this.dataSource = new MatTableDataSource(this.totalCitasHoy);
-
-        
-        console.log(data);
-        console.log(this.totalCitasHoy);
       
       },(error) => {
+
       console.log(error);
+
     });
     this.servicio.getpacientesPorDia().subscribe( data=>
       {
+
         this.fechas= data;
-        console.log(this.fechas);
-        console.log(data);
-         
         this.multi = [
           {
             "name": "Visitas",
@@ -193,7 +189,9 @@ dataSource :any;
         ];
       
       },(error) => {
+
       console.log(error);
+
     });
 
 
@@ -220,23 +218,7 @@ dataSource :any;
   });
 
   
-  ngOnInit() {
-   // this.dataSource.paginator = this.paginator;
-
-  }
-
-  onSelect(data): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
-
+  ngOnInit() { }
   //tablas
 
   displayedColumns: string[] = [ 'paciente', 'fecha', 'hora'];
