@@ -153,13 +153,13 @@ export class RegistromedicosComponent implements OnInit {
 
 
         }
-        //this.especialidad.setValue(this.medico.especialidadM);
 
-        console.log(this.medico.usuario);
         this.medicoService.idActualizar = this.medico.id_medico;
-        console.log(this.medico);
+
       }, (error) => {
+
         console.log(error);
+
       });
 
     } else {
@@ -193,8 +193,9 @@ export class RegistromedicosComponent implements OnInit {
     this.medicoService.obtenerMedicos().subscribe((data: Medicos[]) => {
       this.meds = data;
     }, (error) => {
+
       console.log(error);
-      alert('Ocurrio un error');
+
     });
   }
 
