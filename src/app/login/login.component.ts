@@ -11,11 +11,9 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { LoginadminService } from '../services/loginadmin.service';
 import { Medicos } from '../interfaces/medicos';
 import { MedicosService } from '../services/medicos.service';
-//import * as CryptoJS from 'crypto-js';
 import { isNullOrUndefined } from "util";
 import { MatBottomSheet, MatBottomSheetRef, MatBottomSheetConfig, MatDialog } from '@angular/material';
 import { trigger, state, style } from '@angular/animations';
-//import { FormTools } from '../focus';
 
 
 
@@ -210,26 +208,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
               //recupero al paciente introduciendo su numero de cuenta para poder recuperar su id
               // y redireccionarlo a su respectivo informacion.
 
-              console.log('id_paciente:\n'+data.id);
 
               this.router.navigate(['/datoPaciente/' + data.id]);
               this.showError('Bienvenido');
 
-              // var paciente = {
-              //   'cuenta' : this.cuenta.value,
-              // }
-
-              // this.formularioService.obtenerPacientePorCuenta(paciente).subscribe((data: Paciente) => {
-
-              //   this.paciente = data;
-
-              //   this.router.navigate(['/datoPaciente/' + this.paciente.id_paciente]);
-              //   this.showError('Bienvenido');
-              // });
+          
 
             }
-
-
 
           }, (error) => {
 
