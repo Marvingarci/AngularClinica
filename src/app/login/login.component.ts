@@ -195,14 +195,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
             //entonces el usuario sera redirigido a principal.
             if (data.rol == 'Administrador') {
 
-              this.router.navigate(['/principal/principal1']);
+              this.router.navigate(['/clínicaunahtec/principal']);
               this.showError('Bienvenido');
 
               //si en los datos del usuario logueado el id_medico tiene un valor
               //entonces el usuario sera redirigido a principal.
             } else if (data.rol == 'Medico') {
 
-              this.router.navigate(['/principal/principal1']);
+              this.router.navigate(['/clínicaunahtec/principal']);
               this.showError('Bienvenido');
 
             } else {
