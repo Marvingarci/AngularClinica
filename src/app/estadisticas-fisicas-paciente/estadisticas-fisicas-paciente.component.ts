@@ -27,11 +27,6 @@ export class EstadisticasFisicasPacienteComponent implements OnInit {
   };
 
 
-  onSelect(event) {
-    console.log(event);
-  }
-
-
   // grafica ritmo cardiaco
 
   datosGraficaRitmo: any[];
@@ -174,7 +169,6 @@ export class EstadisticasFisicasPacienteComponent implements OnInit {
 
   cambioPeso(valor) {
 
-    console.log(this.pacienteService.pesosPaciente);
     var resultado: any;
     var arreglo: any[] = [];
 
@@ -268,7 +262,6 @@ export class EstadisticasFisicasPacienteComponent implements OnInit {
 
   cambioRitmo(valor) {
 
-    console.log(this.pacienteService.pulsosPaciente);
     var resultado: any;
     var arreglo: any[] = [];
 
@@ -362,7 +355,6 @@ export class EstadisticasFisicasPacienteComponent implements OnInit {
 
   cambioTemperatura(valor) {
 
-    console.log(this.pacienteService.temperaturasPaciente);
     var resultado: any;
     var arreglo: any[] = [];
 
@@ -455,7 +447,6 @@ export class EstadisticasFisicasPacienteComponent implements OnInit {
 
   cambioAltura(valor) {
 
-    console.log(this.pacienteService.alturasPaciente);
     var resultado: any;
     var arreglo: any[] = [];
 
@@ -565,7 +556,6 @@ export class EstadisticasFisicasPacienteComponent implements OnInit {
 
   cambioPresion(valor) {
 
-    console.log(this.pacienteService.presionesPaciente);
     var resultado: any;
     var arreglo: any[] = [];
 

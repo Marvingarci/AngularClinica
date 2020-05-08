@@ -116,7 +116,6 @@ export class LoginadminComponent implements OnInit {
     }, (error) => {
 
       console.log(error);
-      alert('Ocurrio un error');
     });
 
   }
@@ -182,7 +181,6 @@ export class LoginadminComponent implements OnInit {
 
               }, (error) => {
                 console.log(error);
-                alert('se chorrio');
               });
 
 
@@ -255,8 +253,6 @@ export class LoginadminComponent implements OnInit {
 
 
   comprobarDatos() {
-
-    console.log('llame al dialogo');
 
     this.llamarDialogo();
 

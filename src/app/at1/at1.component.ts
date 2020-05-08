@@ -24,7 +24,6 @@ export class At1Component implements OnInit {
   constructor(private pacienteService: PacienteService) {
     this.pacienteService.obtenerHistoriasSubsiguientes().subscribe((data: HistoriaSubsiguiente[])=>{
       this.dataSource1 = new MatTableDataSource(data);
-      console.log(data);
     }, (error)=>{
       
       console.log(error);
