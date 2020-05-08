@@ -168,14 +168,14 @@ export class FormInventarioComponent implements OnInit {
         this.inventariosService.actualizarInventario(this.inventario).subscribe((data) => {
           console.log(data);
           this.showError('Medicamento actualizado exitósamente');
-          this.router.navigate(['/principal/inventario']);
+          this.router.navigate(['/clínicaunahtec/inventario']);
         });
 
       } else {
         this.inventariosService.save(this.inventario).subscribe((data) => {
           console.log(data);
           this.showError('Medicamento ingresado exitósamente');
-          this.router.navigate(['/principal/inventario']);
+          this.router.navigate(['/clínicaunahtec/inventario']);
         }, (error) => {
           console.log(error);
           this.showError('Ocurrió un error');
