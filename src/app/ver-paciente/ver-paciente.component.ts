@@ -337,7 +337,6 @@ export class VerPacienteComponent implements OnInit {
   mostrarCamposDesnutricionAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposDesnutricionAF').style.display = "block";
-    console.log(document.getElementById('InputDesnutricion'));
     this.autocomplete(document.getElementById('InputDesnutricion'), this.enfermedadesDesnutricion, this.tipo_desnutricion);
 
 
@@ -1068,7 +1067,6 @@ export class VerPacienteComponent implements OnInit {
     this.formularioService.obtenerPaciente(this.id).subscribe((data: any) => {
       this.paciente = data;
     }, (error) => {
-      console.log(error);
     });
 
 
@@ -1249,16 +1247,13 @@ export class VerPacienteComponent implements OnInit {
         this.esAlumno = true;
       }
 
-      console.log('Es alumno: ' + this.esAlumno);
       this.formularioService.idActualizar = this.paciente.id_paciente;
       // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
       //si el paciente tiene imagen entonces esta variable cambiara a false
       if (this.paciente.imagen != null) {
         this.noImg = false;
       }
-      console.log(this.paciente);
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -1272,9 +1267,7 @@ export class VerPacienteComponent implements OnInit {
       //cargo los datos de la tabla antecedentes personales
       this.tablaTelefonosEmergencia = new MatTableDataSource(this.tel_emergencia);
       this.cargarTablaEmergenciaPersona();
-      console.log(this.tel_emergencia);
     }, (error) => {
-      console.log(error);
     });
   }
   loading1: boolean = false;
@@ -1282,13 +1275,10 @@ export class VerPacienteComponent implements OnInit {
   cargarTelefono() {
     this.formularioService.obtenerTelefono(this.id).subscribe((data: TelefonoEmergencia[]) => {
       this.tel_persona = data;
-      console.log(this.tel_persona);
       //cargo los datos de la tabla antecedentes personales
       this.tablaTelefonos = new MatTableDataSource(this.tel_persona);
       this.cargarTablaEmergenciaPersona();
-      console.log(this.tel_persona);
     }, (error) => {
-      console.log(error);
     });
   }
   actualizarfoto() {
@@ -1296,7 +1286,6 @@ export class VerPacienteComponent implements OnInit {
 
     tiempo.subscribe((n) => {
       this.loading1 = false;
-      console.log("foto actualizada");
       this.paciente.imagen = this.pacienteService.imagenactual;
       this.noImg = false;
     });
@@ -1333,9 +1322,7 @@ export class VerPacienteComponent implements OnInit {
         }
       }
       this.cargarTablaAntecedentesFamiliares();
-      console.log(this.ante_familiar);
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -1355,10 +1342,8 @@ export class VerPacienteComponent implements OnInit {
       //cargo los datos de la tabla antecedentes familiares y telefonos emergencia
       this.cargarTablaAntecedentesPersonales();
       //establesco el valor a los formcontrol para que se visualizen
-      //en los respectivos inputs de los antecedentes familiares   
-      console.log(this.ante_personal);
+      //en los respectivos inputs de los antecedentes familiares
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -1374,9 +1359,7 @@ export class VerPacienteComponent implements OnInit {
         }
       }
       this.cargarTablaDesnutricionAF();
-      console.log(this.ante_familiardesnutricionAF);
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -1392,9 +1375,7 @@ export class VerPacienteComponent implements OnInit {
         }
       }
       this.cargarTablaMentalAF();
-      console.log(this.ante_familiarmentalAF);
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -1410,9 +1391,7 @@ export class VerPacienteComponent implements OnInit {
         }
       }
       this.cargarTablaAlergiaAF();
-      console.log(this.ante_familiaralergiaAF);
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -1428,9 +1407,7 @@ export class VerPacienteComponent implements OnInit {
         }
       }
       this.cargarTablaCancerAF();
-      console.log(this.ante_familiarcancerAF);
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -1446,9 +1423,7 @@ export class VerPacienteComponent implements OnInit {
         }
       }
       this.cargarTablaOtroAF();
-      console.log(this.ante_familiarotroAF);
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -1469,9 +1444,7 @@ export class VerPacienteComponent implements OnInit {
         }
       }
       this.cargarTablaDesnutricionAP();
-      console.log(this.ante_familiardesnutricionAP);
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -1487,9 +1460,7 @@ export class VerPacienteComponent implements OnInit {
         }
       }
       this.cargarTablaMentalAP();
-      console.log(this.ante_familiarmentalAP);
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -1505,9 +1476,7 @@ export class VerPacienteComponent implements OnInit {
         }
       }
       this.cargarTablaAlergiaAP();
-      console.log(this.ante_familiaralergiaAP);
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -1523,9 +1492,7 @@ export class VerPacienteComponent implements OnInit {
         }
       }
       this.cargarTablaCancerAP();
-      console.log(this.ante_familiarcancerAP);
     }, (error) => {
-      console.log(error);
     });
   }
 
@@ -1541,7 +1508,6 @@ export class VerPacienteComponent implements OnInit {
         }
       }
       this.cargarTablaOtroAP();
-      console.log(this.ante_familiarotroAP);
     }, (error) => {
       console.log(error);
     });
@@ -1554,11 +1520,8 @@ export class VerPacienteComponent implements OnInit {
       this.habito_toxi = data;
       //cargo los datos de la tabla antecedentes personales
       this.cargarTablaHabitosToxicologicos();
-      console.log(this.tablaHabitosToxicologicos);
       //establesco el valor a los formcontrol para que se visualizen
       //en los respectivos inputs de los habitos toxicologicos
-      console.log(this.habito_toxi);
-      console.log('este es el habito_toxicologico_personal ' + this.habito_toxi);
     }, (error) => {
       console.log(error);
     });
@@ -1567,7 +1530,6 @@ export class VerPacienteComponent implements OnInit {
   cargarAntecedentesGinecologicos() {
     this.formularioService.obtenerAntecedenteGinecologico(this.id).subscribe((data) => {
       this.antecedente_ginecologico = data;
-      console.log('los datos ginecologicos     :' + this.antecedente_ginecologico);
       //verifico si el paciente tiene antecedentes ginecologicos para mostrarlos
       if(this.antecedente_ginecologico){
          if (this.antecedente_ginecologico.citologia == 'No') {
@@ -1589,8 +1551,6 @@ export class VerPacienteComponent implements OnInit {
     this.formularioService.obtenerAntecedenteObstetrico(this.id).subscribe((data: AntecedentesObstetricos) => {
       this.antecedente_obstetrico = data;
       this.cargarInformacionAntecedentesObstetricos();
-      console.log(this.antecedente_obstetrico);
-      console.log('mostrarAntecedenteObstetrico: ' + this.mostrarAntecedenteObstetrico);
     }, (error) => {
       console.log(error);
     });
@@ -1647,7 +1607,6 @@ export class VerPacienteComponent implements OnInit {
     this.formularioService.obtenerActividadSexual(this.id).subscribe((data: ActividadSexual) => {
       this.actividad_sexual = data;
       this.cargarInformacionActividadSexual();
-      console.log('los datos de actividad sexual' + this.actividad_sexual);
       this.act_sex = data;
       if (this.act_sex == null) {
         this.mostrarmensajeactividadsexual = null;
@@ -1692,9 +1651,7 @@ export class VerPacienteComponent implements OnInit {
 
 
 
-  perron() {
-    console.log('dio perron');
-  }
+  
 
   actualizarDatosGenerales() {
 
@@ -1733,7 +1690,6 @@ export class VerPacienteComponent implements OnInit {
       this.paciente.prosene = this.prosene.value;
 
       this.formularioService.actualizarPaciente(this.paciente).subscribe((data) => {
-        console.log(data);
         this.cargarPaciente();
         this.agregarTelefonosEmergencia();
         this.agregarTelefonos();
@@ -1761,7 +1717,7 @@ export class VerPacienteComponent implements OnInit {
       this.telefono_Emergencias.emergencia_persona = this.emergencia_persona.value;
       this.telefono_Emergencias.telefono_emergencia = this.emergencia_telefono.value;
       this.formularioService.enviarTelefonoEmergencia(this.telefono_Emergencias).subscribe((data) => {
-        console.log(data);
+        
         this.cargarEmergenciaPersonaYa();
       }, (error) => {
       });
@@ -1776,7 +1732,7 @@ export class VerPacienteComponent implements OnInit {
       this.telefono.id_paciente = this.paciente.id_paciente;
       this.telefono.telefono = this.numero_telefono_agregar.value;
       this.formularioService.enviarTelefonoPaciente(this.telefono).subscribe((data) => {
-        console.log(data);
+        
         this.cargarTelefono();
       }, (error) => {
       });
@@ -1847,11 +1803,9 @@ export class VerPacienteComponent implements OnInit {
                 // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
                 this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
                 this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
                 // separo el string de parentesco que se guarda en la tabla
                 // y lo convierto en un arreglo.
                 stringParentesco = element.parentesco.split(' ');
-                console.log(stringParentesco);
                 // comparo cada string del arreglo de parentesco que se recupera de la tabla
                 // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
                 stringParentesco.forEach(element => {
@@ -1876,12 +1830,10 @@ export class VerPacienteComponent implements OnInit {
                   // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
                   // para ser enviado a la base de datos.
                   this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
-                  console.log(this.paciente_antecedente_familiar);
                   //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                   this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
                     this.cargarDesnnutricionAF();
                     this.cargarAntecedentesFamiliares();
-                    console.log('se enviaron perron los nuevos antecedentes');
                   }, (error) => {
                     console.log(error);
                   });
@@ -1963,11 +1915,9 @@ export class VerPacienteComponent implements OnInit {
                 // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
                 this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
                 this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
                 // separo el string de parentesco que se guarda en la tabla
                 // y lo convierto en un arreglo.
                 stringParentesco = element.parentesco.split(' ');
-                console.log(stringParentesco);
                 // comparo cada string del arreglo de parentesco que se recupera de la tabla
                 // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
                 stringParentesco.forEach(element => {
@@ -1992,12 +1942,10 @@ export class VerPacienteComponent implements OnInit {
                   // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
                   // para ser enviado a la base de datos.
                   this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
-                  console.log(this.paciente_antecedente_familiar);
                   //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                   this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
                     this.cargarMentalAF();
                     this.cargarAntecedentesFamiliares();
-                    console.log('se enviaron perron los nuevos antecedentes');
                   }, (error) => {
                     console.log(error);
                   });
@@ -2080,11 +2028,9 @@ export class VerPacienteComponent implements OnInit {
                 // de la interfaz de enfermedad que se va enviar a paciente_antecedentes_familiares.
                 this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
                 this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
                 // separo el string de parentesco que se guarda en la tabla
                 // y lo convierto en un arreglo.
                 stringParentesco = element.parentesco.split(' ');
-                console.log(stringParentesco);
                 // comparo cada string del arreglo de parentesco que se recupera de la tabla
                 // y le asigno su valor correspondiente en numero para ser guardado en la base de datos.
                 stringParentesco.forEach(element => {
@@ -2109,12 +2055,10 @@ export class VerPacienteComponent implements OnInit {
                   // establezco el valor en numero al atributo id_parentesco de la interfaz paciente_antecedente_familiar
                   // para ser enviado a la base de datos.
                   this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
-                  console.log(this.paciente_antecedente_familiar);
                   //envio el antecedente familiar del paciente por cada vuelta del ciclo o por cada fila de la tablaOtros.
                   this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
                     this.cargarAlergiaAF();
                     this.cargarAntecedentesFamiliares();
-                    console.log('se enviaron perron los nuevos antecedentes');
                   }, (error) => {
                     console.log(error);
                   });
@@ -2194,10 +2138,8 @@ export class VerPacienteComponent implements OnInit {
 
                 this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
                 this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
 
                 stringParentesco = element.parentesco.split(' ');
-                console.log(stringParentesco);
 
                 stringParentesco.forEach(element => {
                   switch (element) {
@@ -2219,12 +2161,10 @@ export class VerPacienteComponent implements OnInit {
                   }
 
                   this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
-                  console.log(this.paciente_antecedente_familiar);
 
                   this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
                     this.cargarCancerAF();
                     this.cargarAntecedentesFamiliares();
-                    console.log('se enviaron perron los nuevos antecedentes');
                   }, (error) => {
                     console.log(error);
                   });
@@ -2305,10 +2245,8 @@ export class VerPacienteComponent implements OnInit {
 
                 this.paciente_antecedente_familiar.id_enfermedad = data[0].id_enfermedad;
                 this.paciente_antecedente_familiar.id_paciente = this.paciente.id_paciente;
-                console.log("ultimo antecedente: " + data[0].id_enfermedad);
 
                 stringParentesco = element.parentesco.split(' ');
-                console.log(stringParentesco);
 
                 stringParentesco.forEach(element => {
                   switch (element) {
@@ -2330,12 +2268,10 @@ export class VerPacienteComponent implements OnInit {
                   }
 
                   this.paciente_antecedente_familiar.id_parentesco = NumeroParentesco;
-                  console.log(this.paciente_antecedente_familiar);
 
                   this.formularioService.enviarPacienteAntecedenteFamiliar(this.paciente_antecedente_familiar).subscribe((data) => {
                     this.cargarOtrosAF();
                     this.cargarAntecedentesFamiliares();
-                    console.log('se enviaron perron los nuevos antecedentes');
                   }, (error) => {
                     console.log(error);
                   });
@@ -2362,7 +2298,6 @@ export class VerPacienteComponent implements OnInit {
         this.VarActualizar = data;
         this.tipo_desnutricion_ap.setValue(this.VarActualizar[0].enfermedad);
         this.observacion_desnutricion_ap.setValue(this.VarActualizar[0].observacion);
-        console.log(this.VarActualizar);
       }, (error) => {
         console.log(error);
       });
@@ -2384,7 +2319,6 @@ export class VerPacienteComponent implements OnInit {
         this.formularioService.actualizarEnfermedad(this.enfermedadeditar).subscribe((data) => {
 
           this.formularioService.actualizarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-            console.log('se enviaron perron los nuevos antecedentes personales');
             this.cargarDesnnutricionAP();
             this.cargarAntecedentesPersonales();
           }, (error) => {
@@ -2405,7 +2339,6 @@ export class VerPacienteComponent implements OnInit {
           console.log(data);
 
           this.formularioService.enviarPacienteAntecedentePersonal(this.paciente_antecedente_personal).subscribe((data) => {
-            console.log('se enviaron perron los nuevos antecedentes personales');
             this.tipo_desnutricion_ap.setValue('');
             this.observacion_desnutricion_ap.setValue('');
             this.cargarDesnnutricionAP();
@@ -2434,8 +2367,7 @@ export class VerPacienteComponent implements OnInit {
         this.VarActualizar = data;
         this.tipo_enfermedad_mental_ap.setValue(this.VarActualizar[0].enfermedad);
         this.observacion_enfermedades_mentales_ap.setValue(this.VarActualizar[0].observacion);
-        console.log(this.VarActualizar);
-      }, (error) => {
+        }, (error) => {
         console.log(error);
       });
     }
@@ -2501,8 +2433,7 @@ export class VerPacienteComponent implements OnInit {
         this.VarActualizar = data;
         this.tipo_alergia_ap.setValue(this.VarActualizar[0].enfermedad);
         this.observacion_alergias_ap.setValue(this.VarActualizar[0].observacion);
-        console.log(this.VarActualizar);
-      }, (error) => {
+        }, (error) => {
         console.log(error);
       });
     }
@@ -2566,8 +2497,7 @@ export class VerPacienteComponent implements OnInit {
         this.VarActualizar = data;
         this.tipo_cancer_ap.setValue(this.VarActualizar[0].enfermedad);
         this.observacion_cancer_ap.setValue(this.VarActualizar[0].observacion);
-        console.log(this.VarActualizar);
-      }, (error) => {
+       }, (error) => {
         console.log(error);
       });
     }
@@ -2633,8 +2563,7 @@ export class VerPacienteComponent implements OnInit {
         this.VarActualizar = data;
         this.otros_ap.setValue(this.VarActualizar[0].enfermedad);
         this.observacion_otros_ap.setValue(this.VarActualizar[0].observacion);
-        console.log(this.VarActualizar);
-      }, (error) => {
+       }, (error) => {
         console.log(error);
       });
     }
@@ -2702,8 +2631,7 @@ export class VerPacienteComponent implements OnInit {
         this.tiempo_hospitalizacion.setValue(this.VarActualizar[0].tiempo_hospitalizacion);
         this.tratamiento.setValue(this.VarActualizar[0].tratamiento);
         this.diagnostico.setValue(this.VarActualizar[0].diagnostico);
-        console.log(this.VarActualizar);
-      }, (error) => {
+       }, (error) => {
         console.log(error);
       });
     }
@@ -2721,7 +2649,6 @@ export class VerPacienteComponent implements OnInit {
         this.paciente_hospitalaria_quirurgica.tratamiento = this.tratamiento.value;
         this.paciente_hospitalaria_quirurgica.id_hospitalaria_quirurgica = this.VarActualizar[0].id_hospitalaria_quirurgica;
 
-        console.log('la hospitalaria:  ' + this.paciente_hospitalaria_quirurgica);
         this.formularioService.actualizarPacienteHospitalariaQuirurgica(this.paciente_hospitalaria_quirurgica).subscribe(
           (data) => {
             this.fecha_antecedente_hospitalario.setValue('');
@@ -2741,8 +2668,7 @@ export class VerPacienteComponent implements OnInit {
         this.paciente_hospitalaria_quirurgica.tratamiento = this.tratamiento.value;
 
 
-        console.log('la hospitalaria:  ' + this.paciente_hospitalaria_quirurgica);
-        this.formularioService.enviarPacienteHospitalariaQuirurgica(this.paciente_hospitalaria_quirurgica).subscribe(
+         this.formularioService.enviarPacienteHospitalariaQuirurgica(this.paciente_hospitalaria_quirurgica).subscribe(
           (data) => {
             this.fecha_antecedente_hospitalario.setValue('');
             this.tiempo_hospitalizacion.setValue('');
@@ -2767,8 +2693,7 @@ export class VerPacienteComponent implements OnInit {
         this.VarActualizar = data;
         this.otros_ht.setValue(this.VarActualizar[0].habito_toxicologico);
         this.observacion_otros_ht.setValue(this.VarActualizar[0].observacion);
-        console.log(this.VarActualizar);
-      }, (error) => {
+          }, (error) => {
         console.log(error);
       });
     }
@@ -2783,13 +2708,10 @@ export class VerPacienteComponent implements OnInit {
         this.paciente_habito_toxicologico.id_paciente = this.paciente.id_paciente;
         this.paciente_habito_toxicologico.observacion = this.observacion_otros_ht.value;
         this.paciente_habito_toxicologico.id_habito_toxicologico = this.VarActualizar[0].id_paciente_habito_toxicologico;
-        console.log("id actulizar: " + this.VarActualizar[0].id_paciente_habito_toxicologico);
-
-
+      
         this.formularioService.actualizarHabitoToxicologico(this.habito_toxicologico).subscribe((data) => {
 
           this.formularioService.actualizarPacienteHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data) => {
-            console.log('se actualizaron los habitos toxicologicos' + data);
             this.cargarHabitoToxicologico();
           }, (error) => {
             console.log(error);
@@ -2813,11 +2735,8 @@ export class VerPacienteComponent implements OnInit {
 
           // consulta sql
           this.paciente_habito_toxicologico.id_habito_toxicologico = data[0].id_habito_toxicologico;
-          console.log("ultimo habito: " + data[0].id_habito_toxicologico);
-
-          this.formularioService.enviarPacienteHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data) => {
-            console.log('se enviaron perron los nuevos habitos toxicologicos');
-            this.cargarHabitoToxicologico();
+           this.formularioService.enviarPacienteHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data) => {
+           this.cargarHabitoToxicologico();
           }, (error) => {
             console.log(error);
           });
@@ -2988,14 +2907,11 @@ export class VerPacienteComponent implements OnInit {
           this.actividad_sexual_add.numero_parejas_sexuales = this.numero_parejas_sexuales.value;
           this.actividad_sexual_add.practicas_sexuales_riesgo = this.practicas_sexuales_riesgo.value;
           this.actividad_sexual_add.id_paciente = this.paciente.id_paciente;
-          console.log(this.actividad_sexual_add);
-
+      
           this.formularioService.eliminarActividadSexual(this.id).subscribe((data) => {
-            console.log(data);
             this.formularioService.guardarActividadSexual(this.actividad_sexual_add).subscribe((data) => {
               this.showError('Actividad sexual actualizado correctamente');
-              console.log(data);
-            }, (error) => {
+            }, (error) => { 
               console.log(error);
               this.showError('Error al agregar los Actividad sexual');
             });
@@ -3024,9 +2940,7 @@ export class VerPacienteComponent implements OnInit {
             this.antecedente_ginecologico_add.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
             this.antecedente_ginecologico_add.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
             this.antecedente_ginecologico_add.id_paciente = this.paciente.id_paciente;
-            console.log(this.antecedente_ginecologico_add);
             this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico_add).subscribe((data) => {
-              console.log(data);
               this.showError('Antecedentes ginecologicos actualizado correctamente');
             }, (error) => {
               console.log(error);
@@ -3043,8 +2957,7 @@ export class VerPacienteComponent implements OnInit {
             this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
             this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
             this.formularioService.actualizarAntecedenteGinecologico(this.antecedente_ginecologico).subscribe((data) => {
-              console.log(data);
-              this.showError('Antecedentes ginecologicos actualizado correctamente');
+               this.showError('Antecedentes ginecologicos actualizado correctamente');
             }, (error) => {
               console.log(error);
               this.showError('Error al actualizar los antecedentes ginecologicos');
@@ -3069,8 +2982,7 @@ export class VerPacienteComponent implements OnInit {
             this.planificacion_familiardata_add.observacion_planificacion = this.observacion_planificacion.value;
             this.planificacion_familiardata_add.id_paciente = this.paciente.id_paciente;
             this.formularioService.eliminarPlanificacionFam(this.id).subscribe((data) => {
-              console.log(data);
-
+         
               this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiardata_add).subscribe((data) => {
                 this.showError('Planificacion Familiar actualizado correctamente');
               }, (error) => {
@@ -3132,7 +3044,6 @@ export class VerPacienteComponent implements OnInit {
             this.antecedente_obstetrico.observaciones = this.observaciones.value;
 
             this.formularioService.actualizarAntecedenteObstetrico(this.antecedente_obstetrico).subscribe((data) => {
-              console.log(data);
               this.showError('Antecedentes obstetricos actualizado correctamente');
             }, (error) => {
               console.log(error);
@@ -3158,8 +3069,7 @@ export class VerPacienteComponent implements OnInit {
   }
 
   mostrarcuenta(event) {
-    console.log(event);
-    if (event == 3) {
+     if (event == 3) {
       this.mostrarcuentaycarreca = false;
       this.mostrarcuentaalumno = false;
     } else {
@@ -3257,10 +3167,7 @@ export class VerPacienteComponent implements OnInit {
 
   @Input() cambios: string = this.otros.value;
   ngOnChanges(changes: SimpleChanges) {
-    console.log('se ejecuto el onChanges')
-    // if (changes['cambios']) {
-    //   console.log(this.cambios);
-    // }   
+  
   }
 
 
@@ -3701,8 +3608,7 @@ export class VerPacienteComponent implements OnInit {
 
     this.pacienteService.obtenerHistoriaSubsiguiente(this.id).subscribe((data: HistoriaSubsiguiente[]) => {
       this.historias_subsiguientes_paciente = data;
-      console.log(this.historias_subsiguientes_paciente);
-      this.dataSource1 = this.historias_subsiguientes_paciente;
+       this.dataSource1 = this.historias_subsiguientes_paciente;
     }, (error) => {
 
       console.log(error);
@@ -3926,8 +3832,6 @@ export class HistoriaSubsiguiente1 {
 
     if (valor == 1) {
 
-      console.log(valor);
-
       formControl.forEach(controlador => {
         controlador.enable({ onlySelf: true });
       });
@@ -3955,8 +3859,7 @@ export class HistoriaSubsiguiente1 {
 
     if (valor == null) {
 
-      console.log(valor);
-
+    
       this.texto = "No hay producto en existencia";
 
       formControl.forEach(controlador => {
@@ -3979,8 +3882,7 @@ export class HistoriaSubsiguiente1 {
       
       var medicamento = this.inventario.find( medicamento => medicamento.medicamento === valor );
       this.maximoMedicamento = medicamento.unidades;
-      console.log("unidad medicamento: "+medicamento.unidades);
-
+    
       if (this.maximoMedicamento == 0) {
 
         this.texto = "No hay producto en existencia";
@@ -4040,10 +3942,7 @@ export class HistoriaSubsiguiente1 {
         
       });
 
-      console.log(Object.entries(data).length === 0)
-      console.log(this.medicamentos);
-      console.log(this.inventario);
-
+    
     });
 
   }
@@ -4125,9 +4024,7 @@ export class HistoriaSubsiguiente1 {
       if (this.historia_subsiguiente.remitido == null || this.historia_subsiguiente.remitido == "") {
         this.historia_subsiguiente.remitido = 7;
       }
-      console.log(this.historia_subsiguiente);
       this.pacienteService.guardarHistoriaSubsiguiente(this.historia_subsiguiente).subscribe((data) => {
-        console.log(data);
         this.dialogRef.close();
         this.showError('Historia Subsiguiente guardada con exito');
       }, (error) => {
@@ -4203,8 +4100,7 @@ export class Borrartelefonoemergencia {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(this.data);
-  }
+    }
 
   BorrarRegistro() {
     if (this.data != 0) {
@@ -4242,8 +4138,7 @@ export class Borrartelefono {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(this.data);
-  }
+    }
 
   BorrarRegistro() {
     if (this.data != 0) {
@@ -4282,8 +4177,7 @@ export class BorrarDesnutricionAF {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(this.data);
-  }
+    }
 
   BorrarRegistro() {
     if (this.data != 0) {
@@ -4323,8 +4217,7 @@ export class BorrarDesnutricionAP {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(this.data);
-  }
+   }
 
   BorrarRegistro() {
     if (this.data != 0) {
@@ -4361,8 +4254,7 @@ export class BorrarHospitalarias {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(this.data);
-  }
+     }
 
   BorrarRegistro() {
     if (this.data != 0) {
@@ -4399,8 +4291,7 @@ export class BorrarHabitoToxicologico {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(this.data);
-  }
+    }
 
   BorrarRegistro() {
     if (this.data != 0) {
@@ -4491,8 +4382,7 @@ export class CambiarFoto {
 
   public handleInitError(error: WebcamInitError): void {
     if (error.mediaStreamError && error.mediaStreamError.name === "NotAllowedError") {
-      console.warn("Camera access was not allowed by user!");
-    }
+     }
     this.errors.push(error);
   }
 
@@ -4526,11 +4416,8 @@ export class CambiarFoto {
     const intervalo = interval(1000);
 
 
-    console.log(this.imagen);
-    console.log(this.NuevaImagen.imagen);
-
+   
     this.pacienteService.ActualizarImagen(this.NuevaImagen).subscribe((data) => {
-      console.log('imagen guardado con exito');
       this.pacienteService.sihayimagen = true;
       this.pacienteService.imagenactual = this.imagen;
       //this.verPaciente.actualizarfoto();
@@ -4542,7 +4429,6 @@ export class CambiarFoto {
   _handleReaderLoaded(readerEvent) {
     var binaryString = readerEvent.target.result;
     this.imagen = "data:image/jpeg;base64," + btoa(binaryString);
-    console.log(this.imagen);
     this.imagenAlter = true;
     this.guardar();
     this.dialogo.close;
@@ -4573,12 +4459,10 @@ export class CambiarFoto {
 
 
   public handleImage(webcamImage: WebcamImage): void {
-    console.log('received webcam image', webcamImage);
-    this.webcamImage = webcamImage;
+     this.webcamImage = webcamImage;
   }
 
   public cameraWasSwitched(deviceId: string): void {
-    console.log('active device: ' + deviceId);
     this.deviceId = deviceId;
   }
 
