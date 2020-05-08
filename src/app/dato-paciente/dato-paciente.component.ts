@@ -453,7 +453,7 @@ export class cambiocontraDialog {
               this.Listo = true;
 
             } else {
-              this.router.navigate(['principal/verPaciente/' + this.paciente1.id_paciente]);
+              this.router.navigate(['clínicaunahtec/verPaciente/' + this.paciente1.id_paciente]);
               this.showError('Contraseña Guardada');
               this.dialogRef.close();
 
