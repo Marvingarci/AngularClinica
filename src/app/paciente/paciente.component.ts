@@ -137,7 +137,7 @@ export class PacienteComponent implements OnInit {
 
     this.formularioService.esAlumno = false;
 
-    this.router.navigate(['principal/formulario']);
+    this.router.navigate(['clínicaunahtec/formulario']);
   }
 
 
