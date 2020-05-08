@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Inject, AfterViewInit, Injectable } from '@angular/core';
 import { FormularioService } from '../services/formulario.service';
 import { Paciente } from "../interfaces/paciente";
 import { ActivatedRoute } from '@angular/router';
@@ -13,6 +13,13 @@ import { HistoriaSubsiguiente } from '../interfaces/historia_subsiguiente';
 import { MatTableDataSource } from '@angular/material/table';
 import { PacienteService } from '../services/paciente.service';
 import { Cita } from '../interfaces/cita';
+
+//camara imports
+import { WebcamInitError } from '../modules/webcam/domain/webcam-init-error';
+import { WebcamImage } from '../modules/webcam/domain/webcam-image';
+import { Subject, Observable, timer, interval, empty } from 'rxjs';
+import { WebcamUtil } from '../modules/webcam/util/webcam.util';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 export interface select {
   value: string;
@@ -114,13 +121,15 @@ export class DatoPacienteComponent implements OnInit {
 
   //variable que identifica si un input es editable
   readonly: boolean = true;
+  loading1: boolean = false;
 
 
 
   constructor(private formularioService: FormularioService,
     private activatedRoute: ActivatedRoute, private router: Router,
     principal: AppComponent, public dialog: MatDialog,
-    private mensaje: MatSnackBar, private pacienteService: PacienteService) {
+    private mensaje: MatSnackBar, private pacienteService: PacienteService,  public cambiarFoto : MatDialog
+    ) {
 
 
 
@@ -301,6 +310,35 @@ export class DatoPacienteComponent implements OnInit {
     } else {
     }
   }
+  
+  actualizarfoto() {
+    const tiempo = timer(4000);
+
+    tiempo.subscribe((n) => {
+      this.loading1 = false;
+      console.log("foto actualizada");
+      this.paciente.imagen = this.pacienteService.imagenactual;
+      this.noImg = false;
+    });
+
+  }
+  
+  cambiarfoto() {
+    const dia = this.cambiarFoto.open(CambiarFoto1, {
+      panelClass: 'tomarfoto'
+    });
+
+    dia.afterClosed().subscribe(result => {
+
+      this.actualizarfoto();
+      this.loading1 = true;
+
+
+
+    });
+    this.pacienteService.id_historia_subsiguiente = this.id;
+  }
+
 
   //obtener los campos del formGroup: formulario_datos_generales
   get nombre_completo() { return this.formulario_datos_generales.get('nombre_completo') };
@@ -706,12 +744,14 @@ export class actualizarcontraDialog {
   resultado: any;
   pac: Paciente[];
   historias_subsiguientes: HistoriaSubsiguiente[];
+  loading1: boolean = false;
 
   constructor(
     private dialogRef: MatDialogRef<verificarDialog>,
     private formularioService: FormularioService, private activatedRoute: ActivatedRoute,
     public loginService: LoginService, private router: Router,
-    private mensaje: MatSnackBar, public dialog: MatDialog) {
+    private mensaje: MatSnackBar, public dialog: MatDialog,
+   ) {
 
 
     this.formularioService.obtenerPaciente(this.formularioService.idActualizar).subscribe((data: any) => {
@@ -744,7 +784,7 @@ export class actualizarcontraDialog {
     nuevaContraCambio: new FormControl('', [Validators.required, Validators.maxLength(20), Validators.minLength(6)]),
     nuevaContraRepCambio: new FormControl('', [Validators.required, Validators.maxLength(20), Validators.minLength(6)])
   });
-
+ 
 
   cambiarClave() {
 
@@ -825,3 +865,176 @@ export class DialogCerrarSesion {
 
   }
 } 
+
+
+export interface imagenNueva {
+  id: number,
+  imagen: string
+}
+/////// MATDIALOG cambiar foto
+@Component({
+  selector: 'CambiarFoto',
+  templateUrl: 'CambiarFoto.html',
+  styleUrls: ['CambiarFoto.css'],
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
+  }]
+})
+
+
+@Injectable()
+
+export class CambiarFoto1 {
+
+
+  constructor(private dialogo: MatDialogRef<CambiarFoto1>, private pacienteService: PacienteService, private activatedRoute: ActivatedRoute,
+    private formulario: FormularioService) {
+
+  }
+  // toggle webcam on/off
+  public showWebcam = true;
+  public allowCameraSwitch = true;
+  public multipleWebcamsAvailable = false;
+  public deviceId: string;
+  public facingMode: string = 'environment';
+  public errors: WebcamInitError[] = [];
+  public mirrorImage: 'never';
+  paciente: Paciente;
+  NuevaImagen: any = { id_paciente: null, imagen: null };
+  // latest snapshot
+  public webcamImage: WebcamImage = null;
+  opcion: boolean = true;
+  id: any;
+  imagen: any;
+  imagenAlter: boolean = false;
+  // webcam snapshot trigger
+  private trigger: Subject<void> = new Subject<void>();
+  // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
+  private nextWebcam: Subject<boolean | string> = new Subject<boolean | string>();
+
+  public ngOnInit(): void {
+    WebcamUtil.getAvailableVideoInputs()
+      .then((mediaDevices: MediaDeviceInfo[]) => {
+        this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
+      });
+  }
+
+  public triggerSnapshot(): void {
+    this.trigger.next();
+    this.opcion = false;
+  }
+
+  public toggleWebcam(): void {
+    this.showWebcam = !this.showWebcam;
+  }
+
+  public handleInitError(error: WebcamInitError): void {
+    if (error.mediaStreamError && error.mediaStreamError.name === "NotAllowedError") {
+      console.warn("Camera access was not allowed by user!");
+    }
+    this.errors.push(error);
+  }
+
+  public showNextWebcam(directionOrDeviceId: boolean | string): void {
+    // true => move forward through devices
+    // false => move backwards through devices
+    // string => move to device with given deviceId
+    this.nextWebcam.next(directionOrDeviceId);
+  }
+  public otrafoto() {
+    this.opcion = true;
+
+  }
+  public guardar() {
+
+
+    this.id = this.pacienteService.id_historia_subsiguiente;
+
+    if (this.imagenAlter == true) {
+      this.imagenAlter = false;
+
+    } else {
+      this.imagen = this.webcamImage.imageAsDataUrl;
+    }
+
+
+
+
+    this.NuevaImagen.id_paciente = this.id;
+    this.NuevaImagen.imagen = this.imagen;
+    const intervalo = interval(1000);
+
+
+    console.log(this.imagen);
+    console.log(this.NuevaImagen.imagen);
+
+    this.pacienteService.ActualizarImagen(this.NuevaImagen).subscribe((data) => {
+      console.log('imagen guardado con exito');
+      this.pacienteService.sihayimagen = true;
+      this.pacienteService.imagenactual = this.imagen;
+      //this.verPaciente.actualizarfoto();
+    }, (error) => {
+      console.log(error);
+    });
+    this.dialogo.close();
+  }
+  _handleReaderLoaded(readerEvent) {
+    var binaryString = readerEvent.target.result;
+    this.imagen = "data:image/jpeg;base64," + btoa(binaryString);
+    console.log(this.imagen);
+    this.imagenAlter = true;
+    this.guardar();
+    this.dialogo.close;
+
+
+  }
+
+
+  seleccionarArchivo(event) {
+    var files = event.target.files;
+    var file = files[0];
+
+    if (files && file) {
+      var reader = new FileReader();
+      reader.onload = this._handleReaderLoaded.bind(this);
+
+
+      reader.readAsBinaryString(file);
+
+    }
+
+
+  }
+
+
+  ///////////////////////codigo 
+
+
+
+  public handleImage(webcamImage: WebcamImage): void {
+    console.log('received webcam image', webcamImage);
+    this.webcamImage = webcamImage;
+  }
+
+  public cameraWasSwitched(deviceId: string): void {
+    console.log('active device: ' + deviceId);
+    this.deviceId = deviceId;
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  public get nextWebcamObservable(): Observable<boolean | string> {
+    return this.nextWebcam.asObservable();
+  }
+
+  public get videoOptions(): MediaTrackConstraints {
+    const result: MediaTrackConstraints = {};
+    if (this.facingMode && this.facingMode !== "") {
+      result.facingMode = { ideal: this.facingMode };
+    }
+
+    return result;
+  }
+}
