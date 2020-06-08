@@ -11,7 +11,7 @@ import { PrincipalComponent, DialogCerrarSesion2 } from './principal/principal.c
 import { LoginadminComponent, DialogoCambiarContraseniaAdmin, /*DialogoVerificar*/ } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
 import { At1Component } from './at1/at1.component';
-import { DatoPacienteComponent, cambiocontraDialog, actualizarcontraDialog, DialogCerrarSesion, verificarDialog } from './dato-paciente/dato-paciente.component';
+import { DatoPacienteComponent, cambiocontraDialog, actualizarcontraDialog, DialogCerrarSesion, verificarDialog, CambiarFoto1 } from './dato-paciente/dato-paciente.component';
 import { PacienteComponent } from './paciente/paciente.component';
 import { VerPacienteComponent, HistoriaSubsiguiente1, Borrartelefonoemergencia,Borrartelefono, BorrarDesnutricionAF, BorrarDesnutricionAP, BorrarHospitalarias, CambiarFoto, BorrarHabitoToxicologico } from './ver-paciente/ver-paciente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -212,6 +212,7 @@ const routes: Route[] = [
     Loginayuda,
     EstadisticasFisicasPacienteComponent,
     CuentaUnicaDirective,
+    CambiarFoto1
   
 
 
@@ -298,6 +299,7 @@ const routes: Route[] = [
     BorrarHabitoToxicologico,
     DialogoVerificarPermisoComponent,
     Loginayuda,
+    CambiarFoto1
     //DialogoVerCitasComponent
   ],
   providers: [
