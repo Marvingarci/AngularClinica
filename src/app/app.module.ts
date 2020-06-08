@@ -120,7 +120,7 @@ const routes: Route[] = [
   { path: '', component: LoginComponent },
   { path: 'formulario', component: FormularioComponent },
   { path: 'formulario:id', component: FormularioComponent },
-  { path: 'principal', component: PrincipalComponent, canActivate: [AuthAdministradorGuard] },
+  { path: 'clínicaunahtec', component: PrincipalComponent, canActivate: [AuthAdministradorGuard] },
   { path: 'at1', component: At1Component, canActivate: [AuthAdministradorGuard] },
   { path: 'datoPaciente/:id', component: DatoPacienteComponent, canActivate: [AuthPacienteGuard] },
   { path: 'datoPaciente', component: DatoPacienteComponent, canActivate: [AuthPacienteGuard] },
@@ -135,7 +135,7 @@ const routes: Route[] = [
   { path: 'consolidadodiario', component: ConsolidadodiarioComponent, canActivate: [AuthAdministradorGuard] },
 
   {
-    path: 'principal',
+    path: 'clínicaunahtec',
     component: PrincipalComponent,
     canActivate: [AuthAdministradorGuard],
     children: [
@@ -151,7 +151,7 @@ const routes: Route[] = [
       { path: 'formInventario/:id', component: FormInventarioComponent },
       { path: 'registromedicos', component: RegistromedicosComponent },
       { path: 'registromedicos/:id', component: RegistromedicosComponent },
-      { path: 'principal1', component: Principal1Component },
+      { path: 'principal', component: Principal1Component },
       { path: 'verPaciente/:id', component: VerPacienteComponent },
       { path: 'formulario', component: FormularioComponent },
       { path: 'consolidado', component: ConsolidadodiarioComponent },

@@ -261,7 +261,7 @@ export class RegistromedicosComponent implements OnInit {
 
 
                   this.getMedicos();
-                  this.router.navigate(['/principal/veradministradores']);
+                  this.router.navigate(['/clínicaunahtec/veradministradores']);
 
                   this.showError('Médico actualizado correctamente');
 
@@ -296,7 +296,7 @@ export class RegistromedicosComponent implements OnInit {
 
                     this.getMedicos();
                     this.showError('Medico creado con exito');
-                    this.router.navigate(['/principal/veradministradores']);
+                    this.router.navigate(['/clínicaunahtec/veradministradores']);
 
                   }, (error) => {
 
@@ -324,7 +324,7 @@ export class RegistromedicosComponent implements OnInit {
 
       } else {
 
-        this.router.navigate(['/principal/veradministradores']);
+        this.router.navigate(['/clínicaunahtec/veradministradores']);
 
 
       }

@@ -175,7 +175,7 @@ export class LoginadminComponent implements OnInit {
 
               this.login_adminservice.actualizarAdministrador(this.administrador).subscribe((data) => {
 
-                this.router.navigate(['/principal/veradministradores']);
+                this.router.navigate(['/clínicaunahtec/veradministradores']);
                 this.getAdministradores();
                 this.showError('Administrador actualizado correctamente');
 
@@ -201,7 +201,7 @@ export class LoginadminComponent implements OnInit {
 
                     this.getAdministradores();
 
-                    this.router.navigate(['/principal/veradministradores']);
+                    this.router.navigate(['/clínicaunahtec/veradministradores']);
 
                     this.showError('Administrador creado con exito');
 
@@ -228,7 +228,7 @@ export class LoginadminComponent implements OnInit {
 
       } else {
 
-        this.router.navigate(['/principal/veradministradores']);
+        this.router.navigate(['/clínicaunahtec/veradministradores']);
 
       }
 
