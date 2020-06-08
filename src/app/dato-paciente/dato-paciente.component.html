@@ -61,6 +61,9 @@
                             style="width: 216.5px;height: 216.5px;padding-left:50.75px;padding-right: 50.75px;padding-top: 38.25px;padding-bottom: 38.25px;margin-left: 20px;">
                             <img *ngIf="noImg==true" class="sinImg" />
                             <img *ngIf="noImg == false" class="img" src={{paciente.imagen}} />
+                             <button (click)="cambiarfoto()">
+                            <mat-icon>flip_camera_ios</mat-icon>
+                          </button> 
                         </div>
 
                         <div class="col" style="padding-top: 20px;">
