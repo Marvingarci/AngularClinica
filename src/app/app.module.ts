@@ -97,6 +97,15 @@ import { AyudaComponent } from './ayuda/ayuda.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { EstadisticasFisicasPacienteComponent } from './estadisticas-fisicas-paciente/estadisticas-fisicas-paciente.component';
 import { CuentaUnicaDirective } from './validations/cuenta-unica.directive';
+import { ChatComponent } from './chat/chat.component';
+
+
+//firebase
+
+import {AngularFireDatabaseModule} from 'angularfire2/database'
+import {AngularFireModule} from 'angularfire2'
+import {environment} from '../environments/environment'
+
 
 //import { DialogoVerCitasComponent } from './dialogo-ver-citas/dialogo-ver-citas.component'; // custom fonts
 
@@ -127,6 +136,8 @@ const routes: Route[] = [
   { path: 'verPaciente/:id', component: VerPacienteComponent, canActivate: [AuthAdministradorGuard] },
   { path: 'inventario', component: InventarioComponent, canActivate: [AuthAdministradorGuard] },
   { path: 'ayuda', component: AyudaComponent },
+  { path: 'chat', component: ChatComponent },
+
 
 
   { path: 'loginadmin', component: LoginadminComponent, canActivate: [AuthAdministradorGuard] },
@@ -157,6 +168,7 @@ const routes: Route[] = [
       { path: 'consolidado', component: ConsolidadodiarioComponent },
       // {path: 'verPaciente', component: VerPacienteComponent},
       { path: 'ayuda', component: AyudaComponent },
+      { path: 'chat', component: ChatComponent },
 
 
     ]
@@ -212,7 +224,8 @@ const routes: Route[] = [
     Loginayuda,
     EstadisticasFisicasPacienteComponent,
     CuentaUnicaDirective,
-    CambiarFoto1
+    CambiarFoto1,
+    ChatComponent
   
 
 
@@ -268,7 +281,9 @@ const routes: Route[] = [
     MatTooltipModule,
     NgxChartsModule,
     MatGridListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
 
 
 
