@@ -8,6 +8,7 @@ import { Paciente } from '../interfaces/paciente';
 import { MatDialog } from '@angular/material';
 import { PacienteService } from '../services/paciente.service';
 import { Cita } from '../interfaces/cita';
+import { LoginService } from '../services/login.service';
 
 
 
@@ -69,7 +70,7 @@ export class PacienteComponent implements OnInit {
   loading: boolean;
   constructor(private formularioService: FormularioService,
     private pacienteService: PacienteService,
-    private httpClient: HttpClient,
+    private loginService: LoginService,
     private router: Router,
     public dialogo: MatDialog) {
 
@@ -125,6 +126,7 @@ export class PacienteComponent implements OnInit {
 
 
   ngOnInit() {
+
 
   }
 
@@ -187,6 +189,12 @@ export class PacienteComponent implements OnInit {
       this.mostrarCitas = false;
     }
 
+  }
+
+  verChat(){
+
+    this.router.navigate(['clínicaunahtec/chat']);
+    
   }
 
 }
