@@ -1,15 +1,9 @@
 import { Component, OnInit, ViewChild, Inject, OnDestroy, Optional } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { FormularioService } from '../services/formulario.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { Router, RouterModule, ActivatedRoute } from '@angular/router';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { LoginadminService } from '../services/loginadmin.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { Paciente } from '../interfaces/paciente';
 import { LoginService } from '../services/login.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MedicosService } from '../services/medicos.service';
 import { Administrador } from '../interfaces/administrador';
 import { Medicos } from '../interfaces/medicos';
@@ -54,9 +48,9 @@ export class VerAdministradoresComponent implements OnInit {
   meds: Medicos[];
 
 
-  constructor(private medicoService: MedicosService, private login_adminservice: LoginadminService,
-    private activatedRoute: ActivatedRoute, public dialog: MatDialog, private LoginAdminService: LoginadminService,
-    private httpClient: HttpClient, private router: Router) {
+  constructor(private medicoService: MedicosService,
+    public dialog: MatDialog,
+    private LoginAdminService: LoginadminService) {
 
     this.getAdministradores();
     this.getMedicos();
@@ -88,7 +82,7 @@ export class VerAdministradoresComponent implements OnInit {
       console.log(error);
       alert('Ocurrio un error');
     });
-    
+
   }
 
 
@@ -163,7 +157,7 @@ export class VerAdministradoresComponent implements OnInit {
 
     });
 
-    
+
   }
 
 
@@ -251,7 +245,7 @@ export class Borraradministrador implements OnDestroy {
       //verifico si el usuario que se va borrar no es el mismo usuario que esta logueado
       if (this.data != this.loginService.datosUsuario.id) {
 
-        this.loginAdminService.delete(this.data).subscribe(result =>{
+        this.loginAdminService.delete(this.data).subscribe(result => {
           this.showError('Administrador borrado con exito');
         });
 
