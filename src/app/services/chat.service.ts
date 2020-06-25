@@ -14,7 +14,8 @@ export class ChatService {
   getChats()
   {
 
-    return this.chatList = this.firebase.list('Chat')
+    return this.chatList = this.firebase.list('Chat');
+    
 
   }
 
