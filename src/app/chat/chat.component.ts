@@ -4,6 +4,7 @@ import { Chat } from '../interfaces/chat';
 import { element } from 'protractor';
 import { FormGroup, FormControl } from '@angular/forms';
 import { LoginService } from '../services/login.service';
+import { Item } from 'pdfmake-wrapper';
 
 @Component({
   selector: 'app-chat',
@@ -17,6 +18,7 @@ export class ChatComponent implements OnInit {
   });
 
   chatList: Chat[]
+  esadmin:boolean;
 
 
   constructor(
@@ -26,7 +28,7 @@ export class ChatComponent implements OnInit {
   
 
   ngOnInit() {
-
+   
     this.chatService.getChats()
     .snapshotChanges()
     .subscribe(item => {
@@ -40,10 +42,47 @@ export class ChatComponent implements OnInit {
       })
 
       this.chatList.forEach(element =>{
+
+        if ( element['messageUser'] =='Alguien') {
+          this.esadmin = true;
+          console.log("valor booleano admin:   " + this.esadmin);          
+          console.log(element['messageUser'] );
+            }else {
+              this.esadmin = false;
+              console.log("valor booleano noadmin:   " + this.esadmin);  
+              console.log(element['messageUser'] );
+            } 
         console.log(element)
       })
     })
   }
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
 
   enviarMensaje(){
 
