@@ -1,34 +1,65 @@
-<div class="container">
 
+ <!-- <img [src]="msg.user?.photoURL">   esto estaba comentado -->
+         
+
+<div class="col" style="background-color: #4f5387;">
+
+    <div class="row">
+    <div class="mesgs">
+        <div class="msg_history">
+          <li class="message" *ngFor="let msg of chatList;">
+            <div
+            *ngIf="
+            msg.messageUser !== 'Alguien';
+              then incoming_msg;
+              else outgoing_msg
+            "
+          ></div>
+            <ng-template  #incoming_msg>
+              <div class="incoming_msg" >
+                <div style="margin-left: 30px;" >
+                    {{msg.messageUser}}
+                </div>
+                <div class="received_msg">
+                  <div class="received_withd_msg">
+                    <p>{{ msg.messageText  }}</p>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+
+            <ng-template #outgoing_msg>
+              <div class="outgoing_msg">
+                <div class="sent_msg">
+                  <p>{{ msg.messageText  }}</p>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+        </div>
+    </div>
+    </div>
+    <div class="row" style="position: inherit;display: inline;">
+      
+
+
+
+
+
+
+      <div class="form" [formGroup]="mensaje_form" style="position:inherit;height: 80px;background:#4f5387 ;">
+        <input  formControlName="mensaje" (keydown.enter)="enviarMensaje()" style="position: inherit;width: 100%;" placeholder="   Escribe un mensaje">
+        <button mat-icon-button  (click)="enviarMensaje()" style="color: #4f5387;margin-left: -50px;"><mat-icon style="font-size: 40px;">send</mat-icon></button>
+    </div>
+    
+    </div>
+</div>
+  
+    
+    
+    
     <!-- <div class="top">
       <p>
           https://firestore-megachat.firebaseapp.com/chats/{{ chat.id }}
       </p>
     </div> -->
-
-
-    <div class="chat">
-
-
-        <div class="msg" *ngFor="let msg of chatList;">
-
-            <div class="user">
-                <!-- <img [src]="msg.user?.photoURL"> -->
-                <div>{{ msg.messageUser}}</div>
-            </div>
-
-            <p>{{ msg.messageText }}</p>
-
-        </div>
-
-    </div>
-
-    <div class="form" [formGroup]="mensaje_form">
-
-        <input formControlName="mensaje" (keydown.enter)="enviarMensaje()">
-
-        <button (click)="enviarMensaje()">Enviar</button>
-    </div>
-
-
-</div>
