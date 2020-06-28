@@ -1,11 +1,8 @@
 
  <!-- <img [src]="msg.user?.photoURL">   esto estaba comentado -->
-         
+       <div class="intro"> 
 
-<div class="col" style="background-color: #4f5387;">
-
-    <div class="row">
-    <div class="mesgs">
+    <div class="mesgs" style="background-color: #4f5387;">
         <div class="msg_history">
           <li class="message" *ngFor="let msg of chatList;">
             <div
@@ -38,8 +35,7 @@
           </li>
         </div>
     </div>
-    </div>
-    <div class="row" style="position: inherit;display: inline;">
+  
       
 
 
@@ -47,13 +43,18 @@
 
 
 
+
+      <div style="position: absolute; bottom: 0px;width: 100%;">
+          <div  >
       <div class="form" [formGroup]="mensaje_form" style="position:inherit;height: 80px;background:#4f5387 ;">
-        <input  formControlName="mensaje" (keydown.enter)="enviarMensaje()" style="position: inherit;width: 100%;" placeholder="   Escribe un mensaje">
+        <input  formControlName="mensaje" (keydown.enter)="enviarMensaje()" style="width: 100%;position:inherit;" placeholder="   Escribe un mensaje">
         <button mat-icon-button  (click)="enviarMensaje()" style="color: #4f5387;margin-left: -50px;"><mat-icon style="font-size: 40px;">send</mat-icon></button>
+    </div>
     </div>
     
     </div>
-</div>
+
+  </div> 
   
     
     
