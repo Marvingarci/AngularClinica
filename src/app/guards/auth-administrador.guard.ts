@@ -12,17 +12,24 @@ export class AuthAdministradorGuard implements CanActivate {
 
 
   canActivate(){
+    
+    if(this.loginService.isAutenticado){
 
-    if (this.loginService.datosUsuario.rol == 'Administrador'|| this.loginService.datosUsuario.rol == 'Medico') {
+      // if (this.loginService.datosUsuario.rol == 'Administrador'|| this.loginService.datosUsuario.rol == 'Medico') {
 
 
-      return true;
+        return true;
+  
+      // } 
 
-    } else {
 
+    }else {
+  
       this.router.navigate(['/']);
       return false;
     }
+
+   
 
   }
 
