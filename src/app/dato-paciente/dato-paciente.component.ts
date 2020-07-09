@@ -123,13 +123,19 @@ export class DatoPacienteComponent implements OnInit {
   readonly: boolean = true;
   loading1: boolean = false;
 
+  //variable que editifica si el paciente es alumno o no
+  esAlumno: boolean;
+
 
 
   constructor(private formularioService: FormularioService,
     private activatedRoute: ActivatedRoute, private router: Router,
     principal: AppComponent, public dialog: MatDialog,
-    private mensaje: MatSnackBar, private pacienteService: PacienteService,  public cambiarFoto : MatDialog
-    ) {
+    private mensaje: MatSnackBar, 
+    private pacienteService: PacienteService, 
+    private loginService: LoginService,
+    public cambiarFoto: MatDialog
+  ) {
 
 
 
@@ -155,6 +161,33 @@ export class DatoPacienteComponent implements OnInit {
 
         this.formularioService.idActualizar = this.paciente.id_paciente;
 
+        if (this.paciente.categoria == "Estudiante") {
+
+          this.esAlumno = true
+
+
+          //recupero el id de la tabla de logins mandandole el numero de cuenta del paciente
+          this.loginService.obtenerIdLogin(this.paciente.numero_cuenta).subscribe((data: any) => {
+  
+            //guardo el id en una variable global dentro del servio de login
+            this.loginService.idActualizar = data.id_login
+  
+          })
+  
+  
+        } else {
+  
+          this.esAlumno = false
+  
+  
+          //recupero el id de la tabla de logins mandandole el numero de identidad del paciente
+          this.loginService.obtenerIdLogin(this.paciente.numero_identidad).subscribe((data: any) => {
+  
+            //guardo el id en una variable global dentro del servio de login
+            this.loginService.idActualizar = data.id_login
+          })
+  
+        }
 
         // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
         //si el paciente tiene imagen entonces esta variable cambiara a false
@@ -170,18 +203,18 @@ export class DatoPacienteComponent implements OnInit {
 
     principal.esconder();
 
-  
+
 
   }
- 
 
-  obtenerCitas(){
-    
-    this.pacienteService.obtenerCitasVigetentesPorPaciente(this.id).subscribe((data:any)=>{
+
+  obtenerCitas() {
+
+    this.pacienteService.obtenerCitasVigetentesPorPaciente(this.id).subscribe((data: any) => {
 
       this.citas = data;
 
-      if(this.citas.length != 0){
+      if (this.citas.length != 0) {
 
         this.siHayCitas = true;
 
@@ -191,29 +224,29 @@ export class DatoPacienteComponent implements OnInit {
     });
   }
 
-  obtenerDatosHistoriaSubsiguiente(){
+  obtenerDatosHistoriaSubsiguiente() {
 
     this.pacienteService.obtenerHistoriaSubsiguiente(this.id).subscribe((data: any) => {
 
       this.historia_subsiguiente = data;
 
-      if(this.historia_subsiguiente.medicamento != null){
+      if (this.historia_subsiguiente.medicamento != null) {
 
-          this.siHayMedicamentos = true;
+        this.siHayMedicamentos = true;
 
       }
-      if(this.historia_subsiguiente.indicaciones != null){
+      if (this.historia_subsiguiente.indicaciones != null) {
 
         this.siHayIndicaciones = true;
 
       }
 
-      if(this.historia_subsiguiente.observaciones != null){
+      if (this.historia_subsiguiente.observaciones != null) {
 
         this.siHayObservaciones = true;
 
       }
-      
+
 
     }, (error) => {
 
@@ -223,12 +256,12 @@ export class DatoPacienteComponent implements OnInit {
 
   }
 
-  obtenerDatosPaciente(){
+  obtenerDatosPaciente() {
 
     this.obtenerCitas();
     this.obtenerDatosHistoriaSubsiguiente();
 
-    
+
   }
 
 
@@ -251,7 +284,7 @@ export class DatoPacienteComponent implements OnInit {
   }
 
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 
 
@@ -263,9 +296,9 @@ export class DatoPacienteComponent implements OnInit {
 
   cambiarContra() {
 
-    const dialogRef = this.dialog.open(verificarDialog, 
-      { 
-        disableClose: false, closeOnNavigation: true, panelClass: 'cambiarcontrasenia' 
+    const dialogRef = this.dialog.open(verificarDialog,
+      {
+        disableClose: false, closeOnNavigation: true, panelClass: 'cambiarcontrasenia'
       });
 
   }
@@ -281,36 +314,82 @@ export class DatoPacienteComponent implements OnInit {
 
       if (this.formulario_datos_generales.valid) {
 
-        this.paciente.nombre_completo = this.nombre_completo.value;
-        this.paciente.numero_cuenta = this.numero_cuenta.value;
-        this.paciente.numero_identidad = this.numero_identidad.value;
-        this.paciente.carrera = this.carrera.value;
-        this.paciente.sexo = this.sexo.value;
-        this.paciente.telefono = this.numero_telefono.value;
+        if (this.formulario_datos_generales.dirty) {
 
-        this.formularioService.actualizarPaciente(this.paciente).subscribe((data) => {
+          this.paciente.nombre_completo = this.nombre_completo.value;
+          this.paciente.numero_cuenta = this.numero_cuenta.value;
+          this.paciente.numero_identidad = this.numero_identidad.value;
+          this.paciente.carrera = this.carrera.value;
+          this.paciente.sexo = this.sexo.value;
+          this.paciente.telefono = this.numero_telefono.value;
 
-          this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) => {
-            this.paciente = data;
+          if (this.esAlumno == false) {
 
-            this.nombre_completo.setValue(this.paciente.nombre_completo);
-            this.numero_identidad.setValue(this.paciente.numero_identidad);
-            this.numero_cuenta.setValue(this.paciente.numero_cuenta);
-            this.carrera.setValue(this.paciente.carrera);
-            this.sexo.setValue(this.paciente.sexo);
-            this.numero_telefono.setValue(this.paciente.telefono);
+            var login = {
+  
+              "id_login": this.loginService.idActualizar,
+              "cuenta": this.paciente.numero_identidad
+  
+            }
+  
+            this.loginService.actualizarCuenta(login).subscribe((result) => {
+  
+              console.log("se actualizo perron la cuenta del no alumno")
+  
+            }, (error) => {
+  
+              console.log(error)
+            })
+  
+          } else {
+  
+            var login = {
+  
+              "id_login": this.loginService.idActualizar,
+              "cuenta": this.paciente.numero_cuenta
+  
+            }
+  
+            this.loginService.actualizarCuenta(login).subscribe((result) => {
+  
+              console.log("se actualizo perron la cuenta del alumno")
+  
+            }, (error) => {
+  
+              console.log(error)
+            })
+  
+  
+          }
+
+          this.formularioService.actualizarPaciente(this.paciente).subscribe((data) => {
+
+            this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) => {
+              this.paciente = data;
+
+              this.nombre_completo.setValue(this.paciente.nombre_completo);
+              this.numero_identidad.setValue(this.paciente.numero_identidad);
+              this.numero_cuenta.setValue(this.paciente.numero_cuenta);
+              this.carrera.setValue(this.paciente.carrera);
+              this.sexo.setValue(this.paciente.sexo);
+              this.numero_telefono.setValue(this.paciente.telefono);
+            });
+
+            this.showError('Todo correcto');
+          }, (error) => {
+            console.log(error);
+            this.showError('Ocurrio un error');
           });
 
-          this.showError('Todo correcto');
-        }, (error) => {
-          console.log(error);
-          this.showError('Ocurrio un error');
-        });
+        }
+
+
       }
     } else {
+      this.showError("Datos inválidos")
     }
   }
-  
+
   actualizarfoto() {
     const tiempo = timer(4000);
 
@@ -322,7 +401,7 @@ export class DatoPacienteComponent implements OnInit {
     });
 
   }
-  
+
   cambiarfoto() {
     const dia = this.cambiarFoto.open(CambiarFoto1, {
       panelClass: 'tomarfoto'
@@ -517,9 +596,6 @@ export class cambiocontraDialog {
   }
 
   //EVENTO CUANDO SE DA ENTER
-
-
-
   onKeydown1(event) {
     if (event.key === "Enter") {
       this.hide1 = false;
@@ -751,7 +827,7 @@ export class actualizarcontraDialog {
     private formularioService: FormularioService, private activatedRoute: ActivatedRoute,
     public loginService: LoginService, private router: Router,
     private mensaje: MatSnackBar, public dialog: MatDialog,
-   ) {
+  ) {
 
 
     this.formularioService.obtenerPaciente(this.formularioService.idActualizar).subscribe((data: any) => {
@@ -784,7 +860,7 @@ export class actualizarcontraDialog {
     nuevaContraCambio: new FormControl('', [Validators.required, Validators.maxLength(20), Validators.minLength(6)]),
     nuevaContraRepCambio: new FormControl('', [Validators.required, Validators.maxLength(20), Validators.minLength(6)])
   });
- 
+
 
   cambiarClave() {
 
@@ -796,7 +872,7 @@ export class actualizarcontraDialog {
 
       if (this.nuevaContraCambio.value == this.nuevaContraRepCambio.value) {
 
-        this.loginService.actualizarDatos(this.login).subscribe((data) => {
+        this.loginService.actualizarContrasena(this.login).subscribe((data) => {
 
 
           this.showError('Cambio de contraseña exitoso');
@@ -864,7 +940,7 @@ export class DialogCerrarSesion {
     this.router.navigate(['']);
 
   }
-} 
+}
 
 
 export interface imagenNueva {
