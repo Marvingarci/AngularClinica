@@ -41,7 +41,27 @@ export class LoginService {
   actualizarDatos(login: Login){
 
     return this.httpClient.put(
-      this.API_ENDPOINT+'datos_login/'+ login.cuenta, 
+      this.API_ENDPOINT+'datos_login', 
+      login, 
+      {headers: this.headers}
+    );
+
+  }
+
+  actualizarContrasena(login: Login){
+
+    return this.httpClient.post(
+      this.API_ENDPOINT+'actualizar_contrasena', 
+      login, 
+      {headers: this.headers}
+    );
+
+  }
+
+  actualizarCuenta(login: any){
+
+    return this.httpClient.post(
+      this.API_ENDPOINT+'actualizar_cuenta', 
       login, 
       {headers: this.headers}
     );
@@ -82,11 +102,15 @@ export class LoginService {
 
   }
 
-  obtenerIdLoginMedico(cuenta:any){
+  obtenerIdLogin(cuenta:any){
 
-    return this.httpClient.get(this.API_ENDPOINT + 'obtenerIdLoginMedico/'+cuenta);
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerIdLogin/'+cuenta);
 
 
+  }
+
+  isAutenticado(){
+    return localStorage.getItem('token') != null;
   }
 
 
