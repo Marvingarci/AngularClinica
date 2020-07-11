@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inventario } from '../interfaces/inventario';
 import { HistoriaSubsiguiente } from "../interfaces/historia_subsiguiente";
 import { Cita } from '../interfaces/cita';
+import { RecuperarCorreo } from '../interfaces/RecuperarCorreo';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,29 @@ export class PacienteService {
  
   constructor(private httpClient :HttpClient) { }
  
+  obtenerUsuarioConCorreo(correo:any){
+    
+    return this.httpClient.get(this.API_ENDPOINT + '/obtenerUsuarioConCorreo/'+correo,   {headers: this.headers});
+    
+  }
+
+  // obtenerUsuarioConId(correo:any){
+    
+  //   return this.httpClient.get(this.API_ENDPOINT + '/obtenerUsuarioConCorreo/'+correo,   {headers: this.headers});
+    
+  // }
+
+  enviarCorreo(recuperar_correo:RecuperarCorreo){
+    
+    return this.httpClient.post(this.API_ENDPOINT + '/contactar/',recuperar_correo ,  {headers: this.headers});
+    
+  }
+
+  mandarIdAView(recuperar_correo:RecuperarCorreo){
+    
+    return this.httpClient.post(this.API_ENDPOINT + '/mandarIdAView/',recuperar_correo ,  {headers: this.headers});
+    
+  }
 
   guardarHistoriaSubsiguiente(historia_subsiguiente: HistoriaSubsiguiente){
     return this.httpClient.post(this.API_ENDPOINT+'/historias_subsiguientes',historia_subsiguiente,{headers:this.headers});
