@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AppComponent } from "../app.component";
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { cambiocontraDialog } from '../dato-paciente/dato-paciente.component';
@@ -14,65 +14,68 @@ export class PrincipalComponent implements OnInit {
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
   panelOpenState = false;
   typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
-  
-  public opened:boolean =true; 
-  public isSpinnerVisible:boolean;   
-  icon : string='home';
+
+  public opened: boolean = true;
+  public isSpinnerVisible: boolean;
+  icon: string = 'home';
   esAdmin: boolean;
 
   // @Output() messageEvent = new EventEmitter<boolean>();  esto es para mandar string de un componente a otro
 
-  constructor(mostrar: AppComponent,private router: Router,public dialog: MatDialog, private loginService: LoginService) {
+  constructor(mostrar: AppComponent, private router: Router, public dialog: MatDialog, private loginService: LoginService) {
 
-    mostrar.mostrar();  
+    mostrar.mostrar();
 
-    //verifico si el usuario que se logueo es un administrador
-    // para poder mostrar o no la seccion de administradores en la sidenav
-    if(this.loginService.datosUsuario.rol == 'Administrador' || this.loginService.datosUsuario.permisos == true){
+    if(localStorage.getItem("rol") == 'Administrador' || this.loginService.datosUsuario.permisos == true){
 
-      this.esAdmin = true;
-      
-    }else {
-
-      this.esAdmin = false;
-    }
-
-}
-
-abrirside() {
-      this.opened != this.opened;         
-    }
-
-    principal(){      
-      this.icon = 'home';
-    }
-    pacientes(){      
-      this.icon = 'folder_shared';
-    }
-    at1(){      
-      this.icon = 'receipt';
-    }
-    consolidariodiario(){      
-      this.icon = 'today';
-    }
-    inventario(){      
-      this.icon = 'healing';
-    }
-    admininstradores(){      
-      this.icon = 'assignment_ind';
-    }
-    ayuda(){      
-      this.icon = 'help';
-  }
-  cerrarsesion(){
+      this.esAdmin = true
     
-  const dialogRef = this.dialog.open(DialogCerrarSesion2, {disableClose:false,});
+    }else{
+
+      this.esAdmin = false
+
+    }
+    
+
   }
-      
-      
-   
-    ngOnInit() {}
+
+  abrirside() {
+    this.opened != this.opened;
+  }
+
+  principal() {
+    this.icon = 'home';
+  }
+  pacientes() {
+    this.icon = 'folder_shared';
+  }
+  at1() {
+    this.icon = 'receipt';
+  }
+  consolidariodiario() {
+    this.icon = 'today';
+  }
+  inventario() {
+    this.icon = 'healing';
+  }
+  admininstradores() {
+    this.icon = 'assignment_ind';
+  }
+  ayuda() {
+    this.icon = 'help';
+  }
+  cerrarsesion() {
+
+    const dialogRef = this.dialog.open(DialogCerrarSesion2, { disableClose: false, });
+  }
+
+
+
+  ngOnInit() {
+
   
+   }
+
 }
 
 
@@ -97,13 +100,13 @@ abrirside() {
   selector: 'dialog-cerrar-sesion2',
   templateUrl: 'dialog-cerrar-sesion2.html',
 })
- 
+
 export class DialogCerrarSesion2 {
-constructor( public dialog: MatDialog,private router: Router){
-  
-  this.dialog.closeAll;
-}
-  salir(){
+  constructor(public dialog: MatDialog, private router: Router) {
+
+    this.dialog.closeAll;
+  }
+  salir() {
     //borro el token para que el usuario no ya no tenga acceso
     localStorage.removeItem('token');
     this.router.navigate(['/']);

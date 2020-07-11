@@ -22,7 +22,7 @@ import { RecuperarCorreo } from '../interfaces/RecuperarCorreo';
 
 
 
- 
+
 
 @Component({
   selector: 'app-login',
@@ -42,7 +42,7 @@ import { RecuperarCorreo } from '../interfaces/RecuperarCorreo';
 
 
 export class LoginComponent implements OnInit, AfterViewInit {
-  @ViewChild('inputClave', {static: false}) inputClave : ElementRef; 
+  @ViewChild('inputClave', { static: false }) inputClave: ElementRef;
   hide = true;
   loading: boolean = false;
 
@@ -76,9 +76,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   pase: boolean = true;
 
-  constructor(public dialog: MatDialog,private LoginAdminService: LoginadminService, private loginService: LoginService,
-     private medicosService: MedicosService,private router: Router, private activar: AppComponent, 
-     private formularioService: FormularioService, private mensaje: MatSnackBar,private ayudasheet: MatBottomSheet) {
+  constructor(public dialog: MatDialog, private LoginAdminService: LoginadminService, private loginService: LoginService,
+    private medicosService: MedicosService, private router: Router, private activar: AppComponent,
+    private formularioService: FormularioService, private mensaje: MatSnackBar, private ayudasheet: MatBottomSheet) {
     activar.esconder();
     // cada vez que el usuario se devuelva al login borro los token para que tenga
     // que volver a loguearse y crear otro nuevo token.
@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ayuda() {
     const dialogRef = this.dialog.open(Loginayuda, {
-      disableClose: false,width:"75%",
+      disableClose: false, width: "75%",
       panelClass: 'loginayuda',
     });
  }
@@ -100,27 +100,30 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   startanimation() {  
       var x = document.getElementById("ayudadiv");
+  }
+  startanimation() {
+    var x = document.getElementById("ayudadiv");
     // If "mystyle" exist, overwrite it with "mystyle2"
-    if(!x.className){
+    if (!x.className) {
       x.className = "divayudados";
-    }else if (x.className === "divayudauno") {
+    } else if (x.className === "divayudauno") {
       x.className = "divayudados";
-    } else if(x.className === "divayudados"){
+    } else if (x.className === "divayudados") {
       x.className = "divayudauno";
     }
   }
 
- 
-    
-  
-  
+
+
+
+
 
 
 
   ngAfterViewInit(): void {
 
-  //  FormTools.validatorForm(this.login_form);
-   // FormTools.validatorForm(this.login_form);//comente este
+    //  FormTools.validatorForm(this.login_form);
+    // FormTools.validatorForm(this.login_form);//comente este
     // this.inputClave.nativeElement.focus();
   }
 
@@ -131,7 +134,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.mensaje.open(message, null, config);
   }
 
-  ngOnInit() { 
+  ngOnInit() {
   }
 
   //FUNCION QUE HACE TODO EL MACANEO
@@ -197,32 +200,26 @@ export class LoginComponent implements OnInit, AfterViewInit {
             //para poder acceder desde cualquier lado a ellos.
             this.loginService.datosUsuario = data;
 
+            //guardo el rol en el localStorage para despues utilizarlo en los Guard
+            localStorage.setItem("rol", data.rol);
 
 
-            //si en los datos del usario logueado el id_admnistrador tiene un valor 
-            //entonces el usuario sera redirigido a principal.
-            if (data.rol == 'Administrador') {
 
-              this.router.navigate(['/clínicaunahtec/principal']);
-              this.showError('Bienvenido');
 
-              //si en los datos del usuario logueado el id_medico tiene un valor
-              //entonces el usuario sera redirigido a principal.
-            } else if (data.rol == 'Medico') {
-
-              this.router.navigate(['/clínicaunahtec/principal']);
-              this.showError('Bienvenido');
-
-            } else {
-
-              //recupero al paciente introduciendo su numero de cuenta para poder recuperar su id
-              // y redireccionarlo a su respectivo informacion.
-
+            //si en los datos del usario logueado el rol es Estudiante 
+            //entonces el usuario sera redirigido a datoPaciente sino sera redirigido a principal.
+            if (data.rol == 'Paciente') {
 
               this.router.navigate(['/datoPaciente/' + data.id]);
               this.showError('Bienvenido');
 
-          
+
+            } else {
+
+              //si en los datos del usario logueado el id_admnistrador tiene un valor 
+              //entonces el usuario sera redirigido a principal.
+              this.router.navigate(['/clínicaunahtec/principal']);
+              this.showError('Bienvenido');
 
             }
 
@@ -266,7 +263,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   get cuenta() { return this.login_form.get('cuenta') };
   get ControlClave() { return this.login_form.get('clave') };
-  
+
 }
 
 

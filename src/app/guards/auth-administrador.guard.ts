@@ -8,28 +8,23 @@ import { LoginService } from '../services/login.service';
 })
 export class AuthAdministradorGuard implements CanActivate {
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private router: Router) { }
 
 
-  canActivate(){
-    
-    if(this.loginService.isAutenticado){
+  canActivate() {
 
-      // if (this.loginService.datosUsuario.rol == 'Administrador'|| this.loginService.datosUsuario.rol == 'Medico') {
+    if(localStorage.getItem("rol") == "Administrador" || localStorage.getItem("rol") == "Medico"){
 
-
-        return true;
-  
-      // } 
-
+      return true
 
     }else {
-  
+
       this.router.navigate(['/']);
-      return false;
+      return false
+
     }
 
-   
+
 
   }
 
