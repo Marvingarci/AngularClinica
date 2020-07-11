@@ -187,6 +187,8 @@ export class VerPacienteComponent implements OnInit {
     direccion: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)
       , Validators.maxLength(30), Validators.minLength(5)]),
 
+    correo_electronico: new FormControl('', [Validators.required]),
+
     carrera: new FormControl('', [ Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)
       , Validators.maxLength(30), Validators.minLength(5)]),
 
@@ -473,6 +475,7 @@ export class VerPacienteComponent implements OnInit {
     imagen: null,
     lugar_procedencia: null,
     direccion: null,
+    correo_electronico: null,
     carrera: null,
     fecha_nacimiento: null,
     sexo: null,
@@ -1675,6 +1678,7 @@ export class VerPacienteComponent implements OnInit {
       this.paciente.numero_identidad = this.numero_identidad.value;
       this.paciente.lugar_procedencia = this.lugar_procedencia.value;
       this.paciente.direccion = this.direccion.value;
+      this.paciente.correo_electronico = this.correo_electronico.value;
       this.paciente.carrera = this.carrera.value;
       this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
       this.paciente.sexo = this.sexo.value;
@@ -3287,7 +3291,8 @@ export class VerPacienteComponent implements OnInit {
     this.carrera.setValue(this.paciente.carrera);
     this.sexo.setValue(this.paciente.sexo);
     this.lugar_procedencia.setValue(this.paciente.lugar_procedencia);
-    this.direccion.setValue(this.paciente.direccion);
+    this.direccion.setValue(this.paciente.direccion);    
+    this.correo_electronico.setValue(this.paciente.correo_electronico);
     this.fecha_nacimiento.setValue(this.paciente.fecha_nacimiento);
 
 
@@ -3651,6 +3656,7 @@ export class VerPacienteComponent implements OnInit {
   get numero_identidad() { return this.formulario_datos_generales.get('numero_identidad') };
   get lugar_procedencia() { return this.formulario_datos_generales.get('lugar_procedencia') };
   get direccion() { return this.formulario_datos_generales.get('direccion') };
+  get correo_electronico() { return this.formulario_datos_generales.get('correo_electronico') };
   get carrera() { return this.formulario_datos_generales.get('carrera') };
   get fecha_nacimiento() { return this.formulario_datos_generales.get('fecha_nacimiento') };
   get sexo() { return this.formulario_datos_generales.get('sexo') };
