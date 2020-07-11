@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Login } from '../interfaces/login';
 import { FormularioService } from "../services/formulario.service";
+import { data } from 'jquery';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class LoginService {
   porMientras: string;//variable donde se guarda la contrase;a por si el usuario no registra la nueva
   datosUsuario: any ;
   idActualizar: number;
+  esAdmin: boolean;
 
 
  // API_ENDPOINT = 'http://64.225.37.202:8081/api/';
@@ -107,10 +109,6 @@ export class LoginService {
     return this.httpClient.get(this.API_ENDPOINT + 'obtenerIdLogin/'+cuenta);
 
 
-  }
-
-  isAutenticado(){
-    return localStorage.getItem('token') != null;
   }
 
 
