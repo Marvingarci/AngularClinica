@@ -98,9 +98,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
  }
 
 
-  startanimation() {  
-      var x = document.getElementById("ayudadiv");
-  }
+  
   startanimation() {
     var x = document.getElementById("ayudadiv");
     // If "mystyle" exist, overwrite it with "mystyle2"
