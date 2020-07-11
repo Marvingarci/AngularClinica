@@ -6,7 +6,7 @@ import { FormularioComponent } from './formulario/formulario.component';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
-import { LoginComponent, Loginayuda } from './login/login.component';
+import { LoginComponent, Loginayuda,DialogoRecuperarContrasenia } from './login/login.component';
 import { PrincipalComponent, DialogCerrarSesion2 } from './principal/principal.component';
 import { LoginadminComponent, DialogoCambiarContraseniaAdmin, /*DialogoVerificar*/ } from './loginadmin/loginadmin.component';
 import { NgxPasswordToggleModule } from 'ngx-password-toggle';
@@ -103,8 +103,11 @@ import { ChatComponent } from './chat/chat.component';
 //firebase
 
 import {AngularFireDatabaseModule} from 'angularfire2/database'
+import {AngularFireAuthModule} from '@angular/fire/auth'
 import {AngularFireModule} from 'angularfire2'
-import {environment} from '../environments/environment'
+import {environment} from '../environments/environment';
+import { RecuperarContraseniaComponent } from './recuperar-contrasenia/recuperar-contrasenia.component'
+
 
 
 //import { DialogoVerCitasComponent } from './dialogo-ver-citas/dialogo-ver-citas.component'; // custom fonts
@@ -137,6 +140,7 @@ const routes: Route[] = [
   { path: 'inventario', component: InventarioComponent, canActivate: [AuthAdministradorGuard] },
   { path: 'ayuda', component: AyudaComponent },
   { path: 'chat', component: ChatComponent },
+  { path: 'recuperarcontrasenia/:id', component: RecuperarContraseniaComponent },
 
 
 
@@ -169,6 +173,7 @@ const routes: Route[] = [
       // {path: 'verPaciente', component: VerPacienteComponent},
       { path: 'ayuda', component: AyudaComponent },
       { path: 'chat', component: ChatComponent },
+      { path: 'recuperarcontrasenia/:id', component: RecuperarContraseniaComponent },
 
 
     ]
@@ -222,10 +227,12 @@ const routes: Route[] = [
     DialogoCambiarContraseniaMed,
     AyudaComponent,
     Loginayuda,
+    DialogoRecuperarContrasenia,
     EstadisticasFisicasPacienteComponent,
     CuentaUnicaDirective,
     CambiarFoto1,
-    ChatComponent
+    ChatComponent,
+    RecuperarContraseniaComponent,
   
 
 
@@ -283,7 +290,8 @@ const routes: Route[] = [
     MatGridListModule,
     MatPaginatorModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
 
 
 
@@ -314,6 +322,7 @@ const routes: Route[] = [
     BorrarHabitoToxicologico,
     DialogoVerificarPermisoComponent,
     Loginayuda,
+    DialogoRecuperarContrasenia,
     CambiarFoto1
     //DialogoVerCitasComponent
   ],
