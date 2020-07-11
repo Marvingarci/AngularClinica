@@ -8,22 +8,28 @@ import { LoginService } from '../services/login.service';
 })
 export class AuthPacienteGuard implements CanActivate {
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  rol: any
+  constructor(private router: Router) {}
+ 
+
   canActivate() {
-    if(this.loginService.isAutenticado){
 
-      // if (this.loginService.datosUsuario.rol == 'Paciente') {
 
-        return true;
-  
-      // }
+    if(localStorage.getItem("rol") == "Paciente")
 
-    } else {
+        return true
+
+      
+    else{
 
       this.router.navigate(['/']);
-      return false;
+      return false
+
     }
+  
 
   }
+
+  
 
 }
