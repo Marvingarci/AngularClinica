@@ -12,8 +12,13 @@ import { LoginadminService } from '../services/loginadmin.service';
 import { Medicos } from '../interfaces/medicos';
 import { MedicosService } from '../services/medicos.service';
 import { isNullOrUndefined } from "util";
-import { MatBottomSheet, MatBottomSheetRef, MatBottomSheetConfig, MatDialog } from '@angular/material';
+import { MatBottomSheet, MatBottomSheetRef, MatBottomSheetConfig, MatDialog, MatDialogRef } from '@angular/material';
 import { trigger, state, style } from '@angular/animations';
+import { DialogoCambiarContraseniaMed } from '../registromedicos/registromedicos.component';
+import { AuthService } from '../services/auth.service';
+import { PacienteService } from '../services/paciente.service';
+import { database } from 'firebase';
+import { RecuperarCorreo } from '../interfaces/RecuperarCorreo';
 
 
 
@@ -88,6 +93,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
       panelClass: 'loginayuda',
     });
  }
+ abrirDialogRecu(){
+  const dialogRef = this.dialog.open(DialogoRecuperarContrasenia);
+ }
+
+
   startanimation() {  
       var x = document.getElementById("ayudadiv");
     // If "mystyle" exist, overwrite it with "mystyle2"
@@ -232,7 +242,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 
 
-  }
+  }z
 
 
   //EVENTO CUANDO SE DA ENTER
@@ -271,3 +281,85 @@ export class Loginayuda {
 
   }
 } 
+
+
+
+
+
+
+@Component({
+  selector: 'recuperarcontrasenia',
+  templateUrl: 'dialog-recuperar-contrasenia.html',
+  providers:[AuthService],
+})
+
+
+
+export class DialogoRecuperarContrasenia {
+
+  form_correo = new FormGroup({
+  correo: new FormControl('', [Validators.required]),
+});
+  correoE: any;
+
+  recuperar_correo: RecuperarCorreo = {
+    id_paciente: null,
+    correo: null,
+    nombre_completo: null
+  };
+
+  constructor(private correoservice: PacienteService,private mensaje: MatSnackBar,public dialogRef: MatDialogRef<DialogoRecuperarContrasenia>,private authSvc:AuthService){}
+  
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
+  }  
+
+   enviarcorreorecu(){
+  this.correoE = this.correo.value;
+
+//aqui recuperola informacion, segun el correo que me den
+  this.correoservice.obtenerUsuarioConCorreo(this.correoE).subscribe((data:RecuperarCorreo) => {
+this.recuperar_correo = data;
+console.log(this.recuperar_correo);
+
+      //aqui le asigno el id a la vista del correo
+      this.correoservice.mandarIdAView(this.recuperar_correo).subscribe((data) => {
+      console.log("se envio el id");
+
+              // aqui debo de enviar un cooreo con la ruta y redigirlo con el link al nuevo componente
+              this.correoservice.enviarCorreo(this.recuperar_correo).subscribe((data) => {
+              console.log("se envio el correo");
+              }, (error) => { 
+              console.log(error);
+              });
+
+      }, (error) => { 
+      console.log(error);
+      });
+
+}, (error) => {
+this.showError('Correo incorrecto');
+console.log(error);
+});
+  
+ 
+}
+  
+  // esta mierda es con FIREBASE
+  // async enviarcorreorecu(){
+  //  try{
+  //   await this.authSvc.resetPassword(this.correo.value);
+  //   this.showError('Se envio un correo');
+  //  }catch(error){
+  //    console.log(error);
+  //  }  
+  // }
+
+ 
+
+
+  get correo() { return this.form_correo.get('correo') };
+}
