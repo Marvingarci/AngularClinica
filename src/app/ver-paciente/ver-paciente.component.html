@@ -163,7 +163,6 @@
                 </div>
 
                 <div class="col">
-
                   <mat-form-field class="example-full-width" *ngIf="!readonlyDatosGenerales" appearance="fill">
                     <mat-label>Categoria Paciente</mat-label>
                     <mat-select formControlName="categoria" [disabled]="disabledDatosGenerales" (selectionChange)="selectCategoria(categoria.value)">
@@ -175,6 +174,8 @@
                     <mat-error *ngIf="categoria.hasError('required')">campo requerido</mat-error>
                   </mat-form-field>
                 </div>
+
+                
               </div>
 
 
@@ -264,6 +265,16 @@
                       [readonly]="readonlyDatosGenerales">
                     <mat-error *ngIf="direccion.hasError('required')">campo requerido</mat-error>
                     <mat-error *ngIf="direccion.hasError('maxlength')">campo muy extenso</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col">
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label><b>Correo electrónico</b></mat-label>
+                    <input matInput formControlName="correo_electronico" name="correo_electronico" placeholder="Ingrese el correo"
+                      [readonly]="readonlyDatosGenerales">
+                    <mat-error *ngIf="correo_electronico.hasError('required')">campo requerido</mat-error>
+                    <!-- <mat-error *ngIf="correo_electronico.hasError('pattern')">campo no válido</mat-error> -->
                   </mat-form-field>
                 </div>
 
@@ -781,6 +792,17 @@
                     <mat-error *ngIf="direccion.hasError('maxlength')">campo muy extenso</mat-error>
                   </mat-form-field>
                 </div>
+
+                <div class="col">
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label><b>Correo electrónico</b></mat-label>
+                    <input matInput formControlName="correo_electronico" name="correo_electronico" placeholder="Ingrese el correo"
+                      [readonly]="readonlyDatosGenerales">
+                    <mat-error *ngIf="correo_electronico.hasError('required')">campo requerido</mat-error>
+                    <!-- <mat-error *ngIf="correo_electronico.hasError('pattern')">campo no válido</mat-error> -->
+                  </mat-form-field>
+                </div>
+                
               </div>
 
 
