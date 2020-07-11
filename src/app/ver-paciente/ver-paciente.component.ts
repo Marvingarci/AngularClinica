@@ -53,6 +53,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { IdentidadUnicoService } from '../validations/identidad-unica.directive';
 import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
 import { CuentaUnicaService } from '../validations/cuenta-unica.directive';
+import { LoginService } from '../services/login.service';
 
 
 export interface Element {
@@ -167,25 +168,21 @@ export class VerPacienteComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   formulario_datos_generales = new FormGroup({
-    nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,40}$/)
-      , Validators.maxLength(40), Validators.minLength(5)]),
+    nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,100}$/)]),
 
     numero_cuenta: new FormControl('', {
-        validators: [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)
-        , Validators.maxLength(11), Validators.minLength(11)],
-        // asyncValidators: [this.CuentaUnicaService.validate.bind(this.CuentaUnicaService)]
-      }),
+      validators: [Validators.pattern(/^[2][0-9]{10}$/)],
+      // asyncValidators: [this.CuentaUnicaService.validate.bind(this.CuentaUnicaService)]
+    }),
 
     numero_identidad: new FormControl('', {
       validators: [Validators.required, Validators.pattern(/^\d{4}\d{4}\d{5}$/)],
       // asyncValidators: [this.IdentidadUnicoService.validate.bind(this.IdentidadUnicoService)]
     }),
 
-    lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)
-      , Validators.maxLength(30), Validators.minLength(5)]),
+    lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,20}$/)]),
 
-    direccion: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)
-      , Validators.maxLength(30), Validators.minLength(5)]),
+    direccion: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(20)]),
 
     correo_electronico: new FormControl('', [Validators.required]),
 
@@ -200,7 +197,7 @@ export class VerPacienteComponent implements OnInit {
 
     //datos de lso telefonos
     numero_telefono: new FormControl('', [Validators.pattern(/^\d{8}$/)]),
-    numero_telefono_agregar:  new FormControl('', {
+    numero_telefono_agregar: new FormControl('', {
       validators: [Validators.pattern(/^\d{8}$/)],
       // asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]
     }),
@@ -969,8 +966,6 @@ export class VerPacienteComponent implements OnInit {
   readonlyDatosGenerales: boolean = true;
   disabledDatosGenerales: boolean = true;
   datosRepetido: boolean = true;
-  mostrarcuentaycarreca: boolean = true;
-  mostrarcuentaalumno: boolean = true;
   readonlyAntecedentesFamiliares: boolean = true;
   readonlyAntecedentesPersonales: boolean = true;
   readonlyHabitosToxicologicos: boolean = true;
@@ -1019,23 +1014,27 @@ export class VerPacienteComponent implements OnInit {
   habitosToxicologicos: string[] = [];
 
 
+  idLoginActualizar
+
+
   constructor(private formularioService: FormularioService,
     private mensaje: MatSnackBar, public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
     activar: AppComponent, private subsiguiente: MatDialog,
-    private pacienteService: PacienteService, public cambiarFoto: MatDialog,
+    private pacienteService: PacienteService,
+    private loginService: LoginService,
+    public cambiarFoto: MatDialog,
     private IdentidadUnicoService: IdentidadUnicoService,
-    private TelefonoUnicoService:TelefonoUnicoService,private CuentaUnicaService:CuentaUnicaService) {
+    private TelefonoUnicoService: TelefonoUnicoService, private CuentaUnicaService: CuentaUnicaService) {
 
     activar.mostrar();
-    this.mostrarcuentaycarreca = true;
-    this.mostrarcuentaalumno = false;
+
+
     //para que se mire el telefono arriba    
     this.telefono.telefono = this.numero_telefono.value;
     this.id = this.activatedRoute.snapshot.params['id'];
 
     if (this.id) {
-
 
       //obtener los datos de los servicios de la api
       this.cargarPaciente();
@@ -1055,7 +1054,6 @@ export class VerPacienteComponent implements OnInit {
       this.cargarOtrosAP();
       this.cargarHabitoToxicologico();
       this.cargarActividadSexual();
-
       this.cargarPlanificacionFamiliar();
       this.cargarHospitalarias();
       this.cargarAntecedentesGinecologicos();
@@ -1211,16 +1209,22 @@ export class VerPacienteComponent implements OnInit {
 
 
   cargarPaciente() {
-    this.mostrarcuentaycarreca = true;
-    this.mostrarcuentaalumno = false;
+
+
     this.formularioService.obtenerPaciente(this.id).subscribe((data: Paciente) => {
       this.paciente = data;
-      this.cargarInformacionDatosGenerales();
-      this.obtenerDatosFormulario();
+     
 
       //establesco el valor a los formcontrol para que se visualizen
       //en los respectivos inputs de los datos generales
+
+      this.cargarInformacionDatosGenerales();
+      this.obtenerDatosFormulario();
+
+
+
       if (this.paciente.peso == null) {
+
         this.paciente.temperatura = "0";
         this.paciente.pulso = "0";
         this.paciente.presion_sistolica = "0";
@@ -1229,14 +1233,21 @@ export class VerPacienteComponent implements OnInit {
         this.paciente.talla = "0";
         this.paciente.peso = "0";
         this.paciente.prosene = "";
+
       }
 
+
+
       if (this.paciente.sexo != "Hombre") {
+
         this.mostrarAntecedenteGinecologico = true;
         this.mostrarAntecedenteObstetrico = true;
+
       } else {
+
         this.mostrarAntecedenteGinecologico = false;
         this.mostrarAntecedenteObstetrico = false;
+
       }
 
 
@@ -1245,9 +1256,31 @@ export class VerPacienteComponent implements OnInit {
       //el valor de la variable "esAlumno" a false
       //para mostrar diferente el contenido de los datos
       if (this.paciente.categoria == "Estudiante") {
-        this.esAlumno = false;
-      } else {
+
+
         this.esAlumno = true;
+
+        //recupero el id de la tabla de logins mandandole el numero de cuenta del paciente
+        this.loginService.obtenerIdLogin(this.paciente.numero_cuenta).subscribe((data: any) => {
+
+          //guardo el id en una variable global dentro del servio de login
+          this.loginService.idActualizar = data.id_login
+
+        })
+
+
+      } else {
+
+
+        this.esAlumno = false;
+
+        //recupero el id de la tabla de logins mandandole el numero de identidad del paciente
+        this.loginService.obtenerIdLogin(this.paciente.numero_identidad).subscribe((data: any) => {
+
+          //guardo el id en una variable global dentro del servio de login
+          this.loginService.idActualizar = data.id_login
+        })
+
       }
 
       this.formularioService.idActualizar = this.paciente.id_paciente;
@@ -1256,12 +1289,19 @@ export class VerPacienteComponent implements OnInit {
       if (this.paciente.imagen != null) {
         this.noImg = false;
       }
+
+     
     }, (error) => {
+
+      this.showError("Ocurrió un error")
+
     });
+
+    
+
+   
+
   }
-
-
-
 
 
   cargarEmergenciaPersonaYa() {
@@ -1534,14 +1574,14 @@ export class VerPacienteComponent implements OnInit {
     this.formularioService.obtenerAntecedenteGinecologico(this.id).subscribe((data) => {
       this.antecedente_ginecologico = data;
       //verifico si el paciente tiene antecedentes ginecologicos para mostrarlos
-      if(this.antecedente_ginecologico){
-         if (this.antecedente_ginecologico.citologia == 'No') {
-        this.vercitologia = false;
-      } else if (this.antecedente_ginecologico.citologia == 'Si') {
-        this.vercitologia = true;
+      if (this.antecedente_ginecologico) {
+        if (this.antecedente_ginecologico.citologia == 'No') {
+          this.vercitologia = false;
+        } else if (this.antecedente_ginecologico.citologia == 'Si') {
+          this.vercitologia = true;
+        }
       }
-      }
-     
+
 
       this.cargarInformacionAntecedentesGinecologicos();
 
@@ -1593,12 +1633,12 @@ export class VerPacienteComponent implements OnInit {
       this.planificacion_familiardata = data;
 
       if (this.planificacion_familiardata) {
-      if (this.planificacion_familiardata.planificacion_familiar == 'No') {
-        this.verplanificacion = false;
-      } else if (this.planificacion_familiardata.planificacion_familiar == 'Si') {
-        this.verplanificacion = true;
+        if (this.planificacion_familiardata.planificacion_familiar == 'No') {
+          this.verplanificacion = false;
+        } else if (this.planificacion_familiardata.planificacion_familiar == 'Si') {
+          this.verplanificacion = true;
+        }
       }
-    }
 
     }, (error) => {
       console.log(error);
@@ -1654,7 +1694,7 @@ export class VerPacienteComponent implements OnInit {
 
 
 
-  
+
 
   actualizarDatosGenerales() {
 
@@ -1662,13 +1702,15 @@ export class VerPacienteComponent implements OnInit {
     this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
     this.disabledDatosGenerales = !this.disabledDatosGenerales;
     this.datosRepetido = !this.datosRepetido;
- 
-      if (this.readonlyDatosGenerales === true) {
-        this.actualizarDG();      
-    } 
+
+    if (this.readonlyDatosGenerales === true) {
+      this.actualizarDG();
+    }
   }
 
   actualizarDG() {
+
+    console.log("id_login: " + this.loginService.idActualizar)
 
     if (this.formulario_datos_generales.dirty) {
       
@@ -1721,7 +1763,7 @@ export class VerPacienteComponent implements OnInit {
       this.telefono_Emergencias.emergencia_persona = this.emergencia_persona.value;
       this.telefono_Emergencias.telefono_emergencia = this.emergencia_telefono.value;
       this.formularioService.enviarTelefonoEmergencia(this.telefono_Emergencias).subscribe((data) => {
-        
+
         this.cargarEmergenciaPersonaYa();
       }, (error) => {
       });
@@ -1736,7 +1778,7 @@ export class VerPacienteComponent implements OnInit {
       this.telefono.id_paciente = this.paciente.id_paciente;
       this.telefono.telefono = this.numero_telefono_agregar.value;
       this.formularioService.enviarTelefonoPaciente(this.telefono).subscribe((data) => {
-        
+
         this.cargarTelefono();
       }, (error) => {
       });
@@ -2371,7 +2413,7 @@ export class VerPacienteComponent implements OnInit {
         this.VarActualizar = data;
         this.tipo_enfermedad_mental_ap.setValue(this.VarActualizar[0].enfermedad);
         this.observacion_enfermedades_mentales_ap.setValue(this.VarActualizar[0].observacion);
-        }, (error) => {
+      }, (error) => {
         console.log(error);
       });
     }
@@ -2437,7 +2479,7 @@ export class VerPacienteComponent implements OnInit {
         this.VarActualizar = data;
         this.tipo_alergia_ap.setValue(this.VarActualizar[0].enfermedad);
         this.observacion_alergias_ap.setValue(this.VarActualizar[0].observacion);
-        }, (error) => {
+      }, (error) => {
         console.log(error);
       });
     }
@@ -2501,7 +2543,7 @@ export class VerPacienteComponent implements OnInit {
         this.VarActualizar = data;
         this.tipo_cancer_ap.setValue(this.VarActualizar[0].enfermedad);
         this.observacion_cancer_ap.setValue(this.VarActualizar[0].observacion);
-       }, (error) => {
+      }, (error) => {
         console.log(error);
       });
     }
@@ -2567,7 +2609,7 @@ export class VerPacienteComponent implements OnInit {
         this.VarActualizar = data;
         this.otros_ap.setValue(this.VarActualizar[0].enfermedad);
         this.observacion_otros_ap.setValue(this.VarActualizar[0].observacion);
-       }, (error) => {
+      }, (error) => {
         console.log(error);
       });
     }
@@ -2635,7 +2677,7 @@ export class VerPacienteComponent implements OnInit {
         this.tiempo_hospitalizacion.setValue(this.VarActualizar[0].tiempo_hospitalizacion);
         this.tratamiento.setValue(this.VarActualizar[0].tratamiento);
         this.diagnostico.setValue(this.VarActualizar[0].diagnostico);
-       }, (error) => {
+      }, (error) => {
         console.log(error);
       });
     }
@@ -2672,7 +2714,7 @@ export class VerPacienteComponent implements OnInit {
         this.paciente_hospitalaria_quirurgica.tratamiento = this.tratamiento.value;
 
 
-         this.formularioService.enviarPacienteHospitalariaQuirurgica(this.paciente_hospitalaria_quirurgica).subscribe(
+        this.formularioService.enviarPacienteHospitalariaQuirurgica(this.paciente_hospitalaria_quirurgica).subscribe(
           (data) => {
             this.fecha_antecedente_hospitalario.setValue('');
             this.tiempo_hospitalizacion.setValue('');
@@ -2697,7 +2739,7 @@ export class VerPacienteComponent implements OnInit {
         this.VarActualizar = data;
         this.otros_ht.setValue(this.VarActualizar[0].habito_toxicologico);
         this.observacion_otros_ht.setValue(this.VarActualizar[0].observacion);
-          }, (error) => {
+      }, (error) => {
         console.log(error);
       });
     }
@@ -2712,7 +2754,7 @@ export class VerPacienteComponent implements OnInit {
         this.paciente_habito_toxicologico.id_paciente = this.paciente.id_paciente;
         this.paciente_habito_toxicologico.observacion = this.observacion_otros_ht.value;
         this.paciente_habito_toxicologico.id_habito_toxicologico = this.VarActualizar[0].id_paciente_habito_toxicologico;
-      
+
         this.formularioService.actualizarHabitoToxicologico(this.habito_toxicologico).subscribe((data) => {
 
           this.formularioService.actualizarPacienteHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data) => {
@@ -2739,8 +2781,8 @@ export class VerPacienteComponent implements OnInit {
 
           // consulta sql
           this.paciente_habito_toxicologico.id_habito_toxicologico = data[0].id_habito_toxicologico;
-           this.formularioService.enviarPacienteHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data) => {
-           this.cargarHabitoToxicologico();
+          this.formularioService.enviarPacienteHabitoToxicologico(this.paciente_habito_toxicologico).subscribe((data) => {
+            this.cargarHabitoToxicologico();
           }, (error) => {
             console.log(error);
           });
@@ -2911,11 +2953,11 @@ export class VerPacienteComponent implements OnInit {
           this.actividad_sexual_add.numero_parejas_sexuales = this.numero_parejas_sexuales.value;
           this.actividad_sexual_add.practicas_sexuales_riesgo = this.practicas_sexuales_riesgo.value;
           this.actividad_sexual_add.id_paciente = this.paciente.id_paciente;
-      
+
           this.formularioService.eliminarActividadSexual(this.id).subscribe((data) => {
             this.formularioService.guardarActividadSexual(this.actividad_sexual_add).subscribe((data) => {
               this.showError('Actividad sexual actualizado correctamente');
-            }, (error) => { 
+            }, (error) => {
               console.log(error);
               this.showError('Error al agregar los Actividad sexual');
             });
@@ -2961,7 +3003,7 @@ export class VerPacienteComponent implements OnInit {
             this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
             this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
             this.formularioService.actualizarAntecedenteGinecologico(this.antecedente_ginecologico).subscribe((data) => {
-               this.showError('Antecedentes ginecologicos actualizado correctamente');
+              this.showError('Antecedentes ginecologicos actualizado correctamente');
             }, (error) => {
               console.log(error);
               this.showError('Error al actualizar los antecedentes ginecologicos');
@@ -2986,7 +3028,7 @@ export class VerPacienteComponent implements OnInit {
             this.planificacion_familiardata_add.observacion_planificacion = this.observacion_planificacion.value;
             this.planificacion_familiardata_add.id_paciente = this.paciente.id_paciente;
             this.formularioService.eliminarPlanificacionFam(this.id).subscribe((data) => {
-         
+
               this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiardata_add).subscribe((data) => {
                 this.showError('Planificacion Familiar actualizado correctamente');
               }, (error) => {
@@ -3072,30 +3114,45 @@ export class VerPacienteComponent implements OnInit {
 
   }
 
-  mostrarcuenta(event) {
-     if (event == 3) {
-      this.mostrarcuentaycarreca = false;
-      this.mostrarcuentaalumno = false;
+  mostrarCuenta(valor) {
+
+    // si el valor es diferente de 3 (estudiante) entonces asigno falso al variable esAlumno
+    // y reseteo los formControl que no pertenecen a una persona que no es estuidiante.
+    if (valor != 3) {
+
+      this.esAlumno = false
+      this.numero_cuenta.reset()
+      this.carrera.reset()
+
+
+      // si el valor es 3 (estudiante) entonces asigno las validaciones a los formControl
+      // y asigno el valor de verdadero a la variable esAlumno
     } else {
-      this.mostrarcuentaycarreca = true;
-      this.mostrarcuentaalumno = true;
+
+      this.esAlumno = true
+      this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)])
+      this.numero_cuenta.updateValueAndValidity()
+      this.carrera.setValidators(Validators.required)
+      this.carrera.updateValueAndValidity()
+
+
     }
   }
   selectCategoria(valor) {
 
     if (valor == 3) {
 
-     // this.numero_cuenta.setValue("");
+      // this.numero_cuenta.setValue("");
       this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]);
       this.numero_cuenta.updateValueAndValidity();
-     // this.carrera.setValue("");
+      // this.carrera.setValue("");
       this.carrera.setValidators([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/), Validators.maxLength(30), Validators.minLength(5)]);
       this.carrera.updateValueAndValidity();
 
     } else {
 
       this.numero_cuenta.clearValidators();
-      this.numero_cuenta.updateValueAndValidity(); 
+      this.numero_cuenta.updateValueAndValidity();
       this.carrera.clearValidators();
       this.carrera.updateValueAndValidity();
 
@@ -3171,7 +3228,7 @@ export class VerPacienteComponent implements OnInit {
 
   @Input() cambios: string = this.otros.value;
   ngOnChanges(changes: SimpleChanges) {
-  
+
   }
 
 
@@ -3442,38 +3499,38 @@ export class VerPacienteComponent implements OnInit {
 
 
   cargarInformacionAntecedentesGinecologicos() {
-    if(this.antecedente_ginecologico){
-       this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);
-    this.fum.setValue(this.antecedente_ginecologico.fum);
-    this.citologia.setValue(this.antecedente_ginecologico.citologia);
-    this.fecha_citologia.setValue(this.antecedente_ginecologico.fecha_citologia);
-    this.resultado_citologia.setValue(this.antecedente_ginecologico.resultado_citologia);
+    if (this.antecedente_ginecologico) {
+      this.edad_inicio_menstruacion.setValue(this.antecedente_ginecologico.edad_inicio_menstruacion);
+      this.fum.setValue(this.antecedente_ginecologico.fum);
+      this.citologia.setValue(this.antecedente_ginecologico.citologia);
+      this.fecha_citologia.setValue(this.antecedente_ginecologico.fecha_citologia);
+      this.resultado_citologia.setValue(this.antecedente_ginecologico.resultado_citologia);
 
-    if (this.citologia.value == "No") {
-      this.fecha_citologia.disable({ onlySelf: true });
-      this.resultado_citologia.disable({ onlySelf: true });
+      if (this.citologia.value == "No") {
+        this.fecha_citologia.disable({ onlySelf: true });
+        this.resultado_citologia.disable({ onlySelf: true });
+      }
+
+      this.duracion_ciclo_menstrual.setValue(this.antecedente_ginecologico.duracion_ciclo_menstrual);
+      this.periocidad_ciclo_menstrual.setValue(this.antecedente_ginecologico.periocidad_ciclo_menstrual);
+      this.caracteristicas_ciclo_menstrual.setValue(this.antecedente_ginecologico.caracteristicas_ciclo_menstrual);
     }
 
-    this.duracion_ciclo_menstrual.setValue(this.antecedente_ginecologico.duracion_ciclo_menstrual);
-    this.periocidad_ciclo_menstrual.setValue(this.antecedente_ginecologico.periocidad_ciclo_menstrual);
-    this.caracteristicas_ciclo_menstrual.setValue(this.antecedente_ginecologico.caracteristicas_ciclo_menstrual);
-    }
-   
   }
 
 
 
   cargarInformacionAntecedentesObstetricos() {
-    if(this.antecedente_obstetrico){
-    this.partos.setValue(this.antecedente_obstetrico.partos);
-    this.abortos.setValue(this.antecedente_obstetrico.abortos);
-    this.cesarias.setValue(this.antecedente_obstetrico.cesarias);
-    this.hijos_vivos.setValue(this.antecedente_obstetrico.hijos_vivos);
+    if (this.antecedente_obstetrico) {
+      this.partos.setValue(this.antecedente_obstetrico.partos);
+      this.abortos.setValue(this.antecedente_obstetrico.abortos);
+      this.cesarias.setValue(this.antecedente_obstetrico.cesarias);
+      this.hijos_vivos.setValue(this.antecedente_obstetrico.hijos_vivos);
 
-    this.hijos_muertos.setValue(this.antecedente_obstetrico.hijos_muertos);
-    this.fecha_termino_ult_embarazo.setValue(this.antecedente_obstetrico.fecha_termino_ult_embarazo);
-    this.descripcion_termino_ult_embarazo.setValue(this.antecedente_obstetrico.descripcion_termino_ult_embarazo);
-    this.observaciones.setValue(this.antecedente_obstetrico.observaciones);
+      this.hijos_muertos.setValue(this.antecedente_obstetrico.hijos_muertos);
+      this.fecha_termino_ult_embarazo.setValue(this.antecedente_obstetrico.fecha_termino_ult_embarazo);
+      this.descripcion_termino_ult_embarazo.setValue(this.antecedente_obstetrico.descripcion_termino_ult_embarazo);
+      this.observaciones.setValue(this.antecedente_obstetrico.observaciones);
     }
   }
 
@@ -3605,7 +3662,7 @@ export class VerPacienteComponent implements OnInit {
 
 
   anadirCita() {
-    const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, { disableClose: true,height:'90%' });
+    const Citasubsiguiente = this.subsiguiente.open(HistoriaSubsiguiente1, { disableClose: true, height: '90%' });
     this.pacienteService.id_historia_subsiguiente = this.id;
   }
   public mostrarHistoriasSub() {
@@ -3613,7 +3670,7 @@ export class VerPacienteComponent implements OnInit {
 
     this.pacienteService.obtenerHistoriaSubsiguiente(this.id).subscribe((data: HistoriaSubsiguiente[]) => {
       this.historias_subsiguientes_paciente = data;
-       this.dataSource1 = this.historias_subsiguientes_paciente;
+      this.dataSource1 = this.historias_subsiguientes_paciente;
     }, (error) => {
 
       console.log(error);
@@ -3809,7 +3866,7 @@ export class HistoriaSubsiguiente1 {
     private mensaje: MatSnackBar,
     private breakpointObserver: BreakpointObserver) {
 
-      
+
   }
 
   get isMobile() {
@@ -3865,7 +3922,7 @@ export class HistoriaSubsiguiente1 {
 
     if (valor == null) {
 
-    
+
       this.texto = "No hay producto en existencia";
 
       formControl.forEach(controlador => {
@@ -3885,10 +3942,10 @@ export class HistoriaSubsiguiente1 {
         controlador.enable({ onlySelf: true });
       });
 
-      
-      var medicamento = this.inventario.find( medicamento => medicamento.medicamento === valor );
+
+      var medicamento = this.inventario.find(medicamento => medicamento.medicamento === valor);
       this.maximoMedicamento = medicamento.unidades;
-    
+
       if (this.maximoMedicamento == 0) {
 
         this.texto = "No hay producto en existencia";
@@ -3927,15 +3984,15 @@ export class HistoriaSubsiguiente1 {
 
   obtenerMedicamentos() {
 
-    this.inventarioService.obtenerMedicamentos().subscribe((data:any)=>{
+    this.inventarioService.obtenerMedicamentos().subscribe((data: any) => {
       this.inventario = data
 
-      if(Object.entries(data).length === 0){
+      if (Object.entries(data).length === 0) {
 
         this.borrarInputs([<FormControl>this.unidad, <FormControl>this.medicamento]);
 
 
-      }else{
+      } else {
 
         this.habilitarInputs([<FormControl>this.unidad, <FormControl>this.medicamento])
 
@@ -3945,10 +4002,10 @@ export class HistoriaSubsiguiente1 {
       data.forEach(elemento => {
 
         this.medicamentos.push(elemento.medicamento)
-        
+
       });
 
-    
+
     });
 
   }
@@ -4042,15 +4099,15 @@ export class HistoriaSubsiguiente1 {
       // aqui disminuyo el inventario que se le da al paciente
       if (this.seleccionado == true) {
 
-        var medicamento = this.inventario.find( medicamento => medicamento.medicamento === this.medicamento.value );
+        var medicamento = this.inventario.find(medicamento => medicamento.medicamento === this.medicamento.value);
 
-        var medicamentoAEgresar: any ={
+        var medicamentoAEgresar: any = {
 
           "id": medicamento.id_inventario,
           "cantidad": this.unidad.value
         }
 
-      
+
         this.inventarioService.EgresoMedicamentos(medicamentoAEgresar).subscribe((data) => {
 
         }, (error) => {
@@ -4106,7 +4163,7 @@ export class Borrartelefonoemergencia {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
+  }
 
   BorrarRegistro() {
     if (this.data != 0) {
@@ -4144,7 +4201,7 @@ export class Borrartelefono {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
+  }
 
   BorrarRegistro() {
     if (this.data != 0) {
@@ -4183,7 +4240,7 @@ export class BorrarDesnutricionAF {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
+  }
 
   BorrarRegistro() {
     if (this.data != 0) {
@@ -4223,7 +4280,7 @@ export class BorrarDesnutricionAP {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-   }
+  }
 
   BorrarRegistro() {
     if (this.data != 0) {
@@ -4260,7 +4317,7 @@ export class BorrarHospitalarias {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-     }
+  }
 
   BorrarRegistro() {
     if (this.data != 0) {
@@ -4297,7 +4354,7 @@ export class BorrarHabitoToxicologico {
     private formularioService: FormularioService,
     private mensaje: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    }
+  }
 
   BorrarRegistro() {
     if (this.data != 0) {
@@ -4388,7 +4445,7 @@ export class CambiarFoto {
 
   public handleInitError(error: WebcamInitError): void {
     if (error.mediaStreamError && error.mediaStreamError.name === "NotAllowedError") {
-     }
+    }
     this.errors.push(error);
   }
 
@@ -4422,7 +4479,7 @@ export class CambiarFoto {
     const intervalo = interval(1000);
 
 
-   
+
     this.pacienteService.ActualizarImagen(this.NuevaImagen).subscribe((data) => {
       this.pacienteService.sihayimagen = true;
       this.pacienteService.imagenactual = this.imagen;
@@ -4465,7 +4522,7 @@ export class CambiarFoto {
 
 
   public handleImage(webcamImage: WebcamImage): void {
-     this.webcamImage = webcamImage;
+    this.webcamImage = webcamImage;
   }
 
   public cameraWasSwitched(deviceId: string): void {

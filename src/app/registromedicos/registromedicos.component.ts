@@ -9,6 +9,7 @@ import { UsuarioMedicoUnicoService } from '../validations/usuario-medico-unico.d
 import { DialogoVerificarPermisoComponent } from '../dialogo-verificar-permiso/dialogo-verificar-permiso.component';
 import { LoginService } from '../services/login.service';
 import { LoginadminService } from '../services/loginadmin.service';
+import { ChatService } from '../services/chat.service';
 
 export interface select {
   value: number;
@@ -82,7 +83,7 @@ export class RegistromedicosComponent implements OnInit {
   meds: Medicos[];
   constructor(private activatedRoute: ActivatedRoute, private router: Router, activar: AppComponent,
     private medicoService: MedicosService,
-    private loginService: LoginService,
+    private chatService: ChatService,
     private mensaje: MatSnackBar,
     private dialogo: MatDialog,
     private usuarioMedicoUnicoService: UsuarioMedicoUnicoService) {
@@ -291,6 +292,7 @@ export class RegistromedicosComponent implements OnInit {
                 }
 
                 if (this.medicos_form.valid) {
+
 
                   this.medicoService.GuardarMedico(this.medico).subscribe((data) => {
 

@@ -66,7 +66,7 @@
             <input matInput value={{paciente.numero_identidad}} placeholder="Número identidad" readonly>
           </mat-form-field>
 
-          <mat-form-field class="example-full-width" *ngIf="esAlumno === false ">
+          <mat-form-field class="example-full-width" *ngIf="esAlumno === true ">
             <input matInput value="{{paciente.numero_cuenta}}" placeholder="Número de cuenta" readonly>
           </mat-form-field>
 
@@ -87,7 +87,7 @@
             <input matInput value={{paciente.sexo}} placeholder="Sexo" readonly>
           </mat-form-field>
 
-          <mat-form-field class="example-full-width" *ngIf="esAlumno === false ">
+          <mat-form-field class="example-full-width" *ngIf="esAlumno === true ">
             <input matInput value={{paciente.carrera}} placeholder="Carrera" readonly>
           </mat-form-field>
 
@@ -149,7 +149,7 @@
 
 
           <!-- AQUI SE VEN LOS ALUMNOS -->
-          <div *ngIf="esAlumno === false">
+          <div>
             <form [formGroup]="formulario_datos_generales">
 
               <div class="row" *ngIf="datosRepetido == false ">
@@ -167,7 +167,7 @@
                     <mat-label>Categoria Paciente</mat-label>
                     <mat-select formControlName="categoria" [disabled]="disabledDatosGenerales" (selectionChange)="selectCategoria(categoria.value)">
                       <mat-option *ngFor="let categoria of categorias" [value]="categoria.value"
-                        (click)="mostrarcuenta(categoria.value)">
+                        (click)="mostrarCuenta(categoria.value)">
                         {{categoria.viewValue}}
                       </mat-option>
                     </mat-select>
@@ -181,7 +181,7 @@
 
 
 
-              <div class="row" *ngIf="datosRepetido == false && mostrarcuentaalumno == false">
+              <div class="row" *ngIf="datosRepetido == false && esAlumno == true">
 
                 <div class="col">
                   <mat-form-field class="example-full-width" appearance="fill">
@@ -384,6 +384,7 @@
             <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'"> 
             <mat-label><b>Presión arterial sistólica</b></mat-label>
             <input matInput formControlName="presion_sistolica" name="presion_sistolica"
+            [readonly]="readonlyDatosGenerales"
             placeholder="Aún no especificado">
             <mat-error *ngIf="presion_sistolica.hasError('required')">campo requerido</mat-error>
             <mat-error *ngIf="presion_sistolica.hasError('pattern')">solo números con dos cifras decimales
@@ -397,6 +398,7 @@
             <mat-form-field class="example-full-width" appearance="fill" [floatLabel]="'always'">
             <mat-label><b>Presión arterial diastólica</b></mat-label>
             <input matInput formControlName="presion_diastolica" name="presion_diastolica"
+            [readonly]="readonlyDatosGenerales"
             placeholder="Aún no especificado">
             <mat-error *ngIf="presion_diastolica.hasError('required')">campo requerido</mat-error>
             <mat-error *ngIf="presion_diastolica.hasError('pattern')">solo números con dos cifras

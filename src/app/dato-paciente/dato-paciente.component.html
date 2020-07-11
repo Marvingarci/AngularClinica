@@ -102,7 +102,7 @@
                                 </mat-error>
 
                             </mat-form-field>
-                            <mat-form-field class="example-full-width">
+                            <mat-form-field class="example-full-width" *ngIf="this.esAlumno === true ">
                                 <input matInput placeholder="Numero de cuenta" formControlName="numero_cuenta"
                                     [readonly]="readonly">
                                 <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido!</mat-error>
@@ -121,7 +121,7 @@
                                 </mat-error>
 
                             </mat-form-field>
-                            <mat-form-field class="example-full-width">
+                            <mat-form-field class="example-full-width" *ngIf="this.esAlumno === true ">
                                 <input matInput placeholder="Carrera" formControlName="carrera" [readonly]="readonly">
                                 <mat-error *ngIf="carrera.hasError('required')">campo requerido!</mat-error>
                                 <mat-error *ngIf="carrera.hasError('pattern')">ingrese datos validos!</mat-error>
