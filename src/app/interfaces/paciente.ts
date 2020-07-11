@@ -1,7 +1,8 @@
 export interface Paciente {
     id_paciente: number;
     numero_paciente?: string;
-    nombre_completo: string;
+    nombre_completo: string;    
+    correo_electronico: string;
     numero_cuenta: string;
     numero_identidad: string;
     numero_telefono?:number;
