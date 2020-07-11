@@ -31,11 +31,14 @@ import { IdentidadUnicoService } from '../validations/identidad-unica.directive'
 import { CuentaUnicaService } from '../validations/cuenta-unica.directive';
 
 
+
 import * as moment from 'moment';
 
 
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { TelefonoEmergencia } from '../interfaces/telefono-emergencia';
+import { AuthService } from '../services/auth.service';
+import { Correo } from '../interfaces/correo';
 
 export interface Loginadmin {
   // contrasenia_admin: any;
@@ -150,7 +153,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.css'],
-  providers: [{
+  providers: [
+    //importar lo de firebase solo en este componente
+    AuthService
+    ,{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false },
 
   },
@@ -257,9 +263,14 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     numero_identidad: null,
   }
 
+  correo: Correo = {
+    corre_electronico: null,
+    contrasenia: null,
+  };
 
   formulario_datos_generales = new FormGroup({
     nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,100}$/)]),
+    correo_electronico: new FormControl('', [Validators.required]),
     
     numero_cuenta: new FormControl('', {
       validators: [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)],
@@ -838,7 +849,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   paciente: Paciente = {
     id_paciente: null,
-    nombre_completo: null,
+    nombre_completo: null,    
+    correo_electronico: null,
     numero_cuenta: null,
     numero_identidad: null,
     imagen: null,
@@ -1092,7 +1104,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 constructor(private formularioService: FormularioService, private formBuilder: FormBuilder,
   private router: Router, activar: AppComponent, public dialog: MatDialog, public loginService: LoginService,
   private formulario: FormularioService, private TelefonoUnicoService: TelefonoUnicoService,
-  private IdentidadUnicoService: IdentidadUnicoService, private CuentaUnicaService:CuentaUnicaService) {
+  private IdentidadUnicoService: IdentidadUnicoService, private CuentaUnicaService:CuentaUnicaService, private authSvc:AuthService) {
 
 
   // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
@@ -2219,6 +2231,7 @@ eliminarTelefonosEmergencia(index) {
 enviarDatos() {
   this.loading = true;
 
+
   this.antecedentesF = [
 
     {
@@ -2356,6 +2369,7 @@ enviarDatos() {
       this.paciente.id_paciente = this.datosScraping.id_login;
       // introduzco el nombre estableciendo cada primer letra en mayuscula.
       this.paciente.nombre_completo = this.nombre_completo.value.replace(/\b\w/g, l => l.toUpperCase());
+      this.paciente.correo_electronico = this.correo_electronico.value;
       this.paciente.numero_cuenta = this.numero_cuenta.value;
       this.paciente.numero_identidad = this.numero_identidad.value;
       this.paciente.imagen = this.datosScraping.imagen;
@@ -2368,6 +2382,17 @@ enviarDatos() {
       this.paciente.seguro_medico = this.seguro_medico.value;
       this.paciente.telefono = this.numero_telefono.value;
       this.paciente.categoria = this.categoria.value;
+
+      //para enviar el correo al FIREBASE      
+        //para que se guarde el correo en firebase
+      // this.correo.corre_electronico = this.correo_electronico.value;
+      // this.correo.contrasenia = this.numero_identidad.value;
+      const correo = this.correo_electronico.value;
+      const contrasenia = this.numero_identidad.value;
+      console.log(correo,contrasenia)
+          this.authSvc.register( correo,contrasenia);
+      
+    
 
       this.formularioService.guardarDatosGenerales(this.paciente).subscribe((data) => {
 
@@ -2423,6 +2448,7 @@ enviarDatos() {
       // guardar datos del formulario en paciente y enviarlo a la api
       this.paciente.id_paciente = this.datosScraping.id_login;
       this.paciente.nombre_completo = this.nombre_completo.value;
+      this.paciente.correo_electronico = this.correo_electronico.value;
       if (this.esAlumnoAdmon == true) {
         this.paciente.numero_cuenta = this.numero_cuenta.value;
       } else {
@@ -3290,6 +3316,16 @@ enviarDatos() {
 
 };
 
+enviarcorreo(){
+  //para que se guarde el correo en firebase
+// this.correo.corre_electronico = this.correo_electronico.value;
+// this.correo.contrasenia = this.numero_identidad.value;
+const correo = this.correo_electronico.value;
+const contrasenia = this.numero_identidad.value;
+console.log(correo,contrasenia)
+    this.authSvc.register( correo,contrasenia);
+}
+
 obtener() {
   //Obtencion de Paciente recien registrado
   this.formularioService.getUltimoID().subscribe((data) => {
@@ -3327,6 +3363,7 @@ convertir(edad) {
 
 //obtener los campos del formGroup: formulario_datos_generales
 get nombre_completo() { return this.formulario_datos_generales.get('nombre_completo') };
+get correo_electronico() { return this.formulario_datos_generales.get('correo_electronico') };
 get segundo_apellido() { return this.formulario_datos_generales.get('segundo_apellido') };
 get primer_nombre() { return this.formulario_datos_generales.get('primer_nombre') };
 get segundo_nombre() { return this.formulario_datos_generales.get('segundo_nombre') };
