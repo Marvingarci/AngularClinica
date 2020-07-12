@@ -307,7 +307,8 @@ export class DialogoRecuperarContrasenia {
     nombre_completo: null
   };
 
-  constructor(private correoservice: PacienteService,private mensaje: MatSnackBar,public dialogRef: MatDialogRef<DialogoRecuperarContrasenia>,private authSvc:AuthService){}
+  constructor(private correoservice: PacienteService,private mensaje: MatSnackBar,private router: Router,
+    public dialogRef: MatDialogRef<DialogoRecuperarContrasenia>,private authSvc:AuthService){}
   
   showError(message: string) {
     const config = new MatSnackBarConfig();
@@ -333,6 +334,7 @@ enviarcorreorecu(){
                   // aqui debo de enviar un cooreo con la ruta y redigirlo con el link al nuevo componente
                   this.correoservice.enviarCorreo(this.recuperar_correo).subscribe((data) => {
                   console.log("se envio el correo");
+                  this.router.navigate(['/']);
                   }, (error) => { 
                   console.log(error);
                   });
