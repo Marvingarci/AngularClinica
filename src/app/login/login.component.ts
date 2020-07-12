@@ -19,6 +19,8 @@ import { AuthService } from '../services/auth.service';
 import { PacienteService } from '../services/paciente.service';
 import { database } from 'firebase';
 import { RecuperarCorreo } from '../interfaces/RecuperarCorreo';
+import { empty } from 'rxjs';
+import { EmptyExpr } from '@angular/compiler';
 
 
 
@@ -94,7 +96,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
  }
  abrirDialogRecu(){
-  const dialogRef = this.dialog.open(DialogoRecuperarContrasenia);
+  const dialogRef = this.dialog.open(DialogoRecuperarContrasenia,{
+    width: "500px",
+  });
  }
 
 
@@ -312,35 +316,42 @@ export class DialogoRecuperarContrasenia {
     this.mensaje.open(message, null, config);
   }  
 
-   enviarcorreorecu(){
-  this.correoE = this.correo.value;
+enviarcorreorecu(){
+  if(this.form_correo.valid){
 
-//aqui recuperola informacion, segun el correo que me den
-  this.correoservice.obtenerUsuarioConCorreo(this.correoE).subscribe((data:RecuperarCorreo) => {
-this.recuperar_correo = data;
-console.log(this.recuperar_correo);
+    this.correoE = this.correo.value;
 
-      //aqui le asigno el id a la vista del correo
-      this.correoservice.mandarIdAView(this.recuperar_correo).subscribe((data) => {
-      console.log("se envio el id");
+    //aqui recuperola informacion, segun el correo que me den
+      this.correoservice.obtenerUsuarioConCorreo(this.correoE).subscribe((data:RecuperarCorreo) => {
+    this.recuperar_correo = data;
+    console.log(this.recuperar_correo);
+    if(this.recuperar_correo != null ){
+        //aqui le asigno el id a la vista del correo
+          this.correoservice.mandarIdAView(this.recuperar_correo).subscribe((data) => {
+          console.log("se envio el id");
+    
+                  // aqui debo de enviar un cooreo con la ruta y redigirlo con el link al nuevo componente
+                  this.correoservice.enviarCorreo(this.recuperar_correo).subscribe((data) => {
+                  console.log("se envio el correo");
+                  }, (error) => { 
+                  console.log(error);
+                  });
+    
+          }, (error) => { 
+          console.log(error);
+          });
+    }else{
+      this.showError('Correo incorrecto');
+    }   
+    
+        
+    
+    }, (error) => {
+    this.showError('ocurrio un erro');
+    console.log(error);
+    });
 
-              // aqui debo de enviar un cooreo con la ruta y redigirlo con el link al nuevo componente
-              this.correoservice.enviarCorreo(this.recuperar_correo).subscribe((data) => {
-              console.log("se envio el correo");
-              }, (error) => { 
-              console.log(error);
-              });
-
-      }, (error) => { 
-      console.log(error);
-      });
-
-}, (error) => {
-this.showError('Correo incorrecto');
-console.log(error);
-});
-  
- 
+  }
 }
   
   // esta mierda es con FIREBASE
