@@ -1,21 +1,31 @@
 <mat-horizontal-stepper linear #stepper (selectionChange)="onStepChange($event)">
 
   <mat-step *ngIf="esAlumno==false" [stepControl]="formulario_datos_generales" label="Datos Generales" id="step1">
-    <form [formGroup]="formulario_datos_generales">
+    <form  [formGroup]="formulario_datos_generales">
 
       <div class="container1">
         <div class="row">
+
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
               <input matInput class="example-full-width" formControlName="nombre_completo">
               <mat-label>
                 <b>Nombre completo</b>
               </mat-label>
-
               <mat-error *ngIf="nombre_completo.hasError('required')">Campo requerido</mat-error>
-              <mat-error *ngIf="nombre_completo.hasError('pattern')">Ingrese un apellido válido</mat-error>
-
-            </mat-form-field>
+              <!-- <mat-error *ngIf="nombre_completo.hasError('pattern')">Ingrese un apellido válido</mat-error> -->
+            </mat-form-field>  
+            
+            <div class="col">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <input type="email" matInput class="example-full-width" formControlName="correo_electronico">
+                <mat-label>
+                  <b>Correo electrónico</b>
+                </mat-label>
+                <mat-error *ngIf="correo_electronico.hasError('required')">Campo requerido</mat-error>
+                <mat-error *ngIf="correo_electronico.hasError('pattern')">Ingrese un correo válido</mat-error>
+              </mat-form-field>
+              </div>
           </div>
 
         </div>
@@ -262,7 +272,7 @@
 
       </div>
       <div class="botonesstep">
-        <button mat-raised-button matStepperNext
+        <button mat-raised-button matStepperNext (click)="enviarcorreo();"
           class="btn btn-outline-primary float-right botonperron">Siguiente</button>
       </div>
 
@@ -280,7 +290,7 @@
 
   <mat-step *ngIf="esAlumno==true" [stepControl]="formulario_datos_generales" label="Datos Generales">
 
-    <form focusInvalidInput [formGroup]="formulario_datos_generales">
+    <form focusInvalidInput [formGroup]="formulario_datos_generales" (ngSubmit)="enviarcorreo()">
       <div class="containerScroll">
 
         <ng-template matStepLabel>Datos Generales</ng-template>
@@ -290,6 +300,7 @@
 
         <div class="container">
           <div class="row">
+
             <div class="col" id="columna">
               <mat-form-field class="example-full-width" appearance="outline">
                 <input matInput formControlName="nombre_completo">
@@ -298,8 +309,18 @@
                 </mat-label>
                 <mat-error *ngIf="nombre_completo.hasError('required')">Campo requerido</mat-error>
                 <mat-error *ngIf="nombre_completo.hasError('pattern')">Ingrese un nombre válido</mat-error>
+              </mat-form-field>              
+            </div>
 
-              </mat-form-field>
+            <div class="col">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input type="email" matInput class="example-full-width" formControlName="correo_electronico">
+              <mat-label>
+                <b>Correo electrónico</b>
+              </mat-label>
+              <mat-error *ngIf="correo_electronico.hasError('required')">Campo requerido</mat-error>
+              <mat-error *ngIf="correo_electronico.hasError('pattern')">Ingrese un correo válido</mat-error>
+            </mat-form-field>
             </div>
 
 
@@ -544,7 +565,7 @@
       </div>
 
       <div class="botonesstep">
-        <button mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron"
+        <button type="submit" mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron"
           (ngSubmit)="AgregarTelefonosEmergencia();">Siguiente</button>
       </div>
     </form>
@@ -2705,7 +2726,7 @@
       </div>
 
       <div class="botonesstep">
-        <button disabled="{{formulario_habito_toxicologico_personal.invalid}}" mat-raised-button matStepperNext
+        <button  disabled="{{formulario_habito_toxicologico_personal.invalid}}" mat-raised-button 
           class="btn btn-outline-primary float-right botonperron"
           (click)="agregarOtrosHT();enviarDatos();">Enviar</button>
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>

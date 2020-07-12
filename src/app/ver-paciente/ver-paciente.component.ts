@@ -184,7 +184,10 @@ export class VerPacienteComponent implements OnInit {
 
     direccion: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(20)]),
 
-    carrera: new FormControl('', []),
+    correo_electronico: new FormControl('', [Validators.required]),
+
+    carrera: new FormControl('', [ Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/)
+      , Validators.maxLength(30), Validators.minLength(5)]),
 
     fecha_nacimiento: new FormControl('', Validators.required),
     sexo: new FormControl('', Validators.required),
@@ -469,6 +472,7 @@ export class VerPacienteComponent implements OnInit {
     imagen: null,
     lugar_procedencia: null,
     direccion: null,
+    correo_electronico: null,
     carrera: null,
     fecha_nacimiento: null,
     sexo: null,
@@ -1709,93 +1713,43 @@ export class VerPacienteComponent implements OnInit {
     console.log("id_login: " + this.loginService.idActualizar)
 
     if (this.formulario_datos_generales.dirty) {
+      
+    if (this.formulario_datos_generales.valid) {
+      this.paciente.nombre_completo = this.nombre_completo.value;
+      this.paciente.numero_cuenta = this.numero_cuenta.value;
+      this.paciente.numero_identidad = this.numero_identidad.value;
+      this.paciente.lugar_procedencia = this.lugar_procedencia.value;
+      this.paciente.direccion = this.direccion.value;
+      this.paciente.correo_electronico = this.correo_electronico.value;
+      this.paciente.carrera = this.carrera.value;
+      this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
+      this.paciente.sexo = this.sexo.value;
+      this.paciente.estado_civil = this.estado_civil.value;
+      this.paciente.seguro_medico = this.seguro_medico.value;
+      this.paciente.categoria = this.categoria.value;
+      this.paciente.peso = this.peso.value;
+      this.paciente.presion_sistolica = this.presion_sistolica.value;
+      this.paciente.presion_diastolica = this.presion_diastolica.value;
+      this.paciente.talla = this.talla.value;
+      this.paciente.temperatura = this.temperatura.value;
+      this.paciente.pulso = this.pulso.value;
+      this.paciente.prosene = this.prosene.value;
 
-      if (this.formulario_datos_generales.valid) {
-
-        this.paciente.nombre_completo = this.nombre_completo.value;
-        this.paciente.numero_cuenta = this.numero_cuenta.value;
-        this.paciente.numero_identidad = this.numero_identidad.value;
-        this.paciente.lugar_procedencia = this.lugar_procedencia.value;
-        this.paciente.direccion = this.direccion.value;
-        this.paciente.carrera = this.carrera.value;
-        this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
-        this.paciente.sexo = this.sexo.value;
-        this.paciente.estado_civil = this.estado_civil.value;
-        this.paciente.seguro_medico = this.seguro_medico.value;
-        this.paciente.categoria = this.categoria.value;
-        this.paciente.peso = this.peso.value;
-        this.paciente.presion_sistolica = this.presion_sistolica.value;
-        this.paciente.presion_diastolica = this.presion_diastolica.value;
-        this.paciente.talla = this.talla.value;
-        this.paciente.temperatura = this.temperatura.value;
-        this.paciente.pulso = this.pulso.value;
-        this.paciente.prosene = this.prosene.value;
-
-
-        if (this.esAlumno == false) {
-
-          var login = {
-
-            "id_login": this.loginService.idActualizar,
-            "cuenta": this.paciente.numero_identidad
-
-          }
-
-          this.loginService.actualizarCuenta(login).subscribe((result) => {
-
-            console.log("se actualizo perron la cuenta del no alumno")
-
-          }, (error) => {
-
-            console.log(error)
-          })
-
-        } else {
-
-          var login = {
-
-            "id_login": this.loginService.idActualizar,
-            "cuenta": this.paciente.numero_cuenta
-
-          }
-
-          this.loginService.actualizarCuenta(login).subscribe((result) => {
-
-            console.log("se actualizo perron la cuenta del alumno")
-
-          }, (error) => {
-
-            console.log(error)
-          })
-
-
-        }
-
-        this.formularioService.actualizarPaciente(this.paciente).subscribe((data) => {
-
-
-
-
-          this.cargarPaciente();
-          this.agregarTelefonosEmergencia();
-          this.agregarTelefonos();
-
-          this.showError('Datos generales actualizado correctamente');
-
-        }, (error) => {
-
-          console.log(error);
-          this.showError('Error al actualizar los datos generales');
-
-        });
-      } else {
-
-        this.showError('Ingrese correctamente los datos');
-        this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
-        this.disabledDatosGenerales = !this.disabledDatosGenerales;
-        this.datosRepetido = !this.datosRepetido;
-
-      }
+      this.formularioService.actualizarPaciente(this.paciente).subscribe((data) => {
+        this.cargarPaciente();
+        this.agregarTelefonosEmergencia();
+        this.agregarTelefonos();
+        this.showError('Datos generales actualizado correctamente');
+      }, (error) => {
+        console.log(error);
+        this.showError('Error al actualizar los datos generales');
+      });
+    }else{
+      this.showError('Ingrese correctamente los datos');
+      this.readonlyDatosGenerales = !this.readonlyDatosGenerales;
+      this.disabledDatosGenerales = !this.disabledDatosGenerales;
+      this.datosRepetido = !this.datosRepetido;
+    }
     }
   }
 
@@ -3394,7 +3348,8 @@ export class VerPacienteComponent implements OnInit {
     this.carrera.setValue(this.paciente.carrera);
     this.sexo.setValue(this.paciente.sexo);
     this.lugar_procedencia.setValue(this.paciente.lugar_procedencia);
-    this.direccion.setValue(this.paciente.direccion);
+    this.direccion.setValue(this.paciente.direccion);    
+    this.correo_electronico.setValue(this.paciente.correo_electronico);
     this.fecha_nacimiento.setValue(this.paciente.fecha_nacimiento);
 
 
@@ -3758,6 +3713,7 @@ export class VerPacienteComponent implements OnInit {
   get numero_identidad() { return this.formulario_datos_generales.get('numero_identidad') };
   get lugar_procedencia() { return this.formulario_datos_generales.get('lugar_procedencia') };
   get direccion() { return this.formulario_datos_generales.get('direccion') };
+  get correo_electronico() { return this.formulario_datos_generales.get('correo_electronico') };
   get carrera() { return this.formulario_datos_generales.get('carrera') };
   get fecha_nacimiento() { return this.formulario_datos_generales.get('fecha_nacimiento') };
   get sexo() { return this.formulario_datos_generales.get('sexo') };
