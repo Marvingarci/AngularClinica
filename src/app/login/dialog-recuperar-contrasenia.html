@@ -1,5 +1,35 @@
-<h5>Recuperar contrasenia</h5>
+<span style=" display: block;
+font-family: Poppins-Regular,sans-serif;
+font-size: 30px;
+color: #333;
+line-height: 1.2;
+text-align: center;
+padding: 20px;">
+    <strong>Recuperación de la contraseña</strong>
+  </span>
+
+
+<p>Escribe el correo electrónico que recuerdes haber
+     usado cuando te registraste en la Clínica UNAH-TEC Danlí
+</p>
+
+
 <form [formGroup]="form_correo">
-<input type="email" formControlName="correo" required>
-<button class="botonperron" (click)="enviarcorreorecu()">enviar</button>
+    <div>
+        <mat-form-field style="width: 100%;" appearance="outline">
+          <input matInput #inputCorreo type="email" placeholder="Ingrese su correo"
+            formControlName="correo" required>
+          <mat-label>
+            <mat-icon>mail</mat-icon>&nbsp; <b>Correo electrónico</b>
+          </mat-label>
+          <mat-error *ngIf="correo.hasError('required')">correo requerido</mat-error>
+          <!-- <mat-error *ngIf="cuenta.hasError('pattern')">ingrese un numero de cuenta valido</mat-error> -->
+        </mat-form-field>
+      </div>
+
+      <div style="position: inherit; bottom: 10px;right: 15px;">
+        <button mat-raised-button (click)="enviarcorreorecu()" class="btn btn-outline-primary float-right botonperron">
+            Enviar correo</button>
+    </div>
+
 </form>
