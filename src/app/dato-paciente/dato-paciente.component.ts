@@ -561,7 +561,7 @@ export class cambiocontraDialog {
 
         if (this.nuevaContra.value == this.nuevaContraRep.value) {
 
-          this.loginService.actualizarDatos(this.login).subscribe((data) => {
+          this.loginService.actualizarContrasena(this.login).subscribe((data) => {
 
             this.showError('Contraseña Guardada');
 
