@@ -334,7 +334,8 @@ export class DialogoRecuperarContrasenia {
           this.correoservice.enviarCorreo(this.recuperar_correo).subscribe((data) => {
 
             console.log("se envio el correo");
-            this.router.navigate(['/']);
+            this.cerrarDialogoRecuperarContra();
+            this.showError('Te hemos enviado un correo');
 
           }, (error) => {
 
@@ -361,6 +362,8 @@ export class DialogoRecuperarContrasenia {
           this.showError('Correo incorrecto');
         }
 
+      
+
 
 
 
@@ -372,6 +375,10 @@ export class DialogoRecuperarContrasenia {
 
     }
   }
+  
+  cerrarDialogoRecuperarContra() {        
+    this.dialogRef.close();
+        }
 
   // esta mierda es con FIREBASE
   // async enviarcorreorecu(){
