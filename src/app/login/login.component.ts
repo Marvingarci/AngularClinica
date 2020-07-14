@@ -94,15 +94,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
       disableClose: false, width: "75%",
       panelClass: 'loginayuda',
     });
- }
- abrirDialogRecu(){
-  const dialogRef = this.dialog.open(DialogoRecuperarContrasenia,{
-    width: "500px",
-  });
- }
+  }
+  abrirDialogRecu() {
+    const dialogRef = this.dialog.open(DialogoRecuperarContrasenia, {
+      width: "500px",
+    });
+  }
 
 
-  
+
   startanimation() {
     var x = document.getElementById("ayudadiv");
     // If "mystyle" exist, overwrite it with "mystyle2"
@@ -241,7 +241,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 
 
-  }z
+  } z
 
 
   //EVENTO CUANDO SE DA ENTER
@@ -279,7 +279,7 @@ export class Loginayuda {
   constructor() {
 
   }
-} 
+}
 
 
 
@@ -289,7 +289,7 @@ export class Loginayuda {
 @Component({
   selector: 'recuperarcontrasenia',
   templateUrl: 'dialog-recuperar-contrasenia.html',
-  providers:[AuthService],
+  providers: [AuthService],
 })
 
 
@@ -297,65 +297,82 @@ export class Loginayuda {
 export class DialogoRecuperarContrasenia {
 
   form_correo = new FormGroup({
-  correo: new FormControl('', [Validators.required]),
-});
+    correo: new FormControl('', [Validators.required]),
+  });
   correoE: any;
 
   recuperar_correo: RecuperarCorreo = {
     id_paciente: null,
-    correo: null,
+    correo_electronico: null,
     nombre_completo: null
   };
 
-  constructor(private correoservice: PacienteService,private mensaje: MatSnackBar,private router: Router,
-    public dialogRef: MatDialogRef<DialogoRecuperarContrasenia>,private authSvc:AuthService){}
-  
+  constructor(private correoservice: PacienteService, private mensaje: MatSnackBar, private router: Router,
+    public dialogRef: MatDialogRef<DialogoRecuperarContrasenia>, private authSvc: AuthService) { }
+
   showError(message: string) {
     const config = new MatSnackBarConfig();
     config.panelClass = ['background-red'];
     config.duration = 2000;
     this.mensaje.open(message, null, config);
-  }  
-
-enviarcorreorecu(){
-  if(this.form_correo.valid){
-
-    this.correoE = this.correo.value;
-
-    //aqui recuperola informacion, segun el correo que me den
-      this.correoservice.obtenerUsuarioConCorreo(this.correoE).subscribe((data:RecuperarCorreo) => {
-    this.recuperar_correo = data;
-    console.log(this.recuperar_correo);
-    if(this.recuperar_correo != null ){
-        //aqui le asigno el id a la vista del correo
-          this.correoservice.mandarIdAView(this.recuperar_correo).subscribe((data) => {
-          console.log("se envio el id");
-    
-                  // aqui debo de enviar un cooreo con la ruta y redigirlo con el link al nuevo componente
-                  this.correoservice.enviarCorreo(this.recuperar_correo).subscribe((data) => {
-                  console.log("se envio el correo");
-                  this.router.navigate(['/']);
-                  }, (error) => { 
-                  console.log(error);
-                  });
-    
-          }, (error) => { 
-          console.log(error);
-          });
-    }else{
-      this.showError('Correo incorrecto');
-    }   
-    
-        
-    
-    }, (error) => {
-    this.showError('ocurrio un erro');
-    console.log(error);
-    });
-
   }
-}
-  
+
+  enviarcorreorecu() {
+    if (this.form_correo.valid) {
+
+      this.correoE = this.correo.value;
+
+      //aqui recupero la informacion, segun el correo que me den
+      this.correoservice.obtenerUsuarioConCorreo(this.correoE).subscribe((data: RecuperarCorreo) => {
+        this.recuperar_correo = data;
+
+        console.log(this.recuperar_correo);
+
+        if (this.recuperar_correo != null) {
+          //aqui le asigno el id a la vista del correo
+
+          this.correoservice.enviarCorreo(this.recuperar_correo).subscribe((data) => {
+
+            console.log("se envio el correo");
+            this.router.navigate(['/']);
+
+          }, (error) => {
+
+            console.log(error)
+          })
+
+          //   this.correoservice.mandarIdAView(this.recuperar_correo).subscribe((data) => {
+
+          //     console.log("se envio el id");
+
+          //     // aqui debo de enviar un correo con la ruta y redigirlo con el link al nuevo componente
+          //     this.correoservice.enviarCorreo(this.recuperar_correo).subscribe((data) => {
+          //       console.log("se envio el correo");
+          //       this.router.navigate(['/']);
+          //     }, (error) => {
+          //       console.log(error);
+          //     });
+
+          //   }, (error) => {
+          //     console.log(error);
+          //   });
+
+        } else {
+          this.showError('Correo incorrecto');
+        }
+
+
+
+
+
+      }, (error) => {
+        this.showError('ocurrio un erro');
+        console.log(error);
+      });
+
+    }
+  }
+
   // esta mierda es con FIREBASE
   // async enviarcorreorecu(){
   //  try{
@@ -366,7 +383,7 @@ enviarcorreorecu(){
   //  }  
   // }
 
- 
+
 
 
   get correo() { return this.form_correo.get('correo') };
