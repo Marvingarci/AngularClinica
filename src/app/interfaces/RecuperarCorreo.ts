@@ -1,5 +1,5 @@
 export interface RecuperarCorreo {
-    correo: string;  
+    correo_electronico: string;  
     id_paciente : number;
     nombre_completo: string;  
     created_at? : string;
