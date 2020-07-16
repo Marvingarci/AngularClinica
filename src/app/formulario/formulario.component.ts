@@ -269,7 +269,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   };
 
   formulario_datos_generales = new FormGroup({
-    nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,100}$/)]),
+    nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,50}$/)]),
     correo_electronico: new FormControl('', [Validators.required]),
 
     numero_cuenta: new FormControl('', {
@@ -285,7 +285,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     }),
     // "\d" es lo mismo "[0-9]"
     lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,20}$/)]),
-    direccion: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(20)]),
+    direccion: new FormControl('', [Validators.required, Validators.maxLength(200), Validators.minLength(20)]),
     carrera: new FormControl('', [Validators.required]),
     fecha_nacimiento: new FormControl('', Validators.required),
     sexo: new FormControl('', Validators.required),
