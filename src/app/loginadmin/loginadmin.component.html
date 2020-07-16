@@ -14,59 +14,39 @@
           <mat-error  *ngIf="usuario.hasError('required')"> <strong>Ingrese el usuario</strong></mat-error>
           <mat-error *ngIf="usuario.hasError('minlength')"> <strong>Usuario muy corto, mínimo 4 caracteres</strong></mat-error>
           <mat-error *ngIf="usuario.hasError('maxlength')"> <strong>Usuario muy largo, máximo 12 caracteres</strong></mat-error>  
-          <mat-error *ngIf="usuario.hasError('pattern')"> <strong>No se aceptan caracteres especiales</strong></mat-error>       
-          <mat-error *ngIf="usuario.hasError('whitespace')"><strong>No se permiten espacios en blanco</strong></mat-error>        
+          <mat-error *ngIf="usuario.hasError('pattern')"> <strong>No se aceptan caracteres especiales</strong></mat-error>     
           <mat-error *ngIf="usuario.hasError('usuarioAdminUnico')">El usuario pertenece a otra persona</mat-error>
         </mat-form-field>
   
         <div *ngIf="!editando">
+
           <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput placeholder="Nueva contraseña" (keydown)="onKeydown($event)"  formControlName="contraseniaNueva" ng-trim = "false"
-            [type]="hide1 ? 'text' : 'password'">
             <mat-label> <b>Contraseña</b> </mat-label>
-            <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide1">
-              <mat-icon>{{hide1 ? 'visibility' : 'visibility_off '}}</mat-icon>
-            </button>
-            <mat-error *ngIf="contraseniaNueva.hasError('required')">
-              <strong>Ingrese la contraseña</strong>
-            </mat-error>
-            <mat-error *ngIf="contraseniaNueva.hasError('minlength') ">
-              <strong>Contraseña muy corta</strong>
-            </mat-error>
-            <mat-error *ngIf="contraseniaNueva.hasError('maxlength') ">
-              <strong>Contraseña muy extensa</strong>
-            </mat-error>
-             <mat-error *ngIf="contraseniaNueva.hasError('pattern') ">
-              <strong>No se permiten espacios en blanco</strong>
-            </mat-error>
-               
-          <mat-error *ngIf="contraseniaNueva.hasError('whitespace')"><strong>No se permiten espacios en blanco</strong></mat-error> 
+            <input matInput placeholder="Nueva contraseña (entre 6-30 caracteres)" (keydown)="onKeydown($event)"  
+            formControlName="contraseniaNueva" ng-trim = "false" [type]="hide1 ? 'text' : 'password'">
+              <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide1">
+                <mat-icon>{{hide1 ? 'visibility' : 'visibility_off '}}</mat-icon>
+              </button>
+            <mat-error *ngIf="contraseniaNueva.hasError('required')"><strong>Ingrese la contraseña</strong></mat-error>
+            <mat-error *ngIf="contraseniaNueva.hasError('minlength') "><strong>Contraseña muy corta</strong> </mat-error>
+            <mat-error *ngIf="contraseniaNueva.hasError('maxlength') "><strong>Contraseña muy extensa</strong></mat-error>
+             <mat-error *ngIf="contraseniaNueva.hasError('pattern') "><strong>No se permiten espacios en blanco</strong></mat-error>               
           </mat-form-field>
 
   
           <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label> <b>Confirme la contraseña</b> </mat-label>
             <input matInput placeholder="Confirme la nueva contraseña" formControlName="confirmarContrasenia"
             (keydown)="onKeydown($event)"  [type]="hide ? 'password' : 'text'">
-            <mat-label> <b>Confirme la contraseña</b> </mat-label>
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
-            <mat-error *ngIf="confirmarContrasenia.hasError('required')">
-              <strong>Confirme la contraseña</strong>
-            </mat-error>
-            <mat-error *ngIf="confirmarContrasenia.hasError('minlength') ">
-              <strong>Contraseña muy corta</strong>
-            </mat-error>
-            <mat-error *ngIf="confirmarContrasenia.hasError('maxlength') ">
-              <strong>Contraseña muy extensa</strong>
-            </mat-error>
-            <mat-error *ngIf="confirmarContrasenia.hasError('pattern') ">
-              <strong>No se permiten espacios en blanco</strong>
-            </mat-error>
-               
-          <mat-error *ngIf="confirmarContrasenia.hasError('whitespace')"><strong>No se permiten espacios en blanco</strong></mat-error> 
+            <mat-error *ngIf="confirmarContrasenia.hasError('required')"><strong>Confirme la contraseña</strong></mat-error>
+            <mat-error *ngIf="confirmarContrasenia.hasError('minlength') "><strong>Contraseña muy corta</strong> </mat-error>
+            <mat-error *ngIf="confirmarContrasenia.hasError('maxlength') "><strong>Contraseña muy extensa</strong></mat-error>
+            <mat-error *ngIf="confirmarContrasenia.hasError('pattern') "> <strong>No se permiten espacios en blanco</strong> </mat-error>               
           </mat-form-field>
   
         </div>
@@ -89,8 +69,7 @@
           <mat-error *ngIf="identidad.hasError('required')"><strong>Escriba correctamente el número de identidad</strong></mat-error>
           <mat-error *ngIf="identidad.hasError('minlength') "><strong>Escriba correctamente el número de identidad</strong></mat-error>
           <mat-error *ngIf="identidad.hasError('maxlength')"><strong>Escriba correctamente el número de identidad</strong></mat-error>
-          <mat-error *ngIf="identidad.hasError('pattern')"><strong>Sólo se permiten números</strong></mat-error>
-          <mat-error *ngIf="identidad.hasError('whitespace')"><strong>No se permiten espacios en blanco</strong></mat-error>   
+          <mat-error *ngIf="identidad.hasError('pattern')"><strong>Sólo se permiten números</strong></mat-error> 
         </mat-form-field>
 
 
