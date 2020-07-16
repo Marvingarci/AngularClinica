@@ -36,10 +36,10 @@ export class LoginadminComponent implements OnInit {
       // asyncValidators: [this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService)]
     }),
 
-    contraseniaNueva: new FormControl('', [Validators.minLength(6), Validators.maxLength(30),this.noWhitespaceValidator]),
-    confirmarContrasenia: new FormControl('', [Validators.minLength(6), Validators.maxLength(30),this.noWhitespaceValidator]),
-    nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(30),this.noWhitespaceValidator,Validators.pattern('[a-z A-Z]*')]),
-    identidad: new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13),this.noWhitespaceValidator, Validators.pattern('[0-9]*')]),
+    contraseniaNueva: new FormControl('', [Validators.minLength(6), Validators.maxLength(30)]),
+    confirmarContrasenia: new FormControl('', [Validators.minLength(6), Validators.maxLength(30)]),
+    nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(50),this.noWhitespaceValidator,Validators.pattern('[a-z A-Z]*')]),
+    identidad: new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')]),
 
   });
 
@@ -107,10 +107,11 @@ export class LoginadminComponent implements OnInit {
       this.usuario.setAsyncValidators(this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService));
 
       this.contraseniaNueva.setValidators([Validators.required, Validators.minLength(6),Validators.maxLength(30),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,30}/)]);
+        Validators.pattern( '[0-9a-zA-Z$@$!%*?&.,^=#]*')]);
+       
       this.contraseniaNueva.updateValueAndValidity();
       this.confirmarContrasenia.setValidators([Validators.required, Validators.minLength(6),Validators.maxLength(30),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,30}/)]);
+        Validators.pattern( '[0-9a-zA-Z$@$!%*?&.,^=#]*')]);
       this.confirmarContrasenia.updateValueAndValidity();
 
     }
