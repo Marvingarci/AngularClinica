@@ -28,21 +28,21 @@ export class RegistromedicosComponent implements OnInit {
 
   medicos_form = new FormGroup({
 
-    usuario: new FormControl('', {validators: [Validators.required, Validators.minLength(4),Validators.maxLength(12)],
+    usuario: new FormControl('', {validators: [Validators.required, Validators.minLength(4),Validators.maxLength(12),Validators.pattern('[0-9a-zA-Z]*'),this.noWhitespaceValidator],
       // asyncValidators: [this.usuarioMedicoUnicoService.validate.bind(this.usuarioMedicoUnicoService)]
        }),
 
     contrasenia: new FormControl('', {
-      validators:[Validators.required,Validators.minLength(6), Validators.maxLength(30)],
+      validators:[Validators.required,Validators.minLength(6), Validators.maxLength(30),this.noWhitespaceValidator],
     }),
     contraseniaC: new FormControl('', {
-      validators:[Validators.required,Validators.minLength(6), Validators.maxLength(30)],
+      validators:[Validators.required,Validators.minLength(6), Validators.maxLength(30),this.noWhitespaceValidator],
     }),
     nombre: new FormControl('', {
-      validators:[Validators.required, Validators.minLength(10), Validators.maxLength(30)],
+      validators:[Validators.required, Validators.minLength(10), Validators.maxLength(30),Validators.pattern('[a-z A-Z]*'),this.noWhitespaceValidator],
     }),
     identidad: new FormControl('', {
-      validators:[Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')],
+      validators:[Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*'),this.noWhitespaceValidator],
     }),
     especialidad: new FormControl('',{
       validators:[Validators.required],
@@ -50,6 +50,13 @@ export class RegistromedicosComponent implements OnInit {
     permisos: new FormControl('', []),
 
   });
+
+  // metodo para evitar los espacios en blanco
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
+}
 
   getErrorMessage() {
     return this.medicos_form.get('usuario').hasError('required') ? 'You must enter a value' :
@@ -178,9 +185,9 @@ export class RegistromedicosComponent implements OnInit {
 
       this.usuario.setAsyncValidators(this.usuarioMedicoUnicoService.validate.bind(this.usuarioMedicoUnicoService));
 
-      this.contrasenia.setValidators(Validators.required);
+      this.contrasenia.setValidators([Validators.required, Validators.minLength(6),Validators.maxLength(30),this.noWhitespaceValidator]);
       this.contrasenia.updateValueAndValidity();
-      this.contraseniaC.setValidators(Validators.required);
+      this.contraseniaC.setValidators([Validators.required, Validators.minLength(6),Validators.maxLength(30),this.noWhitespaceValidator]);
       this.contraseniaC.updateValueAndValidity();
 
     }
