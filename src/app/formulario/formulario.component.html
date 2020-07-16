@@ -34,7 +34,7 @@
 
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput formControlName="numero_identidad">
+              <input matInput formControlName="numero_identidad" maxlength="13">
               <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint>
               <mat-label>
                 <b>N° Identidad</b>
@@ -342,7 +342,7 @@
             </div>
             <div class="col">
               <mat-form-field class="example-full-width" appearance="outline">
-                <input matInput formControlName="numero_identidad">
+                <input matInput formControlName="numero_identidad" maxlength="13">
                 <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint>
                 <mat-label>
                   <b>N° Identidad</b>
@@ -2534,7 +2534,7 @@
 
 
   <!-- cuarto step -->
-  <mat-step [stepControl]="formulario_habito_toxicologico_personal" label="Habitos Toxicologicos Personales">
+  <mat-step [stepControl]="formulario_habito_toxicologico_personal" label="Hábitos Toxicológicos Personales">
     <form [formGroup]="formulario_habito_toxicologico_personal">
       <!-- <ng-template matStepLabel>Habitos Toxicologicos Personales</ng-template> -->
       <div class="containerScroll">
@@ -2555,7 +2555,7 @@
             <textarea matInput formControlName="observacion_alcohol" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté habito toxicologico. El numero minimo de caracteres son 4
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
                 y el maximo es de 150." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Detallar tiempo de uso y frecuencia</b>
@@ -2586,7 +2586,7 @@
               placeholder="Detallar tiempo de uso y frecuencia" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté habito toxicologico. El numero minimo de caracteres son 4
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
                 y el maximo es de 150." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Detallar tiempo de uso y frecuencia</b>
@@ -2619,7 +2619,7 @@
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3"
               style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté habito toxicologico. El numero minimo de caracteres son 4
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
                 y el maximo es de 150." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Detallar tiempo de uso y frecuencia</b>
@@ -2649,7 +2649,7 @@
             <textarea matInput formControlName="observacion_cocaina" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté habito toxicologico. El numero minimo de caracteres son 4
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
                 y el maximo es de 150." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Detallar inicio de enfermedad y tratamiento</b>
@@ -2684,7 +2684,7 @@
               <textarea matInput formControlName="observacion_otros" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                 cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
                 matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté habito toxicologico. El numero minimo de caracteres son 4
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
                 y el maximo es de 150." matTooltipPosition="right"></textarea>
               <mat-label>
                 <b>Observación</b>
@@ -2715,7 +2715,7 @@
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Hábito toxicólogico </th>
+              <th mat-header-cell *matHeaderCellDef> Hábito toxicológico </th>
               <td mat-cell *matCellDef="let element"> {{element.habito_toxicologico}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
