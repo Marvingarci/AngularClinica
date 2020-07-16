@@ -28,16 +28,25 @@ export class RegistromedicosComponent implements OnInit {
 
   medicos_form = new FormGroup({
 
-    usuario: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(4)],
+    usuario: new FormControl('', {validators: [Validators.required, Validators.minLength(4),Validators.maxLength(12)],
       // asyncValidators: [this.usuarioMedicoUnicoService.validate.bind(this.usuarioMedicoUnicoService)]
-    }),
+       }),
 
-    contrasenia: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
-    contraseniaC: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
-    nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(30)]),
-    identidad: new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')]),
-    especialidad: new FormControl('', [Validators.required]),
+    contrasenia: new FormControl('', {
+      validators:[Validators.required,Validators.minLength(6), Validators.maxLength(30)],
+    }),
+    contraseniaC: new FormControl('', {
+      validators:[Validators.required,Validators.minLength(6), Validators.maxLength(30)],
+    }),
+    nombre: new FormControl('', {
+      validators:[Validators.required, Validators.minLength(10), Validators.maxLength(30)],
+    }),
+    identidad: new FormControl('', {
+      validators:[Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')],
+    }),
+    especialidad: new FormControl('',{
+      validators:[Validators.required],
+   }),
     permisos: new FormControl('', []),
 
   });
