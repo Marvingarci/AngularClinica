@@ -15,9 +15,10 @@
               <mat-error *ngIf="nombre_completo.hasError('required')">Campo requerido</mat-error>
               <!-- <mat-error *ngIf="nombre_completo.hasError('pattern')">Ingrese un apellido válido</mat-error> -->
             </mat-form-field>  
-            
+             </div>
+
             <div class="col">
-              <mat-form-field class="example-full-width" appearance="outline">
+                 <mat-form-field class="example-full-width" appearance="outline">
                 <input type="email" matInput class="example-full-width" formControlName="correo_electronico">
                 <mat-label>
                   <b>Correo electrónico</b>
@@ -25,10 +26,9 @@
                 <mat-error *ngIf="correo_electronico.hasError('required')">Campo requerido</mat-error>
                 <mat-error *ngIf="correo_electronico.hasError('pattern')">Ingrese un correo válido</mat-error>
               </mat-form-field>
-              </div>
+            </div>
+           
           </div>
-
-        </div>
 
         <div class="row">
 
@@ -661,16 +661,18 @@
           <!--el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
           <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAF">
 
-            <mat-form-field class="autocomplete" appearance="outline">
-              <input matInput formControlName="tipo_desnutricion" id="InputDesnutricion"
-                matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
-              <mat-label>
+            <mat-form-field class="autocomplete" appearance="outline">  <mat-label>
                 <b>Tipo desnutrición</b>
               </mat-label>
+              <input matInput formControlName="tipo_desnutricion" id="InputDesnutricion"
+                matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
+                <mat-error *ngIf="tipo_desnutricion.hasError('required')"><strong>Campo requerido</strong></mat-error>
+                <mat-error *ngIf="tipo_desnutricion.hasError('minlength') "><strong>Descripción muy corta</strong></mat-error>
+                <mat-error *ngIf="tipo_desnutricion.hasError('maxlength')"><strong>Descripción muy extensa</strong></mat-error>
+                <mat-error *ngIf="tipo_desnutricion.hasError('pattern')"><strong>Sólo se permiten letras</strong></mat-error>
+                    
 
-              <mat-error style="margin-left: 0;" *ngIf="tipo_desnutricion.hasError('required')">
-                Campo requerido
-              </mat-error>
+             
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -758,12 +760,16 @@
           <div class="col" style="display: none;" id="divAgregarTiposEnfermedadesMentalesAF">
 
             <mat-form-field appearance="outline">
-
-              <input matInput formControlName="tipo_enfermedad_mental" id="InputEnfermedadAF"
-                matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
-              <mat-label>
+               <mat-label>
                 <b>Tipo enfermedad mental</b>
               </mat-label>
+              <input matInput formControlName="tipo_enfermedad_mental" id="InputEnfermedadAF"
+                matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
+                <mat-error *ngIf="tipo_enfermedad_mental.hasError('whitespace')"><strong>No se permiten espacios en blanco</strong></mat-error>
+                <mat-error *ngIf="tipo_enfermedad_mental.hasError('minlength') "><strong>Descripción muy corta</strong></mat-error>
+                <mat-error *ngIf="tipo_enfermedad_mental.hasError('maxlength')"><strong>Descripción muy extensa</strong></mat-error>
+                <mat-error *ngIf="tipo_enfermedad_mental.hasError('pattern')"><strong>Sólo se permiten letras</strong></mat-error>
+             
 
               <mat-error style="margin-left: 0;" *ngIf="tipo_enfermedad_mental.hasError('required')">
                 Campo requerido
@@ -922,11 +928,16 @@
           <div class="col" style="display: none;" id="divAgregarTiposAlergiasAF">
 
             <mat-form-field appearance="outline">
-              <input matInput formControlName="tipo_alergia" id="InputAlergiaAF"
-                matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
-              <mat-label>
+                   <mat-label>
                 <b>Tipo alergia</b>
               </mat-label>
+              <input matInput formControlName="tipo_alergia" id="InputAlergiaAF"
+                matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
+                <mat-error *ngIf="tipo_alergia.hasError('whitespace')"><strong>No se permiten espacios en blanco</strong></mat-error>
+                <mat-error *ngIf="tipo_alergia.hasError('minlength') "><strong>Descripción muy corta</strong></mat-error>
+                <mat-error *ngIf="tipo_alergia.hasError('maxlength')"><strong>Descripción muy extensa</strong></mat-error>
+                <mat-error *ngIf="tipo_alergia.hasError('pattern')"><strong>Sólo se permiten letras</strong></mat-error>
+         
 
               <mat-error style="margin-left: 0;" *ngIf="tipo_alergia.hasError('required')">
                 Campo requerido
@@ -1021,11 +1032,16 @@
           <div class="col" style="display: none;" id="divAgregarTiposCancerAF">
 
             <mat-form-field appearance="outline">
+                <mat-label>
+                <b>Tipo de cáncer</b>
+              </mat-label>
               <input matInput formControlName="tipo_cancer" placeholder="Tipo cáncer" id="InputCancerAF"
                 matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
-              <mat-label>
-                <b>Tipo cáncer</b>
-              </mat-label>
+                <mat-error *ngIf="tipo_cancer.hasError('whitespace')"><strong>No se permiten espacios en blanco</strong></mat-error>
+                <mat-error *ngIf="tipo_cancer.hasError('minlength') "><strong>Descripción muy corta</strong></mat-error>
+                <mat-error *ngIf="tipo_cancer.hasError('maxlength')"><strong>Descripción muy extensa</strong></mat-error>
+                <mat-error *ngIf="tipo_cancer.hasError('pattern')"><strong>Sólo se permiten letras</strong></mat-error>
+            
               <mat-error style="margin-left: 0;" *ngIf="tipo_cancer.hasError('required')">
                 Campo requerido
               </mat-error>
@@ -1136,13 +1152,16 @@
 
           <div class="col" style="margin-left: 0; padding-left: 0%;">
             <mat-form-field appearance="outline">
-              <input matInput formControlName="otros" id="InputOtrosAF" matTooltip="Escriba una enfermedad que no este en las selecciones de arriba, solo 
-              si es necesario" matTooltipPosition="right">
-              <mat-label>
+                <mat-label>
                 <b>Enfermedad</b>
               </mat-label>
-              <mat-error *ngIf="otros.hasError('maxlength')">Campo muy extenso</mat-error>
-              <mat-error *ngIf="otros.hasError('minlength')">Introduzca una observación valida</mat-error>
+              <input matInput formControlName="otros" id="InputOtrosAF" matTooltip="Escriba una enfermedad que no este en las selecciones de arriba, solo 
+              si es necesario" matTooltipPosition="right">
+              <mat-error *ngIf="otros.hasError('minlength') "><strong>Descripción muy corta</strong></mat-error>
+              <mat-error *ngIf="otros.hasError('maxlength')"><strong>Descripción muy extensa</strong></mat-error>
+              <mat-error *ngIf="otros.hasError('pattern')"><strong>Sólo se permiten letras</strong></mat-error>
+            
+           
 
             </mat-form-field>
 
