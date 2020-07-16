@@ -92,27 +92,27 @@
 
                         <ng-container matColumnDef="id">
                             <th mat-header-cell *matHeaderCellDef> # </th>
-                            <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
+                            <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 5px;padding-right: 5px;">  {{i+1}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="usuarioM">
                             <th mat-header-cell *matHeaderCellDef> Usuario </th>
-                            <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
+                            <td mat-cell *matCellDef="let element" style="padding-left: 5px;padding-right: 5px;"> {{element.usuario}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="nombreM">
                             <th mat-header-cell *matHeaderCellDef> Nombre </th>
-                            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                            <td mat-cell *matCellDef="let element" style="padding-left: 5px;padding-right: 5px;">  {{element.nombre}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="identidadM">
                             <th mat-header-cell *matHeaderCellDef> Identidad </th>
-                            <td mat-cell *matCellDef="let element"> {{element.numero_identidad}} </td>
+                            <td mat-cell *matCellDef="let element" style="padding-left: 5px;padding-right: 5px;"> {{element.numero_identidad}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="especialidadM">
                             <th mat-header-cell *matHeaderCellDef> Especialidad </th>
-                            <td mat-cell *matCellDef="let element"> {{element.especialidad}} </td>
+                            <td mat-cell *matCellDef="let element" style="padding-left: 5px;padding-right: 5px;"> {{element.especialidad}} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="nada">
