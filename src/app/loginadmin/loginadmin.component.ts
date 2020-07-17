@@ -26,22 +26,29 @@ export class LoginadminComponent implements OnInit {
 
 
 
-  esconderClave: boolean = true;
-  esconderConfirmacionClave: boolean = true;
+  hide1 = false;
+  hide = true;
 
   loginadmin_form = new FormGroup({
 
     usuario: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(4)],
+      validators: [Validators.required, Validators.minLength(4),Validators.maxLength(12),Validators.pattern('[0-9a-zA-Z]*')],
       // asyncValidators: [this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService)]
     }),
 
-    contraseniaNueva: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
-    confirmarContrasenia: new FormControl('', [Validators.minLength(8), Validators.maxLength(30)]),
-    nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(30)]),
+    contraseniaNueva: new FormControl('', [Validators.minLength(6), Validators.maxLength(30)]),
+    confirmarContrasenia: new FormControl('', [Validators.minLength(6), Validators.maxLength(30)]),
+    nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(50),this.noWhitespaceValidator,Validators.pattern('[a-z A-Z]*')]),
     identidad: new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')]),
 
   });
+
+    // metodo para evitar los espacios en blanco
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
+}
 
 
 
@@ -99,9 +106,12 @@ export class LoginadminComponent implements OnInit {
 
       this.usuario.setAsyncValidators(this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService));
 
-      this.contraseniaNueva.setValidators(Validators.required);
+      this.contraseniaNueva.setValidators([Validators.required, Validators.minLength(6),Validators.maxLength(30),
+        Validators.pattern( '[0-9a-zA-Z$@$!%*?&.,^=#]*')]);
+       
       this.contraseniaNueva.updateValueAndValidity();
-      this.confirmarContrasenia.setValidators(Validators.required);
+      this.confirmarContrasenia.setValidators([Validators.required, Validators.minLength(6),Validators.maxLength(30),
+        Validators.pattern( '[0-9a-zA-Z$@$!%*?&.,^=#]*')]);
       this.confirmarContrasenia.updateValueAndValidity();
 
     }
@@ -135,14 +145,12 @@ export class LoginadminComponent implements OnInit {
 
   }
 
-  // onKeydown(event) {
-
-  //   if (event.key === "Enter") {
-  //     this.esconderClave = true;
-  //     this.esconderConfirmacionClave = true;
-  //     this.llamarDialogo();
-  //   }
-  // }
+  onKeydown(event1) {
+    if (event1.key === "Enter") {
+      this.hide1 = true;
+      this.hide = true;
+    }
+  }
 
 
   llamarDialogo() {

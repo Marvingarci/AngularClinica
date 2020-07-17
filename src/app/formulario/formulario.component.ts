@@ -269,7 +269,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   };
 
   formulario_datos_generales = new FormGroup({
-    nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,100}$/)]),
+    nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,50}$/)]),
     correo_electronico: new FormControl('', [Validators.required]),
 
     numero_cuenta: new FormControl('', {
@@ -285,7 +285,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     }),
     // "\d" es lo mismo "[0-9]"
     lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,20}$/)]),
-    direccion: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(20)]),
+    direccion: new FormControl('', [Validators.required, Validators.maxLength(200), Validators.minLength(20)]),
     carrera: new FormControl('', [Validators.required]),
     fecha_nacimiento: new FormControl('', Validators.required),
     sexo: new FormControl('', Validators.required),
@@ -308,25 +308,29 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     parentesco_tb_pulmonar: new FormControl('', []),
     desnutricion: new FormControl('', [Validators.required]),
     parentesco_desnutricion: new FormControl('', []),
-    tipo_desnutricion: new FormControl('', []),
+    tipo_desnutricion: new FormControl('', { }),//las validaciones estan en los setValidator
+    
     enfermedades_mentales: new FormControl('', [Validators.required]),
     parentesco_enfermedades_mentales: new FormControl('', []),
-    tipo_enfermedad_mental: new FormControl('', []),
+    tipo_enfermedad_mental: new FormControl('', { }),//las validaciones estan en los setValidator
     convulsiones: new FormControl('', [Validators.required]),
     parentesco_convulsiones: new FormControl('', []),
     alcoholismo_sustancias_psicoactivas: new FormControl('', [Validators.required]),
     parentesco_alcoholismo_sustancias_psicoactivas: new FormControl('', []),
     alergias: new FormControl('', [Validators.required]),
     parentesco_alergias: new FormControl('', []),
-    tipo_alergia: new FormControl('', []),
+    tipo_alergia: new FormControl('', { }),//las validaciones estan en los setValidator
     cancer: new FormControl('', [Validators.required]),
     parentesco_cancer: new FormControl('', []),
-    tipo_cancer: new FormControl('', []),
+    tipo_cancer: new FormControl('', { }),//las validaciones estan en los setValidator
     hipertension_arterial: new FormControl('', [Validators.required]),
     parentesco_hipertension_arterial: new FormControl('', []),
-    otros: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    otros: new FormControl('', [Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4)],),
     parentesco_otros: new FormControl('', []),
   });
+
+  
+
 
 
   formulario_antecedentes_personales = new FormGroup({
@@ -417,7 +421,12 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   matcher = new MyErrorStateMatcher();
 
-
+  // metodo para evitar los espacios en blanco
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
+}
 
   habilitarInputs(formControl: FormControl[]) {
     formControl.forEach(controlador => {
@@ -469,41 +478,54 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   mostrarCamposDesnutricionAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposDesnutricionAF').style.display = "block";
+    this.tipo_desnutricion.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]);
+    this.parentesco_desnutricion.setValidators(Validators.required);
+    
   }
 
   mostrarCamposEnfermedadesMentalesAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposEnfermedadesMentalesAF').style.display = "block";
+    this.tipo_enfermedad_mental.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]);
+    this.parentesco_enfermedades_mentales.setValidators(Validators.required);
   }
 
   mostrarCamposAlergiasAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposAlergiasAF').style.display = "block";
+    this.tipo_alergia.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]);
+    this.parentesco_alergias.setValidators(Validators.required);
   }
 
   mostrarCamposCancerAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposCancerAF').style.display = "block";
+    this.tipo_cancer.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]);
+    this.parentesco_cancer.setValidators(Validators.required);
   }
 
   mostrarCamposDesnutricionAP() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposDesnutricionAP').style.display = "block";
+    this.tipo_desnutricion_ap.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),,Validators.required]);
   }
 
   mostrarCamposEnfermedadesMentalesAP() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposEnfermedadesMentalesAP').style.display = "block";
+    this.tipo_enfermedad_mental_ap.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]);
   }
 
   mostrarCamposAlergiasAP() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposAlergiasAP').style.display = "block";
+    this.tipo_alergia_ap.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]);
   }
 
   mostrarCamposCancerAP() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposCanceresAP').style.display = "block";
+    this.tipo_cancer_ap.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),,Validators.required]);
   }
 
   mostrarCamposHospitalariasQuirurgicas() {
@@ -522,48 +544,60 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     // limpio la tablaDesnutriciones para que quede en blanco.
     //ESTE LO HAGO EN TODOS LAS FUNCIONES DE OCULTAR
     document.getElementById('divAgregarTiposDesnutricionAF').style.display = "none";
+    this.tipo_desnutricion.updateValueAndValidity(); 
+    this.parentesco_desnutricion.updateValueAndValidity();   
     this.dataSourceTablaDesnutricionesAF = null;
     this.tablaDesnutricionesAF = [];
   }
 
   ocultarCamposEnfermedadesMentalesAF() {
     document.getElementById('divAgregarTiposEnfermedadesMentalesAF').style.display = "none";
+    this.tipo_enfermedad_mental.updateValueAndValidity();  
+    this.parentesco_enfermedades_mentales.updateValueAndValidity();  
     this.dataSourceTablaEnfermedadesMentalesAF = null;
     this.tablaEnfermedadesMentalesAF = [];
   }
 
   ocultarCamposAlergiasAF() {
     document.getElementById('divAgregarTiposAlergiasAF').style.display = "none";
+    this.tipo_alergia.updateValueAndValidity();  
+    this.parentesco_alergias.updateValueAndValidity();  
     this.dataSourceTablaAlergiasAF = null;
     this.tablaAlergiasAF = [];
   }
 
   ocultarCamposCancerAF() {
     document.getElementById('divAgregarTiposCancerAF').style.display = "none";
+    this.tipo_cancer.updateValueAndValidity();  
+    this.parentesco_cancer.updateValueAndValidity();  
     this.dataSourceTablaCanceresAF = null;
     this.tablaCanceresAF = [];
   }
 
   ocultarCamposDesnutricionAP() {
     document.getElementById('divAgregarTiposDesnutricionAP').style.display = "none";
+    this.tipo_desnutricion_ap.updateValueAndValidity();  
     this.dataSourceTablaDesnutricionesAP = null;
     this.tablaDesnutricionesAP = [];
   }
 
   ocultarCamposEnfermedadesMentalesAP() {
     document.getElementById('divAgregarTiposEnfermedadesMentalesAP').style.display = "none";
+    this.tipo_enfermedad_mental_ap.updateValueAndValidity();  
     this.dataSourceTablaEnfermedadesMentalesAP = null;
     this.tablaEnfermedadesMentalesAP = [];
   }
 
   ocultarCamposAlergiasAP() {
     document.getElementById('divAgregarTiposAlergiasAP').style.display = "none";
+    this.tipo_alergia_ap.updateValueAndValidity();  
     this.dataSourceTablaAlergiasAP = null;
     this.tablaAlergiasAP = [];
   }
 
   ocultarCamposCancerAP() {
     document.getElementById('divAgregarTiposCanceresAP').style.display = "none";
+    this.cancer_ap.updateValueAndValidity();  
     this.dataSourceTablaCanceresAP = null;
     this.tablaCanceresAP = [];
   }
@@ -1481,7 +1515,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.parentesco_desnutricion.setValue('');
       //si se agrega un elemento a la tabla entonces los campos
       //tipo desnutricion y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.tipo_desnutricion.clearValidators();
+      this.tipo_desnutricion.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4)]);
       this.tipo_desnutricion.updateValueAndValidity();
       this.parentesco_desnutricion.clearValidators();
       this.parentesco_desnutricion.updateValueAndValidity();
@@ -1508,7 +1542,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si la tabla no tiene ningun valor entonces establezco como requerido
       // los campos tipo desnutricion y parentesco.
-      this.tipo_desnutricion.setValidators(Validators.required);
+      this.tipo_desnutricion.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]),
       this.tipo_desnutricion.updateValueAndValidity();
 
       this.parentesco_desnutricion.setValidators(Validators.required);
@@ -1564,7 +1598,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si se agrega un elemento a la tabla entonces los campos
       //tipo enfermedad mental y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.tipo_enfermedad_mental.clearValidators();
+      this.tipo_enfermedad_mental.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4)]);
       this.tipo_enfermedad_mental.updateValueAndValidity();
 
       this.parentesco_enfermedades_mentales.clearValidators();
@@ -1591,7 +1625,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si la tabla no tiene ningun valor entonces establezco como requerido
       // los campos tipo enfermedad mental y parentesco.
-      this.tipo_enfermedad_mental.setValidators(Validators.required);
+      this.tipo_enfermedad_mental.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]),
       this.tipo_enfermedad_mental.updateValueAndValidity();
 
       this.parentesco_enfermedades_mentales.setValidators(Validators.required);
@@ -1645,7 +1679,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si se agrega un elemento a la tabla entonces los campos
       //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.tipo_alergia.clearValidators();
+      this.tipo_alergia.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4)]);
       this.tipo_alergia.updateValueAndValidity();
 
       this.parentesco_alergias.clearValidators();
@@ -1672,7 +1706,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si la tabla no tiene ningun valor entonces establezco como requerido
       // los campos tipo alergia y parentesco.
-      this.tipo_alergia.setValidators(Validators.required);
+      this.tipo_alergia.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]),
       this.tipo_alergia.updateValueAndValidity();
 
       this.parentesco_alergias.setValidators(Validators.required);
@@ -1727,7 +1761,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si se agrega un elemento a la tabla entonces los campos
       //tipo cancer y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.tipo_cancer.clearValidators();
+      this.tipo_cancer.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4)]);
       this.tipo_cancer.updateValueAndValidity();
 
       this.parentesco_cancer.clearValidators();
@@ -1753,7 +1787,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si la tabla no tiene ningun valor entonces establezco como requerido
       // los campos tipo cancer y parentesco.
-      this.tipo_cancer.setValidators(Validators.required);
+      this.tipo_cancer.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]),
       this.tipo_cancer.updateValueAndValidity();
 
       this.parentesco_cancer.setValidators(Validators.required);

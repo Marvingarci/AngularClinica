@@ -21,7 +21,7 @@
 
     <mat-drawer-content>
         <mat-toolbar class="toolbar">
-            <span>Clinica UNAH-TEC Danli</span>
+            <span>Clínica UNAH-TEC Danlí</span>
 
             <button mat-icon-button [matMenuTriggerFor]="menu" style=" outline:none;display:block;">
                 <mat-icon>more_vert</mat-icon>
@@ -103,7 +103,7 @@
 
                             </mat-form-field>
                             <mat-form-field class="example-full-width" *ngIf="this.esAlumno === true ">
-                                <input matInput placeholder="Numero de cuenta" formControlName="numero_cuenta"
+                                <input matInput placeholder="Número de cuenta" formControlName="numero_cuenta"
                                     [readonly]="readonly">
                                 <mat-error *ngIf="numero_cuenta.hasError('required')">campo requerido!</mat-error>
                                 <mat-error *ngIf="numero_cuenta.hasError('pattern')">ingrese un numero de cuenta valido!
@@ -113,7 +113,7 @@
                         </div>
                         <div class="col" style="padding-top: 20px;">
                             <mat-form-field class="example-full-width">
-                                <input matInput placeholder="Numero de telefono" formControlName="numero_telefono"
+                                <input matInput placeholder="Número de teléfono" formControlName="numero_telefono"
                                     [readonly]="readonly">
                                 <mat-error *ngIf="numero_telefono.hasError('required')">campo requerido!</mat-error>
                                 <mat-error *ngIf="numero_telefono.hasError('pattern')">introduzca un numero de telefono
@@ -201,7 +201,7 @@
                         </div>
                     </mat-tab>
 
-                    <mat-tab label="medicamento">
+                    <mat-tab label="Medicamento">
                         <div class="example-large-box mat-elevation-z4">
                             <div *ngIf="siHayMedicamentos == false" 
                             style="padding-top: 10px;">

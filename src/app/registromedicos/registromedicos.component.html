@@ -5,37 +5,34 @@
         <h2>Registro Médico</h2>
       </div>
 
-      <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput placeholder="Usuario" formControlName="usuario" >
-        <mat-hint align="end">{{usuario.value.length}} / 6</mat-hint>
-        <mat-label> <b>Usuario</b> </mat-label>
-        <mat-error *ngIf="usuario.hasError('required')">
-          <strong>ingrese el usuario</strong>
-        </mat-error>
-        <mat-error *ngIf="usuario.hasError('minLength') && usuario.hasError('maxLength')">
-          <strong>usuario invalido</strong>
-        </mat-error>
-        <mat-error *ngIf="usuario.hasError('usuarioMedicoUnico')">El usuario pertenece a otra persona</mat-error>
+      <mat-form-field class="example-full-width" appearance="outline">          
+          <mat-label> <b>Usuario</b> </mat-label>
+          <input matInput placeholder="Usuario" formControlName="usuario" >
+          <mat-hint align="end" >{{usuario.value.length}} / 12</mat-hint>
+          <mat-error  *ngIf="usuario.hasError('required')"> <strong>Ingrese el usuario</strong></mat-error>
+          <mat-error *ngIf="usuario.hasError('minlength')"> <strong>Usuario muy corto, mínimo 4 caracteres</strong></mat-error>
+          <mat-error *ngIf="usuario.hasError('maxlength')"> <strong>Usuario muy largo, máximo 12 caracteres</strong></mat-error>
+          <mat-error *ngIf="usuario.hasError('pattern')"> <strong>No se aceptan caracteres especiales</strong></mat-error>           
+          <mat-error *ngIf="usuario.hasError('usuarioMedicoUnico')">El usuario pertenece a otra persona</mat-error>     
       </mat-form-field>
 
 
       <div *ngIf="!editando">
 
         <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label> <b>Contraseña</b> </mat-label>
           <input matInput (keydown)="onKeydown($event)" placeholder="Ingrese la contraseña"
             formControlName="contrasenia" [type]="hide1 ? 'text' : 'password'" >
-          <mat-hint align="end">{{contrasenia.value.length}} / 6</mat-hint>
-          <mat-label> <b>Contraseña</b> </mat-label>
-          <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
+            <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide1">
             <mat-icon>{{hide1 ? 'visibility' : 'visibility_off '}}</mat-icon>
           </button>
-          <mat-error *ngIf="contrasenia.hasError('required')">
-            <strong>ingrese la contrasenia</strong>
-          </mat-error>
-          <mat-error *ngIf="contrasenia.hasError('minLength') && contrasenia.hasError('maxLength')">
-            <strong>contrasenia invalida</strong>
-          </mat-error>
+          <mat-hint align="end">{{contrasenia.value.length}} / 6</mat-hint>
+          <mat-error *ngIf="contrasenia.hasError('required')"><strong>Ingrese la contrasenia</strong></mat-error>
+          <mat-error *ngIf="contrasenia.hasError('minlength')"> <strong>Contraseña debe tener mínimo 8 caracteres</strong></mat-error>
+          <mat-error *ngIf="contrasenia.hasError('maxlength')"> <strong>Contraseña debe tener máximo 30 caracteres</strong></mat-error>  
+          <mat-error *ngIf="contrasenia.hasError('pattern')"><strong>No se permiten espacios en blanco</strong></mat-error>  
+         
         </mat-form-field>
 
         <mat-form-field class="example-full-width" appearance="outline">
@@ -47,44 +44,33 @@
             [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
-          <mat-error *ngIf="contraseniaC.hasError('required')">
-            <strong>Confirme la contrasenia</strong>
-          </mat-error>
-          <mat-error *ngIf="contraseniaC.hasError('minLength') && contraseniaC.hasError('maxLength')">
-            <strong>contrasenia no confirmada</strong>
-          </mat-error>
+          <mat-error *ngIf="contraseniaC.hasError('required')"><strong>Confirme la contraseña</strong> </mat-error>  <mat-error *ngIf="contraseniaNueva.hasError('required')"><strong>Ingrese la contraseña</strong></mat-error>
+          <mat-error *ngIf="contraseniaC.hasError('minlength') "><strong>Contraseña muy corta</strong> </mat-error>
+          <mat-error *ngIf="contraseniaC.hasError('maxlength') "><strong>Contraseña muy extensa</strong></mat-error>
+           <mat-error *ngIf="contraseniaC.hasError('pattern') "><strong>No se permiten espacios en blanco</strong></mat-error>  
         </mat-form-field>
 
       </div>
 
 
       <mat-form-field class="example-full-width" appearance="outline">
-        <input matInput placeholder="Ingrese el nombre completo" formControlName="nombre" >
         <mat-label> <b>Nombre</b> </mat-label>
-        <mat-error *ngIf="nombre.hasError('required')">
-          <strong>Escriba el nombre completo</strong>
-        </mat-error>
-        <mat-error *ngIf="nombre.hasError('minLength') && nombre.hasError('maxLength')">
-          <strong>Escriba el nombre completo</strong>
-        </mat-error>
+        <input matInput placeholder="Ingrese el nombre completo" formControlName="nombre" >        
+        <mat-error *ngIf="nombre.hasError('required')"><strong>Escriba el nombre completo</strong></mat-error>
+        <mat-error *ngIf="nombre.hasError('minlength') "><strong>Escriba el nombre completo</strong></mat-error>
+        <mat-error *ngIf="nombre.hasError('maxlength')"><strong>Nombre muy extenso</strong></mat-error>
+        <mat-error *ngIf="nombre.hasError('pattern')"><strong>Sólo se permiten letras</strong></mat-error>
+        <mat-error *ngIf="nombre.hasError('whitespace')"><strong>No se permiten espacios en blanco</strong></mat-error> 
       </mat-form-field>
 
       <mat-form-field class="example-full-width" appearance="outline">
         <input matInput placeholder="Ingrese el número de indentidad" formControlName="identidad" >
         <mat-hint align="end">{{identidad.value.length}} / 13</mat-hint>
         <mat-label> <b>Número de identidad</b> </mat-label>
-        <mat-error *ngIf="identidad.hasError('required')">
-          <strong>Escriba correctamente el número de identidad</strong>
-        </mat-error>
-        <mat-error *ngIf="identidad.hasError('minLength') ">
-          <strong>Escriba correctamente el número de identidad</strong>
-        </mat-error>
-        <mat-error *ngIf="identidad.hasError('maxLength')">
-          <strong>Escriba correctamente el número de identidad</strong>
-        </mat-error>
-        <mat-error *ngIf="identidad.hasError('pattern')">
-          <strong>sólo se permiten números</strong>
-        </mat-error>
+        <mat-error *ngIf="identidad.hasError('required')"><strong>Escriba correctamente el número de identidad</strong></mat-error>
+        <mat-error *ngIf="identidad.hasError('minlength') "><strong>Escriba correctamente el número de identidad</strong></mat-error>
+        <mat-error *ngIf="identidad.hasError('maxlength')"><strong>Escriba correctamente el número de identidad</strong></mat-error>
+        <mat-error *ngIf="identidad.hasError('pattern')"><strong>Sólo se permiten números</strong></mat-error>
       </mat-form-field>
 
 
@@ -95,7 +81,7 @@
             {{especialidad.viewValue}}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="especialidad.hasError('required')"><strong>campo requerido</strong></mat-error>
+        <mat-error *ngIf="especialidad.hasError('required')"><strong>Campo requerido</strong></mat-error>
 
       </mat-form-field>
 

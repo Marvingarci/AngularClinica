@@ -15,9 +15,10 @@
               <mat-error *ngIf="nombre_completo.hasError('required')">Campo requerido</mat-error>
               <!-- <mat-error *ngIf="nombre_completo.hasError('pattern')">Ingrese un apellido válido</mat-error> -->
             </mat-form-field>  
-            
+             </div>
+
             <div class="col">
-              <mat-form-field class="example-full-width" appearance="outline">
+                 <mat-form-field class="example-full-width" appearance="outline">
                 <input type="email" matInput class="example-full-width" formControlName="correo_electronico">
                 <mat-label>
                   <b>Correo electrónico</b>
@@ -25,16 +26,15 @@
                 <mat-error *ngIf="correo_electronico.hasError('required')">Campo requerido</mat-error>
                 <mat-error *ngIf="correo_electronico.hasError('pattern')">Ingrese un correo válido</mat-error>
               </mat-form-field>
-              </div>
+            </div>
+           
           </div>
-
-        </div>
 
         <div class="row">
 
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput formControlName="numero_identidad">
+              <input matInput formControlName="numero_identidad" maxlength="13">
               <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint>
               <mat-label>
                 <b>N° Identidad</b>
@@ -342,7 +342,7 @@
             </div>
             <div class="col">
               <mat-form-field class="example-full-width" appearance="outline">
-                <input matInput formControlName="numero_identidad">
+                <input matInput formControlName="numero_identidad" maxlength="13">
                 <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint>
                 <mat-label>
                   <b>N° Identidad</b>
@@ -661,16 +661,18 @@
           <!--el id de este div me sirve para traerlo en el componet.ts y poder ocultarlo -->
           <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAF">
 
-            <mat-form-field class="autocomplete" appearance="outline">
-              <input matInput formControlName="tipo_desnutricion" id="InputDesnutricion"
-                matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
-              <mat-label>
+            <mat-form-field class="autocomplete" appearance="outline">  <mat-label>
                 <b>Tipo desnutrición</b>
               </mat-label>
+              <input matInput formControlName="tipo_desnutricion" id="InputDesnutricion"
+                matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
+                <mat-error *ngIf="tipo_desnutricion.hasError('required')"><strong>Campo requerido</strong></mat-error>
+                <mat-error *ngIf="tipo_desnutricion.hasError('minlength') "><strong>Descripción muy corta</strong></mat-error>
+                <mat-error *ngIf="tipo_desnutricion.hasError('maxlength')"><strong>Descripción muy extensa</strong></mat-error>
+                <mat-error *ngIf="tipo_desnutricion.hasError('pattern')"><strong>Sólo se permiten letras</strong></mat-error>
+                    
 
-              <mat-error style="margin-left: 0;" *ngIf="tipo_desnutricion.hasError('required')">
-                Campo requerido
-              </mat-error>
+             
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -701,26 +703,26 @@
             <ng-container matColumnDef="numero">
               <th mat-header-cell *matHeaderCellDef> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
+              <td mat-cell *matCellDef="let element; index as i;" > {{i + 1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 10px;padding-right: 5px;">  {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="parentesco">
-              <th mat-header-cell *matHeaderCellDef> Parentesco </th>
-              <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 5px;padding-right: 5px;"> Parentesco </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 5px;padding-right: 5px;"> {{element.parentesco}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
 
             <ng-container matColumnDef="botones">
-              <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let element; index as i;">
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 5px;padding-right: 5px;"></th>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 5px;padding-right: 5px;">
                 <button mat-icon-button class="botonesTabla" (click)="eliminarDesnutriciones(i)">
                   <mat-icon>delete</mat-icon>
                 </button>
@@ -758,12 +760,16 @@
           <div class="col" style="display: none;" id="divAgregarTiposEnfermedadesMentalesAF">
 
             <mat-form-field appearance="outline">
-
-              <input matInput formControlName="tipo_enfermedad_mental" id="InputEnfermedadAF"
-                matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
-              <mat-label>
+               <mat-label>
                 <b>Tipo enfermedad mental</b>
               </mat-label>
+              <input matInput formControlName="tipo_enfermedad_mental" id="InputEnfermedadAF"
+                matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
+                <mat-error *ngIf="tipo_enfermedad_mental.hasError('whitespace')"><strong>No se permiten espacios en blanco</strong></mat-error>
+                <mat-error *ngIf="tipo_enfermedad_mental.hasError('minlength') "><strong>Descripción muy corta</strong></mat-error>
+                <mat-error *ngIf="tipo_enfermedad_mental.hasError('maxlength')"><strong>Descripción muy extensa</strong></mat-error>
+                <mat-error *ngIf="tipo_enfermedad_mental.hasError('pattern')"><strong>Sólo se permiten letras</strong></mat-error>
+             
 
               <mat-error style="margin-left: 0;" *ngIf="tipo_enfermedad_mental.hasError('required')">
                 Campo requerido
@@ -807,21 +813,21 @@
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 10px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="parentesco">
-              <th mat-header-cell *matHeaderCellDef> Parentesco </th>
-              <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 5px;padding-right: 5px;"> Parentesco </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 5px;padding-right: 5px;">  {{element.parentesco}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
 
             <ng-container matColumnDef="botones">
-              <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let element; index as i;">
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 5px;padding-right: 5px;"></th>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 5px;padding-right: 5px;">
                 <button mat-icon-button class="botonesTabla" (click)="eliminarEnfermedadesMentales(i)">
                   <mat-icon>delete</mat-icon>
                 </button>
@@ -922,11 +928,16 @@
           <div class="col" style="display: none;" id="divAgregarTiposAlergiasAF">
 
             <mat-form-field appearance="outline">
-              <input matInput formControlName="tipo_alergia" id="InputAlergiaAF"
-                matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
-              <mat-label>
+                   <mat-label>
                 <b>Tipo alergia</b>
               </mat-label>
+              <input matInput formControlName="tipo_alergia" id="InputAlergiaAF"
+                matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
+                <mat-error *ngIf="tipo_alergia.hasError('whitespace')"><strong>No se permiten espacios en blanco</strong></mat-error>
+                <mat-error *ngIf="tipo_alergia.hasError('minlength') "><strong>Descripción muy corta</strong></mat-error>
+                <mat-error *ngIf="tipo_alergia.hasError('maxlength')"><strong>Descripción muy extensa</strong></mat-error>
+                <mat-error *ngIf="tipo_alergia.hasError('pattern')"><strong>Sólo se permiten letras</strong></mat-error>
+         
 
               <mat-error style="margin-left: 0;" *ngIf="tipo_alergia.hasError('required')">
                 Campo requerido
@@ -969,21 +980,21 @@
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;">  Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 10px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="parentesco">
-              <th mat-header-cell *matHeaderCellDef> Parentesco </th>
-              <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 5px;padding-right: 5px;"> Parentesco </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 5px;padding-right: 5px;"> {{element.parentesco}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
 
             <ng-container matColumnDef="botones">
-              <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let element; index as i;">
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 5px;padding-right: 5px;"></th>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 5px;padding-right: 5px;">
                 <button mat-icon-button class="botonesTabla" (click)="eliminarAlergias(i)">
                   <mat-icon>delete</mat-icon>
                 </button>
@@ -1021,11 +1032,16 @@
           <div class="col" style="display: none;" id="divAgregarTiposCancerAF">
 
             <mat-form-field appearance="outline">
+                <mat-label>
+                <b>Tipo de cáncer</b>
+              </mat-label>
               <input matInput formControlName="tipo_cancer" placeholder="Tipo cáncer" id="InputCancerAF"
                 matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
-              <mat-label>
-                <b>Tipo cáncer</b>
-              </mat-label>
+                <mat-error *ngIf="tipo_cancer.hasError('whitespace')"><strong>No se permiten espacios en blanco</strong></mat-error>
+                <mat-error *ngIf="tipo_cancer.hasError('minlength') "><strong>Descripción muy corta</strong></mat-error>
+                <mat-error *ngIf="tipo_cancer.hasError('maxlength')"><strong>Descripción muy extensa</strong></mat-error>
+                <mat-error *ngIf="tipo_cancer.hasError('pattern')"><strong>Sólo se permiten letras</strong></mat-error>
+            
               <mat-error style="margin-left: 0;" *ngIf="tipo_cancer.hasError('required')">
                 Campo requerido
               </mat-error>
@@ -1067,21 +1083,21 @@
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 10px;padding-right: 5px;">  {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="parentesco">
-              <th mat-header-cell *matHeaderCellDef> Parentesco </th>
-              <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 5px;padding-right: 5px;"> Parentesco </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 5px;padding-right: 5px;"> {{element.parentesco}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
 
             <ng-container matColumnDef="botones">
-              <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let element; index as i;">
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 5px;padding-right: 5px;"></th>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 5px;padding-right: 5px;">
                 <button mat-icon-button class="botonesTabla" (click)="eliminarCanceres(i)">
                   <mat-icon>delete</mat-icon>
                 </button>
@@ -1136,13 +1152,16 @@
 
           <div class="col" style="margin-left: 0; padding-left: 0%;">
             <mat-form-field appearance="outline">
-              <input matInput formControlName="otros" id="InputOtrosAF" matTooltip="Escriba una enfermedad que no este en las selecciones de arriba, solo 
-              si es necesario" matTooltipPosition="right">
-              <mat-label>
+                <mat-label>
                 <b>Enfermedad</b>
               </mat-label>
-              <mat-error *ngIf="otros.hasError('maxlength')">Campo muy extenso</mat-error>
-              <mat-error *ngIf="otros.hasError('minlength')">Introduzca una observación valida</mat-error>
+              <input matInput formControlName="otros" id="InputOtrosAF" matTooltip="Escriba una enfermedad que no este en las selecciones de arriba, solo 
+              si es necesario" matTooltipPosition="right">
+              <mat-error *ngIf="otros.hasError('minlength') "><strong>Descripción muy corta</strong></mat-error>
+              <mat-error *ngIf="otros.hasError('maxlength')"><strong>Descripción muy extensa</strong></mat-error>
+              <mat-error *ngIf="otros.hasError('pattern')"><strong>Sólo se permiten letras</strong></mat-error>
+            
+           
 
             </mat-form-field>
 
@@ -1175,29 +1194,29 @@
             *ngIf="dataSourceTablaOtrosAF != null">
 
             <ng-container matColumnDef="numero">
-              <th mat-header-cell *matHeaderCellDef> # </th>
+              <th mat-header-cell *matHeaderCellDef style="padding-right: 5px;padding-left: 10px;"> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-right: 5px;padding-left: 10px;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Antecedente </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-right: 5px;padding-left: 5px;"> Antecedente </th>
+              <td mat-cell *matCellDef="let element" style="padding-right: 5px;padding-left: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="parentesco">
-              <th mat-header-cell *matHeaderCellDef> Parentesco </th>
-              <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-right: 5px;padding-left: 5px;"> Parentesco </th>
+              <td mat-cell *matCellDef="let element" style="padding-right: 5px;padding-left: 5px;"> {{element.parentesco}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
 
 
             <ng-container matColumnDef="botones">
-              <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let element; index as i;">
+              <th mat-header-cell *matHeaderCellDef style="padding-right: 5px;padding-left: 5px;"></th>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-right: 5px;padding-left: 5px;">
                 <button mat-icon-button class="botonesTabla" (click)="eliminarOtros(i)">
                   <mat-icon>delete</mat-icon>
                 </button>
@@ -2515,7 +2534,7 @@
 
 
   <!-- cuarto step -->
-  <mat-step [stepControl]="formulario_habito_toxicologico_personal" label="Habitos Toxicologicos Personales">
+  <mat-step [stepControl]="formulario_habito_toxicologico_personal" label="Hábitos Toxicológicos Personales">
     <form [formGroup]="formulario_habito_toxicologico_personal">
       <!-- <ng-template matStepLabel>Habitos Toxicologicos Personales</ng-template> -->
       <div class="containerScroll">
@@ -2536,7 +2555,7 @@
             <textarea matInput formControlName="observacion_alcohol" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté habito toxicologico. El numero minimo de caracteres son 4
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
                 y el maximo es de 150." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Detallar tiempo de uso y frecuencia</b>
@@ -2567,7 +2586,7 @@
               placeholder="Detallar tiempo de uso y frecuencia" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté habito toxicologico. El numero minimo de caracteres son 4
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
                 y el maximo es de 150." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Detallar tiempo de uso y frecuencia</b>
@@ -2600,7 +2619,7 @@
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3"
               style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté habito toxicologico. El numero minimo de caracteres son 4
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
                 y el maximo es de 150." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Detallar tiempo de uso y frecuencia</b>
@@ -2630,7 +2649,7 @@
             <textarea matInput formControlName="observacion_cocaina" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté habito toxicologico. El numero minimo de caracteres son 4
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
                 y el maximo es de 150." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Detallar inicio de enfermedad y tratamiento</b>
@@ -2665,7 +2684,7 @@
               <textarea matInput formControlName="observacion_otros" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                 cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
                 matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté habito toxicologico. El numero minimo de caracteres son 4
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
                 y el maximo es de 150." matTooltipPosition="right"></textarea>
               <mat-label>
                 <b>Observación</b>
@@ -2696,7 +2715,7 @@
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Hábito toxicólogico </th>
+              <th mat-header-cell *matHeaderCellDef> Hábito toxicológico </th>
               <td mat-cell *matCellDef="let element"> {{element.habito_toxicologico}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
