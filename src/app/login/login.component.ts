@@ -82,9 +82,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private medicosService: MedicosService, private router: Router, private activar: AppComponent,
     private formularioService: FormularioService, private mensaje: MatSnackBar, private ayudasheet: MatBottomSheet) {
     activar.esconder();
-    // cada vez que el usuario se devuelva al login borro los token para que tenga
+    // cada vez que el usuario se devuelva al login borro los token y el rol para que tenga
     // que volver a loguearse y crear otro nuevo token.
     localStorage.removeItem('token');
+    localStorage.removeItem('rol');
   }
 
 
@@ -339,6 +340,7 @@ export class DialogoRecuperarContrasenia {
           }, (error) => {
 
             console.log(error)
+
           })
 
           //   this.correoservice.mandarIdAView(this.recuperar_correo).subscribe((data) => {
