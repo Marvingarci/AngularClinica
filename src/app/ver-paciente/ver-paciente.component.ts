@@ -1283,7 +1283,7 @@ export class VerPacienteComponent implements OnInit {
 
       }
 
-      this.formularioService.idActualizar = this.paciente.id_paciente;
+      this.formularioService.idPaciente = this.paciente.id_paciente;
       // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
       //si el paciente tiene imagen entonces esta variable cambiara a false
       if (this.paciente.imagen != null) {
@@ -1298,8 +1298,6 @@ export class VerPacienteComponent implements OnInit {
     });
 
     
-
-   
 
   }
 
