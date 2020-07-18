@@ -21,7 +21,7 @@ import { Subscription, Observable } from 'rxjs';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take, startWith, map } from 'rxjs/operators';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
-import { MatChipInputEvent, MatAutocomplete, MatTableDataSource } from '@angular/material';
+import { MatChipInputEvent, MatAutocomplete, MatTableDataSource, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
 import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
@@ -284,8 +284,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       asyncValidators: [this.IdentidadUnicoService.validate.bind(this.IdentidadUnicoService)]
     }),
     // "\d" es lo mismo "[0-9]"
-    lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,20}$/)]),
-    direccion: new FormControl('', [Validators.required, Validators.maxLength(200), Validators.minLength(20)]),
+    lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,20}$/), this.noWhitespaceValidator]),
+    direccion: new FormControl('', [Validators.required, Validators.maxLength(200), Validators.minLength(20), this.noWhitespaceValidator]),
     carrera: new FormControl('', [Validators.required]),
     fecha_nacimiento: new FormControl('', Validators.required),
     sexo: new FormControl('', Validators.required),
@@ -308,28 +308,28 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     parentesco_tb_pulmonar: new FormControl('', []),
     desnutricion: new FormControl('', [Validators.required]),
     parentesco_desnutricion: new FormControl('', []),
-    tipo_desnutricion: new FormControl('', { }),//las validaciones estan en los setValidator
-    
+    tipo_desnutricion: new FormControl('', {}),//las validaciones estan en los setValidator
+
     enfermedades_mentales: new FormControl('', [Validators.required]),
     parentesco_enfermedades_mentales: new FormControl('', []),
-    tipo_enfermedad_mental: new FormControl('', { }),//las validaciones estan en los setValidator
+    tipo_enfermedad_mental: new FormControl('', {}),//las validaciones estan en los setValidator
     convulsiones: new FormControl('', [Validators.required]),
     parentesco_convulsiones: new FormControl('', []),
     alcoholismo_sustancias_psicoactivas: new FormControl('', [Validators.required]),
     parentesco_alcoholismo_sustancias_psicoactivas: new FormControl('', []),
     alergias: new FormControl('', [Validators.required]),
     parentesco_alergias: new FormControl('', []),
-    tipo_alergia: new FormControl('', { }),//las validaciones estan en los setValidator
+    tipo_alergia: new FormControl('', {}),//las validaciones estan en los setValidator
     cancer: new FormControl('', [Validators.required]),
     parentesco_cancer: new FormControl('', []),
-    tipo_cancer: new FormControl('', { }),//las validaciones estan en los setValidator
+    tipo_cancer: new FormControl('', {}),//las validaciones estan en los setValidator
     hipertension_arterial: new FormControl('', [Validators.required]),
     parentesco_hipertension_arterial: new FormControl('', []),
-    otros: new FormControl('', [Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4)],),
+    otros: new FormControl('', [Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4)],),
     parentesco_otros: new FormControl('', []),
   });
 
-  
+
 
 
 
@@ -426,7 +426,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { 'whitespace': true };
-}
+  }
 
   habilitarInputs(formControl: FormControl[]) {
     formControl.forEach(controlador => {
@@ -478,54 +478,54 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   mostrarCamposDesnutricionAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposDesnutricionAF').style.display = "block";
-    this.tipo_desnutricion.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]);
+    this.tipo_desnutricion.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), Validators.required]);
     this.parentesco_desnutricion.setValidators(Validators.required);
-    
+
   }
 
   mostrarCamposEnfermedadesMentalesAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposEnfermedadesMentalesAF').style.display = "block";
-    this.tipo_enfermedad_mental.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]);
+    this.tipo_enfermedad_mental.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), Validators.required]);
     this.parentesco_enfermedades_mentales.setValidators(Validators.required);
   }
 
   mostrarCamposAlergiasAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposAlergiasAF').style.display = "block";
-    this.tipo_alergia.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]);
+    this.tipo_alergia.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), Validators.required]);
     this.parentesco_alergias.setValidators(Validators.required);
   }
 
   mostrarCamposCancerAF() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposCancerAF').style.display = "block";
-    this.tipo_cancer.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]);
+    this.tipo_cancer.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), Validators.required]);
     this.parentesco_cancer.setValidators(Validators.required);
   }
 
   mostrarCamposDesnutricionAP() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposDesnutricionAP').style.display = "block";
-    this.tipo_desnutricion_ap.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),,Validators.required]);
+    this.tipo_desnutricion_ap.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), , Validators.required]);
   }
 
   mostrarCamposEnfermedadesMentalesAP() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposEnfermedadesMentalesAP').style.display = "block";
-    this.tipo_enfermedad_mental_ap.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]);
+    this.tipo_enfermedad_mental_ap.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), Validators.required]);
   }
 
   mostrarCamposAlergiasAP() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposAlergiasAP').style.display = "block";
-    this.tipo_alergia_ap.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]);
+    this.tipo_alergia_ap.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), Validators.required]);
   }
 
   mostrarCamposCancerAP() {
     //muestro el contenido de este div si el usuario hace click en "si"
     document.getElementById('divAgregarTiposCanceresAP').style.display = "block";
-    this.tipo_cancer_ap.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),,Validators.required]);
+    this.tipo_cancer_ap.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), , Validators.required]);
   }
 
   mostrarCamposHospitalariasQuirurgicas() {
@@ -544,60 +544,60 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     // limpio la tablaDesnutriciones para que quede en blanco.
     //ESTE LO HAGO EN TODOS LAS FUNCIONES DE OCULTAR
     document.getElementById('divAgregarTiposDesnutricionAF').style.display = "none";
-    this.tipo_desnutricion.updateValueAndValidity(); 
-    this.parentesco_desnutricion.updateValueAndValidity();   
+    this.tipo_desnutricion.updateValueAndValidity();
+    this.parentesco_desnutricion.updateValueAndValidity();
     this.dataSourceTablaDesnutricionesAF = null;
     this.tablaDesnutricionesAF = [];
   }
 
   ocultarCamposEnfermedadesMentalesAF() {
     document.getElementById('divAgregarTiposEnfermedadesMentalesAF').style.display = "none";
-    this.tipo_enfermedad_mental.updateValueAndValidity();  
-    this.parentesco_enfermedades_mentales.updateValueAndValidity();  
+    this.tipo_enfermedad_mental.updateValueAndValidity();
+    this.parentesco_enfermedades_mentales.updateValueAndValidity();
     this.dataSourceTablaEnfermedadesMentalesAF = null;
     this.tablaEnfermedadesMentalesAF = [];
   }
 
   ocultarCamposAlergiasAF() {
     document.getElementById('divAgregarTiposAlergiasAF').style.display = "none";
-    this.tipo_alergia.updateValueAndValidity();  
-    this.parentesco_alergias.updateValueAndValidity();  
+    this.tipo_alergia.updateValueAndValidity();
+    this.parentesco_alergias.updateValueAndValidity();
     this.dataSourceTablaAlergiasAF = null;
     this.tablaAlergiasAF = [];
   }
 
   ocultarCamposCancerAF() {
     document.getElementById('divAgregarTiposCancerAF').style.display = "none";
-    this.tipo_cancer.updateValueAndValidity();  
-    this.parentesco_cancer.updateValueAndValidity();  
+    this.tipo_cancer.updateValueAndValidity();
+    this.parentesco_cancer.updateValueAndValidity();
     this.dataSourceTablaCanceresAF = null;
     this.tablaCanceresAF = [];
   }
 
   ocultarCamposDesnutricionAP() {
     document.getElementById('divAgregarTiposDesnutricionAP').style.display = "none";
-    this.tipo_desnutricion_ap.updateValueAndValidity();  
+    this.tipo_desnutricion_ap.updateValueAndValidity();
     this.dataSourceTablaDesnutricionesAP = null;
     this.tablaDesnutricionesAP = [];
   }
 
   ocultarCamposEnfermedadesMentalesAP() {
     document.getElementById('divAgregarTiposEnfermedadesMentalesAP').style.display = "none";
-    this.tipo_enfermedad_mental_ap.updateValueAndValidity();  
+    this.tipo_enfermedad_mental_ap.updateValueAndValidity();
     this.dataSourceTablaEnfermedadesMentalesAP = null;
     this.tablaEnfermedadesMentalesAP = [];
   }
 
   ocultarCamposAlergiasAP() {
     document.getElementById('divAgregarTiposAlergiasAP').style.display = "none";
-    this.tipo_alergia_ap.updateValueAndValidity();  
+    this.tipo_alergia_ap.updateValueAndValidity();
     this.dataSourceTablaAlergiasAP = null;
     this.tablaAlergiasAP = [];
   }
 
   ocultarCamposCancerAP() {
     document.getElementById('divAgregarTiposCanceresAP').style.display = "none";
-    this.cancer_ap.updateValueAndValidity();  
+    this.cancer_ap.updateValueAndValidity();
     this.dataSourceTablaCanceresAP = null;
     this.tablaCanceresAP = [];
   }
@@ -1131,25 +1131,34 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   maxDate = new Date();
 
 
+  //variable que denota si el usuario logro terminar el formulario o no
+  terminoFormulario: boolean = false;
 
 
 
 
-  constructor(private formularioService: FormularioService, private formBuilder: FormBuilder,
-    private router: Router, activar: AppComponent, public dialog: MatDialog, public loginService: LoginService,
+
+
+  constructor(private formularioService: FormularioService,
+    private router: Router,
+    public dialog: MatDialog,
+    public loginService: LoginService,
     private formulario: FormularioService, private TelefonoUnicoService: TelefonoUnicoService,
-    private IdentidadUnicoService: IdentidadUnicoService, private CuentaUnicaService: CuentaUnicaService, private authSvc: AuthService) {
+    private IdentidadUnicoService: IdentidadUnicoService,
+    private CuentaUnicaService: CuentaUnicaService,
+    private authSvc: AuthService,
+    private mensaje: MatSnackBar) {
 
-
+  
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
-
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 100, 0, 1);
 
 
+    // le asigno el valor obtenido cuando se logueo el paciente que denota si es alumno o no
+    this.esAlumno = this.formulario.esAlumno;
 
-    // this.obtenerDatosFormulario();
-    this.getDatosScraping();
+    this.cargarInformacionPaciente();
     this.loginService.obtenerUltimoId().subscribe();
   }
 
@@ -1282,9 +1291,14 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   ngOnInit() {
 
     this.obtenerDatosFormulario();
-    this.getDatosScraping();
-    this.esAlumno = this.formulario.esAlumno;
+    
+  }
 
+  showError(message: string) {
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['background-red'];
+    config.duration = 2000;
+    this.mensaje.open(message, null, config);
   }
 
 
@@ -1368,60 +1382,26 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
 
-  getDatosScraping() {
-    this.formularioService.getScrap().subscribe((data: Login) => {
-      this.datosScraping = data;
-      /////
-      if (this.esAlumno === true) {
-        // si el paciente es un alumno 
-        //establesco el valor a los formcontrol recuperados del scrapping
-        // para que se visualizen en los respectivos inputs
-        this.nombre_completo.setValue(this.datosScraping.nombre);
-        this.numero_cuenta.setValue(this.datosScraping.cuenta);
-        this.numero_identidad.setValue(this.datosScraping.numero_identidad);
-        this.carrera.setValue(this.datosScraping.carrera);
+  cargarInformacionPaciente() {
+
+    if (this.esAlumno === true) {
+      // si el paciente es un alumno 
+      //establesco el valor a los formcontrol recuperados del scrapping
+      // para que se visualizen en los respectivos inputs
+
+      if(this.loginService.datosUsuario != null){
+
+        this.nombre_completo.setValue(this.loginService.datosUsuario.nombre);
+        this.numero_cuenta.setValue(this.loginService.datosUsuario.cuenta);
+        this.numero_identidad.setValue(this.loginService.datosUsuario.numero_identidad);
+        this.carrera.setValue(this.loginService.datosUsuario.carrera);
         this.categoria.setValue(3);
-      } else {
-        //si el paciente no es un alumno
-        //establesco el valor por defecto a los formcontrol que no pertenecen a un
-        //paciente normal y les establesco un valor por defecto
-
-
-        var numAleatorio: string;
-        numAleatorio = '2' + Math.floor(Math.random() * 10000000000);
-        this.carrera.setValue('no es estudiante');
-        if (this.esAlumnoAdmon == false) {
-          this.numero_cuenta.setValue(numAleatorio);
-        }
 
       }
+     
+    }
 
-      //Obtencion de Paciente ultimo paciente regitrado
-      this.formularioService.getUltimoID().subscribe((data) => {
-        this.resultado = data;
-        if (this.resultado[0].ultimoId == null) {
-          this.resultado[0].ultimoId = 0;
-        }
-
-
-        if (this.esAlumno == false) {
-          this.datosScraping.password = null;
-          this.datosScraping.nombre = null;
-          this.datosScraping.carrera = null;
-          this.datosScraping.numero_identidad = null;
-          this.datosScraping.imagen = null;
-        }
-        var numero = 1;
-        this.datosScraping.id_login = parseInt(this.resultado[0].ultimoId) + numero;
-
-      }, (error) => {
-        console.log(error);
-      });
-
-    },
-      (error) => {
-        console.log(error)
-      });
+  
   }
 
 
@@ -1515,7 +1495,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.parentesco_desnutricion.setValue('');
       //si se agrega un elemento a la tabla entonces los campos
       //tipo desnutricion y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.tipo_desnutricion.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4)]);
+      this.tipo_desnutricion.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4)]);
       this.tipo_desnutricion.updateValueAndValidity();
       this.parentesco_desnutricion.clearValidators();
       this.parentesco_desnutricion.updateValueAndValidity();
@@ -1542,8 +1522,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si la tabla no tiene ningun valor entonces establezco como requerido
       // los campos tipo desnutricion y parentesco.
-      this.tipo_desnutricion.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]),
-      this.tipo_desnutricion.updateValueAndValidity();
+      this.tipo_desnutricion.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), Validators.required]),
+        this.tipo_desnutricion.updateValueAndValidity();
 
       this.parentesco_desnutricion.setValidators(Validators.required);
       this.parentesco_desnutricion.updateValueAndValidity();
@@ -1598,7 +1578,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si se agrega un elemento a la tabla entonces los campos
       //tipo enfermedad mental y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.tipo_enfermedad_mental.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4)]);
+      this.tipo_enfermedad_mental.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4)]);
       this.tipo_enfermedad_mental.updateValueAndValidity();
 
       this.parentesco_enfermedades_mentales.clearValidators();
@@ -1625,8 +1605,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si la tabla no tiene ningun valor entonces establezco como requerido
       // los campos tipo enfermedad mental y parentesco.
-      this.tipo_enfermedad_mental.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]),
-      this.tipo_enfermedad_mental.updateValueAndValidity();
+      this.tipo_enfermedad_mental.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), Validators.required]),
+        this.tipo_enfermedad_mental.updateValueAndValidity();
 
       this.parentesco_enfermedades_mentales.setValidators(Validators.required);
       this.parentesco_enfermedades_mentales.updateValueAndValidity();
@@ -1679,7 +1659,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si se agrega un elemento a la tabla entonces los campos
       //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.tipo_alergia.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4)]);
+      this.tipo_alergia.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4)]);
       this.tipo_alergia.updateValueAndValidity();
 
       this.parentesco_alergias.clearValidators();
@@ -1706,8 +1686,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si la tabla no tiene ningun valor entonces establezco como requerido
       // los campos tipo alergia y parentesco.
-      this.tipo_alergia.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]),
-      this.tipo_alergia.updateValueAndValidity();
+      this.tipo_alergia.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), Validators.required]),
+        this.tipo_alergia.updateValueAndValidity();
 
       this.parentesco_alergias.setValidators(Validators.required);
       this.parentesco_alergias.updateValueAndValidity();
@@ -1761,7 +1741,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si se agrega un elemento a la tabla entonces los campos
       //tipo cancer y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.tipo_cancer.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4)]);
+      this.tipo_cancer.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4)]);
       this.tipo_cancer.updateValueAndValidity();
 
       this.parentesco_cancer.clearValidators();
@@ -1787,8 +1767,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si la tabla no tiene ningun valor entonces establezco como requerido
       // los campos tipo cancer y parentesco.
-      this.tipo_cancer.setValidators([Validators.pattern('[a-zA-Z]*'),Validators.maxLength(60), Validators.minLength(4),Validators.required]),
-      this.tipo_cancer.updateValueAndValidity();
+      this.tipo_cancer.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), Validators.required]),
+        this.tipo_cancer.updateValueAndValidity();
 
       this.parentesco_cancer.setValidators(Validators.required);
       this.parentesco_cancer.updateValueAndValidity();
@@ -2393,45 +2373,52 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     ];
 
 
+    // if (this.esAlumno == true) {
 
-    if (this.esAlumno == true) {
 
+    if (this.formulario_datos_generales.valid) {
 
-      if (this.formulario_datos_generales.valid) {
+      // guardar datos del formulario en paciente y enviarlo a la api
 
-        // guardar datos del formulario en paciente y enviarlo a la api
-        this.paciente.id_paciente = this.datosScraping.id_login;
-        // introduzco el nombre estableciendo cada primer letra en mayuscula.
-        this.paciente.nombre_completo = this.nombre_completo.value.replace(/\b\w/g, l => l.toUpperCase());
-        this.paciente.correo_electronico = this.correo_electronico.value;
+      // introduzco el nombre estableciendo cada primer letra en mayuscula.
+      this.paciente.nombre_completo = this.nombre_completo.value.replace(/\b\w/g, l => l.toUpperCase());
+      this.paciente.correo_electronico = this.correo_electronico.value;
+
+      if (this.esAlumno == true) {
         this.paciente.numero_cuenta = this.numero_cuenta.value;
-        this.paciente.numero_identidad = this.numero_identidad.value;
-        this.paciente.imagen = this.datosScraping.imagen;
-        this.paciente.lugar_procedencia = this.lugar_procedencia.value;
-        this.paciente.direccion = this.direccion.value;
-        this.paciente.carrera = this.carrera.value;
-        this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
-        this.paciente.sexo = this.sexo.value;
-        this.paciente.estado_civil = this.estado_civil.value;
-        this.paciente.seguro_medico = this.seguro_medico.value;
-        this.paciente.telefono = this.numero_telefono.value;
-        this.paciente.categoria = this.categoria.value;
+      } else {
+        this.paciente.numero_cuenta = null;
+      }
 
-        //para enviar el correo al FIREBASE      
-        //para que se guarde el correo en firebase
-        // this.correo.corre_electronico = this.correo_electronico.value;
-        // this.correo.contrasenia = this.numero_identidad.value;
-        const correo = this.correo_electronico.value;
-        const contrasenia = this.numero_identidad.value;
-        console.log(correo, contrasenia)
-        this.authSvc.register(correo, contrasenia);
+      this.paciente.numero_identidad = this.numero_identidad.value;
+      this.paciente.imagen = this.loginService.datosUsuario.imagen;
+      this.paciente.lugar_procedencia = this.lugar_procedencia.value;
+      this.paciente.direccion = this.direccion.value;
+      this.paciente.carrera = this.carrera.value;
+      this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
+      this.paciente.sexo = this.sexo.value;
+      this.paciente.estado_civil = this.estado_civil.value;
+      this.paciente.seguro_medico = this.seguro_medico.value;
+      this.paciente.telefono = this.numero_telefono.value;
+      this.paciente.categoria = this.categoria.value;
+
+      const correo = this.correo_electronico.value;
+      const contrasenia = this.numero_identidad.value;
+      console.log(correo, contrasenia)
+      this.authSvc.register(correo, contrasenia);
 
 
 
-        this.formularioService.guardarDatosGenerales(this.paciente).subscribe((data) => {
+      this.formularioService.guardarDatosGenerales(this.paciente).subscribe((data) => {
+
+        this.formularioService.getUltimoIdPaciente().subscribe((data: any) => {
+
+          this.formularioService.idPaciente = data[0].ultimoId
+
+          console.log("id paciente desde telefonos paciente: " + this.formularioService.idPaciente)
 
           var telefono_paciente: any = {
-            'id_paciente': this.paciente.id_paciente,
+            'id_paciente': this.formularioService.idPaciente,
             'telefono': this.paciente.telefono
           }
 
@@ -2444,118 +2431,154 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
           });
 
-          this.obtener();
+          ////////////////////////////////////////////////////////////
 
-        }, (error) => {
+          if (this.tablaTelefonosEmergencia.length) {
 
-          console.log(error);
+            this.tablaTelefonosEmergencia.forEach(telefono_emergencia => {
 
-          this.error = true;
+              this.telefono_emergencia.id_paciente = this.formularioService.idPaciente;
+              this.telefono_emergencia.emergencia_persona = telefono_emergencia.emergencia_persona;
+              this.telefono_emergencia.telefono_emergencia = telefono_emergencia.telefono_emergencia;
 
-          alert('ocurrion un error');
-        });
+              this.formularioService.enviarTelefonoEmergencia(this.telefono_emergencia).subscribe((data) => {
 
+              }, (error) => {
 
-        if (this.tablaTelefonosEmergencia.length) {
+                console.log(error);
 
-          this.tablaTelefonosEmergencia.forEach(telefono_emergencia => {
-
-            this.telefono_emergencia.id_paciente = this.paciente.id_paciente;
-            this.telefono_emergencia.emergencia_persona = telefono_emergencia.emergencia_persona;
-            this.telefono_emergencia.telefono_emergencia = telefono_emergencia.telefono_emergencia;
-
-            this.formularioService.enviarTelefonoEmergencia(this.telefono_emergencia).subscribe((data) => {
-
-            }, (error) => {
-
-              console.log(error);
-
+              });
             });
-          });
-        }
-      }
-
-    } else {
-
-      if (this.formulario_datos_generales.valid) {
-
-        // guardar datos del formulario en paciente y enviarlo a la api
-        this.paciente.id_paciente = this.datosScraping.id_login;
-        this.paciente.nombre_completo = this.nombre_completo.value;
-        this.paciente.correo_electronico = this.correo_electronico.value;
-        if (this.esAlumnoAdmon == true) {
-          this.paciente.numero_cuenta = this.numero_cuenta.value;
-        } else {
-          this.paciente.numero_cuenta = null;
-        }
-
-        this.paciente.numero_identidad = this.numero_identidad.value;
-        this.paciente.lugar_procedencia = this.lugar_procedencia.value;
-        this.paciente.direccion = this.direccion.value;
-        this.paciente.carrera = this.carrera.value;
-        this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
-        this.paciente.sexo = this.sexo.value;
-        this.paciente.estado_civil = this.estado_civil.value;
-        this.paciente.seguro_medico = this.seguro_medico.value;
-        this.paciente.telefono = this.numero_telefono.value;
-        this.paciente.categoria = this.categoria.value;
-
-
-        this.formularioService.guardarDatosGenerales(this.paciente).subscribe((data) => {
-
-          var telefono_paciente: any = {
-            'id_paciente': this.paciente.id_paciente,
-            'telefono': this.paciente.telefono
           }
 
-          this.formularioService.enviarTelefonoPaciente(telefono_paciente).subscribe((result) => {
+          this.enviarAntecedentesFamiliares()
+          this.enviarAntecedentesPersonales()
+          this.enviarHabitosToxicologicos()
+          this.enviarActividadSexual()
+          this.enviarAntecedentesObstetricosYPlanificacionFamiliar()
+          this.enviarAntecedentesGinecologicos()
 
 
-          }, (error) => {
+          if (this.esAlumno == true) {
 
-            console.log(error);
 
-          });
+            this.router.navigate(['datoPaciente/' + this.formularioService.idPaciente]);
+      
+      
+          } else {
+      
+            this.router.navigate(['clínicaunahtec/verPaciente/' + this.formularioService.idPaciente]);
+            this.showError('Contraseña Guardada');
+      
+      
+          }
 
-          this.obtener();
 
         }, (error) => {
 
-          console.log(error);
+          console.log(error)
 
-          this.error = true;
+        })
 
 
-        });
+      }, (error) => {
 
-        if (this.tablaTelefonosEmergencia.length) {
+        console.log(error);
+        this.error = true;
 
-          this.tablaTelefonosEmergencia.forEach(telefono_emergencia => {
+      });
 
-            this.telefono_emergencia.id_paciente = this.paciente.id_paciente;
-            this.telefono_emergencia.emergencia_persona = telefono_emergencia.emergencia_persona;
-            this.telefono_emergencia.telefono_emergencia = telefono_emergencia.telefono_emergencia;
 
-            this.formularioService.enviarTelefonoEmergencia(this.telefono_emergencia).subscribe((data) => {
 
-            }, (error) => {
-
-              console.log(error);
-
-            });
-          });
-        }
-
-      }
     }
 
+    // } else {
+
+    //   if (this.formulario_datos_generales.valid) {
+
+    //     // guardar datos del formulario en paciente y enviarlo a la api
+    //     this.paciente.id_paciente = this.datosScraping.id_login;
+    //     this.paciente.nombre_completo = this.nombre_completo.value;
+    //     this.paciente.correo_electronico = this.correo_electronico.value;
+    //     if (this.esAlumnoAdmon == true) {
+    //       this.paciente.numero_cuenta = this.numero_cuenta.value;
+    //     } else {
+    //       this.paciente.numero_cuenta = null;
+    //     }
+
+    //     this.paciente.numero_identidad = this.numero_identidad.value;
+    //     this.paciente.lugar_procedencia = this.lugar_procedencia.value;
+    //     this.paciente.direccion = this.direccion.value;
+    //     this.paciente.carrera = this.carrera.value;
+    //     this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
+    //     this.paciente.sexo = this.sexo.value;
+    //     this.paciente.estado_civil = this.estado_civil.value;
+    //     this.paciente.seguro_medico = this.seguro_medico.value;
+    //     this.paciente.telefono = this.numero_telefono.value;
+    //     this.paciente.categoria = this.categoria.value;
+
+
+    //     this.formularioService.guardarDatosGenerales(this.paciente).subscribe((data) => {
+
+
+    //       var telefono_paciente: any = {
+    //         'id_paciente': this.paciente.id_paciente,
+    //         'telefono': this.paciente.telefono
+    //       }
+
+    //       this.formularioService.enviarTelefonoPaciente(telefono_paciente).subscribe((result) => {
+
+
+    //       }, (error) => {
+
+    //         console.log(error);
+
+    //       });
+
+    //       // this.obtener();
+
+    //     }, (error) => {
+
+    //       console.log(error);
+
+    //       this.error = true;
+
+
+    //     });
+
+    //     if (this.tablaTelefonosEmergencia.length) {
+
+    //       this.tablaTelefonosEmergencia.forEach(telefono_emergencia => {
+
+    //         this.telefono_emergencia.id_paciente = this.paciente.id_paciente;
+    //         this.telefono_emergencia.emergencia_persona = telefono_emergencia.emergencia_persona;
+    //         this.telefono_emergencia.telefono_emergencia = telefono_emergencia.telefono_emergencia;
+
+    //         this.formularioService.enviarTelefonoEmergencia(this.telefono_emergencia).subscribe((data) => {
+
+    //         }, (error) => {
+
+    //           console.log(error);
+
+    //         });
+    //       });
+    //     }
+
+    //   }
+    // }
+
+
+
+  };
+
+  enviarAntecedentesFamiliares() {
 
     if (this.formulario_antecedentes_familiares.valid) {
 
       var parentescos: any;
       var stringParentesco: string[];
       var NumeroParentesco: number;
-      var id_antecedente: number;
+
 
       for (let index = 0; index < this.antecedentesF.length; index++) {
         const element = this.antecedentesF[index];
@@ -2563,7 +2586,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
         if (element.antecedente != 0) {
 
-          this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
+          this.paciente_antecedente_familiar.id_paciente = this.formularioService.idPaciente;
 
 
           if (element.antecedente == 9) {
@@ -2861,7 +2884,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
       //establezco primero el id del paciente por que si no no se guarda.
-      this.paciente_antecedente_familiar.id_paciente = this.datosScraping.id_login;
+      this.paciente_antecedente_familiar.id_paciente = this.formularioService.idPaciente;
 
 
       if (this.tablaOtrosAF.length) {
@@ -2937,6 +2960,9 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     }
 
+  }
+
+  enviarAntecedentesPersonales() {
     if (this.formulario_antecedentes_personales.valid) {
 
 
@@ -2946,7 +2972,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         // si el valor que recibe del radioButton es diferente de cero entonces ingresara los datos a la base de datos
         if (element.antecedente != 0) {
 
-          this.paciente_antecedente_personal.id_paciente = this.datosScraping.id_login;
+          this.paciente_antecedente_personal.id_paciente = this.formularioService.idPaciente;
 
           if (element.antecedente == 7) {
 
@@ -2955,7 +2981,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
               for (let index = 0; index < this.tablaHospitalariasQuirurgicas.length; index++) {
                 const element = this.tablaHospitalariasQuirurgicas[index];
 
-                this.paciente_hospitalaria_quirurgica.id_paciente = this.datosScraping.id_login;
+                this.paciente_hospitalaria_quirurgica.id_paciente = this.formularioService.idPaciente;
                 this.paciente_hospitalaria_quirurgica.fecha = element.fecha;
                 this.paciente_hospitalaria_quirurgica.tiempo_hospitalizacion = element.tiempo_hospitalizacion;
                 this.paciente_hospitalaria_quirurgica.diagnostico = element.diagnostico;
@@ -3154,7 +3180,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
       //establezco primero el id del paciente por que si no no se guarda.
-      this.paciente_antecedente_personal.id_paciente = this.datosScraping.id_login;
+      this.paciente_antecedente_personal.id_paciente = this.formularioService.idPaciente;
 
       if (this.tablaOtrosAP.length) {
 
@@ -3196,6 +3222,9 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       }
 
     }
+  }
+
+  enviarHabitosToxicologicos() {
 
     if (this.formulario_habito_toxicologico_personal.valid) {
 
@@ -3206,7 +3235,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         if (element.habito_toxicologico != 0) {
 
 
-          this.paciente_habito_toxicologico.id_paciente = this.datosScraping.id_login;
+          this.paciente_habito_toxicologico.id_paciente = this.formularioService.idPaciente;
           this.paciente_habito_toxicologico.id_habito_toxicologico = element.habito_toxicologico;
           this.paciente_habito_toxicologico.observacion = element.observacion;
 
@@ -3222,7 +3251,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       }
 
       //establezco primero el id del paciente por que si no no se guarda.
-      this.paciente_habito_toxicologico.id_paciente = this.datosScraping.id_login;
+      this.paciente_habito_toxicologico.id_paciente = this.formularioService.idPaciente;
 
       if (this.tablaOtrosHT.length) {
 
@@ -3264,13 +3293,17 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     }
 
+  }
+
+  enviarActividadSexual() {
+
     if (this.formulario_actividad_sexual.valid) {
       // guardar datos del formulario en actividad_sexual y enviarlo a la api
       this.actividad_sexual.actividad_sexual = this.actividad_sexuall.value;
       this.actividad_sexual.edad_inicio_sexual = this.edad_inicio_sexual.value;
       this.actividad_sexual.numero_parejas_sexuales = this.numero_parejas_sexuales.value;
       this.actividad_sexual.practicas_sexuales_riesgo = this.practicas_sexuales_riesgo.value;
-      this.actividad_sexual.id_paciente = this.datosScraping.id_login;
+      this.actividad_sexual.id_paciente = this.formularioService.idPaciente;
 
       this.formularioService.guardarActividadSexual(this.actividad_sexual).subscribe((data) => {
 
@@ -3281,6 +3314,9 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     }
 
+  }
+
+  enviarAntecedentesObstetricosYPlanificacionFamiliar() {
 
     if (this.ocultar1 == false) {
 
@@ -3295,7 +3331,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.antecedente_obstetrico.fecha_termino_ult_embarazo = this.fecha_termino_ult_embarazo.value;
         this.antecedente_obstetrico.descripcion_termino_ult_embarazo = this.descripcion_termino_ult_embarazo.value;
         this.antecedente_obstetrico.observaciones = this.observaciones.value;
-        this.antecedente_obstetrico.id_paciente = this.datosScraping.id_login;
+        this.antecedente_obstetrico.id_paciente = this.formularioService.idPaciente;
 
         this.formularioService.guardarAntecedentesObstetricos(this.antecedente_obstetrico).subscribe((data) => {
 
@@ -3311,7 +3347,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.planificacion_familiar.planificacion_familiar = this.planificacion_familiarr.value;
         this.planificacion_familiar.metodo_planificacion = this.metodo_planificacion.value;
         this.planificacion_familiar.observacion_planificacion = this.observacion_planificacion.value;
-        this.planificacion_familiar.id_paciente = this.datosScraping.id_login;
+        this.planificacion_familiar.id_paciente = this.formularioService.idPaciente;
 
         this.formularioService.guardarPlanificacionesFamiliares(this.planificacion_familiar).subscribe((data) => {
 
@@ -3325,6 +3361,9 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       }
     }
 
+  }
+
+  enviarAntecedentesGinecologicos() {
 
     if (this.formulario_antecedente_ginecologico.valid) {
 
@@ -3337,7 +3376,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.antecedente_ginecologico.duracion_ciclo_menstrual = this.duracion_ciclo_menstrual.value;
       this.antecedente_ginecologico.periocidad_ciclo_menstrual = this.periocidad_ciclo_menstrual.value;
       this.antecedente_ginecologico.caracteristicas_ciclo_menstrual = this.caracteristicas_ciclo_menstrual.value;
-      this.antecedente_ginecologico.id_paciente = this.datosScraping.id_login;
+      this.antecedente_ginecologico.id_paciente = this.formularioService.idPaciente;
 
       this.formularioService.guardarAntecedentesGinecologicos(this.antecedente_ginecologico).subscribe((data) => {
 
@@ -3348,7 +3387,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     }
 
-  };
+  }
 
   enviarcorreo() {
     //para que se guarde el correo en firebase
@@ -3360,32 +3399,40 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     this.authSvc.register(correo, contrasenia);
   }
 
-  obtener() {
-    //Obtencion de Paciente recien registrado
-    this.formularioService.getUltimoID().subscribe((data) => {
-      this.resultado = data;
-      if (this.resultado != null) {
-        if (this.resultado[0].ultimoId != null) {
-          this.loading = false;
-          this.loginService.idpaciente = this.resultado[0].ultimoId;
-          this.openDialog();
-
-        }
-      }
-    }, (error) => {
-      console.log(error);
-    });
-
-  }
-
+  
 
   openDialog() {
-    index: Number;
-    const index = this.paciente.id_paciente;
-    const dialogRef = this.dialog.open(cambiocontraDialog, {
-      disableClose: true,
-      panelClass: 'custom-dialog-container',
-    });
+
+    if(this.esAlumno == true){
+
+      const dialogRef = this.dialog.open(cambiocontraDialog, {
+        disableClose: true,
+        data: {
+          "numero_cuenta": this.numero_cuenta.value,
+        },
+        panelClass: 'custom-dialog-container',
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+  
+        if (result == true) {
+  
+          this.enviarDatos()
+  
+  
+        }
+  
+      })
+
+    } else{
+
+      this.enviarDatos()
+
+    }
+
+    
+
+
   }
 
   convertir(edad) {
