@@ -141,7 +141,7 @@ export class DatoPacienteComponent implements OnInit {
 
 
 
-    this.dialog.closeAll;
+    // this.dialog.closeAll;
     this.id = this.activatedRoute.snapshot.params['id'];
 
 
@@ -161,7 +161,7 @@ export class DatoPacienteComponent implements OnInit {
         this.sexo.setValue(this.paciente.sexo);
         this.numero_telefono.setValue(this.paciente.telefono);
 
-        this.formularioService.idActualizar = this.paciente.id_paciente;
+        this.formularioService.idPaciente = this.paciente.id_paciente;
 
         if (this.paciente.categoria == "Estudiante") {
 
@@ -391,7 +391,7 @@ export class DatoPacienteComponent implements OnInit {
       } else {
 
         this.showError("Datos inválidos")
-        
+
       }
     }
   }
@@ -495,12 +495,18 @@ export class cambiocontraDialog {
 
   id: any;
   Listo: boolean = false;
-  constructor(private formularioService: FormularioService, private dialogRef: MatDialogRef<cambiocontraDialog>, private activatedRoute: ActivatedRoute,
-    private loginService: LoginService, private router: Router, private mensaje: MatSnackBar) {
+  constructor(private formularioService: FormularioService, 
+    private dialogRef: MatDialogRef<cambiocontraDialog>, 
+    private loginService: LoginService, 
+    private router: Router, 
+    private mensaje: MatSnackBar, 
+    @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    this.paciente1.id_paciente = this.formularioService.idActualizar;
+    console.log(data.numero_cuenta)
+
+    this.paciente1.id_paciente = this.formularioService.idPaciente;
     ///////
-    this.formularioService.getUltimoID().subscribe((data) => {
+    this.formularioService.getUltimoIdPaciente().subscribe((data) => {
       this.resultado = data;
 
       if (this.resultado != null) {
@@ -517,6 +523,7 @@ export class cambiocontraDialog {
 
 
   }
+
   showError(message: string) {
     const config = new MatSnackBarConfig();
     config.panelClass = ['background-red'];
@@ -535,66 +542,55 @@ export class cambiocontraDialog {
   continuar() {
 
 
-
-    this.formularioService.getUltimoID().subscribe((data) => {
-      this.resultado = data;
-      if (this.resultado != null) {
-        if (this.resultado[0].ultimoId != null) {
-          this.paciente1.id_paciente = this.resultado[0].ultimoId;
-
-        }
-      }
-    }, (error) => {
-      console.log(error);
-    });
-
-
-
-
     if (this.Nueva.valid) {
 
-      // guardar datos del formulario en paciente y enviarlo a la api
-      this.loginService.obtenerUltimoId().subscribe((data: any) => {
 
-        this.login.id_login = data[0].ultimoId;
-        this.login.password = this.nuevaContraRep.value;
+      this.login.cuenta = this.data.numero_cuenta;
+      this.login.password = this.nuevaContraRep.value;
 
-        if (this.nuevaContra.value == this.nuevaContraRep.value) {
+      if (this.nuevaContra.value == this.nuevaContraRep.value) {
 
-          this.loginService.actualizarContrasena(this.login).subscribe((data) => {
+        this.loginService.RegistrarUsuario(this.login).subscribe((data: any) => {
 
-            this.showError('Contraseña Guardada');
+          localStorage.setItem("token", data.token)
+          localStorage.setItem("rol", "Paciente")
+          this.dialogRef.close(true);
 
-            if (this.formularioService.esAlumno == true) {
 
-              this.router.navigate(['datoPaciente/' + this.paciente1.id_paciente]);
-              this.Listo = true;
+        }, (error) => {
+          console.log(error)
+        });
 
-            } else {
-              this.router.navigate(['clínicaunahtec/verPaciente/' + this.paciente1.id_paciente]);
-              this.showError('Contraseña Guardada');
-              this.dialogRef.close();
+        // this.loginService.actualizarContrasena(this.login).subscribe((data) => {
 
-              this.Listo = true;
-            }
+        //   this.showError('Contraseña Guardada');
 
-          }, (error) => {
+        //   if (this.formularioService.esAlumno == true) {
 
-            console.log(error);
+        //     this.router.navigate(['datoPaciente/' + this.paciente1.id_paciente]);
+        //     this.Listo = true;
 
-          });
+        //   } else {
+        //     this.router.navigate(['clínicaunahtec/verPaciente/' + this.paciente1.id_paciente]);
+        //     this.showError('Contraseña Guardada');
+        //     this.dialogRef.close();
 
-        } else {
+        //     this.Listo = true;
+        //   }
 
-          this.showError('La contraseña no coincide');
+        // }, (error) => {
 
-        }
+        //   console.log(error);
 
-      }, (error) => {
+        // });
 
-        console.log(error);
+      } else {
 
-      });
+        this.showError('La contraseña no coincide');
+
+      }
+
+
 
 
     }
@@ -694,7 +690,7 @@ export class verificarDialog {
   ) {
 
 
-    this.formularioService.obtenerPaciente(this.formularioService.idActualizar).subscribe((data: any) => {
+    this.formularioService.obtenerPaciente(this.formularioService.idPaciente).subscribe((data: any) => {
       this.paciente = data;
 
       if (this.paciente.categoria == "Estudiante") {
@@ -869,7 +865,7 @@ export class actualizarcontraDialog {
   ) {
 
 
-    this.formularioService.obtenerPaciente(this.formularioService.idActualizar).subscribe((data: any) => {
+    this.formularioService.obtenerPaciente(this.formularioService.idPaciente).subscribe((data: any) => {
 
       this.pacienteActualizar = data;
 
@@ -926,7 +922,7 @@ export class actualizarcontraDialog {
         this.login.password = this.nuevaContraCambio.value;
 
       } else {
-      
+
         // si no es alumno le asigno como cuenta de login el numero de identidad
         this.login.cuenta = this.pacienteActualizar.numero_identidad;
         this.login.password = this.nuevaContraCambio.value;
