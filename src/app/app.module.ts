@@ -326,11 +326,11 @@ const routes: Route[] = [
     //DialogoVerCitasComponent
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
-      multi: true
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptorService,
+    //   multi: true
+    // },
     CambiarFoto,
     {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
 
