@@ -28,9 +28,17 @@ export class LoginService {
   constructor(private httpClient :HttpClient, formularioService: FormularioService) {}
   idpaciente:any; //este es para recuperar el id y redireccionar 
 
-  guardarDatos(login: Login){
+  RegistrarUsuario(login: Login){
 
     return this.httpClient.post(this.API_ENDPOINT + 'registrar', login, {headers: this.headers});
+
+  }
+
+  ingresarFormulario(login: Login){
+
+
+    return this.httpClient.post(this.API_ENDPOINT + 'ingresarFormulario', login, {headers: this.headers});
+
 
   }
 
