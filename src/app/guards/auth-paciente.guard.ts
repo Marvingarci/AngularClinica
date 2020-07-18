@@ -15,7 +15,7 @@ export class AuthPacienteGuard implements CanActivate {
   canActivate() {
 
 
-    if(localStorage.getItem("rol") == "Paciente")
+    if(localStorage.getItem("rol") == "Paciente" && localStorage.getItem("token"))
 
         return true
 
