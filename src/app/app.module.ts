@@ -75,6 +75,7 @@ import { UsuarioAdminUnicoDirective } from './validations/usuario-admin-unico.di
 import { UsuarioMedicoUnicoDirective } from './validations/usuario-medico-unico.directive';
 import { AuthAdministradorGuard } from './guards/auth-administrador.guard';
 import { FocusInvalidoInputDirective } from './focus/focus-invalido-input.directive';
+import { CorreoUnicoDirective } from './validations/correo-unico.directive'
 
 //importacion para los focus
 
@@ -232,6 +233,7 @@ const routes: Route[] = [
     CambiarFoto1,
     ChatComponent,
     RecuperarContraseniaComponent,
+    CorreoUnicoDirective,
   
 
 
