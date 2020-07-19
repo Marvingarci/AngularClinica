@@ -1283,8 +1283,8 @@
             <textarea matInput formControlName="observacion_diabetes" cdkTextareaAutosize
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right">
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right">
           </textarea>
             <mat-label>
               <b>Añada una observación en caso de ser necesario</b>
@@ -1319,8 +1319,8 @@
             <textarea matInput formControlName="observacion_tb_pulmonar" cdkTextareaAutosize
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Añada una observación en caso de ser necesario</b>
             </mat-label>
@@ -1349,8 +1349,8 @@
           <mat-form-field class="medium-width" appearance="outline">
             <textarea matInput formControlName="observacion_its" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Añada una observación en caso de ser necesario</b>
             </mat-label>
@@ -1388,6 +1388,10 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_desnutricion_ap.hasError('required')">
                 Campo requerido
               </mat-error>
+              <mat-error *ngIf="tipo_desnutricion_ap.hasError('maxlength = 13')">Campo muy extensomaxlength="13"maxlength="13"</mat-error>
+              <mat-error *ngIf="tipo_desnutricion_ap.hasError('pattern')">
+                Introduzca datos válido
+              </mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1396,8 +1400,8 @@
               <textarea matInput formControlName="observacion_desnutricion" cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
                 matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
               <mat-label>
                 <b>Añada una observación en caso de ser necesario</b>
               </mat-label>
@@ -1489,6 +1493,7 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_enfermedad_mental_ap.hasError('required')">
                 Campo requerido
               </mat-error>
+              <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('maxlength = 20')">Campo muy extenso</mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1497,8 +1502,8 @@
               <textarea matInput formControlName="observacion_enfermedades_mentales" cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
                 placeholder="Añada una observación en caso de ser necesario" matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right">
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right">
               </textarea>
               <mat-label>
                 <b>Añada una observación en caso de ser necesario</b>
@@ -1579,8 +1584,8 @@
             <textarea matInput formControlName="observacion_convulsiones" cdkTextareaAutosize
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Añada una observación en caso de ser necesario</b>
             </mat-label>
@@ -1618,6 +1623,7 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_alergia_ap.hasError('required')">
                 Campo requerido
               </mat-error>
+              <mat-error *ngIf="tipo_alergia_ap.hasError('maxlength = 20')">Campo muy extenso</mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1626,8 +1632,8 @@
               <textarea matInput formControlName="observacion_alergias" cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
                 matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
               <mat-label>
                 <b>Añada una observación en caso de ser necesario</b>
               </mat-label>
@@ -1715,6 +1721,7 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_cancer_ap.hasError('required')">
                 Campo requerido
               </mat-error>
+              <mat-error *ngIf="tipo_cancer_ap.hasError('maxlength = 20')">Campo muy extenso</mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1723,8 +1730,8 @@
               <textarea matInput formControlName="observacion_cancer" cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
                 matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
               <mat-label>
                 <b>Añada una observación en caso de ser necesario</b>
               </mat-label>
@@ -1964,8 +1971,8 @@
             <textarea matInput formControlName="observacion_traumaticos" cdkTextareaAutosize
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Añada una observación en caso de ser necesario</b>
             </mat-label>
@@ -1998,8 +2005,8 @@
             <mat-form-field class="medium-width" appearance="outline">
               <textarea matInput formControlName="observacion_otros" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                 cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
               <mat-label>
                 <b>Observación</b>
               </mat-label>
@@ -2557,8 +2564,8 @@
             <textarea matInput formControlName="observacion_alcohol" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Detallar tiempo de uso y frecuencia</b>
             </mat-label>
@@ -2588,8 +2595,8 @@
               placeholder="Detallar tiempo de uso y frecuencia" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Detallar tiempo de uso y frecuencia</b>
             </mat-label>
@@ -2621,8 +2628,8 @@
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3"
               style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Detallar tiempo de uso y frecuencia</b>
             </mat-label>
@@ -2651,8 +2658,8 @@
             <textarea matInput formControlName="observacion_cocaina" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Detallar inicio de enfermedad y tratamiento</b>
             </mat-label>
@@ -2686,8 +2693,8 @@
               <textarea matInput formControlName="observacion_otros" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                 cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
                 matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esté hábito toxicológico. El numero minimo de caracteres son 4
-                y el maximo es de 150." matTooltipPosition="right"></textarea>
+                referente a esté hábito toxicológico. El numero minimo de caracteres son 6
+                y el maximo es de 60." matTooltipPosition="right"></textarea>
               <mat-label>
                 <b>Observación</b>
               </mat-label>
