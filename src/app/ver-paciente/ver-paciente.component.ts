@@ -1706,8 +1706,6 @@ export class VerPacienteComponent implements OnInit {
 
   actualizarDG() {
 
-    console.log("id_login: " + this.categoria.value)
-
     if (this.formulario_datos_generales.dirty) {
       
     if (this.formulario_datos_generales.valid) {
