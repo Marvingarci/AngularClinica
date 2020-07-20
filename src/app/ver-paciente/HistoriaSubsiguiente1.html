@@ -223,6 +223,8 @@
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
           <mat-error *ngIf="fecha_cita.hasError('required')">campo requerido</mat-error>
+          <mat-error *ngIf="fecha_cita.hasError('citaUnica')">Ya tiene una cita ese día</mat-error>
+
         </mat-form-field>
       </div>
 
@@ -230,10 +232,11 @@
         <mat-form-field  appearance="outline" style="font-size: small;width: 100%;">
           <mat-label><b>Hora siguiente cita</b></mat-label>
           <input matInput style="width:100%;font-size: small;" [ngxTimepicker]="toggleTimepicker" [disableClick]="true" readonly
-            formControlName="hora_cita">
+            formControlName="hora_cita" min="7:00 am" max="5:00 pm">
           <ngx-material-timepicker-toggle matSuffix [for]="toggleTimepicker">
           </ngx-material-timepicker-toggle>
           <ngx-material-timepicker #toggleTimepicker></ngx-material-timepicker>
+          <mat-error *ngIf="hora_cita.hasError('fechaUnica')">Ya tiene una cita a esa hora programada con {{this.inventarioService.PacienteAtender}}</mat-error>
         </mat-form-field>
       </div>
 

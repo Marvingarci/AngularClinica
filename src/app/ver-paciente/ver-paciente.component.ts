@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, SimpleChange, SimpleChanges, Input, OnDestroy, Inject, Injectable, ElementRef, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormularioService } from "../services/formulario.service";
+import { HttpClientModule} from "@angular/common/http";
 import { Paciente } from "../interfaces/paciente";
 import { AppComponent } from '../app.component';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
@@ -54,6 +55,9 @@ import { IdentidadUnicoService } from '../validations/identidad-unica.directive'
 import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
 import { CuentaUnicaService } from '../validations/cuenta-unica.directive';
 import { LoginService } from '../services/login.service';
+import { map } from 'rxjs/operators';
+import { CitaUnicaService } from '../validations/cita-unica.directive';
+import { FechaUnicaService } from '../validations/fecha-unica.directive';
 
 
 export interface Element {
@@ -933,7 +937,7 @@ export class VerPacienteComponent implements OnInit {
 
 
   //id que se recupera del paciente mandado a traer
-  id: any;
+  public id: any;
   ideditarAP: any
   ideditarTX: any
   // variable que identifica si el paciente tiene imagen de perfil
@@ -1033,6 +1037,8 @@ export class VerPacienteComponent implements OnInit {
     //para que se mire el telefono arriba    
     this.telefono.telefono = this.numero_telefono.value;
     this.id = this.activatedRoute.snapshot.params['id'];
+    this.pacienteService.id_historia_subsiguiente = this.id;
+    
 
     if (this.id) {
 
@@ -3833,6 +3839,9 @@ export class HistoriaSubsiguiente1 {
   medicamentos: string[] = [];
   maximoMedicamento: number = 2;
   minDate = new Date();
+  id_paci : string;
+  fechasCitas = new Array;
+
 
   formulario_historia_subsiguiente = new FormGroup({
 
@@ -3854,8 +3863,11 @@ export class HistoriaSubsiguiente1 {
     remitira: new FormControl(''),
 
     cita: new FormControl('', Validators.required),
-    fecha_cita: new FormControl('', Validators.required),
-    hora_cita: new FormControl(''),
+    fecha_cita: new FormControl('',{validators: [Validators.required],
+      asyncValidators: [this.CitaUnicaService.validate.bind(this.CitaUnicaService)]}),
+    hora_cita: new FormControl(''
+    ,{asyncValidators: [this.fechaUnicaService.validate.bind(this.fechaUnicaService)]}
+    ),
 
   });
 
@@ -3864,7 +3876,12 @@ export class HistoriaSubsiguiente1 {
     private inventarioService: InventariosService,
     private dialogRef: MatDialogRef<HistoriaSubsiguiente1>,//para cerrar el dialogo desde la misma interfaz
     private mensaje: MatSnackBar,
-    private breakpointObserver: BreakpointObserver) {
+    private breakpointObserver: BreakpointObserver,
+    private fechaUnicaService: FechaUnicaService,
+    private CitaUnicaService:CitaUnicaService) {
+    this.id_paci = this.pacienteService.id_historia_subsiguiente;
+
+    this.fechas_existentes();
 
 
   }
@@ -3889,6 +3906,41 @@ export class HistoriaSubsiguiente1 {
     siguiente_cita: null,
     hora_cita: null,
     medicamento: null
+  }
+  fechas_existentes(){
+    
+
+  }
+  existeFecha(control:FormControl): Promise<any>|Observable<any>{
+    this.inventarioService.obtenerFechasCitas(parseInt(this.id_paci)).pipe(
+      map((valor: any) => {
+        var fechatrans = moment(control.value).format("YYYY-MM-DD");
+
+        if (valor && valor.fecha == fechatrans) {
+          return { identidadUnica: true };
+          
+        } else
+
+          return null;
+          
+      }));
+    let promesa = new Promise(
+    (resolve, reject)=>{
+      setTimeout(()=>{
+        var fechatrans = moment(control.value).format("YYYY-MM-DD");
+        
+        console.log(this.fechasCitas);
+       // for (let index = 0; index < this.fechasCitas.length; index++) {
+          if(fechatrans === this.fechasCitas[0]){
+            resolve({existe:true})
+          }else{
+            resolve(null)
+          } 
+        //} 
+      }, 1000)
+    }
+    );
+    return promesa;
   }
 
   radioCita(valor, formControl: FormControl[]) {

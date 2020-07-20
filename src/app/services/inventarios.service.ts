@@ -9,6 +9,8 @@ import { HistoriaSubsiguiente } from "../interfaces/historia_subsiguiente";
 export class InventariosService {
   idCita: any;
   imagenactual: string;
+  fechafutura:string;
+  PacienteAtender:string;
   //API_ENDPOINT = 'http://64.225.37.202:8081/api'
   API_ENDPOINT = 'http://127.0.0.1:8000/api'
 
@@ -35,6 +37,13 @@ export class InventariosService {
   
   obtenerMedicamentos(){
     return this.httpClient.get(this.API_ENDPOINT+'/medicamentos');
+  }
+
+  obtenerFechasCitas(id_paci: number){
+    return this.httpClient.get(this.API_ENDPOINT+'/citas_fechas/'+id_paci);
+  }
+  obtenerCitasporfecha(fecha: string){
+    return this.httpClient.get(this.API_ENDPOINT+'/citasPorFecha/'+fecha);
   }
 
   EgresoMedicamentos(medicamento){
