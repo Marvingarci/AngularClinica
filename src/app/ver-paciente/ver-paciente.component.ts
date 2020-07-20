@@ -1688,18 +1688,6 @@ export class VerPacienteComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   actualizarDatosGenerales() {
 
     this.cargarTablaEmergenciaPersona();
@@ -1708,13 +1696,17 @@ export class VerPacienteComponent implements OnInit {
     this.datosRepetido = !this.datosRepetido;
 
     if (this.readonlyDatosGenerales === true) {
+
       this.actualizarDG();
+
     }
+
+
   }
 
   actualizarDG() {
 
-    console.log("id_login: " + this.loginService.idActualizar)
+    console.log("id_login: " + this.categoria.value)
 
     if (this.formulario_datos_generales.dirty) {
       
@@ -3108,15 +3100,10 @@ export class VerPacienteComponent implements OnInit {
 
 
 
-
-
-
-
-
-
   ngOnInit() {
 
   }
+
 
   mostrarCuenta(valor) {
 
@@ -3142,23 +3129,34 @@ export class VerPacienteComponent implements OnInit {
 
     }
   }
+
+
   selectCategoria(valor) {
 
     if (valor == 3) {
 
-      // this.numero_cuenta.setValue("");
-      this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]);
-      this.numero_cuenta.updateValueAndValidity();
-      // this.carrera.setValue("");
-      this.carrera.setValidators([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/), Validators.maxLength(30), Validators.minLength(5)]);
-      this.carrera.updateValueAndValidity();
+      this.esAlumno = true
+      this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)])
+      this.numero_cuenta.updateValueAndValidity()
+      this.carrera.setValidators(Validators.required)
+      this.carrera.updateValueAndValidity()
+
+    
+      // this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]);
+      // this.numero_cuenta.updateValueAndValidity();
+      // this.carrera.setValidators([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/), Validators.maxLength(30), Validators.minLength(5)]);
+      // this.carrera.updateValueAndValidity();
 
     } else {
 
-      this.numero_cuenta.clearValidators();
-      this.numero_cuenta.updateValueAndValidity();
-      this.carrera.clearValidators();
-      this.carrera.updateValueAndValidity();
+      this.esAlumno = false
+      this.numero_cuenta.reset()
+      this.carrera.reset()
+
+      // this.numero_cuenta.clearValidators();
+      // this.numero_cuenta.updateValueAndValidity();
+      // this.carrera.clearValidators();
+      // this.carrera.updateValueAndValidity();
 
     }
   }
