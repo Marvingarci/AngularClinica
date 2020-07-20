@@ -18,7 +18,7 @@ import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitala
   providedIn: 'root'
 })
 export class FormularioService {
-  idActualizar: number;
+  idPaciente: number;
   IngresoPaciente: Paciente;
   NuevoIngreso: Paciente;
   esAlumno: boolean = true;
@@ -202,7 +202,9 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT + 'obtenerColumnaNumeroTelefono/' + telefono);
   }
 
-
+  obtenerColumnaCorreo(correo_electronico) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerColumnaCorreo/' + correo_electronico);
+  }
 
   obtenerParentescos() {
     return this.httpClient.get(this.API_ENDPOINT + 'parentescos');
@@ -386,7 +388,8 @@ export class FormularioService {
 
 
 
-  getUltimoID() {
+  getUltimoIdPaciente() {
+
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes/ultimo/si');
   }
 

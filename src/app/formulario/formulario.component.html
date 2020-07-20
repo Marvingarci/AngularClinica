@@ -75,6 +75,7 @@
               </mat-label>
               <mat-error *ngIf="lugar_procedencia.hasError('required')">Campo requerido</mat-error>
               <mat-error *ngIf="lugar_procedencia.hasError('pattern')">Ingrese datos válidos</mat-error>
+              <mat-error *ngIf="lugar_procedencia.hasError('whitespace')">Ingrese datos válidos</mat-error>
 
 
             </mat-form-field>
@@ -185,7 +186,6 @@
 
           <div class="col">
             <mat-card>
-
               <div class="row">
                 <div class="col">
                   <mat-form-field appearance="outline">
@@ -223,7 +223,7 @@
                 </div>
               </div>
 
-              <div class="row medium-width" style="margin-left: 0;">
+              <div class="row" style="margin-left: 0;">
                 <table mat-table [dataSource]="dataSourceTablaTelefonosEmergencia" class="mat-elevation-z8 tabla"
                   *ngIf="dataSourceTablaTelefonosEmergencia != null">
 
@@ -366,6 +366,7 @@
                 </mat-label>
                 <mat-error *ngIf="lugar_procedencia.hasError('required')">Campo requerido</mat-error>
                 <mat-error *ngIf="lugar_procedencia.hasError('pattern')">Ingrese datos válidos</mat-error>
+                <mat-error *ngIf="lugar_procedencia.hasError('whitespace')">No se permiten espacios en blanco</mat-error>
                 <!-- <mat-error *ngIf="checarSiSonIguales()">Las contraseñas no coinciden</mat-error> -->
 
               </mat-form-field>
@@ -395,6 +396,7 @@
                 <mat-error *ngIf="direccion.hasError('required')">Campo requerido</mat-error>
                 <mat-error *ngIf="direccion.hasError('maxlength')">Campo muy extenso</mat-error>
                 <mat-error *ngIf="direccion.hasError('minlength')">Sea específico</mat-error>
+                <mat-error *ngIf="direccion.hasError('whitespace')">No se permiten espacios en blanco</mat-error>
 
 
               </mat-form-field>
@@ -516,7 +518,7 @@
                   </div>
                 </div>
 
-                <div class="row medium-width" style="margin-left: 0;">
+                <div class="row" style="margin-left: 0;">
                   <table mat-table [dataSource]="dataSourceTablaTelefonosEmergencia" class="mat-elevation-z8 tabla"
                     *ngIf="dataSourceTablaTelefonosEmergencia != null">
 
@@ -2747,7 +2749,7 @@
       <div class="botonesstep">
         <button  disabled="{{formulario_habito_toxicologico_personal.invalid}}" mat-raised-button 
           class="btn btn-outline-primary float-right botonperron"
-          (click)="agregarOtrosHT();enviarDatos();">Enviar</button>
+          (click)="agregarOtrosHT();openDialog();">Enviar</button>
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
       </div>
 

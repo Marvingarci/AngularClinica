@@ -1289,7 +1289,7 @@ export class VerPacienteComponent implements OnInit {
 
       }
 
-      this.formularioService.idActualizar = this.paciente.id_paciente;
+      this.formularioService.idPaciente = this.paciente.id_paciente;
       // valido si el paciente tiene imagen, la variable noImg por defecto esta en true
       //si el paciente tiene imagen entonces esta variable cambiara a false
       if (this.paciente.imagen != null) {
@@ -1304,8 +1304,6 @@ export class VerPacienteComponent implements OnInit {
     });
 
     
-
-   
 
   }
 
@@ -4071,9 +4069,9 @@ export class HistoriaSubsiguiente1 {
   texto: string = "Unidades";
 
   parentescos: Parentescos[] = [
-    { value: 1, viewValue: 'Psicologia' },
-    { value: 2, viewValue: 'Nutricion' },
-    { value: 3, viewValue: 'Odontologia' },
+    { value: 1, viewValue: 'Psicología' },
+    { value: 2, viewValue: 'Nutrición' },
+    { value: 3, viewValue: 'Odontología' },
     { value: 4, viewValue: 'Terapia Funcional' },
     { value: 5, viewValue: 'CATFA' },
     { value: 6, viewValue: 'Trabajo Social' }

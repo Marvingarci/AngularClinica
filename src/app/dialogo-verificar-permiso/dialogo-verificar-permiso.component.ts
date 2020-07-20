@@ -4,9 +4,7 @@ import { Login } from '../interfaces/login';
 import { Administrador } from '../interfaces/administrador';
 import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA, MatSnackBarConfig } from '@angular/material';
 // import { DialogoVerificar } from '../loginadmin/loginadmin.component';
-import { LoginadminService } from '../services/loginadmin.service';
 import { LoginService } from '../services/login.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dialogo-verificar-permiso',
@@ -41,10 +39,8 @@ export class DialogoVerificarPermisoComponent {
   administradores: Administrador[];
 
   constructor(public dialogRef: MatDialogRef<DialogoVerificarPermisoComponent>,
-    private loginAdminService: LoginadminService,
     private loginService: LoginService,
     private mensaje: MatSnackBar,
-    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
 
@@ -63,6 +59,7 @@ export class DialogoVerificarPermisoComponent {
   salir() {
 
     this.dialogRef.close(false);
+    
   }
 
 

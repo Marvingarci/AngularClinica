@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { verificarDialog, actualizarcontraDialog } from '../dato-paciente/dato-paciente.component';
 
 @Component({
   selector: 'app-recuperar-contrasenia',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecuperarContraseniaComponent implements OnInit {
 
-  constructor() { }
+
+  id: any;
+
+  constructor( private activatedRoute: ActivatedRoute, public dialog: MatDialogRef<actualizarcontraDialog>) {
+
+    this.id = this.activatedRoute.snapshot.params['id'];
+
+
+    // const dialogRef = this.dialog.open(actualizarcontraDialog,
+    //   { disableClose: false, panelClass: 'cambiarcontrasenia' });
+    
+   }
 
   ngOnInit() {
   }
 
 }
+

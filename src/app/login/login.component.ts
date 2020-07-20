@@ -82,9 +82,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private medicosService: MedicosService, private router: Router, private activar: AppComponent,
     private formularioService: FormularioService, private mensaje: MatSnackBar, private ayudasheet: MatBottomSheet) {
     activar.esconder();
-    // cada vez que el usuario se devuelva al login borro los token para que tenga
+    // cada vez que el usuario se devuelva al login borro los token y el rol para que tenga
     // que volver a loguearse y crear otro nuevo token.
     localStorage.removeItem('token');
+    localStorage.removeItem('rol');
   }
 
 
@@ -169,25 +170,20 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.login.cuenta = this.cuenta.value;
           this.login.password = this.ControlClave.value;
 
-          // si el usuario es nuevo entonces lo registro.
-          this.loginService.guardarDatos(this.login).subscribe((data: any) => {
+          this.loginService.ingresarFormulario(this.login).subscribe((data: any)=>{
 
-            //establezco el rol del usuario como estudiante para que pueda tener permisos
-            //para ver sus datos
-            this.loginService.datosUsuario = { 'rol': 'Paciente' };
-
-            //guardo el token en el localstorage para poder obtenerlo despues.
-            localStorage.setItem("token", data.token);
-
+            this.loginService.datosUsuario = data;
+            console.log(this.loginService.datosUsuario)
             this.showError('Llene el siguiente formulario');
             this.router.navigate(['/formulario']);
 
-          }, (error) => {
+
+          },(error)=>{
 
             this.loading = false;
             this.showError('Cuenta incorrecta');
-          });
-
+          
+          })
 
 
         } else {
@@ -212,6 +208,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             //entonces el usuario sera redirigido a datoPaciente sino sera redirigido a principal.
             if (data.rol == 'Paciente') {
 
+              this.formularioService.esAlumno = true
               this.router.navigate(['/datoPaciente/' + data.id]);
               this.showError('Bienvenido');
 
@@ -340,6 +337,7 @@ export class DialogoRecuperarContrasenia {
           }, (error) => {
 
             console.log(error)
+
           })
 
           //   this.correoservice.mandarIdAView(this.recuperar_correo).subscribe((data) => {
