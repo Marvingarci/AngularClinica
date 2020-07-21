@@ -200,16 +200,30 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     if (valor == 3) {
 
-      this.esAlumnoAdmon = true;
-      this.numero_cuenta.setValue("");
-      this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]);
-      this.numero_cuenta.updateValueAndValidity();
+      this.esAlumno = true
+      this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)])
+      this.numero_cuenta.updateValueAndValidity()
+      this.carrera.setValidators(Validators.required)
+      this.carrera.updateValueAndValidity()
+
+      // this.esAlumnoAdmon = true;
+      // this.numero_cuenta.setValue("");
+      // this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]);
+      // this.numero_cuenta.updateValueAndValidity();
 
     } else {
 
-      this.esAlumnoAdmon = false;
+      this.esAlumno = false
+      // this.numero_cuenta.reset()
+      // this.carrera.reset()
+
+      this.numero_cuenta.setValue("")
       this.numero_cuenta.clearValidators();
       this.numero_cuenta.updateValueAndValidity();
+
+      this.carrera.setValue("")
+      this.carrera.clearValidators()
+      this.carrera.updateValueAndValidity()
 
     }
 
@@ -272,10 +286,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,50}$/)]),
     correo_electronico: new FormControl('', [Validators.required]),
 
-    numero_cuenta: new FormControl('', {
-      validators: [Validators.required, Validators.pattern(/^[2][0-9]{10}$/)],
-      asyncValidators: [this.CuentaUnicaService.validate.bind(this.CuentaUnicaService)]
-    }),
+    numero_cuenta: new FormControl(''),
     // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
     // "/ /" indica el inicio y el final de la expresion regular
     // "{10}" indica le numero de digitos de lo que lo antecede
@@ -286,7 +297,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     // "\d" es lo mismo "[0-9]"
     lugar_procedencia: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,20}$/), this.noWhitespaceValidator]),
     direccion: new FormControl('', [Validators.required, Validators.maxLength(200), Validators.minLength(20), this.noWhitespaceValidator]),
-    carrera: new FormControl('', [Validators.required]),
+    carrera: new FormControl(''),
     fecha_nacimiento: new FormControl('', Validators.required),
     sexo: new FormControl('', Validators.required),
     categoria: new FormControl('', [Validators.required]),
@@ -1103,8 +1114,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   tablaHospitalariasQuirurgicas: HospitalariaQuirurgica[] = [];
   dataSourceTablaHospitalariasQuirurgicas: any;
 
-  esAlumnoAdmon: boolean = false;
-
 
   columnasTablaAF: string[] = ['numero', 'antecedente', 'parentesco', 'botones'];
   columnasTablaAP: string[] = ['numero', 'antecedente', 'observacion', 'botones'];
@@ -1291,6 +1300,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   ngOnInit() {
 
     this.obtenerDatosFormulario();
+
+    if(this.esAlumno){
+
+      this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/),this.CuentaUnicaService.validate.bind(this.CuentaUnicaService)])
+      this.numero_cuenta.updateValueAndValidity()
+
+      this.carrera.setValidators(Validators.required)
+      this.carrera.updateValueAndValidity()
+
+    }
     
   }
 
@@ -2386,12 +2405,13 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       if (this.esAlumno == true) {
         this.paciente.numero_cuenta = this.numero_cuenta.value;
+        this.paciente.imagen = this.loginService.datosUsuario.imagen;
       } else {
         this.paciente.numero_cuenta = null;
+        this.paciente.imagen = null;
       }
 
       this.paciente.numero_identidad = this.numero_identidad.value;
-      this.paciente.imagen = this.loginService.datosUsuario.imagen;
       this.paciente.lugar_procedencia = this.lugar_procedencia.value;
       this.paciente.direccion = this.direccion.value;
       this.paciente.carrera = this.carrera.value;
