@@ -1196,29 +1196,29 @@
             *ngIf="dataSourceTablaOtrosAF != null">
 
             <ng-container matColumnDef="numero">
-              <th mat-header-cell *matHeaderCellDef style="padding-right: 5px;padding-left: 10px;"> # </th>
+              <th mat-header-cell *matHeaderCellDef > # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element; index as i;" style="padding-right: 5px;padding-left: 10px;"> {{i+1}} </td>
+              <td mat-cell *matCellDef="let element; index as i;" > {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef style="padding-right: 5px;padding-left: 5px;"> Antecedente </th>
-              <td mat-cell *matCellDef="let element" style="padding-right: 5px;padding-left: 5px;"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef > Antecedente </th>
+              <td mat-cell *matCellDef="let element" > {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="parentesco">
-              <th mat-header-cell *matHeaderCellDef style="padding-right: 5px;padding-left: 5px;"> Parentesco </th>
-              <td mat-cell *matCellDef="let element" style="padding-right: 5px;padding-left: 5px;"> {{element.parentesco}} </td>
+              <th mat-header-cell *matHeaderCellDef > Parentesco </th>
+              <td mat-cell *matCellDef="let element" > {{element.parentesco}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
 
 
             <ng-container matColumnDef="botones">
-              <th mat-header-cell *matHeaderCellDef style="padding-right: 5px;padding-left: 5px;"></th>
-              <td mat-cell *matCellDef="let element; index as i;" style="padding-right: 5px;padding-left: 5px;">
+              <th mat-header-cell *matHeaderCellDef ></th>
+              <td mat-cell *matCellDef="let element; index as i;">
                 <button mat-icon-button class="botonesTabla" (click)="eliminarOtros(i)">
                   <mat-icon>delete</mat-icon>
                 </button>
@@ -1283,8 +1283,8 @@
             <textarea matInput formControlName="observacion_diabetes" cdkTextareaAutosize
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
-                y el maximo es de 60." matTooltipPosition="right">
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
+                y el maximo es de 150." matTooltipPosition="right">
           </textarea>
             <mat-label>
               <b>Añada una observación en caso de ser necesario</b>
@@ -1317,8 +1317,8 @@
             <textarea matInput formControlName="observacion_tb_pulmonar" cdkTextareaAutosize
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
-                y el maximo es de 60." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
+                y el maximo es de 150." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Añada una observación en caso de ser necesario</b>
             </mat-label>
@@ -1347,8 +1347,8 @@
           <mat-form-field class="medium-width" appearance="outline">
             <textarea matInput formControlName="observacion_its" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
               cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
-                y el maximo es de 60." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
+                y el maximo es de 150." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Añada una observación en caso de ser necesario</b>
             </mat-label>
@@ -1378,7 +1378,7 @@
           <div class="col" style="display: none;" id="divAgregarTiposDesnutricionAP">
 
             <mat-form-field appearance="outline">
-              <input matInput formControlName="tipo_desnutricion" id="InputDenutricionAP"
+              <input matInput formControlName="tipo_desnutricion" id="InputDenutricionAP" 
                 matTooltip="Escriba una enfermedad la cual pertenezca a esta categoria" matTooltipPosition="right">
               <mat-label>
                 <b>Tipo desnutrición</b>
@@ -1386,8 +1386,11 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_desnutricion_ap.hasError('required')">
                 Campo requerido
               </mat-error>
-              <mat-error *ngIf="tipo_desnutricion_ap.hasError('maxlength(25)')">Campo muy extenso"</mat-error>
-            </mat-form-field>
+              <mat-error *ngIf="tipo_desnutricion_ap.hasError('maxlength')">Campo muy extenso"</mat-error>
+              <mat-error *ngIf="tipo_desnutricion_ap.hasError('minlength')">Introduzca una observación válida
+              </mat-error>
+              <mat-error *ngIf="tipo_desnutricion_ap.hasError('whitespace')">No se permiten espacios en blanco</mat-error>
+              </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
@@ -1395,8 +1398,8 @@
               <textarea matInput formControlName="observacion_desnutricion" cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
                 matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
-                y el maximo es de 60." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
+                y el maximo es de 150." matTooltipPosition="right"></textarea>
               <mat-label>
                 <b>Añada una observación en caso de ser necesario</b>
               </mat-label>
@@ -1415,29 +1418,29 @@
 
         </div>
 
-        <div class="row medium-width" style="margin-left: 0;">
-          <table mat-table [dataSource]="dataSourceTablaDesnutricionesAP" class="mat-elevation-z8 tabla"
-            *ngIf="dataSourceTablaDesnutricionesAP != null">
+        <div class="row medium-width" >
+          <table mat-table [dataSource]="dataSourceTablaDesnutricionesAP"  class="mat-elevation-z8 tabla"
+            *ngIf="dataSourceTablaDesnutricionesAP != null" cellpadding="10"  >
 
             <!-- Position Column -->
-            <ng-container matColumnDef="numero">
-              <th mat-header-cell *matHeaderCellDef> # </th>
+            <ng-container matColumnDef="numero" >
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;" > # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 10px;padding-right: 5px;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 10;margin-left: 10;" style="padding-left: 6px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="observacion">
-              <th mat-header-cell *matHeaderCellDef> Observación </th>
-              <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Observación </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.observacion}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
@@ -1489,8 +1492,9 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_enfermedad_mental_ap.hasError('required')">
                 Campo requerido
               </mat-error>
-              <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('pattern')"></mat-error>
-              <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('maxlength(20)')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('minlength')">Introduzca una observación válida
+              </mat-error>
+              <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('maxlength')">Campo muy extenso</mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1499,8 +1503,8 @@
               <textarea matInput formControlName="observacion_enfermedades_mentales" cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
                 placeholder="Añada una observación en caso de ser necesario" matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
-                y el maximo es de 60." matTooltipPosition="right">
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
+                y el maximo es de 150." matTooltipPosition="right">
               </textarea>
               <mat-label>
                 <b>Añada una observación en caso de ser necesario</b>
@@ -1520,26 +1524,26 @@
 
         </div>
 
-        <div class="row medium-width" style="margin-left: 0;">
+        <div class="row medium-width" style="padding-left: 0;margin-left: 0%;">
           <table mat-table [dataSource]="dataSourceTablaEnfermedadesMentalesAP" class="mat-elevation-z8 tabla"
             *ngIf="dataSourceTablaEnfermedadesMentalesAP != null">
 
             <ng-container matColumnDef="numero">
-              <th mat-header-cell *matHeaderCellDef> # </th>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 10px;padding-right: 5px;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="observacion">
-              <th mat-header-cell *matHeaderCellDef> Observación </th>
-              <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Observación </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.observacion}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
@@ -1582,8 +1586,8 @@
             <textarea matInput formControlName="observacion_convulsiones" cdkTextareaAutosize
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
-                y el maximo es de 60." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
+                y el maximo es de 150." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Añada una observación en caso de ser necesario</b>
             </mat-label>
@@ -1621,7 +1625,9 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_alergia_ap.hasError('required')">
                 Campo requerido
               </mat-error>
-              <mat-error *ngIf="tipo_alergia_ap.hasError('maxlength(20)')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="tipo_alergia_ap.hasError('maxlength')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="tipo_alergia_ap.hasError('minlength')">Introduzca una observación válida
+              </mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1630,8 +1636,8 @@
               <textarea matInput formControlName="observacion_alergias" cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
                 matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
-                y el maximo es de 60." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
+                y el maximo es de 150." matTooltipPosition="right"></textarea>
               <mat-label>
                 <b>Añada una observación en caso de ser necesario</b>
               </mat-label>
@@ -1648,26 +1654,26 @@
 
         </div>
 
-        <div class="row medium-width" style="margin-left: 0;">
+        <div class="row medium-width" style="padding-left: 0;margin-left: 0%;">
           <table mat-table [dataSource]="dataSourceTablaAlergiasAP" class="mat-elevation-z8 tabla"
             *ngIf="dataSourceTablaAlergiasAP != null">
 
             <ng-container matColumnDef="numero">
-              <th mat-header-cell *matHeaderCellDef> # </th>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 10px;padding-right: 5px;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
-            <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+            <ng-container matColumnDef="antecedente" style="padding-right:0; padding-left:0;margin-left: 0%;">
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
-            <ng-container matColumnDef="observacion">
-              <th mat-header-cell *matHeaderCellDef> Observación </th>
-              <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+            <ng-container matColumnDef="observacion" style="padding-right:0; padding-left:0;margin-left: 0%;">
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Observación </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.observacion}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
@@ -1719,7 +1725,9 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_cancer_ap.hasError('required')">
                 Campo requerido
               </mat-error>
-              <mat-error *ngIf="tipo_cancer_ap.hasError('maxlength(20)')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="tipo_cancer_ap.hasError('maxlength')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="tipo_cancer_ap.hasError('minlength')">Introduzca una observación válida
+              </mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1728,8 +1736,8 @@
               <textarea matInput formControlName="observacion_cancer" cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
                 matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
-                y el maximo es de 60." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
+                y el maximo es de 150." matTooltipPosition="right"></textarea>
               <mat-label>
                 <b>Añada una observación en caso de ser necesario</b>
               </mat-label>
@@ -1746,26 +1754,26 @@
 
         </div>
 
-        <div class="row medium-width" style="margin-left: 0;">
+        <div class="row medium-width" style="padding-left: 0;margin-left: 0%;">
           <table mat-table [dataSource]="dataSourceTablaCanceresAP" class="mat-elevation-z8 tabla"
             *ngIf="dataSourceTablaCanceresAP != null">
 
             <ng-container matColumnDef="numero">
-              <th mat-header-cell *matHeaderCellDef> # </th>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 10px;padding-right: 5px;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="observacion">
-              <th mat-header-cell *matHeaderCellDef> Observación </th>
-              <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Observación </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.observacion}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
@@ -1826,15 +1834,15 @@
               </mat-form-field>
             </div>
 
-            <div class="col">
+            <div class="col" >
               <mat-form-field class="example-full-width" appearance="outline">
                 <input matInput formControlName="tiempo_hospitalizacion" matTooltip="Escriba el tiempo que duró su hospitalización o cirugía.
                 Puede mezclar numeros y palabras" matTooltipPosition="right">
                 <mat-label>
                   <b>Tiempo hospitalización</b>
                 </mat-label>
-                <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength(60)')">Campo muy extenso</mat-error>
-                <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength(6)')">Introduzca una observación válida
+                <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">Campo muy extenso</mat-error>
+                <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">Introduzca una observación válida
                 </mat-error>
                 <mat-datepicker #picker2></mat-datepicker>
                 <mat-error style="margin-left: 0;" *ngIf="tiempo_hospitalizacion.hasError('required')">
@@ -1897,36 +1905,36 @@
             *ngIf="dataSourceTablaHospitalariasQuirurgicas != null">
 
             <ng-container matColumnDef="numero">
-              <th mat-header-cell *matHeaderCellDef> # </th>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 10px;padding-right: 5px;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="fecha">
-              <th mat-header-cell *matHeaderCellDef> Fecha </th>
-              <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Fecha </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.fecha}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="tiempo">
-              <th mat-header-cell *matHeaderCellDef> Tiempo hospitalización </th>
-              <td mat-cell *matCellDef="let element"> {{element.tiempo_hospitalizacion}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tiempo hospitalización </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.tiempo_hospitalizacion}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
 
             <ng-container matColumnDef="diagnostico">
-              <th mat-header-cell *matHeaderCellDef> Diagnóstico </th>
-              <td mat-cell *matCellDef="let element"> {{element.diagnostico}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Diagnóstico </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.diagnostico}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
 
 
             <ng-container matColumnDef="tratamiento">
-              <th mat-header-cell *matHeaderCellDef> Tratamiento </th>
-              <td mat-cell *matCellDef="let element"> {{element.tratamiento}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tratamiento </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.tratamiento}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
@@ -1969,8 +1977,8 @@
             <textarea matInput formControlName="observacion_traumaticos" cdkTextareaAutosize
               #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;"
               matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
-                y el maximo es de 60." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
+                y el maximo es de 150." matTooltipPosition="right"></textarea>
             <mat-label>
               <b>Añada una observación en caso de ser necesario</b>
             </mat-label>
@@ -2003,8 +2011,8 @@
             <mat-form-field class="medium-width" appearance="outline">
               <textarea matInput formControlName="observacion_otros" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                 cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" style="overflow: hidden;" matTooltip="Puede escribir algo que quiera compartir con el médico, o alguna observación
-                referente a esta enfermedad o patología. El numero minimo de caracteres son 6
-                y el maximo es de 60." matTooltipPosition="right"></textarea>
+                referente a esta enfermedad o patología. El numero minimo de caracteres son 4
+                y el maximo es de 150." matTooltipPosition="right"></textarea>
               <mat-label>
                 <b>Observación</b>
               </mat-label>

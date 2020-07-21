@@ -325,7 +325,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     tipo_cancer: new FormControl('', {}),//las validaciones estan en los setValidator
     hipertension_arterial: new FormControl('', [Validators.required]),
     parentesco_hipertension_arterial: new FormControl('', []),
-    otros: new FormControl('', [Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4)],),
+    otros: new FormControl('', [Validators.pattern('[a-zA-Z]*'), Validators.maxLength(150), Validators.minLength(4)],),
     parentesco_otros: new FormControl('', []),
   });
 
@@ -335,24 +335,24 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   formulario_antecedentes_personales = new FormGroup({
     diabetes: new FormControl('', [Validators.required]),
-    observacion_diabetes: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_diabetes: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     tb_pulmonar: new FormControl('', [Validators.required]),
-    observacion_tb_pulmonar: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_tb_pulmonar: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     its: new FormControl('', [Validators.required]),
-    observacion_its: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_its: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     desnutricion: new FormControl('', [Validators.required]),
-    observacion_desnutricion: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
-    tipo_desnutricion: new FormControl('', []),
+    observacion_desnutricion: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
+    tipo_desnutricion: new FormControl('', [this.noWhitespaceValidator]),
     enfermedades_mentales: new FormControl('', [Validators.required]),
-    observacion_enfermedades_mentales: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_enfermedades_mentales: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     tipo_enfermedad_mental: new FormControl('', []),
     convulsiones: new FormControl('', [Validators.required]),
-    observacion_convulsiones: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_convulsiones: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     alergias: new FormControl('', [Validators.required]),
-    observacion_alergias: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_alergias: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     tipo_alergia: new FormControl('', []),
     cancer: new FormControl('', [Validators.required]),
-    observacion_cancer: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_cancer: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     tipo_cancer: new FormControl('', []),
     hospitalarias_quirurgicas: new FormControl('', [Validators.required]),
     fecha_antecedente_hospitalario: new FormControl('', []),
@@ -360,23 +360,23 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     diagnostico: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     tiempo_hospitalizacion: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     traumaticos: new FormControl('', [Validators.required]),
-    observacion_traumaticos: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
-    otros: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
-    observacion_otros: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_traumaticos: new FormControl('', [Validators.maxLength(150), Validators.minLength(6)]),
+    otros: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
+    observacion_otros: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
   });
 
 
   formulario_habito_toxicologico_personal = new FormGroup({
     alcohol: new FormControl('', [Validators.required]),
-    observacion_alcohol: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_alcohol: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
     tabaquismo: new FormControl('', [Validators.required]),
-    observacion_tabaquismo: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_tabaquismo: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
     marihuana: new FormControl('', [Validators.required]),
-    observacion_marihuana: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_marihuana: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
     cocaina: new FormControl('', [Validators.required]),
-    observacion_cocaina: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_cocaina: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
     otros: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
-    observacion_otros: new FormControl('', [Validators.maxLength(60), Validators.minLength(6)]),
+    observacion_otros: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
   });
 
 
@@ -731,7 +731,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.fecha_citologia.setValidators(Validators.required);
       this.fecha_citologia.updateValueAndValidity();
 
-      this.resultado_citologia.setValidators([Validators.required, Validators.maxLength(150), Validators.minLength(4)])
+      this.resultado_citologia.setValidators([Validators.required, Validators.maxLength(150), Validators.minLength(6)])
       this.resultado_citologia.updateValueAndValidity();
 
     } else {
@@ -767,13 +767,13 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       this.fecha_antecedente_hospitalario.setValidators(Validators.required);
       this.fecha_antecedente_hospitalario.updateValueAndValidity();
 
-      this.tiempo_hospitalizacion.setValidators([Validators.required, Validators.maxLength(150), Validators.minLength(4)])
+      this.tiempo_hospitalizacion.setValidators([Validators.required, Validators.maxLength(60), Validators.minLength(4)])
       this.tiempo_hospitalizacion.updateValueAndValidity();
 
-      this.diagnostico.setValidators([Validators.required, Validators.maxLength(150), Validators.minLength(4)])
+      this.diagnostico.setValidators([Validators.required, Validators.maxLength(60), Validators.minLength(4)])
       this.diagnostico.updateValueAndValidity();
 
-      this.tratamiento.setValidators([Validators.required, Validators.maxLength(150), Validators.minLength(4)])
+      this.tratamiento.setValidators([Validators.required, Validators.maxLength(60), Validators.minLength(4)])
       this.tratamiento.updateValueAndValidity();
 
     } else {
@@ -1605,7 +1605,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si la tabla no tiene ningun valor entonces establezco como requerido
       // los campos tipo enfermedad mental y parentesco.
-      this.tipo_enfermedad_mental.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(4), Validators.required]),
+      this.tipo_enfermedad_mental.setValidators([Validators.pattern('[a-zA-Z]*'), Validators.maxLength(60), Validators.minLength(6), Validators.required]),
         this.tipo_enfermedad_mental.updateValueAndValidity();
 
       this.parentesco_enfermedades_mentales.setValidators(Validators.required);
