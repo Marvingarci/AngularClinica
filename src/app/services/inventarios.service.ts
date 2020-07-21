@@ -39,6 +39,11 @@ export class InventariosService {
     return this.httpClient.get(this.API_ENDPOINT+'/medicamentos');
   }
 
+  obtenerColumnaIdentidadAdmin(){
+    return this.httpClient.get(this.API_ENDPOINT+'/obtenerColumnaIdentidadAdmin');
+  }
+  
+
   obtenerFechasCitas(id_paci: number){
     return this.httpClient.get(this.API_ENDPOINT+'/citas_fechas/'+id_paci);
   }
