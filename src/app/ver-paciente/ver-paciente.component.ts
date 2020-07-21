@@ -3139,22 +3139,17 @@ export class VerPacienteComponent implements OnInit {
       this.carrera.setValidators(Validators.required)
       this.carrera.updateValueAndValidity()
 
-    
-      // this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]);
-      // this.numero_cuenta.updateValueAndValidity();
-      // this.carrera.setValidators([Validators.required, Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{5,30}$/), Validators.maxLength(30), Validators.minLength(5)]);
-      // this.carrera.updateValueAndValidity();
 
     } else {
 
       this.esAlumno = false
-      this.numero_cuenta.reset()
-      this.carrera.reset()
+      this.numero_cuenta.setValue("")
+      this.numero_cuenta.clearValidators();
+      this.numero_cuenta.updateValueAndValidity();
 
-      // this.numero_cuenta.clearValidators();
-      // this.numero_cuenta.updateValueAndValidity();
-      // this.carrera.clearValidators();
-      // this.carrera.updateValueAndValidity();
+      this.carrera.setValue("")
+      this.carrera.clearValidators()
+      this.carrera.updateValueAndValidity()
 
     }
   }
