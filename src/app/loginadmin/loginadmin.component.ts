@@ -10,6 +10,7 @@ import { LoginService } from '../services/login.service';
 import { Login } from '../interfaces/login';
 import { ThemeService } from 'ng2-charts';
 import { DialogoVerificarPermisoComponent } from '../dialogo-verificar-permiso/dialogo-verificar-permiso.component';
+import { IdentidadAdminUnicaDirective, IdentidadAdminUnicaService } from '../validations/identidadAdmin-unica.directive';
 
 
 export interface select {
@@ -32,14 +33,16 @@ export class LoginadminComponent implements OnInit {
   loginadmin_form = new FormGroup({
 
     usuario: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(4),Validators.maxLength(12),Validators.pattern('[0-9a-zA-Z]*')],
+      validators: [Validators.required, Validators.minLength(1),Validators.maxLength(12),Validators.pattern('[0-9a-zA-Z]*')],
       // asyncValidators: [this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService)]
     }),
 
     contraseniaNueva: new FormControl('', [Validators.minLength(6), Validators.maxLength(30)]),
     confirmarContrasenia: new FormControl('', [Validators.minLength(6), Validators.maxLength(30)]),
     nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(50),this.noWhitespaceValidator,Validators.pattern('[a-z A-Z]*')]),
-    identidad: new FormControl('', [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')]),
+    identidad: new FormControl('',{validators: [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')]
+    ,asyncValidators: [this.fechaUnicaService.validate.bind(this.fechaUnicaService)]}
+    ),
 
   });
 
@@ -70,7 +73,8 @@ export class LoginadminComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private router: Router, activar: AppComponent,
     private login_adminservice: LoginadminService, private mensaje: MatSnackBar,
     public dialogo: MatDialog,
-    private usuarioAdminUnicoService: UsuarioAdminUnicoService) {
+    private usuarioAdminUnicoService: UsuarioAdminUnicoService,
+    private fechaUnicaService: IdentidadAdminUnicaService) {
 
     this.id = this.activatedRoute.snapshot.params['id'];
 
