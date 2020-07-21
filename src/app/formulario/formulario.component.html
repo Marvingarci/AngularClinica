@@ -1,6 +1,6 @@
 <mat-horizontal-stepper linear #stepper (selectionChange)="onStepChange($event)">
 
-  <mat-step *ngIf="esAlumno==false" [stepControl]="formulario_datos_generales" label="Datos Generales" id="step1">
+  <mat-step [stepControl]="formulario_datos_generales" label="Datos Generales" id="step1">
     <form  [formGroup]="formulario_datos_generales">
 
       <div class="container1">
@@ -46,7 +46,7 @@
             </mat-form-field>
           </div>
           <!--Aqui va en agregado cuando es alumno desde adminitracion-->
-          <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;" *ngIf="esAlumnoAdmon == true">
+          <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;" *ngIf="esAlumno == true">
             <mat-form-field class="example-full-width" appearance="outline">
               <input matInput formControlName="numero_cuenta">
               <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint>
@@ -60,6 +60,17 @@
               </mat-error>
 
 
+            </mat-form-field>
+          </div>
+
+          <div class="col" *ngIf="esAlumno == true">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput formControlName="carrera" name="carrera">
+              <mat-label>
+                <b>Carrera</b>
+              </mat-label>
+              <mat-error *ngIf="carrera.hasError('required')">Campo requerido</mat-error>
+              <mat-error *ngIf="carrera.hasError('pattern')">Ingrese datos válidos</mat-error>
             </mat-form-field>
           </div>
           <!--Hasta qui agregado-->
@@ -80,7 +91,8 @@
 
             </mat-form-field>
           </div>
-          <div class="col">
+
+          <div class="col" *ngIf="formularioService.vieneDesdeLogin == false">
             <mat-form-field class="example-full-width" appearance="outline">
               <mat-label><b>Categoria paciente</b></mat-label>
               <mat-select formControlName="categoria" (selectionChange)="selectCategoria($event.value)">
@@ -278,303 +290,6 @@
 
     </form>
   </mat-step>
-
-
-
-
-
-
-
-
-  <!-- primer step -->
-
-  <mat-step *ngIf="esAlumno==true" [stepControl]="formulario_datos_generales" label="Datos Generales">
-
-    <form focusInvalidInput [formGroup]="formulario_datos_generales" (ngSubmit)="enviarcorreo()">
-      <div class="containerScroll">
-
-        <ng-template matStepLabel>Datos Generales</ng-template>
-
-
-
-
-        <div class="container">
-          <div class="row">
-
-            <div class="col" id="columna">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <input matInput formControlName="nombre_completo">
-                <mat-label>
-                  <b>Nombre completo</b>
-                </mat-label>
-                <mat-error *ngIf="nombre_completo.hasError('required')">Campo requerido</mat-error>
-                <mat-error *ngIf="nombre_completo.hasError('pattern')">Ingrese un nombre válido</mat-error>
-              </mat-form-field>              
-            </div>
-
-            <div class="col">
-            <mat-form-field class="example-full-width" appearance="outline">
-              <input type="email" matInput class="example-full-width" formControlName="correo_electronico">
-              <mat-label>
-                <b>Correo electrónico</b>
-              </mat-label>
-              <mat-error *ngIf="correo_electronico.hasError('required')">Campo requerido</mat-error>
-              <mat-error *ngIf="correo_electronico.hasError('pattern')">Ingrese un correo válido</mat-error>
-            </mat-form-field>
-            </div>
-
-
-          </div>
-
-          <div class="row" style=" padding-left: 0;margin-left: 0%;">
-            <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <input matInput formControlName="numero_cuenta">
-                <mat-hint align="end">{{numero_cuenta.value.length}} / 11</mat-hint>
-                <mat-label>
-                  <b>N° Cuenta</b>
-                </mat-label>
-                <mat-error *ngIf="numero_cuenta.hasError('required')">Campo requerido</mat-error>
-                <mat-error *ngIf="numero_cuenta.hasError('pattern')">Ingrese un número de cuenta válido</mat-error>
-
-
-              </mat-form-field>
-            </div>
-            <div class="col">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <input matInput formControlName="numero_identidad" maxlength="13">
-                <mat-hint align="end">{{numero_identidad.value.length}} / 13</mat-hint>
-                <mat-label>
-                  <b>N° Identidad</b>
-                </mat-label>
-                <mat-error *ngIf="numero_identidad.hasError('required')">campo requerido</mat-error>
-                <mat-error *ngIf="numero_identidad.hasError('pattern')">ingrese un numero de indentidad valido
-                </mat-error>
-
-              </mat-form-field>
-            </div>
-          </div>
-
-          <div class="row" style=" padding-left: 0;margin-left: 0%;">
-            <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
-
-              <mat-form-field class="example-full-width" appearance="outline">
-                <input matInput formControlName="lugar_procedencia" name="lugar_procedencia" class="rojo"
-                  matTooltip="Escriba su lugar de nacimiento" matTooltipPosition="right" id="lugar_procedencia">
-                <mat-label>
-                  <b>Lugar de procedencia</b>
-                </mat-label>
-                <mat-error *ngIf="lugar_procedencia.hasError('required')">Campo requerido</mat-error>
-                <mat-error *ngIf="lugar_procedencia.hasError('pattern')">Ingrese datos válidos</mat-error>
-                <mat-error *ngIf="lugar_procedencia.hasError('whitespace')">No se permiten espacios en blanco</mat-error>
-                <!-- <mat-error *ngIf="checarSiSonIguales()">Las contraseñas no coinciden</mat-error> -->
-
-              </mat-form-field>
-            </div>
-            <div class="col">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <input matInput formControlName="carrera" name="carrera">
-                <mat-label>
-                  <b>Carrera</b>
-                </mat-label>
-                <mat-error *ngIf="carrera.hasError('required')">Campo requerido</mat-error>
-                <mat-error *ngIf="carrera.hasError('pattern')">Ingrese datos válidos</mat-error>
-
-
-              </mat-form-field>
-            </div>
-          </div>
-
-          <div class="row" style=" padding-left: 0;margin-left: 0%;">
-            <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <input matInput formControlName="direccion" name="direccion"
-                  matTooltip="Detalle con exactitud en lugar de su vivienda" matTooltipPosition="right">
-                <mat-label>
-                  <b>Dirección exacta</b>
-                </mat-label>
-                <mat-error *ngIf="direccion.hasError('required')">Campo requerido</mat-error>
-                <mat-error *ngIf="direccion.hasError('maxlength')">Campo muy extenso</mat-error>
-                <mat-error *ngIf="direccion.hasError('minlength')">Sea específico</mat-error>
-                <mat-error *ngIf="direccion.hasError('whitespace')">No se permiten espacios en blanco</mat-error>
-
-
-              </mat-form-field>
-            </div>
-            <div class="col">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1"
-                  formControlName="fecha_nacimiento" placeholder="Fecha Nacimiento" readonly="readonly">
-                <mat-label>
-                  <b>Fecha nacimiento</b>
-                </mat-label>
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
-                <mat-error *ngIf="fecha_nacimiento.hasError('required')">Campo requerido</mat-error>
-
-              </mat-form-field>
-            </div>
-          </div>
-
-
-
-          <div class="row" style=" padding-left: 0;margin-left: 0%;">
-            <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label><b>Sexo</b></mat-label>
-                <mat-select formControlName="sexo" id="select" (selectionChange)="selectSexo($event.value)">
-                  <mat-option value="Hombre">Hombre</mat-option>
-                  <mat-option value="Mujer">Mujer</mat-option>
-
-                </mat-select>
-                <mat-error *ngIf="sexo.hasError('required')">campo requerido</mat-error>
-
-              </mat-form-field>
-            </div>
-
-
-            <div class="col">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label><b>Seguro médico</b></mat-label>
-                <mat-select formControlName="seguro_medico" name="seguro_medico">
-                  <mat-option *ngFor="let seguro_medico of seguros_medicos" [value]="seguro_medico.value">
-                    {{seguro_medico.viewValue}}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="seguro_medico.hasError('required')">Campo requerido</mat-error>
-
-              </mat-form-field>
-            </div>
-
-            <div class="col">
-              <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label><b>Estado civil</b></mat-label>
-                <mat-select formControlName="estado_civil">
-                  <mat-option *ngFor="let estado_civil of estados_civiles" [value]="estado_civil.value">
-                    {{estado_civil.viewValue}}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="estado_civil.hasError('required')">Campo requerido</mat-error>
-
-              </mat-form-field>
-            </div>
-          </div>
-
-          <div class="row" style=" padding-left: 0;margin-left: 0%;">
-            <div class="col" style="padding-right:0; padding-left:0;margin-left: 0%;">
-
-              <mat-form-field class="example-full-width" appearance="outline">
-                <input matInput matInput formControlName="numero_telefono" name="numero_telefono" maxlength="8"
-                  appearance="outline">
-                <mat-hint align="end">{{numero_telefono.value.length}} / 8</mat-hint>
-                <mat-label>
-                  <b>N° Teléfono</b>
-                </mat-label>
-                <mat-error *ngIf="numero_telefono.hasError('required')">Campo requerido</mat-error>
-                <mat-error *ngIf="numero_telefono.hasError('telefonoUnico')">El numero pertenece a otra persona
-                </mat-error>
-                <mat-error *ngIf="numero_telefono.hasError('pattern')">Introduzca un número de teléfono válido!
-                </mat-error>
-              </mat-form-field>
-            </div>
-
-            <div class="col">
-
-              <mat-card>
-                <div class="row">
-                  <div class="col">
-                    <mat-form-field appearance="outline">
-                      <input matInput formControlName="emergencia_persona" name="emergencia_persona" matTooltip="Escriba el nombre de una persona a la cual se puede 
-                      acudir en caso de que usted este en una emergencia" matTooltipPosition="right">
-                      <mat-label>
-                        <b>En caso de emergencia llamar a</b>
-                      </mat-label>
-                      <mat-error *ngIf="emergencia_persona.hasError('required')">Campo requerido</mat-error>
-                      <mat-error *ngIf="emergencia_persona.hasError('pattern')">
-                        Introduzca un nombre válido
-                      </mat-error>
-                    </mat-form-field>
-
-                    &nbsp; &nbsp; &nbsp; &nbsp;
-
-                    <mat-form-field appearance="outline">
-                      <input matInput formControlName="emergencia_telefono" maxlength="8">
-                      <mat-hint align="end">{{emergencia_telefono.value.length}} / 8</mat-hint>
-                      <mat-label>
-                        <b>Teléfono de emergencia</b>
-                      </mat-label>
-                      <mat-error *ngIf="emergencia_telefono.hasError('required')">Campo requerido</mat-error>
-                      <mat-error *ngIf="emergencia_telefono.hasError('pattern')">
-                        Introduzca un número de teléfono válido
-                      </mat-error>
-
-                    </mat-form-field>
-
-
-                    &nbsp; &nbsp; &nbsp;
-
-                    <button mat-raised-button (click)="AgregarTelefonosEmergencia();">agregar</button>
-
-                  </div>
-                </div>
-
-                <div class="row" style="margin-left: 0;">
-                  <table mat-table [dataSource]="dataSourceTablaTelefonosEmergencia" class="mat-elevation-z8 tabla"
-                    *ngIf="dataSourceTablaTelefonosEmergencia != null">
-
-
-
-                    <ng-container matColumnDef="numero">
-                      <th mat-header-cell *matHeaderCellDef> # </th>
-                      <a>eliminar</a>
-                      <td mat-cell *matCellDef="let element; index as i;"> {{i + 1}} </td>
-                      <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="nombre">
-                      <th mat-header-cell *matHeaderCellDef> Persona </th>
-                      <td mat-cell *matCellDef="let element"> {{element.emergencia_persona}} </td>
-                      <td mat-footer-cell *matFooterCellDef></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="telefono">
-                      <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-                      <td mat-cell *matCellDef="let element"> {{element.telefono_emergencia}} </td>
-                      <td mat-footer-cell *matFooterCellDef></td>
-
-                    </ng-container>
-
-                    <ng-container matColumnDef="botones">
-                      <th mat-header-cell *matHeaderCellDef></th>
-                      <td mat-cell *matCellDef="let element; index as i;">
-                        <button mat-icon-button class="botonesTabla" (click)="eliminarTelefonosEmergencia(i)">
-                          <mat-icon>delete</mat-icon>
-                        </button>
-                      </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="columnasTablaTelefonosEmergencia"></tr>
-                    <tr mat-row *matRowDef="let row; columns: columnasTablaTelefonosEmergencia;"></tr>
-                  </table>
-
-
-                </div>
-              </mat-card>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="botonesstep">
-        <button type="submit" mat-raised-button matStepperNext class="btn btn-outline-primary float-right botonperron"
-          (ngSubmit)="AgregarTelefonosEmergencia();">Siguiente</button>
-      </div>
-    </form>
-  </mat-step>
-
-
-
 
 
 
