@@ -70,6 +70,8 @@
           <mat-error *ngIf="identidad.hasError('minlength') "><strong>Escriba correctamente el número de identidad</strong></mat-error>
           <mat-error *ngIf="identidad.hasError('maxlength')"><strong>Escriba correctamente el número de identidad</strong></mat-error>
           <mat-error *ngIf="identidad.hasError('pattern')"><strong>Sólo se permiten números</strong></mat-error> 
+          <mat-error *ngIf="identidad.hasError('identidadAdminUnica')"><strong>Esta Identidad ya esta en uso</strong></mat-error> 
+
         </mat-form-field>
 
 
