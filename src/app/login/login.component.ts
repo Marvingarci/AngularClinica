@@ -208,6 +208,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             //entonces el usuario sera redirigido a datoPaciente sino sera redirigido a principal.
             if (data.rol == 'Paciente') {
 
+              this.formularioService.vieneDesdeLogin = true
               this.formularioService.esAlumno = true
               this.router.navigate(['/datoPaciente/' + data.id]);
               this.showError('Bienvenido');
