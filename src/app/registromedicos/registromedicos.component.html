@@ -44,7 +44,7 @@
             [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
-          <mat-error *ngIf="contraseniaC.hasError('required')"><strong>Confirme la contraseña</strong> </mat-error>  <mat-error *ngIf="contraseniaNueva.hasError('required')"><strong>Ingrese la contraseña</strong></mat-error>
+          <mat-error *ngIf="contraseniaC.hasError('required')"><strong>Confirme la contraseña</strong> </mat-error>  
           <mat-error *ngIf="contraseniaC.hasError('minlength') "><strong>Contraseña muy corta</strong> </mat-error>
           <mat-error *ngIf="contraseniaC.hasError('maxlength') "><strong>Contraseña muy extensa</strong></mat-error>
            <mat-error *ngIf="contraseniaC.hasError('pattern') "><strong>No se permiten espacios en blanco</strong></mat-error>  
