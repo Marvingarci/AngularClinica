@@ -1288,12 +1288,10 @@
           </textarea>
             <mat-label>
               <b>Añada una observación en caso de ser necesario</b>
-            </mat-label>
-
+            </mat-label>             
             <mat-error style="margin-inline-start: 5px;" *ngIf="observacion_diabetes_ap.hasError('maxlength')">
               Campo muy extenso
             </mat-error>
-
             <mat-error style="margin-inline-start: 5px;" *ngIf="observacion_diabetes_ap.hasError('minlength')">
               Introduzca una observación válida
             </mat-error>
@@ -1388,10 +1386,7 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_desnutricion_ap.hasError('required')">
                 Campo requerido
               </mat-error>
-              <mat-error *ngIf="tipo_desnutricion_ap.hasError('maxlength = 13')">Campo muy extensomaxlength="13"maxlength="13"</mat-error>
-              <mat-error *ngIf="tipo_desnutricion_ap.hasError('pattern')">
-                Introduzca datos válido
-              </mat-error>
+              <mat-error *ngIf="tipo_desnutricion_ap.hasError('maxlength(25)')">Campo muy extenso"</mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1408,6 +1403,7 @@
               <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">Campo muy extenso</mat-error>
               <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">Introduzca una observación válida
               </mat-error>
+              <mat-error *ngIf="observacion_desnutricion_ap.hasError('pattern')"></mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1493,7 +1489,8 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_enfermedad_mental_ap.hasError('required')">
                 Campo requerido
               </mat-error>
-              <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('maxlength = 20')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('pattern')"></mat-error>
+              <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('maxlength(20)')">Campo muy extenso</mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1508,6 +1505,7 @@
               <mat-label>
                 <b>Añada una observación en caso de ser necesario</b>
               </mat-label>
+              <mat-error *ngIf="observacion_desnutricion_ap.hasError('pattern')"></mat-error>
               <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">Campo muy extenso</mat-error>
               <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">Introduzca una observación válida
               </mat-error>
@@ -1623,7 +1621,7 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_alergia_ap.hasError('required')">
                 Campo requerido
               </mat-error>
-              <mat-error *ngIf="tipo_alergia_ap.hasError('maxlength = 20')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="tipo_alergia_ap.hasError('maxlength(20)')">Campo muy extenso</mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1721,7 +1719,7 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_cancer_ap.hasError('required')">
                 Campo requerido
               </mat-error>
-              <mat-error *ngIf="tipo_cancer_ap.hasError('maxlength = 20')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="tipo_cancer_ap.hasError('maxlength(20)')">Campo muy extenso</mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1835,8 +1833,8 @@
                 <mat-label>
                   <b>Tiempo hospitalización</b>
                 </mat-label>
-                <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength')">Campo muy extenso</mat-error>
-                <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength')">Introduzca una observación válida
+                <mat-error *ngIf="tiempo_hospitalizacion.hasError('maxlength(60)')">Campo muy extenso</mat-error>
+                <mat-error *ngIf="tiempo_hospitalizacion.hasError('minlength(6)')">Introduzca una observación válida
                 </mat-error>
                 <mat-datepicker #picker2></mat-datepicker>
                 <mat-error style="margin-left: 0;" *ngIf="tiempo_hospitalizacion.hasError('required')">
