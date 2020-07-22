@@ -174,10 +174,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
             if(data.codigoError == 1){
               
-              // this.cuenta.setValue("")
               this.cuenta.reset()
               this.ControlClave.reset()
-              // this.ControlClave.setValue("")
               this.showError("Datos incorrectos")
               this.loading = false
 
