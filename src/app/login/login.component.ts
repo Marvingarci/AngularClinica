@@ -172,10 +172,25 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
           this.loginService.ingresarFormulario(this.login).subscribe((data: any)=>{
 
-            this.loginService.datosUsuario = data;
-            console.log(this.loginService.datosUsuario)
-            this.showError('Llene el siguiente formulario');
-            this.router.navigate(['/formulario']);
+            if(data.codigoError == 1){
+              
+              // this.cuenta.setValue("")
+              this.cuenta.reset()
+              this.ControlClave.reset()
+              // this.ControlClave.setValue("")
+              this.showError("Datos incorrectos")
+              this.loading = false
+
+            }else{
+
+              this.loginService.datosUsuario = data;
+              console.log(this.loginService.datosUsuario)
+              this.showError('Llene el siguiente formulario');
+              this.router.navigate(['/formulario']);
+
+            }
+
+           
 
 
           },(error)=>{
