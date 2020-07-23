@@ -22,7 +22,7 @@ padding: 20px;">
             <mat-icon>mail</mat-icon>&nbsp; <b>Correo electrónico de recuperación</b>
           </mat-label>
           <mat-error *ngIf="correo.hasError('required')">correo requerido</mat-error>
-          <!-- <mat-error *ngIf="cuenta.hasError('pattern')">ingrese un numero de cuenta valido</mat-error> -->
+          <mat-error *ngIf="correo.hasError('pattern')">ingrese un correo válido</mat-error>
         </mat-form-field>
       </div>
 
