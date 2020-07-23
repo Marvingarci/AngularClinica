@@ -281,7 +281,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   formulario_datos_generales = new FormGroup({
     nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,50}$/)]),
-    correo_electronico: new FormControl('', [Validators.required]),
+    correo_electronico: new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
 
     numero_cuenta: new FormControl(''),
     // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
@@ -307,6 +307,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
     emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
   });
+
+
 
 
   formulario_antecedentes_familiares = new FormGroup({
