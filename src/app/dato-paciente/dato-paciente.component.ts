@@ -830,8 +830,15 @@ export class actualizarcontraDialog {
     private formularioService: FormularioService, private activatedRoute: ActivatedRoute,
     public loginService: LoginService, private router: Router,
     private mensaje: MatSnackBar, public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
 
+
+    if(data != null){
+
+      this.formularioService.idPaciente = data.id_paciente
+
+    }
 
     this.formularioService.obtenerPaciente(this.formularioService.idPaciente).subscribe((data: any) => {
 
@@ -903,9 +910,19 @@ export class actualizarcontraDialog {
 
 
           this.showError('Cambio de contraseña exitoso');
-          this.dialogRef.close();
+          
+
+          setTimeout(() => {
+            
+            this.dialogRef.close();
+            window.close();
+
+          }, 0);
+    
+          
 
         }, (error) => {
+
           console.log(error);
           this.showError('Existe un error');
           this.router.navigate(['datoPaciente/' + this.pacienteActualizar.id_paciente]);
