@@ -307,7 +307,7 @@ export class DatoPacienteComponent implements OnInit {
 
     const dialogRef = this.dialog.open(verificarDialog,
       {
-        disableClose: false, closeOnNavigation: true, panelClass: 'cambiarcontrasenia'
+        disableClose: false, closeOnNavigation: true, width:'500px'
       });
 
   }
@@ -714,7 +714,7 @@ export class verificarDialog {
       if (data.codigoError == 0) {
 
         const dialogRef = this.dialog.open(actualizarcontraDialog,
-          { disableClose: false, panelClass: 'cambiarcontrasenia' });
+          { disableClose: false,width: "500px"});
         this.dialogRef.close();
 
       } else {
@@ -952,6 +952,19 @@ export class actualizarcontraDialog {
     this.hide1 = true;
     this.cambiarClave();
 
+  }
+
+  cancelarCambio(){
+    if (!this.nuevaContraCambio.value || !this.nuevaContraRepCambio.value  ) {        
+
+        setTimeout(() => {
+          
+          this.dialogRef.close();
+          window.close();
+
+        }, 1);
+      }
+ 
   }
 
   get nuevaContraCambio() { return this.CambioContrasenia.get('nuevaContraCambio') };
