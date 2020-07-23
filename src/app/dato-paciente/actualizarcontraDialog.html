@@ -1,12 +1,24 @@
+<span style=" display: block;
+font-family: Poppins-Regular,sans-serif;
+font-size: 30px;
+color: #333;
+line-height: 1.2;
+text-align: center;
+padding: 20px;">
+    <strong>Cambio de contraseña</strong>
+  </span>
 
-  <h2 mat-dialog-title disableClose >Cambio de contraseña</h2>
-  <mat-dialog-content class="mat-typography">
-    <p>Actualiza tu contraseña </p>
-    <p>Usa caracteres y números para hacer tu contraseña más confiable.</p>
+
+
+    <p>Una contraseña segura contribuye a evitar el acceso no autorizado a tu cuenta </p>
 
     <form [formGroup]="CambioContrasenia">
   
-            <mat-form-field class="example-full-width" style="margin-top: 5px;" >                
+      <div>
+            <mat-form-field style="width: 100%;" appearance="outline">    
+              <mat-label>
+                <b>Contraseña</b>
+              </mat-label>            
                 <input matInput  (keydown)="onKeydown($event)" 
                 placeholder="Ingresa tu nueva contraseña" [type]="hide1 ? 'text' : 'password'"
                 formControlName="nuevaContraCambio">
@@ -19,7 +31,10 @@
               </mat-form-field>
   
       <br>
-              <mat-form-field class="example-full-width">                
+              <mat-form-field style="width: 100%;" appearance="outline">  
+                <mat-label>
+                   <b>Confirmación</b>
+                </mat-label>              
                   <input matInput (keydown)="onKeydown($event)" 
                   placeholder="Verifica tu contraseña" [type]="hide ? 'password' : 'text'"
                   formControlName="nuevaContraRepCambio">
@@ -30,12 +45,18 @@
                   <mat-error *ngIf="nuevaContraRepCambio.hasError('maxLength') ">contraseña muy extensa</mat-error>
                   <mat-error *ngIf="nuevaContraRepCambio.hasError('minLength') ">contraseña muy corta</mat-error>
                 </mat-form-field>
-  
-      </form>
-      
-  </mat-dialog-content>
 
-  <mat-dialog-actions align='end'>
-    <button mat-button (click)="guardarCambio()" class="botonperron" style="bottom: 0px;right: 0px;outline:none;  display:block;" >Guardar</button>&nbsp;&nbsp;
-    <button  mat-button mat-dialog-close class="botonperron" style="outline:none; display:block;">Cancelar</button>
-  </mat-dialog-actions>    
+      </div>
+  
+  
+  
+              <div style="position: inherit; bottom: 10px;right: 15px;" >
+              <button mat-raised-button (click)="guardarCambio()" class="btn btn-outline-primary float-right botonperron">Guardar</button>
+              <button  mat-raised-button (click)="cancelarCambio()" class="btn btn-outline-primary float-right botonperron" style="margin-right: 10px;">Cancelar</button>
+              </div>
+      </form>
+
+
+
+  
+ 
