@@ -18,14 +18,6 @@ export class RecuperarContraseniaComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.params['id'];
 
 
-    // const dialogRef = this.dialog.open(cambiocontraDialog, {
-    //   disableClose: true,
-      // data: {
-      //   "cuenta": cuenta,
-      // },
-    //   panelClass: 'custom-dialog-container',
-    // });
-
     const dialogRef = this.dialog.open(actualizarcontraDialog,
       { disableClose: false, 
 
