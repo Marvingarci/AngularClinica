@@ -1,10 +1,21 @@
-<h2 mat-dialog-title disableClose >Cambio de contraseña</h2>
-  <mat-dialog-content class="mat-typography">
-    <p>Para continuar, primero debes de verificar que eres tú</p>
+<span style=" display: block;
+font-family: Poppins-Regular,sans-serif;
+font-size: 30px;
+color: #333;
+line-height: 1.2;
+text-align: center;
+padding: 20px;">
+    <strong>Cambio de contraseña</strong>
+  </span>
+ 
+    <p>Para continuar, primero debes verificar que eres tú</p>
+
+
+
 
     <form [formGroup]="CambioContrasenia">
-  
-        <mat-form-field class="example-full-width" style="margin-top: 5px;" >                
+      <div>
+        <mat-form-field style="width: 100%;" appearance="outline">                
             <input matInput  (keydown)="onKeydown($event)" 
             placeholder="Ingresa tu contraseña" [type]="hide1 ? 'text' : 'password'"
             formControlName="viejacontra">
@@ -14,20 +25,12 @@
             <mat-error *ngIf="viejacontra.hasError('maxLength') ">contraseña muy extensa</mat-error>
             <mat-error *ngIf="viejacontra.hasError('minLength') ">contraseña muy corta</mat-error>
           </mat-form-field>
+          </div>
+
+          <div style="position: inherit; bottom: 10px;right: 15px;">
+            <button mat-raised-button (click)="pasarotrodialogo()" class="btn btn-outline-primary float-right botonperron">
+                Verificar</button>
+        </div>
 
   </form>
   
-
-
-
-
-
-
-
-
-      
-  </mat-dialog-content>
-
-  <mat-dialog-actions align='end' style="margin-top: 85px;">
-    <button mat-button  (click)="pasarotrodialogo()" class="botonperron" style="bottom: 0px;right: 0px; outline:none;display:block;" >Siguiente</button>&nbsp;&nbsp;
-  </mat-dialog-actions>    
