@@ -308,7 +308,7 @@ export class Loginayuda {
 export class DialogoRecuperarContrasenia {
 
   form_correo = new FormGroup({
-    correo: new FormControl('', [Validators.required]),
+    correo: new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
   });
   correoE: any;
 
@@ -349,8 +349,8 @@ export class DialogoRecuperarContrasenia {
             this.showError('Te hemos enviado un correo');
 
           }, (error) => {
-
             console.log(error)
+            this.showError('Este correo no está registrado');
 
           })
 
