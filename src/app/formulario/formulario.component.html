@@ -1103,6 +1103,9 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_desnutricion_ap.hasError('required')">
                 Campo requerido
               </mat-error>
+              <mat-error *ngIf="tipo_desnutricion_ap.hasError('maxlength')">Campo muy extenso</mat-error>
+            <mat-error *ngIf="tipo_desnutricion_ap.hasError('minlength')">Introduzca una observación válida
+            </mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1136,23 +1139,23 @@
 
             <!-- Position Column -->
             <ng-container matColumnDef="numero">
-              <th mat-header-cell *matHeaderCellDef> # </th>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 10px;padding-right: 5px;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="observacion">
-              <th mat-header-cell *matHeaderCellDef> Observación </th>
-              <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Observación </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.observacion}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
@@ -1204,6 +1207,9 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_enfermedad_mental_ap.hasError('required')">
                 Campo requerido
               </mat-error>
+              <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('maxlength')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('minlength')">Introduzca una observación válida
+              </mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1218,8 +1224,8 @@
               <mat-label>
                 <b>Añada una observación en caso de ser necesario</b>
               </mat-label>
-              <mat-error *ngIf="observacion_desnutricion_ap.hasError('maxlength')">Campo muy extenso</mat-error>
-              <mat-error *ngIf="observacion_desnutricion_ap.hasError('minlength')">Introduzca una observación válida
+              <mat-error *ngIf="observacion_enfermedades_mentales.hasError('maxlength')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="observacion_enfermedades_mentales.hasError('minlength')">Introduzca una observación válida
               </mat-error>
             </mat-form-field>
 
@@ -1237,21 +1243,21 @@
             *ngIf="dataSourceTablaEnfermedadesMentalesAP != null">
 
             <ng-container matColumnDef="numero">
-              <th mat-header-cell *matHeaderCellDef> # </th>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 10px;padding-right: 5px;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="observacion">
-              <th mat-header-cell *matHeaderCellDef> Observación </th>
-              <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Observación </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.observacion}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
@@ -1333,6 +1339,9 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_alergia_ap.hasError('required')">
                 Campo requerido
               </mat-error>
+              <mat-error *ngIf="tipo_alergia_ap.hasError('maxlength')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="tipo_alergia_ap.hasError('minlength')">Introduzca una observación válida
+              </mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1364,21 +1373,21 @@
             *ngIf="dataSourceTablaAlergiasAP != null">
 
             <ng-container matColumnDef="numero">
-              <th mat-header-cell *matHeaderCellDef> # </th>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 10px;padding-right: 5px;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="observacion">
-              <th mat-header-cell *matHeaderCellDef> Observación </th>
-              <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Observación </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.observacion}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
@@ -1430,6 +1439,9 @@
               <mat-error style="margin-left: 0;" *ngIf="tipo_cancer_ap.hasError('required')">
                 Campo requerido
               </mat-error>
+              <mat-error *ngIf="tipo_cancer_ap.hasError('maxlength')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="tipo_cancer_ap.hasError('minlength')">Introduzca una observación válida
+              </mat-error>
             </mat-form-field>
 
             &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1461,21 +1473,21 @@
             *ngIf="dataSourceTablaCanceresAP != null">
 
             <ng-container matColumnDef="numero">
-              <th mat-header-cell *matHeaderCellDef> # </th>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> # </th>
               <a>eliminar</a>
-              <td mat-cell *matCellDef="let element; index as i;"> {{i+1}} </td>
+              <td mat-cell *matCellDef="let element; index as i;" style="padding-left: 10px;padding-right: 5px;"> {{i+1}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef> Tipo </th>
-              <td mat-cell *matCellDef="let element"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="observacion">
-              <th mat-header-cell *matHeaderCellDef> Observación </th>
-              <td mat-cell *matCellDef="let element"> {{element.observacion}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Observación </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.observacion}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
 
             </ng-container>
