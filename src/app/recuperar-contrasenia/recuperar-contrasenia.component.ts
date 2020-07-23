@@ -13,13 +13,27 @@ export class RecuperarContraseniaComponent implements OnInit {
 
   id: any;
 
-  constructor( private activatedRoute: ActivatedRoute, public dialog: MatDialogRef<actualizarcontraDialog>) {
+  constructor( private activatedRoute: ActivatedRoute, public dialog: MatDialog) {
 
     this.id = this.activatedRoute.snapshot.params['id'];
 
 
-    // const dialogRef = this.dialog.open(actualizarcontraDialog,
-    //   { disableClose: false, panelClass: 'cambiarcontrasenia' });
+    // const dialogRef = this.dialog.open(cambiocontraDialog, {
+    //   disableClose: true,
+      // data: {
+      //   "cuenta": cuenta,
+      // },
+    //   panelClass: 'custom-dialog-container',
+    // });
+
+    const dialogRef = this.dialog.open(actualizarcontraDialog,
+      { disableClose: false, 
+
+        data: {
+          "id_paciente": this.id,
+        },
+
+        panelClass: 'cambiarcontrasenia' });
     
    }
 
