@@ -201,24 +201,21 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     if (valor == 3) {
 
       this.esAlumno = true
+
       this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)])
+      this.numero_cuenta.setAsyncValidators(this.CuentaUnicaService.validate.bind(this.CuentaUnicaService))
       this.numero_cuenta.updateValueAndValidity()
       this.carrera.setValidators(Validators.required)
       this.carrera.updateValueAndValidity()
 
-      // this.esAlumnoAdmon = true;
-      // this.numero_cuenta.setValue("");
-      // this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)]);
-      // this.numero_cuenta.updateValueAndValidity();
 
     } else {
 
       this.esAlumno = false
-      // this.numero_cuenta.reset()
-      // this.carrera.reset()
 
       this.numero_cuenta.setValue("")
-      this.numero_cuenta.clearValidators();
+      this.numero_cuenta.clearValidators()
+      this.numero_cuenta.clearAsyncValidators()
       this.numero_cuenta.updateValueAndValidity();
 
       this.carrera.setValue("")
@@ -1158,7 +1155,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     private authSvc: AuthService,
     private mensaje: MatSnackBar) {
 
-  
+
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 100, 0, 1);
@@ -1301,16 +1298,17 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     this.obtenerDatosFormulario();
 
-    if(this.esAlumno){
+    if (this.esAlumno) {
 
-      this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/),this.CuentaUnicaService.validate.bind(this.CuentaUnicaService)])
+      this.numero_cuenta.setValidators([Validators.required, Validators.pattern(/^[2][0-9]{10}$/)])
+      this.numero_cuenta.setAsyncValidators(this.CuentaUnicaService.validate.bind(this.CuentaUnicaService))
       this.numero_cuenta.updateValueAndValidity()
 
       this.carrera.setValidators(Validators.required)
       this.carrera.updateValueAndValidity()
 
     }
-    
+
   }
 
   showError(message: string) {
@@ -1408,7 +1406,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       //establesco el valor a los formcontrol recuperados del scrapping
       // para que se visualizen en los respectivos inputs
 
-      if(this.loginService.datosUsuario != null){
+      if (this.loginService.datosUsuario != null) {
 
         this.nombre_completo.setValue(this.loginService.datosUsuario.nombre);
         this.numero_cuenta.setValue(this.loginService.datosUsuario.cuenta);
@@ -1417,10 +1415,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
         this.categoria.setValue(3);
 
       }
-     
+
     }
 
-  
+
   }
 
 
@@ -2262,7 +2260,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
   enviarDatos() {
-    this.loading = true;
+    // this.loading = true;
 
 
     this.antecedentesF = [
@@ -2402,13 +2400,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       // introduzco el nombre estableciendo cada primer letra en mayuscula.
       this.paciente.nombre_completo = this.nombre_completo.value.replace(/\b\w/g, l => l.toUpperCase());
       this.paciente.correo_electronico = this.correo_electronico.value;
+      this.paciente.numero_cuenta = this.numero_cuenta.value;
 
-      if (this.esAlumno == true) {
-        this.paciente.numero_cuenta = this.numero_cuenta.value;
+      if (this.formularioService.vieneDesdeLogin == true) {
+
         this.paciente.imagen = this.loginService.datosUsuario.imagen;
+
       } else {
-        this.paciente.numero_cuenta = null;
+
         this.paciente.imagen = null;
+
       }
 
       this.paciente.numero_identidad = this.numero_identidad.value;
@@ -2479,18 +2480,18 @@ export class FormularioComponent implements OnInit, AfterViewInit {
           this.enviarAntecedentesGinecologicos()
 
 
-          if (this.esAlumno == true) {
+          if (this.formularioService.vieneDesdeLogin == true) {
 
 
             this.router.navigate(['datoPaciente/' + this.formularioService.idPaciente]);
-      
-      
+
+
           } else {
-      
+
             this.router.navigate(['clínicaunahtec/verPaciente/' + this.formularioService.idPaciente]);
             this.showError('Contraseña Guardada');
-      
-      
+
+
           }
 
 
@@ -2512,84 +2513,9 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     }
 
-    // } else {
+    // this.loading = false
 
-    //   if (this.formulario_datos_generales.valid) {
-
-    //     // guardar datos del formulario en paciente y enviarlo a la api
-    //     this.paciente.id_paciente = this.datosScraping.id_login;
-    //     this.paciente.nombre_completo = this.nombre_completo.value;
-    //     this.paciente.correo_electronico = this.correo_electronico.value;
-    //     if (this.esAlumnoAdmon == true) {
-    //       this.paciente.numero_cuenta = this.numero_cuenta.value;
-    //     } else {
-    //       this.paciente.numero_cuenta = null;
-    //     }
-
-    //     this.paciente.numero_identidad = this.numero_identidad.value;
-    //     this.paciente.lugar_procedencia = this.lugar_procedencia.value;
-    //     this.paciente.direccion = this.direccion.value;
-    //     this.paciente.carrera = this.carrera.value;
-    //     this.paciente.fecha_nacimiento = this.fecha_nacimiento.value;
-    //     this.paciente.sexo = this.sexo.value;
-    //     this.paciente.estado_civil = this.estado_civil.value;
-    //     this.paciente.seguro_medico = this.seguro_medico.value;
-    //     this.paciente.telefono = this.numero_telefono.value;
-    //     this.paciente.categoria = this.categoria.value;
-
-
-    //     this.formularioService.guardarDatosGenerales(this.paciente).subscribe((data) => {
-
-
-    //       var telefono_paciente: any = {
-    //         'id_paciente': this.paciente.id_paciente,
-    //         'telefono': this.paciente.telefono
-    //       }
-
-    //       this.formularioService.enviarTelefonoPaciente(telefono_paciente).subscribe((result) => {
-
-
-    //       }, (error) => {
-
-    //         console.log(error);
-
-    //       });
-
-    //       // this.obtener();
-
-    //     }, (error) => {
-
-    //       console.log(error);
-
-    //       this.error = true;
-
-
-    //     });
-
-    //     if (this.tablaTelefonosEmergencia.length) {
-
-    //       this.tablaTelefonosEmergencia.forEach(telefono_emergencia => {
-
-    //         this.telefono_emergencia.id_paciente = this.paciente.id_paciente;
-    //         this.telefono_emergencia.emergencia_persona = telefono_emergencia.emergencia_persona;
-    //         this.telefono_emergencia.telefono_emergencia = telefono_emergencia.telefono_emergencia;
-
-    //         this.formularioService.enviarTelefonoEmergencia(this.telefono_emergencia).subscribe((data) => {
-
-    //         }, (error) => {
-
-    //           console.log(error);
-
-    //         });
-    //       });
-    //     }
-
-    //   }
-    // }
-
-
-
-  };
+  }
 
   enviarAntecedentesFamiliares() {
 
@@ -3419,38 +3345,45 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     this.authSvc.register(correo, contrasenia);
   }
 
-  
+
 
   openDialog() {
 
+    console.log("Es alumno: "+ this.esAlumno)
+    //variable donde se va almacenar la cuenta con la que el paciente se va a loguear
+    var cuenta
+
     if(this.esAlumno == true){
 
-      const dialogRef = this.dialog.open(cambiocontraDialog, {
-        disableClose: true,
-        data: {
-          "numero_cuenta": this.numero_cuenta.value,
-        },
-        panelClass: 'custom-dialog-container',
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-  
-        if (result == true) {
-  
-          this.enviarDatos()
-  
-  
-        }
-  
-      })
+      cuenta = this.numero_cuenta.value
 
-    } else{
+    }else{
 
-      this.enviarDatos()
+      cuenta = this.numero_identidad.value
 
     }
 
-    
+
+    const dialogRef = this.dialog.open(cambiocontraDialog, {
+      disableClose: true,
+      data: {
+        "cuenta": cuenta,
+      },
+      panelClass: 'custom-dialog-container',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result == true) {
+
+        // si el usuario cambio su cuenta de manera satisfactoria entonces empieza a cargar la pagina y se envian los datos del usuario.s
+        this.loading = true
+        this.enviarDatos()
+
+
+      }
+
+    })
 
 
   }
