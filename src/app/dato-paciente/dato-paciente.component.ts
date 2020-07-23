@@ -502,25 +502,6 @@ export class cambiocontraDialog {
     private mensaje: MatSnackBar, 
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    console.log(data.numero_cuenta)
-
-    this.paciente1.id_paciente = this.formularioService.idPaciente;
-    ///////
-    this.formularioService.getUltimoIdPaciente().subscribe((data) => {
-      this.resultado = data;
-
-      if (this.resultado != null) {
-        if (this.resultado[0].ultimoId != null) {
-          this.paciente1.id_paciente = this.resultado[0].ultimoId;
-
-        }
-      }
-
-
-    }, (error) => {
-      console.log(error);
-    });
-
 
   }
 
@@ -539,50 +520,39 @@ export class cambiocontraDialog {
 
 
   // FUNCION QUE HACE EL MACANEO
-  continuar() {
+  guardar() {
 
 
     if (this.Nueva.valid) {
 
 
-      this.login.cuenta = this.data.numero_cuenta;
+      this.login.cuenta = this.data.cuenta;
       this.login.password = this.nuevaContraRep.value;
 
       if (this.nuevaContra.value == this.nuevaContraRep.value) {
 
         this.loginService.RegistrarUsuario(this.login).subscribe((data: any) => {
 
-          localStorage.setItem("token", data.token)
-          localStorage.setItem("rol", "Paciente")
+
+          // si el usuario se registro  desde el login, es porque es un estudiante, por ende se debe de crear un nuevo toquen
+          // y asignarle su rol.
+          if(this.formularioService.vieneDesdeLogin == true){
+
+            localStorage.setItem("token", data.token)
+            localStorage.setItem("rol", "Paciente")
+
+          }
+         
           this.dialogRef.close(true);
 
 
         }, (error) => {
+
           console.log(error)
+
         });
 
-        // this.loginService.actualizarContrasena(this.login).subscribe((data) => {
 
-        //   this.showError('Contraseña Guardada');
-
-        //   if (this.formularioService.esAlumno == true) {
-
-        //     this.router.navigate(['datoPaciente/' + this.paciente1.id_paciente]);
-        //     this.Listo = true;
-
-        //   } else {
-        //     this.router.navigate(['clínicaunahtec/verPaciente/' + this.paciente1.id_paciente]);
-        //     this.showError('Contraseña Guardada');
-        //     this.dialogRef.close();
-
-        //     this.Listo = true;
-        //   }
-
-        // }, (error) => {
-
-        //   console.log(error);
-
-        // });
 
       } else {
 
@@ -596,36 +566,34 @@ export class cambiocontraDialog {
     }
 
     //establezco la variable en true por que si no genera problemas al querer ingresar un paciente desde el login
-    this.formularioService.esAlumno == true;
+    // this.formularioService.esAlumno == true;
 
   }
 
   //EVENTO CUANDO SE DA ENTER
   onKeydown1(event) {
+
     if (event.key === "Enter") {
       this.hide1 = false;
       this.hide = true;
     }
+
   }
 
   onKeydown(event) {
+
     if (event.key === "Enter") {
       this.hide1 = false;
       this.hide = true;
     }
-  }
-
-  //EVENTO BOTON GUARDAR
-  guardar() {
-    this.continuar();
 
   }
-
 
 
 
   get nuevaContra() { return this.Nueva.get('nuevaContra') };
   get nuevaContraRep() { return this.Nueva.get('nuevaContraRep') };
+
 }
 
 
