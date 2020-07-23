@@ -19,13 +19,11 @@ export class RecuperarContraseniaComponent implements OnInit {
 
 
     const dialogRef = this.dialog.open(actualizarcontraDialog,
-      { disableClose: false, 
+      { disableClose: true, width: "500px",
 
         data: {
           "id_paciente": this.id,
-        },
-
-        panelClass: 'cambiarcontrasenia' });
+        } });
     
    }
 
