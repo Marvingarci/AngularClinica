@@ -39,10 +39,7 @@ html, body {
     height: 350px;   
   }
 
-  .cambiarcontrasenia .mat-dialog-container {  
-    width: 500px;
-    height: 320px;   
-  }
+  
 
   .cerrarsesion .mat-dialog-container{
     width: 340px;
