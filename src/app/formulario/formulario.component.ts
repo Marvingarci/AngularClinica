@@ -371,7 +371,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     tiempo_hospitalizacion: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     traumaticos: new FormControl('', [Validators.required]),
     observacion_traumaticos: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
-    otros: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
+    otros: new FormControl('', [Validators.maxLength(60), Validators.minLength(4)]),
     observacion_otros: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
   });
 
