@@ -13,7 +13,8 @@
                 <b>Nombre completo</b>
               </mat-label>
               <mat-error *ngIf="nombre_completo.hasError('required')">Campo requerido</mat-error>
-              <!-- <mat-error *ngIf="nombre_completo.hasError('pattern')">Ingrese un apellido válido</mat-error> -->
+              <mat-error *ngIf="nombre_completo.hasError('pattern')">Solo se permiten letras</mat-error>
+              
             </mat-form-field>  
              </div>
 
