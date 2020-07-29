@@ -207,7 +207,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
           this.loginService.getCurrentUser(data).subscribe((data: any) => {
 
-            //guardo los datos en una variable globar dentro del service
+            //guardo los datos en una variable global dentro del service
             //para poder acceder desde cualquier lado a ellos.
             this.loginService.datosUsuario = data;
 
