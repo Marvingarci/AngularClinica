@@ -39,7 +39,7 @@ export class LoginadminComponent implements OnInit {
 
     contraseniaNueva: new FormControl('', [Validators.minLength(6), Validators.maxLength(30)]),
     confirmarContrasenia: new FormControl('', [Validators.minLength(6), Validators.maxLength(30)]),
-    nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(50),this.noWhitespaceValidator,Validators.pattern('[a-z A-Z]*')]),
+    nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(50),this.noWhitespaceValidator, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,50}$/)]),
     identidad: new FormControl('',{validators: [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')]
     ,asyncValidators: [this.fechaUnicaService.validate.bind(this.fechaUnicaService)]}
     ),
