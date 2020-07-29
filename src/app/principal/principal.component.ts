@@ -13,7 +13,6 @@ import { LoginService } from '../services/login.service';
 export class PrincipalComponent implements OnInit {
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
   panelOpenState = false;
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
 
   public opened: boolean = true;
   public isSpinnerVisible: boolean;
@@ -26,16 +25,18 @@ export class PrincipalComponent implements OnInit {
 
     mostrar.mostrar();
 
-    if(localStorage.getItem("rol") == 'Administrador' || this.loginService.datosUsuario.permisos == true){
 
-      this.esAdmin = true
-    
-    }else{
+    this.obtenerUsuario()
+    // if (localStorage.getItem("rol") == 'Administrador' || this.loginService.datosUsuario.permisos == true) {
 
-      this.esAdmin = false
+    //   this.esAdmin = true
 
-    }
-    
+    // } else {
+
+    //   this.esAdmin = false
+
+    // }
+
 
   }
 
@@ -64,6 +65,7 @@ export class PrincipalComponent implements OnInit {
   ayuda() {
     this.icon = 'help';
   }
+
   cerrarsesion() {
 
     const dialogRef = this.dialog.open(DialogCerrarSesion2, { disableClose: false, });
@@ -73,9 +75,23 @@ export class PrincipalComponent implements OnInit {
 
   ngOnInit() {
 
-  
-   }
 
+  }
+
+  obtenerUsuario(){
+    this.loginService.getCurrentUser({"token": localStorage.getItem("token")}).subscribe((data:any)=>{
+
+      if(data.rol == "Administrador"){
+
+        this.esAdmin = true
+
+      }else{
+
+        this.esAdmin = false
+
+      }
+    })
+  }
 }
 
 
