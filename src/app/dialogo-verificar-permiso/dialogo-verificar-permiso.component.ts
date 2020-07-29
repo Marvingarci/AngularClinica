@@ -23,6 +23,7 @@ export class DialogoVerificarPermisoComponent {
   });
 
   usuario: Login = {
+
     cuenta: null,
     password: null,
 
@@ -44,6 +45,11 @@ export class DialogoVerificarPermisoComponent {
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
 
+      //obtengo el usuario siempre que se ejecute el dialogo para verificar si su contrasena coincide.
+      this.obtenerUsuario()
+
+
+
   }
 
   //EVENTO CUANDO SE DA ENTER
@@ -63,6 +69,20 @@ export class DialogoVerificarPermisoComponent {
   }
 
 
+  obtenerUsuario(){
+
+    this.loginService.getCurrentUser({"token": localStorage.getItem("token")}).subscribe((data:any)=>{
+
+        this.usuario.cuenta = data.usuario
+
+    },(error)=>{
+
+      console.log(error)
+
+    })
+  }
+
+
   guardar() {
 
     this.verificar();
@@ -74,7 +94,6 @@ export class DialogoVerificarPermisoComponent {
 
     if (this.formulario_verificar_clave.valid) {
 
-      this.usuario.cuenta = this.loginService.datosUsuario.usuario;
       this.usuario.password = this.clave.value;
 
       this.loginService.verificarClave(this.usuario).subscribe((data: any) => {
