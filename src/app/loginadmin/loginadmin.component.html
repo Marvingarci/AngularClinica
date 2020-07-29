@@ -64,7 +64,7 @@
   
         <mat-form-field class="example-full-width" appearance="outline">
           <mat-label> <b>Número de identidad</b> </mat-label>
-          <input matInput placeholder="Ingrese el número de identidad" formControlName="identidad" >
+          <input matInput placeholder="Ingrese el número de identidad" formControlName="identidad" maxlength="13">
           <mat-hint align="end">{{identidad.value.length}} / 13</mat-hint>
           <mat-error *ngIf="identidad.hasError('required')"><strong>Escriba correctamente el número de identidad</strong></mat-error>
           <mat-error *ngIf="identidad.hasError('minlength') "><strong>Escriba correctamente el número de identidad</strong></mat-error>
