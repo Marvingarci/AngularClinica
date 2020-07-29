@@ -211,11 +211,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
             //para poder acceder desde cualquier lado a ellos.
             this.loginService.datosUsuario = data;
 
-            //guardo el rol en el localStorage para despues utilizarlo en los Guard
-            localStorage.setItem("rol", data.rol);
-
-
-
 
             //si en los datos del usario logueado el rol es Estudiante 
             //entonces el usuario sera redirigido a datoPaciente sino sera redirigido a principal.
