@@ -418,11 +418,11 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
   formulario_antecedente_obstetrico = new FormGroup({
-    partos: new FormControl('', [Validators.max(100), Validators.min(0)]),
-    abortos: new FormControl('', [Validators.max(100), Validators.min(0)]),
-    cesarias: new FormControl('', [Validators.max(100), Validators.min(0)]),
-    hijos_vivos: new FormControl('', [Validators.max(100), Validators.min(0)]),
-    hijos_muertos: new FormControl('', [Validators.max(100), Validators.min(0)]),
+    partos: new FormControl('', [Validators.max(100), Validators.min(0),Validators.pattern('[0-9]*')]),
+    abortos: new FormControl('', [Validators.max(100), Validators.min(0),Validators.pattern('[0-9]*')]),
+    cesarias: new FormControl('', [Validators.max(100), Validators.min(0),Validators.pattern('[0-9]*')]),
+    hijos_vivos: new FormControl('', [Validators.max(100), Validators.min(0),Validators.pattern('[0-9]*')]),
+    hijos_muertos: new FormControl('', [Validators.max(100), Validators.min(0),Validators.pattern('[0-9]*')]),
     fecha_termino_ult_embarazo: new FormControl(''),
     descripcion_termino_ult_embarazo: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     observaciones: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
@@ -635,10 +635,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       controlador.enable({ onlySelf: true });
     });
 
-    this.edad_inicio_sexual.setValidators([Validators.required, Validators.max(99), Validators.min(1)]);
+    this.edad_inicio_sexual.setValidators([Validators.required, Validators.max(99), Validators.min(1),Validators.pattern('[0-9]*')]);
     this.edad_inicio_sexual.updateValueAndValidity();
 
-    this.numero_parejas_sexuales.setValidators([Validators.required, Validators.max(1000), Validators.min(1)]);
+    this.numero_parejas_sexuales.setValidators([Validators.required, Validators.max(1000), Validators.min(1),Validators.pattern('[0-9]*')]);
     this.numero_parejas_sexuales.updateValueAndValidity();
 
     this.practicas_sexuales_riesgo.setValidators(Validators.required);
