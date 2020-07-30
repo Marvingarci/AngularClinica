@@ -116,7 +116,18 @@ export class PacienteComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.paginator = this.paginator;
+    
+    this.dataSource2.filter = filterValue.trim().toLowerCase();
+    this.dataSource2.paginator = this.paginator;
+
+    this.dataSource3.filter = filterValue.trim().toLowerCase();
+    this.dataSource3.paginator = this.paginator;
+
+    this.dataSource4.filter = filterValue.trim().toLowerCase();
+    this.dataSource4.paginator = this.paginator;
   }
+
+ 
 
 
   filtroCitas(filterValue: string) {
