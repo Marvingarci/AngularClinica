@@ -28,21 +28,21 @@ export class RegistromedicosComponent implements OnInit {
 
   medicos_form = new FormGroup({
 
-    usuario: new FormControl('', {validators: [Validators.required, Validators.minLength(4),Validators.maxLength(12),Validators.pattern('[0-9a-zA-Z]*')],
+    usuario: new FormControl('', {validators: [Validators.required, Validators.minLength(4),Validators.maxLength(12),Validators.pattern('[0-9a-zA-Z]*'),,this.noWhitespaceValidator],
       // asyncValidators: [this.usuarioMedicoUnicoService.validate.bind(this.usuarioMedicoUnicoService)]
        }),
 
     contrasenia: new FormControl('', {
-      validators:[Validators.required,Validators.minLength(6), Validators.maxLength(30),this.noWhitespaceValidator],
+      validators:[],
     }),
     contraseniaC: new FormControl('', {
-      validators:[Validators.required,Validators.minLength(6), Validators.maxLength(30),this.noWhitespaceValidator],
+      validators:[],
     }),
     nombre: new FormControl('', {
-      validators:[Validators.required, Validators.minLength(10), Validators.maxLength(30),Validators.pattern('[a-z A-Z]*'),this.noWhitespaceValidator],
+      validators:[Validators.required, Validators.minLength(10), Validators.maxLength(30),Validators.pattern('[a-z A-Z]*',),this.noWhitespaceValidator],
     }),
     identidad: new FormControl('', {
-      validators:[Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')],
+      validators:[Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*'),this.noWhitespaceValidator],
     }),
     especialidad: new FormControl('',{
       validators:[Validators.required],
@@ -109,7 +109,8 @@ export class RegistromedicosComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.params['id'];
 
     if (this.id) {
-      this.editando = true;
+
+      this.editando = true;    
 
 
       this.medicoService.obtenerMedico(this.id).subscribe((data: any) => {
@@ -186,14 +187,17 @@ export class RegistromedicosComponent implements OnInit {
       this.usuario.setAsyncValidators(this.usuarioMedicoUnicoService.validate.bind(this.usuarioMedicoUnicoService));
 
       this.contrasenia.setValidators([Validators.required, Validators.minLength(6),Validators.maxLength(30),
-        Validators.pattern( '[0-9a-zA-Z$@$!%*?&.,^=#]*')]);
+        Validators.pattern( '[0-9a-zA-Z$@$!%*?&.,^=#]*'),this.noWhitespaceValidator]);
       this.contrasenia.updateValueAndValidity();
       this.contraseniaC.setValidators([Validators.required, Validators.minLength(6),Validators.maxLength(30),
-        Validators.pattern( '[0-9a-zA-Z$@$!%*?&.,^=#]*')]);
+        Validators.pattern( '[0-9a-zA-Z$@$!%*?&.,^=#]*'),this.noWhitespaceValidator]);
       this.contraseniaC.updateValueAndValidity();
 
     }
   }//fin del constructor
+
+
+ 
 
 
   onChangeCheckbox(event) {
@@ -242,8 +246,7 @@ export class RegistromedicosComponent implements OnInit {
 
     if (this.medicos_form.valid) {
 
-
-      if (this.medicos_form.dirty) {
+      if (this.medicos_form.dirty) {s
 
         if (this.contraseniaC.value == this.contrasenia.value) {
 
