@@ -3372,7 +3372,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       data: {
         "cuenta": cuenta,
       },
-      panelClass: 'custom-dialog-container',
+      width:"500px",
     });
 
     dialogRef.afterClosed().subscribe(result => {
