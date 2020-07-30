@@ -18,7 +18,7 @@ export class AuthPacienteGuard implements CanActivate {
 
       this.loginService.getCurrentUser({ "token": localStorage.getItem("token") }).subscribe((data: any) => {
 
-        if (data.rol == "Estudiante") {
+        if (data.rol == "Paciente") {
 
           resolve(true);
 
