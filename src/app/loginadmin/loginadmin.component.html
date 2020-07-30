@@ -22,7 +22,8 @@
 
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label> <b>Contraseña</b> </mat-label>
-            <input matInput placeholder="Nueva contraseña (entre 6-30 caracteres)" (keydown)="onKeydown($event)"  
+            <input matInput placeholder=
+            "Nueva contraseña (entre 6-30 caracteres)" (keydown)="onKeydown($event)"  
             formControlName="contraseniaNueva" ng-trim = "false" [type]="hide1 ? 'text' : 'password'">
               <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide1">
