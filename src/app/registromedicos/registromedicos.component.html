@@ -12,7 +12,7 @@
           <mat-error  *ngIf="usuario.hasError('required')"> <strong>Ingrese el usuario</strong></mat-error>
           <mat-error *ngIf="usuario.hasError('minlength')"> <strong>Usuario muy corto, mínimo 4 caracteres</strong></mat-error>
           <mat-error *ngIf="usuario.hasError('maxlength')"> <strong>Usuario muy largo, máximo 12 caracteres</strong></mat-error>
-          <mat-error *ngIf="usuario.hasError('pattern')"> <strong>No se aceptan caracteres especiales</strong></mat-error>           
+          <mat-error *ngIf="usuario.hasError('pattern')"> <strong>No se aceptan caracteres especiales, ni espacios en blanco</strong></mat-error>           
           <mat-error *ngIf="usuario.hasError('usuarioMedicoUnico')">El usuario pertenece a otra persona</mat-error>     
       </mat-form-field>
 
@@ -29,7 +29,7 @@
           </button>
           <mat-hint align="end">{{contrasenia.value.length}} / 6</mat-hint>
           <mat-error *ngIf="contrasenia.hasError('required')"><strong>Ingrese la contrasenia</strong></mat-error>
-          <mat-error *ngIf="contrasenia.hasError('minlength')"> <strong>Contraseña debe tener mínimo 8 caracteres</strong></mat-error>
+          <mat-error *ngIf="contrasenia.hasError('minlength')"> <strong>Contraseña debe tener mínimo 6 caracteres</strong></mat-error>
           <mat-error *ngIf="contrasenia.hasError('maxlength')"> <strong>Contraseña debe tener máximo 30 caracteres</strong></mat-error>  
           <mat-error *ngIf="contrasenia.hasError('pattern')"><strong>No se permiten espacios en blanco</strong></mat-error>  
          
@@ -45,8 +45,8 @@
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
           <mat-error *ngIf="contraseniaC.hasError('required')"><strong>Confirme la contraseña</strong> </mat-error>  
-          <mat-error *ngIf="contraseniaC.hasError('minlength') "><strong>Contraseña muy corta</strong> </mat-error>
-          <mat-error *ngIf="contraseniaC.hasError('maxlength') "><strong>Contraseña muy extensa</strong></mat-error>
+          <mat-error *ngIf="contraseniaC.hasError('minlength') "><strong>Contraseña debe tener mínimo 6 caracteres</strong> </mat-error>
+          <mat-error *ngIf="contraseniaC.hasError('maxlength') "><strong>Contraseña debe tener máximo 30 caracteres</strong></mat-error>
            <mat-error *ngIf="contraseniaC.hasError('pattern') "><strong>No se permiten espacios en blanco</strong></mat-error>  
         </mat-form-field>
 
@@ -107,7 +107,7 @@
         Guardar
       </button>
       <button class="btn btn-danger float-right" style="margin-top: 10px; margin-bottom: 10px;"
-        [routerLink]="['/clínicaunahtec /veradministradores']">
+      [routerLink]="['/clínicaunahtec/veradministradores']">
         Cancelar
       </button>
     </div>
