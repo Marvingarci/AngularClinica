@@ -22,7 +22,7 @@ export class FormularioService {
   IngresoPaciente: Paciente;
   NuevoIngreso: Paciente;
   esAlumno: boolean = true;
-  vieneDesdeLogin: boolean = false;
+  vieneDesdeLogin: boolean ;
 
   headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   //API_ENDPOINT = "http://64.225.37.202:8081/api/"

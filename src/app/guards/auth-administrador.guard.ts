@@ -2,31 +2,47 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from '../services/login.service';
+import { resolve } from 'url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthAdministradorGuard implements CanActivate {
 
-  constructor(private router: Router) { }
+  puedePasar: boolean
+
+  constructor(private router: Router, private loginService: LoginService) {
 
 
-  canActivate() {
+  }
 
-    if(localStorage.getItem("rol") == "Administrador" || localStorage.getItem("rol") == "Medico"){
 
-      return true
+  canActivate(): Promise<boolean> {
 
-    }else {
+    return new Promise((resolve: Function, reject: Function) => {
 
-      this.router.navigate(['/']);
-      return false
+      this.loginService.getCurrentUser({ "token": localStorage.getItem("token") }).subscribe((data: any) => {
 
-    }
+        if (data.rol == "Administrador" || data.rol == "Medico") {
+
+          resolve(true);
+
+        } else {
+
+          reject(false);
+          this.router.navigate(['/']);
+
+
+        }
+
+      })
+
+    });
 
 
 
   }
+
 
 
 

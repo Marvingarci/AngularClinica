@@ -174,6 +174,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
             if(data.codigoError == 1){
               
+            
               this.cuenta.reset()
               this.ControlClave.reset()
               this.showError("Datos incorrectos")
@@ -182,7 +183,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
             }else{
 
               this.loginService.datosUsuario = data;
-              console.log(this.loginService.datosUsuario)
+              this.formularioService.vieneDesdeLogin = true
               this.showError('Llene el siguiente formulario');
               this.router.navigate(['/formulario']);
 
@@ -207,14 +208,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
           this.loginService.getCurrentUser(data).subscribe((data: any) => {
 
-            //guardo los datos en una variable globar dentro del service
+            //guardo los datos en una variable global dentro del service
             //para poder acceder desde cualquier lado a ellos.
             this.loginService.datosUsuario = data;
-
-            //guardo el rol en el localStorage para despues utilizarlo en los Guard
-            localStorage.setItem("rol", data.rol);
-
-
 
 
             //si en los datos del usario logueado el rol es Estudiante 
@@ -231,6 +227,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
               //si en los datos del usario logueado el id_admnistrador tiene un valor 
               //entonces el usuario sera redirigido a principal.
+              this.formularioService.vieneDesdeLogin = false
               this.router.navigate(['/clínicaunahtec/principal']);
               this.showError('Bienvenido');
 

@@ -1835,7 +1835,7 @@
           <div class="col" style="text-align: left;padding-left: 0;">
 
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput formControlName="edad_inicio_sexual" type="number"
+              <input matInput formControlName="edad_inicio_sexual" 
                 matTooltip="Ingrese la edad en la cual tuvo su primer experiencia sexual" matTooltipPosition="right">
               <mat-label>
                 <b>Edad inicio vida sexual</b>
@@ -1843,6 +1843,7 @@
               <mat-error *ngIf="edad_inicio_sexual.hasError('max')">Edad inválida</mat-error>
               <mat-error *ngIf="edad_inicio_sexual.hasError('min')">Edad inválida</mat-error>
               <mat-error *ngIf="edad_inicio_sexual.hasError('required')">Campo requerido</mat-error>
+              <mat-error *ngIf="edad_inicio_sexual.hasError('pattern')">Numero inválido</mat-error>
             </mat-form-field>
           </div>
           &nbsp; &nbsp; &nbsp; &nbsp;
@@ -1850,7 +1851,7 @@
 
             <mat-form-field class="example-full-width" appearance="outline">
 
-              <input matInput formControlName="numero_parejas_sexuales" type="number" matTooltip="Ingrese el numero de parejas con las cuales a tenido contacto 
+              <input matInput formControlName="numero_parejas_sexuales"  matTooltip="Ingrese el numero de parejas con las cuales a tenido contacto 
               sexual hasta la fecha actual" matTooltipPosition="right">
               <mat-label>
                 <b>Número de parejas sexuales</b>
@@ -1905,25 +1906,27 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput formControlName="partos" type="number"
+              <input matInput formControlName="partos"
               matTooltip="El campo es obligatorio solo si usted ha pasado por está experiencia" matTooltipPosition="right">
               <mat-label>
                 <b>Número de partos</b>
               </mat-label>
-              <mat-error *ngIf="partos.hasError('max')">Inválido</mat-error>
-              <mat-error *ngIf="partos.hasError('min')">Inválido</mat-error>
+              <mat-error *ngIf="partos.hasError('max')">campo muy extenso</mat-error>
+              <mat-error *ngIf="partos.hasError('min')">campo no válido</mat-error>
+              <mat-error *ngIf="partos.hasError('pattern')">No se permiten caractres especiales</mat-error>
             </mat-form-field>
           </div>
           <div class="col">
 
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput formControlName="abortos" type="number"
+              <input matInput formControlName="abortos" 
               matTooltip="El campo es obligatorio solo si usted ha pasado por está experiencia" matTooltipPosition="right">
               <mat-label>
                 <b>Número de abortos</b>
               </mat-label>
-              <mat-error *ngIf="abortos.hasError('max')">Inválido</mat-error>
-              <mat-error *ngIf="abortos.hasError('min')">Inválido</mat-error>
+              <mat-error *ngIf="abortos.hasError('max')">campo muy extenso</mat-error>
+              <mat-error *ngIf="abortos.hasError('min')">campo no válido</mat-error>
+              <mat-error *ngIf="abortos.hasError('pattern')">No se permiten caractres especiales</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -1931,24 +1934,26 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput formControlName="cesarias" type="number"
+              <input matInput formControlName="cesarias"
               matTooltip="El campo es obligatorio solo si usted ha pasado por está experiencia" matTooltipPosition="right">
               <mat-label>
                 <b>Número de cesarias</b>
               </mat-label>
-              <mat-error *ngIf="cesarias.hasError('max')">Inválido</mat-error>
-              <mat-error *ngIf="cesarias.hasError('min')">Inválido</mat-error>
+              <mat-error *ngIf="cesarias.hasError('max')">campo muy extenso</mat-error>
+              <mat-error *ngIf="cesarias.hasError('min')">campo no válido</mat-error>
+              <mat-error *ngIf="cesarias.hasError('pattern')">No se permiten caractres especiales</mat-error>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput formControlName="hijos_vivos" type="number"
+              <input matInput formControlName="hijos_vivos" 
               matTooltip="El campo es obligatorio solo si usted ha pasado por está experiencia" matTooltipPosition="right">
               <mat-label>
                 <b>Número de hijos vivos</b>
               </mat-label>
-              <mat-error *ngIf="hijos_vivos.hasError('max')">Inválido</mat-error>
-              <mat-error *ngIf="hijos_vivos.hasError('min')">Inválido</mat-error>
+              <mat-error *ngIf="hijos_vivos.hasError('max')">campo muy extenso</mat-error>
+              <mat-error *ngIf="hijos_vivos.hasError('min')">campo no válido</mat-error>
+              <mat-error *ngIf="hijos_vivos.hasError('pattern')">No se permiten caractres especiales</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -1957,13 +1962,14 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput formControlName="hijos_muertos" type="number"
+              <input matInput formControlName="hijos_muertos" 
               matTooltip="El campo es obligatorio solo si usted ha pasado por está experiencia" matTooltipPosition="right">
               <mat-label>
                 <b>Número de hijos muertos</b>
               </mat-label>
-              <mat-error *ngIf="hijos_muertos.hasError('max')">Inválido</mat-error>
-              <mat-error *ngIf="hijos_muertos.hasError('min')">Inválido</mat-error>
+              <mat-error *ngIf="hijos_muertos.hasError('max')">campo muy extenso</mat-error>
+              <mat-error *ngIf="hijos_muertos.hasError('min')">campo no válido</mat-error>
+              <mat-error *ngIf="hijos_muertos.hasError('pattern')">No se permiten caractres especiales</mat-error>
             </mat-form-field>
           </div>
           <div class="col">

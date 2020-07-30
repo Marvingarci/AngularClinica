@@ -8,7 +8,6 @@
       <mat-form-field class="example-full-width" appearance="outline">          
           <mat-label> <b>Usuario</b> </mat-label>
           <input matInput placeholder="Usuario" formControlName="usuario" >
-          <mat-hint align="end" >{{usuario.value.length}} / 12</mat-hint>
           <mat-error  *ngIf="usuario.hasError('required')"> <strong>Ingrese el usuario</strong></mat-error>
           <mat-error *ngIf="usuario.hasError('minlength')"> <strong>Usuario muy corto, mínimo 4 caracteres</strong></mat-error>
           <mat-error *ngIf="usuario.hasError('maxlength')"> <strong>Usuario muy largo, máximo 12 caracteres</strong></mat-error>
