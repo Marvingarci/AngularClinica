@@ -257,7 +257,7 @@ export class RegistromedicosComponent implements OnInit {
           const dialogRef = this.dialogo.open(DialogoVerificarPermisoComponent, {
 
             disableClose: true,
-            panelClass: 'verificar',
+            width:"500px",
 
           });
 
