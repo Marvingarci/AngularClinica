@@ -32,7 +32,10 @@
         </div>
         <div>
           <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput #clave (keydown)="onKeydown($event)" placeholder="Ingrese su contraseña"
+
+
+
+            <input matInput #clave (keydown)="onKeydown($event)" placeholder="Ingresa tu contraseña"
               [type]="hide ? 'password' : 'text'" formControlName="clave">
             <mat-label>
               <mat-icon>vpn_key</mat-icon> &nbsp; <b>Contraseña</b>
