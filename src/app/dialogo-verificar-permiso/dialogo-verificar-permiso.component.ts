@@ -14,7 +14,7 @@ import { LoginService } from '../services/login.service';
 
 export class DialogoVerificarPermisoComponent {
 
-  esconderClave: boolean;
+  hide = true;
 
   formulario_verificar_clave = new FormGroup({
 
@@ -53,14 +53,18 @@ export class DialogoVerificarPermisoComponent {
   }
 
   //EVENTO CUANDO SE DA ENTER
+  
+ 
+
   onKeydown(event) {
-
     if (event.key === "Enter") {
-      this.esconderClave = true;
-      this.verificar();
+      this.guardar();
+      this.hide = false;
     }
-
   }
+
+
+
 
   salir() {
 
@@ -84,16 +88,16 @@ export class DialogoVerificarPermisoComponent {
 
 
   guardar() {
-
+    
     this.verificar();
-
   }
 
   verificar(){
 
 
     if (this.formulario_verificar_clave.valid) {
-
+this.hide = true;
+     
       this.usuario.password = this.clave.value;
 
       this.loginService.verificarClave(this.usuario).subscribe((data: any) => {
