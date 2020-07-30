@@ -128,6 +128,12 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
+
+              <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+
             </mat-tab>
 
 
@@ -294,10 +300,10 @@
       <button mat-raised-button (click)="verCitas()" style="margin-right: 10px"
         class="btn btn-outline-primary float-right botonperron">
         {{!mostrarCitas ? 'Ver citas' : 'Ver pacientes'}} </button>
-      <button mat-raised-button (click)="verChat()" style="margin-right: 10px"
+      <!-- <button mat-raised-button (click)="verChat()" style="margin-right: 10px"
       class="btn btn-outline-primary float-right botonperron">
         chat
-      </button>
+      </button> -->
     </div>
 
 
