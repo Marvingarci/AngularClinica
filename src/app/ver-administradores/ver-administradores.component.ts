@@ -93,6 +93,10 @@ export class VerAdministradoresComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.datasourceAdmninistradores.filter = filterValue.trim().toLowerCase();
     this.datasourceAdmninistradores.paginator = this.paginator;
+
+    
+    this.datasourceMedicos.filter = filterValue.trim().toLowerCase();
+    this.datasourceMedicos.paginator = this.paginator;
   }
 
 
