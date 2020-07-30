@@ -1,12 +1,27 @@
 <div *ngIf="Listo==false" > 
-<h2 mat-dialog-title disableClose >Cambio de contraseña</h2>
-<mat-dialog-content class="mat-typography">
-  <p>Una vez finalizado esto, podrás ingresar al Portal de la clínica UNAH-TEC </p>
-  <p>Usando número de cuenta y la contraseña que a continuación ingresarás</p> 
-  <p>Usa caracteres y números para hacer tu contraseña más confiable</p>
+
+  <span style=" display: block;
+  font-family: Poppins-Regular,sans-serif;
+  font-size: 30px;
+  color: #333;
+  line-height: 1.2;
+  text-align: center;
+  padding: 20px;">
+      <strong>Cambio de contraseña</strong>
+    </span>
+  
+
+  <p>Una vez finalizado esto, podrás ingresar al Portal de la clínica UNAH-TEC, 
+    Usando número de cuenta y contraseña que a continuación ingresarás. Puedes
+  usar caracteres y números para hacer tu contraseña más confiable</p>
+
+
   <form [formGroup]="Nueva">
 
-          <mat-form-field class="example-full-width" style="margin-top: 5px;" >                
+          <mat-form-field style="width: 100%;" appearance="outline">  
+            <mat-label>
+              <b>Contraseña</b>
+           </mat-label>                 
               <input matInput  (keydown)="onKeydown1($event)" 
               placeholder="Ingrese su nueva contraseña" [type]="hide1 ? 'password' : 'text'"
               formControlName="nuevaContra">
@@ -18,37 +33,54 @@
               <mat-error *ngIf="nuevaContra.hasError('minLength') ">contraseña muy corta</mat-error>
             </mat-form-field>
 
-<br>
-            <mat-form-field class="example-full-width">                
+      <br>
+            <mat-form-field style="width: 100%;" appearance="outline">    
+              <mat-label>
+                <b>Confirmación</b>
+             </mat-label>               
                 <input matInput (keydown)="onKeydown($event)" 
                 placeholder="Repita su contraseña" [type]="hide ? 'password' : 'text'"
                 formControlName="nuevaContraRep">
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                <mat-error *ngIf="nuevaContraRep.hasError('required') ">ingrese la contraseña!</mat-error>
+                <mat-error *ngIf="nuevaContraRep.hasError('required') ">ingrese la contraseña</mat-error>
                 <mat-error *ngIf="nuevaContraRep.hasError('maxLength') ">contraseña muy extensa</mat-error>
                 <mat-error *ngIf="nuevaContraRep.hasError('minLength') ">contraseña muy corta</mat-error>
               </mat-form-field>
 
+              <div style="position: inherit; bottom: 10px;right: 15px;" >
+                <button mat-raised-button (click)="guardar()" class="btn btn-outline-primary float-right botonperron">Guardar</button>
+                </div>
+
     </form>
-    
-</mat-dialog-content>
-<mat-dialog-actions align='end'>
-  <button mat-button (click)="guardar()" class="botonperron" style="bottom: 0px;right: 0px;outline:none;display:block;"  >Guardar</button>
-</mat-dialog-actions>
+ 
 </div>
 
+
+
+
 <div *ngIf="Listo==true"> 
-    <h1 mat-dialog-title disableClose >Bienvenido al Portal de la clínica UNAH</h1>
-    <mat-dialog-content class="mat-typography">
+
+  <span style=" display: block;
+  font-family: Poppins-Regular,sans-serif;
+  font-size: 30px;
+  color: #333;
+  line-height: 1.2;
+  text-align: center;
+  padding: 20px;">
+      <strong>Bienvenido al Portal de la clínica UNAH-TEC Danlí</strong>
+    </span>
+   
       
+
       <p>Ahora tienes que abocarte a la Clínica de manera personal para terminar tu expediente </p>    
       <p>Aquí verás tus tratamientos, citas, indicaciones y ayuda que te brindaran una vez que visites la Clínica</p>
       
-        
-    </mat-dialog-content>
-    <mat-dialog-actions align="end" style="bottom: 0px;">
-      <button mat-button class="botonperron" style=" bottom: 0px;right: 0px;margin-top:110px ;" mat-dialog-close>Comenzar</button>
-    </mat-dialog-actions>
+    
+      <div style="position: inherit; bottom: 10px;right: 15px;" >
+        <button mat-raised-button  mat-dialog-close class="btn btn-outline-primary float-right botonperron">Comenzar</button>
+        </div>
+
+
     </div>
