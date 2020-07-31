@@ -283,7 +283,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   formulario_datos_generales = new FormGroup({
     nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,50}$/)]),
     correo_electronico: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")],
       asyncValidators: [this.CorreoUnicoService.validate.bind(this.CorreoUnicoService)]
     }),
 
