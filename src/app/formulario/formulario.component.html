@@ -1152,8 +1152,8 @@
 
             <!-- Name Column -->
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;" > Tipo </th>
-              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 10px;" > Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 10px;padding-right: 10px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
@@ -1213,6 +1213,7 @@
                 Campo requerido
               </mat-error>
               <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('maxlength')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('pattern')">Solo se permiten letras</mat-error>
               <mat-error *ngIf="tipo_enfermedad_mental_ap.hasError('minlength')">Introduzca una observación válida</mat-error>
             </mat-form-field>
 
@@ -1254,8 +1255,8 @@
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tipo </th>
-              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 10px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
@@ -1383,8 +1384,8 @@
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tipo </th>
-              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 10px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
@@ -1482,8 +1483,8 @@
             </ng-container>
 
             <ng-container matColumnDef="antecedente">
-              <th mat-header-cell *matHeaderCellDef style="padding-left: 6px;padding-right: 5px;"> Tipo </th>
-              <td mat-cell *matCellDef="let element" style="padding-left: 6px;padding-right: 5px;"> {{element.enfermedad}} </td>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;padding-right: 5px;"> Tipo </th>
+              <td mat-cell *matCellDef="let element" style="padding-left: 10px;padding-right: 5px;"> {{element.enfermedad}} </td>
               <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
