@@ -26,6 +26,8 @@
                 </mat-label>
                 <mat-error *ngIf="correo_electronico.hasError('required')">Campo requerido</mat-error>
                 <mat-error *ngIf="correo_electronico.hasError('pattern')">Ingrese un correo válido</mat-error>
+                <mat-error *ngIf="correo_electronico.hasError('correoUnico')">El correo pertenece a otra persona
+                </mat-error>
               </mat-form-field>
             </div>
            
