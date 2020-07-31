@@ -29,6 +29,7 @@ import { PacienteHospitalariaQuirurgica } from '../interfaces/paciente-hospitala
 import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
 import { IdentidadUnicoService } from '../validations/identidad-unica.directive';
 import { CuentaUnicaService } from '../validations/cuenta-unica.directive';
+import { CorreoUnicoService } from '../validations/correo-unico.directive';
 
 
 
@@ -281,7 +282,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   formulario_datos_generales = new FormGroup({
     nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,50}$/)]),
-    correo_electronico: new FormControl('', [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
+    correo_electronico: new FormControl('', {
+      validators: [Validators.required],
+      asyncValidators: [this.CorreoUnicoService.validate.bind(this.CorreoUnicoService)]
+    }),
 
     numero_cuenta: new FormControl(''),
     // "^$" delimita el inicio y el final de lo que quiere que se cumpla de la expresion
@@ -1148,6 +1152,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
   constructor(private formularioService: FormularioService,
+    private CorreoUnicoService: CorreoUnicoService,
     private router: Router,
     public dialog: MatDialog,
     public loginService: LoginService,
