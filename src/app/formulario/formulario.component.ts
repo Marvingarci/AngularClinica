@@ -21,7 +21,7 @@ import { Subscription, Observable } from 'rxjs';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take, startWith, map } from 'rxjs/operators';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
-import { MatChipInputEvent, MatAutocomplete, MatTableDataSource, MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatChipInputEvent, MatAutocomplete, MatTableDataSource, MatSnackBar, MatSnackBarConfig, MatStepper } from '@angular/material';
 import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
 import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
@@ -431,6 +431,26 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     descripcion_termino_ult_embarazo: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
     observaciones: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
   });
+
+ vivosmuertos: number;
+
+  onda(stepper: MatStepper){
+    
+    this.vivosmuertos = (this.hijos_vivos.value + this.hijos_muertos.value);
+    console.log(this.vivosmuertos);
+    console.log(this.partos.value);
+    if(this.partos.value <= this.vivosmuertos ){
+
+      stepper.next();
+      
+
+    }else{
+
+      this.showError('Los hijos vivos no coincide');
+
+    }
+    
+  }
 
 
   matcher = new MyErrorStateMatcher();
