@@ -1909,7 +1909,7 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput formControlName="partos"
+              <input matInput formControlName="partos" type="number"
               matTooltip="El campo es obligatorio solo si usted ha pasado por está experiencia" matTooltipPosition="right">
               <mat-label>
                 <b>Número de partos</b>
@@ -1949,7 +1949,7 @@
           </div>
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput formControlName="hijos_vivos" 
+              <input matInput formControlName="hijos_vivos" type="number"
               matTooltip="El campo es obligatorio solo si usted ha pasado por está experiencia" matTooltipPosition="right">
               <mat-label>
                 <b>Número de hijos vivos</b>
@@ -1965,7 +1965,7 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-full-width" appearance="outline">
-              <input matInput formControlName="hijos_muertos" 
+              <input matInput formControlName="hijos_muertos" type="number"
               matTooltip="El campo es obligatorio solo si usted ha pasado por está experiencia" matTooltipPosition="right">
               <mat-label>
                 <b>Número de hijos muertos</b>
@@ -2018,7 +2018,7 @@
         </div>
       </div>
       <div class="botonesstep">
-        <button mat-raised-button matStepperNext
+        <button mat-raised-button (click)="onda(stepper)"
           class="btn btn-outline-primary float-right botonperron">Siguiente</button>
         <button mat-raised-button matStepperPrevious class="btn btn-danger float-right">Volver</button>
       </div>
