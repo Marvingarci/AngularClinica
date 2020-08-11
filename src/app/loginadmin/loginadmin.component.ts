@@ -253,8 +253,7 @@ export class LoginadminComponent implements OnInit {
   cambiarContra() {
 
     const dialogRef = this.dialogo.open(DialogoCambiarContraseniaAdmin, {
-      disableClose: true,
-      panelClass: 'cambiar',
+      disableClose: true, width: '500px'
       // height: '450px',
       // width: '400px',
 
