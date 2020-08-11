@@ -366,9 +366,7 @@ export class RegistromedicosComponent implements OnInit {
 
     const dialogRef = this.dialogo.open(DialogoCambiarContraseniaMed, {
       disableClose: true,
-      panelClass: 'cambiar',
-      // height: '450px',
-      // width: '400px',
+       width: '500px',
 
     });
 
