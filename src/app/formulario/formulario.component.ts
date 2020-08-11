@@ -446,7 +446,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
     }else{
 
-      this.showError('Los hijos vivos no coincide');
+      this.showError('Los partos no coinciden con los hijos vivos y hijos muertos');
 
     }
     
