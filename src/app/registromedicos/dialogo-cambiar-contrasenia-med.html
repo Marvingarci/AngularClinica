@@ -1,11 +1,20 @@
-<h2 mat-dialog-title disableClose>Cambiar contraseña</h2>
+<span style=" display: block;
+font-family: Poppins-Regular,sans-serif;
+font-size: 30px;
+color: #333;
+line-height: 1.2;
+text-align: center;
+padding: 20px;">
+    <strong>Cambiar contraseña</strong>
+  </span>
 
-<mat-dialog-content class="mat-typography">
+
+
 
     <form [formGroup]="cambiarContraForm">
 
 
-        <mat-form-field>
+        <mat-form-field style="width: 100%;" appearance="outline">
             <input matInput placeholder="Ingrese la contraseña actual" formControlName="contraseniaActual"
                 [type]="esconderContraActual ? 'password' : 'text'" required>
             <mat-label> <b>Contraseña actual</b> </mat-label>
@@ -23,7 +32,7 @@
 
         <br>
 
-        <mat-form-field>
+        <mat-form-field style="width: 100%;" appearance="outline">
             <input matInput placeholder="Ingrese la nueva contraseña" formControlName="contraseniaNueva"
                 [type]="esconderContraNueva ? 'password' : 'text'" required>
             <mat-label> <b>Nueva contraseña</b> </mat-label>
@@ -41,7 +50,7 @@
 
         <br>
 
-        <mat-form-field>
+        <mat-form-field style="width: 100%;" appearance="outline">
             <input matInput placeholder="Ingrese la contraseña actual" formControlName="confirmarContrasenia"
                 [type]="esconderContraConfirmada ? 'password' : 'text'" required>
             <mat-label> <b>Confirmar la nueva contraseña</b> </mat-label>
@@ -59,20 +68,14 @@
 
 
 
+        <div style="position: inherit; bottom: 10px;right: 15px;">
+            <button mat-raised-button (click)="cambiarContra()" class="btn btn-outline-primary float-right botonperron">
+                Guardar</button>
+
+            <button mat-raised-button (click)="salir()" class="btn btn-outline-primary float-right botonperron" style="margin-right: 10px;">
+                Cancelar</button>
+        </div>
+
+
+
     </form>
-
-
-</mat-dialog-content>
-
-
-<mat-dialog-actions align='end'>
-
-    <button mat-button (click)="salir()" class="btn-danger" style="outline:none;display:block;">
-        cancelar
-    </button>
-    <button mat-button (click)="cambiarContra()" class="botonperron" cdkFocusInitial
-        style="outline:none;display:block;">
-        guardar
-    </button>
-
-</mat-dialog-actions>
