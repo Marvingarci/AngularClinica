@@ -12,44 +12,30 @@
                 <mat-hint align="end">{{unidad.value.length}} / 6</mat-hint>
                 <mat-error *ngIf="unidad.hasError('required')">campo requerido</mat-error>
                 <mat-error *ngIf="unidad.hasError('pattern')">Introduzca sólo números</mat-error>
-                <mat-error *ngIf="unidad.hasError('minLength') && unidad.hasError('maxLength')">
-                    campo requerido
-                </mat-error>
+                <mat-error *ngIf="unidad.hasError('minlength')">unidad muy corta</mat-error>
+                <mat-error *ngIf="unidad.hasError('maxlength')">unidad muy extensa</mat-error>
             </mat-form-field>
 
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label><b>Ingrese el nombre del medicamento</b></mat-label>
                 <input matInput placeholder="Ingrese el nombre del medicamento" formControlName="nombre">
-                <mat-error *ngIf="nombre.hasError('required')">
-                    <strong>campo requerido</strong>
-                </mat-error>
-                <mat-error *ngIf="nombre.hasError('minLength') && nombre.hasError('maxLength')">
-                    <strong>nombre no válido</strong>
-                </mat-error>
+                <mat-error *ngIf="nombre.hasError('required')">campo requerido</mat-error>
+                <mat-error *ngIf="nombre.hasError('minlength')">nombre muy corto</mat-error>
+                <mat-error *ngIf="nombre.hasError('maxlength')">nombre muy extenso</mat-error>
             </mat-form-field>
 
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label><b>Descripción</b></mat-label>
                 <input matInput placeholder="Ingrese una descripción" formControlName="descripcion">
-
-                <mat-error *ngIf="descripcion.hasError('maxLength')">
-                    <strong>descripción muy corta</strong>
-                </mat-error>
-                <mat-error *ngIf="descripcion.hasError('minLength')">
-                    <strong>descripción muy extensa</strong>
-                </mat-error>
+                <mat-error *ngIf="descripcion.hasError('minlength')">descripción muy corta</mat-error>
+                <mat-error *ngIf="descripcion.hasError('maxlength')">descripción muy extensa</mat-error>
             </mat-form-field>
 
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label><b>Observación</b></mat-label>
                 <input matInput placeholder="Ingrese una observación" formControlName="observacion">
-                <mat-error *ngIf="observacion.hasError('maxLength')">
-                    <strong>observación muy corta</strong>
-                </mat-error>
-                <mat-error *ngIf="observacion.hasError('minLength')">
-                    <strong>observación muy extensa</strong>
-                </mat-error>
-
+                <mat-error *ngIf="observacion.hasError('minlength')">observación muy corta</mat-error>
+                <mat-error *ngIf="observacion.hasError('maxlength')">observación muy extensa</mat-error>
             </mat-form-field>
 
 
@@ -60,12 +46,8 @@
                         {{presentacion.viewValue}}
                     </mat-option>
                 </mat-select>
-                <mat-error *ngIf="presentacion.hasError('required')"> <strong>campo requerido</strong></mat-error>
-
+                <mat-error *ngIf="presentacion.hasError('required')">campo requerido</mat-error>
             </mat-form-field>
-
-
-
 
         </mat-card>
 
@@ -84,11 +66,3 @@
 
     </form>
 </div>
-
-<!-- <button mat-raised-button [routerLink]="['/principal/inventario']"
-    class="btn btn-outline-primary float-right botonperron" style="margin-top: 12%;margin-left: 25px; right: 15px">
-    Cancelar
-</button>
-<button mat-raised-button (click)="comprobarDatos()" class="btn btn-outline-primary float-right botonperron"
-    style="margin-top: 12%; margin-left: 25px; " [disabled]="disabledinventario"> Guardar
-</button> -->
