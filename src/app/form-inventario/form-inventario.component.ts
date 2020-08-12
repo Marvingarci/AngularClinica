@@ -56,7 +56,7 @@ export class FormInventarioComponent implements OnInit {
     { value: 6, viewValue: 'Crema' },
     { value: 7, viewValue: 'Supositorio' },
     { value: 8, viewValue: 'Óvulo' },
-    { value: 9, viewValue: 'Suspencion' },
+    { value: 9, viewValue: 'Suspensión' },
     { value: 10, viewValue: 'Solución' },
     { value: 11, viewValue: 'Inyectable' },
 
