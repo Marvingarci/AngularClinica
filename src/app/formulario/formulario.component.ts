@@ -320,7 +320,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     
     emergencia_telefono: new FormControl('', {
       validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
-      asyncValidators: [this.TelefonoemergenciaService.validate.bind(this.TelefonoemergenciaService)]
+     // asyncValidators: [this.TelefonoemergenciaService.validate.bind(this.TelefonoemergenciaService)]
     })
     
   });
@@ -2285,6 +2285,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
          });   //fin del foreach
       }else if(!this.tablaTelefonosEmergencia.length){
         console.log('NO tiene datos trabajando')
+        this.emergencia_telefono.setValidators([Validators.pattern(/^\d{8}$/)]);    
         
         var emergencia_persona: string = "";
         var emergencia_telefono: string = "";
@@ -2352,7 +2353,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       this.dataSourceTablaTelefonosEmergencia = null;
 
-      this.emergencia_telefono.setValidators(Validators.required);
+      this.emergencia_telefono.setValidators([Validators.required,Validators.pattern(/^\d{8}$/)]);
       this.emergencia_telefono.updateValueAndValidity();
 
       this.emergencia_persona.setValidators(Validators.required);
