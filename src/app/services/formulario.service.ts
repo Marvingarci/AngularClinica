@@ -187,6 +187,19 @@ export class FormularioService {
   obtenerPacientes() {
     return this.httpClient.get(this.API_ENDPOINT + 'pacientes');
   }
+  obtenersoloestudiantes() {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenersoloestudiantes');
+  }
+  obtenersoloempleados() {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenersoloempleados');
+  }
+  obtenersolovisitantes() {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenersolovisitantes');
+  }
+  obtenersoloprosenes() {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenersoloprosenes');
+  }
+
 
 
   obtenerPaciente(id_paciente: any) {
