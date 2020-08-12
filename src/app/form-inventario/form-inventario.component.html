@@ -8,7 +8,7 @@
 
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label><b>Unidad</b></mat-label>
-                <input matInput placeholder="Ingrese la cantidad de unidades" formControlName="unidad">
+                <input matInput placeholder="Ingrese la cantidad de unidades" formControlName="unidad" maxlength="4">
                 <mat-hint align="end">{{unidad.value.length}} / 6</mat-hint>
                 <mat-error *ngIf="unidad.hasError('required')">campo requerido</mat-error>
                 <mat-error *ngIf="unidad.hasError('pattern')">Introduzca sólo números</mat-error>
