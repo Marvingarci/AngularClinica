@@ -207,6 +207,10 @@ export class FormularioService {
     return this.httpClient.get(this.API_ENDPOINT + 'obtenerColumnaCorreo/' + correo_electronico);
   }
 
+  obtenerColumnaTelefonoEmergencia(telefono_emergencia) {
+    return this.httpClient.get(this.API_ENDPOINT + 'obtenerColumnaTelefonoEmergencia/' + telefono_emergencia);
+  }
+
   obtenerParentescos() {
     return this.httpClient.get(this.API_ENDPOINT + 'parentescos');
   }
