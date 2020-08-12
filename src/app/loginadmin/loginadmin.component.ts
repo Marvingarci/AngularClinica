@@ -354,7 +354,7 @@ export class DialogoCambiarContraseniaAdmin {
 
                 datos.password = this.contraseniaNueva.value;
 
-                this.loginService.actualizarDatos(datos).subscribe((result: any) => {
+                this.loginService.actualizarContrasena(datos).subscribe((result: any) => {
 
                   this.dialogo.closeAll();
                   this.showError('Contraseña actualizada con exito');
