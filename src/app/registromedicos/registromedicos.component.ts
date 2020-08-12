@@ -243,11 +243,7 @@ export class RegistromedicosComponent implements OnInit {
 
   comprobarDatos() {
 
-    console.log("se presiono el boton")
-
     if (this.medicos_form.valid) {
-
-      console.log("es valido")
 
 
       if (this.medicos_form.dirty) {
