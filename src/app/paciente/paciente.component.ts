@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormularioService } from '../services/formulario.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource,MatPaginator } from '@angular/material';
+//import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Paciente } from '../interfaces/paciente';
 import { MatDialog } from '@angular/material';
@@ -66,7 +66,6 @@ pacientes:Paciente[];
 
   mostrarCitas: boolean = false;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
 
@@ -99,7 +98,7 @@ pacientes:Paciente[];
 
     this.formularioService.obtenersoloempleados().subscribe((data: Soloempleados[]) => {
       this.empleados = data;
-      this.dataSource2 = new MatTableDataSource(this.empleados);
+      this.dataSource2 = new MatTableDataSource<Soloempleados>(data);
     }, (error) => {
       console.log(error);
     });
@@ -137,6 +136,10 @@ pacientes:Paciente[];
   displayedColumns2: string[] = ['id_paciente', 'nombre_completo', 'numero_cuenta', 'numero_identidad', 'correo_electronico'];
 
 
+
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+
+  
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.paginator = this.paginator;
@@ -161,7 +164,7 @@ pacientes:Paciente[];
 
 
   ngOnInit() {
-
+this.dataSource2.paginator = this.paginator;
 
   }
 
