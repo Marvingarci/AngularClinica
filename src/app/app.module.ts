@@ -65,6 +65,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 //graficas
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 
@@ -295,7 +296,7 @@ const routes: Route[] = [
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-
+    NgxPaginationModule,
 
 
     //esto es de los focus
