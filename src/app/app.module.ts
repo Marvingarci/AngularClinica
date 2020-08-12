@@ -106,7 +106,8 @@ import {AngularFireDatabaseModule} from 'angularfire2/database'
 import {AngularFireAuthModule} from '@angular/fire/auth'
 import {AngularFireModule} from 'angularfire2'
 import {environment} from '../environments/environment';
-import { RecuperarContraseniaComponent } from './recuperar-contrasenia/recuperar-contrasenia.component'
+import { RecuperarContraseniaComponent } from './recuperar-contrasenia/recuperar-contrasenia.component';
+import { TelefonoemergenciaDirective } from './validations/telefonoemergencia.directive'
 
 
 
@@ -234,6 +235,7 @@ const routes: Route[] = [
     ChatComponent,
     RecuperarContraseniaComponent,
     CorreoUnicoDirective,
+    TelefonoemergenciaDirective,
   
 
 
