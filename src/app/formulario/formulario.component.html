@@ -210,9 +210,9 @@
                       <b>En caso de emergencia llamar a</b>
                     </mat-label>
                     <mat-error *ngIf="emergencia_persona.hasError('required')">Campo requerido</mat-error>
-                    <mat-error *ngIf="emergencia_persona.hasError('pattern')">Solo aceptan letras</mat-error>
-                    <mat-error *ngIf="emergencia_persona.hasError('maxlength')">Campo muy extenso</mat-error>
-                    <mat-error *ngIf="emergencia_persona.hasError('minlength')">Sea más especifico</mat-error>
+                    <mat-error *ngIf="emergencia_persona.hasError('pattern')">
+                      Introduzca un nombre válido
+                    </mat-error>
                   </mat-form-field>
 
                   &nbsp; &nbsp; &nbsp; &nbsp;
@@ -224,8 +224,10 @@
                       <b>Teléfono de emergencia</b>
                     </mat-label>
                     <mat-error *ngIf="emergencia_telefono.hasError('required')">Campo requerido</mat-error>
-                    <mat-error *ngIf="emergencia_telefono.hasError('pattern')">Solo se aceptan número</mat-error>
-                    <mat-error *ngIf="emergencia_persona.hasError('minlength')">Introduzca un número de teléfono válido</mat-error>
+                    <mat-error *ngIf="emergencia_telefono.hasError('pattern')">
+                      Introduzca un número de teléfono válido
+                    </mat-error>
+
                   </mat-form-field>
 
 
