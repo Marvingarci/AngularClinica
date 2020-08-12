@@ -308,8 +308,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
       asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]
     }),
-    emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
-    emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
+    emergencia_persona: new FormControl('', [Validators.required, Validators.pattern('[a-zA-zñÑáéíóúÁÉÍÓÚ\s]*'), Validators.maxLength(30), Validators.minLength(4)]),
+    emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(8)])
   });
 
 
@@ -2220,7 +2220,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
   AgregarTelefonosEmergencia() {
 
 
-    if (this.emergencia_persona.value.toString().trim() && this.emergencia_telefono.valid &&
+    if (this.emergencia_persona.value.toString().trim() && this.emergencia_persona.valid &&
       this.emergencia_telefono.value.toString().trim() && this.emergencia_telefono.valid) {
 
       var emergencia_persona: string = "";
@@ -2238,8 +2238,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       //agrego a la tabla la emergencia persona y el emergencia telefono.
       this.tablaTelefonosEmergencia.push(
         {
-          id_paciente: null,
-          telefono_emergencia: emergencia_telefono,
+          id_paciente: this.tablaTelefonosEmergencia.length + 1,
+          telefono_emergencia: this.emergencia_telefono.value,
           emergencia_persona: emergencia_persona
         }
 
@@ -2252,10 +2252,10 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si se agrega un elemento a la tabla entonces los campos
       //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.emergencia_persona.clearValidators();
+      this.emergencia_persona.setValidators([Validators.required,Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*'), Validators.maxLength(30), Validators.minLength(4)]);
       this.emergencia_persona.updateValueAndValidity();
 
-      this.emergencia_telefono.clearValidators();
+      this.emergencia_telefono.setValidators([Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(8)]);
       this.emergencia_telefono.updateValueAndValidity();
 
     }
