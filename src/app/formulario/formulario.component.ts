@@ -30,6 +30,7 @@ import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
 import { IdentidadUnicoService } from '../validations/identidad-unica.directive';
 import { CuentaUnicaService } from '../validations/cuenta-unica.directive';
 import { CorreoUnicoService } from '../validations/correo-unico.directive';
+import { TelefonoemergenciaService } from '../validations/telefonoemergencia.directive';
 
 
 
@@ -40,6 +41,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { TelefonoEmergencia } from '../interfaces/telefono-emergencia';
 import { AuthService } from '../services/auth.service';
 import { Correo } from '../interfaces/correo';
+import { TelEmergValidacion } from '../interfaces/telEmergValidacion';
 
 export interface Loginadmin {
   // contrasenia_admin: any;
@@ -280,6 +282,12 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     contrasenia: null,
   };
 
+  telEmergValidacion: TelEmergValidacion = {
+    id_telefono_emergencia: null,
+    telefono_emergencia: null,
+    emergencia_persona: null,
+  };
+
   formulario_datos_generales = new FormGroup({
     nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,50}$/)]),
     correo_electronico: new FormControl('', {
@@ -308,8 +316,13 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
       asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]
     }),
-    emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
-    emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)])
+    emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)],),   
+    
+    emergencia_telefono: new FormControl('', {
+      validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
+      asyncValidators: [this.TelefonoemergenciaService.validate.bind(this.TelefonoemergenciaService)]
+    })
+    
   });
 
 
@@ -1172,7 +1185,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
   constructor(private formularioService: FormularioService,
-    private CorreoUnicoService: CorreoUnicoService,
+    private CorreoUnicoService: CorreoUnicoService,    
+    private TelefonoemergenciaService:TelefonoemergenciaService ,
     private router: Router,
     public dialog: MatDialog,
     public loginService: LoginService,
@@ -2219,44 +2233,106 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   AgregarTelefonosEmergencia() {
 
-
     if (this.emergencia_persona.value.toString().trim() && this.emergencia_telefono.valid &&
       this.emergencia_telefono.value.toString().trim() && this.emergencia_telefono.valid) {
 
-      var emergencia_persona: string = "";
-      var emergencia_telefono: string = "";
-
-      //establezco el valor del fomrControl a las variables para despues eliminar los espacios finales e iniciales
-      emergencia_persona = this.emergencia_persona.value;
-      emergencia_telefono = this.emergencia_telefono.value;
+    
 
 
-      //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
-      emergencia_persona = emergencia_persona.trim();
-      emergencia_telefono = emergencia_telefono.trim();
+      if(this.tablaTelefonosEmergencia.length){
+        console.log('si tiene datos trabajando')
 
-      //agrego a la tabla la emergencia persona y el emergencia telefono.
-      this.tablaTelefonosEmergencia.push(
-        {
-          id_paciente: null,
-          telefono_emergencia: emergencia_telefono,
-          emergencia_persona: emergencia_persona
-        }
+        var emergencia_persona: string = "";
+        var emergencia_telefono: string = "";
+  
+        //establezco el valor del fomrControl a las variables para despues eliminar los espacios finales e iniciales
+        emergencia_persona = this.emergencia_persona.value;
+        emergencia_telefono = this.emergencia_telefono.value;
+  
+        //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
+        emergencia_persona = emergencia_persona.trim();
+        emergencia_telefono = emergencia_telefono.trim();
 
-      );
+        this.tablaTelefonosEmergencia.forEach(telefono_emergencia => {
+          
+        
+  
+          if( telefono_emergencia.telefono_emergencia != this.emergencia_telefono.value ){
+            this.tablaTelefonosEmergencia.push(
+            {
+              id_paciente: null,
+              telefono_emergencia: emergencia_telefono,
+              emergencia_persona: emergencia_persona
+            }  
+          );         
+          
+          
+          
+        this.dataSourceTablaTelefonosEmergencia = new MatTableDataSource(this.tablaTelefonosEmergencia);
+        this.emergencia_persona.setValue('');
+        this.emergencia_telefono.setValue('');
+        //si se agrega un elemento a la tabla entonces los campos
+        //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
+        this.emergencia_persona.clearValidators();
+        this.emergencia_persona.updateValueAndValidity();
+        this.emergencia_telefono.clearValidators();
+        this.emergencia_telefono.updateValueAndValidity();
+  
+          }else{
+            this.showError('Este telefono ya esta en esta tabla');
+          }
+  
+         });   //fin del foreach
+      }else if(!this.tablaTelefonosEmergencia.length){
+        console.log('NO tiene datos trabajando')
+        
+        var emergencia_persona: string = "";
+        var emergencia_telefono: string = "";
+  
+        //establezco el valor del fomrControl a las variables para despues eliminar los espacios finales e iniciales
+        emergencia_persona = this.emergencia_persona.value;
+        emergencia_telefono = this.emergencia_telefono.value;
+  
+        //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
+        emergencia_persona = emergencia_persona.trim();
+        emergencia_telefono = emergencia_telefono.trim();
 
+
+        this.tablaTelefonosEmergencia.push(
+          {
+            id_paciente: null,
+            telefono_emergencia: emergencia_telefono,
+            emergencia_persona: emergencia_persona
+          }  
+        );         
+        
+        
+        
       this.dataSourceTablaTelefonosEmergencia = new MatTableDataSource(this.tablaTelefonosEmergencia);
-
       this.emergencia_persona.setValue('');
       this.emergencia_telefono.setValue('');
-
       //si se agrega un elemento a la tabla entonces los campos
       //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
       this.emergencia_persona.clearValidators();
       this.emergencia_persona.updateValueAndValidity();
-
       this.emergencia_telefono.clearValidators();
       this.emergencia_telefono.updateValueAndValidity();
+
+      }
+
+
+
+
+
+      //agrego a la tabla la emergencia persona y el emergencia telefono.
+     
+     
+
+    
+
+     
+
+      
 
     }
   }
