@@ -447,22 +447,36 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
  vivosmuertos: number;
 
+//  parto(stepper: MatStepper){
+    
+//   if(this.partos.value >= this.cesarias.value ){
+
+//     stepper.next();
+    
+
+//   }else{
+
+//     this.showError('Los partos deberia coicidir con las cesarias');
+
+//   }
+  
+// }
+
   onda(stepper: MatStepper){
     
     this.vivosmuertos = (this.hijos_vivos.value + this.hijos_muertos.value);
     console.log(this.vivosmuertos);
     console.log(this.partos.value);
-    if(this.partos.value <= this.vivosmuertos ){
+    if(this.partos.value <= this.vivosmuertos && this.partos.value >= this.cesarias.value ){
 
       stepper.next();
       
 
     }else{
 
-      this.showError('Los partos no coinciden con los hijos vivos y hijos muertos');
+      this.showError('Los partos no coinciden con los hijos vivos, hijos muertos y cesaria');
 
     }
-    
   }
 
 
