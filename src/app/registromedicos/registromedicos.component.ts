@@ -243,11 +243,7 @@ export class RegistromedicosComponent implements OnInit {
 
   comprobarDatos() {
 
-    console.log("se presiono el boton")
-
     if (this.medicos_form.valid) {
-
-      console.log("es valido")
 
 
       if (this.medicos_form.dirty) {
@@ -366,10 +362,7 @@ export class RegistromedicosComponent implements OnInit {
 
     const dialogRef = this.dialogo.open(DialogoCambiarContraseniaMed, {
       disableClose: true,
-      panelClass: 'cambiar',
-      // height: '450px',
-      // width: '400px',
-
+       width: '500px',
     });
 
 
@@ -450,6 +443,7 @@ export class DialogoCambiarContraseniaMed {
             const dialogRef = this.dialogo.open(DialogoVerificarPermisoComponent, {
               disableClose: true,
               panelClass: 'verificar',
+              width:'500px'
 
             });
 
@@ -460,7 +454,7 @@ export class DialogoCambiarContraseniaMed {
 
                 datos.password = this.contraseniaNueva.value;
 
-                this.loginService.actualizarDatos(datos).subscribe((result: any) => {
+                this.loginService.actualizarContrasena(datos).subscribe((result: any) => {
 
                   this.dialogo.closeAll();
                   this.showError('Contraseña actualizada con exito');

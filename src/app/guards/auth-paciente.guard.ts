@@ -9,35 +9,45 @@ import { LoginService } from '../services/login.service';
 export class AuthPacienteGuard implements CanActivate {
 
   rol: any
-  constructor(private router: Router, private loginService: LoginService) {}
- 
+  constructor(private router: Router, private loginService: LoginService) { }
+
 
   canActivate(): Promise<boolean> {
 
-    return new Promise((resolve: Function, reject: Function) => {
+    if (localStorage.getItem("token")) {
 
-      this.loginService.getCurrentUser({ "token": localStorage.getItem("token") }).subscribe((data: any) => {
+      return new Promise((resolve: Function, reject: Function) => {
 
-        if (data.rol == "Paciente") {
+        this.loginService.getCurrentUser({ "token": localStorage.getItem("token") }).subscribe((data: any) => {
 
-          resolve(true);
+          if (data.rol == "Paciente") {
 
-        } else {
+            resolve(true);
 
-          reject(false);
-          this.router.navigate(['/']);
+          } else {
+
+            reject(false);
+            this.router.navigate(['/']);
 
 
-        }
+          }
 
-      })
+        })
 
-    });
+      });
+
+    }else{
+
+      this.router.navigate(['/']);
+
+
+    }
+
 
 
 
   }
 
-  
+
 
 }

@@ -19,25 +19,35 @@ export class AuthAdministradorGuard implements CanActivate {
 
   canActivate(): Promise<boolean> {
 
-    return new Promise((resolve: Function, reject: Function) => {
+    if(localStorage.getItem("token")){
 
-      this.loginService.getCurrentUser({ "token": localStorage.getItem("token") }).subscribe((data: any) => {
+      return new Promise((resolve: Function, reject: Function) => {
 
-        if (data.rol == "Administrador" || data.rol == "Medico") {
+        this.loginService.getCurrentUser({ "token": localStorage.getItem("token") }).subscribe((data: any) => {
+  
+          if (data.rol == "Administrador" || data.rol == "Medico") {
+  
+            resolve(true);
+  
+          } else {
+  
+            reject(false);
+            this.router.navigate(['/']);
+  
+  
+          }
+  
+        })
+  
+      });
 
-          resolve(true);
+    }else{
 
-        } else {
+      this.router.navigate(['/']);
 
-          reject(false);
-          this.router.navigate(['/']);
+    }
 
-
-        }
-
-      })
-
-    });
+    
 
 
 

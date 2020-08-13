@@ -27,15 +27,7 @@ export class PrincipalComponent implements OnInit {
 
 
     this.obtenerUsuario()
-    // if (localStorage.getItem("rol") == 'Administrador' || this.loginService.datosUsuario.permisos == true) {
-
-    //   this.esAdmin = true
-
-    // } else {
-
-    //   this.esAdmin = false
-
-    // }
+ 
 
 
   }
@@ -81,7 +73,9 @@ export class PrincipalComponent implements OnInit {
   obtenerUsuario(){
     this.loginService.getCurrentUser({"token": localStorage.getItem("token")}).subscribe((data:any)=>{
 
-      if(data.rol == "Administrador"){
+      console.log(data)
+
+      if(data.rol == "Administrador" || data.permisos == 1){
 
         this.esAdmin = true
 

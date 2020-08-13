@@ -607,6 +607,8 @@
                           <mat-error *ngIf="emergencia_telefono.hasError('pattern')">
                             introduzca un número de teléfono válido
                           </mat-error>
+                          
+                    <mat-error *ngIf="emergencia_telefono.hasError('telefonoemergencia')">El teléfono pertenece a otra persona</mat-error>
                         </mat-form-field>
 
                         &nbsp; &nbsp; &nbsp;

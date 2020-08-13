@@ -58,6 +58,7 @@ import { LoginService } from '../services/login.service';
 import { map } from 'rxjs/operators';
 import { CitaUnicaService } from '../validations/cita-unica.directive';
 import { FechaUnicaService } from '../validations/fecha-unica.directive';
+import { TelefonoemergenciaService } from '../validations/telefonoemergencia.directive';
 
 
 export interface Element {
@@ -205,7 +206,10 @@ export class VerPacienteComponent implements OnInit {
       validators: [Validators.pattern(/^\d{8}$/)],
       // asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]
     }),
-    emergencia_telefono: new FormControl('', [Validators.pattern(/^\d{8}$/)]),
+    emergencia_telefono: new FormControl('', {
+      validators: [Validators.pattern(/^\d{8}$/)],
+      asyncValidators: [this.TelefonoemergenciaService.validate.bind(this.TelefonoemergenciaService)]
+    }),
     emergencia_persona: new FormControl('', [Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
 
     //datos restantes
@@ -1029,7 +1033,9 @@ export class VerPacienteComponent implements OnInit {
     private loginService: LoginService,
     public cambiarFoto: MatDialog,
     private IdentidadUnicoService: IdentidadUnicoService,
-    private TelefonoUnicoService: TelefonoUnicoService, private CuentaUnicaService: CuentaUnicaService) {
+    private TelefonoUnicoService: TelefonoUnicoService, 
+    private CuentaUnicaService: CuentaUnicaService, 
+    private TelefonoemergenciaService:TelefonoemergenciaService ) {
 
     activar.mostrar();
 

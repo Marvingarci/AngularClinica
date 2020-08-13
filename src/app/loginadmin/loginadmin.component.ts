@@ -41,8 +41,8 @@ export class LoginadminComponent implements OnInit {
     confirmarContrasenia: new FormControl('', [Validators.minLength(6), Validators.maxLength(30)]),
     nombre: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(50),this.noWhitespaceValidator, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,50}$/)]),
     identidad: new FormControl('',{validators: [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern('[0-9]*')]
-    ,asyncValidators: [this.fechaUnicaService.validate.bind(this.fechaUnicaService)]}
-    ),
+   // ,asyncValidators: [this.fechaUnicaService.validate.bind(this.fechaUnicaService)]
+  }),
 
   });
 
@@ -97,6 +97,8 @@ export class LoginadminComponent implements OnInit {
         // this.contraseniaC.setValue(this.administrador.password);
         this.nombre.setValue(this.administrador.nombre_completo);
         this.identidad.setValue(this.administrador.identidad);
+        
+       
 
         this.login_adminservice.idActualizar = this.administrador.id_administrador;
 
@@ -109,7 +111,7 @@ export class LoginadminComponent implements OnInit {
       this.editando = false;
 
       this.usuario.setAsyncValidators(this.usuarioAdminUnicoService.validate.bind(this.usuarioAdminUnicoService));
-
+      this.identidad.setAsyncValidators( this.fechaUnicaService.validate.bind(this.fechaUnicaService));
       this.contraseniaNueva.setValidators([Validators.required, Validators.minLength(6),Validators.maxLength(30),
         Validators.pattern( '[0-9a-zA-Z$@$!%*?&.,^=#]*')]);
        
@@ -159,6 +161,13 @@ export class LoginadminComponent implements OnInit {
 
   llamarDialogo() {
 
+   //elimino la consulta asincrona asignandole una incorrecta
+  //  if(this.identidad.value != this.administrador.identidad){
+    //        this.identidad.setAsyncValidators( [this.fechaUnicaService.validate.bind(this.fechaUnicaService)]) ;
+      
+    
+    
+
     if (this.loginadmin_form.valid) {
 
       //ejecuto la accion solo si el fomulario es modificado
@@ -167,6 +176,7 @@ export class LoginadminComponent implements OnInit {
         const dialogRef = this.dialogo.open(DialogoVerificarPermisoComponent, {
           disableClose: true,
           panelClass: 'verificar',
+          width:'500px',
           data: { id: this.id, editando: this.editando, formulario: this.loginadmin_form }
 
         });
@@ -245,7 +255,7 @@ export class LoginadminComponent implements OnInit {
       }
 
     }
-
+  //}sin del if asincrono
 
 
   }
@@ -254,9 +264,7 @@ export class LoginadminComponent implements OnInit {
 
     const dialogRef = this.dialogo.open(DialogoCambiarContraseniaAdmin, {
       disableClose: true,
-      panelClass: 'cambiar',
-      // height: '450px',
-      // width: '400px',
+      width: '500px',
 
     });
 
@@ -265,6 +273,8 @@ export class LoginadminComponent implements OnInit {
 
 
   comprobarDatos() {
+
+   
 
     this.llamarDialogo();
 
@@ -355,7 +365,7 @@ export class DialogoCambiarContraseniaAdmin {
 
                 datos.password = this.contraseniaNueva.value;
 
-                this.loginService.actualizarDatos(datos).subscribe((result: any) => {
+                this.loginService.actualizarContrasena(datos).subscribe((result: any) => {
 
                   this.dialogo.closeAll();
                   this.showError('Contraseña actualizada con exito');
