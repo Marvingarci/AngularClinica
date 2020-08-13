@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormularioService } from '../services/formulario.service';
-import { MatTableDataSource,MatPaginator } from '@angular/material';
+import { MatTableDataSource,MatPaginator, MatSort } from '@angular/material';
 //import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Paciente } from '../interfaces/paciente';
@@ -51,14 +51,16 @@ export class PacienteComponent implements OnInit {
 
 pacientes:Paciente[];
   estudiantes: Soloestudiantes[];
-  empleados: Soloempleados[];
+  empleados: Soloempleados[]= [];
   visitantes: Solovisitantes[];
   prosenes: Soloprosenes[];
 
-  dataSource: any;
-  dataSource2: any;
-  dataSource3: any;
-  dataSource4: any;
+
+  dataSource: MatTableDataSource<any>;
+  dataSource2: MatTableDataSource<any>;
+  dataSource3: MatTableDataSource<any>;
+  dataSource4: MatTableDataSource<any>;
+
   dataSourceCitas: any;
   estudiantesM:any;
 
@@ -127,19 +129,45 @@ pacientes:Paciente[];
     // });
   }
 
+  
+
  
 
 
 
 
-  displayedColumns: string[] = ['id_paciente', 'nombre_completo', 'numero_identidad', 'correo_electronico'];
-  displayedColumns2: string[] = ['id_paciente', 'nombre_completo', 'numero_cuenta', 'numero_identidad', 'correo_electronico'];
+  columnasProsenes: string[] = ['id_paciente', 'nombre_completo', 'numero_identidad', 'correo_electronico'];
+  columnasVisitantes: string[] = ['id_paciente', 'nombre_completo', 'numero_identidad', 'correo_electronico'];
+  columnasEmpleados: string[] = ['id_paciente', 'nombre_completo', 'numero_identidad', 'correo_electronico'];
+  columnasEstudiantes: string[] = ['id_paciente', 'nombre_completo', 'numero_cuenta', 'numero_identidad', 'correo_electronico'];
 
 
 
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+ 
+  private paginator: MatPaginator;
+  private sort: MatSort;
 
-  
+  @ViewChildren(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+    this.setDataSourceAttributes();
+  }
+
+  @ViewChildren(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+    // if (this.paginator && this.sort) {
+    //   this.applyFilter('');
+    // }
+  }
+
+
+  // esto sirve para hacer las busquedas
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.paginator = this.paginator;
@@ -163,11 +191,20 @@ pacientes:Paciente[];
   }
 
 
-  ngOnInit() {
+  ngOnInit(): void {
+
+this.dataSource2 = new MatTableDataSource(this.empleados);
 this.dataSource2.paginator = this.paginator;
+this.dataSource2.sort = this.sort;
+this.setDataSourceAttributes(); 
 
   }
 
+//   ngAfterViewInit() {
+//     this.dataSource2.paginator = this.paginator
+//     this.dataSource2 = new MatTableDataSource(this.empleados);
+// this.dataSource2.sort = this.sort;
+// }
 
   formulario() {
 
