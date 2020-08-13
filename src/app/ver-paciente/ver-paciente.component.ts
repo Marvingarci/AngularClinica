@@ -208,7 +208,7 @@ export class VerPacienteComponent implements OnInit {
     }),
     emergencia_telefono: new FormControl('', {
       validators: [Validators.pattern(/^\d{8}$/)],
-      asyncValidators: [this.TelefonoemergenciaService.validate.bind(this.TelefonoemergenciaService)]
+     // asyncValidators: [this.TelefonoemergenciaService.validate.bind(this.TelefonoemergenciaService)]
     }),
     emergencia_persona: new FormControl('', [Validators.pattern(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)]),
 
