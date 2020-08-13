@@ -1092,7 +1092,7 @@ export class VerPacienteComponent implements OnInit {
     pdf.add(
       new Txt(
         "\nEl motivo de la presente constancia es para hacerle saber que el alumno " + this.paciente.nombre_completo +
-        " con numero de cuenta " + this.paciente.numero_cuenta + " asistio a la cliníca medica de UNAH-TEC Danlí " +
+        " con número de cuenta " + this.paciente.numero_cuenta + " asistió a la cliníca medica de UNAH-TEC Danlí " +
         "por motivos ajenos a su salud.").alignment("justify").end
     );
 

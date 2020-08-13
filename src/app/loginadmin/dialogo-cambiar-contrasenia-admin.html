@@ -25,6 +25,7 @@ padding: 20px;">
             <mat-error *ngIf="contraseniaActual.hasError('required')">
                 <strong>Campo requerido</strong>
             </mat-error>
+            <mat-error *ngIf="contraseniaActual.hasError('maxlength')">Campo muy extenso</mat-error>
             <mat-error *ngIf="contraseniaActual.hasError('minLength') && contraseniaActual.hasError('maxLength')">
                 <strong>Contraseña invalida</strong>
             </mat-error>
@@ -43,6 +44,7 @@ padding: 20px;">
             <mat-error *ngIf="contraseniaNueva.hasError('required')">
                 <strong>Campo requerido</strong>
             </mat-error>
+            <mat-error *ngIf="contraseniaNueva.hasError('maxlength')">Campo muy extenso</mat-error>
             <mat-error *ngIf="contraseniaNueva.hasError('minLength') && contraseniaNueva.hasError('maxLength')">
                 <strong>Contraseña invalida</strong>
             </mat-error>
@@ -61,6 +63,7 @@ padding: 20px;">
             <mat-error *ngIf="confirmarContrasenia.hasError('required')">
                 <strong>Campo requerido</strong>
             </mat-error>
+            <mat-error *ngIf="confirmarContrasenia.hasError('maxlength')">Campo muy extenso</mat-error>
             <mat-error *ngIf="confirmarContrasenia.hasError('minLength') && confirmarContrasenia.hasError('maxLength')">
                 <strong>Contraseña invalida</strong>
             </mat-error>

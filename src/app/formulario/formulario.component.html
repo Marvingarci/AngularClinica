@@ -88,7 +88,8 @@
                 <b>Lugar de procedencia</b>
               </mat-label>
               <mat-error *ngIf="lugar_procedencia.hasError('required')">Campo requerido</mat-error>
-              <mat-error *ngIf="lugar_procedencia.hasError('pattern')">Campo inválido</mat-error>
+              <mat-error *ngIf="lugar_procedencia.hasError('pattern')">Ingrese datos válidos</mat-error>
+              <mat-error *ngIf="lugar_procedencia.hasError('whitespace')">Ingrese datos válidos</mat-error>
 
 
             </mat-form-field>
@@ -209,9 +210,9 @@
                       <b>En caso de emergencia llamar a</b>
                     </mat-label>
                     <mat-error *ngIf="emergencia_persona.hasError('required')">Campo requerido</mat-error>
-                    <mat-error *ngIf="emergencia_persona.hasError('pattern')">
-                      Introduzca un nombre válido
-                    </mat-error>
+                    <mat-error *ngIf="emergencia_persona.hasError('pattern')">Solo aceptan letras</mat-error>
+                    <mat-error *ngIf="emergencia_persona.hasError('maxlength')">Campo muy extenso </mat-error>
+                    <mat-error *ngIf="emergencia_persona.hasError('minlength')">Sea más especifico </mat-error>
                   </mat-form-field>
 
                   &nbsp; &nbsp; &nbsp; &nbsp;
@@ -223,14 +224,15 @@
                       <b>Teléfono de emergencia</b>
                     </mat-label>
                     <mat-error *ngIf="emergencia_telefono.hasError('required')">Campo requerido</mat-error>
-                    <mat-error *ngIf="emergencia_telefono.hasError('pattern')">Introduzca un número de teléfono válido</mat-error>
+                    <mat-error *ngIf="emergencia_telefono.hasError('pattern')">Solo se aceptan número</mat-error>
+                    <mat-error *ngIf="emergencia_persona.hasError('minlength')"> Introduzca un número de teléfono válido</mat-error>
 
                   </mat-form-field>
 
 
                   &nbsp; &nbsp; &nbsp;
 
-                  <button mat-raised-button (click)="AgregarTelefonosEmergencia();">Agregar</button>
+                  <button mat-raised-button (click)="AgregarTelefonosEmergencia();">agregar</button>
 
                 </div>
               </div>
@@ -413,7 +415,7 @@
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
-            <button mat-raised-button (click)="agregarDesnutricionesAF();">Agregar</button>
+            <button mat-raised-button (click)="agregarDesnutricionesAF();">agregar</button>
           </div>
         </div>
 
@@ -516,7 +518,7 @@
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
-            <button mat-raised-button (click)="agregarEnfermedadesMentales();">Agregar</button>
+            <button mat-raised-button (click)="agregarEnfermedadesMentales();">agregar</button>
 
           </div>
 
@@ -683,7 +685,7 @@
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
-            <button mat-raised-button (click)="agregarAlergias();">Agregar</button>
+            <button mat-raised-button (click)="agregarAlergias();">agregar</button>
 
           </div>
 
@@ -786,7 +788,7 @@
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
-            <button mat-raised-button (click)="agregarCanceres();">Agregar</button>
+            <button mat-raised-button (click)="agregarCanceres();">agregar</button>
 
           </div>
 
@@ -901,7 +903,7 @@
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
-            <button mat-raised-button (click)="agregarOtros();">Agregar</button>
+            <button mat-raised-button (click)="agregarOtros();">agregar</button>
 
           </div>
 
@@ -1130,7 +1132,7 @@
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
-            <button mat-raised-button (click)="agregarDesnutricionesAP();">Agregar</button>
+            <button mat-raised-button (click)="agregarDesnutricionesAP();">agregar</button>
 
           </div>
 
@@ -1235,7 +1237,7 @@
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
-            <button mat-raised-button (click)="agregarEnfermedadesMentalesAP();">Agregar</button>
+            <button mat-raised-button (click)="agregarEnfermedadesMentalesAP();">agregar</button>
 
           </div>
 
@@ -1365,7 +1367,7 @@
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
-            <button mat-raised-button (click)="agregarAlergiasAP();">Agregar</button>
+            <button mat-raised-button (click)="agregarAlergiasAP();">agregar</button>
 
           </div>
 
@@ -1464,7 +1466,7 @@
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
-            <button mat-raised-button (click)="agregarCanceresAP();">Agregar</button>
+            <button mat-raised-button (click)="agregarCanceresAP();">agregar</button>
 
           </div>
 
@@ -1603,7 +1605,7 @@
 
 
               <button mat-raised-button class="float-right"
-                (click)="agregarHospitalariasQuirurgicas();">Agregar</button>
+                (click)="agregarHospitalariasQuirurgicas();">agregar</button>
 
 
             </div>
@@ -1739,7 +1741,7 @@
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
-            <button mat-raised-button (click)="agregarOtrosAP();">Agregar</button>
+            <button mat-raised-button (click)="agregarOtrosAP();">agregar</button>
 
           </div>
 
@@ -2207,6 +2209,8 @@
                 <b>Duración ciclo menstrual</b>
               </mat-label>
               <mat-error *ngIf="duracion_ciclo_menstrual.hasError('required')">Campo requerido</mat-error>
+              <mat-error *ngIf="duracion_ciclo_menstrual.hasError('maxlength')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="duracion_ciclo_menstrual.hasError('minlength')">Introduzca una observación válida</mat-error>
 
             </mat-form-field>
           </div>
@@ -2434,7 +2438,7 @@
 
             &nbsp; &nbsp; &nbsp; &nbsp;
 
-            <button mat-raised-button (click)="agregarOtrosHT();">Agregar</button>
+            <button mat-raised-button (click)="agregarOtrosHT();">agregar</button>
 
           </div>
         </div>
