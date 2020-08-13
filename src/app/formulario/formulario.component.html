@@ -211,8 +211,8 @@
                     </mat-label>
                     <mat-error *ngIf="emergencia_persona.hasError('required')">Campo requerido</mat-error>
                     <mat-error *ngIf="emergencia_persona.hasError('pattern')">Solo aceptan letras</mat-error>
-                    <mat-error *ngIf="emergencia_persona.hasError('maxlength')">Campo muy extenso</mat-error>
-                    <mat-error *ngIf="emergencia_persona.hasError('minlength')">Sea más especifico</mat-error>
+                    <mat-error *ngIf="emergencia_persona.hasError('maxlength')">Campo muy extenso </mat-error>
+                    <mat-error *ngIf="emergencia_persona.hasError('minlength')">Sea más especifico </mat-error>
                   </mat-form-field>
 
                   &nbsp; &nbsp; &nbsp; &nbsp;
@@ -225,7 +225,7 @@
                     </mat-label>
                     <mat-error *ngIf="emergencia_telefono.hasError('required')">Campo requerido</mat-error>
                     <mat-error *ngIf="emergencia_telefono.hasError('pattern')">Solo se aceptan número</mat-error>
-                    <mat-error *ngIf="emergencia_persona.hasError('minlength')">Introduzca un número de teléfono válido</mat-error>
+                    <mat-error *ngIf="emergencia_persona.hasError('minlength')"> Introduzca un número de teléfono válido</mat-error>
 
                   </mat-form-field>
 
@@ -2209,6 +2209,8 @@
                 <b>Duración ciclo menstrual</b>
               </mat-label>
               <mat-error *ngIf="duracion_ciclo_menstrual.hasError('required')">Campo requerido</mat-error>
+              <mat-error *ngIf="duracion_ciclo_menstrual.hasError('maxlength')">Campo muy extenso</mat-error>
+              <mat-error *ngIf="duracion_ciclo_menstrual.hasError('minlength')">Introduzca una observación válida</mat-error>
 
             </mat-form-field>
           </div>

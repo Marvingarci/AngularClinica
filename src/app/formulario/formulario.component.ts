@@ -408,7 +408,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     citologia: new FormControl('', [Validators.required]),
     fecha_citologia: new FormControl(''),
     resultado_citologia: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
-    duracion_ciclo_menstrual: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
+    duracion_ciclo_menstrual: new FormControl('', [Validators.pattern('[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*'), Validators.maxLength(150), Validators.minLength(4)]),
     periocidad_ciclo_menstrual: new FormControl('', [Validators.required]),
     caracteristicas_ciclo_menstrual: new FormControl('', [Validators.required])
   });
@@ -2252,11 +2252,11 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       //si se agrega un elemento a la tabla entonces los campos
       //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.emergencia_persona.setValidators([Validators.required,Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*'), Validators.maxLength(30), Validators.minLength(4)]);
+      this.emergencia_persona.setValidators([Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*'), Validators.maxLength(30), Validators.minLength(4)]);
       this.emergencia_persona.updateValueAndValidity();
 
-      this.emergencia_telefono.setValidators([Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(8)]);
-      this.emergencia_telefono.updateValueAndValidity();
+      this.emergencia_telefono.setValidators([Validators.pattern('[0-9]*'), Validators.minLength(8)]);
+      this.emergencia_telefono.updateValueAndValidity(); 
 
     }
   }
