@@ -75,10 +75,9 @@
                     mat-cell *matCellDef="let element"> {{element.correo_electronico}} </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                <tr mat-header-row *matHeaderRowDef="columnasEstudiantes"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasEstudiantes;"></tr>
               </table>
-              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
             </mat-tab>
 
 
@@ -98,7 +97,7 @@
               <!--'id_paciente', 'nombre_completo', 'numero_identidad', 'sexo', 'numero_telefono'-->
 
               <div>
-              <table mat-table [dataSource]="dataSource2 " class="tabla" >
+              <table mat-table [dataSource]="dataSource2 " class="tabla" matSort>
 
                 <!-- Position Column -->
                 <ng-container matColumnDef="id_paciente">
@@ -128,10 +127,11 @@
                     routerLink="/clínicaunahtec/verPaciente/{{element.id_paciente}}"> {{element.correo_electronico}} </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-header-row *matHeaderRowDef="columnasEmpleados"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasEmpleados;"></tr>
               </table>
-              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+              
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" ></mat-paginator>
             </div>
              
 
@@ -182,8 +182,8 @@
                     routerLink="/clínicaunahtec/verPaciente/{{element.id_paciente}}"> {{element.correo_electronico}} </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-header-row *matHeaderRowDef="columnasVisitantes"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasVisitantes;"></tr>
               </table>
             </mat-tab>
 
@@ -231,8 +231,8 @@
                     routerLink="/clínicaunahtec/verPaciente/{{element.id_paciente}}"> {{element.correo_electronico}} </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-header-row *matHeaderRowDef="columnasProsenes"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasProsenes;"></tr>
               </table>
             </mat-tab>
           </mat-tab-group>
