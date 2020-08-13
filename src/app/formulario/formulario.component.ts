@@ -30,7 +30,6 @@ import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
 import { IdentidadUnicoService } from '../validations/identidad-unica.directive';
 import { CuentaUnicaService } from '../validations/cuenta-unica.directive';
 import { CorreoUnicoService } from '../validations/correo-unico.directive';
-import { TelefonoemergenciaService } from '../validations/telefonoemergencia.directive';
 
 
 
@@ -41,7 +40,6 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { TelefonoEmergencia } from '../interfaces/telefono-emergencia';
 import { AuthService } from '../services/auth.service';
 import { Correo } from '../interfaces/correo';
-import { TelEmergValidacion } from '../interfaces/telEmergValidacion';
 
 export interface Loginadmin {
   // contrasenia_admin: any;
@@ -282,12 +280,6 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     contrasenia: null,
   };
 
-  telEmergValidacion: TelEmergValidacion = {
-    id_telefono_emergencia: null,
-    telefono_emergencia: null,
-    emergencia_persona: null,
-  };
-
   formulario_datos_generales = new FormGroup({
     nombre_completo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{0,50}$/)]),
     correo_electronico: new FormControl('', {
@@ -316,13 +308,8 @@ export class FormularioComponent implements OnInit, AfterViewInit {
       validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
       asyncValidators: [this.TelefonoUnicoService.validate.bind(this.TelefonoUnicoService)]
     }),
-    emergencia_persona: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-zñÑáéíóúÁÉÍÓÚ\s]{3,30}$/)],),   
-    
-    emergencia_telefono: new FormControl('', {
-      validators: [Validators.required, Validators.pattern(/^\d{8}$/)],
-     // asyncValidators: [this.TelefonoemergenciaService.validate.bind(this.TelefonoemergenciaService)]
-    })
-    
+    emergencia_persona: new FormControl('', [Validators.required, Validators.pattern('[a-zA-zñÑáéíóúÁÉÍÓÚ\s]*'), Validators.maxLength(30), Validators.minLength(4)]),
+    emergencia_telefono: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(8)])
   });
 
 
@@ -421,7 +408,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     citologia: new FormControl('', [Validators.required]),
     fecha_citologia: new FormControl(''),
     resultado_citologia: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
-    duracion_ciclo_menstrual: new FormControl('', [Validators.maxLength(150), Validators.minLength(4)]),
+    duracion_ciclo_menstrual: new FormControl('', [Validators.pattern('[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*'), Validators.maxLength(150), Validators.minLength(4)]),
     periocidad_ciclo_menstrual: new FormControl('', [Validators.required]),
     caracteristicas_ciclo_menstrual: new FormControl('', [Validators.required])
   });
@@ -447,22 +434,36 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
  vivosmuertos: number;
 
+//  parto(stepper: MatStepper){
+    
+//   if(this.partos.value >= this.cesarias.value ){
+
+//     stepper.next();
+    
+
+//   }else{
+
+//     this.showError('Los partos deberia coicidir con las cesarias');
+
+//   }
+  
+// }
+
   onda(stepper: MatStepper){
     
     this.vivosmuertos = (this.hijos_vivos.value + this.hijos_muertos.value);
     console.log(this.vivosmuertos);
     console.log(this.partos.value);
-    if(this.partos.value <= this.vivosmuertos ){
+    if(this.partos.value <= this.vivosmuertos && this.partos.value >= this.cesarias.value ){
 
       stepper.next();
       
 
     }else{
 
-      this.showError('Los partos no coinciden con los hijos vivos y hijos muertos');
+      this.showError('Los partos no coinciden con los hijos vivos, hijos muertos y cesaria');
 
     }
-    
   }
 
 
@@ -1185,8 +1186,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
 
   constructor(private formularioService: FormularioService,
-    private CorreoUnicoService: CorreoUnicoService,    
-    private TelefonoemergenciaService:TelefonoemergenciaService ,
+    private CorreoUnicoService: CorreoUnicoService,
     private router: Router,
     public dialog: MatDialog,
     public loginService: LoginService,
@@ -2233,107 +2233,44 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
   AgregarTelefonosEmergencia() {
 
-    if (this.emergencia_persona.value.toString().trim() && this.emergencia_telefono.valid &&
+
+    if (this.emergencia_persona.value.toString().trim() && this.emergencia_persona.valid &&
       this.emergencia_telefono.value.toString().trim() && this.emergencia_telefono.valid) {
 
-    
+      var emergencia_persona: string = "";
+      var emergencia_telefono: string = "";
+
+      //establezco el valor del fomrControl a las variables para despues eliminar los espacios finales e iniciales
+      emergencia_persona = this.emergencia_persona.value;
+      emergencia_telefono = this.emergencia_telefono.value;
 
 
-      if(this.tablaTelefonosEmergencia.length){
-        console.log('si tiene datos trabajando')
-
-        var emergencia_persona: string = "";
-        var emergencia_telefono: string = "";
-  
-        //establezco el valor del fomrControl a las variables para despues eliminar los espacios finales e iniciales
-        emergencia_persona = this.emergencia_persona.value;
-        emergencia_telefono = this.emergencia_telefono.value;
-  
-        //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
-        emergencia_persona = emergencia_persona.trim();
-        emergencia_telefono = emergencia_telefono.trim();
-
-        this.tablaTelefonosEmergencia.forEach(telefono_emergencia => {
-          
-        
-  
-          if( telefono_emergencia.telefono_emergencia != this.emergencia_telefono.value ){
-            this.tablaTelefonosEmergencia.push(
-            {
-              id_paciente: null,
-              telefono_emergencia: emergencia_telefono,
-              emergencia_persona: emergencia_persona
-            }  
-          );         
-          
-          
-          
-        this.dataSourceTablaTelefonosEmergencia = new MatTableDataSource(this.tablaTelefonosEmergencia);
-        this.emergencia_persona.setValue('');
-        this.emergencia_telefono.setValue('');
-        //si se agrega un elemento a la tabla entonces los campos
-        //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-        this.emergencia_persona.clearValidators();
-        this.emergencia_persona.updateValueAndValidity();
-        this.emergencia_telefono.clearValidators();
-        this.emergencia_telefono.updateValueAndValidity();
-  
-          }else{
-            this.showError('Este telefono ya esta en esta tabla');
-          }
-  
-         });   //fin del foreach
-      }else if(!this.tablaTelefonosEmergencia.length){
-        console.log('NO tiene datos trabajando')
-        this.emergencia_telefono.setValidators([Validators.pattern(/^\d{8}$/)]);    
-        
-        var emergencia_persona: string = "";
-        var emergencia_telefono: string = "";
-  
-        //establezco el valor del fomrControl a las variables para despues eliminar los espacios finales e iniciales
-        emergencia_persona = this.emergencia_persona.value;
-        emergencia_telefono = this.emergencia_telefono.value;
-  
-        //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
-        emergencia_persona = emergencia_persona.trim();
-        emergencia_telefono = emergencia_telefono.trim();
-
-
-        this.tablaTelefonosEmergencia.push(
-          {
-            id_paciente: null,
-            telefono_emergencia: emergencia_telefono,
-            emergencia_persona: emergencia_persona
-          }  
-        );         
-        
-        
-        
-      this.dataSourceTablaTelefonosEmergencia = new MatTableDataSource(this.tablaTelefonosEmergencia);
-      this.emergencia_persona.setValue('');
-      this.emergencia_telefono.setValue('');
-      //si se agrega un elemento a la tabla entonces los campos
-      //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
-      this.emergencia_persona.clearValidators();
-      this.emergencia_persona.updateValueAndValidity();
-      this.emergencia_telefono.clearValidators();
-      this.emergencia_telefono.updateValueAndValidity();
-
-      }
-
-
-
-
+      //elimino el espacio de inicio y el final que puede quedar en la variable stringParentesco.
+      emergencia_persona = emergencia_persona.trim();
+      emergencia_telefono = emergencia_telefono.trim();
 
       //agrego a la tabla la emergencia persona y el emergencia telefono.
-     
-     
+      this.tablaTelefonosEmergencia.push(
+        {
+          id_paciente: this.tablaTelefonosEmergencia.length + 1,
+          telefono_emergencia: this.emergencia_telefono.value,
+          emergencia_persona: emergencia_persona
+        }
 
-    
+      );
 
-     
+      this.dataSourceTablaTelefonosEmergencia = new MatTableDataSource(this.tablaTelefonosEmergencia);
 
-      
+      this.emergencia_persona.setValue('');
+      this.emergencia_telefono.setValue('');
+
+      //si se agrega un elemento a la tabla entonces los campos
+      //tipo alergia y parentesco ya no seran requeridos, solo en caso de que la tabla este vacia.
+      this.emergencia_persona.setValidators([Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*'), Validators.maxLength(30), Validators.minLength(4)]);
+      this.emergencia_persona.updateValueAndValidity();
+
+      this.emergencia_telefono.setValidators([Validators.pattern('[0-9]*'), Validators.minLength(8)]);
+      this.emergencia_telefono.updateValueAndValidity(); 
 
     }
   }
@@ -2353,7 +2290,7 @@ export class FormularioComponent implements OnInit, AfterViewInit {
 
       this.dataSourceTablaTelefonosEmergencia = null;
 
-      this.emergencia_telefono.setValidators([Validators.required,Validators.pattern(/^\d{8}$/)]);
+      this.emergencia_telefono.setValidators(Validators.required);
       this.emergencia_telefono.updateValueAndValidity();
 
       this.emergencia_persona.setValidators(Validators.required);
