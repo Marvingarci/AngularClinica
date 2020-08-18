@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, NgZone, ElementRef, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input,LOCALE_ID, ViewChild, NgZone, ElementRef, AfterViewInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Paciente } from '../interfaces/paciente';
 import { FormularioService } from '../services/formulario.service';
@@ -10,7 +10,7 @@ import { AntecedentesObstetricos } from '../interfaces/antecedentes-obstetricos'
 import { AppComponent } from "../app.component";
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl, NG_ASYNC_VALIDATORS, FormBuilder } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { ErrorStateMatcher, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Login } from '../interfaces/login';
 import { cambiocontraDialog, DatoPacienteComponent } from "../dato-paciente/dato-paciente.component";
 import { MatDialog } from '@angular/material/dialog';
@@ -21,7 +21,8 @@ import { Subscription, Observable } from 'rxjs';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take, startWith, map } from 'rxjs/operators';
 import { PacienteAntecedenteFamiliar } from '../interfaces/paciente-antecedente-familiar';
-import { MatChipInputEvent, MatAutocomplete, MatTableDataSource, MatSnackBar, MatSnackBarConfig, MatStepper } from '@angular/material';
+import { MatChipInputEvent, MatAutocomplete, MatTableDataSource, MatSnackBar, MatSnackBarConfig, MatStepper, NativeDateAdapter, DateAdapter,
+  MAT_DATE_FORMATS } from '@angular/material';
 import { PacienteAntecedentePersonal } from '../interfaces/paciente-antecedente-personal';
 import { HabitoToxicologico } from '../interfaces/habito-toxicologico';
 import { PacienteHabitoToxicologico } from '../interfaces/paciente-habito-toxicologico';
@@ -30,6 +31,8 @@ import { TelefonoUnicoService } from '../validations/telefono-unico.directive';
 import { IdentidadUnicoService } from '../validations/identidad-unica.directive';
 import { CuentaUnicaService } from '../validations/cuenta-unica.directive';
 import { CorreoUnicoService } from '../validations/correo-unico.directive';
+import { formatDate } from '@angular/common';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 
 
@@ -146,7 +149,37 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+export const PICK_FORMATS = {
+  parse: {dateInput: {month: 'short', year: 'numeric', day: 'numeric'}},
+  display: {
+      dateInput: 'input',
+      monthYearLabel: {year: 'numeric', month: 'short'},
+      dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+      monthYearA11yLabel: {year: 'numeric', month: 'long'}
+  }
+};
 
+class PickDateAdapter extends NativeDateAdapter {
+  format(date: Date, displayFormat: Object): string {
+      if (displayFormat === 'input') {
+          return formatDate(date,'MM/dd/yyyy',this.locale);;
+      } else {
+          return date.toDateString();
+      }
+  }
+}
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MMM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 
 
@@ -155,6 +188,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.css'],
   providers: [
+   // {provide: DateAdapter, useClass: PickDateAdapter},
+  //{provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS},
+  //{ provide: LOCALE_ID, useValue: "es-ES" },
+  {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+  {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     //importar lo de firebase solo en este componente
     AuthService
     , {
@@ -2162,18 +2200,16 @@ export class FormularioComponent implements OnInit, AfterViewInit {
     if (this.fecha_antecedente_hospitalario.value && this.fecha_antecedente_hospitalario.valid
       && this.tratamiento.value && this.tratamiento.valid && this.tiempo_hospitalizacion.value
       && this.tiempo_hospitalizacion.valid && this.diagnostico.value && this.diagnostico.valid) {
-
       //agrego a la tabla el parentesco y el tipo de desnutricion.
       this.tablaHospitalariasQuirurgicas.push(
         {
           numero: this.tablaHospitalariasQuirurgicas.length + 1,
-          fecha: this.fecha_antecedente_hospitalario.value,
+          fecha: this.fecha_antecedente_hospitalario.value._i.date+"-"+this.fecha_antecedente_hospitalario.value._i.month+"-"+this.fecha_antecedente_hospitalario.value._i.year,
           tiempo_hospitalizacion: this.tiempo_hospitalizacion.value,
           diagnostico: this.diagnostico.value,
           tratamiento: this.tratamiento.value
 
         }
-
       );
 
       this.dataSourceTablaHospitalariasQuirurgicas = new MatTableDataSource(this.tablaHospitalariasQuirurgicas);
